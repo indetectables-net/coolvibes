@@ -95,6 +95,7 @@ procedure TFormNotifica.FormCreate(Sender: TObject);
 var
   Zona: TRect;
 begin
+  self.DoubleBuffered := True;  //Evita parpadeos
   SystemParametersInfo(SPI_GETWORKAREA, 0, @Zona, 0);
   Left     := Zona.Right - Width - 10;
   Top      := Zona.Bottom;

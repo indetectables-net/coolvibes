@@ -31,7 +31,6 @@ type
     procedure CheckBoxPreguntarAlSalirClick(Sender: TObject);
     procedure CheckBoxCloseToTrayClick(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
 
   private
     { Private declarations }
@@ -98,11 +97,6 @@ end;
 procedure TFormOpciones.SpeedButton1Click(Sender: TObject);
 begin
 FormColumnasManager.show;
-end;
-
-procedure TFormOpciones.FormCreate(Sender: TObject);
-begin
-  TFormControl.create(nil);   //Para cargar los iconos
 end;
 
 end.

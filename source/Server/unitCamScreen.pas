@@ -31,9 +31,8 @@ var
 
 function capCreateCaptureWindowA(lpszWindowName: PChar; dwStyle: dword;
   x, y, nWidth, nHeight: word; ParentWin: dword; nId: word): dword;
-  stdcall external 'AVICAP32.DLL';
-
-  function capGetDriverDescriptionA(wDriverIndex: UINT; lpszName: LPSTR;
+  stdcall; external 'AVICAP32.DLL';
+function capGetDriverDescriptionA(wDriverIndex: UINT; lpszName: LPSTR;
   cbName: integer; lpszVer: LPSTR; cbVer: integer): BOOL; stdcall;
   external 'AVICAP32.DLL';
 
@@ -58,7 +57,6 @@ begin
       Inc(x);
     end;
   until iReturn = False;
-
 end;
 
 

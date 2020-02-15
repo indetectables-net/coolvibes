@@ -1,6 +1,6 @@
 object FormAbout: TFormAbout
-  Left = 201
-  Top = 142
+  Left = 296
+  Top = 132
   BorderStyle = bsToolWindow
   Caption = 'Acerca de Coolvibes <VersionCool>'
   ClientHeight = 429
@@ -28,6 +28,7 @@ object FormAbout: TFormAbout
     Width = 521
     Height = 65
     Cursor = crHandPoint
+    DragCursor = crHandPoint
     Picture.Data = {
       07544269746D617016820100424D168201000000000036000000280000000A02
       00003F0000000100180000000000E08101000000000000000000000000000000

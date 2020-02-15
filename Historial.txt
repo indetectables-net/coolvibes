@@ -9,6 +9,32 @@ Modificación de: Nick
 [*] Bug solucionados, arreglos
 
 |----------------------------|
+Fecha 21/04/2011
+Versión: 0.5 Update 7
+Modificación de: Anonimo
+
+[+] Agregado thumbnail viewer en el listviewarchivos, utilizando units (AxThumbsDB.pas y Storages.pas) programadas por Alex Konshin
+[+] Añadida opción para buscar en carpetas
+[*] Arreglados pequeños bugs en diseño que no merece la pena listar
+[+] Añadido visor y modificador de atributos para archivos y carpetas
+[+] Añadido botón de rutas rápidas en el tabarchivos con los siguientes directorios: Windows, Sistema, Mis documentos, Archivos Recientes, Escritorio y Directorio de instalación de coolvibes
+[+] Ahora la captura de pantalla, la de webcam, el envio de offline keylogger y la generación de miniaturas funcionan en otro thread diferente al de los comandos
+[+] Se muestra cual es la ventana activa resaltandola en verde en FormControl
+[+] Se le agrega un identificador único a cada servidor
+[+] Ahora se guarda el tamaño de formcontrol
+[+] Añadidas teclas de acceso rápido a FormControl: F5=Refrescar, ESCAPE=Salir
+[*] Mejorado manejador de errores en las transferencias
+[*] Arreglado bug que hacía que no se desactivaran las webcams y el online keylogger al desconectar
+[*] Cambiada la imagen de FormNotifica y eliminados parpadeos
+[*] Arreglado bug que permitia a un atacante remoto descargar cualquier archivo del sistema del cliente
+[*] Se unifican los tabs (Servidor e Informacion), (Ficheros y transferencias) y (Mensajes y Bromas)
+[*] Se hacen pequeños cambios de diseño en la gui
+[*] Mejorado el visor avanzado de thumbnails, ahora no deforma las imágenes
+[*] Solucionado bug en la shell que hacía que no funcionara si estaba la captura de pantalla activa
+[*] Solucionado bug que hacia que no listara directorios que empezasen con "."
+[*] Modificado el modo en el que comparte la configuración conectador.exe con coolserver.dll
+[*] Cambiada la rutina de inyección, ya no existe monitor.dll 
+|----------------------------|
 
 Fecha 18/04/2011
 Versión: 0.5 Update 6
@@ -31,8 +57,8 @@ Modificación de: Anonimo
 [+] Agregado offline y online keylogger, creditos para stm por la base para el keylogger
 [+] Agregado numero de conexiones
 [+] Agregado en el servidor la opción de tamaño relativo en el visor de thumbnails
-[*] Corregido bug que hacia a las unidades salir duplicadas
-[*] Corregido bug que hacia que se perdiera la conexión al no poder listar un directorio
+[*] Corregido bug que hacía a las unidades salir duplicadas
+[*] Corregido bug que hacía que se perdiera la conexión al no poder listar un directorio
 [*] Corregido bug en el visor de miniaturas que se congelaba al intentar obtener una miniatura de un archivo no jpeg o bmp
 [*] Cambiada la estetica de el FormControl para ahorrar espacio
 [*] Ahora la captura de pantalla captura teniendo en cuenta la altura de el centro de control
@@ -56,7 +82,7 @@ Modificación de: Anonimo
 [*] Agregada la opción para mandar clicks remotos sin tener que establecer el tamaño de la captura a 100%
 [*] Ahora se pueden mandar clicks sin que el tamaño de la captura esté al 100%
 [*] Ahora solo se notifica la conexión de alguien con la ventana tipo msn si esta no se esta mostrando, ya que antes alentaba mucho el cliente si se conectaban varios usuarios al mismo tiempo
-[*] Corregido pequeño bug que hacia que no se pudiera cambiar de puerto de escucha
+[*] Corregido pequeño bug que hacía que no se pudiera cambiar de puerto de escucha
 [+] Agregado nuevo patron para el directorio de instalacion %AppDir%
 [+] Agregada la posibilidad de inicio por Active Setup 
 [+] Añadida la posibilidad para conectar con más de un DNS
@@ -96,7 +122,7 @@ Modificación de: Anonimo
 [*] Arreglada la opcion de melt
 [*] Editado el directorio en el que se guardan los archivos del cliente, antes: Descargas/{NombrePC}/ ahora Usuarios/{NombrePC}/{Descargas|Thumbnails|Capturas|Webcam}/  Para crearlos hay que llamar a la funcion CrearDirectoriosUsuario del FormControl
 [*] Arreglado pequeño problema del registro que no listaba las claves ni los valores correctamente
-[*] Arreglado pequeño fallo en las bromas que hacia que no funcionaran
+[*] Arreglado pequeño fallo en las bromas que hacía que no funcionaran
 
 |----------------------------|
 
@@ -376,7 +402,7 @@ Modificación de: Wack-a-Mole
 Fecha: 10/10/06
 Versión: 0.2
 Modificación de: Thor
-[+] Ahora la conexión se hace desde el servidor hacia el cliente, conexión inversa
+[+] Ahora la conexión se hace desde el servidor hacía el cliente, conexión inversa
 [+] Se puede hacer ping a los servidores
 [+] Interfaz mejorada con la inserción de iconos en popmenus y botones (hermosos iconos sacados de www.famfamfam.com)
 [+] Código mejorado en mensajes, pantalla (ahora no se guarda un archivo .bmp antes del .jpg), las capturas

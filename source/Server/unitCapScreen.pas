@@ -14,13 +14,13 @@ uses
   UnitVariables,
   UnitFunciones;
 
-procedure pantallazo(NivelCompresion, width, height : integer; const AHandle: THandle);    //realiza capturas del tamaño deseado
+procedure pantallazo(NivelCompresion, width, height : integer; const AHandle: THandle;var MS:Tmemorystream);    //realiza capturas del tamaño deseado
 function comprimir_jpeg(InputFile, OutputFile:AnsiString; quality:integer):boolean;
-function GenerateThumb(filename:string;width:integer;height:integer;calidad:integer):boolean;
+function GenerateThumb(filename:string;width:integer;height:integer;calidad:integer;var MS:Tmemorystream):boolean;
 
 implementation
 
-function GenerateThumb(filename:string;width:integer;height:integer;calidad:integer):boolean;
+function GenerateThumb(filename:string;width:integer;height:integer;calidad:integer;var MS:Tmemorystream):boolean;
 var
   Jpg: TjpegImage;
   fBitmap,nbitmap: TBitmap;
@@ -43,6 +43,7 @@ begin
     error := true;     //OPZ! no es un BMP
   end;
 
+
   if error then
   begin
       error := false;
@@ -50,7 +51,6 @@ begin
     try
       Jpg.LoadFromFile(filename);  //Sera un jpeg??
     except
-      error := true;   //pues no asi que...
       result := false;
       exit;            //...Adios!
     end;
@@ -59,11 +59,26 @@ begin
     Jpg.Free;
   end;
 
+  if (not (fBitmap.Width > 1)) or (not (fBitmap.Height > 1)) then
+  begin
+    result := false;
+    exit;            //...Adios!
+  end;
+
+
   if(Width = 6666666) then  //tamaño relativo, en la variable height tenemos el procentaje
   begin
     Width := (Height*fbitmap.Width) div 100;
     Height := (Height*fbitmap.Height) div 100;
+  end
+  else
+  begin
+    Height := (Height*100 div fbitmap.Height); //obtenemos el ratio para no deformar
+    Width := (Height*fbitmap.Width) div 100;
+    Height := (Height*fbitmap.Height) div 100;
   end;
+
+  
   nBitmap := TBitmap.Create;
   nBitmap.Width := round(fBitmap.Width*(width/fbitmap.Width));
   nBitmap.Height := round(fBitmap.Height*(height/fbitmap.Height));
@@ -84,7 +99,7 @@ begin
 end;
 
 
-procedure pantallazo(NivelCompresion, width, height : integer; const AHandle: THandle);
+procedure pantallazo(NivelCompresion, width, height : integer; const AHandle: THandle;var MS:Tmemorystream);
 var
   Jpg: TjpegImage;
   fBitmap, nBitmap: TBitmap;

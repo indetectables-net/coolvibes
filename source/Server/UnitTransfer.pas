@@ -18,6 +18,7 @@ type
     Beginning: integer;
     UploadSize: int64;
     deleteAfterTransfer: boolean;
+    Hash : string;
     constructor Create(pHost: string; pPort: integer; pSH, pFilename, pAction: ansistring;
       pBeginning: integer); overload;
 
@@ -94,7 +95,7 @@ begin
       end
       else
       begin
-        SocketTransf.SendString(ThreadInfo.Action + '|' + ThreadInfo.RemoteFileName + ENTER);
+        SocketTransf.SendString(ThreadInfo.Action + '|' +ThreadInfo.Hash+'|'+ ThreadInfo.RemoteFileName + ENTER);
         leerLinea(SocketTransf);//la linea de maininfo que me m andan al conectarme
         getFile(SocketTransf, ThreadInfo.FileName, ThreadInfo.UploadSize);
       end;
@@ -119,12 +120,20 @@ begin
     filesize := MyGetFileSize(path);
     if not filesize > 0 then
     begin
-      //     MySock.SendString('takeMessage;Could not access file, size: '+IntToStr(filesize));
+        MySock.SendString('ERROR'+#10);
+        exit;
     end
     else
-      FileMode := $0000;
+      FileMode := $0000; //read only
     AssignFile(myFile, path);
-    reset(MyFile, 1);
+    try
+      reset(MyFile, 1);
+    except
+      MySock.SendString('ERROR'+#10);
+      exit;
+    end;
+    MySock.SendString('START'+#10);
+    
     seek(myFile, beginning);
     while not EOF(MyFile) and Mysock.Connected do
     begin
@@ -152,11 +161,12 @@ begin
     Rewrite(MyFile, 1);
     Totalread := 0;
     currRead  := 0;
-    while ((TotalRead < filesize)) do
+    while ((TotalRead < filesize) and mysock.Connected) do
     begin
       currRead  := MySock.ReceiveBuffer(byteArray, sizeof(bytearray));
       TotalRead := TotalRead + currRead;
-      BlockWrite(MyFile, bytearray, currRead, currwritten);
+      if mysock.Connected then
+        BlockWrite(MyFile, bytearray, currRead, currwritten);
       currwritten := currread;
     end;
   except

@@ -1,8 +1,8 @@
 object FormReg: TFormReg
-  Left = 427
-  Top = 261
-  Width = 319
-  Height = 255
+  Left = 319
+  Top = 216
+  Width = 315
+  Height = 251
   Caption = 'A'#241'adiendo valor tipo'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET

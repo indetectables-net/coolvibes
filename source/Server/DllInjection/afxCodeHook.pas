@@ -366,7 +366,7 @@ begin
   if Results then
   begin
     WaitForSingleObject(Result, INFINITE);
-    ReadProcessMemory(Process, pInfo, Info, InfoLen, BytesRead);
+    //ReadProcessMemory(Process, pInfo, Info, InfoLen, BytesRead);
   end;
 end;
 
@@ -464,7 +464,7 @@ begin
   DllLoadInfo.EntryPoint := Lib.DllProcAddress;
   WriteProcessMemory(Process, pModule, Lib.ImageBase, Lib.ImageSize, BytesWritten);
   if InjectThread(Process, @DllEntryPoint, @DllLoadInfo, SizeOf(TDllLoadInfo),
-    False) <> 0 then
+    True) <> 0 then
     Result := True;
 end;
 

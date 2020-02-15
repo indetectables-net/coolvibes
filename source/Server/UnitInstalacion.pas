@@ -1,4 +1,4 @@
-unit UnitInstalacion;
+{sin uso desde  0.53}unit UnitInstalacion;
 
 interface
 

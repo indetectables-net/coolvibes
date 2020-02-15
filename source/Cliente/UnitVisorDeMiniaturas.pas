@@ -65,6 +65,7 @@ begin
   inherited Create(aOwner);
   Servidor     := Serv;
   FormControl := fc;
+  PageControlMiniaturas.ActivePage := TabSheetOpciones;
 end;
 
 procedure TFormVisorDeMiniaturas.TrackBarCalidadChange(Sender: TObject);

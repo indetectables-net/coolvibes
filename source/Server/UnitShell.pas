@@ -100,6 +100,7 @@ begin
         WriteFile(hPipeWrite2, #13#10, 2, BytesRead, nil);
       end;
     end; //main loop
+	
   if cliente.Connected then
     Cliente.SendString('SHELL|DESACTIVAR' + ENTER);
 

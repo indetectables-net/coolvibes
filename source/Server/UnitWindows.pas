@@ -43,7 +43,10 @@ function GetWins(MostrarOcultas:Boolean): string;
       SetLength(Titulo, GetWindowText(Hwnd, PChar(Titulo), Length(Titulo)));
       Status.length := SizeOf(Status);
       GetWindowPlacement(Hwnd, @Status);
-      
+
+      if GetForegroundWindow() = hwnd then
+        estado := '4'
+      else
       if(not IsWindowVisible(Hwnd)) then
         estado := '0'
       else
@@ -66,6 +69,7 @@ begin
   Cadena := '';
   MO := MostrarOcultas;
   EnumWindows(@EnumWindowProc, 0);
+  Result := '';
   Result := Cadena;
 end;
 

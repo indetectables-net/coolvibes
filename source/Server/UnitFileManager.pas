@@ -60,6 +60,7 @@ var
   Listado:   TSearchRec;
   shInfo:    TSHFileInfo;
   sFileType: string;
+  Atributos : string;
 begin
   SetErrorMode(SEM_FAILCRITICALERRORS); //Evita que se muestren errores criticos
   if not DirectoryExists(StrPath) then
@@ -74,13 +75,21 @@ begin
     //Encuentra el primer archivo en StrPath
   begin
     repeat
+      Atributos := '';
+      if (Listado.Attr and faHidden) = faHidden then
+            Atributos := Atributos + 'Oculto ';
+      if (Listado.Attr and faSysFile ) = faSysFile  then
+            Atributos := Atributos + 'Sistema ';
+      if (Listado.Attr and faReadOnly ) = faReadOnly  then
+            Atributos := Atributos + 'Lectura ';
+
       if (Listado.Attr and faDirectory) = faDirectory then //Si es una carpeta...
       begin
-        if Copy(Listado.Name, 1, 1) <> '.' then  //y no empieza por '.'...
-          StrDirectory := StrDirectory + #2 + Listado.Name + ':' +
+        if (Listado.Name <> '.') and (Listado.Name <> '..') then  //no son ni . ni ..
+          StrDirectory := StrDirectory + #2 + Listado.Name + ':' + Atributos+ ':' +
             DateToStr(FileDateToDateTime(Listado.Time)) + ' ' +
             TimeToStr(FileDateToDateTime(Listado.Time)) + '|';
-        //Copie a la string de Carpetas #2Carpeta:Fecha|#2Carpeta2:Fecha|
+        //Copie a la string de Carpetas #2Carpeta:Atributos:Fecha|#2Carpeta2:Atributos:Fecha|
       end
       else //Si no es una carpeta, es un archivo...
       begin
@@ -88,9 +97,9 @@ begin
           SizeOf(shInfo), SHGFI_TYPENAME);
         sFileType := shInfo.szTypeName;
         StrFile   := StrFile + Listado.Name + '|' + (IntToStr(Listado.Size)) + '|' +
-          sFileType + '|' + DateToStr(FileDateToDateTime(Listado.Time)) + ' ' +
-          TimeToStr(FileDateToDateTime(Listado.Time)) + '|';
-        //Los archivos quedan en formato: Nombre|Tamaño|Tipo|Fecha|
+          sFileType + '|' +Atributos+'|' + DateToStr(FileDateToDateTime(Listado.Time)) + ' ' +
+          TimeToStr(FileDateToDateTime(Listado.Time)) + '|' ;
+        //Los archivos quedan en formato: Nombre|Tamaño|Tipo|Atributos|Fecha|
         //El cliente debe saber que si encuentra un archivo, debe extraer el tamaño, el tipo y la fecha
       end;
       Result := StrDirectory + StrFile;

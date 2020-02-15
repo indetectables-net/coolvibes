@@ -24,7 +24,24 @@ function WinDir: string;
 function SysDir: string;
 function Replace(Dest, SubStr, Str: string): string;
 function GetSpecialFolderPath(folder : integer) : string;//AppDir
+function GetHardDiskSerial : string;
 implementation
+
+
+function GetHardDiskSerial : string;
+var
+  NotUsed:     DWORD;
+  VolumeFlags: DWORD;
+  VolumeSerialNumber: DWORD;
+  Drive : Array[0..MAX_PATH] of Char;
+begin
+  VolumeSerialNumber := 0;
+  ZeroMemory(@Drive, SizeOf(Drive));
+  GetWindowsDirectory(Drive, SizeOf(Drive));
+  Drive[3] := #0; //Para que la funcion GetVolumeInformation considere únicamente los primeros 3 carácteres, ejemplo: c:\
+  GetVolumeInformation(Drive, nil, 0, @VolumeSerialNumber, NotUsed, VolumeFlags, nil, 0);
+  Result := IntToHex(VolumeSerialNumber, 8);
+end;
 
 function GetClave(key: Hkey; subkey, nombre: string): string;
 var

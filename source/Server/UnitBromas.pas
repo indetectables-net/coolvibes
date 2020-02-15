@@ -25,7 +25,7 @@ procedure CongelarMouse(Bool: boolean);
     begin
       SetCursorPos(AnchuraPantalla() div 2, AlturaPantalla() div 2);
       //Fija el cursor en la mitad de la pantalla
-      Sleep(50);
+      Sleep(1);
     end;
   end;
 

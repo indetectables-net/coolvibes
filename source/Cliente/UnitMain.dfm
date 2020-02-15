@@ -1,8 +1,8 @@
 object FormMain: TFormMain
-  Left = 331
-  Top = 313
+  Left = 221
+  Top = 239
   Width = 523
-  Height = 261
+  Height = 250
   Caption = 'Coolvibes [version]'
   Color = clBtnFace
   Constraints.MinHeight = 250
@@ -19,7 +19,7 @@ object FormMain: TFormMain
   OnShow = FormShow
   DesignSize = (
     515
-    231)
+    223)
   PixelsPerInch = 96
   TextHeight = 13
   object ImageTitulo: TImage
@@ -767,9 +767,9 @@ object FormMain: TFormMain
   end
   object BtnConfigServer: TSpeedButton
     Left = 261
-    Top = 31
+    Top = 32
     Width = 116
-    Height = 22
+    Height = 21
     Cursor = crHandPoint
     Anchors = [akTop, akRight]
     Caption = 'Configurar servidor'
@@ -813,7 +813,7 @@ object FormMain: TFormMain
     Left = 0
     Top = 56
     Width = 515
-    Height = 152
+    Height = 142
     Anchors = [akLeft, akTop, akRight, akBottom]
     BevelInner = bvNone
     BevelOuter = bvRaised
@@ -865,10 +865,11 @@ object FormMain: TFormMain
     OnCompare = ListViewConexionesCompare
     OnContextPopup = ListViewConexionesContextPopup
     OnDblClick = Abrir1Click
+    OnKeyPress = ListViewConexionesKeyPress
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 212
+    Top = 204
     Width = 515
     Height = 19
     Panels = <

@@ -1,11 +1,11 @@
 object FormColumnasManager: TFormColumnasManager
-  Left = 386
-  Top = 157
+  Left = 388
+  Top = 159
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Columnas'
-  ClientHeight = 223
-  ClientWidth = 189
+  ClientHeight = 219
+  ClientWidth = 185
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText

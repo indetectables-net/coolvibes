@@ -1,8 +1,8 @@
 object FormVisorDeMiniaturas: TFormVisorDeMiniaturas
-  Left = 230
-  Top = 246
+  Left = 232
+  Top = 248
   Width = 368
-  Height = 303
+  Height = 290
   Caption = 'Visor de miniaturas'
   Color = clBtnFace
   Constraints.MinHeight = 290
@@ -1952,7 +1952,7 @@ object FormVisorDeMiniaturas: TFormVisorDeMiniaturas
     Left = 0
     Top = 0
     Width = 360
-    Height = 253
+    Height = 240
     ActivePage = TabSheetOpciones
     Align = alClient
     Images = ImageList1
@@ -1964,16 +1964,17 @@ object FormVisorDeMiniaturas: TFormVisorDeMiniaturas
         Left = 0
         Top = 0
         Width = 352
-        Height = 207
+        Height = 200
         Align = alClient
         OnClick = ImageThumnailClick
       end
       object ProgressBarThumbnail: TProgressBar
         Left = 0
-        Top = 207
+        Top = 200
         Width = 352
-        Height = 17
+        Height = 11
         Align = alBottom
+        Smooth = True
         TabOrder = 0
       end
     end
@@ -1984,7 +1985,7 @@ object FormVisorDeMiniaturas: TFormVisorDeMiniaturas
         Left = 0
         Top = 0
         Width = 352
-        Height = 224
+        Height = 211
         Align = alClient
         Columns = <
           item
@@ -2009,7 +2010,7 @@ object FormVisorDeMiniaturas: TFormVisorDeMiniaturas
       Caption = 'Opciones'
       DesignSize = (
         352
-        224)
+        211)
       object LabelCalidadJPG: TLabel
         Left = 3
         Top = 14
@@ -2078,11 +2079,11 @@ object FormVisorDeMiniaturas: TFormVisorDeMiniaturas
       end
       object LabelAviso: TLabel
         Left = 3
-        Top = 200
-        Width = 322
+        Top = 184
+        Width = 310
         Height = 13
         Anchors = [akLeft, akBottom]
-        Caption = 'Haz Click en la imagen de el Visor para comenzar'
+        Caption = 'Haz Click en la imagen del Visor para comenzar'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clMaroon
         Font.Height = -11
@@ -2180,7 +2181,7 @@ object FormVisorDeMiniaturas: TFormVisorDeMiniaturas
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 253
+    Top = 240
     Width = 360
     Height = 23
     Panels = <

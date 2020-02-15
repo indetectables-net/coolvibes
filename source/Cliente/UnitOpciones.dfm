@@ -1,6 +1,6 @@
 object FormOpciones: TFormOpciones
-  Left = 241
-  Top = 262
+  Left = 284
+  Top = 247
   BorderIcons = []
   BorderStyle = bsSingle
   Caption = 'Opciones'
@@ -14,7 +14,6 @@ object FormOpciones: TFormOpciones
   Font.Style = []
   OldCreateOrder = False
   Position = poMainFormCenter
-  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object LabelPuerto: TLabel
@@ -272,7 +271,7 @@ object FormOpciones: TFormOpciones
   object CheckBoxAutoRefrescar: TCheckBox
     Left = 16
     Top = 304
-    Width = 209
+    Width = 129
     Height = 17
     Caption = 'Auto-Refrescar'
     Color = clBtnFace

