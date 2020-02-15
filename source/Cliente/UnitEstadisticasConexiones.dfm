@@ -2,7 +2,7 @@ object FormEstadisticasConexiones: TFormEstadisticasConexiones
   Left = 204
   Top = 200
   Width = 518
-  Height = 396
+  Height = 390
   Caption = 'Conexiones'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -1944,7 +1944,7 @@ object FormEstadisticasConexiones: TFormEstadisticasConexiones
     FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
     FFFFFFFFFFFF}
   OldCreateOrder = False
-  Position = poScreenCenter
+  Position = poMainFormCenter
   DesignSize = (
     510
     363)

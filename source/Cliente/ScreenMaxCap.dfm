@@ -1,11 +1,13 @@
 object ScreenMax: TScreenMax
-  Left = 280
-  Top = 290
-  Width = 280
-  Height = 235
+  Left = 222
+  Top = 240
+  Width = 480
+  Height = 353
   AlphaBlend = True
   Caption = 'Capturador de Pantalla ::Coolvibes::'
   Color = clBtnFace
+  TransparentColor = True
+  TransparentColorValue = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -1946,7 +1948,7 @@ object ScreenMax: TScreenMax
     FFFFFFFFFFFF}
   OldCreateOrder = False
   PopupMenu = PopupMenu1
-  Position = poDesktopCenter
+  Position = poOwnerFormCenter
   WindowMenu = Automtico1
   OnCanResize = FormCanResize
   OnClose = FormClose
@@ -1956,53 +1958,64 @@ object ScreenMax: TScreenMax
   object ImgCaptura: TImage
     Left = 0
     Top = 0
-    Width = 272
-    Height = 208
-    Align = alClient
+    Width = 250
+    Height = 326
+    Align = alLeft
+    DragKind = dkDock
     IncrementalDisplay = True
     PopupMenu = PopupMenu1
     Stretch = True
     OnContextPopup = ImgCapturaContextPopup
   end
+  object ProgressBar: TProgressBar
+    Left = 464
+    Top = 0
+    Width = 8
+    Height = 326
+    Align = alRight
+    Orientation = pbVertical
+    ParentShowHint = False
+    Smooth = True
+    ShowHint = False
+    TabOrder = 0
+  end
   object PopupMenu1: TPopupMenu
-    Left = 96
-    Top = 48
     object Capturar1: TMenuItem
       Caption = 'Capturar'
       OnClick = Capturar1Click
     end
     object Automtico1: TMenuItem
       Caption = 'Autom'#225'tico'
-      object N0s1: TMenuItem
+      object T0: TMenuItem
         Caption = '0s'
-        OnClick = N0s1Click
+        OnClick = T0Click
       end
-      object N1s1: TMenuItem
+      object T1: TMenuItem
         Caption = '1s'
-        OnClick = N1s1Click
+        OnClick = T0Click
       end
-      object N2s1: TMenuItem
+      object T2: TMenuItem
         Caption = '2s'
-        OnClick = N2s1Click
+        OnClick = T0Click
       end
-      object N5s1: TMenuItem
+      object T5: TMenuItem
         Caption = '5s'
-        OnClick = N5s1Click
+        OnClick = T0Click
       end
-      object N10s1: TMenuItem
+      object T10: TMenuItem
         Caption = '10s'
-        OnClick = N10s1Click
+        OnClick = T0Click
       end
-      object N30s1: TMenuItem
+      object T30: TMenuItem
         Caption = '30s'
-        OnClick = N30s1Click
+        OnClick = T0Click
       end
-      object N2: TMenuItem
+      object none: TMenuItem
         Caption = '-'
       end
-      object No1: TMenuItem
+      object No: TMenuItem
         Caption = 'No'
-        OnClick = No1Click
+        OnClick = NoClick
       end
     end
     object N1: TMenuItem
@@ -2010,70 +2023,75 @@ object ScreenMax: TScreenMax
     end
     object Calidad1: TMenuItem
       Caption = 'Calidad'
-      object N101: TMenuItem
+      object N10: TMenuItem
         Caption = '10'
-        OnClick = N101Click
+        OnClick = N10Click
       end
-      object N201: TMenuItem
+      object N20: TMenuItem
         AutoHotkeys = maAutomatic
         Caption = '20'
-        OnClick = N201Click
+        OnClick = N10Click
       end
-      object N301: TMenuItem
+      object N30: TMenuItem
         Caption = '30'
-        OnClick = N301Click
+        OnClick = N10Click
       end
-      object N61: TMenuItem
+      object N40: TMenuItem
         Caption = '40'
-        OnClick = N61Click
+        OnClick = N10Click
       end
-      object N71: TMenuItem
+      object N50: TMenuItem
         Caption = '50'
-        OnClick = N71Click
+        OnClick = N10Click
       end
-      object N601: TMenuItem
+      object N60: TMenuItem
         Caption = '60'
-        OnClick = N601Click
+        OnClick = N10Click
       end
-      object N701: TMenuItem
+      object N70: TMenuItem
         Caption = '70'
-        OnClick = N701Click
+        OnClick = N10Click
       end
-      object N801: TMenuItem
+      object N80: TMenuItem
         Caption = '80'
-        OnClick = N801Click
+        OnClick = N10Click
       end
-      object N901: TMenuItem
+      object N90: TMenuItem
         Caption = '90'
-        OnClick = N901Click
+        OnClick = N10Click
       end
-      object N1001: TMenuItem
+      object N100: TMenuItem
         Caption = '100'
-        OnClick = N1001Click
+        OnClick = N10Click
       end
     end
     object ransparente1: TMenuItem
       Caption = 'Transparente'
-      object N1002: TMenuItem
+      object TR100: TMenuItem
         Caption = '100'
-        OnClick = N1002Click
+        OnClick = TR100Click
       end
-      object N1501: TMenuItem
+      object TR150: TMenuItem
         Caption = '150'
-        OnClick = N1501Click
+        OnClick = TR100Click
       end
-      object N2001: TMenuItem
+      object TR200: TMenuItem
         Caption = '200'
-        OnClick = N2001Click
+        OnClick = TR100Click
       end
-      object No2: TMenuItem
+      object TR255: TMenuItem
         Caption = 'No'
-        OnClick = No2Click
+        OnClick = TR100Click
       end
     end
     object Siempreencima1: TMenuItem
       Caption = 'Siempre encima'
       OnClick = Siempreencima1Click
+    end
+    object vp: TMenuItem
+      Caption = 'Ventana proporcional'
+      Checked = True
+      OnClick = vpClick
     end
   end
 end

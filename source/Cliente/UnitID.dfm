@@ -2,8 +2,8 @@ object FormID: TFormID
   Left = 403
   Top = 219
   Width = 238
-  Height = 109
-  BorderIcons = [biSystemMenu]
+  Height = 103
+  BorderIcons = []
   Caption = 'Nueva ID'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET

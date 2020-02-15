@@ -1946,6 +1946,7 @@ object FormVisorDeMiniaturas: TFormVisorDeMiniaturas
     FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
     FFFFFFFFFFFF}
   OldCreateOrder = False
+  Position = poOwnerFormCenter
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
@@ -2080,7 +2081,7 @@ object FormVisorDeMiniaturas: TFormVisorDeMiniaturas
       end
       object LabelAviso: TLabel
         Left = 3
-        Top = 182
+        Top = 179
         Width = 310
         Height = 13
         Anchors = [akLeft, akBottom]

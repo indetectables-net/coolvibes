@@ -1,6 +1,6 @@
 object FormConfigServer: TFormConfigServer
-  Left = 254
-  Top = 141
+  Left = 202
+  Top = 124
   Width = 657
   Height = 490
   Caption = 'Configuraci'#243'n de servidor'

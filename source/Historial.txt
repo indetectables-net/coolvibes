@@ -9,7 +9,23 @@ Modificación de: Nick
 [-] Cosas quitadas
 [*] Bug solucionados, arreglos
 
-Fecha 25/04/2011
+Fecha 06/05/2011
+Versión: 1 Update 4
+Modificación de: Anonimo
+[+] Añadido cacheado de iconos para tener más velocidad y evitar errores
+[*] Mejorada la busqueda de archivos, además ahora busca también en directorios ocultos
+[+] Añadida columna Nombre de usuario / Nombre de PC a listviewconexiones
+[+] Añadida posibilidad de elegir si cerrar o no el centro de control cuando un usuario se desconecte
+[*] Cambiada la interfaz de formopciones por falta de espacio y de organización, además se agregan algunas nuevas opciones
+[*] Ahora tambien identifica el sistema operativo "Windows 7", antes los marcaba como vista
+[*] Utiliza solamente un socket para los comandos y las capturas de pantalla, capturas de webcam, Visor de thumbnails y capturador sonidos y keylogger; las descargas y subidas se mantienen igual
+[-] Por incompatibilidad ahora ya no se lista el tipo de los archivos
+[+] Añadido visor de puertos activos
+[+] Añadido sistema de avisos
+
+|----------------------------|
+
+Fecha 26/04/2011
 Versión: 1 Update 3
 Modificación de: Anonimo
 [*] Arreglado pequeño bug que hacia que el cliente se cerrara al pulsar en "Ir al proceso..."

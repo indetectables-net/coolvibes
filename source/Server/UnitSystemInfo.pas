@@ -45,7 +45,10 @@ begin
             1: Result := 'Windows XP';
             2: Result := 'Windows Server 2003';
           end;
-        6: Result := 'Windows Vista';
+        6: case osVerInfo.dwMinorVersion of
+            0: Result := 'Windows Vista';
+            1: Result := 'Windows 7';
+          end;
       end;
     end;
     VER_PLATFORM_WIN32_WINDOWS:

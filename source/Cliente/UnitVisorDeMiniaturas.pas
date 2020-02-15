@@ -109,14 +109,14 @@ begin
   StatusBar.Panels[3].Text := _('Recibiendo Thumbnail');
   if RadioAutomatico.Checked then
   begin
-    (FormControl as TFormControl).PedirPorSegundoSocket(2,'GETTHUMB|'+
+    (FormControl as TFormControl).Servidor.Connection.Writeln('GETTHUMB|'+
     ListviewColaThumbnails.Items[0].subitems[0]+
     '|'+inttostr(ImageThumnail.Width)+
     '|'+inttostr(ImageThumnail.Height)+
     '|'+inttostr(TrackBarCalidad.Position)+'|')
   end
   else
-    (FormControl as TFormControl).PedirPorSegundoSocket(2,'GETTHUMB|'+
+    (FormControl as TFormControl).Servidor.Connection.Writeln('GETTHUMB|'+
     ListviewColaThumbnails.Items[0].subitems[0]+
     '|'+inttostr(6666666)+ //Para saber que se utiliza el tamaño relativo
     '|'+inttostr(SpinTamanoRelativo.value)+
@@ -128,9 +128,10 @@ begin
   if(CheckBoxAutoGuardado.Checked) then
   begin
     (FormControl as TFormControl).CrearDirectoriosUsuario;
-    ImageThumnail.Picture.SaveToFile(ExtractFilePath(ParamStr(0)) + 'Usuarios\'+(FormControl as TFormControl).NombrePC+'\Thumbnails\'+ListviewColaThumbnails.Items[0].caption);
+    ImageThumnail.Picture.SaveToFile((FormControl as TFormControl).DirMiniaturas+ListviewColaThumbnails.Items[0].caption);
   end;
   ListviewColaThumbnails.Items[0].Delete; //Eliminamos el primer item
+
   StatusBar.Panels[1].Text := inttostr(ListViewColaThumbnails.items.count);
   pidiendo := false;
   StatusBar.Panels[3].Text := _('En espera');

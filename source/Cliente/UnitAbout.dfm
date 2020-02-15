@@ -12,7 +12,7 @@ object FormAbout: TFormAbout
   Font.Name = 'Verdana'
   Font.Style = [fsBold]
   OldCreateOrder = False
-  Position = poDesktopCenter
+  Position = poMainFormCenter
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13

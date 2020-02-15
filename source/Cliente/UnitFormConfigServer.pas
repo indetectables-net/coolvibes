@@ -445,10 +445,6 @@ procedure TFormConfigServer.FormCreate(Sender: TObject);
 var
   s: string;
 begin
-  Application.HintColor     := TColor($FFD7C1); //un azul clarito
-  Application.HintHidePause := 20000; //desaparece a los 20 segundos
-  Application.HintPause     := 200;
-
   //Hints para la ruta
   s := _('Se pueden poner variables en la ruta que serán reemplazadas cuando se ejecute el servidor.')
     +

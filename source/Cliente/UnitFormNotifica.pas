@@ -20,7 +20,7 @@ type
     procedure ImageFondoClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
-
+    procedure CreateParams(var Params: TCreateParams); override;
     { Private declarations }
   public
     PosY:     integer;
@@ -94,11 +94,10 @@ end;
 procedure TFormNotifica.FormCreate(Sender: TObject);
 var
   Zona: TRect;
-begin
+begin          
   UseLanguage(Formmain.idioma);
   TranslateComponent(self);
   self.DoubleBuffered := True;  //Evita parpadeos
-  ShowWindow(Handle, SW_HIDE); //Para que no salga en la barra de tareas
   SystemParametersInfo(SPI_GETWORKAREA, 0, @Zona, 0);
   Left     := Zona.Right - Width - 10;
   Top      := Zona.Bottom;
@@ -115,7 +114,13 @@ end;
 procedure TFormNotifica.FormShow(Sender: TObject);
 begin
   Height := 0;
+  if IsWindowVisible(application.Handle) and (formmain.visible=false) then   //Si estamos en el tray 
+    ShowWindow(application.Handle, SW_HIDE);
 end;
 
-
+procedure TFormNotifica.CreateParams(var Params: TCreateParams);
+begin
+  inherited CreateParams(Params);
+  Params.Style := Params.Style or WS_POPUP;
+end;
 end.

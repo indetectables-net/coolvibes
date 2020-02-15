@@ -58,8 +58,8 @@ function GetDirectory(const strPath: string): string;
 var
   strFile, strDirectory: string;
   Listado:   TSearchRec;
-  shInfo:    TSHFileInfo;
-  sFileType: string;
+ // shInfo:    TSHFileInfo;
+ // sFileType: string;
   Atributos : string;
 begin
   SetErrorMode(SEM_FAILCRITICALERRORS); //Evita que se muestren errores criticos
@@ -87,18 +87,16 @@ begin
       begin
         if (Listado.Name <> '.') and (Listado.Name <> '..') then  //no son ni . ni ..
           StrDirectory := StrDirectory + #2 + Listado.Name + ':' + Atributos+ ':' +
-            DateToStr(FileDateToDateTime(Listado.Time)) + ' ' +
-            TimeToStr(FileDateToDateTime(Listado.Time)) + '|';
+            inttostr(Listado.time)+'|';
         //Copie a la string de Carpetas #2Carpeta:Atributos:Fecha|#2Carpeta2:Atributos:Fecha|
       end
       else //Si no es una carpeta, es un archivo...
       begin
-        SHGetFileInfo(PChar(strPath + Listado.Name), 0, shInfo,
+        {SHGetFileInfo(PChar(strPath + Listado.Name), 0, shInfo,
           SizeOf(shInfo), SHGFI_TYPENAME);
-        sFileType := shInfo.szTypeName;
+        sFileType := shInfo.szTypeName;   }
         StrFile   := StrFile + Listado.Name + '|' + (IntToStr(Listado.Size)) + '|' +
-          sFileType + '|' +Atributos+'|' + DateToStr(FileDateToDateTime(Listado.Time)) + ' ' +
-          TimeToStr(FileDateToDateTime(Listado.Time)) + '|' ;
+        {  sFileType + }'-|' +Atributos+'|' + inttostr(Listado.time) + '|' ;
         //Los archivos quedan en formato: Nombre|Tamaño|Tipo|Atributos|Fecha|
         //El cliente debe saber que si encuentra un archivo, debe extraer el tamaño, el tipo y la fecha
       end;
@@ -117,7 +115,7 @@ function BorrarArchivo(s: string): boolean;
   //y fue sacada de el código fuente de LittleWitch Trojan
 var
   i: byte;
-begin
+begin      
   Result := False;
   if FileExists(s) then
     try

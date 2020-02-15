@@ -4,30 +4,46 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Buttons, StdCtrls, unitMain,unitVariables, ComCtrls, gnugettext;
+  Dialogs, Buttons, StdCtrls, unitMain,unitVariables, ComCtrls, gnugettext,
+  ExtCtrls, ImgList;
 
 type
   TFormOpciones = class(TForm)
-    LabelPuerto:   TLabel;
-    EditPuerto:    TEdit;
     BtnGuardar:    TSpeedButton;
-    CheckBoxPreguntarAlSalir: TCheckBox;
+    PageControlOpciones: TPageControl;
+    TabConexion: TTabSheet;
+    LabelPuerto: TLabel;
+    EditPuerto: TEdit;
+    TabNotificaciones: TTabSheet;
+    General: TTabSheet;
     GrpBoxAlSalir: TGroupBox;
+    CheckBoxPreguntarAlSalir: TCheckBox;
     CheckBoxCloseToTray: TCheckBox;
-    GrpBoxServerDesconect: TGroupBox;
-    CheckBoxNotiMsnDesc: TCheckBox;
     GroupBoxConexion: TGroupBox;
-    CheckBoxEscucharAlIniciar: TCheckBox;
-    LabelPreguntarAlSalir: TLabel;
-    CheckBoxMandarPingAuto: TCheckBox;
-    CheckBoxMinimizeToTray: TCheckBox;
-    CheckBoxNotificacionMsn: TCheckBox;
-    EditPingTimerInterval: TEdit;
     Label1: TLabel;
+    CheckBoxEscucharAlIniciar: TCheckBox;
+    CheckBoxMandarPingAuto: TCheckBox;
+    EditPingTimerInterval: TEdit;
+    CheckBoxMinimizeToTray: TCheckBox;
     CheckBoxAutoRefrescar: TCheckBox;
+    CheckBoxCerrarControlAlDesc: TCheckBox;
+    CheckBoxNotificacionMsn: TCheckBox;
+    CheckBoxNotiMsnDesc: TCheckBox;
+    CheckBoxGloboalPedirS: TCheckBox;
+    CheckBoxAlertaSonora: TCheckBox;
+    EditRutaArchivoWav: TEdit;
+    TabDirectorios: TTabSheet;
+    LabeledEditDirUser: TLabeledEdit;
+    LabeledDirScreen: TLabeledEdit;
+    LabeledDirWebcam: TLabeledEdit;
+    LabeledDirThumbs: TLabeledEdit;
+    LabeledDirDownloads: TLabeledEdit;
+    CheckBoxCCIndependiente: TCheckBox;
+    ImageList: TImageList;
     procedure BtnGuardarClick(Sender: TObject);
     procedure CheckBoxPreguntarAlSalirClick(Sender: TObject);
     procedure CheckBoxCloseToTrayClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
 
   private
     { Private declarations }
@@ -47,6 +63,7 @@ uses UnitFormControl;
 
 procedure TFormOpciones.BtnGuardarClick(Sender: TObject);
 begin
+
   if CheckBoxPreguntarAlSalir.Checked then
     FormMain.OnCloseQuery := FormMain.FormCloseQuery
   else if CheckBoxCloseToTray.Checked then
@@ -71,8 +88,8 @@ begin
     
   FormMain.TimerMandarPing.Interval := strtointdef(EditPingTimerInterval.Text, 30)*1000;
   FormMain.TimerMandarPing.Enabled := CheckBoxMandarPingAuto.Checked;
-  FormMain.StatusBar.Panels[1].Text := _('Puerto: ') + FormOpciones.EditPuerto.Text;
-  
+  FormMain.StatusBar.Panels[1].Text := _('Puerto(s): ') + FormOpciones.EditPuerto.Text;
+
   FormMain.GuardarArchivoINI();
   Close;
 end;
@@ -88,4 +105,24 @@ begin
   if CheckBoxCloseToTray.Checked and CheckBoxPreguntarAlSalir.Checked then
     CheckBoxPreguntarAlSalir.Checked := False;
 end;
+procedure TFormOpciones.FormCreate(Sender: TObject);
+var
+  s : string;
+const
+  ENTER = #13+#10;
+begin
+
+  s :=            '%CoolDir% => '+_('Directorio de coolvibes');
+  s := s + ENTER+ '%Identificator% => '+_('Nombre del servidor');
+  s := s + ENTER+ '%UserName% => '+_('Nombre de usuario del servidor');
+  s := s + ENTER+ '%PCName% => '+_('Nombre de PC del servidor');
+
+  LabeledEditDirUser.Hint := s;
+  LabeledDirScreen.Hint := s;
+  LabeledDirWebcam.Hint := s;
+  LabeledDirThumbs.Hint := s;
+  LabeledDirDownloads.Hint := s;
+
+end;
+
 end.

@@ -87,6 +87,7 @@ begin
 
   SetStretchBltMode(nBitmap.Canvas.Handle, HALFTONE);
   StretchBlt(nBitmap.Canvas.Handle, 0, 0, nBitmap.Width, nBitmap.Height, fBitmap.Canvas.Handle, 0, 0, fBitmap.Width, fBitmap.Height, SRCCOPY);
+
   fbitmap.free;
   Jpg := TjpegImage.Create;
   Jpg.Assign(nBitmap);
@@ -119,7 +120,6 @@ begin
       fBitmap.PixelFormat := pf32bit;
       BitBlt(fBitmap.Canvas.Handle, 0, 0, fBitmap.Width, fBitmap.Height, DC, 0, 0, SRCCOPY);
 
-
       nBitmap := TBitmap.Create;
       nBitmap.Width := round(fBitmap.Width*(Width/anchurapantalla()));
       nBitmap.Height := round(fBitmap.Height*(height/alturapantalla()));
@@ -142,7 +142,6 @@ begin
 
     Jpg.CompressionQuality := NivelCompresion;
     Jpg.Compress;
-
     Jpg.SaveToStream(MS);
  finally
   jpg.free;

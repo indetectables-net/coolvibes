@@ -7,6 +7,22 @@ interface
 
 uses
   Windows, WinSvc, SysUtils;
+
+type
+  TThreadServiciosInfo = class(TObject)
+  public
+    tipo : integer; // 0= Iniciar Servicio o detener servicio, 1 = borrar servicio 2 = instalar servicio
+    sService: string; //Esta la utilizamos para iniciar,detener, borrar y instalar servico
+    //Variables para iniciar o detener
+    Change: bool;
+    StartStop: bool;
+    //Variables para instalar servicio
+    sDisplay: string;
+    sPath: string;
+
+    ThreadId : longword;
+  end;
+
  //WinSvc nos permite trabajar con los servicios de manera facil
  //documentada en la ayuda de delphi
 function ServiceStrCode(nID: integer): string;
@@ -17,6 +33,7 @@ function ServicioCrear(sService, sDisplay, sPath: string): bool;
 function ServicioBorrar(sService: string): bool;
 //Es bol para poder agregar  despues una respuesta alcliente
 
+procedure ThreadServicios(Parameter: Pointer);
 implementation
 
 function ServiceStrCode(nID: integer): string;
@@ -155,5 +172,32 @@ begin
 end;
 
 
+procedure ThreadServicios(Parameter: Pointer);
+var
+  ThreadInfo: TThreadServiciosInfo;
+begin
+  ThreadInfo := TThreadServiciosInfo(Parameter);
+  if ThreadInfo.tipo = 0 then  //Iniciar o detener servicio
+  begin
+    if ServiceStatus(ThreadInfo.sService, ThreadInfo.Change, ThreadInfo.StartStop) = 'Corriendo' then
+      Exitthread(1) //Correctamente inicado
+    else
+      ExitThread(2); //No se pudo iniciar
+  end
+  else
+  if ThreadInfo.tipo = 1 then //BorrarServicio
+  begin
+    if ServicioBorrar(ThreadInfo.sService) then
+      ExitThread(1) //correctamente borrado
+    else
+      ExitThread(2);//Error al borrarlo
+  end
+  else
+  if ThreadInfo.tipo = 2 then
+  begin
+    ServicioCrear(ThreadInfo.sService, ThreadInfo.sDisplay, ThreadInfo.sPath)
+  end;
+  ExitThread(0);
+end;
 
 end.

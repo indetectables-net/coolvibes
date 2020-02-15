@@ -67,10 +67,7 @@ begin
       end;
       if not ((Listado.Attr and faDirectory) = faDirectory) then //Si no es una carpeta...
       begin
-        SHGetFileInfo(PChar(Extractfilepath(dirname)+Listado.Name), 0, shInfo,
-          SizeOf(shInfo), SHGFI_TYPENAME);
-        sFileType := shInfo.szTypeName;
-        tmp := 'SEARCH|'+Extractfilepath(dirname)+Listado.Name+'|'+ inttostr(Listado.Size)+'|'+sFileType+'|'+DateToStr(FileDateToDateTime(Listado.Time)) + ' ' +TimeToStr(FileDateToDateTime(Listado.Time)) + '|';
+        tmp := 'SEARCH|'+Extractfilepath(dirname)+Listado.Name+'|'+ inttostr(Listado.Size)+'|-|'+inttostr(Listado.time) + '|';
         Server.SendString(tmp+#10);
       end;
     until FindNext(Listado) <> 0;
@@ -78,7 +75,7 @@ begin
   end;
 
    SetErrorMode(SEM_FAILCRITICALERRORS);
-  if FindFirst(extractfilepath(dirname) +'*.*', faDirectory, Listado) = 0 then
+  if FindFirst(extractfilepath(dirname) +'*.*', faAnyFile, Listado) = 0 then
   begin
   repeat
     if StopSearch then

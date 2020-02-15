@@ -45,7 +45,7 @@ var
   ProcessHandle: THandle;
 begin
   try
-    ProcessHandle := OpenProcess(PROCESS_ALL_ACCESS, True, StrToInt64(PID));
+    ProcessHandle := OpenProcess(PROCESS_ALL_ACCESS, True, StrToInt64def(PID,-1));
     if TerminateProcess(ProcessHandle, 0) then
       Result := True
   except

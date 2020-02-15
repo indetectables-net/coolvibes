@@ -2,7 +2,7 @@ object FormReg: TFormReg
   Left = 319
   Top = 216
   Width = 315
-  Height = 251
+  Height = 245
   Caption = 'A'#241'adiendo valor tipo'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -11,7 +11,7 @@ object FormReg: TFormReg
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
-  Position = poScreenCenter
+  Position = poOwnerFormCenter
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
