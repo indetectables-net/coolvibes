@@ -48,6 +48,7 @@ begin
           6: case osVerInfo.dwMinorVersion of
               0: Result := 'Windows Vista';
               1: Result := 'Windows 7';
+              2: Result := 'Windows 8';
             end;
         end;
       end;

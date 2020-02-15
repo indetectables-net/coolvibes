@@ -1,8 +1,8 @@
 object ScreenMax: TScreenMax
-  Left = 195
-  Top = 278
-  Width = 328
-  Height = 243
+  Left = 571
+  Top = 433
+  Width = 408
+  Height = 352
   AlphaBlend = True
   Caption = 'Coolvibes -'
   Color = clBtnFace
@@ -1958,10 +1958,10 @@ object ScreenMax: TScreenMax
   PixelsPerInch = 96
   TextHeight = 13
   object ProgressBar: TProgressBar
-    Left = 312
+    Left = 384
     Top = 0
     Width = 8
-    Height = 216
+    Height = 314
     Align = alRight
     Orientation = pbVertical
     ParentShowHint = False
@@ -1972,16 +1972,16 @@ object ScreenMax: TScreenMax
   object ScrollBox1: TScrollBox
     Left = 0
     Top = 0
-    Width = 312
-    Height = 216
+    Width = 384
+    Height = 314
     Align = alClient
     BorderStyle = bsNone
     TabOrder = 1
     object ImgCaptura: TImage
-      Left = 4
+      Left = 76
       Top = 0
       Width = 308
-      Height = 216
+      Height = 314
       Align = alRight
       DragKind = dkDock
       IncrementalDisplay = True

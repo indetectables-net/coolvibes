@@ -1,8 +1,8 @@
 object FormID: TFormID
   Left = 403
   Top = 219
-  Width = 238
-  Height = 103
+  Width = 225
+  Height = 120
   BorderIcons = []
   Caption = 'Nueva ID'
   Color = clBtnFace
@@ -1951,14 +1951,15 @@ object FormID: TFormID
   object Label1: TLabel
     Left = 8
     Top = 8
-    Width = 187
+    Width = 153
     Height = 13
     Caption = 'Escriba la nueva ID del servidor:'
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = clMenuHighlight
+    Font.Color = clWindowText
     Font.Height = -11
     Font.Name = 'MS Sans Serif'
-    Font.Style = [fsBold]
+    Font.Pitch = fpFixed
+    Font.Style = []
     ParentFont = False
   end
   object CmbIDAceptar: TSpeedButton
@@ -2053,7 +2054,7 @@ object FormID: TFormID
     Left = 8
     Top = 24
     Width = 193
-    Height = 21
+    Height = 24
     Cursor = crIBeam
     TabOrder = 0
     Text = 'Coolvibes Server'

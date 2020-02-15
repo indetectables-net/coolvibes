@@ -4,7 +4,7 @@ interface
 
 uses
   SysUtils, Classes, Graphics, Controls, Forms,
-  ComCtrls, StdCtrls, ExtCtrls, Spin, IdTCPServer, Menus, gnugettext,
+  ComCtrls, StdCtrls, ExtCtrls, IdTCPServer, Menus, gnugettext,
   ImgList, UnitFunciones;
 
 type
@@ -21,7 +21,6 @@ type
     LabelTamanoJPG: TLabel;
     RadioAutomatico: TRadioButton;
     RadioManual: TRadioButton;
-    SpinTamanoRelativo: TSpinEdit;
     CheckBoxAutoGuardado: TCheckBox;
     LabelPorCiento: TLabel;
     LabelModoDeVisionado: TLabel;
@@ -33,6 +32,7 @@ type
     LabelAviso: TLabel;
     StatusBar: TStatusBar;
     PedirdorTimer: TTimer;
+    SpinTamanoRelativo: TEdit;
     procedure TrackBarCalidadChange(Sender: TObject);
     procedure ImageThumnailClick(Sender: TObject);
     procedure PopupColaDeMiniaturasPopup(Sender: TObject);
@@ -121,7 +121,7 @@ begin
     ConnectionWriteln(Servidor, 'GETTHUMB|' +
       ListviewColaThumbnails.Items[0].subitems[0] +
       '|' + IntToStr(6666666) + //Para saber que se utiliza el tamaño relativo
-      '|' + IntToStr(SpinTamanoRelativo.Value) +
+      '|' + SpinTamanoRelativo.text +
       '|' + IntToStr(TrackBarCalidad.Position) + '|');
 end;
 

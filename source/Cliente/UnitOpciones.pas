@@ -47,7 +47,17 @@ type
     SpeedButton1: TSpeedButton;
     CheckBoxGuardarPluginsEnDisco: TCheckBox;
     EditEstado: TEdit;
+    TabAyuda: TTabSheet;
+    GroupBoxAyuda: TGroupBox;
+    CheckBoxAyuda1: TCheckBox;
+    CheckBoxAyuda2: TCheckBox;
+    CheckBoxAyuda3: TCheckBox;
+    TabApariencia: TTabSheet;
     CheckBoxIncluirTreeView: TCheckBox;
+    CheckBoxTreeViewCC: TCheckBox;
+    CheckBoxPanelInferior: TCheckBox;
+    CheckBoxCapturaInferior: TCheckBox;
+    CheckBoxSplash: TCheckBox;
     procedure BtnGuardarClick(Sender: TObject);
     procedure CheckBoxPreguntarAlSalirClick(Sender: TObject);
     procedure CheckBoxCloseToTrayClick(Sender: TObject);
@@ -56,6 +66,7 @@ type
     procedure SpeedButton1Click(Sender: TObject);
     procedure Pluginadd(Path:string);
     procedure PageControlOpcionesChange(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -225,6 +236,11 @@ end;
 procedure TFormOpciones.PageControlOpcionesChange(Sender: TObject);
 begin
     EditEstado.Text := '';
+end;
+
+procedure TFormOpciones.FormShow(Sender: TObject);
+begin
+  FormOpciones.ShowHint := CheckboxAyuda1.Checked;
 end;
 
 end.

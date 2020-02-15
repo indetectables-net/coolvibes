@@ -2,27 +2,27 @@ object FormMain: TFormMain
   Left = 311
   Top = 253
   BorderStyle = bsToolWindow
-  ClientHeight = 513
-  ClientWidth = 566
+  ClientHeight = 631
+  ClientWidth = 697
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -11
+  Font.Height = -14
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = False
   Position = poScreenCenter
   DesignSize = (
-    566
-    513)
-  PixelsPerInch = 96
-  TextHeight = 13
+    697
+    631)
+  PixelsPerInch = 120
+  TextHeight = 16
   object BtnEnviar: TSpeedButton
-    Left = 490
-    Top = 485
-    Width = 68
-    Height = 22
+    Left = 603
+    Top = 597
+    Width = 84
+    Height = 27
     Cursor = crHandPoint
     Anchors = [akRight, akBottom]
     Caption = 'Refresh'
@@ -55,14 +55,12 @@ object FormMain: TFormMain
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000ACD4B0000000000000000000000000000000000000}
     OnClick = BtnEnviarClick
-    ExplicitLeft = 480
-    ExplicitTop = 471
   end
   object ListViewPlugin: TListView
-    Left = 8
-    Top = 3
-    Width = 551
-    Height = 476
+    Left = 10
+    Top = 4
+    Width = 678
+    Height = 586
     Anchors = [akLeft, akTop, akRight, akBottom]
     BevelInner = bvNone
     BevelOuter = bvRaised
@@ -75,11 +73,11 @@ object FormMain: TFormMain
       end
       item
         Caption = 'Uninstall path'
-        Width = 267
+        Width = 329
       end
       item
         Caption = 'Uninstall type'
-        Width = 101
+        Width = 124
       end>
     FlatScrollBars = True
     GridLines = True

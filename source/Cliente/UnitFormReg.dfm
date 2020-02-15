@@ -1,8 +1,8 @@
 object FormReg: TFormReg
-  Left = 315
-  Top = 242
-  Width = 316
-  Height = 245
+  Left = 423
+  Top = 346
+  Width = 327
+  Height = 256
   Caption = 'A'#241'adiendo valor tipo'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -1982,9 +1982,9 @@ object FormReg: TFormReg
   end
   object EditNombreValor: TEdit
     Left = 8
-    Top = 24
+    Top = 31
     Width = 297
-    Height = 19
+    Height = 22
     Ctl3D = False
     ParentCtl3D = False
     TabOrder = 0

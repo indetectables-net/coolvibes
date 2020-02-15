@@ -4,7 +4,7 @@ interface
 
 const
   VersionCool: string = '1';
-  UpdateNum: string = '13';
+  UpdateNum: string = '14';
 
 var
   DesactivarNotificaciones: boolean;

@@ -1,8 +1,8 @@
 object FormVisorDeMiniaturas: TFormVisorDeMiniaturas
-  Left = 315
-  Top = 240
-  Width = 368
-  Height = 290
+  Left = 462
+  Top = 419
+  Width = 407
+  Height = 306
   Caption = 'Visor de miniaturas'
   Color = clBtnFace
   Constraints.MinHeight = 290
@@ -1953,11 +1953,17 @@ object FormVisorDeMiniaturas: TFormVisorDeMiniaturas
   object PageControlMiniaturas: TPageControl
     Left = 0
     Top = 0
-    Width = 360
-    Height = 240
+    Width = 391
+    Height = 245
     ActivePage = TabSheetOpciones
     Align = alClient
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
     Images = ImageList1
+    ParentFont = False
     TabOrder = 0
     object TabSheetPrincipal: TTabSheet
       Caption = 'Visor'
@@ -1965,15 +1971,15 @@ object FormVisorDeMiniaturas: TFormVisorDeMiniaturas
       object ImageThumnail: TImage
         Left = 0
         Top = 0
-        Width = 352
-        Height = 200
+        Width = 383
+        Height = 205
         Align = alClient
         OnClick = ImageThumnailClick
       end
       object ProgressBarThumbnail: TProgressBar
         Left = 0
-        Top = 200
-        Width = 352
+        Top = 205
+        Width = 383
         Height = 11
         Align = alBottom
         Smooth = True
@@ -1986,8 +1992,8 @@ object FormVisorDeMiniaturas: TFormVisorDeMiniaturas
       object ListViewColaThumbnails: TListView
         Left = 0
         Top = 0
-        Width = 352
-        Height = 211
+        Width = 383
+        Height = 216
         Align = alClient
         Columns = <
           item
@@ -2011,23 +2017,23 @@ object FormVisorDeMiniaturas: TFormVisorDeMiniaturas
     object TabSheetOpciones: TTabSheet
       Caption = 'Opciones'
       DesignSize = (
-        352
-        211)
+        383
+        216)
       object LabelCalidadJPG: TLabel
         Left = 3
         Top = 14
-        Width = 79
+        Width = 61
         Height = 13
         Caption = 'Calidad JPG:'
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
+        Font.Color = clWindowText
         Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
         ParentFont = False
       end
       object LabelPosicionCompresJpg: TLabel
-        Left = 262
+        Left = 296
         Top = 14
         Width = 30
         Height = 13
@@ -2043,45 +2049,45 @@ object FormVisorDeMiniaturas: TFormVisorDeMiniaturas
       object LabelTamanoJPG: TLabel
         Left = 3
         Top = 54
-        Width = 83
+        Width = 65
         Height = 13
         Caption = 'Tama'#241'o JPG:'
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
+        Font.Color = clWindowText
         Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
         ParentFont = False
       end
       object LabelPorCiento: TLabel
-        Left = 256
+        Left = 201
         Top = 84
-        Width = 14
+        Width = 8
         Height = 13
         Caption = '%'
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
+        Font.Color = clWindowText
         Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
         ParentFont = False
       end
       object LabelModoDeVisionado: TLabel
         Left = 3
         Top = 118
-        Width = 121
+        Width = 91
         Height = 13
         Caption = 'Modo de Visionado'
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
+        Font.Color = clWindowText
         Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
         ParentFont = False
       end
       object LabelAviso: TLabel
         Left = 3
-        Top = 177
+        Top = 189
         Width = 310
         Height = 13
         Anchors = [akLeft, akBottom]
@@ -2096,7 +2102,7 @@ object FormVisorDeMiniaturas: TFormVisorDeMiniaturas
       object TrackBarCalidad: TTrackBar
         Left = 90
         Top = 11
-        Width = 163
+        Width = 197
         Height = 16
         Cursor = crHandPoint
         Anchors = [akLeft, akTop, akRight]
@@ -2117,10 +2123,10 @@ object FormVisorDeMiniaturas: TFormVisorDeMiniaturas
         Caption = 'Autom'#225'tico'
         Checked = True
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
+        Font.Color = clWindowText
         Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
         ParentFont = False
         TabOrder = 1
         TabStop = True
@@ -2132,61 +2138,59 @@ object FormVisorDeMiniaturas: TFormVisorDeMiniaturas
         Height = 17
         Caption = 'Manual'
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
+        Font.Color = clWindowText
         Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
         ParentFont = False
         TabOrder = 2
       end
-      object SpinTamanoRelativo: TSpinEdit
-        Left = 196
-        Top = 77
-        Width = 53
-        Height = 22
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
-        Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
-        MaxValue = 100
-        MinValue = 1
-        ParentFont = False
-        TabOrder = 3
-        Value = 10
-      end
       object CheckBoxAutoGuardado: TCheckBox
-        Left = 0
-        Top = 144
+        Left = 8
+        Top = 143
         Width = 121
-        Height = 17
+        Height = 13
         Caption = 'Autoguardado'
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
+        Font.Color = clBlack
         Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
         ParentFont = False
-        TabOrder = 4
+        TabOrder = 3
       end
       object ComboBoxModoDeVisionado: TComboBox
-        Left = 128
+        Left = 103
         Top = 112
-        Width = 137
+        Width = 138
         Height = 21
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
         ItemHeight = 13
-        TabOrder = 5
+        ParentFont = False
+        TabOrder = 4
         Text = 'Autom'#225'tico'
         Items.Strings = (
           'Autom'#225'tico'
           'Hacer clic en la imagen')
       end
+      object SpinTamanoRelativo: TEdit
+        Left = 171
+        Top = 80
+        Width = 19
+        Height = 21
+        TabOrder = 5
+        Text = '10'
+      end
     end
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 240
-    Width = 360
+    Top = 245
+    Width = 391
     Height = 23
     Panels = <
       item

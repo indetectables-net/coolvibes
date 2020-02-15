@@ -1,17 +1,18 @@
 object FormSendKeys: TFormSendKeys
-  Left = 388
-  Top = 201
+  Left = 417
+  Top = 482
   BorderIcons = [biSystemMenu, biMinimize]
-  BorderStyle = bsSingle
+  BorderStyle = bsDialog
   Caption = 'Enviar teclas...'
-  ClientHeight = 154
-  ClientWidth = 276
+  ClientHeight = 190
+  ClientWidth = 340
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -11
+  Font.Height = -14
   Font.Name = 'MS Sans Serif'
   Font.Style = []
+  FormStyle = fsStayOnTop
   Icon.Data = {
     000001000C00101010000000000028010000C600000010100000010018006803
     0000EE010000101000000100200068040000560500002020100000000000E802
@@ -1949,13 +1950,13 @@ object FormSendKeys: TFormSendKeys
   Position = poOwnerFormCenter
   OnCreate = FormCreate
   OnShow = FormShow
-  PixelsPerInch = 96
-  TextHeight = 13
+  PixelsPerInch = 120
+  TextHeight = 16
   object BtnEnviar: TSpeedButton
-    Left = 192
-    Top = 120
-    Width = 73
-    Height = 25
+    Left = 236
+    Top = 148
+    Width = 90
+    Height = 30
     Caption = 'Enviar'
     Flat = True
     Glyph.Data = {
@@ -1987,23 +1988,23 @@ object FormSendKeys: TFormSendKeys
     OnClick = BtnEnviarClick
   end
   object LabelHandle: TLabel
-    Left = 6
-    Top = 12
-    Width = 45
-    Height = 13
+    Left = 7
+    Top = 15
+    Width = 56
+    Height = 18
     Caption = 'Handle'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBackground
-    Font.Height = -11
+    Font.Height = -15
     Font.Name = 'Verdana'
     Font.Style = [fsBold]
     ParentFont = False
   end
   object BtnEspeciales: TSpeedButton
-    Left = 152
-    Top = 8
-    Width = 113
-    Height = 22
+    Left = 187
+    Top = 10
+    Width = 139
+    Height = 27
     Caption = 'Teclas especiales'
     Flat = True
     Glyph.Data = {
@@ -2037,10 +2038,10 @@ object FormSendKeys: TFormSendKeys
     OnClick = BtnEspecialesClick
   end
   object BtnInformacion: TSpeedButton
-    Left = 104
-    Top = 120
-    Width = 87
-    Height = 25
+    Left = 128
+    Top = 148
+    Width = 107
+    Height = 30
     Caption = 'Informaci'#243'n'
     Flat = True
     Glyph.Data = {
@@ -2082,10 +2083,10 @@ object FormSendKeys: TFormSendKeys
     OnClick = BtnInformacionClick
   end
   object MemoSendKeys: TMemo
-    Left = 8
-    Top = 56
-    Width = 257
-    Height = 57
+    Left = 10
+    Top = 69
+    Width = 316
+    Height = 70
     BevelInner = bvNone
     BevelKind = bkFlat
     BorderStyle = bsNone
@@ -2095,10 +2096,10 @@ object FormSendKeys: TFormSendKeys
     TabOrder = 0
   end
   object EditTitulo: TEdit
-    Left = 8
-    Top = 32
-    Width = 257
-    Height = 21
+    Left = 10
+    Top = 39
+    Width = 316
+    Height = 26
     BevelInner = bvNone
     BevelKind = bkFlat
     BevelOuter = bvRaised
@@ -2107,10 +2108,10 @@ object FormSendKeys: TFormSendKeys
     TabOrder = 1
   end
   object EditHandle: TEdit
-    Left = 56
-    Top = 8
-    Width = 89
-    Height = 21
+    Left = 69
+    Top = 10
+    Width = 109
+    Height = 26
     BevelInner = bvNone
     BevelKind = bkFlat
     BevelOuter = bvRaised

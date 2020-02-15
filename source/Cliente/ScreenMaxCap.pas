@@ -114,7 +114,7 @@ end;
 
 procedure TScreenMax.T0Click(Sender: TObject); //Establece el intervalo
 begin
-  (MyFormControl as TFormControl).SpinCaptureScreen.Value := StrToIntDef(Copy((Sender as TMenuItem).Name, 2, 2), 2);
+  (MyFormControl as TFormControl).SpinCaptureScreen.Text := Copy((Sender as TMenuItem).Name, 2, 2);
   (MyFormControl as TFormControl).CheckBoxAutoCapturaScreen.Checked := True;
 end;
 
@@ -132,7 +132,7 @@ var
 begin
   Automtico1.Checked := (MyFormControl as TFormControl).CheckBoxAutoCapturaScreen.Checked;
   No.Checked := not Automtico1.Checked;
-  auto := (MyFormControl as TFormControl).SpinCaptureScreen.Value;
+  auto := strtointdef((MyFormControl as TFormControl).SpinCaptureScreen.text,2);
   calidad := (MyFormControl as TFormControl).TrackBarCalidad.Position;
 
   T0.Checked := False;

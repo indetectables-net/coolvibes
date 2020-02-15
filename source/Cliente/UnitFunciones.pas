@@ -1,5 +1,5 @@
 unit UnitFunciones;
-{$define CommDebug}
+
 
 interface
 
@@ -34,14 +34,23 @@ end;
 
 procedure ConnectionWriteLn(Athread:TidPeerThread; SendMe: String);
 begin
-  AThread.Connection.Write(SendMe + #13#10);
+  try
+    AThread.Connection.Write(SendMe + #13#10);
+  except
+    Athread.Terminate;
+  end;
   //AThread.Connection.Write(ZCompressStr(SendMe) + #13#10);
   {$ifdef CommDebug}OutputDebugString(PChar('Client OUT: ' + SendMe));{$endif}
 end;
 
 function ConnectionReadLn(Athread : TidPeerThread; ATerminator: string): string;
 begin
+  try
   Result := Athread.Connection.ReadLn(ATerminator);
+  except
+      Result := '';
+      Athread.Terminate;
+  end;
   //Result := ZDecompressStr(Athread.Connection.ReadLn(ATerminator));
   {$ifdef CommDebug}OutputDebugString(PChar('Client IN: ' + Result));{$endif}
 end;

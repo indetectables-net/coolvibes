@@ -1,4 +1,4 @@
-{Unit usada Coolvibes 0.2 para leer y escribir la configuración del archivo
+{Unit usada Coolvibes para leer y escribir la configuración del archivo
 Pertenece tanto al cliente como al server, estando en la carpeta del server SettingsDef.pas}
 unit SettingsDef;
 

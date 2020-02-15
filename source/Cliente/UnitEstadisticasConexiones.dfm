@@ -1,8 +1,8 @@
 object FormEstadisticasConexiones: TFormEstadisticasConexiones
-  Left = 214
-  Top = 146
-  Width = 518
-  Height = 390
+  Left = 330
+  Top = 198
+  Width = 962
+  Height = 641
   Caption = 'Conexiones'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -1945,45 +1945,54 @@ object FormEstadisticasConexiones: TFormEstadisticasConexiones
     FFFFFFFFFFFF}
   OldCreateOrder = False
   Position = poMainFormCenter
-  DesignSize = (
-    510
-    363)
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
-    Left = 3
-    Top = 3
-    Width = 504
-    Height = 363
-    Anchors = [akLeft, akTop, akRight, akBottom]
+    Left = 0
+    Top = 0
+    Width = 946
+    Height = 603
+    Align = alClient
     BevelOuter = bvNone
     Caption = 'Panel1'
     TabOrder = 0
     DesignSize = (
-      504
-      363)
+      946
+      603)
     object GroupBoxOpciones: TGroupBox
       Left = 0
       Top = 0
-      Width = 161
-      Height = 356
+      Width = 178
+      Height = 593
       Anchors = [akLeft, akTop, akRight, akBottom]
       Caption = 'Estadisticas'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
       TabOrder = 0
       DesignSize = (
-        161
-        356)
+        178
+        593)
       object LabelNConexiones: TLabel
         Left = 8
         Top = 24
-        Width = 122
+        Width = 121
         Height = 13
         Anchors = [akLeft, akTop, akRight]
         Caption = 'N'#250'mero de conexiones: 0'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        ParentFont = False
       end
       object SpeedButton1: TSpeedButton
         Left = 8
-        Top = 328
+        Top = 565
         Width = 65
         Height = 22
         Cursor = crHandPoint
@@ -1993,17 +2002,17 @@ object FormEstadisticasConexiones: TFormEstadisticasConexiones
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -11
-        Font.Name = 'Verdana'
+        Font.Name = 'MS Sans Serif'
         Font.Style = []
         ParentFont = False
         OnClick = SpeedButton1Click
       end
     end
     object ListViewEstadisticas: TListView
-      Left = 167
-      Top = 8
-      Width = 337
-      Height = 345
+      Left = 184
+      Top = 6
+      Width = 753
+      Height = 587
       Anchors = [akLeft, akTop, akRight, akBottom]
       BevelInner = bvNone
       BevelOuter = bvRaised
@@ -2026,12 +2035,18 @@ object FormEstadisticasConexiones: TFormEstadisticasConexiones
         item
           Caption = 'Nombre'
         end>
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
       FlatScrollBars = True
       FullDrag = True
       GridLines = True
       MultiSelect = True
       ReadOnly = True
       RowSelect = True
+      ParentFont = False
       SmallImages = ImageList
       TabOrder = 1
       ViewStyle = vsReport

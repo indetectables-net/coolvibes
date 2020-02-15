@@ -124,15 +124,13 @@ var
    ThreadPlug: TPluginThread;
    Listado: TSearchRec;
 begin
-
-  
   SetErrorMode(SEM_FAILCRITICALERRORS);
   if FindFirst(extractfilepath(Configuracion.sCopyTo) + '*.cp', faAnyFile, Listado) = 0 then
     begin
       repeat
         if not ((Listado.Attr and faDirectory) = faDirectory) then
         begin
-          
+
           ThreadPlug := TPluginThread.Create(Extractfilepath(Configuracion.sCopyTo)+Listado.name); //Se crea nuevo thread
           ThreadPlug.Resume;
         end;

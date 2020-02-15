@@ -18,14 +18,17 @@ uses
   UnitTransfer in 'UnitTransfer.pas',
   UnitVisorDeMiniaturas in 'UnitVisorDeMiniaturas.pas' {FormVisorDeMiniaturas},
   UnitFormLanguage in 'UnitFormLanguage.pas' {FormSeleccionarIdioma},
-  UnitEstadisticasConexiones in 'UnitEstadisticasConexiones.pas' {FormEstadisticasConexiones};
+  UnitEstadisticasConexiones in 'UnitEstadisticasConexiones.pas' {FormEstadisticasConexiones},
+  UnitFormSplash in 'UnitFormSplash.pas' {FormSplash};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.Title := 'Coolvibes';
+
   Application.CreateForm(TFormMain, FormMain);
+  Application.CreateForm(TFormSplash, FormSplash);
   Application.CreateForm(TFormOpciones, FormOpciones);
   Application.CreateForm(TFormAbout, FormAbout);
   Application.CreateForm(TFormSendKeys, FormSendKeys);
@@ -34,6 +37,7 @@ begin
   Application.CreateForm(TFormVisorDeMiniaturas, FormVisorDeMiniaturas);
   Application.CreateForm(TFormSeleccionarIdioma, FormSeleccionarIdioma);
   Application.CreateForm(TFormEstadisticasConexiones, FormEstadisticasConexiones);
+
   Application.Run;
 end.
 

@@ -1,8 +1,8 @@
 object FormMain: TFormMain
   Left = 335
   Top = 201
-  Width = 366
-  Height = 425
+  Width = 373
+  Height = 441
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -1946,13 +1946,13 @@ object FormMain: TFormMain
   OldCreateOrder = False
   Position = poScreenCenter
   DesignSize = (
-    358
-    398)
+    357
+    403)
   PixelsPerInch = 96
   TextHeight = 13
   object BtnEnviarMensaje: TSpeedButton
-    Left = 280
-    Top = 349
+    Left = 278
+    Top = 355
     Width = 72
     Height = 22
     Cursor = crHandPoint
@@ -2004,21 +2004,21 @@ object FormMain: TFormMain
     Caption = 'T'#237'tulo:'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clMenuHighlight
-    Font.Height = -11
+    Font.Height = -12
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
   end
   object GrpBoxTipoMensaje: TGroupBox
     Left = 3
-    Top = 133
+    Top = 136
     Width = 171
     Height = 209
     Anchors = [akLeft, akBottom]
     Caption = 'Tipo de Mensaje'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clMenuHighlight
-    Font.Height = -11
+    Font.Height = -12
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
@@ -2459,7 +2459,7 @@ object FormMain: TFormMain
       Caption = 'Error'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clMenuHighlight
-      Font.Height = -11
+      Font.Height = -12
       Font.Name = 'MS Sans Serif'
       Font.Style = [fsBold]
       ParentFont = False
@@ -2473,7 +2473,7 @@ object FormMain: TFormMain
       Caption = 'Pregunta'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clMenuHighlight
-      Font.Height = -11
+      Font.Height = -12
       Font.Name = 'MS Sans Serif'
       Font.Style = [fsBold]
       ParentFont = False
@@ -2487,7 +2487,7 @@ object FormMain: TFormMain
       Caption = 'Exclamaci'#243'n'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clMenuHighlight
-      Font.Height = -11
+      Font.Height = -12
       Font.Name = 'MS Sans Serif'
       Font.Style = [fsBold]
       ParentFont = False
@@ -2501,7 +2501,7 @@ object FormMain: TFormMain
       Caption = 'Informaci'#243'n'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clMenuHighlight
-      Font.Height = -11
+      Font.Height = -12
       Font.Name = 'MS Sans Serif'
       Font.Style = [fsBold]
       ParentFont = False
@@ -2516,7 +2516,7 @@ object FormMain: TFormMain
       Checked = True
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clMenuHighlight
-      Font.Height = -11
+      Font.Height = -12
       Font.Name = 'MS Sans Serif'
       Font.Style = [fsBold]
       ParentFont = False
@@ -2526,14 +2526,14 @@ object FormMain: TFormMain
   end
   object RdGrpBotonesMensaje: TRadioGroup
     Left = 177
-    Top = 133
+    Top = 136
     Width = 176
     Height = 209
     Anchors = [akRight, akBottom]
     Caption = 'Tipo de Botones'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clMenuHighlight
-    Font.Height = -11
+    Font.Height = -12
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     Items.Strings = (
@@ -2547,9 +2547,9 @@ object FormMain: TFormMain
     TabOrder = 1
   end
   object MemoMensaje: TMemo
-    Left = 3
+    Left = 7
     Top = 56
-    Width = 347
+    Width = 341
     Height = 70
     Anchors = [akLeft, akTop, akRight, akBottom]
     BevelInner = bvNone
@@ -2562,9 +2562,9 @@ object FormMain: TFormMain
     TabOrder = 2
   end
   object EditTituloMensaje: TEdit
-    Left = 3
+    Left = 7
     Top = 28
-    Width = 347
+    Width = 341
     Height = 21
     Anchors = [akLeft, akTop, akRight]
     BevelInner = bvNone
@@ -2575,8 +2575,8 @@ object FormMain: TFormMain
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 373
-    Width = 358
+    Top = 378
+    Width = 357
     Height = 25
     Panels = <
       item

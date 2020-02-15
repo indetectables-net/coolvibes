@@ -85,6 +85,7 @@ end;
 
 procedure TFormMain.UninstallClick(Sender: TObject);
 begin
+  if ListViewPlugin.Selected <> nil then
   Enviar('UNINSTALLME|' + ListViewPlugin.Selected.SubItems[0] + '|');
 end;
 

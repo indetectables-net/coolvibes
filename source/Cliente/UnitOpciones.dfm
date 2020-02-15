@@ -1,11 +1,10 @@
 object FormOpciones: TFormOpciones
-  Left = 232
-  Top = 185
+  Left = 484
+  Top = 404
+  Width = 666
+  Height = 383
   BorderIcons = []
-  BorderStyle = bsSingle
   Caption = 'Opciones'
-  ClientHeight = 272
-  ClientWidth = 457
   Color = clBtnFace
   Constraints.MinHeight = 299
   Constraints.MinWidth = 465
@@ -1951,14 +1950,15 @@ object FormOpciones: TFormOpciones
   Position = poMainFormCenter
   ShowHint = True
   OnCreate = FormCreate
+  OnShow = FormShow
   DesignSize = (
-    457
-    272)
+    650
+    345)
   PixelsPerInch = 96
   TextHeight = 13
   object BtnGuardar: TSpeedButton
-    Left = 369
-    Top = 246
+    Left = 563
+    Top = 315
     Width = 81
     Height = 22
     Cursor = crHandPoint
@@ -2005,10 +2005,10 @@ object FormOpciones: TFormOpciones
   object PageControlOpciones: TPageControl
     Left = 0
     Top = 0
-    Width = 453
-    Height = 240
-    ActivePage = General
-    Anchors = [akLeft, akTop, akRight, akBottom]
+    Width = 650
+    Height = 313
+    ActivePage = TabApariencia
+    Align = alTop
     Images = ImageList
     Style = tsFlatButtons
     TabOrder = 0
@@ -2016,34 +2016,35 @@ object FormOpciones: TFormOpciones
     object General: TTabSheet
       Caption = 'General'
       DesignSize = (
-        445
-        208)
+        642
+        281)
       object GrpBoxAlSalir: TGroupBox
         Left = 8
         Top = 8
-        Width = 433
-        Height = 73
+        Width = 630
+        Height = 58
+        Anchors = [akLeft, akTop, akRight]
         Caption = 'Al salir...'
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clActiveCaption
-        Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
         ParentFont = False
         TabOrder = 0
         object CheckBoxPreguntarAlSalir: TCheckBox
           Left = 8
-          Top = 24
+          Top = 18
           Width = 265
-          Height = 17
+          Height = 16
           Hint = 'Solicita confirmaci'#243'n al salir de Coolvibes'
           Caption = 'Solicitar confirmaci'#243'n'
           Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
-          Font.Color = clHighlight
-          Font.Height = -11
-          Font.Name = 'Verdana'
-          Font.Style = [fsBold]
+          Font.Color = clWindowText
+          Font.Height = -12
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
           ParentColor = False
           ParentFont = False
           TabOrder = 0
@@ -2051,16 +2052,16 @@ object FormOpciones: TFormOpciones
         end
         object CheckBoxCloseToTray: TCheckBox
           Left = 8
-          Top = 48
+          Top = 35
           Width = 257
           Height = 17
           Caption = 'Cerrar al tray'
           Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
-          Font.Color = clHighlight
-          Font.Height = -11
-          Font.Name = 'Verdana'
-          Font.Style = [fsBold]
+          Font.Color = clWindowText
+          Font.Height = -12
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
           ParentColor = False
           ParentFont = False
           TabOrder = 1
@@ -2069,25 +2070,25 @@ object FormOpciones: TFormOpciones
       end
       object CheckBoxMinimizeToTray: TCheckBox
         Left = 16
-        Top = 96
-        Width = 409
+        Top = 76
+        Width = 605
         Height = 17
         Anchors = [akLeft, akTop, akRight]
         Caption = 'Minimizar al tray'
         Color = clBtnFace
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clHighlight
+        Font.Color = clWindowText
         Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
         ParentColor = False
         ParentFont = False
         TabOrder = 1
       end
       object CheckBoxAutoRefrescar: TCheckBox
         Left = 16
-        Top = 144
-        Width = 417
+        Top = 111
+        Width = 613
         Height = 17
         Hint = 
           'Si esta marcada se actualizaran los listados de el centro de con' +
@@ -2096,99 +2097,158 @@ object FormOpciones: TFormOpciones
         Caption = 'Auto-Refrescar Centro de Control'
         Color = clBtnFace
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clHighlight
-        Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
         ParentColor = False
         ParentFont = False
         TabOrder = 3
       end
       object CheckBoxCCIndependiente: TCheckBox
         Left = 16
-        Top = 120
-        Width = 417
+        Top = 94
+        Width = 613
         Height = 17
         Anchors = [akLeft, akTop, akRight]
         Caption = 'C.Control como ventana independiente'
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
-        Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
         ParentFont = False
         TabOrder = 2
       end
+    end
+    object TabApariencia: TTabSheet
+      Caption = 'Apariencia'
+      ImageIndex = 6
+      DesignSize = (
+        642
+        281)
       object CheckBoxIncluirTreeView: TCheckBox
-        Left = 16
-        Top = 168
-        Width = 425
+        Left = 8
+        Top = 25
+        Width = 622
         Height = 17
         Anchors = [akLeft, akTop, akRight]
         Caption = 'Incluir TreeView en el visor de archivos'
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
-        Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
         ParentFont = False
+        TabOrder = 0
+      end
+      object CheckBoxTreeViewCC: TCheckBox
+        Left = 8
+        Top = 48
+        Width = 609
+        Height = 25
+        Caption = 'Incluir TreeView en el centro de control'
+        TabOrder = 1
+      end
+      object CheckBoxPanelInferior: TCheckBox
+        Left = 8
+        Top = 80
+        Width = 577
+        Height = 17
+        Anchors = [akLeft, akTop, akRight]
+        Caption = 'Mostrar panel inferior con informaci'#243'n adicional de los clientes'
+        TabOrder = 2
+      end
+      object CheckBoxCapturaInferior: TCheckBox
+        Left = 8
+        Top = 104
+        Width = 625
+        Height = 17
+        Hint = 
+          'Al marcar esta opci'#243'n se mostrar'#225' una '#13#10'captura de pantalla en e' +
+          'l panel de control.'
+        Anchors = [akLeft, akTop, akRight]
+        Caption = 
+          'Mostrar vistas previas de los escritorios en el panel inferior (' +
+          'Consume mas RAM)'
+        TabOrder = 3
+      end
+      object CheckBoxSplash: TCheckBox
+        Left = 8
+        Top = 128
+        Width = 625
+        Height = 17
+        Anchors = [akLeft, akTop, akRight]
+        Caption = 'Mostrar splash al inciar'
         TabOrder = 4
       end
     end
     object TabConexion: TTabSheet
       Caption = 'Conexi'#243'n'
       ImageIndex = 1
+      DesignSize = (
+        642
+        281)
       object LabelPuerto: TLabel
         Left = 0
         Top = 13
-        Width = 127
+        Width = 95
         Height = 13
+        Anchors = [akLeft, akTop, akRight]
         Caption = 'Puertos de escucha'
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clHighlight
+        Font.Color = clWindowText
         Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
         ParentFont = False
       end
       object EditPuerto: TEdit
         Left = 0
         Top = 32
-        Width = 225
+        Width = 639
         Height = 21
         Hint = 
           'Puedes a'#241'adir mas de un puerto de escucha separandolos con el ca' +
           'racter ;'
+        Anchors = [akLeft, akTop, akRight]
         BevelInner = bvNone
         BevelKind = bkFlat
         BevelOuter = bvRaised
         BorderStyle = bsNone
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        ParentFont = False
         TabOrder = 0
       end
       object GroupBoxConexion: TGroupBox
         Left = 0
-        Top = 60
-        Width = 441
-        Height = 101
+        Top = 67
+        Width = 638
+        Height = 100
+        Anchors = [akLeft, akTop, akRight]
         Caption = 'Conexi'#243'n'
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clActiveCaption
+        Font.Color = clWindowText
         Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
         ParentFont = False
         TabOrder = 1
         object Label1: TLabel
-          Left = 272
+          Left = 181
           Top = 24
-          Width = 7
+          Width = 5
           Height = 13
           Caption = 's'
           Font.Charset = DEFAULT_CHARSET
-          Font.Color = clHighlight
+          Font.Color = clWindowText
           Font.Height = -11
-          Font.Name = 'Verdana'
-          Font.Style = [fsBold]
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
           ParentFont = False
         end
         object CheckBoxEscucharAlIniciar: TCheckBox
@@ -2200,10 +2260,10 @@ object FormOpciones: TFormOpciones
           Caption = 'Escuchar al iniciar'
           Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
-          Font.Color = clHighlight
+          Font.Color = clWindowText
           Font.Height = -11
-          Font.Name = 'Verdana'
-          Font.Style = [fsBold]
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
           ParentColor = False
           ParentFont = False
           TabOrder = 0
@@ -2220,16 +2280,16 @@ object FormOpciones: TFormOpciones
           Caption = 'Mandar ping auto. cada'
           Color = clBtnFace
           Font.Charset = DEFAULT_CHARSET
-          Font.Color = clHighlight
+          Font.Color = clWindowText
           Font.Height = -11
-          Font.Name = 'Verdana'
-          Font.Style = [fsBold]
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
           ParentColor = False
           ParentFont = False
           TabOrder = 1
         end
         object EditPingTimerInterval: TEdit
-          Left = 240
+          Left = 149
           Top = 16
           Width = 25
           Height = 21
@@ -2251,10 +2311,10 @@ object FormOpciones: TFormOpciones
             'pero no se podr'#225'n mandar comandos'
           Caption = 'Cerrar centro de control al desconectar'
           Font.Charset = DEFAULT_CHARSET
-          Font.Color = clHighlight
+          Font.Color = clWindowText
           Font.Height = -11
-          Font.Name = 'Verdana'
-          Font.Style = [fsBold]
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
           ParentFont = False
           TabOrder = 3
         end
@@ -2263,19 +2323,23 @@ object FormOpciones: TFormOpciones
     object TabNotificaciones: TTabSheet
       Caption = 'Notificaciones'
       ImageIndex = 2
+      DesignSize = (
+        642
+        281)
       object CheckBoxNotificacionMsn: TCheckBox
         Left = 8
         Top = 32
-        Width = 425
+        Width = 621
         Height = 17
         Hint = 'Notificaci'#243'n estilo MSN cada vez que un servidor se conecte'
+        Anchors = [akLeft, akTop, akRight]
         Caption = 'Notificaci'#243'n MSN al conectar'
         Color = clBtnFace
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clHighlight
+        Font.Color = clWindowText
         Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
         ParentColor = False
         ParentFont = False
         TabOrder = 1
@@ -2283,167 +2347,185 @@ object FormOpciones: TFormOpciones
       object CheckBoxNotiMsnDesc: TCheckBox
         Left = 8
         Top = 56
-        Width = 433
+        Width = 630
         Height = 17
         Hint = 
           'Muestra un globo de notificaci'#243'n cuando un servidor se desconect' +
           'e'
+        Anchors = [akLeft, akTop, akRight]
         Caption = 'Globo de notificaci'#243'n al desconectar'
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clHighlight
+        Font.Color = clWindowText
         Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
         ParentFont = False
         TabOrder = 2
       end
       object CheckBoxGloboalPedirS: TCheckBox
         Left = 8
         Top = 8
-        Width = 425
+        Width = 621
         Height = 17
         Hint = 
           'Notificaci'#243'n estilo globo emergente cuando el server se conecte ' +
           'por primera vez'
+        Anchors = [akLeft, akTop, akRight]
         Caption = 'Globo de notificaci'#243'n al pedir servidor'
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
+        Font.Color = clWindowText
         Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
         ParentFont = False
         TabOrder = 0
       end
       object CheckBoxAlertaSonora: TCheckBox
         Left = 8
         Top = 80
-        Width = 433
+        Width = 630
         Height = 17
         Hint = 
           'Marcar para reproducir un sonido al conectar, el archivo de soni' +
           'do tiene que tener formato wav'
+        Anchors = [akLeft, akTop, akRight]
         Caption = 'Alerta sonora al conectar'
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clHighlight
+        Font.Color = clWindowText
         Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
         ParentFont = False
         TabOrder = 3
       end
       object EditRutaArchivoWav: TEdit
         Left = 32
         Top = 104
-        Width = 409
+        Width = 606
         Height = 21
         Hint = 'Ruta al archivo de sonido en formato wav'
+        Anchors = [akLeft, akTop, akRight]
         BevelInner = bvNone
         BevelKind = bkFlat
         BevelOuter = bvRaised
         BorderStyle = bsNone
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        ParentFont = False
         TabOrder = 4
       end
     end
     object TabDirectorios: TTabSheet
       Caption = 'Directorios'
       ImageIndex = 3
+      DesignSize = (
+        642
+        281)
       object LabeledEditDirUser: TLabeledEdit
         Left = 8
         Top = 24
-        Width = 433
+        Width = 630
         Height = 21
+        Anchors = [akLeft, akTop, akRight]
         BevelInner = bvNone
         BevelKind = bkFlat
         BevelOuter = bvRaised
         BorderStyle = bsNone
-        EditLabel.Width = 119
+        EditLabel.Width = 84
         EditLabel.Height = 13
         EditLabel.Caption = 'Directorio Usuario'
         EditLabel.Font.Charset = DEFAULT_CHARSET
-        EditLabel.Font.Color = clMenuHighlight
+        EditLabel.Font.Color = clWindowText
         EditLabel.Font.Height = -11
-        EditLabel.Font.Name = 'Verdana'
-        EditLabel.Font.Style = [fsBold]
+        EditLabel.Font.Name = 'MS Sans Serif'
+        EditLabel.Font.Style = []
         EditLabel.ParentFont = False
         TabOrder = 0
       end
       object LabeledDirScreen: TLabeledEdit
         Left = 8
         Top = 64
-        Width = 433
+        Width = 630
         Height = 21
+        Anchors = [akLeft, akTop, akRight]
         BevelInner = bvNone
         BevelKind = bkFlat
         BevelOuter = bvRaised
         BorderStyle = bsNone
-        EditLabel.Width = 147
+        EditLabel.Width = 105
         EditLabel.Height = 13
         EditLabel.Caption = 'Directorio de Capturas'
         EditLabel.Font.Charset = DEFAULT_CHARSET
-        EditLabel.Font.Color = clMenuHighlight
+        EditLabel.Font.Color = clWindowText
         EditLabel.Font.Height = -11
-        EditLabel.Font.Name = 'Verdana'
-        EditLabel.Font.Style = [fsBold]
+        EditLabel.Font.Name = 'MS Sans Serif'
+        EditLabel.Font.Style = []
         EditLabel.ParentFont = False
         TabOrder = 1
       end
       object LabeledDirWebcam: TLabeledEdit
         Left = 8
         Top = 104
-        Width = 433
+        Width = 630
         Height = 21
+        Anchors = [akLeft, akTop, akRight]
         BevelInner = bvNone
         BevelKind = bkFlat
         BevelOuter = bvRaised
         BorderStyle = bsNone
-        EditLabel.Width = 144
+        EditLabel.Width = 106
         EditLabel.Height = 13
         EditLabel.Caption = 'Directorio de Webcam'
         EditLabel.Font.Charset = DEFAULT_CHARSET
-        EditLabel.Font.Color = clMenuHighlight
+        EditLabel.Font.Color = clWindowText
         EditLabel.Font.Height = -11
-        EditLabel.Font.Name = 'Verdana'
-        EditLabel.Font.Style = [fsBold]
+        EditLabel.Font.Name = 'MS Sans Serif'
+        EditLabel.Font.Style = []
         EditLabel.ParentFont = False
         TabOrder = 2
       end
       object LabeledDirThumbs: TLabeledEdit
         Left = 8
         Top = 144
-        Width = 433
+        Width = 630
         Height = 21
+        Anchors = [akLeft, akTop, akRight]
         BevelInner = bvNone
         BevelKind = bkFlat
         BevelOuter = bvRaised
         BorderStyle = bsNone
-        EditLabel.Width = 157
+        EditLabel.Width = 111
         EditLabel.Height = 13
         EditLabel.Caption = 'Directorio de Miniaturas'
         EditLabel.Font.Charset = DEFAULT_CHARSET
-        EditLabel.Font.Color = clMenuHighlight
+        EditLabel.Font.Color = clWindowText
         EditLabel.Font.Height = -11
-        EditLabel.Font.Name = 'Verdana'
-        EditLabel.Font.Style = [fsBold]
+        EditLabel.Font.Name = 'MS Sans Serif'
+        EditLabel.Font.Style = []
         EditLabel.ParentFont = False
         TabOrder = 3
       end
       object LabeledDirDownloads: TLabeledEdit
         Left = 8
         Top = 184
-        Width = 433
+        Width = 630
         Height = 21
+        Anchors = [akLeft, akTop, akRight]
         BevelInner = bvNone
         BevelKind = bkFlat
         BevelOuter = bvRaised
         BorderStyle = bsNone
-        EditLabel.Width = 157
+        EditLabel.Width = 114
         EditLabel.Height = 13
         EditLabel.Caption = 'Directorio de Descargas'
         EditLabel.Font.Charset = DEFAULT_CHARSET
-        EditLabel.Font.Color = clMenuHighlight
+        EditLabel.Font.Color = clWindowText
         EditLabel.Font.Height = -11
-        EditLabel.Font.Name = 'Verdana'
-        EditLabel.Font.Style = [fsBold]
+        EditLabel.Font.Name = 'MS Sans Serif'
+        EditLabel.Font.Style = []
         EditLabel.ParentFont = False
         TabOrder = 4
       end
@@ -2452,11 +2534,11 @@ object FormOpciones: TFormOpciones
       Caption = 'Plugins'
       ImageIndex = 4
       DesignSize = (
-        445
-        208)
+        642
+        281)
       object SpeedButtonAniadirPlugin: TSpeedButton
         Left = 0
-        Top = 181
+        Top = 251
         Width = 97
         Height = 22
         Cursor = crHandPoint
@@ -2502,7 +2584,7 @@ object FormOpciones: TFormOpciones
       end
       object SpeedButton1: TSpeedButton
         Left = 104
-        Top = 182
+        Top = 252
         Width = 105
         Height = 22
         Cursor = crHandPoint
@@ -2549,8 +2631,8 @@ object FormOpciones: TFormOpciones
       object ListViewPlugins: TListView
         Left = 0
         Top = 2
-        Width = 440
-        Height = 148
+        Width = 637
+        Height = 219
         Anchors = [akLeft, akTop, akRight, akBottom]
         BevelInner = bvNone
         BevelOuter = bvRaised
@@ -2580,27 +2662,97 @@ object FormOpciones: TFormOpciones
       end
       object CheckBoxGuardarPluginsEnDisco: TCheckBox
         Left = 0
-        Top = 157
-        Width = 441
+        Top = 227
+        Width = 638
         Height = 17
         Hint = 'Recomendado para conexiones lentas'
         Anchors = [akLeft, akRight, akBottom]
         Caption = 'Escribir plugins al disco del usuario'
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
+        Font.Color = clWindowText
         Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
         ParentFont = False
         TabOrder = 1
+      end
+    end
+    object TabAyuda: TTabSheet
+      Caption = 'Ayuda'
+      ImageIndex = 5
+      DesignSize = (
+        642
+        281)
+      object GroupBoxAyuda: TGroupBox
+        Left = 8
+        Top = 8
+        Width = 630
+        Height = 77
+        Anchors = [akLeft, akTop, akRight]
+        Caption = 'Mostrar ventanas emergentes con ayuda'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+        object CheckBoxAyuda1: TCheckBox
+          Left = 8
+          Top = 18
+          Width = 493
+          Height = 16
+          Hint = 'Muestra u oculta esta ayuda en la ventana de opciones.'
+          Caption = 'En la ventana de opciones'
+          Color = clBtnFace
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -12
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentColor = False
+          ParentFont = False
+          TabOrder = 0
+          OnClick = CheckBoxPreguntarAlSalirClick
+        end
+        object CheckBoxAyuda2: TCheckBox
+          Left = 8
+          Top = 35
+          Width = 493
+          Height = 17
+          Hint = 'Muestra u oculta esta ayuda en la ventana del centro de control.'
+          Caption = 'En el Centro de control'
+          Color = clBtnFace
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -12
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentColor = False
+          ParentFont = False
+          TabOrder = 1
+          OnClick = CheckBoxCloseToTrayClick
+        end
+        object CheckBoxAyuda3: TCheckBox
+          Left = 8
+          Top = 52
+          Width = 487
+          Height = 20
+          Hint = 
+            'Muestra u oculta esta ayuda en la ventana de configuraci'#243'n del s' +
+            'ervidor.'
+          Caption = 'En la configuraci'#243'n del servidor'
+          TabOrder = 2
+        end
       end
     end
   end
   object EditEstado: TEdit
     Left = 8
-    Top = 246
-    Width = 353
+    Top = 316
+    Width = 546
     Height = 20
+    Anchors = [akLeft, akRight, akBottom]
     BevelInner = bvNone
     BevelKind = bkSoft
     BorderStyle = bsNone
@@ -2612,7 +2764,7 @@ object FormOpciones: TFormOpciones
     Left = 8
     Top = 240
     Bitmap = {
-      494C010105000900040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010107000900040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2753,122 +2905,122 @@ object FormOpciones: TFormOpciones
       0000000000000000000000000000000000000000000056AB5DFF52A759FF4FA4
       55FF4BA051FF489C4DF700000000000000003E9243FD3B8F40FD398C3DF4368A
       3AE6000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      0000F4ECE500D6BAA200B6845A00AC744500AB724300B27E5300D2B59C00F2EA
+      E300000000000000000000000000000000000000000000000000000000000000
+      000000000000000000009CBBD600286CA4004580B0007CA6C700D0DFEB000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000000000000000000000000000000000005AAF61FF86CD8EFF84CC
       8CFF83CA89FF4CA152FF0000000000000000429647FF7AC681FF76C37CFF398D
-      3DFF000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      3DFF00000000000000000000000000000000000000000000000000000000E7D5
+      C600BA895F00D7BBA300E9DACA00ECE0D100ECE0D100E8D8C800D3B59C00B07A
+      4D00E2CFBE000000000000000000000000000000000000000000000000000000
+      000000000000D7E4EF00286DA70087AEE1007FA9DC006093C9003173AC005D91
+      B900D5E3ED000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000000000000000000000000000000000005EB465FF88CF91FF56B9
       61FF85CD8DFF65B56CFF4CA152FF499E4FFF5DAD63FF7CC783FF7BC681FF3C90
-      41FF000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      41FF000000000000000000000000000000000000000000000000EAD9CB00BE8C
+      6200E7D5C400E5D2BF00C9A68500B88E6700B68A6500C5A18000E0CCBA00E3D0
+      BE00AF764800E3D0C00000000000000000000000000000000000000000000000
+      000000000000729FC8006E9ED1009ABDEB0072A1E30097BAEA0095B9EA006194
+      CA0019629B0090B3CF0000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000062B86AFF8BCF95FF8ACF
       92FF69C172FF86CD8EFF84CC8CFF83CB8AFF81CA88FF5DBB66FF7EC884FF4094
-      45FF000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      45FF0000000000000000000000000000000000000000F7F1EC00C99D7900EAD8
+      C900E3CDBA00C0946B00BA8C6200CFB09400CFB09400B7895F00B2876100DAC0
+      AA00E4D1C000B6835900F4ECE600000000000000000000000000000000000000
+      0000DCE7F2003476B2009EC0EC006A9DE2005C94DF005992DF006095E00096B9
+      EA0087AEE1004A84BC007AA5C500000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000065BC6EFF62B86AFF72C0
       7AFF8BCF93FF58BB64FF56BA61FF53B85FFF51B65BFF4FB559FF80CA87FF5CAC
-      62FF409445F93D9142FF3A8E3FFF000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      62FF409445F93D9142FF3A8E3FFF0000000000000000E6CFBC00E4CCB900EAD6
+      C500C7997100BF906600BF906600F7F1EC00F6F0EA00B7895F00B7895F00B589
+      6300E2CEBB00D9BDA600D9BEA7000000000000000000CFDFEF009DBDDD0075A2
+      CD004480BB0077A5D700A2C3ED00A0C1ED009EC0ED0075A4E4005B93DF005991
+      DE007CA8E60093B7E8004480B800ACC7DB000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000000000000000000000000000000000000000000063B9
       6BFF8DD196FF5DBC69FF5ABB66FF58BA63FF55B960FF52B75DFF62BD6BFF81CA
-      88FF7EC885FF7EC884FF3E9242FF000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      88FF7EC885FF7EC884FF3E9242FF0000000000000000D9B39500EFE1D300D9B5
+      9500C7986C00C3956900C1936700BF906600BF906600BB8B6300B98A6300B88A
+      6200CBA78600EADCCC00C2956F00000000009ABADF006598CF007CA9D9008EB5
+      E200A4C5ED00A8C7EE006598CD003576B3006094C900A0C1ED007997A4009F97
+      49007D9592008EB4E9007AA6D8003C7AAC000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000000000000000000000000000000000000000000066BD
       6FFF90D299FF60BF6DFF5EBD6AFF5BBC68FF59BB64FF56BA61FF65BF6FFF83CC
-      8BFF82CA89FF80CA88FF419646FF000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      8BFF82CA89FF80CA88FF419646FF0000000000000000DAB39300F2E4D900D1A5
+      7A00C5996B00C4976A00C4966900FAF6F200F3EAE100C2956D00BE8F6500BE8F
+      6400C0956D00EFE3D500C190670000000000598FCD00AFCDF000B1CFF00099C0
+      EC007FAFE700ABCAEF003E7CB900000000003677B400A3C4ED00A9983200C5B6
+      5B00AD9827005C94DF0099BCEB001D65A0000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000070C77AFF6DC477FF7CC9
       85FF93D49CFF65C172FF62C06FFF5FBE6CFF5DBD69FF5ABB66FF88CF90FF66B5
-      6DFF4CA152FF489D4EFF45994AFF000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      6DFF4CA152FF489D4EFF45994AFF0000000000000000E1BB9D00F2E5DA00D1A6
+      7E00CC9D7100C79A6C00C5986B00E2CCB600F8F3EE00F6EEE800D9BDA100C294
+      6800C59B7100F0E2D600C7997100000000006E9DD400A9C9ED0085A8ED00596B
+      ED006B8FE900AECDF0006E9ED2003F7DBA00689ACE00A6C6EE00969B6A00AE98
+      27009E984E00679CE20099BCEA002A6DA6000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000073CB7DFF99D8A3FF97D7
       A1FF79CB87FF69C377FF65C273FF64C171FF67C273FF66C071FF8BCF94FF53A9
-      5AFF000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      5AFF0000000000000000000000000000000000000000EACAB000F3E5D900DFBB
+      9E00CFA07500CD9E7200F5EBE300E4CBB400E7D3BF00FBF8F600E5D3BF00C498
+      6B00D6B49100EEE0D200D3AC8B00000000009BBCE30093BAE5006F75F6008285
+      F5004141F00091BCEB00AFCDF000ADCCF000ABCAF00086B3E9005FAAC20045B4
+      8E0057A9B70071A2E40098BBE8003575AD000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000076CE80FF9BD9A6FF99D8
       A4FF98D7A2FF96D7A1FF95D59EFF93D49CFF8FD198FF8CD095FF8ACF94FF57AD
-      5EFF000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      5EFF0000000000000000000000000000000000000000F5E4D600F4E3D400EFDC
+      CD00D5A87E00D0A07700FBF8F500FCF8F500FCF8F500FBF8F500D1A88100CFA4
+      7B00EAD5C300EAD4C200E9D4C20000000000DFEAF7005F93D30093A5F5005A5B
+      F6005287F4003CA7FB005DACF2007FB0E7007CAEE70079ABE60040B7810061C8
+      98003CB87B007EADE70090B6E3004E87B9000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000079D083FF76CE81FF74CB
       7EFF71C97BFF6FC678FE97D7A1FF93D59DFF65BC6EF062B86AED5FB567EF5BB1
-      63EF000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      63EF0000000000000000000000000000000000000000FDF9F500F1D3BB00F6E9
+      DD00ECD8C600D7AC8100DCBB9A00F6ECE300F5ECE200E4C8AE00D2A77B00E6CE
+      BA00F1E2D500DFBB9C00FAF4F0000000000000000000ABC6E90087B0E100BAD7
+      F30033A7FE006DC0FF002CA4FF0067BFF0003BCEFB005BBFF10053B4A1003CB8
+      7A0048B49100A8C8EE0078A6D60080A9CE000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000072C97CF497D8A2FF8DD297FF69C072BE00000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000FBF1E900F3D4
+      BB00F7EADF00EEDED000E3C1A700D8AE8900D7AC8600DDBB9C00EBD6C700F3E6
+      D900E4C1A300F5E9DF00000000000000000000000000FBFDFE009DBDE50086AF
+      E1005BB3F9002CA4FF0041AAFB0031D3FE006DE2FF002CD5FF0080B1E8007DAE
+      E700AACAEF00A6C6ED003A7AB700D9E5F1000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       000077CF821278CD82FF9CD9A7FF98D8A2FF6DC476EC00000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000000000000000000000000000FCF2
+      EA00F6DAC300F9E9DC00F6E8DD00F3E5DA00F3E5DA00F5E7DC00F5E4D600EDCD
+      B400F8ECE300000000000000000000000000000000000000000000000000B7CF
+      ED006698D6008FB7E300BAD7F3005ED5FB002BD5FF0042D1FB00B4D2F200B2D0
+      F10093B9E2006396CC0097B8D900000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000078CF82D475CD80FF73CA7DFE70C77AB400000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      0000FEFAF700FCEDE100F8DEC900F6D9C100F5D7BF00F5D9C300F8E8DC00FDF8
+      F500000000000000000000000000000000000000000000000000000000000000
+      0000EDF3FA0093B6E20077A4DC0092B9E400A9CAEC00A6C7EC008EB6E200699B
+      D2006495CB00C6D9EC0000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000D6E4F400A5C2E70079A4D90078A4D80099BBE000D0DF
+      F100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000000000006D6D6D63585858BF515151BF52525263000000000000
@@ -3004,11 +3156,11 @@ object FormOpciones: TFormOpciones
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      00000000000000000000000000000000FFFF000000000000830F000000000000
-      830F000000000000800F000000000000800F0000000000008001000000000000
-      E001000000000000E0010000000000008001000000000000800F000000000000
-      800F000000000000800F000000000000F87F000000000000F07F000000000000
-      F87F000000000000FFFF000000000000FC3F0FFFFFFFFFFFE00707FFFFFFFFFF
+      00000000000000000000000000000000FFFFFFFFFFFF0000830FF00FFC1F0000
+      830FE007F8070000800FC003F8030000800F8001F00100008001800180000000
+      E001800100000000E0018001010000008001800100000000800F800100000000
+      800F800100000000800F800180000000F87FC00380000000F07FE007E0010000
+      F87FF00FF0030000FFFFFFFFFC0F0000FC3F0FFFFFFFFFFFE00707FFFFFFFFFF
       C003003FFFFF80018001001FF8FF80018001801FFC3F8001C003C00FFE0F8001
       0000C003C00380010180C001C00180010180C001800180010000C00180018001
       C003E001800180018001F801800180018001FC00C0018001C003FC00C003FFFF
@@ -3017,7 +3169,7 @@ object FormOpciones: TFormOpciones
   end
   object OpenDialog: TOpenDialog
     Filter = 'CoolPlugin|*c.dll'
-    Left = 44
-    Top = 108
+    Left = 52
+    Top = 76
   end
 end

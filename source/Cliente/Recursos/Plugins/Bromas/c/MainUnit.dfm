@@ -1,8 +1,8 @@
 object FormMain: TFormMain
-  Left = 311
-  Top = 253
-  Width = 421
-  Height = 321
+  Left = 376
+  Top = 407
+  Width = 254
+  Height = 244
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -1946,15 +1946,15 @@ object FormMain: TFormMain
   OldCreateOrder = False
   Position = poScreenCenter
   DesignSize = (
-    413
-    294)
+    238
+    206)
   PixelsPerInch = 96
   TextHeight = 13
   object BtnEnviarBromas: TSpeedButton
-    Left = 348
-    Top = 270
+    Left = 164
+    Top = 177
     Width = 63
-    Height = 22
+    Height = 21
     Cursor = crHandPoint
     Anchors = [akRight, akBottom]
     Caption = 'Enviar'
@@ -1997,10 +1997,11 @@ object FormMain: TFormMain
     OnClick = BtnEnviarBromasClick
   end
   object ListViewBromas: TListView
-    Left = 3
-    Top = 3
-    Width = 411
-    Height = 264
+    Left = 0
+    Top = 0
+    Width = 238
+    Height = 169
+    Align = alTop
     Anchors = [akLeft, akTop, akRight, akBottom]
     BevelInner = bvNone
     BevelOuter = bvRaised

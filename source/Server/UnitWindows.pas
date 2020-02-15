@@ -19,50 +19,52 @@ procedure MinimizarTodas();
 procedure BotonCerrar(YesNo: Boolean; Handle: HWND);
 function AppActivateHandle(WindowHandle: HWND): Boolean;
 function GetActiveWindowCaption(): string; //Devuelve el título de la ventana activa
+function EnumWindowProc(Hwnd: HWND; i: Integer): Bool;export;  stdcall;
 implementation
 
 var
   Cadena: string;
   MO: Boolean; //MostrarOcultas
+      Titulo: string;
 
-function GetWins(MostrarOcultas: Boolean): string;
 
-  function EnumWindowProc(Hwnd: HWND; i: Integer): Boolean; stdcall;
+function EnumWindowProc(Hwnd: HWND; i: Integer): Bool; export; stdcall;
   var
-    Titulo: string;
     Estado: string;
-    Status: TWindowPlacement;
   begin
-    if (Hwnd = 0) then
+    if (Hwnd > 0) then
       begin
-        Result := False;
-      end
-    else
-      begin
-        SetLength(Titulo, 255);
-        SetLength(Titulo, GetWindowText(Hwnd, PChar(Titulo), Length(Titulo)));
-        Status.Length := SizeOf(Status);
-        GetWindowPlacement(Hwnd, @Status);
 
-        if GetForegroundWindow() = hwnd then
-          estado := '4'
-        else if (not IsWindowVisible(Hwnd)) then
-          estado := '0'
-        else if Status.showCmd = SW_SHOWMAXIMIZED then
-          estado := '1'
-        else if Status.showCmd = SW_SHOWNORMAL then
-          estado := '2'
-        else if Status.showCmd = SW_SHOWMINIMIZED then
-          estado := '3';
+        if (MO or IsWindowVisible(Hwnd)) then
+        begin
+         SetLength(Titulo, 255);
+         SetLength(Titulo, GetWindowText(Hwnd, Pchar(Titulo), Length(Titulo)));
 
-        if ((IsWindowVisible(Hwnd) or MO) and (Titulo <> '')) then
-          begin
-            Cadena := Cadena + StringReplace(Titulo, '|', '-', [rfReplaceAll]) + '|' + IntToStr(Hwnd) + '|' + Estado + '|';
-          end;
-        Result := True;
+          if (not IsWindowVisible(Hwnd)) then
+            estado := '0'
+          else
+            estado := '2';
+
+          if IsZoomed(Hwnd) then
+            estado := '1';
+
+          if IsIconic(Hwnd) then
+            estado := '3';
+
+          if GetForegroundWindow() = hwnd then
+            estado := '4';
+            
+          if (Length(Titulo) > 0) then
+            begin
+              Cadena := Cadena + StringReplace(Titulo, '|', '-', [rfReplaceAll])+'|' + IntToStr(Hwnd) + '|' + Estado + '|';
+            end;
+        end;
       end;
+      Result := True;
   end;
 
+  
+function GetWins(MostrarOcultas: Boolean): string;
 begin
   Cadena := '';
   MO := MostrarOcultas;
