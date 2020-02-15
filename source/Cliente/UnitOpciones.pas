@@ -77,16 +77,6 @@ begin
   else
     FormMain.OnCloseQuery := nil;
 
-  if CheckBoxNotificacionMsn.Checked then
-    NotificacionMsn := True
-  else
-    NotificacionMsn := False;
-
-  if CheckBoxNotiMsnDesc.Checked then
-    NotiMsnServerDesc := True
-  else
-    NotiMsnServerDesc := False;
-
   if CheckBoxMinimizeToTray.Checked then
     Application.OnMinimize := FormMain.MinimizeToTrayClick
   else
@@ -152,6 +142,7 @@ var
   Item : TListItem;
   NuevaPath : string;
   mitem : Tmenuitem;
+  i : integer;
   procedure Creadir(dir: string);
   var
     tmp: string;
@@ -165,6 +156,9 @@ var
       end;
   end;
 begin
+
+
+
   if path = '' then exit;
   try
     H := Loadlibrary(PChar(Path));
@@ -174,6 +168,10 @@ begin
 
   if H = 0 then exit;    //Error al cargar la dll
   Plugin := TPlugin.Create(H);
+
+  for i:= 0 to ListViewPlugins.Items.Count-1 do
+    if ListViewPlugins.Items[i].caption = Plugin.PluginName then
+      exit;  //Ya está cargado el plugin con ese nombre
 
   if (Plugin.Autor = '') and (Plugin.PluginName = '') then exit; //No es un plugin
   Nuevapath := extractfilepath(paramstr(0))+'Recursos\Plugins\'+Plugin.PluginName+'\';
@@ -195,11 +193,16 @@ begin
   mitem.OnClick := Formmain.PluginClick;
   mitem.Hint := item.Caption;
   mitem.ImageIndex := 260;
+  item.Data := mitem;
   Formmain.Plugins.Add(mitem);
 end;
 procedure TFormOpciones.SpeedButton1Click(Sender: TObject);
+var
+  index : integer;
 begin
   if ListViewPlugins.Selected = nil then exit;
+  index := TMenuItem(ListViewPlugins.Selected.data).MenuIndex;
+  Formmain.Plugins.Delete(index);
   ListViewPlugins.Selected.Delete;
 end;
 

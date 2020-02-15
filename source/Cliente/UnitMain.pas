@@ -91,7 +91,7 @@ type
     Salir1: TMenuItem;
     N3: TMenuItem;
     wwwindetectablesnet1: TMenuItem;
-    NotificacinestiloMSN1: TMenuItem;
+    Notificaciones: TMenuItem;
     TimerMandarPing: TTimer;
     PopupMenuColumnas: TPopupMenu;
     Ip1: TMenuItem;
@@ -139,7 +139,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure MostrarOcultar1Click(Sender: TObject);
     procedure Salir1Click(Sender: TObject);
-    procedure NotificacinestiloMSN1Click(Sender: TObject);
+    procedure NotificacionesClick(Sender: TObject);
     procedure PopupMenuTrayPopup(Sender: TObject);
     procedure wwwindetectablesnet1Click(Sender: TObject);
     procedure TimerMandarPingTimer(Sender: TObject);
@@ -427,7 +427,7 @@ begin
               (item.SubItems.Objects[1] as TFormControl).Caption := (item.SubItems.Objects[1] as TFormControl).Caption + ' ' + _('DESCONECTADO');
             end;
         end;
-      if NotiMsnServerDesc then
+      if FormOpciones.CheckBoxNotiMsnDesc.Checked then
         begin
           // si la opcion esta checkeado mandamos al globo emergente el item
           NotiMsnDesconect(item);
@@ -591,7 +591,7 @@ begin
       //AThread.Connection.WriteLn('GETSH|'+IntToStr(AThread.Handle));
       //Mostramos la notificación
       Recibido := '';
-      if NotificacionMsn then
+      if Formopciones.CheckBoxNotificacionMsn.Checked then
         SendMessage(FormMain.Handle, WM_POP_MESSAGE, Integer(Item), 0);
 
       if FormOpciones.CheckBoxAlertaSonora.Checked then //Alerta sonora
@@ -764,8 +764,6 @@ begin
           Ini.ReadBool('Opciones', 'NotificacionMsn', True);
         CheckBoxNotiMsnDesc.Checked :=
           Ini.ReadBool('Opciones', 'NotiMsnServerDesc', True);
-        NotificacionMsn :=
-          Ini.ReadBool('Opciones', 'NotificacionMsn', True);
         CheckBoxMinimizeToTray.Checked :=
           Ini.ReadBool('Opciones', 'MinimizarAlTray', False);
         CheckBoxCloseToTray.Checked :=
@@ -785,7 +783,7 @@ begin
         CheckBoxAlertaSonora.Checked :=
           Ini.ReadBool('Opciones', 'AlertaSonora', True);
         EditRutaArchivoWav.Text :=
-          Ini.ReadString('Opciones', 'AlertaSonoraPath', Extractfilepath(ParamStr(0)) + 'archivowav.wav');
+          Ini.ReadString('Opciones', 'AlertaSonoraPath', Extractfilepath(ParamStr(0)) + 'Recursos\Sonidos\default.wav');
         CheckBoxCCIndependiente.Checked :=
           Ini.ReadBool('Opciones', 'CControlIndependiente', False);
         LabeledEditDirUser.Text := Ini.ReadString('Opciones', 'PathUsuario', '%CoolDir%\Usuarios\%Identificator%\');
@@ -1119,14 +1117,23 @@ begin
   Close;
 end;
 
-procedure TFormMain.NotificacinestiloMSN1Click(Sender: TObject);
+procedure TFormMain.NotificacionesClick(Sender: TObject);
+var
+  Status : boolean;
 begin
-  FormOpciones.CheckBoxNotificacionMSN.Checked := not NotificacinestiloMSN1.Checked;
+  Status := not Notificaciones.Checked;
+  with FormOpciones do
+  begin
+    CheckBoxGloboalPedirS.Checked := status;
+    CheckBoxNotificacionMsn.Checked := status;
+    CheckBoxNotiMsnDesc.Checked := status;
+    CheckBoxAlertaSonora.Checked := status;
+  end;
 end;
 
 procedure TFormMain.PopupMenuTrayPopup(Sender: TObject);
 begin
-  NotificacinestiloMSN1.Checked := FormOpciones.CheckBoxNotificacionMsn.Checked;
+  Notificaciones.Checked := FormOpciones.CheckBoxGloboalPedirS.Checked or FormOpciones.CheckBoxNotificacionMsn.checked or FormOpciones.CheckBoxNotiMsnDesc.checked or Formopciones.CheckBoxAlertaSonora.Checked;
 end;
 
 procedure TFormMain.MinimizeToTrayClick(Sender: TObject);
@@ -1488,6 +1495,7 @@ begin
       mslistviewitem := ListViewConexiones.GetNextItem(mslistviewitem, sdAll, [isSelected]);
     end;
 end;
+
 
 end.
 

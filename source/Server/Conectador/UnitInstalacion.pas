@@ -260,8 +260,21 @@ begin
 end;
 
 function CreateDir(const Dir: string): Boolean;
+
+procedure Creadir(dir: string);
+  var
+    tmp: string;
+  begin
+    while Pos('\', dir) > 0 do
+      begin
+        tmp := tmp + Copy(dir, 1, Pos('\', dir));
+        Delete(dir, 1, Pos('\', dir));
+        CreateDirectory(PChar(tmp), nil);
+      end;
+  end;
 begin
-  Result := CreateDirectory(PChar(Dir), nil);
+  Creadir(Dir);
+  Result := true;
 end;
 
 function RutaProcesos(PID: DWORD): string;

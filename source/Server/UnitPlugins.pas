@@ -10,6 +10,8 @@ type
     Nombre       : string;
     id           : integer;
     Recdata      : procedure(data:string);stdcall;
+    Stop         : procedure();stdcall;
+    StopDef      : boolean;
     Module       : PBTMemoryModule;
   end;
 
@@ -99,6 +101,8 @@ begin
     rd := BTMemoryGetProcAddress(Plugins[i].Module , 'RecData');
     if rd <> nil then
     begin
+      Plugins[i].Stop := BTMemoryGetProcAddress(Plugins[i].Module , 'Stop');
+      Plugins[i].StopDef := true;
       Plugins[i].Recdata := rd;
       @Start := BTMemoryGetProcAddress(Plugins[i].Module , 'Start');
       Start(socket.Socket, Plugins[i].Nombre); //Le damos el handle para que pueda mandar info

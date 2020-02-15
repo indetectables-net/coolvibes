@@ -1,6 +1,6 @@
 object FormControl: TFormControl
-  Left = 216
-  Top = 150
+  Left = 255
+  Top = 92
   Width = 591
   Height = 512
   Anchors = [akLeft, akTop, akRight, akBottom]
@@ -92,7 +92,7 @@ object FormControl: TFormControl
             409)
           object BtnEnviarComandoServidor: TSpeedButton
             Left = 215
-            Top = 365
+            Top = 357
             Width = 72
             Height = 22
             Cursor = crHandPoint
@@ -144,7 +144,7 @@ object FormControl: TFormControl
           end
           object BtnActualizarServidorInfo: TSpeedButton
             Left = 485
-            Top = 365
+            Top = 357
             Width = 72
             Height = 22
             Cursor = crHandPoint
@@ -184,7 +184,7 @@ object FormControl: TFormControl
             Left = 8
             Top = 8
             Width = 548
-            Height = 349
+            Height = 341
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -232,7 +232,7 @@ object FormControl: TFormControl
           end
           object ComboBoxGestionDeServidor: TComboBox
             Left = 8
-            Top = 366
+            Top = 358
             Width = 203
             Height = 21
             BevelInner = bvNone
@@ -257,7 +257,7 @@ object FormControl: TFormControl
             409)
           object BtnRefrescarInformacion: TSpeedButton
             Left = 485
-            Top = 365
+            Top = 357
             Width = 72
             Height = 22
             Cursor = crHandPoint
@@ -305,7 +305,7 @@ object FormControl: TFormControl
             Left = 8
             Top = 8
             Width = 548
-            Height = 349
+            Height = 341
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -353,7 +353,7 @@ object FormControl: TFormControl
         Top = 0
         Width = 575
         Height = 436
-        ActivePage = TabSheetTransferencias
+        ActivePage = TabSheetVerArchivos
         Align = alClient
         Images = IconsArchivos
         MultiLine = True
@@ -467,7 +467,7 @@ object FormControl: TFormControl
           end
           object LabelNumeroDeCarpetas: TLabel
             Left = 8
-            Top = 370
+            Top = 362
             Width = 45
             Height = 13
             Anchors = [akLeft, akBottom]
@@ -475,7 +475,7 @@ object FormControl: TFormControl
           end
           object LabelNumeroDeArchivos: TLabel
             Left = 111
-            Top = 370
+            Top = 362
             Width = 44
             Height = 13
             Anchors = [akLeft, akBottom]
@@ -483,7 +483,7 @@ object FormControl: TFormControl
           end
           object SpeedButtonRutasRapidas: TSpeedButton
             Left = 457
-            Top = 362
+            Top = 354
             Width = 105
             Height = 21
             Cursor = crHandPoint
@@ -521,7 +521,7 @@ object FormControl: TFormControl
           end
           object SpeedButton2: TSpeedButton
             Left = 351
-            Top = 362
+            Top = 354
             Width = 97
             Height = 21
             Anchors = [akRight, akBottom]
@@ -602,7 +602,7 @@ object FormControl: TFormControl
             Left = 0
             Top = 64
             Width = 564
-            Height = 293
+            Height = 285
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -670,7 +670,7 @@ object FormControl: TFormControl
             Left = 5
             Top = 24
             Width = 557
-            Height = 357
+            Height = 349
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -736,7 +736,7 @@ object FormControl: TFormControl
           end
           object LabelNumeroEncontrados: TLabel
             Left = 8
-            Top = 373
+            Top = 365
             Width = 66
             Height = 13
             Anchors = [akLeft, akBottom]
@@ -744,7 +744,7 @@ object FormControl: TFormControl
           end
           object SpeedButton1: TSpeedButton
             Left = 479
-            Top = 371
+            Top = 363
             Width = 81
             Height = 22
             Cursor = crHandPoint
@@ -757,7 +757,7 @@ object FormControl: TFormControl
             Left = 0
             Top = 32
             Width = 564
-            Height = 333
+            Height = 325
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -839,7 +839,7 @@ object FormControl: TFormControl
             409)
           object BtnRefrescarProcesos: TSpeedButton
             Left = 487
-            Top = 363
+            Top = 355
             Width = 72
             Height = 22
             Cursor = crHandPoint
@@ -879,7 +879,7 @@ object FormControl: TFormControl
             Left = 4
             Top = 4
             Width = 559
-            Height = 353
+            Height = 345
             Align = alCustom
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
@@ -922,7 +922,7 @@ object FormControl: TFormControl
             409)
           object BtnRefrescarVentanas: TSpeedButton
             Left = 487
-            Top = 363
+            Top = 355
             Width = 72
             Height = 22
             Cursor = crHandPoint
@@ -962,7 +962,7 @@ object FormControl: TFormControl
             Left = 4
             Top = 12
             Width = 553
-            Height = 345
+            Height = 337
             Align = alCustom
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
@@ -998,7 +998,7 @@ object FormControl: TFormControl
           end
           object CheckBoxMostrarVentanasOcultas: TCheckBox
             Left = 7
-            Top = 368
+            Top = 360
             Width = 467
             Height = 17
             Anchors = [akLeft, akRight, akBottom]
@@ -1021,7 +1021,7 @@ object FormControl: TFormControl
             409)
           object BtnVerRegisto: TSpeedButton
             Left = 487
-            Top = 364
+            Top = 356
             Width = 72
             Height = 21
             Cursor = crHandPoint
@@ -1078,7 +1078,7 @@ object FormControl: TFormControl
             Left = 4
             Top = 4
             Width = 553
-            Height = 353
+            Height = 345
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelOuter = bvNone
             Caption = 'PanelRegistro'
@@ -1086,13 +1086,13 @@ object FormControl: TFormControl
             object SplitterRegistro: TSplitter
               Left = 185
               Top = 0
-              Height = 353
+              Height = 345
             end
             object TreeViewRegedit: TTreeView
               Left = 0
               Top = 0
               Width = 185
-              Height = 353
+              Height = 345
               Align = alLeft
               BevelInner = bvNone
               BevelOuter = bvRaised
@@ -1124,7 +1124,7 @@ object FormControl: TFormControl
               Left = 188
               Top = 0
               Width = 365
-              Height = 353
+              Height = 345
               Align = alClient
               BevelInner = bvNone
               BevelOuter = bvRaised
@@ -1158,7 +1158,7 @@ object FormControl: TFormControl
           end
           object EditPathRegistro: TEdit
             Left = 8
-            Top = 364
+            Top = 356
             Width = 471
             Height = 21
             Anchors = [akLeft, akRight, akBottom]
@@ -1180,7 +1180,7 @@ object FormControl: TFormControl
             409)
           object btnInstServicios2: TSpeedButton
             Left = 330
-            Top = 366
+            Top = 358
             Width = 65
             Height = 19
             Anchors = [akRight, akBottom]
@@ -1191,7 +1191,7 @@ object FormControl: TFormControl
           end
           object BtnCancelarInstalarServicio: TSpeedButton
             Left = 398
-            Top = 366
+            Top = 358
             Width = 65
             Height = 19
             Anchors = [akRight, akBottom]
@@ -1202,7 +1202,7 @@ object FormControl: TFormControl
           end
           object BtnServicios: TSpeedButton
             Left = 487
-            Top = 363
+            Top = 355
             Width = 72
             Height = 22
             Anchors = [akRight, akBottom]
@@ -1239,7 +1239,7 @@ object FormControl: TFormControl
           end
           object btnInstServicios: TSpeedButton
             Left = 330
-            Top = 366
+            Top = 358
             Width = 65
             Height = 19
             Anchors = [akRight, akBottom]
@@ -1250,7 +1250,7 @@ object FormControl: TFormControl
           end
           object btnSiguienteInstalarServicio: TSpeedButton
             Left = 330
-            Top = 366
+            Top = 358
             Width = 65
             Height = 19
             Anchors = [akRight, akBottom]
@@ -1263,7 +1263,7 @@ object FormControl: TFormControl
             Left = 4
             Top = 4
             Width = 557
-            Height = 353
+            Height = 345
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -1296,7 +1296,7 @@ object FormControl: TFormControl
           end
           object MultiEditInstalarServicio: TEdit
             Left = 4
-            Top = 366
+            Top = 358
             Width = 315
             Height = 19
             Anchors = [akLeft, akRight, akBottom]
@@ -1316,7 +1316,7 @@ object FormControl: TFormControl
             409)
           object BtnCambiarFuenteShell: TSpeedButton
             Left = 5
-            Top = 364
+            Top = 356
             Width = 114
             Height = 21
             Cursor = crHandPoint
@@ -1354,7 +1354,7 @@ object FormControl: TFormControl
           end
           object BtnCambiarColorShell: TSpeedButton
             Left = 126
-            Top = 364
+            Top = 356
             Width = 106
             Height = 21
             Cursor = crHandPoint
@@ -1394,7 +1394,7 @@ object FormControl: TFormControl
             Left = 4
             Top = 4
             Width = 558
-            Height = 329
+            Height = 321
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelKind = bkFlat
@@ -1414,7 +1414,7 @@ object FormControl: TFormControl
           end
           object ComboBoxShellCommand: TComboBox
             Left = 1
-            Top = 338
+            Top = 330
             Width = 558
             Height = 19
             BevelInner = bvNone
@@ -1443,7 +1443,7 @@ object FormControl: TFormControl
             409)
           object BtnRefrescarPuertos: TSpeedButton
             Left = 478
-            Top = 371
+            Top = 363
             Width = 81
             Height = 22
             Anchors = [akRight, akBottom]
@@ -1482,7 +1482,7 @@ object FormControl: TFormControl
             Left = 5
             Top = 8
             Width = 554
-            Height = 357
+            Height = 349
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -1529,7 +1529,7 @@ object FormControl: TFormControl
           end
           object CheckBoxPuertos: TCheckBox
             Left = 249
-            Top = 371
+            Top = 363
             Width = 225
             Height = 17
             Anchors = [akRight, akBottom]
@@ -1568,7 +1568,7 @@ object FormControl: TFormControl
             409)
           object LabelTamano: TLabel
             Left = 0
-            Top = 298
+            Top = 290
             Width = 24
             Height = 13
             Anchors = [akLeft, akBottom]
@@ -1583,7 +1583,7 @@ object FormControl: TFormControl
           end
           object LabelCalidadCapScreen: TLabel
             Left = 27
-            Top = 320
+            Top = 312
             Width = 79
             Height = 13
             Anchors = [akLeft, akBottom]
@@ -1597,7 +1597,7 @@ object FormControl: TFormControl
           end
           object BtnCapturarScreen: TSpeedButton
             Left = 25
-            Top = 339
+            Top = 331
             Width = 80
             Height = 22
             Cursor = crHandPoint
@@ -1644,7 +1644,7 @@ object FormControl: TFormControl
           end
           object btnGuardarImagen: TSpeedButton
             Left = 371
-            Top = 339
+            Top = 331
             Width = 74
             Height = 22
             Cursor = crHandPoint
@@ -1690,7 +1690,7 @@ object FormControl: TFormControl
           end
           object BtnVerGrandeCap: TSpeedButton
             Left = 451
-            Top = 340
+            Top = 332
             Width = 112
             Height = 22
             Cursor = crHandPoint
@@ -1728,7 +1728,7 @@ object FormControl: TFormControl
           end
           object LabelPosicionCompresJpg: TLabel
             Left = 529
-            Top = 318
+            Top = 310
             Width = 30
             Height = 13
             Anchors = [akRight, akBottom]
@@ -1744,7 +1744,7 @@ object FormControl: TFormControl
             Left = 25
             Top = 5
             Width = 538
-            Height = 304
+            Height = 296
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -1755,7 +1755,7 @@ object FormControl: TFormControl
               Left = 0
               Top = 0
               Width = 300
-              Height = 304
+              Height = 294
               Align = alLeft
               IncrementalDisplay = True
               OnMouseDown = EnviarClickM
@@ -1765,7 +1765,7 @@ object FormControl: TFormControl
             Left = 2
             Top = 8
             Width = 15
-            Height = 285
+            Height = 277
             Anchors = [akLeft, akTop, akBottom]
             Orientation = pbVertical
             Smooth = True
@@ -1773,7 +1773,7 @@ object FormControl: TFormControl
           end
           object TrackBarCalidad: TTrackBar
             Left = 112
-            Top = 318
+            Top = 310
             Width = 415
             Height = 16
             Cursor = crHandPoint
@@ -1786,7 +1786,7 @@ object FormControl: TFormControl
           end
           object CheckBoxAutoCapturaScreen: TCheckBox
             Left = 26
-            Top = 368
+            Top = 360
             Width = 98
             Height = 17
             Anchors = [akLeft, akBottom]
@@ -1802,7 +1802,7 @@ object FormControl: TFormControl
           end
           object SpinCaptureScreen: TSpinEdit
             Left = 124
-            Top = 363
+            Top = 355
             Width = 45
             Height = 22
             Anchors = [akLeft, akBottom]
@@ -1820,7 +1820,7 @@ object FormControl: TFormControl
           end
           object CheckBoxMouseClicks: TCheckBox
             Left = 443
-            Top = 368
+            Top = 360
             Width = 122
             Height = 17
             Anchors = [akRight, akBottom]
@@ -1835,7 +1835,7 @@ object FormControl: TFormControl
           end
           object CheckBoxTamanioReal: TCheckBox
             Left = 322
-            Top = 368
+            Top = 360
             Width = 114
             Height = 17
             Anchors = [akRight, akBottom]
@@ -1859,7 +1859,7 @@ object FormControl: TFormControl
             409)
           object LabelCalidadWebcam: TLabel
             Left = 24
-            Top = 341
+            Top = 333
             Width = 124
             Height = 13
             Anchors = [akLeft, akBottom]
@@ -1873,7 +1873,7 @@ object FormControl: TFormControl
           end
           object BtnCapturarWebcam: TSpeedButton
             Left = 174
-            Top = 364
+            Top = 356
             Width = 80
             Height = 21
             Cursor = crHandPoint
@@ -1911,7 +1911,7 @@ object FormControl: TFormControl
           end
           object BtnGuardarWebcam: TSpeedButton
             Left = 261
-            Top = 364
+            Top = 356
             Width = 80
             Height = 21
             Cursor = crHandPoint
@@ -1949,7 +1949,7 @@ object FormControl: TFormControl
           end
           object BtnObtenerWebcams: TSpeedButton
             Left = 439
-            Top = 311
+            Top = 303
             Width = 120
             Height = 22
             Cursor = crHandPoint
@@ -1987,7 +1987,7 @@ object FormControl: TFormControl
           end
           object LabelPosicionCompresJpgWebcam: TLabel
             Left = 529
-            Top = 340
+            Top = 332
             Width = 30
             Height = 13
             Anchors = [akRight, akBottom]
@@ -2001,7 +2001,7 @@ object FormControl: TFormControl
           end
           object LabelTamaniowebcam: TLabel
             Left = 0
-            Top = 290
+            Top = 282
             Width = 24
             Height = 13
             Anchors = [akLeft, akBottom]
@@ -2018,7 +2018,7 @@ object FormControl: TFormControl
             Left = 27
             Top = 0
             Width = 532
-            Height = 301
+            Height = 293
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -2038,7 +2038,7 @@ object FormControl: TFormControl
             Left = 2
             Top = 0
             Width = 17
-            Height = 285
+            Height = 277
             Anchors = [akLeft, akTop, akBottom]
             Orientation = pbVertical
             Smooth = True
@@ -2046,7 +2046,7 @@ object FormControl: TFormControl
           end
           object ComboBoxWebcam: TComboBox
             Left = 24
-            Top = 312
+            Top = 304
             Width = 411
             Height = 21
             BevelInner = bvNone
@@ -2065,7 +2065,7 @@ object FormControl: TFormControl
           end
           object CheckBoxAutoCamCapture: TCheckBox
             Left = 26
-            Top = 368
+            Top = 360
             Width = 102
             Height = 17
             Anchors = [akLeft, akBottom]
@@ -2082,7 +2082,7 @@ object FormControl: TFormControl
           end
           object SpinCam: TSpinEdit
             Left = 124
-            Top = 363
+            Top = 355
             Width = 45
             Height = 22
             Anchors = [akLeft, akBottom]
@@ -2101,7 +2101,7 @@ object FormControl: TFormControl
           end
           object TrackBarCalidadWebcam: TTrackBar
             Left = 152
-            Top = 338
+            Top = 330
             Width = 379
             Height = 16
             Cursor = crHandPoint
@@ -2124,29 +2124,29 @@ object FormControl: TFormControl
             Left = 0
             Top = 0
             Width = 563
-            Height = 389
+            Height = 381
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelOuter = bvNone
             TabOrder = 0
             object SplitterAudio: TSplitter
               Left = 225
               Top = 0
-              Height = 380
+              Height = 372
             end
             object GroupBoxAudio: TGroupBox
               Left = 0
               Top = 0
               Width = 225
-              Height = 380
+              Height = 372
               Align = alLeft
               Caption = 'Opciones'
               TabOrder = 0
               DesignSize = (
                 225
-                380)
+                372)
               object LabelTamanioAudio: TLabel
                 Left = 8
-                Top = 284
+                Top = 276
                 Width = 58
                 Height = 13
                 Anchors = [akLeft, akBottom]
@@ -2160,7 +2160,7 @@ object FormControl: TFormControl
               end
               object Label2: TLabel
                 Left = 120
-                Top = 284
+                Top = 276
                 Width = 63
                 Height = 13
                 Anchors = [akLeft, akBottom]
@@ -2174,7 +2174,7 @@ object FormControl: TFormControl
               end
               object SpeedButtonCapAudio: TSpeedButton
                 Left = 137
-                Top = 352
+                Top = 344
                 Width = 81
                 Height = 22
                 Cursor = crHandPoint
@@ -2230,7 +2230,7 @@ object FormControl: TFormControl
               end
               object Labellengthaudio: TLabel
                 Left = 8
-                Top = 309
+                Top = 301
                 Width = 56
                 Height = 13
                 Anchors = [akLeft, akRight, akBottom]
@@ -2246,7 +2246,7 @@ object FormControl: TFormControl
                 Left = 8
                 Top = 40
                 Width = 210
-                Height = 226
+                Height = 218
                 Anchors = [akLeft, akTop, akRight, akBottom]
                 BevelInner = bvNone
                 BevelOuter = bvRaised
@@ -2293,7 +2293,7 @@ object FormControl: TFormControl
               end
               object SpinEditAudio: TSpinEdit
                 Left = 68
-                Top = 274
+                Top = 266
                 Width = 45
                 Height = 22
                 Anchors = [akLeft, akBottom]
@@ -2311,7 +2311,7 @@ object FormControl: TFormControl
               end
               object CheckBoxCapturarAudioAutomaticamente: TCheckBox
                 Left = 8
-                Top = 357
+                Top = 349
                 Width = 121
                 Height = 17
                 Anchors = [akLeft, akRight, akBottom]
@@ -2327,7 +2327,7 @@ object FormControl: TFormControl
               end
               object CheckBoxAutoReproducir: TCheckBox
                 Left = 8
-                Top = 330
+                Top = 322
                 Width = 209
                 Height = 17
                 Anchors = [akLeft, akRight, akBottom]
@@ -2364,7 +2364,7 @@ object FormControl: TFormControl
               Left = 228
               Top = 0
               Width = 335
-              Height = 380
+              Height = 372
               Align = alClient
               BevelInner = bvNone
               BevelOuter = bvRaised
@@ -2403,7 +2403,7 @@ object FormControl: TFormControl
             end
             object ProgressBarAudio: TProgressBar
               Left = 0
-              Top = 380
+              Top = 372
               Width = 563
               Height = 9
               Align = alBottom
@@ -2421,7 +2421,7 @@ object FormControl: TFormControl
             409)
           object SpeedButtonRecibirLog: TSpeedButton
             Left = 8
-            Top = 363
+            Top = 355
             Width = 89
             Height = 22
             Cursor = crHandPoint
@@ -2467,7 +2467,7 @@ object FormControl: TFormControl
           end
           object SpeedButtonEliminarLog: TSpeedButton
             Left = 100
-            Top = 363
+            Top = 355
             Width = 89
             Height = 22
             Cursor = crHandPoint
@@ -2513,7 +2513,7 @@ object FormControl: TFormControl
           end
           object SpeedButtonGuardarLog: TSpeedButton
             Left = 196
-            Top = 363
+            Top = 355
             Width = 81
             Height = 22
             Cursor = crHandPoint
@@ -2559,7 +2559,7 @@ object FormControl: TFormControl
           end
           object SpeedButtonActivarKeylogger: TSpeedButton
             Left = 424
-            Top = 310
+            Top = 302
             Width = 133
             Height = 22
             Cursor = crHandPoint
@@ -2607,7 +2607,7 @@ object FormControl: TFormControl
             Left = 8
             Top = 8
             Width = 553
-            Height = 293
+            Height = 285
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -2621,7 +2621,7 @@ object FormControl: TFormControl
           end
           object EditLogName: TEdit
             Left = 8
-            Top = 310
+            Top = 302
             Width = 412
             Height = 21
             Anchors = [akLeft, akRight, akBottom]
@@ -2634,7 +2634,7 @@ object FormControl: TFormControl
           end
           object ProgressBarKeylogger: TProgressBar
             Left = 8
-            Top = 337
+            Top = 329
             Width = 553
             Height = 17
             Anchors = [akLeft, akRight, akBottom]
@@ -2644,7 +2644,7 @@ object FormControl: TFormControl
           end
           object CheckBoxOnlineKeylogger: TCheckBox
             Left = 284
-            Top = 368
+            Top = 360
             Width = 277
             Height = 17
             Anchors = [akLeft, akBottom]
@@ -2668,7 +2668,7 @@ object FormControl: TFormControl
             409)
           object SpeedButtonClipBoard1: TSpeedButton
             Left = 288
-            Top = 369
+            Top = 361
             Width = 133
             Height = 22
             Cursor = crHandPoint
@@ -2714,7 +2714,7 @@ object FormControl: TFormControl
           end
           object SpeedButtonClipBoard2: TSpeedButton
             Left = 424
-            Top = 369
+            Top = 361
             Width = 133
             Height = 22
             Cursor = crHandPoint
@@ -2762,7 +2762,7 @@ object FormControl: TFormControl
             Left = 4
             Top = 4
             Width = 557
-            Height = 361
+            Height = 353
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelKind = bkFlat
@@ -2784,7 +2784,7 @@ object FormControl: TFormControl
         Top = 0
         Width = 575
         Height = 436
-        ActivePage = TabSheetMensajes
+        ActivePage = TabSheetBromas
         Align = alClient
         Images = IconsArchivos
         TabOrder = 0
@@ -2810,7 +2810,7 @@ object FormControl: TFormControl
           end
           object BtnEnviarMensaje: TSpeedButton
             Left = 487
-            Top = 362
+            Top = 354
             Width = 72
             Height = 22
             Cursor = crHandPoint
@@ -2870,7 +2870,7 @@ object FormControl: TFormControl
             Left = 8
             Top = 56
             Width = 552
-            Height = 77
+            Height = 69
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelKind = bkFlat
@@ -2883,7 +2883,7 @@ object FormControl: TFormControl
           end
           object GrpBoxTipoMensaje: TGroupBox
             Left = 8
-            Top = 138
+            Top = 130
             Width = 171
             Height = 209
             Anchors = [akLeft, akBottom]
@@ -3398,7 +3398,7 @@ object FormControl: TFormControl
           end
           object RdGrpBotonesMensaje: TRadioGroup
             Left = 383
-            Top = 145
+            Top = 137
             Width = 176
             Height = 211
             Anchors = [akRight, akBottom]
@@ -3427,7 +3427,7 @@ object FormControl: TFormControl
             409)
           object BtnEnviarBromas: TSpeedButton
             Left = 487
-            Top = 370
+            Top = 362
             Width = 72
             Height = 22
             Cursor = crHandPoint
@@ -3475,7 +3475,7 @@ object FormControl: TFormControl
             Left = 0
             Top = 0
             Width = 560
-            Height = 365
+            Height = 357
             Align = alCustom
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone

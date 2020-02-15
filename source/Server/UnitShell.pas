@@ -3,7 +3,7 @@ unit UnitShell;
 interface
 
 uses
-  Windows, Messages, {ScktComp,} SocketUnit, SysUtils, UnitVariables;
+  Windows, Messages, SocketUnit, SysUtils, UnitVariables;
 
 type
   TShellParameters = record

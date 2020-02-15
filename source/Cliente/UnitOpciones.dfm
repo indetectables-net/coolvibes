@@ -1,6 +1,6 @@
 object FormOpciones: TFormOpciones
-  Left = 229
-  Top = 254
+  Left = 231
+  Top = 246
   BorderIcons = []
   BorderStyle = bsSingle
   Caption = 'Opciones'
@@ -28,6 +28,7 @@ object FormOpciones: TFormOpciones
     Top = 246
     Width = 81
     Height = 22
+    Cursor = crHandPoint
     Anchors = [akRight, akBottom]
     Caption = 'Guardar'
     Flat = True
@@ -73,7 +74,7 @@ object FormOpciones: TFormOpciones
     Top = 0
     Width = 453
     Height = 240
-    ActivePage = TabPlugins
+    ActivePage = TabConexion
     Anchors = [akLeft, akTop, akRight, akBottom]
     Images = ImageList
     Style = tsFlatButtons
@@ -83,7 +84,7 @@ object FormOpciones: TFormOpciones
       object GrpBoxAlSalir: TGroupBox
         Left = 8
         Top = 8
-        Width = 361
+        Width = 433
         Height = 73
         Caption = 'Al salir...'
         Font.Charset = DEFAULT_CHARSET
@@ -196,8 +197,8 @@ object FormOpciones: TFormOpciones
         ParentFont = False
       end
       object EditPuerto: TEdit
-        Left = 144
-        Top = 8
+        Left = 0
+        Top = 32
         Width = 225
         Height = 21
         Hint = 
@@ -211,8 +212,8 @@ object FormOpciones: TFormOpciones
       end
       object GroupBoxConexion: TGroupBox
         Left = 0
-        Top = 36
-        Width = 369
+        Top = 60
+        Width = 441
         Height = 101
         Caption = 'Conexi'#243'n'
         Font.Charset = DEFAULT_CHARSET
@@ -378,7 +379,7 @@ object FormOpciones: TFormOpciones
       object EditRutaArchivoWav: TEdit
         Left = 32
         Top = 104
-        Width = 321
+        Width = 409
         Height = 21
         Hint = 'Ruta al archivo de sonido en formato wav'
         BevelInner = bvNone
@@ -394,7 +395,7 @@ object FormOpciones: TFormOpciones
       object LabeledEditDirUser: TLabeledEdit
         Left = 8
         Top = 24
-        Width = 350
+        Width = 433
         Height = 21
         BevelInner = bvNone
         BevelKind = bkFlat
@@ -414,7 +415,7 @@ object FormOpciones: TFormOpciones
       object LabeledDirScreen: TLabeledEdit
         Left = 8
         Top = 64
-        Width = 350
+        Width = 433
         Height = 21
         BevelInner = bvNone
         BevelKind = bkFlat
@@ -434,7 +435,7 @@ object FormOpciones: TFormOpciones
       object LabeledDirWebcam: TLabeledEdit
         Left = 8
         Top = 104
-        Width = 350
+        Width = 433
         Height = 21
         BevelInner = bvNone
         BevelKind = bkFlat
@@ -454,7 +455,7 @@ object FormOpciones: TFormOpciones
       object LabeledDirThumbs: TLabeledEdit
         Left = 8
         Top = 144
-        Width = 350
+        Width = 433
         Height = 21
         BevelInner = bvNone
         BevelKind = bkFlat
@@ -474,7 +475,7 @@ object FormOpciones: TFormOpciones
       object LabeledDirDownloads: TLabeledEdit
         Left = 8
         Top = 184
-        Width = 350
+        Width = 433
         Height = 21
         BevelInner = bvNone
         BevelKind = bkFlat
@@ -500,9 +501,10 @@ object FormOpciones: TFormOpciones
         208)
       object SpeedButtonAniadirPlugin: TSpeedButton
         Left = 0
-        Top = 173
+        Top = 171
         Width = 97
         Height = 22
+        Cursor = crHandPoint
         Anchors = [akLeft, akBottom]
         Caption = 'A'#241'adir plugin'
         Flat = True
@@ -548,6 +550,7 @@ object FormOpciones: TFormOpciones
         Top = 173
         Width = 105
         Height = 22
+        Cursor = crHandPoint
         Caption = 'Eliminar Plugin'
         Flat = True
         Glyph.Data = {
@@ -591,7 +594,7 @@ object FormOpciones: TFormOpciones
         Left = 0
         Top = 2
         Width = 440
-        Height = 164
+        Height = 162
         Anchors = [akLeft, akTop, akRight, akBottom]
         BevelInner = bvNone
         BevelOuter = bvRaised
@@ -610,6 +613,7 @@ object FormOpciones: TFormOpciones
             AutoSize = True
             Caption = 'Archivo'
           end>
+        ColumnClick = False
         GridLines = True
         MultiSelect = True
         ReadOnly = True
