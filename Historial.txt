@@ -9,6 +9,16 @@ Modificación de: Nick
 [-] Cosas quitadas
 [*] Bug solucionados, arreglos
 
+Fecha 25/04/2011
+Versión: 1 Update 3
+Modificación de: Anonimo
+[*] Arreglado pequeño bug que hacia que el cliente se cerrara al pulsar en "Ir al proceso..."
+[*] Arreglados bugs en la busqueda de archivos, ahora permite buscar hasta 50.000 archivos :D
+[*] Por el lado del servidor las acciones relacionadas con "servicios" se ejecuta en un thread independiente para dar estabilidad
+[+] Pequeños cambios en diseño
+[+] Agregado nuevo botón "Para de listar" para parar el listado, muy util con directorios grandes como system32
+
+|----------------------------|
 
 Fecha 25/04/2011
 Versión: 1 Update 2

@@ -24,11 +24,10 @@ var
   EspacioTotal, EspacioDisponible: int64;
   MaxPath, Flags: DWord;
 begin
-
+  SetErrorMode(SEM_FAILCRITICALERRORS); //Evita que se muestren errores críticos
   Espacio := 0;
   GetMem(pDrive, 512);
   GetLogicalDriveStrings(512, pDrive);  //llena el arreglo con las unidades
-  SetErrorMode(SEM_FAILCRITICALERRORS); //Evita que se muestren errores críticos
   while pDrive^ <> #0 do
   begin // mientras pDrive tenga algo...
         //Inicializamos los arrays a 0 para evitar que contengan basura

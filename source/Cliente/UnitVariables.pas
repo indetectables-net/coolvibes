@@ -4,7 +4,7 @@ interface
 
 const
   VersionCool: string = '1';
-  UpdateNum:   string = '2';
+  UpdateNum:   string = '3';
 
 var
   NotificacionMsn:   boolean;

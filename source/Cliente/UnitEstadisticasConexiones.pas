@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ComCtrls, StdCtrls, ExtCtrls, ImgList, Menus, gnugettext;
+  Dialogs, ComCtrls, StdCtrls, ExtCtrls, ImgList, Menus, gnugettext,
+  Buttons;
 
 type
   TFormEstadisticasConexiones = class(TForm)
@@ -13,6 +14,8 @@ type
     ListViewEstadisticas: TListView;
     ImageList: TImageList;
     LabelNConexiones: TLabel;
+    SpeedButton1: TSpeedButton;
+    procedure SpeedButton1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -41,4 +44,9 @@ implementation
     item.SubItems.Add(Itemc.SubItems[0]);     
     item.SubItems.Add(Itemc.caption);
   end;
+procedure TFormEstadisticasConexiones.SpeedButton1Click(Sender: TObject);
+begin
+self.close;
+end;
+
 end.

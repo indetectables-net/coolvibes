@@ -1,8 +1,8 @@
 object FormMain: TFormMain
-  Left = 192
-  Top = 275
-  Width = 510
-  Height = 264
+  Left = 235
+  Top = 294
+  Width = 511
+  Height = 268
   Caption = 'Coolvibes [version]'
   Color = clBtnFace
   Constraints.MinHeight = 146
@@ -19,8 +19,8 @@ object FormMain: TFormMain
   OnCreate = FormCreate
   OnShow = FormShow
   DesignSize = (
-    502
-    237)
+    503
+    235)
   PixelsPerInch = 96
   TextHeight = 13
   object ImageTitulo: TImage
@@ -636,7 +636,7 @@ object FormMain: TFormMain
       017E1F1FCB0E8E67AFB4AC12D37856068C18FFD9}
   end
   object BtnEscuchar: TSpeedButton
-    Left = 391
+    Left = 392
     Top = 31
     Width = 101
     Height = 22
@@ -676,7 +676,7 @@ object FormMain: TFormMain
     OnClick = BtnEscucharClick
   end
   object BtnOpciones: TSpeedButton
-    Left = 248
+    Left = 249
     Top = 7
     Width = 116
     Height = 22
@@ -714,7 +714,7 @@ object FormMain: TFormMain
     OnClick = BtnOpcionesClick
   end
   object BtnAbout: TSpeedButton
-    Left = 392
+    Left = 393
     Top = 8
     Width = 102
     Height = 17
@@ -767,7 +767,7 @@ object FormMain: TFormMain
     OnClick = BtnAboutClick
   end
   object BtnConfigServer: TSpeedButton
-    Left = 248
+    Left = 249
     Top = 32
     Width = 116
     Height = 21
@@ -813,8 +813,8 @@ object FormMain: TFormMain
   object ListViewConexiones: TListView
     Left = 0
     Top = 56
-    Width = 502
-    Height = 161
+    Width = 503
+    Height = 159
     Anchors = [akLeft, akTop, akRight, akBottom]
     BevelInner = bvNone
     BevelOuter = bvRaised
@@ -879,8 +879,8 @@ object FormMain: TFormMain
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 218
-    Width = 502
+    Top = 216
+    Width = 503
     Height = 19
     Panels = <
       item
@@ -9547,8 +9547,6 @@ object FormMain: TFormMain
     Top = 184
   end
   object IdAntiFreeze1: TIdAntiFreeze
-    IdleTimeOut = 100
-    OnlyWhenIdle = False
     Left = 96
     Top = 184
   end

@@ -98,6 +98,7 @@ begin
   UseLanguage(Formmain.idioma);
   TranslateComponent(self);
   self.DoubleBuffered := True;  //Evita parpadeos
+  ShowWindow(Handle, SW_HIDE); //Para que no salga en la barra de tareas
   SystemParametersInfo(SPI_GETWORKAREA, 0, @Zona, 0);
   Left     := Zona.Right - Width - 10;
   Top      := Zona.Bottom;

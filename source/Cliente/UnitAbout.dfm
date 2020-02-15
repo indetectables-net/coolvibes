@@ -1,10 +1,10 @@
 object FormAbout: TFormAbout
-  Left = 244
-  Top = 121
+  Left = 254
+  Top = 173
   BorderStyle = bsToolWindow
   Caption = 'Acerca de Coolvibes'
-  ClientHeight = 469
-  ClientWidth = 561
+  ClientHeight = 465
+  ClientWidth = 557
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clBackground

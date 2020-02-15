@@ -19,7 +19,7 @@ interface
 
 uses
   Windows, ShellAPI, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, XPMan, ScktComp, ComCtrls, Buttons, StdCtrls, ImgList, jpeg,
+  Dialogs, ExtCtrls, XPMan, ComCtrls, Buttons, StdCtrls, ImgList, jpeg,
   Menus, IniFiles, IdThreadMgr, IdThreadMgrDefault, IdAntiFreezeBase,
   IdAntiFreeze, IdBaseComponent, IdComponent, IdTCPServer,
   UnitVariables, AppEvnts, gnugettext, CommCtrl;
@@ -518,7 +518,7 @@ begin
     for i := 0 to listviewconexiones.columns.Count-1 do
       item.SubItems.Add('?');         //Añadimos los subitems necesarios
 
-
+     
     //El primer Objeto que guardamos en el Item es el Athread
     item.SubItems.Objects[0] := Athread;
     //Como segundo objeto guardaremos la Form
@@ -1280,9 +1280,7 @@ begin
   if not self.Showing then exit;
   if not self.Active then exit;
   mpt := Mouse.CursorPos;
-
   mpt := StatusBar.ScreenToClient(mpt);
-
   panel := -1;
   x := 0;
   for j := 0 to StatusBar.Panels.Count - 1 do
@@ -1298,7 +1296,6 @@ begin
     statusbar.Cursor := CrHandPoint
   else
     statusbar.Cursor := CrDefault;
-
 end;
 
 procedure TFormMain.StatusBarClick(Sender: TObject);

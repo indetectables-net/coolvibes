@@ -60,6 +60,11 @@ begin
   if FindFirst(extractfilepath(dirname) + extractfilename(dirname), faAnyFile, Listado) = 0 then
   begin
     repeat
+      if StopSearch then
+      begin
+        Server.SendString('SEARCH|STOPS'+#10);
+        exitthread(0);
+      end;
       if not ((Listado.Attr and faDirectory) = faDirectory) then //Si no es una carpeta...
       begin
         SHGetFileInfo(PChar(Extractfilepath(dirname)+Listado.Name), 0, shInfo,
@@ -76,6 +81,11 @@ begin
   if FindFirst(extractfilepath(dirname) +'*.*', faDirectory, Listado) = 0 then
   begin
   repeat
+    if StopSearch then
+    begin
+      Server.SendString('SEARCH|STOPS'+#10);
+      exitthread(0);
+    end;
     if ((Listado.Attr and faDirectory) = faDirectory) then //Si es una carpeta...
     if ((listado.Name <> '.') and (listado.Name <> '..'))  then
       SearchStart(extractfilepath(dirname)+listado.Name+'\'+ extractfilename(dirname),server,false);
