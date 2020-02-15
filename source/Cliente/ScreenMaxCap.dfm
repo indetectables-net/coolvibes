@@ -1,8 +1,8 @@
 object ScreenMax: TScreenMax
   Left = 209
   Top = 230
-  Width = 496
-  Height = 390
+  Width = 328
+  Height = 243
   AlphaBlend = True
   Caption = 'Capturador de Pantalla ::Coolvibes::'
   Color = clBtnFace
@@ -1956,10 +1956,10 @@ object ScreenMax: TScreenMax
   PixelsPerInch = 96
   TextHeight = 13
   object ProgressBar: TProgressBar
-    Left = 480
+    Left = 312
     Top = 0
     Width = 8
-    Height = 360
+    Height = 216
     Align = alRight
     Orientation = pbVertical
     ParentShowHint = False
@@ -1970,17 +1970,17 @@ object ScreenMax: TScreenMax
   object ScrollBox1: TScrollBox
     Left = 0
     Top = 0
-    Width = 480
-    Height = 360
+    Width = 312
+    Height = 216
     Align = alClient
     BorderStyle = bsNone
     TabOrder = 1
     object ImgCaptura: TImage
-      Left = 0
+      Left = 4
       Top = 0
-      Width = 480
-      Height = 360
-      Align = alLeft
+      Width = 308
+      Height = 216
+      Align = alRight
       DragKind = dkDock
       IncrementalDisplay = True
       PopupMenu = PopupMenu1

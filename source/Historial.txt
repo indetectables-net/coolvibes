@@ -9,6 +9,13 @@ Modificación de: Nick
 [-] Cosas quitadas
 [*] Bug solucionados, arreglos
 
+Fecha 16/05/2011
+Versión: 1 Update 8
+Modificación de: Anonimo
+[+] Agregados iconos al comboboxunidades
+[+] Añadido cifrado para el log del keylogger
+[*] Ahora el keylogger reconoce cualquier tecla en cualquier configuración de idiomas y no tiene el problema de la doble tilde
+ 
 |----------------------------|
 
 Fecha 15/05/2011

