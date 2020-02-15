@@ -73,7 +73,7 @@ object FormOpciones: TFormOpciones
     Top = 0
     Width = 377
     Height = 240
-    ActivePage = TabConexion
+    ActivePage = TabDirectorios
     Anchors = [akLeft, akTop, akRight, akBottom]
     Images = ImageList
     Style = tsFlatButtons
@@ -162,7 +162,7 @@ object FormOpciones: TFormOpciones
         Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
-        TabOrder = 2
+        TabOrder = 3
       end
       object CheckBoxCCIndependiente: TCheckBox
         Left = 16
@@ -176,7 +176,7 @@ object FormOpciones: TFormOpciones
         Font.Name = 'Verdana'
         Font.Style = [fsBold]
         ParentFont = False
-        TabOrder = 3
+        TabOrder = 2
       end
     end
     object TabConexion: TTabSheet
@@ -322,7 +322,7 @@ object FormOpciones: TFormOpciones
         Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False
-        TabOrder = 0
+        TabOrder = 1
       end
       object CheckBoxNotiMsnDesc: TCheckBox
         Left = 8
@@ -339,7 +339,7 @@ object FormOpciones: TFormOpciones
         Font.Name = 'Verdana'
         Font.Style = [fsBold]
         ParentFont = False
-        TabOrder = 1
+        TabOrder = 2
       end
       object CheckBoxGloboalPedirS: TCheckBox
         Left = 8
@@ -356,7 +356,7 @@ object FormOpciones: TFormOpciones
         Font.Name = 'Verdana'
         Font.Style = [fsBold]
         ParentFont = False
-        TabOrder = 2
+        TabOrder = 0
       end
       object CheckBoxAlertaSonora: TCheckBox
         Left = 8

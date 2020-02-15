@@ -6,5 +6,4 @@ del *.ddp
 del *.dof
 del *.tmp
 del *.bak
-del jpgcool.dat
-del jpgcool.jpg
+del *.dat

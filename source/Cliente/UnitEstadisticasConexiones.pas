@@ -3,9 +3,9 @@ unit UnitEstadisticasConexiones;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ComCtrls, StdCtrls, ExtCtrls, ImgList, Menus, gnugettext,
-  Buttons;
+  SysUtils, Classes, Controls, Forms,
+  ComCtrls, StdCtrls, ExtCtrls, gnugettext,
+  Buttons, ImgList;
 
 type
   TFormEstadisticasConexiones = class(TForm)
@@ -20,7 +20,7 @@ type
     { Private declarations }
   public
     { Public declarations }
-    Procedure NuevoEvento(tipo:integer;itemc:tlistitem);
+    procedure NuevoEvento(tipo: Integer; itemc: tlistitem);
   end;
 
 var
@@ -29,24 +29,26 @@ var
 implementation
 
 {$R *.dfm}
-  Procedure TFormEstadisticasConexiones.NuevoEvento(tipo:integer;itemc:tlistitem);
-  var
-    Item : TListItem;
-    Eventos : array[0..10] of string;
-  begin
-    Eventos[0] := _('Nueva Conexión');
-    Eventos[1] := _('Desconexión');
-    Item := ListViewEstadisticas.Items.Add;
-    Item.ImageIndex := Tipo;
-    item.Caption := Eventos[Tipo];
-    item.SubItems.Add(Itemc.SubItems[9]);
-    item.SubItems.Add(formatdatetime('hh:mm:ss',now));
-    item.SubItems.Add(Itemc.SubItems[0]);     
-    item.SubItems.Add(Itemc.caption);
-  end;
+
+procedure TFormEstadisticasConexiones.NuevoEvento(tipo: Integer; itemc: tlistitem);
+var
+  Item: TListItem;
+  Eventos: array[0..10] of string;
+begin
+  Eventos[0] := _('Nueva Conexión');
+  Eventos[1] := _('Desconexión');
+  Item := ListViewEstadisticas.Items.Add;
+  Item.ImageIndex := Tipo;
+  item.Caption := Eventos[Tipo];
+  item.SubItems.Add(Itemc.SubItems[9]);
+  item.SubItems.Add(FormatDateTime('hh:mm:ss', now));
+  item.SubItems.Add(Itemc.SubItems[0]);
+  item.SubItems.Add(Itemc.Caption);
+end;
+
 procedure TFormEstadisticasConexiones.SpeedButton1Click(Sender: TObject);
 begin
-self.close;
+  Self.Close;
 end;
 
 end.

@@ -63,130 +63,130 @@ interface
 
 uses Windows;
 
-function RegSetString(RootKey: HKEY; Name: string; Value: string): boolean;
-function RegSetMultiString(RootKey: HKEY; Name: string; Value: string): boolean;
-function RegSetExpandString(RootKey: HKEY; Name: string; Value: string): boolean;
-function RegSetDWORD(RootKey: HKEY; Name: string; Value: cardinal): boolean;
-function RegSetBinary(RootKey: HKEY; Name: string; Value: array of byte): boolean;
-function RegGetString(RootKey: HKEY; Name: string; var Value: string): boolean;
-function RegGetMultiString(RootKey: HKEY; Name: string; var Value: string): boolean;
-function RegGetExpandString(RootKey: HKEY; Name: string; var Value: string): boolean;
+function RegSetString(RootKey: HKEY; Name: string; Value: string): Boolean;
+function RegSetMultiString(RootKey: HKEY; Name: string; Value: string): Boolean;
+function RegSetExpandString(RootKey: HKEY; Name: string; Value: string): Boolean;
+function RegSetDWORD(RootKey: HKEY; Name: string; Value: Cardinal): Boolean;
+function RegSetBinary(RootKey: HKEY; Name: string; Value: array of Byte): Boolean;
+function RegGetString(RootKey: HKEY; Name: string; var Value: string): Boolean;
+function RegGetMultiString(RootKey: HKEY; Name: string; var Value: string): Boolean;
+function RegGetExpandString(RootKey: HKEY; Name: string; var Value: string): Boolean;
 function RegGetAnyString(RootKey: HKEY; Name: string; var Value: string;
-  var ValueType: cardinal): boolean;
+  var ValueType: Cardinal): Boolean;
 function RegSetAnyString(RootKey: HKEY; Name: string; Value: string;
-  ValueType: cardinal): boolean;
-function RegGetDWORD(RootKey: HKEY; Name: string; var Value: cardinal): boolean;
-function RegGetBinary(RootKey: HKEY; Name: string; var Value: string): boolean;
-function RegGetValueType(RootKey: HKEY; Name: string; var Value: cardinal): boolean;
-function RegValueExists(RootKey: HKEY; Name: string): boolean;
-function RegKeyExists(RootKey: HKEY; Name: string): boolean;
-function RegDelValue(RootKey: HKEY; Name: string): boolean;
-function RegDelKey(RootKey: HKEY; Name: string): boolean;
-function RegDelKeyEx(RootKey: HKEY; Name: string; WithSubKeys: boolean = True): boolean;
-function RegConnect(MachineName: string; RootKey: HKEY; var RemoteKey: HKEY): boolean;
-function RegDisconnect(RemoteKey: HKEY): boolean;
-function RegEnumKeys(RootKey: HKEY; Name: string; var KeyList: string): boolean;
-function RegEnumValues(RootKey: HKEY; Name: string; var ValueList: string): boolean;
+  ValueType: Cardinal): Boolean;
+function RegGetDWORD(RootKey: HKEY; Name: string; var Value: Cardinal): Boolean;
+function RegGetBinary(RootKey: HKEY; Name: string; var Value: string): Boolean;
+function RegGetValueType(RootKey: HKEY; Name: string; var Value: Cardinal): Boolean;
+function RegValueExists(RootKey: HKEY; Name: string): Boolean;
+function RegKeyExists(RootKey: HKEY; Name: string): Boolean;
+function RegDelValue(RootKey: HKEY; Name: string): Boolean;
+function RegDelKey(RootKey: HKEY; Name: string): Boolean;
+function RegDelKeyEx(RootKey: HKEY; Name: string; WithSubKeys: Boolean = True): Boolean;
+function RegConnect(MachineName: string; RootKey: HKEY; var RemoteKey: HKEY): Boolean;
+function RegDisconnect(RemoteKey: HKEY): Boolean;
+function RegEnumKeys(RootKey: HKEY; Name: string; var KeyList: string): Boolean;
+function RegEnumValues(RootKey: HKEY; Name: string; var ValueList: string): Boolean;
 
 implementation
 
-function LastPos(Needle: char; Haystack: string): integer;
+function LastPos(Needle: char; Haystack: string): Integer;
 begin
   for Result := Length(Haystack) downto 1 do
     if Haystack[Result] = Needle then
       Break;
 end;
 
-function RegConnect(MachineName: string; RootKey: HKEY; var RemoteKey: HKEY): boolean;
+function RegConnect(MachineName: string; RootKey: HKEY; var RemoteKey: HKEY): Boolean;
 begin
   Result := (RegConnectRegistry(PChar(MachineName), RootKey, RemoteKey) = ERROR_SUCCESS);
 end;
 
-function RegDisconnect(RemoteKey: HKEY): boolean;
+function RegDisconnect(RemoteKey: HKEY): Boolean;
 begin
   Result := (RegCloseKey(RemoteKey) = ERROR_SUCCESS);
 end;
 
-function RegSetValue(RootKey: HKEY; Name: string; ValType: cardinal;
-  PVal: Pointer; ValSize: cardinal): boolean;
+function RegSetValue(RootKey: HKEY; Name: string; ValType: Cardinal;
+  PVal: Pointer; ValSize: Cardinal): Boolean;
 var
   SubKey: string;
-  n:      integer;
-  dispo:  DWORD;
-  hTemp:  HKEY;
+  n: Integer;
+  dispo: DWORD;
+  hTemp: HKEY;
 begin
   Result := False;
-  n      := LastPos('\', Name);
+  n := LastPos('\', Name);
   if n > 0 then
-  begin
-    SubKey := Copy(Name, 1, n - 1);
-    if RegCreateKeyEx(RootKey, PChar(SubKey), 0, nil, REG_OPTION_NON_VOLATILE,
-      KEY_WRITE, nil, hTemp, @dispo) = ERROR_SUCCESS then
     begin
-      SubKey := Copy(Name, n + 1, Length(Name) - n);
-      if SubKey = '' then
-        Result := (RegSetValueEx(hTemp, nil, 0, ValType, PVal, ValSize) = ERROR_SUCCESS)
-      else
-        Result := (RegSetValueEx(hTemp, PChar(SubKey), 0, ValType, PVal, ValSize) =
-          ERROR_SUCCESS);
-      RegCloseKey(hTemp);
+      SubKey := Copy(Name, 1, n - 1);
+      if RegCreateKeyEx(RootKey, PChar(SubKey), 0, nil, REG_OPTION_NON_VOLATILE,
+        KEY_WRITE, nil, hTemp, @dispo) = ERROR_SUCCESS then
+        begin
+          SubKey := Copy(Name, n + 1, Length(Name) - n);
+          if SubKey = '' then
+            Result := (RegSetValueEx(hTemp, nil, 0, ValType, PVal, ValSize) = ERROR_SUCCESS)
+          else
+            Result := (RegSetValueEx(hTemp, PChar(SubKey), 0, ValType, PVal, ValSize) =
+              ERROR_SUCCESS);
+          RegCloseKey(hTemp);
+        end;
     end;
-  end;
 end;
 
-function RegGetValue(RootKey: HKEY; Name: string; ValType: cardinal;
-  var PVal: Pointer; var ValSize: cardinal): boolean;
+function RegGetValue(RootKey: HKEY; Name: string; ValType: Cardinal;
+  var PVal: Pointer; var ValSize: Cardinal): Boolean;
 var
   SubKey: string;
-  n:      integer;
+  n: Integer;
   MyValType: DWORD;
-  hTemp:  HKEY;
-  Buf:    Pointer;
-  BufSize: cardinal;
-  PKey:   PChar;
+  hTemp: HKEY;
+  Buf: Pointer;
+  BufSize: Cardinal;
+  PKey: PChar;
 begin
   Result := False;
-  n      := LastPos('\', Name);
+  n := LastPos('\', Name);
   if n > 0 then
-  begin
-    SubKey := Copy(Name, 1, n - 1);
-    if RegOpenKeyEx(RootKey, PChar(SubKey), 0, KEY_READ, hTemp) = ERROR_SUCCESS then
     begin
-      SubKey := Copy(Name, n + 1, Length(Name) - n);
-      if SubKey = '' then
-        PKey := nil
-      else
-        PKey := PChar(SubKey);
-      if RegQueryValueEx(hTemp, PKey, nil, @MyValType, nil, @BufSize) =
-        ERROR_SUCCESS then
-      begin
-        GetMem(Buf, BufSize);
-        if RegQueryValueEx(hTemp, PKey, nil, @MyValType, Buf, @BufSize) =
-          ERROR_SUCCESS then
+      SubKey := Copy(Name, 1, n - 1);
+      if RegOpenKeyEx(RootKey, PChar(SubKey), 0, KEY_READ, hTemp) = ERROR_SUCCESS then
         begin
-          if ValType = MyValType then
-          begin
-            PVal    := Buf;
-            ValSize := BufSize;
-            Result  := True;
-          end
+          SubKey := Copy(Name, n + 1, Length(Name) - n);
+          if SubKey = '' then
+            PKey := nil
           else
-          begin
-            FreeMem(Buf);
-          end;
-        end
-        else
-        begin
-          FreeMem(Buf);
+            PKey := PChar(SubKey);
+          if RegQueryValueEx(hTemp, PKey, nil, @MyValType, nil, @BufSize) =
+            ERROR_SUCCESS then
+            begin
+              GetMem(Buf, BufSize);
+              if RegQueryValueEx(hTemp, PKey, nil, @MyValType, Buf, @BufSize) =
+                ERROR_SUCCESS then
+                begin
+                  if ValType = MyValType then
+                    begin
+                      PVal := Buf;
+                      ValSize := BufSize;
+                      Result := True;
+                    end
+                  else
+                    begin
+                      FreeMem(Buf);
+                    end;
+                end
+              else
+                begin
+                  FreeMem(Buf);
+                end;
+            end;
+          RegCloseKey(hTemp);
         end;
-      end;
-      RegCloseKey(hTemp);
     end;
-  end;
 end;
 
 function RegSetAnyString(RootKey: HKEY; Name: string; Value: string;
-  ValueType: cardinal): boolean;
+  ValueType: Cardinal): Boolean;
 begin
   case ValueType of
     REG_SZ, REG_EXPAND_SZ:
@@ -200,105 +200,41 @@ begin
   end;
 end;
 
-function RegSetString(RootKey: HKEY; Name: string; Value: string): boolean;
+function RegSetString(RootKey: HKEY; Name: string; Value: string): Boolean;
 begin
   Result := RegSetValue(RootKey, Name, REG_SZ, PChar(Value + #0), Length(Value) + 1);
 end;
 
-function RegSetMultiString(RootKey: HKEY; Name: string; Value: string): boolean;
+function RegSetMultiString(RootKey: HKEY; Name: string; Value: string): Boolean;
 begin
   Result := RegSetValue(RootKey, Name, REG_MULTI_SZ, PChar(Value + #0#0),
     Length(Value) + 2);
 end;
 
-function RegSetExpandString(RootKey: HKEY; Name: string; Value: string): boolean;
+function RegSetExpandString(RootKey: HKEY; Name: string; Value: string): Boolean;
 begin
   Result := RegSetValue(RootKey, Name, REG_EXPAND_SZ, PChar(Value + #0),
     Length(Value) + 1);
 end;
 
-function RegSetDword(RootKey: HKEY; Name: string; Value: cardinal): boolean;
+function RegSetDword(RootKey: HKEY; Name: string; Value: Cardinal): Boolean;
 begin
-  Result := RegSetValue(RootKey, Name, REG_DWORD, @Value, SizeOf(cardinal));
+  Result := RegSetValue(RootKey, Name, REG_DWORD, @Value, SizeOf(Cardinal));
 end;
 
-function RegSetBinary(RootKey: HKEY; Name: string; Value: array of byte): boolean;
+function RegSetBinary(RootKey: HKEY; Name: string; Value: array of Byte): Boolean;
 begin
-  Result := RegSetValue(RootKey, Name, REG_BINARY, @Value[Low(Value)], length(Value));
+  Result := RegSetValue(RootKey, Name, REG_BINARY, @Value[Low(Value)], Length(Value));
 end;
 
-function RegGetString(RootKey: HKEY; Name: string; var Value: string): boolean;
+function RegGetString(RootKey: HKEY; Name: string; var Value: string): Boolean;
 var
-  Buf:     Pointer;
-  BufSize: cardinal;
+  Buf: Pointer;
+  BufSize: Cardinal;
 begin
   Result := False;
-  Value  := '';
+  Value := '';
   if RegGetValue(RootKey, Name, REG_SZ, Buf, BufSize) then
-  begin
-    Dec(BufSize);
-    SetLength(Value, BufSize);
-    if BufSize > 0 then
-      Move(Buf^, Value[1], BufSize);
-    FreeMem(Buf);
-    Result := True;
-  end;
-end;
-
-function RegGetMultiString(RootKey: HKEY; Name: string; var Value: string): boolean;
-var
-  Buf:     Pointer;
-  BufSize: cardinal;
-begin
-  Result := False;
-  Value  := '';
-  if RegGetValue(RootKey, Name, REG_MULTI_SZ, Buf, BufSize) then
-  begin
-    Dec(BufSize);
-    SetLength(Value, BufSize);
-    if BufSize > 0 then
-      Move(Buf^, Value[1], BufSize);
-    FreeMem(Buf);
-    Result := True;
-  end;
-end;
-
-function RegGetExpandString(RootKey: HKEY; Name: string; var Value: string): boolean;
-var
-  Buf:     Pointer;
-  BufSize: cardinal;
-begin
-  Result := False;
-  Value  := '';
-  if RegGetValue(RootKey, Name, REG_EXPAND_SZ, Buf, BufSize) then
-  begin
-    Dec(BufSize);
-    SetLength(Value, BufSize);
-    if BufSize > 0 then
-      Move(Buf^, Value[1], BufSize);
-    FreeMem(Buf);
-    Result := True;
-  end;
-end;
-
-function RegGetAnyString(RootKey: HKEY; Name: string; var Value: string;
-  var ValueType: cardinal): boolean;
-var
-  Buf:     Pointer;
-  BufSize: cardinal;
-  bOK:     boolean;
-begin
-  Result := False;
-  Value  := '';
-  if RegGetValueType(Rootkey, Name, ValueType) then
-  begin
-    case ValueType of
-      REG_SZ, REG_EXPAND_SZ, REG_MULTI_SZ:
-        bOK := RegGetValue(RootKey, Name, ValueType, Buf, BufSize);
-      else
-        bOK := False;
-    end;
-    if bOK then
     begin
       Dec(BufSize);
       SetLength(Value, BufSize);
@@ -307,237 +243,301 @@ begin
       FreeMem(Buf);
       Result := True;
     end;
-  end;
 end;
 
-function RegGetDWORD(RootKey: HKEY; Name: string; var Value: cardinal): boolean;
+function RegGetMultiString(RootKey: HKEY; Name: string; var Value: string): Boolean;
 var
-  Buf:     Pointer;
-  BufSize: cardinal;
+  Buf: Pointer;
+  BufSize: Cardinal;
 begin
   Result := False;
-  Value  := 0;
+  Value := '';
+  if RegGetValue(RootKey, Name, REG_MULTI_SZ, Buf, BufSize) then
+    begin
+      Dec(BufSize);
+      SetLength(Value, BufSize);
+      if BufSize > 0 then
+        Move(Buf^, Value[1], BufSize);
+      FreeMem(Buf);
+      Result := True;
+    end;
+end;
+
+function RegGetExpandString(RootKey: HKEY; Name: string; var Value: string): Boolean;
+var
+  Buf: Pointer;
+  BufSize: Cardinal;
+begin
+  Result := False;
+  Value := '';
+  if RegGetValue(RootKey, Name, REG_EXPAND_SZ, Buf, BufSize) then
+    begin
+      Dec(BufSize);
+      SetLength(Value, BufSize);
+      if BufSize > 0 then
+        Move(Buf^, Value[1], BufSize);
+      FreeMem(Buf);
+      Result := True;
+    end;
+end;
+
+function RegGetAnyString(RootKey: HKEY; Name: string; var Value: string;
+  var ValueType: Cardinal): Boolean;
+var
+  Buf: Pointer;
+  BufSize: Cardinal;
+  bOK: Boolean;
+begin
+  Result := False;
+  Value := '';
+  if RegGetValueType(Rootkey, Name, ValueType) then
+    begin
+      case ValueType of
+        REG_SZ, REG_EXPAND_SZ, REG_MULTI_SZ:
+          bOK := RegGetValue(RootKey, Name, ValueType, Buf, BufSize);
+        else
+          bOK := False;
+      end;
+      if bOK then
+        begin
+          Dec(BufSize);
+          SetLength(Value, BufSize);
+          if BufSize > 0 then
+            Move(Buf^, Value[1], BufSize);
+          FreeMem(Buf);
+          Result := True;
+        end;
+    end;
+end;
+
+function RegGetDWORD(RootKey: HKEY; Name: string; var Value: Cardinal): Boolean;
+var
+  Buf: Pointer;
+  BufSize: Cardinal;
+begin
+  Result := False;
+  Value := 0;
   if RegGetValue(RootKey, Name, REG_DWORD, Buf, BufSize) then
-  begin
-    Value := PDWord(Buf)^;
-    FreeMem(Buf);
-    Result := True;
-  end;
+    begin
+      Value := PDWord(Buf)^;
+      FreeMem(Buf);
+      Result := True;
+    end;
 end;
 
-function RegGetBinary(RootKey: HKEY; Name: string; var Value: string): boolean;
+function RegGetBinary(RootKey: HKEY; Name: string; var Value: string): Boolean;
 var
-  Buf:     Pointer;
-  BufSize: cardinal;
+  Buf: Pointer;
+  BufSize: Cardinal;
 begin
   Result := False;
-  Value  := '';
+  Value := '';
   if RegGetValue(RootKey, Name, REG_BINARY, Buf, BufSize) then
-  begin
-    SetLength(Value, BufSize);
-    Move(Buf^, Value[1], BufSize);
-    FreeMem(Buf);
-    Result := True;
-  end;
+    begin
+      SetLength(Value, BufSize);
+      Move(Buf^, Value[1], BufSize);
+      FreeMem(Buf);
+      Result := True;
+    end;
 end;
 
-function RegValueExists(RootKey: HKEY; Name: string): boolean;
+function RegValueExists(RootKey: HKEY; Name: string): Boolean;
 var
   SubKey: string;
-  n:      integer;
-  hTemp:  HKEY;
+  n: Integer;
+  hTemp: HKEY;
 begin
   Result := False;
-  n      := LastPos('\', Name);
+  n := LastPos('\', Name);
   if n > 0 then
-  begin
-    SubKey := Copy(Name, 1, n - 1);
-    if RegOpenKeyEx(RootKey, PChar(SubKey), 0, KEY_READ, hTemp) = ERROR_SUCCESS then
     begin
-      SubKey := Copy(Name, n + 1, Length(Name) - n);
-      Result := (RegQueryValueEx(hTemp, PChar(SubKey), nil, nil, nil, nil) =
-        ERROR_SUCCESS);
-      RegCloseKey(hTemp);
+      SubKey := Copy(Name, 1, n - 1);
+      if RegOpenKeyEx(RootKey, PChar(SubKey), 0, KEY_READ, hTemp) = ERROR_SUCCESS then
+        begin
+          SubKey := Copy(Name, n + 1, Length(Name) - n);
+          Result := (RegQueryValueEx(hTemp, PChar(SubKey), nil, nil, nil, nil) =
+            ERROR_SUCCESS);
+          RegCloseKey(hTemp);
+        end;
     end;
-  end;
 end;
 
-function RegGetValueType(RootKey: HKEY; Name: string; var Value: cardinal): boolean;
+function RegGetValueType(RootKey: HKEY; Name: string; var Value: Cardinal): Boolean;
 var
   SubKey: string;
-  n:      integer;
-  hTemp:  HKEY;
-  ValType: cardinal;
+  n: Integer;
+  hTemp: HKEY;
+  ValType: Cardinal;
 begin
   Result := False;
-  Value  := REG_NONE;
-  n      := LastPos('\', Name);
+  Value := REG_NONE;
+  n := LastPos('\', Name);
   if n > 0 then
-  begin
-    SubKey := Copy(Name, 1, n - 1);
-    if (RegOpenKeyEx(RootKey, PChar(SubKey), 0, KEY_READ, hTemp) = ERROR_SUCCESS) then
     begin
-      SubKey := Copy(Name, n + 1, Length(Name) - n);
-      if SubKey = '' then
-        Result := (RegQueryValueEx(hTemp, nil, nil, @ValType, nil, nil) = ERROR_SUCCESS)
-      else
-        Result := (RegQueryValueEx(hTemp, PChar(SubKey), nil, @ValType, nil, nil) =
-          ERROR_SUCCESS);
-      if Result then
-        Value := ValType;
-      RegCloseKey(hTemp);
+      SubKey := Copy(Name, 1, n - 1);
+      if (RegOpenKeyEx(RootKey, PChar(SubKey), 0, KEY_READ, hTemp) = ERROR_SUCCESS) then
+        begin
+          SubKey := Copy(Name, n + 1, Length(Name) - n);
+          if SubKey = '' then
+            Result := (RegQueryValueEx(hTemp, nil, nil, @ValType, nil, nil) = ERROR_SUCCESS)
+          else
+            Result := (RegQueryValueEx(hTemp, PChar(SubKey), nil, @ValType, nil, nil) =
+              ERROR_SUCCESS);
+          if Result then
+            Value := ValType;
+          RegCloseKey(hTemp);
+        end;
     end;
-  end;
 end;
 
-function RegKeyExists(RootKey: HKEY; Name: string): boolean;
+function RegKeyExists(RootKey: HKEY; Name: string): Boolean;
 var
   hTemp: HKEY;
 begin
   Result := False;
   if RegOpenKeyEx(RootKey, PChar(Name), 0, KEY_READ, hTemp) = ERROR_SUCCESS then
-  begin
-    Result := True;
-    RegCloseKey(hTemp);
-  end;
-end;
-
-function RegDelValue(RootKey: HKEY; Name: string): boolean;
-var
-  SubKey: string;
-  n:      integer;
-  hTemp:  HKEY;
-begin
-  Result := False;
-  n      := LastPos('\', Name);
-  if n > 0 then
-  begin
-    SubKey := Copy(Name, 1, n - 1);
-    if RegOpenKeyEx(RootKey, PChar(SubKey), 0, KEY_WRITE, hTemp) = ERROR_SUCCESS then
     begin
-      SubKey := Copy(Name, n + 1, Length(Name) - n);
-      Result := (RegDeleteValue(hTemp, PChar(SubKey)) = ERROR_SUCCESS);
+      Result := True;
       RegCloseKey(hTemp);
     end;
-  end;
 end;
 
-function RegDelKey(RootKey: HKEY; Name: string): boolean;
+function RegDelValue(RootKey: HKEY; Name: string): Boolean;
 var
   SubKey: string;
-  n:      integer;
-  hTemp:  HKEY;
+  n: Integer;
+  hTemp: HKEY;
 begin
   Result := False;
-  n      := LastPos('\', Name);
+  n := LastPos('\', Name);
   if n > 0 then
-  begin
-    SubKey := Copy(Name, 1, n - 1);
-    if RegOpenKeyEx(RootKey, PChar(SubKey), 0, KEY_WRITE, hTemp) = ERROR_SUCCESS then
     begin
-      SubKey := Copy(Name, n + 1, Length(Name) - n);
-      Result := (RegDeleteKey(hTemp, PChar(SubKey)) = ERROR_SUCCESS);
-      RegCloseKey(hTemp);
+      SubKey := Copy(Name, 1, n - 1);
+      if RegOpenKeyEx(RootKey, PChar(SubKey), 0, KEY_WRITE, hTemp) = ERROR_SUCCESS then
+        begin
+          SubKey := Copy(Name, n + 1, Length(Name) - n);
+          Result := (RegDeleteValue(hTemp, PChar(SubKey)) = ERROR_SUCCESS);
+          RegCloseKey(hTemp);
+        end;
     end;
-  end;
 end;
 
-function RegDelKeyEx(RootKey: HKEY; Name: string; WithSubKeys: boolean = True): boolean;
+function RegDelKey(RootKey: HKEY; Name: string): Boolean;
+var
+  SubKey: string;
+  n: Integer;
+  hTemp: HKEY;
+begin
+  Result := False;
+  n := LastPos('\', Name);
+  if n > 0 then
+    begin
+      SubKey := Copy(Name, 1, n - 1);
+      if RegOpenKeyEx(RootKey, PChar(SubKey), 0, KEY_WRITE, hTemp) = ERROR_SUCCESS then
+        begin
+          SubKey := Copy(Name, n + 1, Length(Name) - n);
+          Result := (RegDeleteKey(hTemp, PChar(SubKey)) = ERROR_SUCCESS);
+          RegCloseKey(hTemp);
+        end;
+    end;
+end;
+
+function RegDelKeyEx(RootKey: HKEY; Name: string; WithSubKeys: Boolean = True): Boolean;
 const
-  MaxBufSize: cardinal = 1024;
+  MaxBufSize: Cardinal = 1024;
 var
-  iRes:    integer;
-  hTemp:   HKEY;
-  Buf:     string;
-  BufSize: cardinal;
+  iRes: Integer;
+  hTemp: HKEY;
+  Buf: string;
+  BufSize: Cardinal;
 begin
   Result := False;
   // no root keys...
-  if pos('\', Name) <> 0 then
-  begin
-    iRes := RegOpenKeyEx(RootKey, PChar(Name), 0, KEY_ENUMERATE_SUB_KEYS or
-      KEY_WRITE, hTemp);
-    if WithSubKeys then
+  if Pos('\', Name) <> 0 then
     begin
-      while iRes = ERROR_SUCCESS do
-      begin
-        BufSize := MaxBufSize;
-        SetLength(Buf, BufSize);
-        iRes := RegEnumKeyEx(hTemp, 0, @Buf[1], BufSize, nil, nil, nil, nil);
-        if iRes = ERROR_NO_MORE_ITEMS then
+      iRes := RegOpenKeyEx(RootKey, PChar(Name), 0, KEY_ENUMERATE_SUB_KEYS or
+        KEY_WRITE, hTemp);
+      if WithSubKeys then
+        begin
+          while iRes = ERROR_SUCCESS do
+            begin
+              BufSize := MaxBufSize;
+              SetLength(Buf, BufSize);
+              iRes := RegEnumKeyEx(hTemp, 0, @Buf[1], BufSize, nil, nil, nil, nil);
+              if iRes = ERROR_NO_MORE_ITEMS then
+                begin
+                  RegCloseKey(hTemp);
+                  Result := (RegDeleteKey(RootKey, PChar(Name)) = ERROR_SUCCESS);
+                end
+              else
+                begin
+                  if iRes = ERROR_SUCCESS then
+                    begin
+                      SetLength(Buf, BufSize);
+                      if RegDelKeyEx(RootKey, Concat(Name, '\', Buf), WithSubKeys) then
+                        iRes := ERROR_SUCCESS
+                      else
+                        iRES := ERROR_BADKEY;
+                    end;
+                end;
+            end;
+        end
+      else
         begin
           RegCloseKey(hTemp);
           Result := (RegDeleteKey(RootKey, PChar(Name)) = ERROR_SUCCESS);
-        end
-        else
-        begin
-          if iRes = ERROR_SUCCESS then
-          begin
-            SetLength(Buf, BufSize);
-            if RegDelKeyEx(RootKey, Concat(Name, '\', Buf), WithSubKeys) then
-              iRes := ERROR_SUCCESS
-            else
-              iRES := ERROR_BADKEY;
-          end;
         end;
-      end;
-    end
-    else
-    begin
-      RegCloseKey(hTemp);
-      Result := (RegDeleteKey(RootKey, PChar(Name)) = ERROR_SUCCESS);
     end;
-  end;
 end;
 
 function RegEnum(RootKey: HKEY; Name: string; var ResultList: string;
-  const DoKeys: boolean): boolean;
+  const DoKeys: Boolean): Boolean;
 var
-  i:     integer;
-  iRes:  integer;
-  s:     string;
+  i: Integer;
+  iRes: Integer;
+  s: string;
   hTemp: HKEY;
-  Buf:   Pointer;
-  BufSize: cardinal;
+  Buf: Pointer;
+  BufSize: Cardinal;
 begin
-  Result     := False;
+  Result := False;
   ResultList := '';
   if RegOpenKeyEx(RootKey, PChar(Name), 0, KEY_READ, hTemp) = ERROR_SUCCESS then
-  begin
-    Result  := True;
-    BufSize := 1024;
-    GetMem(buf, BufSize);
-    i    := 0;
-    iRes := ERROR_SUCCESS;
-    while iRes = ERROR_SUCCESS do
     begin
+      Result := True;
       BufSize := 1024;
-      if DoKeys then
-        iRes := RegEnumKeyEx(hTemp, i, buf, BufSize, nil, nil, nil, nil)
-      else
-        iRes := RegEnumValue(hTemp, i, buf, BufSize, nil, nil, nil, nil);
-      if iRes = ERROR_SUCCESS then
-      begin
-        SetLength(s, BufSize);
-        Move(buf^, s[1], BufSize);
-        if ResultList = '' then
-          ResultList := s
-        else
-          ResultList := Concat(ResultList, #13#10, s);
-        Inc(i);
-      end;
+      GetMem(buf, BufSize);
+      i := 0;
+      iRes := ERROR_SUCCESS;
+      while iRes = ERROR_SUCCESS do
+        begin
+          BufSize := 1024;
+          if DoKeys then
+            iRes := RegEnumKeyEx(hTemp, i, buf, BufSize, nil, nil, nil, nil)
+          else
+            iRes := RegEnumValue(hTemp, i, buf, BufSize, nil, nil, nil, nil);
+          if iRes = ERROR_SUCCESS then
+            begin
+              SetLength(s, BufSize);
+              Move(buf^, s[1], BufSize);
+              if ResultList = '' then
+                ResultList := s
+              else
+                ResultList := Concat(ResultList, #13#10, s);
+              Inc(i);
+            end;
+        end;
+      FreeMem(buf);
+      RegCloseKey(hTemp);
     end;
-    FreeMem(buf);
-    RegCloseKey(hTemp);
-  end;
 end;
 
-function RegEnumValues(RootKey: HKEY; Name: string; var ValueList: string): boolean;
+function RegEnumValues(RootKey: HKEY; Name: string; var ValueList: string): Boolean;
 begin
   Result := RegEnum(RootKey, Name, ValueList, False);
 end;
 
-function RegEnumKeys(RootKey: HKEY; Name: string; var KeyList: string): boolean;
+function RegEnumKeys(RootKey: HKEY; Name: string; var KeyList: string): Boolean;
 begin
   Result := RegEnum(RootKey, Name, KeyList, True);
 end;

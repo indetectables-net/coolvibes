@@ -11,41 +11,43 @@ uses
   PsAPI;
 
 function GetProc(): string;
-function TerminarProceso(PID: string): boolean;
+function TerminarProceso(PID: string): Boolean;
 function RutaProcesos(PID: DWORD): string;
 
 implementation
 
 //Procesos +pid separados por |
+
 function GetProc(): string;
 var
   Proceso: TProcessEntry32;
   ProcessHandle: THandle;
-  HayOtroProceso: boolean;
+  HayOtroProceso: Boolean;
 begin
   Proceso.dwSize := SizeOf(TProcessEntry32);
-  ProcessHandle  := CreateToolHelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-  if Process32First(ProcessHandle, Proceso) then  //Si encuentra el primer proceso
-  begin
-    Result := string(Proceso.szExeFile) + '|' + IntToStr(Proceso.th32ProcessID) + '|' +
-      string(RutaProcesos(Proceso.th32ProcessID)) + '|';
-    repeat
-      HayOtroProceso := Process32Next(ProcessHandle, Proceso);
-      if HayOtroProceso then
-        Result := Result + string(proceso.szExeFile) + '|' +
-          IntToStr(Proceso.th32ProcessID) + '|' + string(RutaProcesos(Proceso.th32ProcessID)) + '|';
-    until not HayOtroProceso; //Y esto se repite hasta que Process32Next retorne False
-  end;
+  ProcessHandle := CreateToolHelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+  if Process32First(ProcessHandle, Proceso) then //Si encuentra el primer proceso
+    begin
+      Result := string(Proceso.szExeFile) + '|' + IntToStr(Proceso.th32ProcessID) + '|' +
+        string(RutaProcesos(Proceso.th32ProcessID)) + '|';
+      repeat
+        HayOtroProceso := Process32Next(ProcessHandle, Proceso);
+        if HayOtroProceso then
+          Result := Result + string(proceso.szExeFile) + '|' +
+            IntToStr(Proceso.th32ProcessID) + '|' + string(RutaProcesos(Proceso.th32ProcessID)) + '|';
+      until not HayOtroProceso; //Y esto se repite hasta que Process32Next retorne False
+    end;
   CloseHandle(ProcessHandle);
 end;
 
 //Cierra el proceso con PID. Si sale bien, devuelve true
-function TerminarProceso(PID: string): boolean;
+
+function TerminarProceso(PID: string): Boolean;
 var
   ProcessHandle: THandle;
 begin
   try
-    ProcessHandle := OpenProcess(PROCESS_ALL_ACCESS, True, StrToInt64def(PID,-1));
+    ProcessHandle := OpenProcess(PROCESS_ALL_ACCESS, True, StrToInt64def(PID, -1));
     if TerminateProcess(ProcessHandle, 0) then
       Result := True
   except
@@ -54,13 +56,14 @@ begin
 end;
 
 //Obtenemos la ruta del ejecutable del proceso
+
 function RutaProcesos(PID: DWORD): string;
 var
   Handle: THandle;
 begin
   Result := 'Desconocido';
   Handle := OpenProcess(PROCESS_QUERY_INFORMATION or PROCESS_VM_READ, False, PID);
-  if Handle <> 0 then   //Si el proceso existe
+  if Handle <> 0 then //Si el proceso existe
     try
       SetLength(Result, MAX_PATH);
       begin
@@ -74,6 +77,5 @@ begin
       CloseHandle(Handle);
     end;
 end;
-
 
 end.

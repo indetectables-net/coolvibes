@@ -10,31 +10,30 @@ uses
   SysUtils;
 
 function GetClave(key: Hkey; subkey, nombre: string): string;
-function AnchuraPantalla(): integer;
-function AlturaPantalla(): integer;
-function HexToInt(s: string): longword;
-function GetClipBoardDatas(): String;
-function SetClipBoardDatas(sData: PAnsiChar): String;
+function AnchuraPantalla(): Integer;
+function AlturaPantalla(): Integer;
+function HexToInt(s: string): Longword;
+function GetClipBoardDatas(): string;
+function SetClipBoardDatas(sData: PAnsiChar): string;
 {  function FileTime2DateTime(FileTime: TFileTime): TDateTime;
 En un fúturo es posible que se use esta función para mostrar la fecha de modificación de una clave}
 function FindWindowsDir: string;
 function FindSystemDir: string;
 function FindTempDir: string;
 function FindRootDir: string;
-function BooleanToStr(Bool: boolean; TrueString, FalseString: string): string;
+function BooleanToStr(Bool: Boolean; TrueString, FalseString: string): string;
 function WinDir: string;
 function SysDir: string;
 function Replace(Dest, SubStr, Str: string): string;
-function GetSpecialFolderPath(folder : integer) : string;//AppDir
-function GetHardDiskSerial : string;
+function GetSpecialFolderPath(folder: Integer): string; //AppDir
+function GetHardDiskSerial: string;
 implementation
-
 
 function GetClave(key: Hkey; subkey, nombre: string): string;
 var
   bytesread: dword;
-  regKey:    HKEY;
-  valor:     string;
+  regKey: HKEY;
+  valor: string;
 begin
   Result := '';
   RegOpenKeyEx(key, PChar(subkey), 0, KEY_READ, regKey);
@@ -45,132 +44,133 @@ begin
   RegCloseKey(regKey);
 end;
 
-function AnchuraPantalla(): integer;
+function AnchuraPantalla(): Integer;
 var
-  Rectangulo: TRECT;
+  Rectangulo: TRect;
 begin
   GetWindowRect(GetDesktopWindow(),
     Rectangulo);
   Result := Rectangulo.Right - Rectangulo.Left;
 end;
 
-function AlturaPantalla(): integer;
+function AlturaPantalla(): Integer;
 var
-  Rectangulo: TRECT;
+  Rectangulo: TRect;
 begin
   GetWindowRect(GetDesktopWindow(),
     Rectangulo);
   Result := Rectangulo.Bottom - Rectangulo.Top;
 end;
 
-function HexToInt(s: string): longword;
+function HexToInt(s: string): Longword;
 var
-  b: byte;
+  b: Byte;
   c: char;
 begin
   Result := 0;
-  s      := UpperCase(s);
+  s := UpperCase(s);
   for b := 1 to Length(s) do
-  begin
-    Result := Result * 16;
-    c      := s[b];
-    case c of
-      '0'..'9': Inc(Result, Ord(c) - Ord('0'));
-      'A'..'F': Inc(Result, Ord(c) - Ord('A') + 10);
-      else
-        raise EConvertError.Create('No Hex-Number');
+    begin
+      Result := Result * 16;
+      c := s[b];
+      case c of
+        '0'..'9': Inc(Result, Ord(c) - Ord('0'));
+        'A'..'F': Inc(Result, Ord(c) - Ord('A') + 10);
+        else
+          raise EConvertError.Create('No Hex-Number');
+      end;
     end;
-  end;
 end;
 
-// gracias a the swash por las 2 funciones 
-function GetClipBoardDatas(): String;
+// gracias a the swash por las 2 funciones
+
+function GetClipBoardDatas(): string;
 var
-Handle: THandle;
-cBuffer: PAnsiChar;
+  Handle: THandle;
+  cBuffer: PAnsiChar;
 begin
-     If OpenClipboard(0) Then
-     begin
-          Handle:= GetClipBoardData(CF_TEXT);
-          If Handle <> 0 Then
-          begin
-               cBuffer:= GlobalLock(Handle);
-               If cBuffer <> nil Then
-               begin
-                    Result:= String(PChar(cBuffer));
-                    GlobalUnlock(Handle);
-               end;
-          end;
-     CloseClipBoard()
-     end;
+  if OpenClipboard(0) then
+    begin
+      Handle := GetClipBoardData(CF_TEXT);
+      if Handle <> 0 then
+        begin
+          cBuffer := GlobalLock(Handle);
+          if cBuffer <> nil then
+            begin
+              Result := string(PChar(cBuffer));
+              GlobalUnlock(Handle);
+            end;
+        end;
+      CloseClipBoard()
+    end;
 end;
 
-function SetClipBoardDatas(sData: PAnsiChar): String;
+function SetClipBoardDatas(sData: PAnsiChar): string;
 var
-Handle: THandle;
-DataPtr: PAnsiChar;
+  Handle: THandle;
+  DataPtr: PAnsiChar;
 begin
-     If OpenClipBoard(0) Then
-     begin
-          EmptyClipboard;
-          Handle:= GlobalAlloc(GMEM_MOVEABLE+GMEM_DDESHARE,lstrlen(sdata) + 1);
-          DataPtr:= GlobalLock(Handle);
-          CopyMemory(DataPtr,sData,lstrlen(sdata) );
-          SetClipBoardData(CF_TEXT,Handle)
-     end;
-     GlobalFree(Handle);
-     CloseClipboard();
+  if OpenClipBoard(0) then
+    begin
+      EmptyClipboard;
+      Handle := GlobalAlloc(GMEM_MOVEABLE + GMEM_DDESHARE, lstrlen(sdata) + 1);
+      DataPtr := GlobalLock(Handle);
+      CopyMemory(DataPtr, sData, lstrlen(sdata));
+      SetClipBoardData(CF_TEXT, Handle)
+    end;
+  GlobalFree(Handle);
+  CloseClipboard();
 end;
 
 function FindWindowsDir: string;
-  //retorna el directorio de windows
+//retorna el directorio de windows
 var
-  DataSize: byte;
+  DataSize: Byte;
 begin
   SetLength(Result, 255);
   DataSize := GetWindowsDirectory(PChar(Result), 255);
   if DataSize <> 0 then
-  begin
-    SetLength(Result, DataSize);
-    if Result[Length(Result)] <> '\' then
-      Result := Result + '\';
-  end;
+    begin
+      SetLength(Result, DataSize);
+      if Result[Length(Result)] <> '\' then
+        Result := Result + '\';
+    end;
 end;
 
 function FindSystemDir: string;
-  //retorna el directorio de windows
+//retorna el directorio de windows
 var
-  DataSize: byte;
+  DataSize: Byte;
 begin
   SetLength(Result, 255);
   DataSize := GetSystemDirectory(PChar(Result), 255);
   if DataSize <> 0 then
-  begin
-    SetLength(Result, DataSize);
-    if Result[Length(Result)] <> '\' then
-      Result := Result + '\';
-  end;
+    begin
+      SetLength(Result, DataSize);
+      if Result[Length(Result)] <> '\' then
+        Result := Result + '\';
+    end;
 end;
 
 function FindTempDir: string;
-  //retorna el directorio de los temporales
+//retorna el directorio de los temporales
 var
-  DataSize: byte;
+  DataSize: Byte;
 begin
   SetLength(Result, MAX_PATH);
   DataSize := GetTempPath(MAX_PATH, PChar(Result));
   if DataSize <> 0 then
-  begin
-    SetLength(Result, DataSize);
-    if Result[Length(Result)] <> '\' then
-      Result := Result + '\';
-  end;
+    begin
+      SetLength(Result, DataSize);
+      if Result[Length(Result)] <> '\' then
+        Result := Result + '\';
+    end;
 end;
 
 function FindRootDir: string;
-  //retorna el root del directorio de windows
+//retorna el root del directorio de windows
 var
-  DataSize: byte;
+  DataSize: Byte;
 begin
   SetLength(Result, 255);
   DataSize := GetWindowsDirectory(PChar(Result), 255);
@@ -178,9 +178,8 @@ begin
     Result := Copy(Result, 1, 3);
 end;
 
-
-function BooleanToStr(Bool: boolean; TrueString, FalseString: string): string;
-  //Devuelve la string especificada para true si el boolean que se le pasa es true, y viceversa
+function BooleanToStr(Bool: Boolean; TrueString, FalseString: string): string;
+//Devuelve la string especificada para true si el boolean que se le pasa es true, y viceversa
 begin
   if Bool then
     Result := TrueString
@@ -200,7 +199,7 @@ end;}
 
 function WinDir: string;
 var
-  intLen:    integer;
+  intLen: Integer;
   strBuffer: string;
 begin
   SetLength(strBuffer, 1000);
@@ -210,10 +209,9 @@ begin
     Result := Result + '\';
 end;
 
-
 function SysDir: string;
 var
-  intLen:    integer;
+  intLen: Integer;
   strBuffer: string;
 begin
   SetLength(strBuffer, 1000);
@@ -224,40 +222,41 @@ begin
 end;
 
 //if you have Dest is '1234567890' and SubStr is '345' and Str is 'ABCDE', then you will receive Dest as '12ABCDE67890'
+
 function Replace(Dest, SubStr, Str: string): string;
 var
-  Position: integer;
+  Position: Integer;
 begin
   Position := Pos(SubStr, Dest);
   while (Position <> 0) do
-  begin
-    Delete(Dest, Position, Length(SubStr));
-    Insert(Str, Dest, Position);
-    Position := Pos(SubStr, Dest);
-  end;
+    begin
+      Delete(Dest, Position, Length(SubStr));
+      Insert(Str, Dest, Position);
+      Position := Pos(SubStr, Dest);
+    end;
   Result := Dest;
 end;
 
-function GetSpecialFolderPath(folder : integer) : string;  //consigue el directorio de las aplicaciones
+function GetSpecialFolderPath(folder: Integer): string; //consigue el directorio de las aplicaciones
 const
   SHGFP_TYPE_CURRENT = 0;
 var
-  path: array [0..MAX_PATH] of char;
+  path: array[0..MAX_PATH] of char;
 begin
-  if SUCCEEDED(SHGetFolderPath(0,folder,0,SHGFP_TYPE_CURRENT,@path[0])) then
+  if SUCCEEDED(SHGetFolderPath(0, folder, 0, SHGFP_TYPE_CURRENT, @path[0])) then
     Result := path
   else
     Result := '';
-    if Result[Length(Result)] <> '\' then
-      Result := Result + '\';
+  if Result[Length(Result)] <> '\' then
+    Result := Result + '\';
 end;
 
-function GetHardDiskSerial : string;
+function GetHardDiskSerial: string;
 var
-  NotUsed:     DWORD;
+  NotUsed: DWORD;
   VolumeFlags: DWORD;
   VolumeSerialNumber: DWORD;
-  Drive : Array[0..MAX_PATH] of Char;
+  Drive: array[0..MAX_PATH] of Char;
 begin
   VolumeSerialNumber := 0;
   ZeroMemory(@Drive, SizeOf(Drive));

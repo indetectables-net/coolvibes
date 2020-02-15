@@ -8,7 +8,7 @@ unit SocketUnit;
 
 interface
 
-uses Windows, Winsock, lomlib;
+uses Windows, Winsock;
 
 type
   TTransferCallback = procedure(BytesTotal: dword; BytesDone: dword);
@@ -16,42 +16,42 @@ type
   TClientSocket = class(TObject)
   private
     FAddress: PChar;
-    FData:    pointer;
-    FTag:     integer;
-    FConnected: boolean;
+    FData: Pointer;
+    FTag: Integer;
+    FConnected: Boolean;
     function GetLocalAddress: string;
-    function GetLocalPort: integer;
+    function GetLocalPort: Integer;
     function GetRemoteAddress: string;
-    function GetRemotePort: integer;
+    function GetRemotePort: Integer;
   protected
     FSocket: TSocket;
   public
-    procedure Connect(Address: string; Port: integer);
-    property Connected: boolean Read FConnected;
-    property Data: pointer Read FData Write FData;
+    procedure Connect(Address: string; Port: Integer);
+    property Connected: Boolean read FConnected;
+    property Data: Pointer read FData write FData;
     destructor Destroy; override;
     procedure Disconnect;
-    procedure Idle(Seconds: integer);
-    property LocalAddress: string Read GetLocalAddress;
-    property LocalPort: integer Read GetLocalPort;
-    function ReceiveBuffer(var Buffer; BufferSize: integer): integer;
+    procedure Idle(Seconds: Integer);
+    property LocalAddress: string read GetLocalAddress;
+    property LocalPort: Integer read GetLocalPort;
+    function ReceiveBuffer(var Buffer; BufferSize: Integer): Integer;
     procedure ReceiveFile(FileName: string; TransferCallback: TTransferCallback);
-    function ReceiveLength: integer;
+    function ReceiveLength: Integer;
     function ReceiveString: string;
-    property RemoteAddress: string Read GetRemoteAddress;
-    property RemotePort: integer Read GetRemotePort;
-    function SendBuffer(var Buffer; BufferSize: integer): integer;
+    property RemoteAddress: string read GetRemoteAddress;
+    property RemotePort: Integer read GetRemotePort;
+    function SendBuffer(var Buffer; BufferSize: Integer): Integer;
     procedure SendFile(FileName: string; TransferCallback: TTransferCallback);
-    function SendString(const Buffer: string): integer;
-    property Socket: TSocket Read FSocket;
-    property Tag: integer Read FTag Write FTag;
+    function SendString(const Buffer: string): Integer;
+    property Socket: TSocket read FSocket;
+    property Tag: Integer read FTag write FTag;
   end;
 
   TServerSocket = class(TObject)
   private
-    FListening: boolean;
+    FListening: Boolean;
     function GetLocalAddress: string;
-    function GetLocalPort: integer;
+    function GetLocalPort: Integer;
   protected
     FSocket: TSocket;
   public
@@ -59,10 +59,10 @@ type
     destructor Destroy; override;
     procedure Disconnect;
     procedure Idle;
-    procedure Listen(Port: integer);
-    property Listening: boolean Read FListening;
-    property LocalAddress: string Read GetLocalAddress;
-    property LocalPort: integer Read GetLocalPort;
+    procedure Listen(Port: Integer);
+    property Listening: Boolean read FListening;
+    property LocalAddress: string read GetLocalAddress;
+    property LocalPort: Integer read GetLocalPort;
   end;
 
 var
@@ -70,27 +70,27 @@ var
 
 implementation
 
-procedure TClientSocket.Connect(Address: string; Port: integer);
+procedure TClientSocket.Connect(Address: string; Port: Integer);
 var
   SockAddrIn: TSockAddrIn;
   HostEnt: PHostEnt;
-  resp: integer;
+  resp: Integer;
 begin
   Disconnect;
   FAddress := PChar(Address);
-  FSocket  := Winsock.socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
+  FSocket := Winsock.socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
   SockAddrIn.sin_family := AF_INET;
   SockAddrIn.sin_port := htons(Port);
   SockAddrIn.sin_addr.s_addr := inet_addr(FAddress);
   if SockAddrIn.sin_addr.s_addr = INADDR_NONE then
-  begin
-    HostEnt := gethostbyname(FAddress);
-    if HostEnt = nil then
     begin
-      Exit;
+      HostEnt := gethostbyname(FAddress);
+      if HostEnt = nil then
+        begin
+          Exit;
+        end;
+      SockAddrIn.sin_addr.s_addr := Longint(PLongint(HostEnt^.h_addr_list^)^);
     end;
-    SockAddrIn.sin_addr.s_addr := longint(PLongint(HostEnt^.h_addr_list^)^);
-  end;
   resp := Winsock.Connect(FSocket, SockAddrIn, SizeOf(SockAddrIn));
   //ShowMessage('resp: '+IntToStr(resp));
   if resp < 0 then
@@ -109,19 +109,19 @@ end;
 function TClientSocket.GetLocalAddress: string;
 var
   SockAddrIn: TSockAddrIn;
-  Size: integer;
+  Size: Integer;
 begin
-  Size := sizeof(SockAddrIn);
+  Size := SizeOf(SockAddrIn);
   getsockname(FSocket, SockAddrIn, Size);
   Result := inet_ntoa(SockAddrIn.sin_addr);
 end;
 
-function TClientSocket.GetLocalPort: integer;
+function TClientSocket.GetLocalPort: Integer;
 var
   SockAddrIn: TSockAddrIn;
-  Size: integer;
+  Size: Integer;
 begin
-  Size := sizeof(SockAddrIn);
+  Size := SizeOf(SockAddrIn);
   getsockname(FSocket, SockAddrIn, Size);
   Result := ntohs(SockAddrIn.sin_port);
 end;
@@ -129,131 +129,131 @@ end;
 function TClientSocket.GetRemoteAddress: string;
 var
   SockAddrIn: TSockAddrIn;
-  Size: integer;
+  Size: Integer;
 begin
-  Size := sizeof(SockAddrIn);
+  Size := SizeOf(SockAddrIn);
   getpeername(FSocket, SockAddrIn, Size);
   Result := inet_ntoa(SockAddrIn.sin_addr);
 end;
 
-function TClientSocket.GetRemotePort: integer;
+function TClientSocket.GetRemotePort: Integer;
 var
   SockAddrIn: TSockAddrIn;
-  Size: integer;
+  Size: Integer;
 begin
-  Size := sizeof(SockAddrIn);
+  Size := SizeOf(SockAddrIn);
   getpeername(FSocket, SockAddrIn, Size);
   Result := ntohs(SockAddrIn.sin_port);
 end;
 
-procedure TClientSocket.Idle(Seconds: integer);
+procedure TClientSocket.Idle(Seconds: Integer);
 var
-  FDset:   TFDset;
+  FDset: TFDset;
   TimeVal: TTimeVal;
 begin
   if Seconds = 0 then
-  begin
-    FD_ZERO(FDSet);
-    FD_SET(FSocket, FDSet);
-    select(0, @FDset, nil, nil, nil);
-  end
+    begin
+      FD_ZERO(FDSet);
+      FD_SET(FSocket, FDSet);
+      select(0, @FDset, nil, nil, nil);
+    end
   else
-  begin
-    TimeVal.tv_sec  := Seconds;
-    TimeVal.tv_usec := 0;
-    FD_ZERO(FDSet);
-    FD_SET(FSocket, FDSet);
-    select(0, @FDset, nil, nil, @TimeVal);
-  end;
+    begin
+      TimeVal.tv_sec := Seconds;
+      TimeVal.tv_usec := 0;
+      FD_ZERO(FDSet);
+      FD_SET(FSocket, FDSet);
+      select(0, @FDset, nil, nil, @TimeVal);
+    end;
 end;
 
-function TClientSocket.ReceiveLength: integer;
+function TClientSocket.ReceiveLength: Integer;
 begin
-  Result := ReceiveBuffer(pointer(nil)^, -1);
+  Result := ReceiveBuffer(Pointer(nil)^, -1);
 end;
 
-function TClientSocket.ReceiveBuffer(var Buffer; BufferSize: integer): integer;
+function TClientSocket.ReceiveBuffer(var Buffer; BufferSize: Integer): Integer;
 begin
   if BufferSize = -1 then
-  begin
-    if ioctlsocket(FSocket, FIONREAD, longint(Result)) = SOCKET_ERROR then
     begin
-      Result := SOCKET_ERROR;
-      Disconnect;
-    end;
-  end
+      if ioctlsocket(FSocket, FIONREAD, Longint(Result)) = SOCKET_ERROR then
+        begin
+          Result := SOCKET_ERROR;
+          Disconnect;
+        end;
+    end
   else
-  begin
-    Result := recv(FSocket, Buffer, BufferSize, 0);
-    if Result = 0 then
     begin
-      Disconnect;
+      Result := recv(FSocket, Buffer, BufferSize, 0);
+      if Result = 0 then
+        begin
+          Disconnect;
+        end;
+      if Result = SOCKET_ERROR then
+        begin
+          Result := WSAGetLastError;
+          if Result = WSAEWOULDBLOCK then
+            begin
+              Result := 0;
+            end
+          else
+            begin
+              Disconnect;
+            end;
+        end;
     end;
-    if Result = SOCKET_ERROR then
-    begin
-      Result := WSAGetLastError;
-      if Result = WSAEWOULDBLOCK then
-      begin
-        Result := 0;
-      end
-      else
-      begin
-        Disconnect;
-      end;
-    end;
-  end;
 end;
 
 function TClientSocket.ReceiveString: string;
 begin
-  SetLength(Result, ReceiveBuffer(pointer(nil)^, -1));
-  SetLength(Result, ReceiveBuffer(pointer(Result)^, Length(Result)));
+  SetLength(Result, ReceiveBuffer(Pointer(nil)^, -1));
+  SetLength(Result, ReceiveBuffer(Pointer(Result)^, Length(Result)));
 end;
 
 procedure TClientSocket.ReceiveFile(FileName: string;
   TransferCallback: TTransferCallback);
 var
   BinaryBuffer: PChar;
-  BinaryFile:   THandle;
+  BinaryFile: THandle;
   BinaryFileSize, BytesReceived, BytesWritten, BytesDone: dword;
 begin
-  BytesDone  := 0;
+  BytesDone := 0;
   BinaryFile := CreateFile(PChar(FileName), GENERIC_WRITE, FILE_SHARE_WRITE,
     nil, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
   Idle(0);
-  ReceiveBuffer(BinaryFileSize, sizeof(BinaryFileSize));
+  ReceiveBuffer(BinaryFileSize, SizeOf(BinaryFileSize));
   while BytesDone < BinaryFileSize do
-  begin
-    Sleep(1);
-    BytesReceived := ReceiveLength;
-    if BytesReceived > 0 then
     begin
-      GetMem(BinaryBuffer, BytesReceived);
-      try
-        ReceiveBuffer(BinaryBuffer^, BytesReceived);
-        WriteFile(BinaryFile, BinaryBuffer^, BytesReceived, BytesWritten, nil);
-        Inc(BytesDone, BytesReceived);
-        if Assigned(TransferCallback) then
-          TransferCallback(BinaryFileSize, BytesDone);
-      finally
-        FreeMem(BinaryBuffer);
-      end;
+      Sleep(1);
+      BytesReceived := ReceiveLength;
+      if BytesReceived > 0 then
+        begin
+          GetMem(BinaryBuffer, BytesReceived);
+          try
+            ReceiveBuffer(BinaryBuffer^, BytesReceived);
+            WriteFile(BinaryFile, BinaryBuffer^, BytesReceived, BytesWritten, nil);
+            Inc(BytesDone, BytesReceived);
+            if Assigned(TransferCallback) then
+              TransferCallback(BinaryFileSize, BytesDone);
+          finally
+            FreeMem(BinaryBuffer);
+          end;
+        end;
     end;
-  end;
   CloseHandle(BinaryFile);
 end;
 
 procedure TClientSocket.SendFile(FileName: string; TransferCallback: TTransferCallback);
 var
-  BinaryFile:   THandle;
+  BinaryFile: THandle;
   BinaryBuffer: PChar;
   BinaryFileSize, BytesRead, BytesDone: dword;
 begin
-  BytesDone      := 0;
-  BinaryFile     := CreateFile(PChar(FileName), GENERIC_READ, FILE_SHARE_READ,
+  BytesDone := 0;
+  BinaryFile := CreateFile(PChar(FileName), GENERIC_READ, FILE_SHARE_READ,
     nil, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
   BinaryFileSize := GetFileSize(BinaryFile, nil);
-  SendBuffer(BinaryFileSize, sizeof(BinaryFileSize));
+  SendBuffer(BinaryFileSize, SizeOf(BinaryFileSize));
   GetMem(BinaryBuffer, 2048);
   try
     repeat
@@ -272,28 +272,28 @@ begin
   CloseHandle(BinaryFile);
 end;
 
-function TClientSocket.SendBuffer(var Buffer; BufferSize: integer): integer;
+function TClientSocket.SendBuffer(var Buffer; BufferSize: Integer): Integer;
 var
-  ErrorCode: integer;
+  ErrorCode: Integer;
 begin
   Result := send(FSocket, Buffer, BufferSize, 0);
   if Result = SOCKET_ERROR then
-  begin
-    ErrorCode := WSAGetLastError;
-    if (ErrorCode = WSAEWOULDBLOCK) then
     begin
-      Result := -1;
-    end
-    else
-    begin
-      Disconnect;
+      ErrorCode := WSAGetLastError;
+      if (ErrorCode = WSAEWOULDBLOCK) then
+        begin
+          Result := -1;
+        end
+      else
+        begin
+          Disconnect;
+        end;
     end;
-  end;
 end;
 
-function TClientSocket.SendString(const Buffer: string): integer;
+function TClientSocket.SendString(const Buffer: string): Integer;
 begin
-  Result := SendBuffer(pointer(Buffer)^, Length(Buffer));
+  Result := SendBuffer(Pointer(Buffer)^, Length(Buffer));
 end;
 
 destructor TClientSocket.Destroy;
@@ -302,7 +302,7 @@ begin
   Disconnect;
 end;
 
-procedure TServerSocket.Listen(Port: integer);
+procedure TServerSocket.Listen(Port: Integer);
 var
   SockAddrIn: TSockAddrIn;
 begin
@@ -311,7 +311,7 @@ begin
   SockAddrIn.sin_family := AF_INET;
   SockAddrIn.sin_addr.s_addr := INADDR_ANY;
   SockAddrIn.sin_port := htons(Port);
-  bind(FSocket, SockAddrIn, sizeof(SockAddrIn));
+  bind(FSocket, SockAddrIn, SizeOf(SockAddrIn));
   FListening := True;
   Winsock.listen(FSocket, 5);
 end;
@@ -319,19 +319,19 @@ end;
 function TServerSocket.GetLocalAddress: string;
 var
   SockAddrIn: TSockAddrIn;
-  Size: integer;
+  Size: Integer;
 begin
-  Size := sizeof(SockAddrIn);
+  Size := SizeOf(SockAddrIn);
   getsockname(FSocket, SockAddrIn, Size);
   Result := inet_ntoa(SockAddrIn.sin_addr);
 end;
 
-function TServerSocket.GetLocalPort: integer;
+function TServerSocket.GetLocalPort: Integer;
 var
   SockAddrIn: TSockAddrIn;
-  Size: integer;
+  Size: Integer;
 begin
-  Size := sizeof(SockAddrIn);
+  Size := SizeOf(SockAddrIn);
   getsockname(FSocket, SockAddrIn, Size);
   Result := ntohs(SockAddrIn.sin_port);
 end;
@@ -347,20 +347,20 @@ end;
 
 function TServerSocket.Accept: TClientSocket;
 var
-  Size:     integer;
+  Size: Integer;
   SockAddr: TSockAddr;
 begin
   Result := TClientSocket.Create;
-  Size   := sizeof(TSockAddr);
+  Size := SizeOf(TSockAddr);
   Result.FSocket := Winsock.accept(FSocket, @SockAddr, @Size);
   if Result.FSocket = INVALID_SOCKET then
-  begin
-    Disconnect;
-  end
+    begin
+      Disconnect;
+    end
   else
-  begin
-    Result.FConnected := True;
-  end;
+    begin
+      Result.FConnected := True;
+    end;
 end;
 
 procedure TServerSocket.Disconnect;

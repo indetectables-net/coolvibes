@@ -100,8 +100,8 @@ interface
 
 uses SysUtils, Windows, Messages;
 
-function SendKeys(SendKeysString: PChar; Wait: boolean): boolean;
-function AppActivate(WindowName: PChar): boolean;
+function SendKeys(SendKeysString: PChar; Wait: Boolean): Boolean;
+function AppActivate(WindowName: PChar): Boolean;
 
 {Buffer for working with PChar's}
 
@@ -114,28 +114,28 @@ var
 implementation
 
 type
-  THKeys = array[0..pred(MaxLongInt)] of byte;
+  THKeys = array[0..pred(MaxLongInt)] of Byte;
 
 var
-  AllocationSize: integer;
+  AllocationSize: Integer;
 
-(*
-Converts a string of characters and key names to keyboard events and
-passes them to Windows.
+  (*
+  Converts a string of characters and key names to keyboard events and
+  passes them to Windows.
 
-Example syntax:
+  Example syntax:
 
-SendKeys('abc123{left}{left}{left}def{end}456{left 6}ghi{end}789', True);
+  SendKeys('abc123{left}{left}{left}def{end}456{left 6}ghi{end}789', True);
 
-*)
+  *)
 
-function SendKeys(SendKeysString: PChar; Wait: boolean): boolean;
+function SendKeys(SendKeysString: PChar; Wait: Boolean): Boolean;
 type
-  WBytes = array[0..pred(SizeOf(word))] of byte;
+  WBytes = array[0..pred(SizeOf(Word))] of Byte;
 
   TSendKey = record
     Name: ShortString;
-    VKey: byte;
+    VKey: Byte;
   end;
 
 const
@@ -146,7 +146,7 @@ const
 
   MaxSendKeyRecs = 41;
   SendKeyRecs: array[1..MaxSendKeyRecs] of TSendKey =
-    (
+  (
     (Name: 'BACKSPACE'; VKey: VK_BACK),
     (Name: 'BKSP'; VKey: VK_BACK),
     (Name: 'BREAK'; VKey: VK_CANCEL),
@@ -191,24 +191,24 @@ const
     );
 
   {Extra VK constants missing from Delphi's Windows API interface}
-  VK_NULL      = 0;
+  VK_NULL = 0;
   VK_SemiColon = 186;
-  VK_Equal     = 187;
-  VK_Comma     = 188;
-  VK_Minus     = 189;
-  VK_Period    = 190;
-  VK_Slash     = 191;
+  VK_Equal = 187;
+  VK_Comma = 188;
+  VK_Minus = 189;
+  VK_Period = 190;
+  VK_Slash = 191;
   VK_BackQuote = 192;
   VK_LeftBracket = 219;
   VK_BackSlash = 220;
   VK_RightBracket = 221;
-  VK_Quote     = 222;
-  VK_Last      = VK_Quote;
+  VK_Quote = 222;
+  VK_Last = VK_Quote;
 
-  ExtendedVKeys: set of byte =
-    [VK_Up, VK_Down, VK_Left, VK_Right, VK_Home, VK_End, VK_Prior,  {PgUp}
-    VK_Next,   {PgDn}
-    VK_Insert, VK_Delete];
+  ExtendedVKeys: set of Byte =
+  [VK_Up, VK_Down, VK_Left, VK_Right, VK_Home, VK_End, VK_Prior, {PgUp}
+  VK_Next, {PgDn}
+  VK_Insert, VK_Delete];
 
 const
   INVALIDKEY = $FFFF {Unsigned -1};
@@ -217,10 +217,10 @@ const
   VKKEYSCANALTON = $04;
   UNITNAME = 'SendKeys';
 var
-  UsingParens, ShiftDown, ControlDown, AltDown, FoundClose: boolean;
-  PosSpace:  byte;
-  I, L:      integer;
-  NumTimes, MKey: word;
+  UsingParens, ShiftDown, ControlDown, AltDown, FoundClose: Boolean;
+  PosSpace: Byte;
+  I, L: Integer;
+  NumTimes, MKey: Word;
   KeyString: string[20];
 
   procedure DisplayMessage(Message: PChar);
@@ -228,67 +228,67 @@ var
     MessageBox(0, Message, UNITNAME, 0);
   end;
 
-  function BitSet(BitTable, BitMask: byte): boolean;
+  function BitSet(BitTable, BitMask: Byte): Boolean;
   begin
-    Result := bytebool(BitTable and BitMask);
+    Result := ByteBool(BitTable and BitMask);
   end;
 
-  procedure SetBit(var BitTable: byte; BitMask: byte);
+  procedure SetBit(var BitTable: Byte; BitMask: Byte);
   begin
     BitTable := BitTable or Bitmask;
   end;
 
-  procedure KeyboardEvent(VKey, ScanCode: byte; Flags: longint);
+  procedure KeyboardEvent(VKey, ScanCode: Byte; Flags: Longint);
   var
     KeyboardMsg: TMsg;
   begin
     keybd_event(VKey, ScanCode, Flags, 0);
     if (Wait) then
       while (PeekMessage(KeyboardMsg, 0, WM_KEYFIRST, WM_KEYLAST, PM_REMOVE)) do
-      begin
-        TranslateMessage(KeyboardMsg);
-        DispatchMessage(KeyboardMsg);
-      end;
+        begin
+          TranslateMessage(KeyboardMsg);
+          DispatchMessage(KeyboardMsg);
+        end;
   end;
 
-  procedure SendKeyDown(VKey: byte; NumTimes: word; GenUpMsg: boolean);
+  procedure SendKeyDown(VKey: Byte; NumTimes: Word; GenUpMsg: Boolean);
   var
-    Cnt:      word;
-    ScanCode: byte;
-    NumState: boolean;
+    Cnt: Word;
+    ScanCode: Byte;
+    NumState: Boolean;
     KeyBoardState: TKeyboardState;
   begin
     if (VKey = VK_NUMLOCK) then
-    begin
-      NumState := bytebool(GetKeyState(VK_NUMLOCK) and 1);
-      GetKeyBoardState(KeyBoardState);
-      if NumState then
-        KeyBoardState[VK_NUMLOCK] := (KeyBoardState[VK_NUMLOCK] and not 1)
-      else
-        KeyBoardState[VK_NUMLOCK] := (KeyBoardState[VK_NUMLOCK] or 1);
-      SetKeyBoardState(KeyBoardState);
-      exit;
-    end;
+      begin
+        NumState := ByteBool(GetKeyState(VK_NUMLOCK) and 1);
+        GetKeyBoardState(KeyBoardState);
+        if NumState then
+          KeyBoardState[VK_NUMLOCK] := (KeyBoardState[VK_NUMLOCK] and not 1)
+        else
+          KeyBoardState[VK_NUMLOCK] := (KeyBoardState[VK_NUMLOCK] or 1);
+        SetKeyBoardState(KeyBoardState);
+        Exit;
+      end;
 
     ScanCode := Lo(MapVirtualKey(VKey, 0));
     for Cnt := 1 to NumTimes do
       if (VKey in ExtendedVKeys) then
-      begin
-        KeyboardEvent(VKey, ScanCode, KEYEVENTF_EXTENDEDKEY);
-        if (GenUpMsg) then
-          KeyboardEvent(VKey, ScanCode, KEYEVENTF_EXTENDEDKEY or KEYEVENTF_KEYUP);
-      end
+        begin
+          KeyboardEvent(VKey, ScanCode, KEYEVENTF_EXTENDEDKEY);
+          if (GenUpMsg) then
+            KeyboardEvent(VKey, ScanCode, KEYEVENTF_EXTENDEDKEY or KEYEVENTF_KEYUP);
+        end
       else
-      begin
-        KeyboardEvent(VKey, ScanCode, 0);
-        if (GenUpMsg) then
-          KeyboardEvent(VKey, ScanCode, KEYEVENTF_KEYUP);
-      end;
+        begin
+          KeyboardEvent(VKey, ScanCode, 0);
+          if (GenUpMsg) then
+            KeyboardEvent(VKey, ScanCode, KEYEVENTF_KEYUP);
+        end;
   end;
 
-  procedure SendKeyUp(VKey: byte);
+  procedure SendKeyUp(VKey: Byte);
   var
-    ScanCode: byte;
+    ScanCode: Byte;
   begin
     ScanCode := Lo(MapVirtualKey(VKey, 0));
     if (VKey in ExtendedVKeys) then
@@ -297,7 +297,7 @@ var
       KeyboardEvent(VKey, ScanCode, KEYEVENTF_KEYUP);
   end;
 
-  procedure SendKey(MKey: word; NumTimes: word; GenDownMsg: boolean);
+  procedure SendKey(MKey: Word; NumTimes: Word; GenDownMsg: Boolean);
   begin
     if (BitSet(Hi(MKey), VKKEYSCANSHIFTON)) then
       SendKeyDown(VK_SHIFT, 1, False);
@@ -316,50 +316,50 @@ var
 
   {Implements a simple binary search to locate special key name strings}
 
-  function StringToVKey(KeyString: ShortString): word;
+  function StringToVKey(KeyString: ShortString): Word;
   var
-    Found, Collided:     boolean;
-    Bottom, Top, Middle: byte;
+    Found, Collided: Boolean;
+    Bottom, Top, Middle: Byte;
   begin
     Result := INVALIDKEY;
     Bottom := 1;
-    Top    := MaxSendKeyRecs;
-    Found  := False;
+    Top := MaxSendKeyRecs;
+    Found := False;
     Middle := (Bottom + Top) div 2;
     repeat
       Collided := ((Bottom = Middle) or (Top = Middle));
       if (KeyString = SendKeyRecs[Middle].Name) then
-      begin
-        Found  := True;
-        Result := SendKeyRecs[Middle].VKey;
-      end
+        begin
+          Found := True;
+          Result := SendKeyRecs[Middle].VKey;
+        end
       else
-      begin
-        if (KeyString > SendKeyRecs[Middle].Name) then
-          Bottom := Middle
-        else
-          Top    := Middle;
-        Middle := (Succ(Bottom + Top)) div 2;
-      end;
+        begin
+          if (KeyString > SendKeyRecs[Middle].Name) then
+            Bottom := Middle
+          else
+            Top := Middle;
+          Middle := (Succ(Bottom + Top)) div 2;
+        end;
     until (Found or Collided);
-    if (Result = INVALIDKEY) then; {DisplayMessage('Invalid Key Name'); }
-      //Comentado para que no diga nada si hune una tecla inválida
+    if (Result = INVALIDKEY) then ; {DisplayMessage('Invalid Key Name'); }
+    //Comentado para que no diga nada si hune una tecla inválida
   end;
 
   procedure PopUpShiftKeys;
   begin
     if (not UsingParens) then
-    begin
-      if ShiftDown then
-        SendKeyUp(VK_SHIFT);
-      if ControlDown then
-        SendKeyUp(VK_CONTROL);
-      if AltDown then
-        SendKeyUp(VK_MENU);
-      ShiftDown   := False;
-      ControlDown := False;
-      AltDown     := False;
-    end;
+      begin
+        if ShiftDown then
+          SendKeyUp(VK_SHIFT);
+        if ControlDown then
+          SendKeyUp(VK_CONTROL);
+        if AltDown then
+          SendKeyUp(VK_MENU);
+        ShiftDown := False;
+        ControlDown := False;
+        AltDown := False;
+      end;
   end;
 
 begin
@@ -377,115 +377,115 @@ begin
     Exit;
 
   while (I < L) do
-  begin
-    case SendKeysString[I] of
-      '(':
-      begin
-        UsingParens := True;
-        Inc(I);
-      end;
-      ')':
-      begin
-        UsingParens := False;
-        PopUpShiftKeys;
-        Inc(I);
-      end;
-      '%':
-      begin
-        AltDown := True;
-        SendKeyDown(VK_MENU, 1, False);
-        Inc(I);
-      end;
-      '+':
-      begin
-        ShiftDown := True;
-        SendKeyDown(VK_SHIFT, 1, False);
-        Inc(I);
-      end;
-      '^':
-      begin
-        ControlDown := True;
-        SendKeyDown(VK_CONTROL, 1, False);
-        Inc(I);
-      end;
-      '{':
-      begin
-        NumTimes := 1;
-        if (SendKeysString[Succ(I)] = '{') then
-        begin
-          MKey := VK_LEFTBRACKET;
-          SetBit(Wbytes(MKey)[1], VKKEYSCANSHIFTON);
-          SendKey(MKey, 1, True);
-          PopUpShiftKeys;
-          Inc(I, 3);
-          Continue;
-        end;
-        KeyString  := '';
-        FoundClose := False;
-        while (I <= L) do
-        begin
-          Inc(I);
-          if (SendKeysString[I] = '}') then
+    begin
+      case SendKeysString[I] of
+        '(':
           begin
-            FoundClose := True;
+            UsingParens := True;
             Inc(I);
-            Break;
           end;
-          KeyString := KeyString + Upcase(SendKeysString[I]);
-        end;
-        if (not FoundClose) then
-        begin
-          //DisplayMessage('No Close'); //comentado para que no diga nada el server
-          Exit;
-        end;
-        if (SendKeysString[I] = '}') then
-        begin
-          MKey := VK_RIGHTBRACKET;
-          SetBit(Wbytes(MKey)[1], VKKEYSCANSHIFTON);
-          SendKey(MKey, 1, True);
-          PopUpShiftKeys;
-          Inc(I);
-          Continue;
-        end;
-        PosSpace := Pos(' ', KeyString);
-        if (PosSpace <> 0) then
-        begin
-          NumTimes  := StrToInt(
-            Copy(KeyString, Succ(PosSpace), Length(KeyString) - PosSpace));
-          KeyString := Copy(KeyString, 1, Pred(PosSpace));
-        end;
-        if (Length(KeyString) = 1) then
-          MKey := vkKeyScan(KeyString[1])
+        ')':
+          begin
+            UsingParens := False;
+            PopUpShiftKeys;
+            Inc(I);
+          end;
+        '%':
+          begin
+            AltDown := True;
+            SendKeyDown(VK_MENU, 1, False);
+            Inc(I);
+          end;
+        '+':
+          begin
+            ShiftDown := True;
+            SendKeyDown(VK_SHIFT, 1, False);
+            Inc(I);
+          end;
+        '^':
+          begin
+            ControlDown := True;
+            SendKeyDown(VK_CONTROL, 1, False);
+            Inc(I);
+          end;
+        '{':
+          begin
+            NumTimes := 1;
+            if (SendKeysString[Succ(I)] = '{') then
+              begin
+                MKey := VK_LEFTBRACKET;
+                SetBit(Wbytes(MKey)[1], VKKEYSCANSHIFTON);
+                SendKey(MKey, 1, True);
+                PopUpShiftKeys;
+                Inc(I, 3);
+                Continue;
+              end;
+            KeyString := '';
+            FoundClose := False;
+            while (I <= L) do
+              begin
+                Inc(I);
+                if (SendKeysString[I] = '}') then
+                  begin
+                    FoundClose := True;
+                    Inc(I);
+                    Break;
+                  end;
+                KeyString := KeyString + Upcase(SendKeysString[I]);
+              end;
+            if (not FoundClose) then
+              begin
+                //DisplayMessage('No Close'); //comentado para que no diga nada el server
+                Exit;
+              end;
+            if (SendKeysString[I] = '}') then
+              begin
+                MKey := VK_RIGHTBRACKET;
+                SetBit(Wbytes(MKey)[1], VKKEYSCANSHIFTON);
+                SendKey(MKey, 1, True);
+                PopUpShiftKeys;
+                Inc(I);
+                Continue;
+              end;
+            PosSpace := Pos(' ', KeyString);
+            if (PosSpace <> 0) then
+              begin
+                NumTimes := StrToInt(
+                  Copy(KeyString, Succ(PosSpace), Length(KeyString) - PosSpace));
+                KeyString := Copy(KeyString, 1, Pred(PosSpace));
+              end;
+            if (Length(KeyString) = 1) then
+              MKey := vkKeyScan(KeyString[1])
+            else
+              MKey := StringToVKey(KeyString);
+            if (MKey <> INVALIDKEY) then
+              begin
+                SendKey(MKey, NumTimes, True);
+                PopUpShiftKeys;
+                Continue;
+              end;
+          end;
+        '~':
+          begin
+            SendKeyDown(VK_RETURN, 1, True);
+            PopUpShiftKeys;
+            Inc(I);
+          end;
         else
-          MKey := StringToVKey(KeyString);
-        if (MKey <> INVALIDKEY) then
-        begin
-          SendKey(MKey, NumTimes, True);
-          PopUpShiftKeys;
-          Continue;
-        end;
-      end;
-      '~':
-      begin
-        SendKeyDown(VK_RETURN, 1, True);
-        PopUpShiftKeys;
-        Inc(I);
-      end;
-      else
-      begin
-        MKey := vkKeyScan(SendKeysString[I]);
-        if (MKey <> INVALIDKEY) then
-        begin
-          SendKey(MKey, 1, True);
-          PopUpShiftKeys;
-        end
-        else
-        begin {DisplayMessage('Invalid KeyName');}
-        end; //Comentado para que no diga nada si es una tecla invalida
-        Inc(I);
+          begin
+            MKey := vkKeyScan(SendKeysString[I]);
+            if (MKey <> INVALIDKEY) then
+              begin
+                SendKey(MKey, 1, True);
+                PopUpShiftKeys;
+              end
+            else
+              begin {DisplayMessage('Invalid KeyName');}
+              end; //Comentado para que no diga nada si es una tecla invalida
+            Inc(I);
+          end;
       end;
     end;
-  end;
   Result := True;
   PopUpShiftKeys;
 end;
@@ -500,11 +500,10 @@ the left.
 
 }
 
-
 var
   WindowHandle: HWND;
 
-function EnumWindowsProc(WHandle: HWND; lParam: LPARAM): BOOL; export; stdcall;
+function EnumWindowsProc(WHandle: HWND; lParam: lParam): BOOL; export; stdcall;
 var
   WindowName: array[0..MAX_PATH] of char;
 begin
@@ -515,19 +514,19 @@ begin
     WindowHandle := WHandle;
 end;
 
-function AppActivate(WindowName: PChar): boolean;
+function AppActivate(WindowName: PChar): Boolean;
 begin
   try
     Result := True;
     WindowHandle := FindWindow(nil, WindowName);
     if (WindowHandle = 0) then
-      EnumWindows(@EnumWindowsProc, integer(PChar(WindowName)));
+      EnumWindows(@EnumWindowsProc, Integer(PChar(WindowName)));
     if (WindowHandle <> 0) then
-    begin
-      SendMessage(WindowHandle, WM_SYSCOMMAND, SC_HOTKEY, WindowHandle);
-      SendMessage(WindowHandle, WM_SYSCOMMAND, SC_RESTORE, WindowHandle);
-      SetForegroundWindow(WindowHandle);
-    end
+      begin
+        SendMessage(WindowHandle, WM_SYSCOMMAND, SC_HOTKEY, WindowHandle);
+        SendMessage(WindowHandle, WM_SYSCOMMAND, SC_RESTORE, WindowHandle);
+        SetForegroundWindow(WindowHandle);
+      end
     else
       Result := False;
   except

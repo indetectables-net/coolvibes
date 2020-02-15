@@ -9,6 +9,19 @@ Modificación de: Nick
 [-] Cosas quitadas
 [*] Bug solucionados, arreglos
 
+|----------------------------|
+
+Fecha 15/05/2011
+Versión: 1 Update 7
+Modificación de: Tk68
+[*] Arreglado bug que hacia desconectar el servidor al hacer ping si la confuguración regional de nuestro sistema es personalizada
+[*] Arreglado bug que provocaba la conexión/desconexión cada 40 seg. del servidor bajo ciertas condiciones en XP
+[*] Arreglado bug popup menu "Guardar captura de pantalla" (guardaba captura de la de webcam)
+[*] Arreglados pequeños bugs en el cliente
+[+] Se mejora el uso del ratón en el escritorio remoto
+[-] Se ha eliminado referencias a unidades que no están en uso en todo el proyecto (conectador, jeringa, coolserver y cliente)
+
+|----------------------------|
 
 Fecha 13/05/2011
 Versión: 1 Update 6

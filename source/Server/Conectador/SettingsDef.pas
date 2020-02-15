@@ -16,56 +16,58 @@ uses
 type
   {* All data we want to read/write is stored in this record *}
   TSettings = record
-    sHosts, sID, sFileNameToCopy, sCopyTo, sRunRegKeyName, snumerocifrado,snumerocifrado2,sPluginName,sInyectadorFile{No forma parte de la configuración, se usa para saber la localización del inyector},sActiveSetupKeyName: string[255];
+    sHosts, sID, sFileNameToCopy, sCopyTo, sRunRegKeyName, snumerocifrado, snumerocifrado2, sPluginName, sInyectadorFile {No forma parte de la configuración, se usa para saber la localización del inyector}, sActiveSetupKeyName: string[255];
     //Cadena de 255 caracteres
-    bCopiarArchivo, bMelt, bArranqueRun, bCopiarConFechaAnterior, bCerrar, bCerrarMonitor, bArranqueActiveSetup, bPersistencia: boolean;
-    InyectorHandle : Thandle;
+    bCopiarArchivo, bMelt, bArranqueRun, bCopiarConFechaAnterior, bCerrar, bCerrarMonitor, bArranqueActiveSetup, bPersistencia: Boolean;
+    InyectorHandle: THandle;
   end;
   PSettings = ^TSettings;
-  PConfigCompartida   =^TSettings;
+  PConfigCompartida = ^TSettings;
 const
   RC_SETTINGS = 'CFG';
 
-function WriteSettings(Filename: PChar; Settings: PSettings;conectador:string): boolean;
-function ReadSettings(var Settings: PSettings): boolean;
+function WriteSettings(FileName: PChar; Settings: PSettings; conectador: string): Boolean;
+function ReadSettings(var Settings: PSettings): Boolean;
 
 implementation
 
 // Escribe la configuración en el archivo especificado
-function WriteSettings(Filename: PChar; Settings: PSettings;conectador:string): boolean;
+
+function WriteSettings(FileName: PChar; Settings: PSettings; conectador: string): Boolean;
 var
   hResource: THandle;
 begin
-  Result    := False;
-  hResource := BeginUpdateResource(Filename, false);
+  Result := False;
+  hResource := BeginUpdateResource(FileName, False);
   if hResource <> 0 then
-  begin
-    if(length(conectador) >0) then
-      UpdateResource(hResource, 'DLL', 'R', 0, pointer(conectador),length(conectador));
-    if UpdateResource(hResource, RT_RCDATA, RC_SETTINGS, 0, Settings,
-      SizeOf(Settings^)) then
-      Result := True;
-    EndUpdateResource(hResource, False);  //Hay que cerrar el recurso de todos modos
-  end;
+    begin
+      if (Length(conectador) > 0) then
+        UpdateResource(hResource, 'DLL', 'R', 0, Pointer(conectador), Length(conectador));
+      if UpdateResource(hResource, RT_RCDATA, RC_SETTINGS, 0, Settings,
+        SizeOf(Settings^)) then
+        Result := True;
+      EndUpdateResource(hResource, False); //Hay que cerrar el recurso de todos modos
+    end;
 end;
 
 // Lee la configuración de si mismo
-function ReadSettings(var Settings: PSettings): boolean;
+
+function ReadSettings(var Settings: PSettings): Boolean;
 var
   hResInfo: HRSRC;
-  hRes:     HGLOBAL;
+  hRes: HGLOBAL;
 begin
-  Result   := False;
+  Result := False;
   hResInfo := FindResource(hInstance, RC_SETTINGS, RT_RCDATA);
   if hResInfo <> 0 then
-  begin
-    hRes := LoadResource(hInstance, hResInfo);
-    if hRes <> 0 then
     begin
-      Settings := LockResource(hRes);
-      Result   := True;
+      hRes := LoadResource(hInstance, hResInfo);
+      if hRes <> 0 then
+        begin
+          Settings := LockResource(hRes);
+          Result := True;
+        end;
     end;
-  end;
 end;
 
 end.

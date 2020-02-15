@@ -1,9 +1,9 @@
-unit vars;   //Variables que se usan desde UnitInstalacion y la unit principal
+unit vars; //Variables que se usan desde UnitInstalacion y la unit principal
 
 interface
-uses windows, SettingsDef;
+uses SettingsDef;
 var
-  Configuracion:   TSettings;
+  Configuracion: TSettings;
 implementation
 
 end.

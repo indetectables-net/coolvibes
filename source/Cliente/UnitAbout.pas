@@ -3,37 +3,38 @@ unit UnitAbout;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Buttons, ExtCtrls, StdCtrls, ComCtrls, jpeg, ShellAPI, UnitVariables, gnugettext;
+  Classes, Controls, Forms,
+  ExtCtrls, StdCtrls, ComCtrls, ShellAPI, UnitVariables, gnugettext,
+  Graphics;
 
 type
   TFormAbout = class(TForm)
-    RichEdit1:  TRichEdit;
-    Label1:     TLabel;
-    Image1:     TImage;
-    Label2:     TLabel;
-    Image2:     TImage;
-    Label3:     TLabel;
-    Image3:     TImage;
-    Label4:     TLabel;
+    RichEdit1: TRichEdit;
+    Label1: TLabel;
+    Image1: TImage;
+    Label2: TLabel;
+    Image2: TImage;
+    Label3: TLabel;
+    Image3: TImage;
+    Label4: TLabel;
     ScrollBoxCreadores: TScrollBox;
     EdtHistorial: TRichEdit;
-    ImgBanner:  TImage;
+    ImgBanner: TImage;
     GrpBoxHistorial: TGroupBox;
     GrpBoxInfo: TGroupBox;
     ScrollBoxBetaTesters: TScrollBox;
-    Image5:     TImage;
-    Label5:     TLabel;
-    Label6:     TLabel;
+    Image5: TImage;
+    Label5: TLabel;
+    Label6: TLabel;
     ScrollBox1: TScrollBox;
-    Label7:     TLabel;
-    Label8:     TLabel;
-    Label9:     TLabel;
-    Label10:    TLabel;
-    Image4:     TImage;
-    Label11:    TLabel;
-    Image6:     TImage;
-    Label12:    TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    Image4: TImage;
+    Label11: TLabel;
+    Image6: TImage;
+    Label12: TLabel;
     Label13: TLabel;
     Label14: TLabel;
     Image7: TImage;
@@ -69,16 +70,16 @@ end;
 
 procedure TFormAbout.FormCreate(Sender: TObject);
 begin
-  
+
   GrpBoxInfo.Caption := 'Coolvibes ' + VersionCool;
-  FormAbout.Caption  := _('Acerca de Coolvibes ') + VersionCool;
+  FormAbout.Caption := _('Acerca de Coolvibes ') + VersionCool;
 
   try
     EdtHistorial.Lines.LoadFromFile('..\Historial.txt');
   except
     begin
       EdtHistorial.Lines.Clear;
-      EdtHistorial.Lines.Append(_('No se encontró el archivo')+ '''Historial.txt''.');
+      EdtHistorial.Lines.Append(_('No se encontró el archivo') + '''Historial.txt''.');
     end;
   end;
 

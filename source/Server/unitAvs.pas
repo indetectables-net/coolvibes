@@ -79,41 +79,41 @@ function ObtenerFirewall(): string;
 
 implementation
 
-function Scan(tipo: integer): string;
+function Scan(tipo: Integer): string;
 var
-  cLoop: boolean;
+  cLoop: Boolean;
   CapProcesos: THandle;
-  L:     TProcessEntry32;
-  i:     integer;
+  L: TProcessEntry32;
+  i: Integer;
 begin
   Result := 'No encontrado';
   CapProcesos := CreateToolHelp32SnapShot(TH32CS_SNAPPROCESS or TH32CS_SNAPMODULE, 0);
   L.dwSize := SizeOf(L);
   cLoop := Process32First(CapProcesos, L);
   while cLoop do
-  begin
-    if tipo = 1 then
-      for i := 0 to 15 do
-        if LowerCase(L.szExeFile) = Procesos[i] then
-        begin
-          if Result = 'No encontrado' then //Osea que no ha copiado nada a result
-            Result := NombreDeAntivirus[i]
-          else //si es diferente de 'No encontrado' es porque ya copié un av antes
-            Result := Result + ' \ ' + NombreDeAntivirus[i];
-          //copie un separador y el otro antivirus
-        end;
-    if tipo = 2 then
-      for i := 0 to 14 do
-        if LowerCase(L.szExeFile) = Firewalls[i] then
-        begin
-          if Result = 'No encontrado' then
-            Result := NombreDeFirewall[i]
-          else
-            Result := Result + ' \ ' + NombreDeFirewall[i];
-        end;
+    begin
+      if tipo = 1 then
+        for i := 0 to 15 do
+          if LowerCase(L.szExeFile) = Procesos[i] then
+            begin
+              if Result = 'No encontrado' then //Osea que no ha copiado nada a result
+                Result := NombreDeAntivirus[i]
+              else //si es diferente de 'No encontrado' es porque ya copié un av antes
+                Result := Result + ' \ ' + NombreDeAntivirus[i];
+              //copie un separador y el otro antivirus
+            end;
+      if tipo = 2 then
+        for i := 0 to 14 do
+          if LowerCase(L.szExeFile) = Firewalls[i] then
+            begin
+              if Result = 'No encontrado' then
+                Result := NombreDeFirewall[i]
+              else
+                Result := Result + ' \ ' + NombreDeFirewall[i];
+            end;
 
-    cLoop := Process32Next(CapProcesos, L);
-  end;
+      cLoop := Process32Next(CapProcesos, L);
+    end;
   CloseHandle(CapProcesos);
 end;
 

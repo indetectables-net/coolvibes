@@ -3,16 +3,16 @@ unit UnitFormNotifica;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ExtCtrls, ComCtrls, gnugettext;
+  Windows, SysUtils, Classes, Controls, Forms,
+  StdCtrls, ExtCtrls, ComCtrls, gnugettext, Graphics;
 
 type
   TFormNotifica = class(TForm)
-    LabelIP:    TLabel;
-    LabelName:  TLabel;
+    LabelIP: TLabel;
+    LabelName: TLabel;
     ImageFondo: TImage;
     ImageClose: TImage;
-    Timer:      TTimer;
+    Timer: TTimer;
     LabelConect: TLabel;
     procedure ImageCloseClick(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
@@ -23,9 +23,9 @@ type
     procedure CreateParams(var Params: TCreateParams); override;
     { Private declarations }
   public
-    PosY:     integer;
-    Subiendo: boolean;
-    Item:     TListItem;
+    PosY: Integer;
+    Subiendo: Boolean;
+    Item: TListItem;
     constructor Create(aOwner: TComponent; tItem: TListItem);
     { Public declarations }
   end;
@@ -52,56 +52,56 @@ end;
 
 procedure TFormNotifica.ImageCloseClick(Sender: TObject);
 begin
-  FormMain.NotificandoOnline := false;
+  FormMain.NotificandoOnline := False;
   Close;
 end;
 
 procedure TFormNotifica.TimerTimer(Sender: TObject);
 begin
   if Subiendo = True then
-  begin
-    if Top > PosY + 1 then
     begin
-      Top    := Top - 2;
-      Height := Height + 2;
-      Repaint;
-      sleep(5);
-    end
-    else
-    begin
-      Subiendo := False;
-      Timer.Interval := 3000;
-    end;
-  end   //Bajando
+      if Top > PosY + 1 then
+        begin
+          Top := Top - 2;
+          Height := Height + 2;
+          Repaint;
+          sleep(5);
+        end
+      else
+        begin
+          Subiendo := False;
+          Timer.Interval := 3000;
+        end;
+    end //Bajando
   else
-  begin
-    Timer.Interval := 5;
-    if Top < (PosY + Altura) then
     begin
-      Top    := Top + 2;
-      Height := Height - 2;
-      Repaint;
-      sleep(5);
-    end
-    else
-    begin
-      FormMain.NotificandoOnline := false;
-      Free;
+      Timer.Interval := 5;
+      if Top < (PosY + Altura) then
+        begin
+          Top := Top + 2;
+          Height := Height - 2;
+          Repaint;
+          sleep(5);
+        end
+      else
+        begin
+          FormMain.NotificandoOnline := False;
+          Free;
+        end;
     end;
-  end;
 end;
 
 procedure TFormNotifica.FormCreate(Sender: TObject);
 var
   Zona: TRect;
-begin          
+begin
   UseLanguage(Formmain.idioma);
-  TranslateComponent(self);
-  self.DoubleBuffered := True;  //Evita parpadeos
+  TranslateComponent(Self);
+  Self.DoubleBuffered := True; //Evita parpadeos
   SystemParametersInfo(SPI_GETWORKAREA, 0, @Zona, 0);
-  Left     := Zona.Right - Width - 10;
-  Top      := Zona.Bottom;
-  PosY     := Top - Height;
+  Left := Zona.Right - Width - 10;
+  Top := Zona.Bottom;
+  PosY := Top - Height;
   Subiendo := True;
 end;
 
@@ -114,8 +114,8 @@ end;
 procedure TFormNotifica.FormShow(Sender: TObject);
 begin
   Height := 0;
-  if IsWindowVisible(application.Handle) and (formmain.visible=false) then   //Si estamos en el tray 
-    ShowWindow(application.Handle, SW_HIDE);
+  if IsWindowVisible(Application.Handle) and (formmain.Visible = False) then //Si estamos en el tray
+    ShowWindow(Application.Handle, SW_HIDE);
 end;
 
 procedure TFormNotifica.CreateParams(var Params: TCreateParams);

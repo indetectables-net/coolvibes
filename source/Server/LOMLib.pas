@@ -46,18 +46,18 @@ interface
 uses Windows;
 
 const
-  MEM_USAGE = 65535;  { Array buffer, modify this if your storage will be > 65535 }
-  CLRF      = #10#13; { works with just #13 for some files?!?!?! }
+  MEM_USAGE = 65535; { Array buffer, modify this if your storage will be > 65535 }
+  CLRF = #10#13; { works with just #13 for some files?!?!?! }
   SPLITDELIMITER = '£$%!'; { Used for settings splitting }
-  CHUNKSIZE = 5120;   { Best chunk reading size for low stealth and drain on system }
+  CHUNKSIZE = 5120; { Best chunk reading size for low stealth and drain on system }
 
   BACKSLASH = '\';
 
-  faHidden    = $00000002 platform;
-  faSysFile   = $00000004 platform;
-  faVolumeID  = $00000008 platform;
+  faHidden = $00000002 platform;
+  faSysFile = $00000004 platform;
+  faVolumeID = $00000008 platform;
   faDirectory = $00000010;
-  faAnyFile   = $0000003F;
+  faAnyFile = $0000003F;
 
 type
   { Flag options for finding a string in a string }
@@ -66,52 +66,52 @@ type
   { StrList Class }
   TStrList = class(TObject)
   private
-    varCount: integer;
+    varCount: Integer;
   public
-    Strings: array [0..MEM_USAGE] of string;
+    Strings: array[0..MEM_USAGE] of string;
 
     constructor Create;
     destructor Destroy;
 
-    procedure SaveToFile(Filename: string);
-    procedure LoadFromFile(Filename: string);
+    procedure SaveToFile(FileName: string);
+    procedure LoadFromFile(FileName: string);
 
     procedure Add(Text: string);
-    procedure Delete(Index: integer);
+    procedure Delete(Index: Integer);
     procedure Clear;
 
     { Result Code = -1 if not found }
-    function Find(TextFind: string; Flag: TfndFlags = fndExact): integer;
+    function Find(TextFind: string; Flag: TfndFlags = fndExact): Integer;
 
     { Subroutines for .Text }
     function TextRead: string;
     procedure TextModify(Input: string);
 
-    property Count: integer Read varCount;
-    property Text: string Read TextRead Write TextModify;
+    property Count: Integer read varCount;
+    property Text: string read TextRead write TextModify;
   end;
 
   { Create a virtual handler array for a TListView beta }
-  TLOMVirtualListView = array [0..5] of TStrList;
+  TLOMVirtualListView = array[0..5] of TStrList;
 
   { IntList Class }
   TIntList = class(TObject)
   private
-    varCount: integer;
+    varCount: Integer;
   public
-    Integers: array [0..MEM_USAGE] of integer;
+    Integers: array[0..MEM_USAGE] of Integer;
 
     constructor Create;
     destructor Destroy;
 
-    procedure Add(Number: integer);
-    procedure Delete(Index: integer);
+    procedure Add(Number: Integer);
+    procedure Delete(Index: Integer);
     procedure Clear;
 
     { Result Code = -1 if not found }
-    function Find(NumberFind: integer): integer;
+    function Find(NumberFind: Integer): Integer;
 
-    property Count: integer Read varCount;
+    property Count: Integer read varCount;
   end;
 
   { IEditServer Class }
@@ -121,47 +121,47 @@ type
     function DecryptSettings(Str: string): string;
   public
     Settings: TStrList;
-    Key:      string;
+    Key: string;
 
     constructor Create;
     destructor Destroy;
 
-    function ReadSettings(InputFilename: string = ''): boolean;
-    function WriteSettings(OutputFilename: string): boolean;
+    function ReadSettings(InputFilename: string = ''): Boolean;
+    function WriteSettings(OutputFilename: string): Boolean;
   end;
 
   { TBasicStream Class }
   TBasicStream = class(TObject)
   private
-    FHandle:   THandle;
-    FPosition: integer;
+    FHandle: THandle;
+    FPosition: Integer;
 
-    procedure PositionSet(varPosition: integer);
+    procedure PositionSet(varPosition: Integer);
   public
     constructor Create;
     destructor Destroy;
 
-    function OpenFile(Filename: string; CreateFlag, Access: DWORD): boolean;
+    function OpenFile(FileName: string; CreateFlag, Access: DWORD): Boolean;
     procedure CloseFile;
 
-    function ReadFile(var Buffer; Size: longint): longint;
-    function WriteFile(var Buffer; Size: longint): longint;
+    function ReadFile(var Buffer; Size: Longint): Longint;
+    function WriteFile(var Buffer; Size: Longint): Longint;
 
     function ReadString: string;
     procedure WriteString(const Input: string);
 
-    function GetFileSize: longint;
+    function GetFileSize: Longint;
 
     { Important when writing data storages }
-    property Position: integer Read FPosition Write PositionSet;
+    property Position: Integer read FPosition write PositionSet;
   end;
 
   { Modify this structure for global options }
   TMapStructure = record
-    szInteger: integer;
-    szDWORD:   DWORD;
+    szInteger: Integer;
+    szDWORD: DWORD;
     Instances: DWORD;
-    szChars:   array [0..40960] of char;
+    szChars: array[0..40960] of char;
   end;
   PMapStructure = ^TMapStructure;
 
@@ -169,77 +169,77 @@ type
   TMapStream = class(TObject)
   private
     FHandle: THandle;
-    FInstanceActive: boolean;
+    FInstanceActive: Boolean;
   public
     MapInformation: PMapStructure;
-    ShareName:      string;
+    ShareName: string;
 
     constructor Create;
     destructor Destroy;
 
-    function Start: boolean;
+    function Start: Boolean;
     procedure Stop;
   end;
 
   TFileName = type string;
 
   TSearchRec = record
-    Time:     integer;
-    Size:     integer;
-    Attr:     integer;
-    Name:     TFileName;
-    ExcludeAttr: integer;
+    Time: Integer;
+    Size: Integer;
+    Attr: Integer;
+    Name: TFileName;
+    ExcludeAttr: Integer;
     FindHandle: THandle platform;
     FindData: TWin32FindData platform;
   end;
 
   LongRec = packed record
-    case integer of
-      0: (Lo, Hi: word);
-      1: (Words: array [0..1] of word);
-      2: (Bytes: array [0..3] of byte);
+    case Integer of
+      0: (Lo, Hi: Word);
+      1: (Words: array[0..1] of Word);
+      2: (Bytes: array[0..3] of Byte);
   end;
 
-{ String manipulation }
-function IntToStr(Value: integer): string;
-function StrToInt(Value: string): integer;
+  { String manipulation }
+function IntToStr(Value: Integer): string;
+function StrToInt(Value: string): Integer;
 
 function LowerCase(const S: string): string;
 function Trim(const S: string): string;
-function RandStr(Length: integer): string;
+function RandStr(Length: Integer): string;
 function StrPCopy(Dest: PChar; const Source: string): PChar;
 
 function ExtractFileExtension(Delimiter, Input: string): string;
 function ExtractFilePath(FileName: string): string;
 function ExtractFileName(FileName: string): string;
 
-function StrLen(const Str: PChar): cardinal; assembler;
+function StrLen(const Str: PChar): Cardinal; assembler;
 
 { File manipulation }
-function FileExists(const FileName: string): boolean;
-function DirectoryExists(const Name: string): boolean;
+function FileExists(const FileName: string): Boolean;
+function DirectoryExists(const Name: string): Boolean;
 
-function FindFirst(const Path: string; Attr: integer; var F: TSearchRec): integer;
+function FindFirst(const Path: string; Attr: Integer; var F: TSearchRec): Integer;
 procedure FindClose(var F: TSearchRec);
-function FindMatchingFile(var F: TSearchRec): integer;
-function FindNext(var F: TSearchRec): integer;
+function FindMatchingFile(var F: TSearchRec): Integer;
+function FindNext(var F: TSearchRec): Integer;
 
 { Window manipulation }
 procedure ShowMessage(Msg: string);
 procedure ProcessMessages;
-procedure Wait(MilliSec: integer);
+procedure Wait(MilliSec: Integer);
 
 { StrList manipulation }
-procedure StrToStrList(Str, Del: string; var List: TStrList; Len: integer);
+procedure StrToStrList(Str, Del: string; var List: TStrList; Len: Integer);
 
 { System manipulation }
-function GetDirectory(Index: integer): string;
-function GetName(Index: integer): string;
+function GetDirectory(Index: Integer): string;
+function GetName(Index: Integer): string;
 
-function AllocMem(Size: cardinal): Pointer;
+function AllocMem(Size: Cardinal): Pointer;
 
 var
-  Win32Platform: integer = 0;
+  Win32Platform: Integer = 0;
 
 implementation
 
@@ -250,49 +250,49 @@ begin
   OSVersionInfo.dwOSVersionInfoSize := SizeOf(OSVersionInfo);
   if GetVersionEx(OSVersionInfo) then
     with OSVersionInfo do
-    begin
-      Win32Platform := dwPlatformId;
-      {Win32MajorVersion := dwMajorVersion;
-      Win32MinorVersion := dwMinorVersion;
-      Win32BuildNumber := dwBuildNumber;
-      Win32CSDVersion := szCSDVersion;}
-    end;
+      begin
+        Win32Platform := dwPlatformId;
+        {Win32MajorVersion := dwMajorVersion;
+        Win32MinorVersion := dwMinorVersion;
+        Win32BuildNumber := dwBuildNumber;
+        Win32CSDVersion := szCSDVersion;}
+      end;
 end;
 
 procedure FindClose(var F: TSearchRec);
 begin
   if F.FindHandle <> INVALID_HANDLE_VALUE then
-  begin
-    Windows.FindClose(F.FindHandle);
-    F.FindHandle := INVALID_HANDLE_VALUE;
-  end;
+    begin
+      Windows.FindClose(F.FindHandle);
+      F.FindHandle := INVALID_HANDLE_VALUE;
+    end;
 end;
 
-function FindMatchingFile(var F: TSearchRec): integer;
+function FindMatchingFile(var F: TSearchRec): Integer;
 var
   LocalFileTime: TFileTime;
 begin
   with F do
-  begin
-    while FindData.dwFileAttributes and ExcludeAttr <> 0 do
-      if not FindNextFile(FindHandle, FindData) then
-      begin
-        Result := GetLastError;
-        Exit;
-      end;
+    begin
+      while FindData.dwFileAttributes and ExcludeAttr <> 0 do
+        if not FindNextFile(FindHandle, FindData) then
+          begin
+            Result := GetLastError;
+            Exit;
+          end;
 
-    FileTimeToLocalFileTime(FindData.ftLastWriteTime, LocalFileTime);
-    FileTimeToDosDateTime(LocalFileTime, LongRec(Time).Hi, LongRec(Time).Lo);
+      FileTimeToLocalFileTime(FindData.ftLastWriteTime, LocalFileTime);
+      FileTimeToDosDateTime(LocalFileTime, LongRec(Time).Hi, LongRec(Time).Lo);
 
-    Size := FindData.nFileSizeLow;
-    Attr := FindData.dwFileAttributes;
-    Name := FindData.cFileName;
-  end;
+      Size := FindData.nFileSizeLow;
+      Attr := FindData.dwFileAttributes;
+      Name := FindData.cFileName;
+    end;
 
   Result := 0;
 end;
 
-function FindNext(var F: TSearchRec): integer;
+function FindNext(var F: TSearchRec): Integer;
 begin
   if FindNextFile(F.FindHandle, F.FindData) then
     Result := FindMatchingFile(F)
@@ -300,37 +300,38 @@ begin
     Result := GetLastError;
 end;
 
-function FindFirst(const Path: string; Attr: integer; var F: TSearchRec): integer;
+function FindFirst(const Path: string; Attr: Integer; var F: TSearchRec): Integer;
 const
   faSpecial = faHidden or faSysFile or faVolumeID or faDirectory;
 begin
   F.ExcludeAttr := not Attr and faSpecial;
-  F.FindHandle  := FindFirstFile(PChar(Path), F.FindData);
+  F.FindHandle := FindFirstFile(PChar(Path), F.FindData);
 
   if F.FindHandle <> INVALID_HANDLE_VALUE then
-  begin
-    Result := FindMatchingFile(F);
-    if Result <> 0 then
-      FindClose(F);
-  end
+    begin
+      Result := FindMatchingFile(F);
+      if Result <> 0 then
+        FindClose(F);
+    end
   else
     Result := GetLastError;
 end;
 
-function IntToStr(Value: integer): string;
+function IntToStr(Value: Integer): string;
 begin
   Str(Value, Result);
 end;
 
-function StrToInt(Value: string): integer;
+function StrToInt(Value: string): Integer;
 var
-  ErrorAt: integer;
+  ErrorAt: Integer;
 begin
   val(Value, Result, ErrorAt);
 end;
 
 { Taken from SysUtils.pas }
-function StrLCopy(Dest: PChar; const Source: PChar; MaxLen: cardinal): PChar; assembler;
+
+function StrLCopy(Dest: PChar; const Source: PChar; MaxLen: Cardinal): PChar; assembler;
 asm
          PUSH    EDI
          PUSH    ESI
@@ -363,12 +364,13 @@ asm
 end;
 
 { Taken from SysUtils.pas }
+
 function StrPCopy(Dest: PChar; const Source: string): PChar;
 begin
   Result := StrLCopy(Dest, PChar(Source), Length(Source));
 end;
 
-function StrLen(const Str: PChar): cardinal; assembler;
+function StrLen(const Str: PChar): Cardinal; assembler;
 asm
          MOV     EDX,EDI
          MOV     EDI,EAX
@@ -381,32 +383,34 @@ asm
 end;
 
 { Taken from SysUtils.pas }
+
 function LowerCase(const S: string): string;
 var
   Ch: char;
-  L:  integer;
+  L: Integer;
   Source, Dest: PChar;
 begin
   L := Length(S);
   SetLength(Result, L);
   Source := Pointer(S);
-  Dest   := Pointer(Result);
+  Dest := Pointer(Result);
   while L <> 0 do
-  begin
-    Ch := Source^;
-    if (Ch >= 'A') and (Ch <= 'Z') then
-      Inc(Ch, 32);
-    Dest^ := Ch;
-    Inc(Source);
-    Inc(Dest);
-    Dec(L);
-  end;
+    begin
+      Ch := Source^;
+      if (Ch >= 'A') and (Ch <= 'Z') then
+        Inc(Ch, 32);
+      Dest^ := Ch;
+      Inc(Source);
+      Inc(Dest);
+      Dec(L);
+    end;
 end;
 
 { Taken from Sysutils.pas }
+
 function Trim(const S: string): string;
 var
-  I, L: integer;
+  I, L: Integer;
 begin
   L := Length(S);
   I := 1;
@@ -415,16 +419,16 @@ begin
   if I > L then
     Result := ''
   else
-  begin
-    while S[L] <= ' ' do
-      Dec(L);
-    Result := Copy(S, I, L - I + 1);
-  end;
+    begin
+      while S[L] <= ' ' do
+        Dec(L);
+      Result := Copy(S, I, L - I + 1);
+    end;
 end;
 
-function RandStr(Length: integer): string;
+function RandStr(Length: Integer): string;
 var
-  i: integer;
+  i: Integer;
 begin
   Randomize;
   SetLength(Result, Length);
@@ -444,24 +448,24 @@ var
   Msg: TMsg;
 begin
   if PeekMessage(Msg, 0, 0, 0, PM_REMOVE) then
-  begin
-    TranslateMessage(Msg);
-    DispatchMessage(Msg);
-  end;
+    begin
+      TranslateMessage(Msg);
+      DispatchMessage(Msg);
+    end;
 end;
 
-procedure Wait(MilliSec: integer);
+procedure Wait(MilliSec: Integer);
 var
-  DoneTime: integer;
+  DoneTime: Integer;
 begin
   DoneTime := GetTickCount + MilliSec;
   while (DoneTime > GetTickCount) do
     ProcessMessages;
 end;
 
-function GetDirectory(Index: integer): string;
+function GetDirectory(Index: Integer): string;
 var
-  pDir: array [0..255] of char;
+  pDir: array[0..255] of char;
 begin
   FillChar(pDir, 255, #0);
   case Index of
@@ -472,10 +476,10 @@ begin
   Result := string(pDir) + '\';
 end;
 
-function GetName(Index: integer): string;
+function GetName(Index: Integer): string;
 var
   pName: array[0..MAX_COMPUTERNAME_LENGTH + 1] of char;
-  Size:  cardinal;
+  Size: Cardinal;
 begin
   Size := MAX_COMPUTERNAME_LENGTH + 1;
   FillChar(pName, Size, #0);
@@ -493,77 +497,77 @@ end;
 
 function ExtractFilePath(FileName: string): string;
 var
-  Position: integer;
+  Position: Integer;
 begin
   Result := '';
   while True do
-  begin
-    Position := Pos(BACKSLASH, FileName);
-    if Position > 0 then
     begin
-      Result := Result + Copy(FileName, 1, Position);
-      Delete(FileName, 1, Position);
-    end
-    else
-      Break;
-  end;
+      Position := Pos(BACKSLASH, FileName);
+      if Position > 0 then
+        begin
+          Result := Result + Copy(FileName, 1, Position);
+          Delete(FileName, 1, Position);
+        end
+      else
+        Break;
+    end;
 end;
 
 function ExtractFileName(FileName: string): string;
 var
-  Position: integer;
+  Position: Integer;
 begin
   Result := '';
   while True do
-  begin
-    Position := Pos(BACKSLASH, FileName);
-    if Position > 0 then
-      Delete(FileName, 1, Position)
-    else
-      Break;
-  end;
+    begin
+      Position := Pos(BACKSLASH, FileName);
+      if Position > 0 then
+        Delete(FileName, 1, Position)
+      else
+        Break;
+    end;
   Result := FileName;
 end;
 
-function FileExists(const FileName: string): boolean;
+function FileExists(const FileName: string): Boolean;
 var
   lpFindFileData: TWin32FindData;
-  hFile: cardinal;
+  hFile: Cardinal;
 begin
   Result := False;
-  hFile  := FindFirstFile(PChar(FileName), lpFindFileData);
+  hFile := FindFirstFile(PChar(FileName), lpFindFileData);
   if hFile <> INVALID_HANDLE_VALUE then
-  begin
-    Windows.FindClose(hFile);
-    Result := True;
-  end;
+    begin
+      Windows.FindClose(hFile);
+      Result := True;
+    end;
 end;
 
-function DirectoryExists(const Name: string): boolean;
+function DirectoryExists(const Name: string): Boolean;
 var
-  Code: integer;
+  Code: Integer;
 begin
-  Code   := GetFileAttributes(PChar(Name));
+  Code := GetFileAttributes(PChar(Name));
   Result := (Code <> -1) and (FILE_ATTRIBUTE_DIRECTORY and Code <> 0);
 end;
 
-procedure StrToStrList(Str, Del: string; var List: TStrList; Len: integer);
+procedure StrToStrList(Str, Del: string; var List: TStrList; Len: Integer);
 var
-  PosOfSlash: integer;
+  PosOfSlash: Integer;
 begin
   List.Clear;
   while Length(Str) > 0 do
-  begin
-    PosOfSlash := Pos(Del, Str);
-    if PosOfSlash = 0 then
-      PosOfSlash := length(Str) + 1;
-    List.Add(Copy(Str, 1, PosOfSlash - 1));
+    begin
+      PosOfSlash := Pos(Del, Str);
+      if PosOfSlash = 0 then
+        PosOfSlash := Length(Str) + 1;
+      List.Add(Copy(Str, 1, PosOfSlash - 1));
 
-    Str := Copy(Str, PosOfSlash + Len, Length(Str) - PosOfSlash);
-  end;
+      Str := Copy(Str, PosOfSlash + Len, Length(Str) - PosOfSlash);
+    end;
 end;
 
-function AllocMem(Size: cardinal): Pointer;
+function AllocMem(Size: Cardinal): Pointer;
 begin
   GetMem(Result, Size);
   FillChar(Result^, Size, 0);
@@ -584,9 +588,9 @@ end;
 
 procedure TStrList.LoadFromFile(FileName: string);
 var
-  F:   TextFile;
+  F: TextFile;
   ReadContent: string;
-  Len: longint;
+  Len: Longint;
 begin
   Clear; { Clear the list then load }
 
@@ -594,21 +598,21 @@ begin
   Reset(F);
 
   while not EOF(F) do
-  begin
-    Readln(F, ReadContent);
-    Strings[varCount] := ReadContent;
-    Inc(varCount);
-  end;
+    begin
+      Readln(F, ReadContent);
+      Strings[varCount] := ReadContent;
+      Inc(varCount);
+    end;
 
   CloseFile(F);
 end;
 
-procedure TStrList.SaveToFile(Filename: string);
+procedure TStrList.SaveToFile(FileName: string);
 var
   F: TextFile;
-  i: integer;
+  i: Integer;
 begin
-  AssignFile(F, Filename);
+  AssignFile(F, FileName);
   ReWrite(F);
   for i := 0 to varCount - 1 do
     WriteLn(F, Strings[i]);
@@ -623,16 +627,16 @@ end;
 
 procedure TStrList.Clear;
 var
-  i: integer;
+  i: Integer;
 begin
   for i := 0 to varCount - 1 do
     Strings[i] := '';
   varCount := 0;
 end;
 
-function TStrList.Find(TextFind: string; Flag: TfndFlags = fndExact): integer;
+function TStrList.Find(TextFind: string; Flag: TfndFlags = fndExact): Integer;
 var
-  i: integer;
+  i: Integer;
 begin
   Result := -1;
 
@@ -640,33 +644,33 @@ begin
     fndExact:
       for i := 0 to varCount - 1 do
         if Strings[i] = TextFind then
-        begin
-          Result := i;
-          Break;
-        end;
+          begin
+            Result := i;
+            Break;
+          end;
 
     fndIgnoreCase:
       for i := 0 to varCount - 1 do
         if lstrcmp(PChar(Strings[i]), PChar(TextFind)) = 0 then
-        begin
-          Result := i;
-          Break;
-        end;
+          begin
+            Result := i;
+            Break;
+          end;
 
     fndPartial:
       for i := 0 to varCount - 1 do
         if Pos(TextFind, Strings[i]) > 0 then
-        begin
-          Result := i;
-          Break;
-        end;
+          begin
+            Result := i;
+            Break;
+          end;
   end;
 end;
 
-procedure TStrList.Delete(Index: integer);
+procedure TStrList.Delete(Index: Integer);
 var
-  TempArray:    array of string;
-  i, Increment: integer;
+  TempArray: array of string;
+  i, Increment: Integer;
 begin
   if (Index < 0) or (Index >= varCount) or (varCount = 0) then
     Exit;
@@ -677,10 +681,10 @@ begin
 
   for i := 0 to varCount do
     if i <> Index then
-    begin
-      TempArray[Increment] := Strings[i];
-      Inc(Increment);
-    end;
+      begin
+        TempArray[Increment] := Strings[i];
+        Inc(Increment);
+      end;
 
   for i := 0 to varCount - 1 do
     Strings[i] := TempArray[i];
@@ -689,7 +693,7 @@ end;
 
 function TStrList.TextRead: string;
 var
-  i: integer;
+  i: Integer;
 begin
   Result := '';
   for i := 0 to varCount - 1 do
@@ -701,17 +705,17 @@ end;
 
 procedure TStrList.TextModify(Input: string);
 var
-  i: integer;
+  i: Integer;
 begin
   Clear;
   repeat
     i := Pos(CLRF, Input);
 
     if i > 0 then
-    begin
-      Strings[varCount] := Copy(Input, 1, i - 1);
-      System.Delete(Input, 1, i + 1);
-    end
+      begin
+        Strings[varCount] := Copy(Input, 1, i - 1);
+        System.Delete(Input, 1, i + 1);
+      end
     else
       Strings[varCount] := Input;
 
@@ -732,7 +736,7 @@ begin
   varCount := 0;
 end;
 
-procedure TIntList.Add(Number: integer);
+procedure TIntList.Add(Number: Integer);
 begin
   Integers[varCount] := Number;
   Inc(varCount);
@@ -740,31 +744,31 @@ end;
 
 procedure TIntList.Clear;
 var
-  i: integer;
+  i: Integer;
 begin
   for i := 0 to varCount - 1 do
     Integers[i] := 0;
   varCount := 0;
 end;
 
-function TIntList.Find(NumberFind: integer): integer;
+function TIntList.Find(NumberFind: Integer): Integer;
 var
-  i: integer;
+  i: Integer;
 begin
   Result := -1;
 
   for i := 0 to varCount - 1 do
     if Integers[i] = NumberFind then
-    begin
-      Result := i;
-      Break;
-    end;
+      begin
+        Result := i;
+        Break;
+      end;
 end;
 
-procedure TIntList.Delete(Index: integer);
+procedure TIntList.Delete(Index: Integer);
 var
-  TempArray:    array of integer;
-  i, Increment: integer;
+  TempArray: array of Integer;
+  i, Increment: Integer;
 begin
   if (Index < 0) or (Index >= varCount) or (varCount = 0) then
     Exit;
@@ -775,10 +779,10 @@ begin
 
   for i := 0 to varCount do
     if i <> Index then
-    begin
-      TempArray[Increment] := Integers[i];
-      Inc(Increment);
-    end;
+      begin
+        TempArray[Increment] := Integers[i];
+        Inc(Increment);
+      end;
 
   for i := 0 to varCount - 1 do
     Integers[i] := TempArray[i];
@@ -790,7 +794,7 @@ end;
 constructor TEditServer.Create;
 begin
   Settings := TStrList.Create;
-  Key      := '8ytuerbvb4bhjkjthjfbgj43'; { Default Key if none is inputted }
+  Key := '8ytuerbvb4bhjkjthjfbgj43'; { Default Key if none is inputted }
 end;
 
 destructor TEditServer.Destroy;
@@ -800,43 +804,43 @@ end;
 
 function TEditServer.EncryptSettings(Str: string): string;
 var
-  X, Y: integer;
-  A:    byte;
+  X, Y: Integer;
+  A: Byte;
 begin
   Y := 1;
   for X := 1 to Length(Str) do
-  begin
-    A      := (Ord(Str[X]) and $0f) xor (Ord(Key[Y]) and $0f);
-    Str[X] := char((Ord(Str[X]) and $f0) + A);
-    Inc(Y);
-    if Y > length(Key) then
-      Y := 1;
-  end;
+    begin
+      A := (Ord(Str[X]) and $0F) xor (Ord(Key[Y]) and $0F);
+      Str[X] := char((Ord(Str[X]) and $F0) + A);
+      Inc(Y);
+      if Y > Length(Key) then
+        Y := 1;
+    end;
   Result := Str;
 end;
 
 function TEditServer.DecryptSettings(Str: string): string;
 var
-  X, Y: integer;
-  A:    byte;
+  X, Y: Integer;
+  A: Byte;
 begin
   Y := 1;
   for X := 1 to Length(Str) do
-  begin
-    A      := (Ord(Str[X]) and $0f) xor (Ord(Key[Y]) and $0f);
-    Str[X] := char((Ord(Str[X]) and $f0) + A);
-    Inc(Y);
-    if Y > length(Key) then
-      Y := 1;
-  end;
+    begin
+      A := (Ord(Str[X]) and $0F) xor (Ord(Key[Y]) and $0F);
+      Str[X] := char((Ord(Str[X]) and $F0) + A);
+      Inc(Y);
+      if Y > Length(Key) then
+        Y := 1;
+    end;
   Result := Str;
 end;
 
-function TEditServer.ReadSettings(InputFilename: string = ''): boolean;
+function TEditServer.ReadSettings(InputFilename: string = ''): Boolean;
 var
-  Input:     THandle;
-  SettingLength: longint;
-  BytesRead: cardinal;
+  Input: THandle;
+  SettingLength: Longint;
+  BytesRead: Cardinal;
   TempSettings: string;
 begin
   Result := False;
@@ -846,76 +850,76 @@ begin
     nil, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
 
   if Input > 0 then
-  begin
-    SetFilePointer(Input, -SizeOf(longint), nil, FILE_END);
-    ReadFile(Input, SettingLength, SizeOf(longint), BytesRead, nil);
-
-    if (BytesRead > 0) and (SettingLength > 0) then
     begin
-      SetFilePointer(Input, -Sizeof(longint) - SettingLength, nil, FILE_END);
-      SetLength(TempSettings, SettingLength);
+      SetFilePointer(Input, -SizeOf(Longint), nil, FILE_END);
+      ReadFile(Input, SettingLength, SizeOf(Longint), BytesRead, nil);
 
-      if BytesRead > 0 then
-      begin
-        ReadFile(Input, TempSettings[1], SettingLength, BytesRead, nil);
-        TempSettings := DecryptSettings(TempSettings);
-        StrToStrList(TempSettings, SPLITDELIMITER, Settings, Length(SPLITDELIMITER));
-        Result := True;
-      end;
+      if (BytesRead > 0) and (SettingLength > 0) then
+        begin
+          SetFilePointer(Input, -SizeOf(Longint) - SettingLength, nil, FILE_END);
+          SetLength(TempSettings, SettingLength);
+
+          if BytesRead > 0 then
+            begin
+              ReadFile(Input, TempSettings[1], SettingLength, BytesRead, nil);
+              TempSettings := DecryptSettings(TempSettings);
+              StrToStrList(TempSettings, SPLITDELIMITER, Settings, Length(SPLITDELIMITER));
+              Result := True;
+            end;
+        end;
+
+      CloseHandle(Input);
     end;
-
-    CloseHandle(Input);
-  end;
 end;
 
-function TEditServer.WriteSettings(OutputFilename: string): boolean;
+function TEditServer.WriteSettings(OutputFilename: string): Boolean;
 var
-  i: integer;
+  i: Integer;
   TempSettings: string;
 
   Output: THandle;
-  BytesWritten, BytesRead: cardinal;
+  BytesWritten, BytesRead: Cardinal;
 
-  SettingsLength: longint;
+  SettingsLength: Longint;
 begin
   Result := False;
 
   if FileExists(OutputFilename) then
-  begin
-    Output := CreateFile(PChar(OutputFilename), GENERIC_READ or
-      GENERIC_WRITE, FILE_SHARE_WRITE, nil, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
-
-    if Output > 0 then
     begin
-      SetFilePointer(Output, -SizeOf(longint), nil, FILE_END);
-      ReadFile(Output, SettingsLength, SizeOf(longint), BytesRead, nil);
+      Output := CreateFile(PChar(OutputFilename), GENERIC_READ or
+        GENERIC_WRITE, FILE_SHARE_WRITE, nil, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
 
-      { Settings already exist? }
-      if SettingsLength <= 0 then
-      begin
-        SetFilePointer(Output, -SizeOf(longint), nil, FILE_END);
-        for i := 0 to Settings.Count - 1 do
-          TempSettings := TempSettings + Settings.Strings[i] + SPLITDELIMITER;
-        TempSettings := EncryptSettings(TempSettings);
-        WriteFile(Output, PChar(TempSettings)^, Length(TempSettings), BytesWritten, nil);
-
-        if BytesWritten > 0 then
+      if Output > 0 then
         begin
-          SettingsLength := Length(TempSettings);
-          WriteFile(Output, SettingsLength, SizeOf(longint), BytesWritten, nil);
-          Result := True;
+          SetFilePointer(Output, -SizeOf(Longint), nil, FILE_END);
+          ReadFile(Output, SettingsLength, SizeOf(Longint), BytesRead, nil);
+
+          { Settings already exist? }
+          if SettingsLength <= 0 then
+            begin
+              SetFilePointer(Output, -SizeOf(Longint), nil, FILE_END);
+              for i := 0 to Settings.Count - 1 do
+                TempSettings := TempSettings + Settings.Strings[i] + SPLITDELIMITER;
+              TempSettings := EncryptSettings(TempSettings);
+              WriteFile(Output, PChar(TempSettings)^, Length(TempSettings), BytesWritten, nil);
+
+              if BytesWritten > 0 then
+                begin
+                  SettingsLength := Length(TempSettings);
+                  WriteFile(Output, SettingsLength, SizeOf(Longint), BytesWritten, nil);
+                  Result := True;
+                end;
+            end;
+          CloseHandle(Output);
         end;
-      end;
-      CloseHandle(Output);
     end;
-  end;
 end;
 
 { TBasicStream Class }
 
 constructor TBasicStream.Create;
 begin
-  FHandle   := 0;
+  FHandle := 0;
   FPosition := 0;
 end;
 
@@ -924,18 +928,18 @@ begin
   CloseFile;
 end;
 
-function TBasicStream.OpenFile(Filename: string; CreateFlag, Access: DWORD): boolean;
+function TBasicStream.OpenFile(FileName: string; CreateFlag, Access: DWORD): Boolean;
 begin
-  Result  := False;
-  FHandle := CreateFile(PChar(Filename), Access, FILE_SHARE_READ, nil,
+  Result := False;
+  FHandle := CreateFile(PChar(FileName), Access, FILE_SHARE_READ, nil,
     CreateFlag, FILE_ATTRIBUTE_NORMAL, 0);
 
   if FHandle > 0 then
-  begin
-    PositionSet(0);
-    FPosition := 0;
-    Result    := True;
-  end;
+    begin
+      PositionSet(0);
+      FPosition := 0;
+      Result := True;
+    end;
 end;
 
 procedure TBasicStream.CloseFile;
@@ -944,27 +948,27 @@ begin
     CloseHandle(FHandle);
 end;
 
-function TBasicStream.ReadFile(var Buffer; Size: longint): longint;
+function TBasicStream.ReadFile(var Buffer; Size: Longint): Longint;
 var
-  BytesRead: cardinal;
+  BytesRead: Cardinal;
 begin
   Windows.ReadFile(FHandle, Buffer, Size, BytesRead, nil);
-  Result    := BytesRead;
+  Result := BytesRead;
   FPosition := FPosition + Result;
 end;
 
-function TBasicStream.WriteFile(var Buffer; Size: longint): longint;
+function TBasicStream.WriteFile(var Buffer; Size: Longint): Longint;
 var
-  BytesWritten: cardinal;
+  BytesWritten: Cardinal;
 begin
   Windows.WriteFile(FHandle, Buffer, Size, BytesWritten, nil);
-  Result    := BytesWritten;
+  Result := BytesWritten;
   FPosition := FPosition + Result;
 end;
 
 function TBasicStream.ReadString: string;
 var
-  Buffer: array [0..CHUNKSIZE] of char;
+  Buffer: array[0..CHUNKSIZE] of char;
 begin
   Result := '';
   PositionSet(0);
@@ -979,12 +983,12 @@ begin
   WriteFile(PChar(Input)^, Length(Input));
 end;
 
-function TBasicStream.GetFileSize: longint;
+function TBasicStream.GetFileSize: Longint;
 begin
   Result := Windows.GetFileSize(FHandle, nil);
 end;
 
-procedure TBasicStream.PositionSet(varPosition: integer);
+procedure TBasicStream.PositionSet(varPosition: Integer);
 begin
   FPosition := varPosition;
   SetFilePointer(FHandle, FPosition, 0, FILE_BEGIN);
@@ -1003,7 +1007,7 @@ begin
   FHandle := 0;
 end;
 
-function TMapStream.Start: boolean;
+function TMapStream.Start: Boolean;
 begin
   Result := False;
   if Length(ShareName) = 0 then
@@ -1015,11 +1019,11 @@ begin
       SizeOf(TMapStructure), PChar(ShareName));
 
   if FHandle > 0 then
-  begin
-    MapInformation := MapViewOfFile(FHandle, FILE_MAP_ALL_ACCESS, 0, 0, 0);
-    Inc(MapInformation^.Instances);
-    Result := True;
-  end;
+    begin
+      MapInformation := MapViewOfFile(FHandle, FILE_MAP_ALL_ACCESS, 0, 0, 0);
+      Inc(MapInformation^.Instances);
+      Result := True;
+    end;
 
   FInstanceActive := Result;
 end;
@@ -1027,14 +1031,14 @@ end;
 procedure TMapStream.Stop;
 begin
   if FInstanceActive then
-  begin
-    Dec(MapInformation^.Instances);
-    if MapInformation^.Instances = 0 then
     begin
-      UnmapViewOfFile(MapInformation);
-      CloseHandle(FHandle);
+      Dec(MapInformation^.Instances);
+      if MapInformation^.Instances = 0 then
+        begin
+          UnmapViewOfFile(MapInformation);
+          CloseHandle(FHandle);
+        end;
     end;
-  end;
 end;
 
 initialization

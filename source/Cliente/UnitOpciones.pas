@@ -3,13 +3,13 @@ unit UnitOpciones;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Buttons, StdCtrls, unitMain,unitVariables, ComCtrls, gnugettext,
+  SysUtils, Classes, Controls, Forms,
+  Buttons, StdCtrls, unitMain, unitVariables, ComCtrls, gnugettext,
   ExtCtrls, ImgList;
 
 type
   TFormOpciones = class(TForm)
-    BtnGuardar:    TSpeedButton;
+    BtnGuardar: TSpeedButton;
     PageControlOpciones: TPageControl;
     TabConexion: TTabSheet;
     LabelPuerto: TLabel;
@@ -56,10 +56,7 @@ var
 
 implementation
 
-uses UnitFormControl;
-
 {$R *.dfm}
-
 
 procedure TFormOpciones.BtnGuardarClick(Sender: TObject);
 begin
@@ -84,8 +81,8 @@ begin
     Application.OnMinimize := FormMain.MinimizeToTrayClick
   else
     Application.OnMinimize := nil;
-    
-  FormMain.TimerMandarPing.Interval := strtointdef(EditPingTimerInterval.Text, 30)*1000;
+
+  FormMain.TimerMandarPing.Interval := StrToIntDef(EditPingTimerInterval.Text, 30) * 1000;
   FormMain.TimerMandarPing.Enabled := CheckBoxMandarPingAuto.Checked;
   FormMain.StatusBar.Panels[1].Text := _('Puerto(s): ') + FormOpciones.EditPuerto.Text;
 
@@ -104,17 +101,18 @@ begin
   if CheckBoxCloseToTray.Checked and CheckBoxPreguntarAlSalir.Checked then
     CheckBoxPreguntarAlSalir.Checked := False;
 end;
+
 procedure TFormOpciones.FormCreate(Sender: TObject);
 var
-  s : string;
+  s: string;
 const
-  ENTER = #13+#10;
+  ENTER = #13 + #10;
 begin
 
-  s :=            '%CoolDir% => '+_('Directorio de coolvibes');
-  s := s + ENTER+ '%Identificator% => '+_('Nombre del servidor');
-  s := s + ENTER+ '%UserName% => '+_('Nombre de usuario del servidor');
-  s := s + ENTER+ '%PCName% => '+_('Nombre de PC del servidor');
+  s := '%CoolDir% => ' + _('Directorio de coolvibes');
+  s := s + ENTER + '%Identificator% => ' + _('Nombre del servidor');
+  s := s + ENTER + '%UserName% => ' + _('Nombre de usuario del servidor');
+  s := s + ENTER + '%PCName% => ' + _('Nombre de PC del servidor');
 
   LabeledEditDirUser.Hint := s;
   LabeledDirScreen.Hint := s;

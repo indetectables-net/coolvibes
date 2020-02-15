@@ -3,17 +3,17 @@ unit Variables;
 interface
 
 uses
- Windows, SettingsDef;
+  Windows, SettingsDef;
 
 var
-  MCompartida: THandle;       //Para escribir la configuracion a memoria
+  MCompartida: THandle; //Para escribir la configuracion a memoria
   MCompartida2: THandle;
   MCompartida3: THandle;
-  ConfigCompartida : PConfigCompartida;
-  ConfigLeida: PSettings;    //Para leer la configuracion
-  Configuracion:   TSettings;
+  ConfigCompartida: PConfigCompartida;
+  ConfigLeida: PSettings; //Para leer la configuracion
+  Configuracion: TSettings;
   StartInfo: TStartupInfo;
-  ProcInfo:  TProcessInformation;
+  ProcInfo: TProcessInformation;
 implementation
 
 end.

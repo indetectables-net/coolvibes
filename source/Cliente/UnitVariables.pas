@@ -4,11 +4,11 @@ interface
 
 const
   VersionCool: string = '1';
-  UpdateNum:   string = '6';
+  UpdateNum: string = '7';
 
 var
-  NotificacionMsn:   boolean;
-  NotiMsnServerDesc: boolean;
+  NotificacionMsn: Boolean;
+  NotiMsnServerDesc: Boolean;
 
 implementation
 

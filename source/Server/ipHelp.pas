@@ -1,4 +1,4 @@
-unit iphelp;
+unit IPHelp;
 
 interface
 
@@ -8,7 +8,7 @@ const
   TCPIP_OWNING_MODULE_SIZE = 32;
 
 type
-  // TCP
+  //TCP
   MIB_TCPROW = record
     dwState: DWORD;
     dwLocalAddr: DWORD;

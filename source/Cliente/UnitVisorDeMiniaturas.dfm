@@ -1954,7 +1954,7 @@ object FormVisorDeMiniaturas: TFormVisorDeMiniaturas
     Left = 0
     Top = 0
     Width = 360
-    Height = 240
+    Height = 237
     ActivePage = TabSheetOpciones
     Align = alClient
     Images = ImageList1
@@ -2012,7 +2012,7 @@ object FormVisorDeMiniaturas: TFormVisorDeMiniaturas
       Caption = 'Opciones'
       DesignSize = (
         352
-        211)
+        208)
       object LabelCalidadJPG: TLabel
         Left = 3
         Top = 14
@@ -2081,7 +2081,7 @@ object FormVisorDeMiniaturas: TFormVisorDeMiniaturas
       end
       object LabelAviso: TLabel
         Left = 3
-        Top = 179
+        Top = 177
         Width = 310
         Height = 13
         Anchors = [akLeft, akBottom]
@@ -2183,7 +2183,7 @@ object FormVisorDeMiniaturas: TFormVisorDeMiniaturas
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 240
+    Top = 237
     Width = 360
     Height = 23
     Panels = <

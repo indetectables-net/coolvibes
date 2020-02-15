@@ -3,8 +3,8 @@ unit UnitID;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, IdTCPServer, unitMain;
+  Classes, Controls, Forms,
+  StdCtrls, Buttons, IdTCPServer, unitMain;
 
 type
   TFormID = class(TForm)
@@ -36,23 +36,21 @@ end;
 procedure TFormID.CmbIDAceptarClick(Sender: TObject);
 var
   AThread: TIdPeerThread;
-  Antiguo : string;
+  Antiguo: string;
 begin
-  Antiguo := FormMain.ListViewConexiones.Selected.caption;
-  Delete(antiguo, 1, pos('_',antiguo)-1);  //Dejamos el identificador
+  Antiguo := FormMain.ListViewConexiones.Selected.Caption;
+  Delete(antiguo, 1, Pos('_', antiguo) - 1); //Dejamos el identificador
   //Buscamos la conexión que pertenece a ese item
   AThread := TidPeerThread(FormMain.ListViewConexiones.Selected.SubItems.Objects[0]);
-  FormMain.ListViewConexiones.Selected.caption := EditID.Text+Antiguo;
+  FormMain.ListViewConexiones.Selected.Caption := EditID.Text + Antiguo;
   Athread.Connection.Writeln('CAMBIOID' + EditID.Text);
   //Cambiar nombre al directorio de las descargas....???
   FormID.Close;
 end;
 
-
-
 procedure TFormID.EditIDKeyPress(Sender: TObject; var Key: Char);
 begin
-if (key = '_') then key := #0;
+  if (key = '_') then key := #0;
 end;
 
 end.
