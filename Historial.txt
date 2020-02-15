@@ -9,6 +9,15 @@ Modificación de: Nick
 [-] Cosas quitadas
 [*] Bug solucionados, arreglos
 
+Fecha 22/05/2012
+Versión: 1 Update 13
+Modificación de: DSR!
+[*] Arreglado bug en parseo de tamaño de archivo en el file manager
+[*] Arreglado bug en transferencia de archivos de mas de 1 giga
+[*] Arregladas algunas lineas/cosas menores mas
+
+|----------------------------|
+
 Fecha 29/05/2011
 Versión: 1 Update 12
 Modificación de: Anonimo

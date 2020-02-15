@@ -4,7 +4,7 @@ interface
 
 uses
   Classes, Controls, Forms,
-  StdCtrls, Buttons, IdTCPServer, unitMain;
+  StdCtrls, Buttons, IdTCPServer, unitMain, UnitFunciones;
 
 type
   TFormID = class(TForm)
@@ -43,7 +43,7 @@ begin
   //Buscamos la conexión que pertenece a ese item
   AThread := TidPeerThread(FormMain.ListViewConexiones.Selected.SubItems.Objects[0]);
   FormMain.ListViewConexiones.Selected.Caption := EditID.Text + Antiguo;
-  Athread.Connection.Writeln('CAMBIOID' + EditID.Text);
+  ConnectionWriteln(Athread, 'CAMBIOID' + EditID.Text);
   //Cambiar nombre al directorio de las descargas....???
   FormID.Close;
 end;

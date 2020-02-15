@@ -1,2 +1,2 @@
-INDY http://www.indyproject.org
+INDY 9 http://www.indyproject.org
 madCollection http://www.madshi.net

@@ -34,10 +34,7 @@ end;
 
 procedure TThreadSearch.SearchStart(dirname: string; server: TClientSocket; maint: Boolean);
 var
-  strFile, strDirectory: string;
   Listado: TSearchRec;
-  shInfo: TSHFileInfo;
-  sFileType: string;
   tmp: string;
 begin
   sleep(10); //Para que no consuma tanta CPU :D

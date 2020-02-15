@@ -1,9 +1,22 @@
 unit UnitFunciones;
+{$define CommDebug}
 
 interface
 
-uses Windows, SysUtils, classes, gnugettext;
+uses 
+	Windows, 
+	SysUtils, 
+	Classes, 
+	IdTCPServer, 
+	gnugettext;//,
+	//ZLibEx,
+	//ZLibExApi;
 
+procedure ConnectionWrite(Athread: TidPeerThread; SendMe: String);
+procedure ConnectionWriteLn(Athread:TidPeerThread; SendMe: String);
+function ConnectionReadLn(Athread : TidPeerThread; ATerminator: string): string;
+//procedure ConnectionReadBuffer(Athread : TidPeerThread; var ABuffer; const AByteCount: Integer);
+//function StrToInt64Custom(Target, Error: string): string;
 function Clave(const FileName: string): string;
 function ObtenerMejorUnidad(bytes: Int64): string;
 function ObtenerMejorUnidadTiempo(segundos: Int64): string;
@@ -11,6 +24,44 @@ function ObtenerMejorUnidadInv(Cadena: string): Int64;
 function MyGetFileSize(const strFileName: string): Longint;
 
 implementation
+
+procedure ConnectionWrite(Athread : TidPeerThread; SendMe: String);
+begin
+  Athread.Connection.Write(SendMe);
+  //Athread.Connection.Write(ZCompressStr(SendMe));
+  {$ifdef CommDebug}OutputDebugString(PChar('Client OUT: ' + SendMe));{$endif}
+end;
+
+procedure ConnectionWriteLn(Athread:TidPeerThread; SendMe: String);
+begin
+  AThread.Connection.Write(SendMe + #13#10);
+  //AThread.Connection.Write(ZCompressStr(SendMe) + #13#10);
+  {$ifdef CommDebug}OutputDebugString(PChar('Client OUT: ' + SendMe));{$endif}
+end;
+
+function ConnectionReadLn(Athread : TidPeerThread; ATerminator: string): string;
+begin
+  Result := Athread.Connection.ReadLn(ATerminator);
+  //Result := ZDecompressStr(Athread.Connection.ReadLn(ATerminator));
+  {$ifdef CommDebug}OutputDebugString(PChar('Client IN: ' + Result));{$endif}
+end;
+
+//no lo uso
+{procedure ConnectionReadBuffer(Athread : TidPeerThread; var ABuffer; const AByteCount: Integer);
+begin
+  Athread.Connection.ReadBuffer(ABuffer, AByteCount);
+  //Athread.Connection.ReadBuffer( CompressString(SendMe) );
+end;}
+
+{function StrToInt64Custom(Target, Error: string): string;
+begin
+  try
+    Result := IntToStr(StrToInt64(Target));
+  except
+    on Exception : EConvertError do
+      Result := Error;
+  end;
+end;}
 
 function Clave(const FileName: string): string; //obtiene una clave unica para un archivo
 begin

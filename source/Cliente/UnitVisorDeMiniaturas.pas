@@ -5,7 +5,7 @@ interface
 uses
   SysUtils, Classes, Graphics, Controls, Forms,
   ComCtrls, StdCtrls, ExtCtrls, Spin, IdTCPServer, Menus, gnugettext,
-  ImgList;
+  ImgList, UnitFunciones;
 
 type
   TFormVisorDeMiniaturas = class(TForm)
@@ -109,14 +109,16 @@ begin
   StatusBar.Panels[3].Text := _('Recibiendo Thumbnail');
   if RadioAutomatico.Checked then
     begin
-      (FormControl as TFormControl).Servidor.Connection.Writeln('GETTHUMB|' +
+      //(FormControl as TFormControl).Servidor.Connection.Writeln('GETTHUMB|' +
+      ConnectionWriteln(Servidor, 'GETTHUMB|' +
         ListviewColaThumbnails.Items[0].subitems[0] +
         '|' + IntToStr(ImageThumnail.Width) +
         '|' + IntToStr(ImageThumnail.Height) +
         '|' + IntToStr(TrackBarCalidad.Position) + '|')
     end
   else
-    (FormControl as TFormControl).Servidor.Connection.Writeln('GETTHUMB|' +
+    //(FormControl as TFormControl).Servidor.Connection.Writeln('GETTHUMB|' +
+    ConnectionWriteln(Servidor, 'GETTHUMB|' +
       ListviewColaThumbnails.Items[0].subitems[0] +
       '|' + IntToStr(6666666) + //Para saber que se utiliza el tamaño relativo
       '|' + IntToStr(SpinTamanoRelativo.Value) +

@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Classes, Controls, Forms,
-  StdCtrls, Buttons, IdTCPServer, Menus, gnugettext;
+  StdCtrls, Buttons, IdTCPServer, Menus, gnugettext, UnitFunciones;
 
 type
   TFormSendKeys = class(TForm)
@@ -79,7 +79,7 @@ end;
 
 procedure TFormSendKeys.BtnEnviarClick(Sender: TObject);
 begin
-  Servidor.Connection.WriteLn('SENDKEYS|' + EditHandle.Text + '|' + MemoSendKeys.Text);
+  ConnectionWriteLn(Servidor, 'SENDKEYS|' + EditHandle.Text + '|' + MemoSendKeys.Text);
   Close;
 end;
 

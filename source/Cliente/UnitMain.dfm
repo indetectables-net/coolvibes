@@ -1,6 +1,6 @@
 object FormMain: TFormMain
-  Left = 217
-  Top = 239
+  Left = 458
+  Top = 381
   Width = 512
   Height = 262
   Caption = 'Coolvibes [version]'
@@ -13,7 +13,7 @@ object FormMain: TFormMain
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
-  Position = poDesktopCenter
+  Position = poScreenCenter
   OnCanResize = FormCanResize
   OnClose = FormClose
   OnCreate = FormCreate

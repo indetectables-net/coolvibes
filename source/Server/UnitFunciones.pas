@@ -67,7 +67,6 @@ function HexToInt(s: string): Longword;   //sólo registros tipo AA BB CC 11
 var
   b: Byte;
   c: char;
-  i : integer;
 begin
   Result := 0;
   s := UpperCase(s);
@@ -87,7 +86,6 @@ begin
 end;
 
 // gracias a the swash por las 2 funciones
-
 function GetClipBoardDatas(): string;
 var
   Handle: THandle;

