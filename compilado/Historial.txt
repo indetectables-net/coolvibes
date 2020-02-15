@@ -1,4 +1,4 @@
-[-Historial del programa: CoolvibesRAT-]
+[ Changelog CoolvibesRAT ]
 
 Formato del archivo:
 Fecha: dd/mm/aa
@@ -8,6 +8,30 @@ Modificación de: Nick
 [-] Cosas quitadas
 [*] Bug solucionados, arreglos
 
+|----------------------------|
+
+Fecha 15/03/2011
+Versión: 0.5 Update 2
+Modificación de: Anonimo
+
+[*] Mejorada la velocidad de transferencia de la webcam al utilizar siempre el mismo socket
+[*] Reparada la shell
+[-] Eliminado el plugin .JPEG
+[+] Mejorado el Capturador de pantalla: Ya no se escriben al disco, mejorada la velocidad, mejorado el código de captura y ahora se puede establecer el intervalo del timer a menos de 1000 ms. Además se reemplazan los botones Zoom in y Zoom out por el botón "tamaño relativo" que nos permite seleccionar el porcentaje de la pantalla remota.
+[+] Añadidas rutinas en la desconexión del Servidor: Desactivar la shell remota y desactivar la webcam
+[+] Ahora todo el Servidor actua como plugin, para cargarlo se ha añadido conectador.dll que se encarga de pedir el servidor al cliente y cargarlo en memoria
+
+|----------------------------|
+
+
+Fecha 29/01/2011
+Versión: 0.5 Update 1
+Modificación de: DSR!
+
+[+] Se uso el logo de la votacion
+[*] Se agrego que envie un mensaje cuando la captura de pantalla falla
+    [solo falla si no esta instalada la dll, la idea es que el cliente la instale sola a futuro]
+[*] Se modifico la rutina del Monitor.dpr para que se pueda desinstalar facilmente el server y para que el uso de cpu sea moderado
 
 |----------------------------|
 

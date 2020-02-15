@@ -1,0 +1,2 @@
+el uso de sysutils agrega 24k al peso de monitor!
+buscar un sustituto a FileExists
