@@ -1959,7 +1959,7 @@ object FormConfigServer: TFormConfigServer
     Left = 0
     Top = 0
     Width = 329
-    Height = 299
+    Height = 302
     Align = alLeft
     Caption = 'Conexi'#243'n'
     TabOrder = 0
@@ -2130,7 +2130,7 @@ object FormConfigServer: TFormConfigServer
     Left = 336
     Top = 0
     Width = 313
-    Height = 299
+    Height = 302
     Align = alRight
     Caption = 'Instalaci'#243'n'
     TabOrder = 1
@@ -2268,7 +2268,7 @@ object FormConfigServer: TFormConfigServer
   end
   object MemoOutput: TMemo
     Left = 0
-    Top = 368
+    Top = 371
     Width = 649
     Height = 73
     Align = alBottom
@@ -2279,7 +2279,7 @@ object FormConfigServer: TFormConfigServer
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 441
+    Top = 444
     Width = 649
     Height = 19
     Panels = <
@@ -2289,7 +2289,7 @@ object FormConfigServer: TFormConfigServer
   end
   object GroupBox1: TGroupBox
     Left = 0
-    Top = 299
+    Top = 302
     Width = 649
     Height = 69
     Align = alBottom

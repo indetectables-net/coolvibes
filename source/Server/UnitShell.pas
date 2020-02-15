@@ -3,7 +3,7 @@ unit UnitShell;
 interface
 
 uses
-  Windows, Messages, {ScktComp,} SocketUnit, SysUtils;
+  Windows, Messages, {ScktComp,} SocketUnit, SysUtils, UnitVariables;
 
 type
   TShellParameters = record
@@ -15,8 +15,6 @@ var
   ShellThreadID: DWord;
   //  sock: TClientSocket;
 
-const
-  ENTER = #10;
 
 procedure ShellThread(P: Pointer); stdcall;
 
@@ -84,9 +82,6 @@ begin
             if Cliente.Connected then
               begin
                 //MessageBox(0, 'Cliente.Active = True','',0);
-                TempStr := StringReplace(Trim(TempStr), #10, '|salto|', [rfReplaceAll]);
-                TempStr := StringReplace((TempStr), #13, '|salto2|', [rfReplaceAll]);
-
                 Cliente.SendString('SHELL|' {+ IntToStr(Length(TempStr) - 1)} + TempStr + ENTER);
               end
             else

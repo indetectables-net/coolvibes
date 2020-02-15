@@ -48,7 +48,7 @@ begin
 
   if StopSearch then
     begin
-      Server.SendString('SEARCH|STOPS' + #10);
+      Server.SendString('SEARCH|STOPS' + ENTER);
       exitthread(0);
     end;
 
@@ -58,13 +58,13 @@ begin
       repeat
         if StopSearch then
           begin
-            Server.SendString('SEARCH|STOPS' + #10);
+            Server.SendString('SEARCH|STOPS' + ENTER);
             exitthread(0);
           end;
         if not ((Listado.Attr and faDirectory) = faDirectory) then //Si no es una carpeta...
           begin
             tmp := 'SEARCH|' + Extractfilepath(dirname) + Listado.Name + '|' + IntToStr(Listado.Size) + '|-|' + IntToStr(Listado.time) + '|';
-            Server.SendString(tmp + #10);
+            Server.SendString(tmp + ENTER);
           end;
       until FindNext(Listado) <> 0;
       SysUtils.FindClose(Listado);
@@ -76,7 +76,7 @@ begin
       repeat
         if StopSearch then
           begin
-            Server.SendString('SEARCH|STOPS' + #10);
+            Server.SendString('SEARCH|STOPS' + ENTER);
             exitthread(0);
           end;
         if ((Listado.Attr and faDirectory) = faDirectory) then //Si es una carpeta...
@@ -88,7 +88,7 @@ begin
 
   if (maint) then
     begin
-      Server.SendString('SEARCH|FINISH' + #10);
+      Server.SendString('SEARCH|FINISH' + ENTER);
       exitthread(0);
     end;
 end;

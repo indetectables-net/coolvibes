@@ -1,6 +1,6 @@
 object FormOpciones: TFormOpciones
-  Left = 314
-  Top = 262
+  Left = 229
+  Top = 254
   BorderIcons = []
   BorderStyle = bsSingle
   Caption = 'Opciones'
@@ -73,7 +73,7 @@ object FormOpciones: TFormOpciones
     Top = 0
     Width = 453
     Height = 240
-    ActivePage = TabSheetPlugins
+    ActivePage = TabPlugins
     Anchors = [akLeft, akTop, akRight, akBottom]
     Images = ImageList
     Style = tsFlatButtons
@@ -492,7 +492,7 @@ object FormOpciones: TFormOpciones
         TabOrder = 4
       end
     end
-    object TabSheetPlugins: TTabSheet
+    object TabPlugins: TTabSheet
       Caption = 'Plugins'
       ImageIndex = 4
       DesignSize = (
@@ -500,7 +500,7 @@ object FormOpciones: TFormOpciones
         208)
       object SpeedButtonAniadirPlugin: TSpeedButton
         Left = 0
-        Top = 176
+        Top = 173
         Width = 97
         Height = 22
         Anchors = [akLeft, akBottom]
@@ -545,7 +545,7 @@ object FormOpciones: TFormOpciones
       end
       object SpeedButton1: TSpeedButton
         Left = 104
-        Top = 176
+        Top = 173
         Width = 105
         Height = 22
         Caption = 'Eliminar Plugin'
@@ -591,7 +591,7 @@ object FormOpciones: TFormOpciones
         Left = 0
         Top = 2
         Width = 440
-        Height = 167
+        Height = 164
         Anchors = [akLeft, akTop, akRight, akBottom]
         BevelInner = bvNone
         BevelOuter = bvRaised
@@ -624,7 +624,7 @@ object FormOpciones: TFormOpciones
     Left = 8
     Top = 240
     Bitmap = {
-      494C010105000900040010001000FFFFFFFFFF00FFFFFFFFFFFFFFFF424D3600
+      494C010105000900040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1024,9 +1024,11 @@ object FormOpciones: TFormOpciones
       C003003FFFFF80018001001FF8FF80018001801FFC3F8001C003C00FFE0F8001
       0000C003C00380010180C001C00180010180C001800180010000C00180018001
       C003E001800180018001F801800180018001FC00C0018001C003FC00C003FFFF
-      E007FE00FFFFFFFFFC3FFFF0FFFFFFFF}
+      E007FE00FFFFFFFFFC3FFFF0FFFFFFFF00000000000000000000000000000000
+      000000000000}
   end
   object OpenDialog: TOpenDialog
+    Filter = 'CoolPlugin|*c.dll'
     Left = 44
     Top = 108
   end

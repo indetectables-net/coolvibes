@@ -541,14 +541,24 @@ begin
     if formopciones.ListViewPlugins.Items[i].caption = PluginName then
       Path := formopciones.ListViewPlugins.Items[i].SubItems[1];
 
+  for i := 0 to NumeroPlugins-1 do
+    if Plugins[i].path = Path then
+    begin
+      if Plugins[i].subido then
+        TForm(Plugins[i].dForm).Show;    //Ya estaba cargado, lo mostramos
+      exit;
+    end;
+    
   if Path <> '' then
   begin
     H := loadlibrary(pchar(Path));
     Plugins[NumeroPlugins] := TPlugin.Create(H);
     Plugins[NumeroPlugins].path := Path;
     //Mostramos la form del plugin
-    Plugins[NumeroPlugins].Conectar(Myitem.Caption, Servidor.Connection.Socket.Binding.Handle, NumeroPlugins);   
-    TForm(Plugins[NumeroPlugins].dForm).Visible := false;//La ocultamos hasta que el server la cargue
+    Plugins[NumeroPlugins].Conectar(Myitem.Caption, Servidor.Connection.Socket.Binding.Handle);
+    Plugins[NumeroPlugins].subido := false;
+    TForm(Plugins[NumeroPlugins].dform).Visible := false;
+    //Le decimos al servidor que cargue el plugin si no lo tiene cargado
     Servidor.Connection.WriteLn('LOADPLUGIN|'+Plugins[NumeroPlugins].PluginName+'|'+inttostr(NumeroPlugins)+'|');
     NumeroPlugins := NumeroPlugins+1;
   end;
@@ -1482,6 +1492,7 @@ begin
       begin
         {Abrimos la form del plugin y le mandamos el handle del socket y su id para que pueda mandar datos}
          TForm(Plugins[i].dForm).Visible := true;
+         Plugins[i].subido := true;
       end;
     end;
 
@@ -2777,7 +2788,7 @@ var
   p: Pointer;
   Bufferr: array[0..4095 {4kb}] of Byte;
 begin
-  Buffer := Trim(Athread.Connection.ReadLn);
+  Buffer := Trim(Athread.Connection.ReadLn(#10#15#80#66#77#1#72#87));
 
   if Copy(PChar(Buffer), 1, 7) = 'GETFILE' then
     begin

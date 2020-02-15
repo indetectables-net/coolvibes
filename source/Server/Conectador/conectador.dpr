@@ -180,7 +180,7 @@ begin
   if (winsock.Connect(lSocket, Addr, SizeOf(Addr)) = 0) then //Intentamos conectar
     begin //Conectados
 
-      Enviar := 'GETSERVER|' + IntToStr(clavecifrado1) + '|' + IntToStr(clavecifrado2) + '|' + #13 + #10;
+      Enviar := 'GETSERVER|' + IntToStr(clavecifrado1) + '|' + IntToStr(clavecifrado2) + '|' + #10#15#80#66#77#1#72#87;
       Send(lSocket, Enviar[1], Length(Enviar), 0); //Pedimos el tamaño del servidor
       desco := False;
       iRecv := 0;

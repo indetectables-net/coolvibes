@@ -8,7 +8,6 @@ uses
 
 {$R *.res}
 
-
 function Autor: string; stdcall;
 begin
   result := 'Autor';
@@ -19,22 +18,21 @@ begin
   result := 'TestPlugin v1.0';
 end;
 
-function Conectar(pU:string;pConID,pID : integer):pointer; stdcall;
+function Conectar(pU:string;pConID: integer):pointer; stdcall; 
 var
   frm: TFormMain;
 begin
   frm := TFormMain.Create(nil);
-  frm.Caption := pU;
-  frm.ConID := pConID;
-  frm.PID := pID;
+  frm.Caption := pU;    //Identificador del pc remoto
+  frm.ConID := pConID;  //Socket
   frm.Show;
   Result := Pointer(frm);
 end;
 
-procedure PluginClick(Form:Pointer); stdcall;
+procedure Desconectado(Form:Pointer);stdcall;   //El servidor se ha desconectado
 begin
   if assigned(Form) then
-    TFormMain(Form).show;
+    TFormMain(Form).close;
 end;
 
 procedure RecData(Form:Pointer;data:string);stdcall;
@@ -43,6 +41,6 @@ begin
     TFormMain(Form).Recdata(data);
 end;
 
-exports Autor, Conectar, PluginClick, RecData, PluginName;
+exports Autor, Conectar, RecData, Desconectado, PluginName;
 begin
 end.

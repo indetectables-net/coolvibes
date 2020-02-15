@@ -118,7 +118,7 @@ begin
   tickNow := GetTickCount;
   UltimoBajado := 0;
   buffSize := SizeOf(Buffer);
-  Pri := Trim(Athread.Connection.ReadLn);
+  Pri := Trim(Athread.Connection.ReadLn(#10#15#80#66#77#1#72#87));
   if (Pri = 'ERROR') then
     begin
       MessageDlg(_('Error al descargar archivo: ') + extractfilename(destino), mtWarning, [mbOK], 0);
@@ -221,7 +221,7 @@ begin
   tickNow := GetTickCount;
   UltimoBajado := 0;
   buffSize := SizeOf(Buffer);
-  Pri := Trim(Athread.Connection.ReadLn);
+  Pri := Trim(Athread.Connection.ReadLn(#10#15#80#66#77#1#72#87));
 
   if (Pri = 'ERROR') then
     begin

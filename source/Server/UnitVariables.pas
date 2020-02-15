@@ -27,6 +27,8 @@ var
   pararcapturathread: Boolean;
 
   id1: Longword = 0;
+  const
+  ENTER = #10#15#80#66#77#1#72#87;//La string que marca el final de cada comando
 implementation
 
 end.

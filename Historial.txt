@@ -9,6 +9,14 @@ Modificación de: Nick
 [-] Cosas quitadas
 [*] Bug solucionados, arreglos
 
+Fecha 20/05/2011
+Versión: 1 Update 8
+Modificación de: Anonimo
+[+] Añadido sistema de plugins
+[*] Ahora al mandar datos en dirección servidor->cliente en vez de añadir un #10 al final se añade un #10#15#80#66#77#1#72#87, así se consigue que se puedan enviar datos binarios con #10 sin que se corten
+[*] Corregidos algunos bugs
+|----------------------------|
+
 Fecha 16/05/2011
 Versión: 1 Update 8
 Modificación de: Anonimo

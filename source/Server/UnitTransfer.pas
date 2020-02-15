@@ -2,7 +2,7 @@ unit UnitTransfer;
 
 interface
 
-uses SysUtils, SocketUnit;
+uses SysUtils, SocketUnit, Unitvariables;
 
 type
   TThreadInfo = class(TObject)
@@ -30,8 +30,6 @@ procedure getFile(MySock: TClientSocket; localPath: AnsiString; filesize: Intege
 function leerLinea(MySock: TClientSocket): string;
 function MyGetFileSize(path: string): Int64;
 
-const
-  ENTER = #10;
 
 implementation
 
@@ -117,7 +115,7 @@ begin
     filesize := MyGetFileSize(path);
     if not filesize > 0 then
       begin
-        MySock.SendString('ERROR' + #10);
+        MySock.SendString('ERROR' + ENTER);
         Exit;
       end
     else
@@ -126,10 +124,10 @@ begin
     try
       reset(MyFile, 1);
     except
-      MySock.SendString('ERROR' + #10);
+      MySock.SendString('ERROR' + ENTER);
       Exit;
     end;
-    MySock.SendString('START' + #10);
+    MySock.SendString('START' + ENTER);
 
     seek(myFile, beginning);
     while not EOF(MyFile) and Mysock.Connected do

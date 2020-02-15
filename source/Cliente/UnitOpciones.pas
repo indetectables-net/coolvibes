@@ -5,7 +5,7 @@ interface
 uses
   Windows, SysUtils, Classes, Controls, Forms,
   Buttons, StdCtrls, unitMain, unitVariables, ComCtrls, gnugettext,
-  ExtCtrls, ImgList, Dialogs, UnitPlugins;
+  ExtCtrls, ImgList, Dialogs, UnitPlugins, Menus;
 
 type
   TFormOpciones = class(TForm)
@@ -40,7 +40,7 @@ type
     LabeledDirDownloads: TLabeledEdit;
     CheckBoxCCIndependiente: TCheckBox;
     ImageList: TImageList;
-    TabSheetPlugins: TTabSheet;
+    TabPlugins: TTabSheet;
     ListViewPlugins: TListView;
     SpeedButtonAniadirPlugin: TSpeedButton;
     OpenDialog: TOpenDialog;
@@ -51,11 +51,12 @@ type
     procedure FormCreate(Sender: TObject);
     procedure SpeedButtonAniadirPluginClick(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
-
+    procedure Pluginadd(Path:string);
   private
     { Private declarations }
   public
     { Public declarations }
+    Plugins : string;
   end;
 
 var
@@ -66,6 +67,8 @@ implementation
 {$R *.dfm}
 
 procedure TFormOpciones.BtnGuardarClick(Sender: TObject);
+var
+  i:integer;
 begin
   if CheckBoxPreguntarAlSalir.Checked then
     FormMain.OnCloseQuery := FormMain.FormCloseQuery
@@ -92,6 +95,9 @@ begin
   FormMain.TimerMandarPing.Interval := StrToIntDef(EditPingTimerInterval.Text, 30) * 1000;
   FormMain.TimerMandarPing.Enabled := CheckBoxMandarPingAuto.Checked;
   FormMain.StatusBar.Panels[1].Text := _('Puerto(s): ') + FormOpciones.EditPuerto.Text;
+  Plugins := '';
+  for i:=0 to listviewplugins.Items.Count-1 do
+    Plugins := Plugins+listviewplugins.Items[i].SubItems[1]+'|';
 
   FormMain.GuardarArchivoINI();
   Close;
@@ -115,7 +121,7 @@ var
 const
   ENTER = #13 + #10;
 begin
-
+  PageControlOpciones.ActivePage := General;
   s := '%CoolDir% => ' + _('Directorio de coolvibes');
   s := s + ENTER + '%Identificator% => ' + _('Nombre del servidor');
   s := s + ENTER + '%UserName% => ' + _('Nombre de usuario del servidor');
@@ -130,11 +136,22 @@ begin
 end;
 
 procedure TFormOpciones.SpeedButtonAniadirPluginClick(Sender: TObject);
+begin
+  Opendialog.FilterIndex := 0;
+  OpenDialog.InitialDir := extractfilepath(paramstr(0));
+
+  OpenDialog.Execute;
+
+  Pluginadd(Opendialog.filename);
+end;
+
+procedure TFormOpciones.Pluginadd(Path:string);
 var
   h : THandle;
   Plugin : TPlugin;
   Item : TListItem;
   NuevaPath : string;
+  mitem : Tmenuitem;
   procedure Creadir(dir: string);
   var
     tmp: string;
@@ -148,11 +165,9 @@ var
       end;
   end;
 begin
-  Opendialog.FilterIndex := 0;
-  OpenDialog.Filter := 'CoolPlugin';
-  OpenDialog.Execute;
+  if path = '' then exit;
   try
-    H := Loadlibrary(PChar(Opendialog.filename));
+    H := Loadlibrary(PChar(Path));
   except
     exit;
   end;
@@ -165,18 +180,23 @@ begin
 
   //"Instalamos" el plugin
   Creadir(NuevaPath);
-  Nuevapath := Nuevapath+extractfilename(opendialog.filename);
-  copyfile(pchar(opendialog.filename),pchar(NuevaPath), false); //La dll del cliente
+  Nuevapath := Nuevapath+extractfilename(Path);
+  copyfile(pchar(Path),pchar(NuevaPath), false); //La dll del cliente
 
-  copyfile(pchar(copy(opendialog.filename,1,length(opendialog.filename)-5)+'S.dll'),pchar(extractfilepath(NuevaPath)+extractfilename(copy(opendialog.filename,1,length(opendialog.filename)-5)+'S.dll')), false); //el server
+  copyfile(pchar(copy(Path,1,length(Path)-5)+'S.dll'),pchar(extractfilepath(NuevaPath)+extractfilename(copy(Path,1,length(Path)-5)+'S.dll')), false); //el server
 
   Item := ListViewPlugins.Items.Add;
   item.ImageIndex := 4;
   item.Caption := Plugin.PluginName;
   item.SubItems.Add(Plugin.Autor);
-  item.SubItems.Add(Nuevapath)
+  item.SubItems.Add(Nuevapath);
+  mitem := TMenuItem.Create(Formmain.PopupMenuConexiones);
+  mitem.Caption := item.caption;
+  mitem.OnClick := Formmain.PluginClick;
+  mitem.Hint := item.Caption;
+  mitem.ImageIndex := 260;
+  Formmain.Plugins.Add(mitem);
 end;
-
 procedure TFormOpciones.SpeedButton1Click(Sender: TObject);
 begin
   if ListViewPlugins.Selected = nil then exit;
