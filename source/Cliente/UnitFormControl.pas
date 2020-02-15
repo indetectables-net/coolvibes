@@ -740,7 +740,7 @@ begin
   Self.TreeViewRegedit.DoubleBuffered := True;
   recibiendofichero := False;
   Self.Height := 512; //Altura Predeterminada
-  Self.Width := 591; //Anchura predeterminada
+  Self.Width := 522; //Anchura predeterminada
   if FormMain.ControlWidth > 0 then
     Self.Width := FormMain.ControlWidth;
   if FormMain.ControlHeight > 0 then
@@ -1232,6 +1232,7 @@ begin
       Delete(Recibido, 1, 13);
       AniadirClavesARegistro(Recibido);
     end;
+
   if Copy(Recibido, 1, 13) = 'LISTARVALORES' then
     begin
       Delete(Recibido, 1, 14);
@@ -2204,6 +2205,7 @@ begin
     begin
       EditPathRegistro.Text := ObtenerRutaAbsolutaDeArbol(TreeViewRegedit.Selected);
       Servidor.Connection.Writeln('LISTARVALORES|' + EditPathRegistro.Text);
+
       ListViewRegistro.Enabled := False;
       BtnVerRegisto.Enabled := False;
     end;
@@ -3690,7 +3692,7 @@ procedure TFormControl.ListViewRegistroCompare(Sender: TObject;
 var
   Str1, Str2: string;
 begin
-  if Columna = 0 then //Si Columna = 0 usar Item.Caption
+{  if Columna = 0 then //Si Columna = 0 usar Item.Caption
     begin
       Str1 := Item1.Caption;
       Str2 := Item2.Caption;
@@ -3708,7 +3710,7 @@ begin
     end;
   Compare := CompareText(Str1, Str2);
   if Columna = ColumnaOrdenada then
-    Compare := Compare * -1;
+    Compare := Compare * -1; }
 end;
 
 //Para ordenar ficheros
@@ -3813,7 +3815,7 @@ begin
     begin
       if (FormVisorDeMiniaturas = nil) then
         FormVisorDeMiniaturas := TObject(TFormVisorDeMiniaturas.Create(Self, servidor, Self));
-      (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).show;
+      
       if PageControlArchivos.ActivePage = TabSheetVerArchivos then
         FilePath := (EditPathArchivos.Text + mslistviewitem.Caption)
       else
@@ -3827,7 +3829,7 @@ begin
         mslistviewitem := ListViewBuscar.GetNextItem(mslistviewitem, sdAll, [isSelected])
 
     end;
-
+  (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).show;
 end;
 
 procedure TFormControl.SpinCamChange(Sender: TObject);

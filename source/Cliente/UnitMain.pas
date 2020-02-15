@@ -208,7 +208,7 @@ implementation
 uses UnitOpciones, UnitAbout, UnitID, UnitFormConfigServer,
   UnitFormLanguage,
   UnitFormControl, UnitFormNotifica,
-  UnitEstadisticasConexiones;
+  UnitEstadisticasConexiones, ScreenMaxCap;
 
 {$R *.dfm}
 
@@ -269,6 +269,7 @@ var
 
 begin
   Puertos := FormOpciones.EditPuerto.Text;
+  NumeroConexiones := 0;
   if Copy(puertos, Length(puertos), 1) <> ';' then
     Puertos := Puertos + ';';
   if BtnEscuchar.Caption = _('Escuchar') then
@@ -1055,6 +1056,8 @@ begin
   TranslateComponent(FormConfigServer);
   TranslateComponent(FormID);
   TranslateComponent(FormOpciones);
+  TranslateComponent(FormEstadisticasConexiones);
+
 end;
 
 procedure TFormMain.FormShow(Sender: TObject);

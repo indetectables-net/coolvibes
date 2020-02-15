@@ -74,7 +74,7 @@ object FormOpciones: TFormOpciones
     Top = 0
     Width = 453
     Height = 240
-    ActivePage = TabConexion
+    ActivePage = TabPlugins
     Anchors = [akLeft, akTop, akRight, akBottom]
     Images = ImageList
     Style = tsFlatButtons
@@ -239,7 +239,7 @@ object FormOpciones: TFormOpciones
         object CheckBoxEscucharAlIniciar: TCheckBox
           Left = 8
           Top = 48
-          Width = 289
+          Width = 425
           Height = 17
           Hint = 'Empieza a escuchar al ejecutar coolvibes'
           Caption = 'Escuchar al iniciar'
@@ -288,7 +288,7 @@ object FormOpciones: TFormOpciones
         object CheckBoxCerrarControlAlDesc: TCheckBox
           Left = 8
           Top = 72
-          Width = 289
+          Width = 417
           Height = 17
           Hint = 
             'Si la opci'#243'n esta marcada el centro de control se cerrar'#225' cuando' +
@@ -311,7 +311,7 @@ object FormOpciones: TFormOpciones
       object CheckBoxNotificacionMsn: TCheckBox
         Left = 8
         Top = 32
-        Width = 289
+        Width = 425
         Height = 17
         Hint = 'Notificaci'#243'n estilo MSN cada vez que un servidor se conecte'
         Caption = 'Notificaci'#243'n MSN al conectar'
@@ -328,7 +328,7 @@ object FormOpciones: TFormOpciones
       object CheckBoxNotiMsnDesc: TCheckBox
         Left = 8
         Top = 56
-        Width = 297
+        Width = 433
         Height = 17
         Hint = 
           'Muestra un globo de notificaci'#243'n cuando un servidor se desconect' +
@@ -345,7 +345,7 @@ object FormOpciones: TFormOpciones
       object CheckBoxGloboalPedirS: TCheckBox
         Left = 8
         Top = 8
-        Width = 297
+        Width = 425
         Height = 17
         Hint = 
           'Notificaci'#243'n estilo globo emergente cuando el server se conecte ' +
@@ -362,7 +362,7 @@ object FormOpciones: TFormOpciones
       object CheckBoxAlertaSonora: TCheckBox
         Left = 8
         Top = 80
-        Width = 289
+        Width = 433
         Height = 17
         Hint = 
           'Marcar para reproducir un sonido al conectar, el archivo de soni' +
@@ -501,7 +501,7 @@ object FormOpciones: TFormOpciones
         208)
       object SpeedButtonAniadirPlugin: TSpeedButton
         Left = 0
-        Top = 171
+        Top = 169
         Width = 97
         Height = 22
         Cursor = crHandPoint
@@ -547,7 +547,7 @@ object FormOpciones: TFormOpciones
       end
       object SpeedButton1: TSpeedButton
         Left = 104
-        Top = 173
+        Top = 169
         Width = 105
         Height = 22
         Cursor = crHandPoint
@@ -594,7 +594,7 @@ object FormOpciones: TFormOpciones
         Left = 0
         Top = 2
         Width = 440
-        Height = 162
+        Height = 160
         Anchors = [akLeft, akTop, akRight, akBottom]
         BevelInner = bvNone
         BevelOuter = bvRaised

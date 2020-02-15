@@ -1,6 +1,6 @@
 object FormEstadisticasConexiones: TFormEstadisticasConexiones
-  Left = 383
-  Top = 317
+  Left = 214
+  Top = 146
   Width = 518
   Height = 390
   Caption = 'Conexiones'
@@ -1947,7 +1947,7 @@ object FormEstadisticasConexiones: TFormEstadisticasConexiones
   Position = poMainFormCenter
   DesignSize = (
     510
-    360)
+    363)
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel

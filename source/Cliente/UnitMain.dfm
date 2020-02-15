@@ -1,6 +1,6 @@
 object FormMain: TFormMain
-  Left = 201
-  Top = 242
+  Left = 258
+  Top = 279
   Width = 512
   Height = 262
   Caption = 'Coolvibes [version]'
@@ -649,6 +649,11 @@ object FormMain: TFormMain
     BiDiMode = bdLeftToRight
     Caption = 'Escuchar'
     Flat = True
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
     Glyph.Data = {
       36030000424D3603000000000000360000002800000010000000100000000100
       18000000000000030000120B0000120B00000000000000000000D8E9ECD8E9EC
@@ -676,6 +681,7 @@ object FormMain: TFormMain
       D8E9ECE1D8CCEBC4A5EFCDB1F1D0B8F1D3BBF0D0B9EDCBAEEBC0A0E5B087DECD
       BBD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECDBE3E1E3D5C5E8CBB1EB
       BFA0EBBF9BE6C4A8E1CDBADAE1DDD8E9ECD8E9ECD8E9ECD8E9EC}
+    ParentFont = False
     ParentShowHint = False
     ParentBiDiMode = False
     ShowHint = False
@@ -690,6 +696,11 @@ object FormMain: TFormMain
     Anchors = [akTop, akRight]
     Caption = 'Opciones'
     Flat = True
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
     Glyph.Data = {
       36030000424D3603000000000000360000002800000010000000100000000100
       18000000000000030000120B0000120B00000000000000000000D8E9ECD8E9EC
@@ -717,6 +728,7 @@ object FormMain: TFormMain
       D8E9ECDDEBEEDAEAEDD8E9ECCCCECEE5E5E5E4E4E4B6B7B8D8E9ECDAEAEDDCEA
       EDD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECDFEAECD5
       D5D5D3D3D3DDE8EAD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9EC}
+    ParentFont = False
     OnClick = BtnOpcionesClick
   end
   object BtnAbout: TSpeedButton
@@ -729,7 +741,7 @@ object FormMain: TFormMain
     Caption = 'Acerca de...'
     Flat = True
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = clHighlight
+    Font.Color = clMenuHighlight
     Font.Height = -11
     Font.Name = 'Verdana'
     Font.Style = [fsBold]
@@ -782,7 +794,7 @@ object FormMain: TFormMain
     Caption = 'Configurar servidor'
     Flat = True
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = clBlack
+    Font.Color = clWindowText
     Font.Height = -11
     Font.Name = 'MS Sans Serif'
     Font.Style = []

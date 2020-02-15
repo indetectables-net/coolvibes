@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-05-20 14:33\n"
-"PO-Revision-Date: 2011-05-21 00:30+0100\n"
+"POT-Creation-Date: 2011-05-20 23:02\n"
+"PO-Revision-Date: 2011-05-21 17:35+0100\n"
 "Last-Translator: fffffff <fffffff>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,7 +18,7 @@ msgstr ""
 #. ScreenMax..Caption
 #: ScreenMaxCap.dfm:7
 msgid "Capturador de Pantalla ::Coolvibes::"
-msgstr "Screen Capture ::Coolvibes::"
+msgstr "Pantaila ikuskaria"
 
 #. ScreenMax..Font.Name
 #. FormControl..Font.Name
@@ -41,30 +41,34 @@ msgstr "Screen Capture ::Coolvibes::"
 #. FormID..Font.Name
 #. FormID..Label1..Font.Name
 #. FormMain..Font.Name
+#. FormMain..BtnEscuchar..Font.Name
+#. FormMain..BtnOpciones..Font.Name
 #. FormMain..BtnConfigServer..Font.Name
 #. FormOpciones..Font.Name
 #: ScreenMaxCap.dfm:14
 #: UnitFormControl.dfm:12
 #: UnitFormControl.dfm:105
 #: UnitFormControl.dfm:665
-#: UnitFormControl.dfm:2059
-#: UnitFormControl.dfm:2355
-#: UnitFormControl.dfm:2807
-#: UnitFormControl.dfm:2894
-#: UnitFormControl.dfm:3335
-#: UnitFormControl.dfm:3349
-#: UnitFormControl.dfm:3363
-#: UnitFormControl.dfm:3377
-#: UnitFormControl.dfm:3392
-#: UnitFormControl.dfm:3409
-#: UnitFormControl.dfm:3871
+#: UnitFormControl.dfm:2061
+#: UnitFormControl.dfm:2357
+#: UnitFormControl.dfm:2809
+#: UnitFormControl.dfm:2896
+#: UnitFormControl.dfm:3337
+#: UnitFormControl.dfm:3351
+#: UnitFormControl.dfm:3365
+#: UnitFormControl.dfm:3379
+#: UnitFormControl.dfm:3394
+#: UnitFormControl.dfm:3411
+#: UnitFormControl.dfm:3873
 #: UnitFormNotifica.dfm:15
 #: UnitFormReg.dfm:11
 #: UnitFormSendKeys.dfm:13
 #: UnitID.dfm:12
 #: UnitID.dfm:27
 #: UnitMain.dfm:13
-#: UnitMain.dfm:787
+#: UnitMain.dfm:655
+#: UnitMain.dfm:702
+#: UnitMain.dfm:799
 #: UnitOpciones.dfm:15
 msgid "MS Sans Serif"
 msgstr "MS Sans Serif"
@@ -75,10 +79,10 @@ msgstr "MS Sans Serif"
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabAudio..PanelAudio..GroupBoxAudio..SpeedButtonCapAudio..Caption
 #: ScreenMaxCap.dfm:1993
 #: UnitFormControl.dfm:1606
-#: UnitFormControl.dfm:1881
-#: UnitFormControl.dfm:2182
+#: UnitFormControl.dfm:1883
+#: UnitFormControl.dfm:2184
 msgid "Capturar"
-msgstr "Capture"
+msgstr "Atzeman"
 
 #. ScreenMax..PopupMenu1..Automtico1..Caption
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabScreencap..CheckBoxAutoCapturaScreen..Caption
@@ -88,15 +92,15 @@ msgstr "Capture"
 #. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..ComboBoxModoDeVisionado..Text
 #. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..ComboBoxModoDeVisionado....Items.Strings
 #: ScreenMaxCap.dfm:1997
-#: UnitFormControl.dfm:1793
-#: UnitFormControl.dfm:2072
-#: UnitFormControl.dfm:2318
+#: UnitFormControl.dfm:1795
+#: UnitFormControl.dfm:2074
+#: UnitFormControl.dfm:2320
 #: UnitVisorDeMiniaturas.dfm:2115
 #: UnitVisorDeMiniaturas.dfm:2177
 #: UnitVisorDeMiniaturas.dfm:2179
 #: UnitVisorDeMiniaturas.pas:138
 msgid "Automático"
-msgstr "Auto."
+msgstr "Automatikoki"
 
 #. ScreenMax..PopupMenu1..Automtico1..T0..Caption
 #: ScreenMaxCap.dfm:1999
@@ -148,22 +152,22 @@ msgstr "30s"
 #. FormMain..PopupMenuTray..N3..Caption
 #: ScreenMaxCap.dfm:2023
 #: ScreenMaxCap.dfm:2032
-#: UnitFormControl.dfm:3577
-#: UnitFormControl.dfm:3585
-#: UnitFormControl.dfm:3627
-#: UnitFormControl.dfm:3696
-#: UnitFormControl.dfm:3727
-#: UnitFormControl.dfm:3751
-#: UnitFormControl.dfm:3764
-#: UnitFormControl.dfm:3829
-#: UnitFormControl.dfm:3859
-#: UnitFormControl.dfm:7838
+#: UnitFormControl.dfm:3579
+#: UnitFormControl.dfm:3587
+#: UnitFormControl.dfm:3629
+#: UnitFormControl.dfm:3698
+#: UnitFormControl.dfm:3729
+#: UnitFormControl.dfm:3753
+#: UnitFormControl.dfm:3766
+#: UnitFormControl.dfm:3831
+#: UnitFormControl.dfm:3861
+#: UnitFormControl.dfm:7840
 #: UnitFormSendKeys.dfm:355
 #: UnitFormSendKeys.dfm:369
-#: UnitMain.dfm:952
-#: UnitMain.dfm:980
-#: UnitMain.dfm:9745
-#: UnitMain.dfm:9764
+#: UnitMain.dfm:964
+#: UnitMain.dfm:992
+#: UnitMain.dfm:9757
+#: UnitMain.dfm:9776
 msgid "-"
 msgstr "-"
 
@@ -172,32 +176,32 @@ msgstr "-"
 #: ScreenMaxCap.dfm:2026
 #: ScreenMaxCap.dfm:2094
 msgid "No"
-msgstr "No"
+msgstr "Ez"
 
 #. ScreenMax..PopupMenu1..Calidad1..Caption
 #: ScreenMaxCap.dfm:2035
 msgid "Calidad"
-msgstr "Quality"
+msgstr "Kalitatea"
 
 #. ScreenMax..PopupMenu1..ransparente1..Caption
 #: ScreenMaxCap.dfm:2080
 msgid "Transparente"
-msgstr "See-through"
+msgstr "Gardentasuna"
 
 #. ScreenMax..PopupMenu1..Siempreencima1..Caption
 #: ScreenMaxCap.dfm:2100
 msgid "Siempre encima"
-msgstr "Always on top"
+msgstr "Beti goian"
 
 #. ScreenMax..PopupMenu1..vp..Caption
 #: ScreenMaxCap.dfm:2104
 msgid "Ventana proporcional"
-msgstr "Proportional window"
+msgstr "Leiho proportzionala"
 
 #. FormAbout..Caption
 #: UnitAbout.dfm:5
 msgid "Acerca de Coolvibes"
-msgstr "About Coolvibes"
+msgstr "Coolvibesri Buruz"
 
 #. FormAbout..Font.Name
 #. FormAbout..GrpBoxHistorial..Font.Name
@@ -308,28 +312,28 @@ msgstr "About Coolvibes"
 #: UnitFormControl.dfm:1580
 #: UnitFormControl.dfm:1594
 #: UnitFormControl.dfm:1739
-#: UnitFormControl.dfm:1797
-#: UnitFormControl.dfm:1812
-#: UnitFormControl.dfm:1831
-#: UnitFormControl.dfm:1846
-#: UnitFormControl.dfm:1870
-#: UnitFormControl.dfm:1998
-#: UnitFormControl.dfm:2013
-#: UnitFormControl.dfm:2076
-#: UnitFormControl.dfm:2092
-#: UnitFormControl.dfm:2157
-#: UnitFormControl.dfm:2171
-#: UnitFormControl.dfm:2241
-#: UnitFormControl.dfm:2303
-#: UnitFormControl.dfm:2322
-#: UnitFormControl.dfm:2338
-#: UnitFormControl.dfm:2656
+#: UnitFormControl.dfm:1799
+#: UnitFormControl.dfm:1814
+#: UnitFormControl.dfm:1833
+#: UnitFormControl.dfm:1848
+#: UnitFormControl.dfm:1872
+#: UnitFormControl.dfm:2000
+#: UnitFormControl.dfm:2015
+#: UnitFormControl.dfm:2078
+#: UnitFormControl.dfm:2094
+#: UnitFormControl.dfm:2159
+#: UnitFormControl.dfm:2173
+#: UnitFormControl.dfm:2243
+#: UnitFormControl.dfm:2305
+#: UnitFormControl.dfm:2324
+#: UnitFormControl.dfm:2340
+#: UnitFormControl.dfm:2658
 #: UnitFormLanguage.dfm:31
 #: UnitFormNotifica.dfm:1580
 #: UnitFormNotifica.dfm:1594
 #: UnitFormNotifica.dfm:1616
 #: UnitFormSendKeys.dfm:200
-#: UnitMain.dfm:734
+#: UnitMain.dfm:746
 #: UnitOpciones.dfm:93
 #: UnitOpciones.dfm:108
 #: UnitOpciones.dfm:125
@@ -367,32 +371,32 @@ msgstr "Verdana"
 #. FormAbout..GrpBoxHistorial..Caption
 #: UnitAbout.dfm:4561
 msgid "Historial de las versiones"
-msgstr "Changelog"
+msgstr "Bertsioetako aldaketak"
 
 #. FormAbout..GrpBoxHistorial..ScrollBox1..Label7..Caption
 #: UnitAbout.dfm:4599
 msgid "www.famfamfam.com (por los iconos)"
-msgstr "www.famfamfam.com (icons)"
+msgstr "www.famfamfam.com (Ikonoengatik)"
 
 #. FormAbout..GrpBoxHistorial..ScrollBox1..Label8..Caption
 #: UnitAbout.dfm:4612
 msgid "Créditos:"
-msgstr "Credits:"
+msgstr "Kredituak:"
 
 #. FormAbout..GrpBoxHistorial..ScrollBox1..Label9..Caption
 #: UnitAbout.dfm:4625
 msgid "tt (por el editor de configuración para el servidor)"
-msgstr "tt (Server builder)"
+msgstr "tt (Serbitzariaren konfiguratzailearengatik)"
 
 #. FormAbout..GrpBoxHistorial..ScrollBox1..Label11..Caption
 #: UnitAbout.dfm:4638
 msgid "stm (por la ayuda en la Shell - Wack-a-Mole)"
-msgstr "stm (help with the shell - Wack-a-Mole)"
+msgstr "stm (Shell-aren laguntzagarik - Wack-a-Mole)"
 
 #. FormAbout..GrpBoxHistorial..ScrollBox1..Label13..Caption
 #: UnitAbout.dfm:4651
 msgid "stm por la base del keylogger"
-msgstr "stm for the keylogger base"
+msgstr "stm keylogerraren oinarriagatik"
 
 #. FormAbout..GrpBoxInfo..Caption
 #: UnitAbout.dfm:4666
@@ -402,7 +406,7 @@ msgstr "Coolvibes RAT"
 #. FormAbout..GrpBoxInfo..Label1..Caption
 #: UnitAbout.dfm:4679
 msgid "En este proyecto por el momento han participado:"
-msgstr "In this project have taken part:"
+msgstr "Proiektu honetan momentuz esku hartu dute:"
 
 #. FormAbout..GrpBoxInfo..ScrollBoxCreadores..Label3..Caption
 #: UnitAbout.dfm:4704
@@ -447,42 +451,42 @@ msgstr "Tk68"
 #. FormAbout..GrpBoxInfo..RichEdit1....Lines.Strings
 #: UnitAbout.dfm:5023
 msgid "Coolvibes es un proyecto "
-msgstr "Coolvibes is a project"
+msgstr "Coolvibes indetectables.net web orrian"
 
 #. FormAbout..GrpBoxInfo..RichEdit1....Lines.Strings
 #: UnitAbout.dfm:5024
 msgid "desarrollado en Indetectables"
-msgstr "developed in Indetectables"
+msgstr "garatutako proiektu bat da. Bere"
 
 #. FormAbout..GrpBoxInfo..RichEdit1....Lines.Strings
 #: UnitAbout.dfm:5025
 msgid "que consiste en la creación de"
-msgstr "whose goal is create a"
+msgstr "helburua nola funtzionatzen duen 'troyano'"
 
 #. FormAbout..GrpBoxInfo..RichEdit1....Lines.Strings
 #: UnitAbout.dfm:5026
 msgid "un troyano escrito en Delphi de"
-msgstr "trojan written in delphi"
+msgstr "batek jakin nahi duen jendeak proiektuan esku"
 
 #. FormAbout..GrpBoxInfo..RichEdit1....Lines.Strings
 #: UnitAbout.dfm:5027
 msgid "código y participación abierta"
-msgstr " open source and open-ended"
+msgstr "hartzea da. Edonork lagundu dezake proiektu "
 
 #. FormAbout..GrpBoxInfo..RichEdit1....Lines.Strings
 #: UnitAbout.dfm:5028
 msgid "a todo aquél que tenga "
-msgstr "to everyone that"
+msgstr "honetan."
 
 #. FormAbout..GrpBoxInfo..RichEdit1....Lines.Strings
 #: UnitAbout.dfm:5029
 msgid "curiosidad por saber como "
-msgstr "has the curiosity to know how "
+msgstr " "
 
 #. FormAbout..GrpBoxInfo..RichEdit1....Lines.Strings
 #: UnitAbout.dfm:5030
 msgid "funciona un troyano."
-msgstr "a trojan works"
+msgstr " "
 
 #. FormAbout..GrpBoxInfo..ScrollBoxBetaTesters..Label5..Caption
 #: UnitAbout.dfm:5076
@@ -497,7 +501,7 @@ msgstr "Beta-Testers:"
 #. FormEstadisticasConexiones..Caption
 #: UnitEstadisticasConexiones.dfm:6
 msgid "Conexiones"
-msgstr "Connections"
+msgstr "Konexioak"
 
 #. FormEstadisticasConexiones..Font.Name
 #. FormSeleccionarIdioma..Font.Name
@@ -516,12 +520,12 @@ msgstr "Panel1"
 #. FormEstadisticasConexiones..Panel1..GroupBoxOpciones..Caption
 #: UnitEstadisticasConexiones.dfm:1971
 msgid "Estadisticas"
-msgstr "Stats"
+msgstr "Estadistikak"
 
 #. FormEstadisticasConexiones..Panel1..GroupBoxOpciones..LabelNConexiones..Caption
 #: UnitEstadisticasConexiones.dfm:1982
 msgid "Número de conexiones: 0"
-msgstr "Number of connections: 0"
+msgstr "Konexio kopurua: 0"
 
 #. FormEstadisticasConexiones..Panel1..GroupBoxOpciones..SpeedButton1..Caption
 #. FormConfigServer..GroupBox1..BtnSalir..Caption
@@ -532,16 +536,16 @@ msgstr "Number of connections: 0"
 #: UnitEstadisticasConexiones.dfm:1991
 #: UnitFormConfigServer.dfm:2340
 #: UnitFormControl.dfm:246
-#: UnitFormControl.dfm:3537
-#: UnitFormControl.dfm:3547
-#: UnitMain.dfm:926
+#: UnitFormControl.dfm:3539
+#: UnitFormControl.dfm:3549
+#: UnitMain.dfm:938
 msgid "Cerrar"
-msgstr "Close"
+msgstr "Itxi"
 
 #. FormEstadisticasConexiones..Panel1..ListViewEstadisticas......Caption
 #: UnitEstadisticasConexiones.dfm:2015
 msgid "Evento"
-msgstr "Event"
+msgstr "Gertakaria"
 
 #. FormEstadisticasConexiones..Panel1..ListViewEstadisticas......Caption
 #. FormConfigServer..GroupBox2..ListViewConexionesConfig......Caption
@@ -549,22 +553,22 @@ msgstr "Event"
 #. FormMain..PopupMenuColumnas..Puerto1..Caption
 #: UnitEstadisticasConexiones.dfm:2018
 #: UnitFormConfigServer.dfm:2086
-#: UnitMain.dfm:866
-#: UnitMain.dfm:9833
+#: UnitMain.dfm:878
+#: UnitMain.dfm:9845
 msgid "Puerto"
-msgstr "Port"
+msgstr "Portua"
 
 #. FormEstadisticasConexiones..Panel1..ListViewEstadisticas......Caption
 #: UnitEstadisticasConexiones.dfm:2021
 msgid "Hora"
-msgstr "Time"
+msgstr "Ordua"
 
 #. FormEstadisticasConexiones..Panel1..ListViewEstadisticas......Caption
 #. FormMain..ListViewConexiones......Caption
 #. FormMain..PopupMenuColumnas..Ip1..Caption
 #: UnitEstadisticasConexiones.dfm:2024
-#: UnitMain.dfm:835
-#: UnitMain.dfm:9788
+#: UnitMain.dfm:847
+#: UnitMain.dfm:9800
 msgid "IP"
 msgstr "IP"
 
@@ -584,17 +588,17 @@ msgstr "IP"
 #: UnitFormControl.dfm:891
 #: UnitFormControl.dfm:1135
 #: UnitFormControl.dfm:1516
-#: UnitMain.dfm:831
-#: UnitMain.dfm:9783
+#: UnitMain.dfm:843
+#: UnitMain.dfm:9795
 #: UnitOpciones.dfm:606
 #: UnitVisorDeMiniaturas.dfm:1994
 msgid "Nombre"
-msgstr "Name"
+msgstr "Izena"
 
 #. FormConfigServer..Caption
 #: UnitFormConfigServer.dfm:6
 msgid "Configuración de servidor"
-msgstr "Server builder"
+msgstr "Zerbitzariaren konfiguratzailea"
 
 #. FormConfigServer..GroupBox2..Caption
 #. FormOpciones..PageControlOpciones..TabConexion..Caption
@@ -603,7 +607,7 @@ msgstr "Server builder"
 #: UnitOpciones.dfm:184
 #: UnitOpciones.dfm:218
 msgid "Conexión"
-msgstr "Connection"
+msgstr "Konexioa"
 
 #. FormConfigServer..GroupBox2..Label2..Caption
 #: UnitFormConfigServer.dfm:1971
@@ -618,43 +622,43 @@ msgstr ":"
 #. FormConfigServer..GroupBox2..Label1..Caption
 #: UnitFormConfigServer.dfm:1985
 msgid "Nombre:"
-msgstr "Name:"
+msgstr "Izena:"
 
 #. FormConfigServer..GroupBox2..SpeedButton1..Caption
 #: UnitFormConfigServer.dfm:1998
 msgid "Agregar"
-msgstr "Add"
+msgstr "Gehitu"
 
 #. FormConfigServer..GroupBox2..SpeedButton2..Caption
 #: UnitFormConfigServer.dfm:2007
 msgid "Subir"
-msgstr "Up"
+msgstr "Igo"
 
 #. FormConfigServer..GroupBox2..SpeedButton3..Caption
 #: UnitFormConfigServer.dfm:2016
 msgid "Bajar"
-msgstr "Down"
+msgstr "Jaitsi"
 
 #. FormConfigServer..GroupBox2..SpeedButton4..Caption
 #. FormControl..PopupFileManager..Eliminar..Caption
 #. FormControl..PopupRegistro..Eliminar1..Caption
 #. FormControl..PopupAudio..Eliminar2..Caption
 #: UnitFormConfigServer.dfm:2025
-#: UnitFormControl.dfm:3643
-#: UnitFormControl.dfm:3759
-#: UnitFormControl.dfm:7806
+#: UnitFormControl.dfm:3645
+#: UnitFormControl.dfm:3761
+#: UnitFormControl.dfm:7808
 msgid "Eliminar"
-msgstr "Delete"
+msgstr "Ezabatu"
 
 #. FormConfigServer..GroupBox2..Label5..Caption
 #: UnitFormConfigServer.dfm:2034
 msgid "Nombre del Plugin:"
-msgstr "Plugin name:"
+msgstr "Gehigarria. izena:"
 
 #. FormConfigServer..GroupBox2..EditID....Hint
 #: UnitFormConfigServer.dfm:2067
 msgid "El identificador que tendrá el servidor al conectarse con el cliente del Coolvibes"
-msgstr "The name that the server will have when the server connects with the client"
+msgstr "Zerbitzariak izango duen identifikatzailea coolvibesekin konektatzean"
 
 #. FormConfigServer..GroupBox2..ListViewConexionesConfig......Caption
 #: UnitFormConfigServer.dfm:2082
@@ -664,92 +668,92 @@ msgstr "IP/DNS"
 #. FormConfigServer..GroupBox2..CheckBoxInyectar..Caption
 #: UnitFormConfigServer.dfm:2103
 msgid "Inyectar en el navegador"
-msgstr "Inject in the default browser"
+msgstr "Nabigatzailean ziztatu"
 
 #. FormConfigServer..GroupBox2..CheckBoxPersistencia..Caption
 #: UnitFormConfigServer.dfm:2112
 msgid "Persistencia"
-msgstr "Persistent server"
+msgstr "Iraunkortasuna"
 
 #. FormConfigServer..GroupBox2..EditPluginName..Hint
 #: UnitFormConfigServer.dfm:2120
 msgid "El nombre del plugin una vez que se haya subido al servidor"
-msgstr "The name that the server plugin will have in the remote computer"
+msgstr "Gehigarriaren izena behin zerbitzarira igota"
 
 #. FormConfigServer..GroupBox3..Caption
 #: UnitFormConfigServer.dfm:2135
 msgid "Instalación"
-msgstr "Installation"
+msgstr "Instalazioa"
 
 #. FormConfigServer..GroupBox3..Label8..Caption
 #: UnitFormConfigServer.dfm:2142
 msgid "Nombre de archivo:"
-msgstr "Filename:"
+msgstr "Fitxategiaren izena:"
 
 #. FormConfigServer..GroupBox3..Label15..Caption
 #: UnitFormConfigServer.dfm:2149
 msgid "Nombre de la clave:"
-msgstr "Value name:"
+msgstr "Giltzaren izena:"
 
 #. FormConfigServer..GroupBox3..Label6..Caption
 #: UnitFormConfigServer.dfm:2156
 msgid "Directorio:"
-msgstr "Path:"
+msgstr "Direktorioa:"
 
 #. FormConfigServer..GroupBox3..Label7..Caption
 #: UnitFormConfigServer.dfm:2163
 msgid "Clave:"
-msgstr "Key:"
+msgstr "Giltza:"
 
 #. FormConfigServer..GroupBox3..CheckBoxCopiar..Caption
 #: UnitFormConfigServer.dfm:2170
 msgid "Copiar archivo"
-msgstr "Copy server"
+msgstr "Fitxategia kopiatu"
 
 #. FormConfigServer..GroupBox3..EditFileName..Hint
 #: UnitFormConfigServer.dfm:2193
 msgid "El nombre con el que el servidor se copiará al instalarse"
-msgstr "The name that the server will have in the remote computer"
+msgstr "Zerbitzariaren izena behin kopiatutakoan"
 
 #. FormConfigServer..GroupBox3..CheckBoxMelt..Hint
 #: UnitFormConfigServer.dfm:2206
 msgid "Activarla para hacer que el servidor se borre una vez ejecutado"
-msgstr "If it's enabled the server will auto-delete after first execution"
+msgstr "Zerbitzaria bere burua ezabatuko du behin kopiatutakoan"
 
 #. FormConfigServer..GroupBox3..CheckBoxMelt..Caption
 #: UnitFormConfigServer.dfm:2207
 msgid "Borrar después de copiar (Melt)"
-msgstr "Delete after copy (Melt)"
+msgstr "Kopiatu eta gero ezabatu (Melt)"
 
 #. FormConfigServer..GroupBox3..CheckBoxCopiarConFechaAnterior..Caption
 #: UnitFormConfigServer.dfm:2215
 msgid "Copiar con fecha anterior"
-msgstr "Copy with earlier date"
+msgstr "Aurreko data batekin kopiatu"
 
 #. FormConfigServer..GroupBox3..CheckBoxRun..Caption
 #: UnitFormConfigServer.dfm:2223
 msgid "Auto inicio con método RUN"
-msgstr "Autostart with RUN method"
+msgstr "Hasi ordenagailua pizterakoan RUn metodoarekin"
 
 #. FormConfigServer..GroupBox3..EditRunName..Hint
 #: UnitFormConfigServer.dfm:2232
 msgid "El nombre de la clave run en el registro"
-msgstr "The name of the value in the registry"
+msgstr "Run giltzaren izena erregistroan"
 
 #. FormConfigServer..GroupBox3..CheckBoxActiveSetup....Hint
 #: UnitFormConfigServer.dfm:2247
 msgid "Marcar para utilizar el método active-setup para iniciar el servidor automáticamente al arrancar windows"
-msgstr "Auto-Start with Active-Setup method"
+msgstr "Active-setup método erabiltzeko hautatu"
 
 #. FormConfigServer..GroupBox3..CheckBoxActiveSetup..Caption
 #: UnitFormConfigServer.dfm:2248
 msgid "Auto inicio con método Active Setup"
-msgstr "Auto-Start with Active-Setup method"
+msgstr "Ordenagailua pizterakoan hasi active setup metodoarekin"
 
 #. FormConfigServer..GroupBox3..EditActiveSetup....Hint
 #: UnitFormConfigServer.dfm:2259
 msgid "El nombre de la clave active setup en el registro, haz click para generar una aleatoria"
-msgstr "The name of the active-setup value, click to generate a random value"
+msgstr "Active-setup giltzaren izena erregistroan, klik egin ausazko bat sortzeko"
 
 #. FormConfigServer..MemoOutput....Lines.Strings
 #: UnitFormConfigServer.dfm:2276
@@ -759,39 +763,39 @@ msgstr "MemoOutput"
 #. FormConfigServer..GroupBox1..BtnGuardarConfig..Caption
 #: UnitFormConfigServer.dfm:2303
 msgid "Crear!"
-msgstr "Build"
+msgstr "Eraiki!"
 
 #. FormConfigServer..GroupBox1..Bevel4..Hint
 #. FormConfigServer..GroupBox1..ImageIcon..Hint
 #: UnitFormConfigServer.dfm:2384
 #: UnitFormConfigServer.dfm:2395
 msgid "Haga click aquí para cargar un icono..."
-msgstr "Click to change the server icon"
+msgstr "Klik egin ezazu ikono bat kargatzeko..."
 
 #. FormConfigServer..GroupBox1..Label4..Caption
 #: UnitFormConfigServer.dfm:2506
 msgid "Icono:"
-msgstr "Icon:"
+msgstr "Ikonoa:"
 
 #. FormConfigServer..GroupBox1..CheckboxUPX....Hint
 #: UnitFormConfigServer.dfm:2515
 msgid "Comprimir las DLL's del inyector con UPX para reducir el tamaño del servidor"
-msgstr "Compress the servers of the injector with UPX to decrease the server size"
+msgstr "Xiringaren DLLak komprimitu tamaina txikitzeko"
 
 #. FormConfigServer..GroupBox1..CheckboxUPX..Caption
 #: UnitFormConfigServer.dfm:2516
 msgid "Comprimir las DLL's del inyector con UPX"
-msgstr "Compress the injector DLL's with UPX"
+msgstr "DLLak komprimitu UPX erabiliz"
 
 #. FormConfigServer..GroupBox1..CheckBoxCifrar..Caption
 #: UnitFormConfigServer.dfm:2524
 msgid "Cifrar las DLL's del inyector"
-msgstr "Encrypt the injector DLL's"
+msgstr "Xiringaren DLLak zifratu"
 
 #. FormControl..Caption
 #: UnitFormControl.dfm:7
 msgid "Centro de control"
-msgstr "Control Center"
+msgstr "Kontrolgunea"
 
 #. FormControl..PageControl..TabInfo..Caption
 #. FormControl..PageControl..TabInfo..PageControlInformacion..TabSheetInfoSistema..ListViewInformacion......Caption
@@ -799,28 +803,28 @@ msgstr "Control Center"
 #. FormSendKeys..BtnInformacion..Caption
 #: UnitFormControl.dfm:74
 #: UnitFormControl.dfm:321
-#: UnitFormControl.dfm:3373
+#: UnitFormControl.dfm:3375
 #: UnitFormSendKeys.dfm:246
 msgid "Información"
-msgstr "Information"
+msgstr "Informazioa"
 
 #. FormControl..PageControl..TabInfo..PageControlInformacion..TabSheetServidor..Caption
 #. FormMain..PopupMenuConexiones..Accesorpido1..Servidor1..Caption
 #: UnitFormControl.dfm:87
-#: UnitMain.dfm:923
+#: UnitMain.dfm:935
 msgid "Servidor"
-msgstr "Server"
+msgstr "Zerbitzaria"
 
 #. FormControl..PageControl..TabInfo..PageControlInformacion..TabSheetServidor..BtnEnviarComandoServidor..Caption
 #. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..BtnEnviarMensaje..Caption
 #. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetBromas..BtnEnviarBromas..Caption
 #. FormSendKeys..BtnEnviar..Caption
 #: UnitFormControl.dfm:100
-#: UnitFormControl.dfm:2818
-#: UnitFormControl.dfm:3435
+#: UnitFormControl.dfm:2820
+#: UnitFormControl.dfm:3437
 #: UnitFormSendKeys.dfm:161
 msgid "Enviar"
-msgstr "Send"
+msgstr "Bidali"
 
 #. FormControl..PageControl..TabInfo..PageControlInformacion..TabSheetServidor..BtnActualizarServidorInfo..Caption
 #. FormControl..PageControl..TabInfo..PageControlInformacion..TabSheetInfoSistema..BtnRefrescarInformacion..Caption
@@ -835,69 +839,69 @@ msgstr "Send"
 #: UnitFormControl.dfm:930
 #: UnitFormControl.dfm:1209
 #: UnitFormControl.dfm:1450
-#: UnitFormControl.dfm:3767
+#: UnitFormControl.dfm:3769
 msgid "Refrescar"
-msgstr "Refresh"
+msgstr "Freskatu"
 
 #. FormControl..PageControl..TabInfo..PageControlInformacion..TabSheetServidor..ListViewServidor......Caption
 #: UnitFormControl.dfm:195
 msgid "Configuración"
-msgstr "Settings"
+msgstr "Konfigurazioa"
 
 #. FormControl..PageControl..TabInfo..PageControlInformacion..TabSheetServidor..ListViewServidor......Caption
 #: UnitFormControl.dfm:200
 msgid "Contenido"
-msgstr "Content"
+msgstr "Edukiak"
 
 #. FormControl..PageControl..TabInfo..PageControlInformacion..TabSheetServidor..ComboBoxGestionDeServidor..Text
 #: UnitFormControl.dfm:244
 msgid "<Seleccione una acción>"
-msgstr "Select an action"
+msgstr "<Akzio bat hautatu>"
 
 #. FormControl..PageControl..TabInfo..PageControlInformacion..TabSheetServidor..ComboBoxGestionDeServidor....Items.Strings
 #. FormMain..PopupMenuConexiones..Accesorpido1..Servidor1..Actualizar1..Caption
 #: UnitFormControl.dfm:247
-#: UnitMain.dfm:931
+#: UnitMain.dfm:943
 msgid "Actualizar"
-msgstr "Update"
+msgstr "Eguneratu"
 
 #. FormControl..PageControl..TabInfo..PageControlInformacion..TabSheetServidor..ComboBoxGestionDeServidor....Items.Strings
 #. FormControl..PopupServicios..Desinstalar1..Caption
 #. FormMain..PopupMenuConexiones..Accesorpido1..Servidor1..Desinstalar1..Caption
 #: UnitFormControl.dfm:248
-#: UnitFormControl.dfm:3895
-#: UnitMain.dfm:936
+#: UnitFormControl.dfm:3897
+#: UnitMain.dfm:948
 msgid "Desinstalar"
-msgstr "Unnistall"
+msgstr "Desinstalatu"
 
 #. FormControl..PageControl..TabInfo..PageControlInformacion..TabSheetInfoSistema..Caption
 #. FormControl..PopupFileManager..CambiarAtributos1..Sistema1..Caption
 #: UnitFormControl.dfm:252
-#: UnitFormControl.dfm:3655
-#: UnitFormControl.pas:4363
-#: UnitFormControl.pas:4390
-#: UnitFormControl.pas:4417
+#: UnitFormControl.dfm:3657
+#: UnitFormControl.pas:4365
+#: UnitFormControl.pas:4392
+#: UnitFormControl.pas:4419
 msgid "Sistema"
-msgstr "System"
+msgstr "Sistema"
 
 #. FormControl..PageControl..TabInfo..PageControlInformacion..TabSheetInfoSistema..ListViewInformacion......Caption
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabServicios..ListViewServicios......Caption
 #: UnitFormControl.dfm:316
 #: UnitFormControl.dfm:1279
 msgid "Descripción"
-msgstr "Description"
+msgstr "Deskribapena"
 
 #. FormControl..PageControl..TabFileManager..Caption
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetVerArchivos..Caption
 #: UnitFormControl.dfm:349
 #: UnitFormControl.dfm:363
 msgid "Ficheros"
-msgstr "Files"
+msgstr "Fitxategiak"
 
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetVerArchivos..BtnVerUnidades..Caption
 #: UnitFormControl.dfm:376
 msgid "Ver unidades"
-msgstr "List drivers"
+msgstr "Ikus Unitateak"
 
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetVerArchivos..LabelPathArchivos..Caption
 #. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetCola..ListViewColaThumbnails......Caption
@@ -909,27 +913,27 @@ msgstr "Path"
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetVerArchivos..BtnActualizarArchivos..Caption
 #: UnitFormControl.dfm:429
 msgid "Ir/Actualizar"
-msgstr "Go/Refresh"
+msgstr "Freskatu"
 
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetVerArchivos..LabelNumeroDeCarpetas..Caption
 #: UnitFormControl.dfm:474
 msgid "Carpetas:"
-msgstr "Folders:"
+msgstr "Karpetak:"
 
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetVerArchivos..LabelNumeroDeArchivos..Caption
 #: UnitFormControl.dfm:482
 msgid "Archivos:"
-msgstr "Files:"
+msgstr "Fitxategiak:"
 
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetVerArchivos..SpeedButtonRutasRapidas..Caption
 #: UnitFormControl.dfm:491
 msgid "Rutas Rápidas"
-msgstr "Shortcuts"
+msgstr "Sarbide azkarrak"
 
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetVerArchivos..SpeedButton2..Caption
 #: UnitFormControl.dfm:528
 msgid "Para de listar"
-msgstr "Stop listing"
+msgstr "Zerrenda. utzi"
 
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetVerArchivos..ListViewArchivos......Caption
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetTransferencias..ListViewDescargas......Caption
@@ -938,10 +942,10 @@ msgstr "Stop listing"
 #: UnitFormControl.dfm:618
 #: UnitFormControl.dfm:690
 #: UnitFormControl.dfm:777
-#: UnitFormControl.dfm:2379
-#: UnitFormControl.pas:4868
+#: UnitFormControl.dfm:2381
+#: UnitFormControl.pas:4870
 msgid "Tamaño"
-msgstr "Size"
+msgstr "Tamaina"
 
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetVerArchivos..ListViewArchivos......Caption
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetBuscar..ListViewBuscar......Caption
@@ -950,51 +954,51 @@ msgstr "Size"
 #: UnitFormControl.dfm:781
 #: UnitFormControl.dfm:1139
 msgid "Tipo"
-msgstr "Type"
+msgstr "Mota"
 
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetVerArchivos..ListViewArchivos......Caption
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetBuscar..ListViewBuscar......Caption
 #: UnitFormControl.dfm:626
 #: UnitFormControl.dfm:784
 msgid "Atributos"
-msgstr "Attrib."
+msgstr "Atributuak"
 
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetVerArchivos..ListViewArchivos......Caption
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetBuscar..ListViewBuscar......Caption
 #: UnitFormControl.dfm:629
 #: UnitFormControl.dfm:788
 msgid "Fecha de modificación"
-msgstr "Date Modified"
+msgstr "Aldaketa data"
 
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetTransferencias..Caption
 #: UnitFormControl.dfm:650
 msgid "Transferencias"
-msgstr "Transfers"
+msgstr "Transferentziak"
 
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetTransferencias..LabelTransferencias..Caption
 #: UnitFormControl.dfm:661
 msgid "Subidas y descargas de ficheros"
-msgstr "File transfers"
+msgstr "Fitxategien jaitsierak eta igoeark"
 
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetTransferencias..ListViewDescargas......Caption
 #: UnitFormControl.dfm:682
 msgid "Archivo(Origen|Destino)"
-msgstr "File(From|To)"
+msgstr "Fitxategiak(Nondik|Nora)"
 
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetTransferencias..ListViewDescargas......Caption
 #: UnitFormControl.dfm:685
 msgid "Progreso"
-msgstr "Progress"
+msgstr "Progresua"
 
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetTransferencias..ListViewDescargas......Caption
 #: UnitFormControl.dfm:694
 msgid "Enviado/Recibido"
-msgstr "Sent/received"
+msgstr "Bidalita/Jasoa"
 
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetTransferencias..ListViewDescargas......Caption
 #: UnitFormControl.dfm:698
 msgid "Vel/T. restante"
-msgstr "Speed/ETA"
+msgstr "Abiadura/Gelditzen del d."
 
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetTransferencias..ListViewDescargas......Caption
 #: UnitFormControl.dfm:701
@@ -1004,49 +1008,49 @@ msgstr "Status"
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetBuscar..Caption
 #. FormControl..PopupFileManager..BuscarArchivos1..Caption
 #: UnitFormControl.dfm:720
-#: UnitFormControl.dfm:3699
+#: UnitFormControl.dfm:3701
 msgid "Buscar"
-msgstr "Search"
+msgstr "Bilatu"
 
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetBuscar..SpeedButtonBuscar..Caption
 #. Paramos...
 #. Terminado!
 #. comenzar
 #: UnitFormControl.dfm:733
-#: UnitFormControl.pas:1384
-#: UnitFormControl.pas:1391
-#: UnitFormControl.pas:4545
-#: UnitFormControl.pas:4976
+#: UnitFormControl.pas:1385
+#: UnitFormControl.pas:1392
+#: UnitFormControl.pas:4547
+#: UnitFormControl.pas:4978
 msgid "Comenzar"
-msgstr "Start"
+msgstr "Hasi"
 
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetBuscar..LabelNumeroEncontrados..Caption
 #: UnitFormControl.dfm:743
-#: UnitFormControl.pas:5029
+#: UnitFormControl.pas:5031
 msgid "Encontrados: "
-msgstr "Found: "
+msgstr "Aurkituta: "
 
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetBuscar..SpeedButton1..Caption
 #: UnitFormControl.dfm:752
 msgid "Limpiar Listview"
-msgstr "Clean Listview"
+msgstr "Zerrenda garbitu"
 
 #. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetBuscar..ListViewBuscar......Caption
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabProcesos..ListViewProcesos......Caption
 #: UnitFormControl.dfm:772
 #: UnitFormControl.dfm:900
 msgid "Ruta"
-msgstr "Path"
+msgstr "Bidea"
 
 #. FormControl..PageControl..TabManagers..Caption
 #: UnitFormControl.dfm:821
 msgid "Administrador"
-msgstr "Managers"
+msgstr "Administratzailea"
 
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabProcesos..Caption
 #: UnitFormControl.dfm:834
 msgid "Procesos"
-msgstr "Process"
+msgstr "Prozesuak"
 
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabProcesos..ListViewProcesos......Caption
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabPuertos..ListViewPuertos......Caption
@@ -1058,12 +1062,12 @@ msgstr "PID"
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabVentanas..Caption
 #: UnitFormControl.dfm:917
 msgid "Ventanas"
-msgstr "Windows"
+msgstr "Leihoak"
 
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabVentanas..ListViewVentanas......Caption
 #: UnitFormControl.dfm:975
 msgid "Titulo"
-msgstr "Title"
+msgstr "Titulua"
 
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabVentanas..ListViewVentanas......Caption
 #. FormSendKeys..LabelHandle..Caption
@@ -1080,25 +1084,25 @@ msgstr "Handle"
 #: UnitFormControl.dfm:982
 #: UnitFormControl.dfm:1282
 #: UnitFormControl.dfm:1510
-#: UnitFormControl.dfm:3491
-#: UnitFormControl.dfm:3520
+#: UnitFormControl.dfm:3493
+#: UnitFormControl.dfm:3522
 msgid "Estado"
-msgstr "Status"
+msgstr "Egoera"
 
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabVentanas..CheckBoxMostrarVentanasOcultas..Caption
 #: UnitFormControl.dfm:1005
 msgid "Mostrar ventanas ocultas"
-msgstr "Show hidden windows"
+msgstr "Ezkutatutako leihoak zerrendatu"
 
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabRegistro..Caption
 #: UnitFormControl.dfm:1017
 msgid "Registro"
-msgstr "Registry"
+msgstr "Erregistroa"
 
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabRegistro..BtnVerRegisto..Caption
 #: UnitFormControl.dfm:1029
 msgid "Ver"
-msgstr "View"
+msgstr "Ikusi"
 
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabRegistro..PanelRegistro..Caption
 #: UnitFormControl.dfm:1084
@@ -1108,19 +1112,19 @@ msgstr "PanelRegistro"
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabRegistro..PanelRegistro..ListViewRegistro......Caption
 #: UnitFormControl.dfm:1144
 msgid "Valor"
-msgstr "Value"
+msgstr "Balorea"
 
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabServicios..Caption
 #: UnitFormControl.dfm:1175
 msgid "Servicios"
-msgstr "Services"
+msgstr "Zerbitzuak"
 
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabServicios..btnInstServicios2..Caption
 #. FormControl..PopupServicios..Instalar1..Caption
 #: UnitFormControl.dfm:1187
-#: UnitFormControl.dfm:3900
+#: UnitFormControl.dfm:3902
 msgid "Instalar"
-msgstr "Install"
+msgstr "Gehitu"
 
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabServicios..BtnCancelarInstalarServicio..Caption
 #. FormReg..BtnCancelar..Caption
@@ -1129,19 +1133,19 @@ msgstr "Install"
 #: UnitFormReg.dfm:46
 #: UnitID.dfm:80
 msgid "Cancelar"
-msgstr "Cancel"
+msgstr "Ezeztatu"
 
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabServicios..btnInstServicios..Caption
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabServicios..btnSiguienteInstalarServicio..Caption
 #: UnitFormControl.dfm:1246
 #: UnitFormControl.dfm:1257
 msgid "Siguiente"
-msgstr "Next"
+msgstr "Hurrengoa"
 
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabServicios..ListViewServicios......Caption
 #: UnitFormControl.dfm:1274
 msgid "Servicio"
-msgstr "Service"
+msgstr "Zerbitzua"
 
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabShell..Caption
 #: UnitFormControl.dfm:1312
@@ -1151,12 +1155,12 @@ msgstr "Shell"
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabShell..BtnCambiarFuenteShell..Caption
 #: UnitFormControl.dfm:1324
 msgid "Cambiar fuente"
-msgstr "Change font"
+msgstr "Iturria aldatu"
 
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabShell..BtnCambiarColorShell..Caption
 #: UnitFormControl.dfm:1362
 msgid "Cambiar color"
-msgstr "Change color"
+msgstr "Kolorea aldatu"
 
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabShell..MemoShell..Font.Name
 #: UnitFormControl.dfm:1407
@@ -1171,59 +1175,59 @@ msgstr "Lucida Console"
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabPuertos..Caption
 #: UnitFormControl.dfm:1438
 msgid "Puertos"
-msgstr "Ports"
+msgstr "Portuak"
 
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabPuertos..ListViewPuertos......Caption
 #: UnitFormControl.dfm:1493
 msgid "Protocolo"
-msgstr "Protocol"
+msgstr "Protokoloa"
 
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabPuertos..ListViewPuertos......Caption
 #: UnitFormControl.dfm:1497
 msgid "IP Local"
-msgstr "Local IP"
+msgstr "Ip lokala"
 
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabPuertos..ListViewPuertos......Caption
 #: UnitFormControl.dfm:1501
 msgid "Puerto local"
-msgstr "Local port"
+msgstr "Portu lokala"
 
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabPuertos..ListViewPuertos......Caption
 #: UnitFormControl.dfm:1504
 msgid "IP Remota"
-msgstr "Remote IP"
+msgstr "Zerbitzariaren IPa"
 
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabPuertos..ListViewPuertos......Caption
 #: UnitFormControl.dfm:1507
 msgid "Puerto remoto"
-msgstr "Remote Port"
+msgstr "Zerbitzariaren portua"
 
 #. FormControl..PageControl..TabManagers..PageControlManagers..TabPuertos..CheckBoxPuertos..Caption
 #: UnitFormControl.dfm:1536
 msgid "Mostrar puertos a la escucha"
-msgstr "Show listening ports"
+msgstr "Entzuten ari diren portuak zerrendatu"
 
 #. FormControl..PageControl..TabVigilancia..Caption
 #: UnitFormControl.dfm:1550
 msgid "Vigilancia"
-msgstr "Surveillance"
+msgstr "Ikuskariak"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabScreencap..Caption
 #: UnitFormControl.dfm:1563
 msgid "Pantalla"
-msgstr "Screen Capture"
+msgstr "Pantaila"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabScreencap..LabelCalidadCapScreen..Caption
 #. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..LabelCalidadJPG..Caption
 #: UnitFormControl.dfm:1590
 #: UnitVisorDeMiniaturas.dfm:2021
 msgid "Calidad JPG:"
-msgstr "JPG Quality:"
+msgstr "JPGaren kalitatea:"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabScreencap..BtnCapturarScreen..Hint
 #: UnitFormControl.dfm:1604
 msgid "Haz clic para realizar una captura al escritorio remoto"
-msgstr "Click to get a screen capture"
+msgstr "Klik egin ezazu kaptura bat hartzeko"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabScreencap..btnGuardarImagen..Caption
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabWebcam..BtnGuardarWebcam..Caption
@@ -1231,53 +1235,53 @@ msgstr "Click to get a screen capture"
 #. FormControl..PopupAudio..Guardar1..Caption
 #. FormOpciones..BtnGuardar..Caption
 #: UnitFormControl.dfm:1652
-#: UnitFormControl.dfm:1919
-#: UnitFormControl.dfm:2521
-#: UnitFormControl.dfm:7816
+#: UnitFormControl.dfm:1921
+#: UnitFormControl.dfm:2523
+#: UnitFormControl.dfm:7818
 #: UnitOpciones.dfm:33
 msgid "Guardar"
-msgstr "Save"
+msgstr "Gorde"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabScreencap..BtnVerGrandeCap..Caption
 #: UnitFormControl.dfm:1698
 msgid "Pantalla completa"
-msgstr "Full Screen"
+msgstr "Pantaila osoa"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabScreencap..LabelPosicionCompresJpg..Caption
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabWebcam..LabelPosicionCompresJpgWebcam..Caption
 #: UnitFormControl.dfm:1735
-#: UnitFormControl.dfm:1994
+#: UnitFormControl.dfm:1996
 msgid "50%"
 msgstr "50%"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabScreencap..CheckBoxMouseClicks..Caption
-#: UnitFormControl.dfm:1827
+#: UnitFormControl.dfm:1829
 msgid "Clicks Remotos"
-msgstr "Mouse"
+msgstr "Sagua kontro."
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabScreencap..CheckBoxTamanioReal..Caption
-#: UnitFormControl.dfm:1842
+#: UnitFormControl.dfm:1844
 msgid "Tamaño Real"
-msgstr "Real size"
+msgstr "Tama. erreala"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabWebcam..Caption
-#: UnitFormControl.dfm:1854
+#: UnitFormControl.dfm:1856
 msgid "Webcam"
 msgstr "Webcam"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabWebcam..LabelCalidadWebcam..Caption
-#: UnitFormControl.dfm:1866
+#: UnitFormControl.dfm:1868
 msgid "Calidad de imagen:"
-msgstr "Image quality:"
+msgstr "Irudiaren kalitatea:"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabWebcam..BtnObtenerWebcams..Caption
-#: UnitFormControl.dfm:1957
+#: UnitFormControl.dfm:1959
 msgid "Obtener webcams"
-msgstr "List webcams"
+msgstr "Webcamak ikusi"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabAudio..Caption
-#: UnitFormControl.dfm:2117
-#: UnitFormControl.pas:4897
+#: UnitFormControl.dfm:2119
+#: UnitFormControl.pas:4899
 msgid "Audio"
 msgstr "Audio"
 
@@ -1285,277 +1289,277 @@ msgstr "Audio"
 #. FormMain..BtnOpciones..Caption
 #. FormOpciones..Caption
 #. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..Caption
-#: UnitFormControl.dfm:2142
-#: UnitMain.dfm:691
+#: UnitFormControl.dfm:2144
+#: UnitMain.dfm:697
 #: UnitOpciones.dfm:6
 #: UnitVisorDeMiniaturas.dfm:2012
 msgid "Opciones"
-msgstr "Settings"
+msgstr "Ezarpenak"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabAudio..PanelAudio..GroupBoxAudio..LabelTamanioAudio..Caption
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabAudio..PanelAudio..ListViewAudio......Caption
-#: UnitFormControl.dfm:2153
-#: UnitFormControl.dfm:2383
+#: UnitFormControl.dfm:2155
+#: UnitFormControl.dfm:2385
 msgid "Duración"
-msgstr "Length"
+msgstr "Iraupena"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabAudio..PanelAudio..GroupBoxAudio..Label2..Caption
-#: UnitFormControl.dfm:2167
+#: UnitFormControl.dfm:2169
 msgid "Segundos"
-msgstr "Seconds"
+msgstr "Segundo"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabAudio..PanelAudio..GroupBoxAudio..SpeedButtonListarAudio..Caption
-#: UnitFormControl.dfm:2227
+#: UnitFormControl.dfm:2229
 msgid "Listar"
-msgstr "List"
+msgstr "Ikusi"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabAudio..PanelAudio..GroupBoxAudio..Labellengthaudio..Caption
-#: UnitFormControl.dfm:2237
+#: UnitFormControl.dfm:2239
 msgid "Tamaño:"
-msgstr "Size:"
+msgstr "Tamainua:"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabAudio..PanelAudio..GroupBoxAudio..ListViewAudioFormato......Caption
-#: UnitFormControl.dfm:2258
+#: UnitFormControl.dfm:2260
 msgid "Rate"
 msgstr "Rate"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabAudio..PanelAudio..GroupBoxAudio..ListViewAudioFormato......Caption
-#: UnitFormControl.dfm:2262
+#: UnitFormControl.dfm:2264
 msgid "Canal"
-msgstr "Channel"
+msgstr "Kanala"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabAudio..PanelAudio..GroupBoxAudio..ListViewAudioFormato......Caption
-#: UnitFormControl.dfm:2266
+#: UnitFormControl.dfm:2268
 msgid "Bit"
 msgstr "Bit"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabAudio..PanelAudio..GroupBoxAudio..CheckBoxAutoReproducir..Caption
-#: UnitFormControl.dfm:2334
+#: UnitFormControl.dfm:2336
 msgid "Auto reproducir recibidos"
-msgstr "Auto-Play received"
+msgstr "Jasotakoak auto. entzun"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabAudio..PanelAudio..ListViewAudio......Caption
-#: UnitFormControl.dfm:2375
+#: UnitFormControl.dfm:2377
 msgid "#"
 msgstr "#"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabAudio..PanelAudio..ListViewAudio......Caption
-#: UnitFormControl.dfm:2388
+#: UnitFormControl.dfm:2390
 msgid "Recibido"
-msgstr "Received"
+msgstr "Jasoa"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabAudio..PanelAudio..ListViewAudio......Caption
-#: UnitFormControl.dfm:2391
+#: UnitFormControl.dfm:2393
 msgid "Formato"
-msgstr "Format"
+msgstr "Formatua"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabKeylogger..Caption
-#: UnitFormControl.dfm:2416
+#: UnitFormControl.dfm:2418
 msgid "Keylogger"
 msgstr "Keylogger"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabKeylogger..SpeedButtonRecibirLog..Caption
-#: UnitFormControl.dfm:2429
+#: UnitFormControl.dfm:2431
 msgid "Recibir log"
-msgstr "Get Log"
+msgstr "Loga Jaso"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabKeylogger..SpeedButtonEliminarLog..Caption
-#: UnitFormControl.dfm:2475
+#: UnitFormControl.dfm:2477
 msgid "Eliminar log"
-msgstr "Delete log"
+msgstr "Loga ezabatu"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabKeylogger..SpeedButtonActivarKeylogger..Caption
-#: UnitFormControl.dfm:2567
-#: UnitFormControl.pas:1349
-#: UnitFormControl.pas:4035
+#: UnitFormControl.dfm:2569
+#: UnitFormControl.pas:1350
+#: UnitFormControl.pas:4037
 msgid "Activar Keylogger"
-msgstr "Enable keylogger"
+msgstr "Keyloggerra aktibatu"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabKeylogger..EditLogName..Text
-#: UnitFormControl.dfm:2633
+#: UnitFormControl.dfm:2635
 msgid "Log.dat"
 msgstr "Log.dat"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabKeylogger..CheckBoxOnlineKeylogger..Caption
-#: UnitFormControl.dfm:2651
+#: UnitFormControl.dfm:2653
 msgid "Online keylogger"
-msgstr "Online keylogger"
+msgstr "Online keyloggerra"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabPortapapeles..Caption
-#: UnitFormControl.dfm:2664
+#: UnitFormControl.dfm:2666
 msgid "Portapapeles"
-msgstr "Clipboard"
+msgstr "Portapapera"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabPortapapeles..SpeedButtonClipBoard1..Caption
-#: UnitFormControl.dfm:2676
+#: UnitFormControl.dfm:2678
 msgid "Ver Portapapeles"
-msgstr "Get Clipboard"
+msgstr "Portapapera ikusi"
 
 #. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabPortapapeles..SpeedButtonClipBoard2..Caption
-#: UnitFormControl.dfm:2722
+#: UnitFormControl.dfm:2724
 msgid "Setear Portapapeles"
-msgstr "Set Clipboard"
+msgstr "Portapapera ezarri"
 
 #. FormControl..PageControl..TabExtra..Caption
-#: UnitFormControl.dfm:2780
+#: UnitFormControl.dfm:2782
 msgid "Extra"
 msgstr "Extra"
 
 #. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..Caption
-#: UnitFormControl.dfm:2793
+#: UnitFormControl.dfm:2795
 msgid "Mensajes"
-msgstr "Messages"
+msgstr "Mezuak"
 
 #. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..LabelTituloMensaje..Caption
-#: UnitFormControl.dfm:2803
+#: UnitFormControl.dfm:2805
 msgid "Título:"
-msgstr "Title:"
+msgstr "Titulua:"
 
 #. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..GrpBoxTipoMensaje..Caption
-#: UnitFormControl.dfm:2890
+#: UnitFormControl.dfm:2892
 msgid "Tipo de Mensaje"
-msgstr "Message icon"
+msgstr "Mezu mota"
 
 #. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..GrpBoxTipoMensaje..RdBtnError..Caption
-#: UnitFormControl.dfm:3331
+#: UnitFormControl.dfm:3333
 msgid "Error"
-msgstr "Error"
+msgstr "Errorea"
 
 #. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..GrpBoxTipoMensaje..RdBtnPregunta..Caption
-#: UnitFormControl.dfm:3345
+#: UnitFormControl.dfm:3347
 msgid "Pregunta"
-msgstr "Question"
+msgstr "Galdera"
 
 #. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..GrpBoxTipoMensaje..RdBtnExclamacion..Caption
-#: UnitFormControl.dfm:3359
+#: UnitFormControl.dfm:3361
 msgid "Exclamación"
-msgstr "Alert"
+msgstr "Harridura"
 
 #. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..GrpBoxTipoMensaje..RdBtnVacio..Caption
-#: UnitFormControl.dfm:3387
+#: UnitFormControl.dfm:3389
 msgid "Vacío"
-msgstr "Clear"
+msgstr "Ez"
 
 #. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..RdGrpBotonesMensaje..Caption
-#: UnitFormControl.dfm:3405
+#: UnitFormControl.dfm:3407
 msgid "Tipo de Botones"
-msgstr "Buttons"
+msgstr "Botoi motak"
 
 #. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..RdGrpBotonesMensaje....Items.Strings
 #. FormSeleccionarIdioma..Button1..Caption
-#: UnitFormControl.dfm:3412
+#: UnitFormControl.dfm:3414
 #: UnitFormLanguage.dfm:40
 msgid "OK"
 msgstr "OK"
 
 #. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..RdGrpBotonesMensaje....Items.Strings
-#: UnitFormControl.dfm:3413
-msgid "OK, Cancelar"
-msgstr "OK, Cancell"
-
-#. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..RdGrpBotonesMensaje....Items.Strings
-#: UnitFormControl.dfm:3414
-msgid "Reintentar, Cancelar"
-msgstr "Retry, Cancel"
-
-#. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..RdGrpBotonesMensaje....Items.Strings
 #: UnitFormControl.dfm:3415
-msgid "Sí, No"
-msgstr "Yes, No"
+msgid "OK, Cancelar"
+msgstr "OK, Ezeztatu"
 
 #. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..RdGrpBotonesMensaje....Items.Strings
 #: UnitFormControl.dfm:3416
-msgid "Sí, No, Cancelar"
-msgstr "Yes, No, Cancel"
+msgid "Reintentar, Cancelar"
+msgstr "Bersaiatu, ezeztatu"
 
 #. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..RdGrpBotonesMensaje....Items.Strings
 #: UnitFormControl.dfm:3417
+msgid "Sí, No"
+msgstr "Bai, ez"
+
+#. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..RdGrpBotonesMensaje....Items.Strings
+#: UnitFormControl.dfm:3418
+msgid "Sí, No, Cancelar"
+msgstr "Bat, ez, ezeztatu"
+
+#. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..RdGrpBotonesMensaje....Items.Strings
+#: UnitFormControl.dfm:3419
 msgid "Anular, Reintentar, Omitir"
-msgstr "Anular, Reintentar, Omitir"
+msgstr "Baliogabetu, bersaiatu, aldera utzi"
 
 #. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetBromas..Caption
-#: UnitFormControl.dfm:3423
+#: UnitFormControl.dfm:3425
 msgid "Bromas"
-msgstr "Jokes"
+msgstr "Bromak"
 
 #. FormControl..PopupWindows..Maximizar1..Caption
-#: UnitFormControl.dfm:3552
+#: UnitFormControl.dfm:3554
 msgid "Maximizar"
-msgstr "Maximize"
+msgstr "Handiagotu"
 
 #. FormControl..PopupWindows..Minimizar1..Caption
-#: UnitFormControl.dfm:3557
+#: UnitFormControl.dfm:3559
 msgid "Minimizar"
-msgstr "Minimize"
+msgstr "Txikiagotu"
 
 #. FormControl..PopupWindows..Mostrar1..Caption
-#: UnitFormControl.dfm:3562
+#: UnitFormControl.dfm:3564
 msgid "Mostrar"
-msgstr "Show"
+msgstr "Erakutsi"
 
 #. FormControl..PopupWindows..Ocultar1..Caption
-#: UnitFormControl.dfm:3567
+#: UnitFormControl.dfm:3569
 msgid "Ocultar"
-msgstr "Hide"
+msgstr "Ezkutatu"
 
 #. FormControl..PopupWindows..Minimizartodas1..Caption
-#: UnitFormControl.dfm:3572
+#: UnitFormControl.dfm:3574
 msgid "Minimizar todas"
-msgstr "Minimize all"
+msgstr "Guztiak txikiagotu"
 
 #. FormControl..PopupWindows..Iralproceso1..Caption
-#: UnitFormControl.dfm:3580
+#: UnitFormControl.dfm:3582
 msgid "Ir al proceso..."
-msgstr "Go to process..."
+msgstr "Prozesura joan..."
 
 #. FormControl..PopupWindows..Enviarteclas1..Caption
 #. FormSendKeys..Caption
-#: UnitFormControl.dfm:3588
+#: UnitFormControl.dfm:3590
 #: UnitFormSendKeys.dfm:6
 msgid "Enviar teclas..."
-msgstr "Send keys..."
+msgstr "Teklak bidali..."
 
 #. FormControl..PopupWindows..BotnCerrarX1..Caption
-#: UnitFormControl.dfm:3593
+#: UnitFormControl.dfm:3595
 msgid "Botón Cerrar [X]..."
-msgstr "[X] Close button..."
+msgstr "Ixteko botoia [X]..."
 
 #. FormControl..PopupWindows..BotnCerrarX1..Activar1..Caption
 #. FormControl..PopupShell..Activar2..Caption
-#: UnitFormControl.dfm:3595
-#: UnitFormControl.dfm:3849
+#: UnitFormControl.dfm:3597
+#: UnitFormControl.dfm:3851
 msgid "Activar"
-msgstr "Enable"
+msgstr "Aktibatu"
 
 #. FormControl..PopupWindows..BotnCerrarX1..Desactivar1..Caption
 #. FormControl..PopupShell..Desactivar2..Caption
-#: UnitFormControl.dfm:3600
-#: UnitFormControl.dfm:3854
+#: UnitFormControl.dfm:3602
+#: UnitFormControl.dfm:3856
 msgid "Desactivar"
-msgstr "Disable"
+msgstr "Desaktibatu"
 
 #. FormControl..PopupFileManager..Descargarfichero1..Caption
-#: UnitFormControl.dfm:3612
+#: UnitFormControl.dfm:3614
 msgid "Descargar"
-msgstr "Download"
+msgstr "Jaitsi"
 
 #. FormControl..PopupFileManager..Agregaracoladedescarga1..Caption
-#: UnitFormControl.dfm:3617
+#: UnitFormControl.dfm:3619
 msgid "Encolar descarga"
-msgstr "Add to queue"
+msgstr "Ilarara gehitu"
 
 #. FormControl..PopupFileManager..Subirfichero1..Caption
-#: UnitFormControl.dfm:3622
+#: UnitFormControl.dfm:3624
 msgid "Subir fichero ..."
-msgstr "Upload file..."
+msgstr "Fitxategia igo..."
 
 #. FormControl..PopupFileManager..EjecutarAbrir1..Caption
-#: UnitFormControl.dfm:3630
+#: UnitFormControl.dfm:3632
 msgid "Ejecutar/Abrir"
-msgstr "Open / Run"
+msgstr "Ireki"
 
 #. FormControl..PopupFileManager..EjecutarAbrir1..Normal1..Caption
-#: UnitFormControl.dfm:3632
+#: UnitFormControl.dfm:3634
 #: UnitFormControl.pas:978
 msgid "Normal"
 msgstr "Normal"
@@ -1565,231 +1569,231 @@ msgstr "Normal"
 #. cambiamos
 #. cambiamos
 #. cambiamos
-#: UnitFormControl.dfm:3637
-#: UnitFormControl.dfm:3651
+#: UnitFormControl.dfm:3639
+#: UnitFormControl.dfm:3653
 #: UnitFormControl.pas:1193
-#: UnitFormControl.pas:4361
-#: UnitFormControl.pas:4388
-#: UnitFormControl.pas:4415
+#: UnitFormControl.pas:4363
+#: UnitFormControl.pas:4390
+#: UnitFormControl.pas:4417
 msgid "Oculto"
-msgstr "Hidden"
+msgstr "Ezkutaturik"
 
 #. FormControl..PopupFileManager..CambiarAtributos1..Caption
-#: UnitFormControl.dfm:3648
+#: UnitFormControl.dfm:3650
 msgid "Cambiar Atributos"
-msgstr "Change attrib."
+msgstr "Atributuak aldatu"
 
 #. FormControl..PopupFileManager..CambiarAtributos1..Slolectura1..Caption
-#: UnitFormControl.dfm:3659
+#: UnitFormControl.dfm:3661
 msgid "Sólo lectura"
-msgstr "ReadOnly"
+msgstr "Irakurketarako bakarrik"
 
 #. FormControl..PopupFileManager..Cambiarnombre1..Caption
 #. FormControl..PopupRegistro..N1..Caption
 #. FormMain..PopupMenuConexiones..Cambiarnombre1..Caption
-#: UnitFormControl.dfm:3664
-#: UnitFormControl.dfm:3754
-#: UnitMain.dfm:960
+#: UnitFormControl.dfm:3666
+#: UnitFormControl.dfm:3756
+#: UnitMain.dfm:972
 msgid "Cambiar nombre"
-msgstr "Change name"
+msgstr "Izena aldatu"
 
 #. FormControl..PopupFileManager..Crearnuevacarpeta1..Caption
-#: UnitFormControl.dfm:3669
-#: UnitFormControl.pas:2147
+#: UnitFormControl.dfm:3671
+#: UnitFormControl.pas:2148
 msgid "Crear nueva carpeta"
-msgstr "Create new folder"
+msgstr "Karpeta berri bat eraiki"
 
 #. FormControl..PopupFileManager..PrevisualizarImagenes1..Caption
-#: UnitFormControl.dfm:3674
+#: UnitFormControl.dfm:3676
 msgid "Previsualizar Imagenes"
-msgstr "Show Thumbnails"
+msgstr "Irudiak ikusi"
 
 #. FormControl..PopupFileManager..Previsualizarjpg1..Caption
-#: UnitFormControl.dfm:3678
+#: UnitFormControl.dfm:3680
 msgid "Visor de imagenes avanzado"
-msgstr "Image viewier"
+msgstr "Irudien ikusgailua"
 
 #. FormControl..PopupFileManager..Portapapeles1..Caption
-#: UnitFormControl.dfm:3683
+#: UnitFormControl.dfm:3685
 msgid "Portapapeles virtual"
-msgstr "Virtual Clipboard"
+msgstr "Portapaper birtuala"
 
 #. FormControl..PopupFileManager..Portapapeles1..Copiar1..Caption
-#: UnitFormControl.dfm:3685
+#: UnitFormControl.dfm:3687
 msgid "Copiar"
-msgstr "Copy"
+msgstr "Kopiatu"
 
 #. FormControl..PopupFileManager..Portapapeles1..Pegar1..Caption
-#: UnitFormControl.dfm:3690
+#: UnitFormControl.dfm:3692
 msgid "Pegar"
-msgstr "Paste"
+msgstr "Itsasi"
 
 #. FormControl..PopupFileManager..AbrirCarpetaDescargas2..Caption
-#: UnitFormControl.dfm:3704
+#: UnitFormControl.dfm:3706
 msgid "Abrir Carpeta Descargas"
-msgstr "Open Download Folder"
+msgstr "Ireki transferentzien karpeta"
 
 #. FormControl..PopupFileManager..Abrirdirectorio1..Caption
-#: UnitFormControl.dfm:3709
+#: UnitFormControl.dfm:3711
 msgid "Abrir directorio del archivo"
-msgstr "Open file directory"
+msgstr "Ireki fitxategiaren direktorioa"
 
 #. FormControl..PopupRegistro..Nuevo1..Caption
-#: UnitFormControl.dfm:3719
+#: UnitFormControl.dfm:3721
 msgid "Nuevo"
-msgstr "New"
+msgstr "Berria"
 
 #. FormControl..PopupRegistro..Nuevo1..Clave1..Caption
-#: UnitFormControl.dfm:3722
+#: UnitFormControl.dfm:3724
 msgid "Clave"
-msgstr "Key"
+msgstr "Giltza"
 
 #. FormControl..PopupRegistro..Nuevo1..Valoralfanumrico1..Caption
-#: UnitFormControl.dfm:3730
+#: UnitFormControl.dfm:3732
 msgid "Valor alfanumérico"
-msgstr "String value"
+msgstr "Balore alfanumerikoak"
 
 #. FormControl..PopupRegistro..Nuevo1..Valorbinerio1..Caption
-#: UnitFormControl.dfm:3735
+#: UnitFormControl.dfm:3737
 msgid "Valor binario"
-msgstr "Binary value"
+msgstr "Balore binarioa"
 
 #. FormControl..PopupRegistro..Nuevo1..valorDWORD1..Caption
-#: UnitFormControl.dfm:3740
+#: UnitFormControl.dfm:3742
 msgid "Valor DWORD"
-msgstr "DWORD value"
+msgstr "DWORD balorea"
 
 #. FormControl..PopupRegistro..Nuevo1..Valordecadenamltiple1..Caption
-#: UnitFormControl.dfm:3745
+#: UnitFormControl.dfm:3747
 msgid "Valor de cadena múltiple"
-msgstr "Multi-string value"
+msgstr "Kate anitzezko balorea"
 
 #. FormControl..PopupDescargas..DetenerDescarga1..Caption
-#: UnitFormControl.dfm:3789
+#: UnitFormControl.dfm:3791
 msgid "Detener Transferencia"
-msgstr "Stop Transfer"
+msgstr "Transferentzia gelditu"
 
 #. FormControl..PopupDescargas..ReanudarDescarga1..Caption
-#: UnitFormControl.dfm:3794
+#: UnitFormControl.dfm:3796
 msgid "Iniciar/Reanudar Descarga"
-msgstr "Start / continue download"
+msgstr "Hasi/jarraitu jaitsiera"
 
 #. FormControl..PopupDescargas..Subiralprimerpuesto1..Caption
-#: UnitFormControl.dfm:3799
+#: UnitFormControl.dfm:3801
 msgid "Primer puesto"
-msgstr "First Position"
+msgstr "Lehenengo postua"
 
 #. FormControl..PopupDescargas..Subir1..Caption
-#: UnitFormControl.dfm:3804
+#: UnitFormControl.dfm:3806
 msgid "Subir puesto"
-msgstr "Up"
+msgstr "Postua igo"
 
 #. FormControl..PopupDescargas..Bajar1..Caption
-#: UnitFormControl.dfm:3809
+#: UnitFormControl.dfm:3811
 msgid "Bajar puesto"
-msgstr "Down"
+msgstr "Postua jaitsi"
 
 #. FormControl..PopupDescargas..ltimopuesto1..Caption
-#: UnitFormControl.dfm:3814
+#: UnitFormControl.dfm:3816
 msgid "Último puesto"
-msgstr "Last Position"
+msgstr "Azken postura"
 
 #. FormControl..PopupDescargas..Borrarcompletados1..Caption
-#: UnitFormControl.dfm:3819
+#: UnitFormControl.dfm:3821
 msgid "Borrar completados"
-msgstr "Delete completed"
+msgstr "Bukatutakoak ezabatu"
 
 #. FormControl..PopupDescargas..Eliminardescarga1..Caption
-#: UnitFormControl.dfm:3824
+#: UnitFormControl.dfm:3826
 msgid "Eliminar descarga"
-msgstr "Delete download"
+msgstr "Transferentzia ezabatu"
 
 #. FormControl..PopupDescargas..Abrircarpetadescargas1..Caption
-#: UnitFormControl.dfm:3832
+#: UnitFormControl.dfm:3834
 msgid "Abrir carpeta descargas"
-msgstr "Open Dowload Folder"
+msgstr "Ireki deskargen karpeta"
 
 #. FormControl..OpenDialogUpload..Title
-#: UnitFormControl.dfm:3839
+#: UnitFormControl.dfm:3841
 msgid "Selecciona el archivo a enviar"
-msgstr "Select a file to upload"
+msgstr "Bidaltzeko fitxategia hautatu"
 
 #. FormControl..PopupShell..Guardarcmo1..Caption
-#: UnitFormControl.dfm:3862
+#: UnitFormControl.dfm:3864
 msgid "Guardar cómo..."
-msgstr "Save as..."
+msgstr "Gorde..."
 
 #. FormControl..PopupServicios..Iniciar1..Caption
-#: UnitFormControl.dfm:3885
+#: UnitFormControl.dfm:3887
 msgid "Iniciar"
-msgstr "Start"
+msgstr "Hasi"
 
 #. FormControl..PopupServicios..DEtener1..Caption
 #. Máximo 10 puertos
-#: UnitFormControl.dfm:3890
+#: UnitFormControl.dfm:3892
 #: UnitMain.pas:295
 msgid "Detener"
-msgstr "Stop"
+msgstr "Gelditu"
 
 #. FormControl..PopupGuardarPantallaoWebcam..Guardarimagen1..Caption
-#: UnitFormControl.dfm:3917
+#: UnitFormControl.dfm:3919
 msgid "Guardar imagen"
-msgstr "Save image"
+msgstr "Irudia gorde"
 
 #. FormControl..PopupGuardarPantallaoWebcam..Guardadoautomtico1..Caption
-#: UnitFormControl.dfm:3922
+#: UnitFormControl.dfm:3924
 msgid "Guardado automático"
-msgstr "Auto. save"
+msgstr "Automatikoki gorde"
 
 #. FormControl..PopupRutasRapidas..Windir1..Caption
-#: UnitFormControl.dfm:7770
+#: UnitFormControl.dfm:7772
 msgid "Directorio de windows"
-msgstr "Windows Directory"
+msgstr "Windowseko direktorioa"
 
 #. FormControl..PopupRutasRapidas..Directoriodesistema1..Caption
-#: UnitFormControl.dfm:7775
+#: UnitFormControl.dfm:7777
 msgid "Directorio de sistema"
-msgstr "System Directory"
+msgstr "Sistemako direktorioa"
 
 #. FormControl..PopupRutasRapidas..Misdocumentos1..Caption
-#: UnitFormControl.dfm:7780
+#: UnitFormControl.dfm:7782
 msgid "Mis documentos"
-msgstr "My Documents"
+msgstr "Nire Dokumentuak"
 
 #. FormControl..PopupRutasRapidas..Escritorio1..Caption
-#: UnitFormControl.dfm:7785
+#: UnitFormControl.dfm:7787
 msgid "Escritorio"
-msgstr "Desktop"
+msgstr "Mahaigaina"
 
 #. FormControl..PopupRutasRapidas..ArchivosRecientes1..Caption
-#: UnitFormControl.dfm:7790
+#: UnitFormControl.dfm:7792
 msgid "Archivos Recientes"
-msgstr "Recent Files"
+msgstr "Erabilitako artxiboak"
 
 #. FormControl..PopupRutasRapidas..Directoriodeinstalaciondecoolvibes1..Caption
-#: UnitFormControl.dfm:7795
+#: UnitFormControl.dfm:7797
 msgid "Directorio de instalación de coolvibes"
-msgstr "Coolvibes install dir"
+msgstr "Coolvibesaren instalazio direktorioa"
 
 #. FormControl..PopupAudio..Reproducir1..Caption
-#: UnitFormControl.dfm:7811
+#: UnitFormControl.dfm:7813
 msgid "Reproducir"
-msgstr "Play"
+msgstr "Entzun"
 
 #. FormControl..PopupMenuPuertos..CerrarConexin1..Caption
-#: UnitFormControl.dfm:7833
+#: UnitFormControl.dfm:7835
 msgid "Cerrar Conexión"
-msgstr "Close connection"
+msgstr "Konexioa itxi"
 
 #. FormControl..PopupMenuPuertos..MatarProceso1..Caption
-#: UnitFormControl.dfm:7841
+#: UnitFormControl.dfm:7843
 msgid "Matar Proceso"
-msgstr "Kill Process"
+msgstr "Prozesua hil"
 
 #. FormControl..PopupMenuPuertos..Iraproceso1..Caption
-#: UnitFormControl.dfm:7846
+#: UnitFormControl.dfm:7848
 msgid "Ir a proceso"
-msgstr "Go to process"
+msgstr "Prozesura joan"
 
 #. FormSeleccionarIdioma..Caption
 #: UnitFormLanguage.dfm:6
@@ -1801,7 +1805,7 @@ msgstr "Select  Your Language"
 #: UnitFormNotifica.dfm:6
 #: UnitFormNotifica.dfm:1612
 msgid "Conectando"
-msgstr "Connecting"
+msgstr "Konexio berria"
 
 #. FormNotifica..LabelIP..Caption
 #: UnitFormNotifica.dfm:1576
@@ -1816,29 +1820,29 @@ msgstr "Coolserver"
 #. FormReg..Caption
 #: UnitFormReg.dfm:6
 msgid "Añadiendo valor tipo"
-msgstr "Adding value "
+msgstr "Gehitzen balorea, mota"
 
 #. FormReg..LabelNombre..Caption
 #: UnitFormReg.dfm:23
 msgid "Nombre del valor:"
-msgstr "Value name:"
+msgstr "Balorearen izena:"
 
 #. FormReg..LabelInformacion..Caption
 #: UnitFormReg.dfm:30
 msgid "Información del valor:"
-msgstr "Value data:"
+msgstr "Balorearen informazioa:"
 
 #. FormReg..BtnAceptar..Caption
 #. FormID..CmbIDAceptar..Caption
 #: UnitFormReg.dfm:37
 #: UnitID.dfm:36
 msgid "Aceptar"
-msgstr "Accept"
+msgstr "Onartu"
 
 #. FormSendKeys..BtnEspeciales..Caption
 #: UnitFormSendKeys.dfm:209
 msgid "Teclas especiales"
-msgstr "Special keys"
+msgstr "Tekla bereziak"
 
 #. FormSendKeys..MemoSendKeys....Lines.Strings
 #: UnitFormSendKeys.dfm:295
@@ -1868,52 +1872,52 @@ msgstr "Alt"
 #. FormSendKeys..PopupSendKeys..Retroceso1..Caption
 #: UnitFormSendKeys.dfm:343
 msgid "Retroceso"
-msgstr "Return"
+msgstr "Retroceso"
 
 #. FormSendKeys..PopupSendKeys..Escape1..Caption
 #: UnitFormSendKeys.dfm:347
 msgid "Escape"
-msgstr "Esc"
+msgstr "Escape"
 
 #. FormSendKeys..PopupSendKeys..Suprimir1..Caption
 #: UnitFormSendKeys.dfm:351
 msgid "Suprimir"
-msgstr "Del"
+msgstr "Suprimir"
 
 #. FormSendKeys..PopupSendKeys..Combinaciones1..Caption
 #: UnitFormSendKeys.dfm:358
 msgid "Combinaciones"
-msgstr "Combinations"
+msgstr "Konbinaketak"
 
 #. FormSendKeys..PopupSendKeys..Combinaciones1..AltF4Cerrarventana1..Caption
 #: UnitFormSendKeys.dfm:360
 msgid "Alt + F4 (Cerrar ventana)"
-msgstr "Alt + F4 (Close window)"
+msgstr "Alt + F4 (Leihoa itxi)"
 
 #. FormSendKeys..PopupSendKeys..Combinaciones1..ControlEscapeAbrirMenInicio1..Caption
 #: UnitFormSendKeys.dfm:364
 msgid "Control + Escape (Abrir Menú Inicio)"
-msgstr "Control + Escape (Open start menu)"
+msgstr "Control + Escape (Hasi menua ireki)"
 
 #. FormSendKeys..PopupSendKeys..Msinformacin1..Caption
 #: UnitFormSendKeys.dfm:372
 msgid "Más información..."
-msgstr "More info..."
+msgstr "Informazio gehiago..."
 
 #. FormID..Caption
 #: UnitID.dfm:7
 msgid "Nueva ID"
-msgstr "New ID"
+msgstr "Id berria"
 
 #. FormID..Label1..Caption
 #: UnitID.dfm:23
 msgid "Escriba la nueva ID del servidor:"
-msgstr "New server ID:"
+msgstr "Idatzi zerbitzariaren izen berria:"
 
 #. FormID..EditID..Text
 #: UnitID.dfm:126
 msgid "Coolvibes Server"
-msgstr "Coolvibes Server"
+msgstr "Coolvibesen zerbitzaria"
 
 #. FormMain..Caption
 #: UnitMain.dfm:6
@@ -1929,214 +1933,214 @@ msgstr "Coolvibes"
 #. FormMain..PopupMenuTray..Escuchar1..Caption
 #. Máximo 10 puertos
 #: UnitMain.dfm:650
-#: UnitMain.dfm:9752
+#: UnitMain.dfm:9764
 #: UnitMain.pas:274
 #: UnitMain.pas:350
 msgid "Escuchar"
-msgstr "Listen"
+msgstr "Entzun"
 
 #. FormMain..BtnAbout..Caption
 #. FormMain..PopupMenuTray..Acercade1..Caption
-#: UnitMain.dfm:729
-#: UnitMain.dfm:9741
+#: UnitMain.dfm:741
+#: UnitMain.dfm:9753
 msgid "Acerca de..."
-msgstr "About..."
+msgstr "...ri buruz"
 
 #. FormMain..BtnConfigServer..Caption
-#: UnitMain.dfm:782
+#: UnitMain.dfm:794
 msgid "Configurar servidor"
-msgstr "Server Builder"
+msgstr "Zerbitzaria eraiki"
 
 #. FormMain..ListViewConexiones......Caption
 #. FormMain..PopupMenuColumnas..CPU1..Caption
-#: UnitMain.dfm:839
-#: UnitMain.dfm:9793
+#: UnitMain.dfm:851
+#: UnitMain.dfm:9805
 msgid "CPU"
-msgstr "CPU"
+msgstr "PUZ"
 
 #. FormMain..ListViewConexiones......Caption
 #. FormMain..PopupMenuColumnas..SO1..Caption
-#: UnitMain.dfm:843
-#: UnitMain.dfm:9798
+#: UnitMain.dfm:855
+#: UnitMain.dfm:9810
 msgid "SO"
-msgstr "OS"
+msgstr "SO"
 
 #. FormMain..ListViewConexiones......Caption
 #. FormMain..PopupMenuColumnas..Versin1..Caption
-#: UnitMain.dfm:847
-#: UnitMain.dfm:9803
+#: UnitMain.dfm:859
+#: UnitMain.dfm:9815
 msgid "Versión"
-msgstr "Version"
+msgstr "Bertsioa"
 
 #. FormMain..ListViewConexiones......Caption
 #. FormMain..PopupMenuConexiones..Ping1..Caption
 #. FormMain..PopupMenuColumnas..Ping2..Caption
-#: UnitMain.dfm:850
-#: UnitMain.dfm:955
-#: UnitMain.dfm:9808
+#: UnitMain.dfm:862
+#: UnitMain.dfm:967
+#: UnitMain.dfm:9820
 msgid "Ping"
 msgstr "Ping"
 
 #. FormMain..ListViewConexiones......Caption
 #. FormMain..PopupMenuColumnas..Ventanaactiva1..Caption
-#: UnitMain.dfm:853
-#: UnitMain.dfm:9813
+#: UnitMain.dfm:865
+#: UnitMain.dfm:9825
 msgid "Ventana activa"
-msgstr "Active Window"
+msgstr "Erabiltzen ari den leihoa"
 
 #. FormMain..ListViewConexiones......Caption
 #. FormMain..PopupMenuColumnas..su1..Caption
-#: UnitMain.dfm:857
-#: UnitMain.dfm:9818
+#: UnitMain.dfm:869
+#: UnitMain.dfm:9830
 msgid "TSU"
-msgstr "ldle"
+msgstr "Erabili gabeko denbora"
 
 #. FormMain..ListViewConexiones......Caption
 #. FormMain..PopupMenuColumnas..Encendidohace1..Caption
-#: UnitMain.dfm:860
-#: UnitMain.dfm:9823
+#: UnitMain.dfm:872
+#: UnitMain.dfm:9835
 msgid "Encendido hace"
-msgstr "Windows started"
+msgstr "Piztuta duela"
 
 #. FormMain..ListViewConexiones......Caption
 #. FormMain..PopupMenuColumnas..Idioma1..Caption
-#: UnitMain.dfm:863
-#: UnitMain.dfm:9828
+#: UnitMain.dfm:875
+#: UnitMain.dfm:9840
 msgid "Idioma"
-msgstr "Language"
+msgstr "Hizkuntza"
 
 #. FormMain..ListViewConexiones......Caption
 #. FormMain..PopupMenuColumnas..UsuarioPC1..Caption
-#: UnitMain.dfm:869
-#: UnitMain.dfm:9838
+#: UnitMain.dfm:881
+#: UnitMain.dfm:9850
 msgid "Usuario / PC"
-msgstr "User/ PC name"
+msgstr "Erabiltzailea / PC"
 
 #. FormMain..ListViewConexiones......Caption
 #. FormMain..PopupMenuColumnas..Avisos1..Caption
-#: UnitMain.dfm:872
-#: UnitMain.dfm:9843
+#: UnitMain.dfm:884
+#: UnitMain.dfm:9855
 msgid "Avisos"
-msgstr "Alerts"
+msgstr "Abisuak"
 
 #. FormMain..PopupMenuConexiones..Abrir1..Caption
-#: UnitMain.dfm:916
+#: UnitMain.dfm:928
 msgid "Abrir"
-msgstr "Open control center"
+msgstr "Ireki"
 
 #. FormMain..PopupMenuConexiones..Accesorpido1..Caption
-#: UnitMain.dfm:921
+#: UnitMain.dfm:933
 msgid "Acceso rápido"
-msgstr "Shortcuts"
+msgstr "Bidelasterra"
 
 #. FormMain..PopupMenuConexiones..Accesorpido1..Plugins..Caption
 #. FormOpciones..PageControlOpciones..TabPlugins..Caption
-#: UnitMain.dfm:942
+#: UnitMain.dfm:954
 #: UnitOpciones.dfm:497
 msgid "Plugins"
-msgstr "Plugins"
+msgstr "Gehigarriak"
 
 #. FormMain..PopupMenuConexiones..Accesorpido1..Capturapantalla1..Caption
-#: UnitMain.dfm:946
+#: UnitMain.dfm:958
 msgid "Captura pantalla"
-msgstr "Screen Capture"
+msgstr "Pantaila ikustzailea"
 
 #. FormMain..PopupMenuConexiones..Avisarcuando1..Caption
-#: UnitMain.dfm:965
+#: UnitMain.dfm:977
 msgid "Avisar cuando..."
-msgstr "Alert when..."
+msgstr "Jakinarazi..."
 
 #. FormMain..PopupMenuConexiones..Avisarcuando1..VuelvaaaveractividadenelPC1..Caption
-#: UnitMain.dfm:967
+#: UnitMain.dfm:979
 msgid "Se detecte actividad"
-msgstr "Detect activity"
+msgstr "Aktibitatea hautematzen denean"
 
 #. FormMain..PopupMenuConexiones..Avisarcuando1..Cambiedeventana1..Caption
-#: UnitMain.dfm:973
+#: UnitMain.dfm:985
 msgid "Cambie de ventana"
-msgstr "Change window"
+msgstr "Leihoz aldatzen duenean"
 
 #. FormMain..PopupMenuConexiones..Abrirdirectoriousuario1..Caption
-#: UnitMain.dfm:983
+#: UnitMain.dfm:995
 msgid "Abrir directorio usuario"
-msgstr "Open User Directory"
+msgstr "Erabiltzailearen karpeta ireki"
 
 #. FormMain..PopupMenuTray..MostrarOcultar1..Caption
-#: UnitMain.dfm:9748
+#: UnitMain.dfm:9760
 msgid "Mostrar/Ocultar"
-msgstr "Show/Hide"
+msgstr "Ikusi/Ezkutatu"
 
 #. FormMain..PopupMenuTray..Notificaciones..Caption
 #. FormOpciones..PageControlOpciones..TabNotificaciones..Caption
-#: UnitMain.dfm:9756
+#: UnitMain.dfm:9768
 #: UnitOpciones.dfm:309
 msgid "Notificaciones"
-msgstr "Notifications"
+msgstr "Notifikazioak"
 
 #. FormMain..PopupMenuTray..Salir1..Caption
-#: UnitMain.dfm:9760
+#: UnitMain.dfm:9772
 msgid "Salir"
-msgstr "Exit"
+msgstr "Irten"
 
 #. FormMain..PopupMenuTray..wwwindetectablesnet1..Caption
-#: UnitMain.dfm:9767
+#: UnitMain.dfm:9779
 msgid "www.indetectables.net"
 msgstr "www.indetectables.net"
 
 #. FormOpciones..PageControlOpciones..General..Caption
 #: UnitOpciones.dfm:83
 msgid "General"
-msgstr "Main"
+msgstr "Orokorra"
 
 #. FormOpciones..PageControlOpciones..General..GrpBoxAlSalir..Caption
 #: UnitOpciones.dfm:89
 msgid "Al salir..."
-msgstr "Before exit..."
+msgstr "Ixterakoan..."
 
 #. FormOpciones..PageControlOpciones..General..GrpBoxAlSalir..CheckBoxPreguntarAlSalir..Hint
 #: UnitOpciones.dfm:102
 msgid "Solicita confirmación al salir de Coolvibes"
-msgstr "Prompt before exit"
+msgstr "Berrespena eskatu Coolvibes ixterakoan"
 
 #. FormOpciones..PageControlOpciones..General..GrpBoxAlSalir..CheckBoxPreguntarAlSalir..Caption
 #: UnitOpciones.dfm:103
 msgid "Solicitar confirmación"
-msgstr "Prompt before exit"
+msgstr "Berrespena eskatu"
 
 #. FormOpciones..PageControlOpciones..General..GrpBoxAlSalir..CheckBoxCloseToTray..Caption
 #: UnitOpciones.dfm:120
 msgid "Cerrar al tray"
-msgstr "Close to tray"
+msgstr "Tray-era itxi"
 
 #. FormOpciones..PageControlOpciones..General..CheckBoxMinimizeToTray..Caption
 #: UnitOpciones.dfm:138
 msgid "Minimizar al tray"
-msgstr "Minimize to tray"
+msgstr "Trayera txikiagotu"
 
 #. FormOpciones..PageControlOpciones..General..CheckBoxAutoRefrescar....Hint
 #: UnitOpciones.dfm:156
 msgid "Si esta marcada se actualizaran los listados de el centro de control"
-msgstr "If its cheked the control form will auto-refresh"
+msgstr "Hautatua badago kontrolguneko zerrendak automatikoki freskatuko dira"
 
 #. FormOpciones..PageControlOpciones..General..CheckBoxAutoRefrescar..Caption
 #: UnitOpciones.dfm:157
 msgid "Auto-Refrescar Centro de Control"
-msgstr "Auto-Refresh control center"
+msgstr "Kontrolgunea auto-freskatu"
 
 #. FormOpciones..PageControlOpciones..General..CheckBoxCCIndependiente..Caption
 #: UnitOpciones.dfm:173
 msgid "C.Control como ventana independiente"
-msgstr "Control center in separate window"
+msgstr "Kontrolgunea leihoindependientean"
 
 #. FormOpciones..PageControlOpciones..TabConexion..LabelPuerto..Caption
 #: UnitOpciones.dfm:191
 msgid "Puertos de escucha"
-msgstr "Ports"
+msgstr "Entzuteko Portuak"
 
 #. FormOpciones..PageControlOpciones..TabConexion..EditPuerto....Hint
 #: UnitOpciones.dfm:206
 msgid "Puedes añadir mas de un puerto de escucha separandolos con el caracter ;"
-msgstr "You could add more than one port splitting them with the character ;"
+msgstr "Portu bat baino gehiago gehitu dezakezu ;-rekin bereizten"
 
 #. FormOpciones..PageControlOpciones..TabConexion..GroupBoxConexion..Label1..Caption
 #: UnitOpciones.dfm:231
@@ -2146,147 +2150,147 @@ msgstr "s"
 #. FormOpciones..PageControlOpciones..TabConexion..GroupBoxConexion..CheckBoxEscucharAlIniciar..Hint
 #: UnitOpciones.dfm:244
 msgid "Empieza a escuchar al ejecutar coolvibes"
-msgstr "Start Listening when coolvibes is executed"
+msgstr "Coolvibes irekitzerakoan entzuten hasi"
 
 #. FormOpciones..PageControlOpciones..TabConexion..GroupBoxConexion..CheckBoxEscucharAlIniciar..Caption
 #: UnitOpciones.dfm:245
 msgid "Escuchar al iniciar"
-msgstr "Start listening at start"
+msgstr "Hasitakoan entzun"
 
 #. FormOpciones..PageControlOpciones..TabConexion..GroupBoxConexion..CheckBoxMandarPingAuto....Hint
 #: UnitOpciones.dfm:264
 msgid "El cliente mandara ping al servidor para refrescar la información de del listado de conexiones"
-msgstr "Coolvibes will send ping to the servers to refresh the info in the connection listview"
+msgstr "Bezeroak ping bidaliko du zerrenda nagusian dagoen informazioa berritzeko"
 
 #. FormOpciones..PageControlOpciones..TabConexion..GroupBoxConexion..CheckBoxMandarPingAuto..Caption
 #: UnitOpciones.dfm:265
 msgid "Mandar ping auto. cada"
-msgstr "Send Ping auto each"
+msgstr "Ping bidali automatikoki"
 
 #. FormOpciones..PageControlOpciones..TabConexion..GroupBoxConexion..CheckBoxCerrarControlAlDesc....Hint
 #: UnitOpciones.dfm:296
 msgid "Si la opción esta marcada el centro de control se cerrará cuando el servidor se desconecte, de lo contrario permanecerá visible pero no se podrán mandar comandos"
-msgstr "Using this option the control center will be closed when the server disconnects"
+msgstr "Hautatua badago kontrolgunea automatikoki itxiko da zerbitzaria deskonektatzen denean"
 
 #. FormOpciones..PageControlOpciones..TabConexion..GroupBoxConexion..CheckBoxCerrarControlAlDesc..Caption
 #: UnitOpciones.dfm:297
 msgid "Cerrar centro de control al desconectar"
-msgstr "Close control center when server disconnects"
+msgstr "KontrolGunea itxi zerbitzaria deskonektatzerakoan"
 
 #. FormOpciones..PageControlOpciones..TabNotificaciones..CheckBoxNotificacionMsn..Hint
 #: UnitOpciones.dfm:316
 msgid "Notificación estilo MSN cada vez que un servidor se conecte"
-msgstr "MSN style notification when a server connects"
+msgstr "MSn notifikazioa zerbitzaria konektatzerakoan"
 
 #. FormOpciones..PageControlOpciones..TabNotificaciones..CheckBoxNotificacionMsn..Caption
 #: UnitOpciones.dfm:317
 msgid "Notificación MSN al conectar"
-msgstr "Msn style notification on connect"
+msgstr "MSN notifikazioa konektatzerakoan"
 
 #. FormOpciones..PageControlOpciones..TabNotificaciones..CheckBoxNotiMsnDesc....Hint
 #: UnitOpciones.dfm:335
 msgid "Muestra un globo de notificación cuando un servidor se desconecte"
-msgstr "Balloontip notification when server disconnects"
+msgstr "Notifikazio puxika bat agertuko da zerbitzari bat deskonektatzerakoan"
 
 #. FormOpciones..PageControlOpciones..TabNotificaciones..CheckBoxNotiMsnDesc..Caption
 #: UnitOpciones.dfm:336
 msgid "Globo de notificación al desconectar"
-msgstr "Balloontip notification when server disconnects"
+msgstr "Notifikazio Puxika zerbitzaria deskonektatzerakoan"
 
 #. FormOpciones..PageControlOpciones..TabNotificaciones..CheckBoxGloboalPedirS....Hint
 #: UnitOpciones.dfm:352
 msgid "Notificación estilo globo emergente cuando el server se conecte por primera vez"
-msgstr "Ballontip notification when requesting server. It only happends the first time that server connects"
+msgstr "Puxika moduko notifikazio bat agertuko da zerbitzaria lehenengo aldiz konektatzen denean"
 
 #. FormOpciones..PageControlOpciones..TabNotificaciones..CheckBoxGloboalPedirS..Caption
 #: UnitOpciones.dfm:353
 msgid "Globo de notificación al pedir servidor"
-msgstr "Ballontip notification when requesting server"
+msgstr "Notifikazio Puxika zerbitzaria eskatzerakoan"
 
 #. FormOpciones..PageControlOpciones..TabNotificaciones..CheckBoxAlertaSonora....Hint
 #: UnitOpciones.dfm:369
 msgid "Marcar para reproducir un sonido al conectar, el archivo de sonido tiene que tener formato wav"
-msgstr "Check it to play wav sound when server connects"
+msgstr "Hautatu soinu bat entzuteko konektatzerakoan, wav formatuko fitxategi bat izan behar da"
 
 #. FormOpciones..PageControlOpciones..TabNotificaciones..CheckBoxAlertaSonora..Caption
 #: UnitOpciones.dfm:370
 msgid "Alerta sonora al conectar"
-msgstr "Play sound on new connection"
+msgstr "Soinua konektatzerakoan"
 
 #. FormOpciones..PageControlOpciones..TabNotificaciones..EditRutaArchivoWav..Hint
 #: UnitOpciones.dfm:384
 msgid "Ruta al archivo de sonido en formato wav"
-msgstr "Path to the sound file (wav format)"
+msgstr "Wav fitxategiaren kokapena"
 
 #. FormOpciones..PageControlOpciones..TabDirectorios..Caption
 #: UnitOpciones.dfm:393
 msgid "Directorios"
-msgstr "Paths"
+msgstr "Direktorioa"
 
 #. FormOpciones..PageControlOpciones..TabDirectorios..LabeledEditDirUser..EditLabel.Caption
 #: UnitOpciones.dfm:406
 msgid "Directorio Usuario"
-msgstr "User Path"
+msgstr "Erabiltzailearen direktorioa"
 
 #. FormOpciones..PageControlOpciones..TabDirectorios..LabeledDirScreen..EditLabel.Caption
 #: UnitOpciones.dfm:426
 msgid "Directorio de Capturas"
-msgstr "Capture Path"
+msgstr "Kapturen direktorioa"
 
 #. FormOpciones..PageControlOpciones..TabDirectorios..LabeledDirWebcam..EditLabel.Caption
 #: UnitOpciones.dfm:446
 msgid "Directorio de Webcam"
-msgstr "Webcam Path"
+msgstr "Webcamaren  direktorioa"
 
 #. FormOpciones..PageControlOpciones..TabDirectorios..LabeledDirThumbs..EditLabel.Caption
 #: UnitOpciones.dfm:466
 msgid "Directorio de Miniaturas"
-msgstr "Thumbnails Path"
+msgstr "Irudien direktorioa"
 
 #. FormOpciones..PageControlOpciones..TabDirectorios..LabeledDirDownloads..EditLabel.Caption
 #: UnitOpciones.dfm:486
 msgid "Directorio de Descargas"
-msgstr "Downloads Path"
+msgstr "Jaitsieren direktorioa"
 
 #. FormOpciones..PageControlOpciones..TabPlugins..SpeedButtonAniadirPlugin..Caption
 #: UnitOpciones.dfm:509
 msgid "Añadir plugin"
-msgstr "Add Plugin"
+msgstr "Gehigarria gehitu"
 
 #. FormOpciones..PageControlOpciones..TabPlugins..SpeedButton1..Caption
 #: UnitOpciones.dfm:554
 msgid "Eliminar Plugin"
-msgstr "Remove Plugin"
+msgstr "Gehigarria ezabatu"
 
 #. FormOpciones..PageControlOpciones..TabPlugins..ListViewPlugins......Caption
 #: UnitOpciones.dfm:609
 msgid "Autor"
-msgstr "Author"
+msgstr "Egilea"
 
 #. FormOpciones..PageControlOpciones..TabPlugins..ListViewPlugins......Caption
 #: UnitOpciones.dfm:614
 msgid "Archivo"
-msgstr "File"
+msgstr "Fitxategia"
 
 #. FormOpciones..OpenDialog..Filter
 #: UnitOpciones.dfm:1035
 msgid "CoolPlugin|*c.dll"
-msgstr "CoolPlugin|*c.dll"
+msgstr "CoolGehigarria|*c.dll"
 
 #. FormVisorDeMiniaturas..Caption
 #: UnitVisorDeMiniaturas.dfm:6
 msgid "Visor de miniaturas"
-msgstr "Picture viewer"
+msgstr "Irudi Ikusgailua"
 
 #. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetPrincipal..Caption
 #: UnitVisorDeMiniaturas.dfm:1963
 msgid "Visor"
-msgstr "Viewer"
+msgstr "Ikusgailua"
 
 #. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetCola..Caption
 #: UnitVisorDeMiniaturas.dfm:1984
 msgid "Cola de Miniaturas"
-msgstr "Picture Queue"
+msgstr "Irudien ilara"
 
 #. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..LabelPosicionCompresJpg..Caption
 #: UnitVisorDeMiniaturas.dfm:2035
@@ -2296,7 +2300,7 @@ msgstr "70%"
 #. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..LabelTamanoJPG..Caption
 #: UnitVisorDeMiniaturas.dfm:2048
 msgid "Tamaño JPG:"
-msgstr "JPG Size:"
+msgstr "JPGaren tamainua:"
 
 #. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..LabelPorCiento..Caption
 #: UnitVisorDeMiniaturas.dfm:2061
@@ -2306,230 +2310,230 @@ msgstr "%"
 #. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..LabelModoDeVisionado..Caption
 #: UnitVisorDeMiniaturas.dfm:2074
 msgid "Modo de Visionado"
-msgstr "Mode:"
+msgstr "Ikusketa modua"
 
 #. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..LabelAviso..Caption
 #: UnitVisorDeMiniaturas.dfm:2088
 msgid "Haz Click en la imagen del Visor para comenzar"
-msgstr "Click in the picture in the picture viewer to start"
+msgstr "Klik egin ezazu ikusgailuaren irudian hasteko"
 
 #. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..RadioManual..Caption
 #: UnitVisorDeMiniaturas.dfm:2131
 msgid "Manual"
-msgstr "Manual"
+msgstr "Eskuz"
 
 #. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..CheckBoxAutoGuardado..Caption
 #: UnitVisorDeMiniaturas.dfm:2161
 msgid "Autoguardado"
-msgstr "AutoSave"
+msgstr "AutoGorde"
 
 #. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..ComboBoxModoDeVisionado....Items.Strings
 #: UnitVisorDeMiniaturas.dfm:2180
 msgid "Hacer clic en la imagen"
-msgstr "Click on the picture"
+msgstr "Klik egin irudian"
 
 #. FormVisorDeMiniaturas..StatusBar......Text
 #: UnitVisorDeMiniaturas.dfm:2191
 msgid "En Cola"
-msgstr "In queue"
+msgstr "Ilaran"
 
 #. FormVisorDeMiniaturas..StatusBar......Text
 #: UnitVisorDeMiniaturas.dfm:2199
 msgid "Estado:"
-msgstr "Status:"
+msgstr "Egoera:"
 
 #. FormVisorDeMiniaturas..StatusBar......Text
 #: UnitVisorDeMiniaturas.dfm:2203
 msgid "Esperando"
-msgstr "Waiting"
+msgstr "Itxoiten"
 
 #. FormVisorDeMiniaturas..PopupColaDeMiniaturas..Eliminardelacola1..Caption
 #: UnitVisorDeMiniaturas.dfm:2619
 msgid "Eliminar de la cola"
-msgstr "Remove from queue"
+msgstr "Ilaratik kendu"
 
 #: UnitAbout.pas:75
 msgid "Acerca de Coolvibes "
-msgstr "About Coolvibes "
+msgstr "Coolvibesri buruz"
 
 #: UnitAbout.pas:82
 msgid "No se encontró el archivo"
-msgstr "File not found"
+msgstr "Ezin da fitxategia aurkitu"
 
 #: UnitEstadisticasConexiones.pas:38
 msgid "Nueva Conexión"
-msgstr "New Connection"
+msgstr "Konexio berria"
 
 #: UnitEstadisticasConexiones.pas:39
 msgid "Desconexión"
-msgstr "Disconnection"
+msgstr "Deskonekzioa"
 
 #: UnitFormConfigServer.pas:112
 msgid "Seleccione el servidor que desea modificar."
-msgstr "Select the server you want to modify"
+msgstr "Aldatu nahi duzun zerbitzaria hautatu"
 
 #: UnitFormConfigServer.pas:115
 msgid "> Listo."
-msgstr "> Ready."
+msgstr "> Prest."
 
 #. Suena un ruidito..., para informar que hay que mirar la StatusBar :)
 #: UnitFormConfigServer.pas:162
 msgid "Tienes que establecer un nombre al plugin"
-msgstr "The plugin name cannot be blank"
+msgstr "Gehigarriari izen bat ezarri behar diozu"
 
 #: UnitFormConfigServer.pas:173
 msgid "Nombre del plugin inválido. No puede tener ninguno de los siguientes carácteres:"
-msgstr "Incorrect plugin name. It cannot contain the characters:"
+msgstr "Gehigarriaren izenak ezin du honako karaktereak izan: "
 
 #: UnitFormConfigServer.pas:189
 msgid "Ruta inválida. No puede tener ninguno de los siguientes carácteres:"
-msgstr "Incorrect install path. It cannot contain the characters:"
+msgstr "Instalazio karpeta ezin du karaktere hauek izan: "
 
 #: UnitFormConfigServer.pas:202
 msgid "Abrir icono..."
-msgstr "Open icon"
+msgstr "Ikonoa ireki..."
 
 #. solo deja seleccionar archivos que existan
 #: UnitFormConfigServer.pas:204
 msgid "Icono"
-msgstr "Icon"
+msgstr "Ikonoa"
 
 #. Para borrar los archivos de alguna otra instalacion si existiesen
 #: UnitFormConfigServer.pas:253
 #: UnitFormConfigServer.pas:269
 msgid "Servidor.exe"
-msgstr "Servidor.exe"
+msgstr "Zerbitzaria.exe"
 
 #. Primero copiamos los archivos necesarios
 #: UnitFormConfigServer.pas:287
 msgid "> Copiando los archivos necesarios..."
-msgstr "> Copying the neccesary files..."
+msgstr "> beharrezkoak diren fitxategia kopiatzen"
 
 #: UnitFormConfigServer.pas:296
 msgid "El archivo Jeringa.exe no existe"
-msgstr "File not found: Jeringa.exe"
+msgstr "Jeringa.exe ez da existitzen"
 
 #: UnitFormConfigServer.pas:297
 msgid "> Error: El archivo Jeringa.exe no existe"
-msgstr "> Error: File not found: Jeringa.exe"
+msgstr "> Errorea: Ezin da aurkitu Jeringa.exe"
 
 #: UnitFormConfigServer.pas:300
 msgid "> Jeringa.exe correctamente copiado."
-msgstr "> Jeringa.exe copied"
+msgstr "> Jeringa.exe kopiatua izan da."
 
 #: UnitFormConfigServer.pas:307
 msgid "El archivo Conectador.dll no existe."
-msgstr "File not found: Conectador.dll"
+msgstr "Conectador.dll fitxategia ez da existitzen"
 
 #: UnitFormConfigServer.pas:308
 msgid "> Error: El archivo Conectador.dll no existe."
-msgstr "> Error: File not found Conectador.dll"
+msgstr "> Error: Ezin da Conectador.dll fitxategia aurkitu"
 
 #: UnitFormConfigServer.pas:311
 msgid "> Conectador.dll correctamente copiado."
-msgstr "> Conectador.dll copied"
+msgstr "> Conectador.dll kopiatua izan da"
 
 #: UnitFormConfigServer.pas:315
 msgid "Comprimiendo conectador.dll con UPX..."
-msgstr "Compressing conectador.dll using UPX..."
+msgstr "Conectador.dll UPX rekin komprimitzen"
 
 #. Esperamos a que acabe
 #: UnitFormConfigServer.pas:321
 msgid "Comprimidos!"
-msgstr "Compressed!"
+msgstr "Konprimituak!"
 
 #. sin inyección
 #: UnitFormConfigServer.pas:333
 msgid "El archivo conectador.exe no existe."
-msgstr "File not found: conectador.exe"
+msgstr "Conctador.exe ez da existitzen"
 
 #: UnitFormConfigServer.pas:334
 msgid "> Error: El archivo conectador.exe no existe."
-msgstr "> Error: File not found conectador.exe"
+msgstr "> Error: Ezin da aurkitu conectador.exe"
 
 #: UnitFormConfigServer.pas:337
 msgid "> Conectador.exe correctamente copiado."
-msgstr "> Conectador.exe copied"
+msgstr "> Conectador.exe kopiatua izan da "
 
 #: UnitFormConfigServer.pas:342
 msgid "> Conectador.dll añadida"
-msgstr "> Conectador.dll added as resource"
+msgstr "> Conectador.dll gehitua"
 
 #: UnitFormConfigServer.pas:343
 #: UnitFormConfigServer.pas:346
 msgid "> Escribiendo la configuración al servidor..."
-msgstr "> Writting the config to the server"
+msgstr "> Konfigurazioa zerbitzarira idazten"
 
 #. creamos la lista de hosts
 #: UnitFormConfigServer.pas:368
 msgid "La configuración se guardó con éxito."
-msgstr "The configuration has been written succesfully"
+msgstr "Konfigurazioa zerbitzarian gorde egin da"
 
 #: UnitFormConfigServer.pas:369
 msgid "> La configuración se guardó con éxito."
-msgstr "Configuration has been written succesfully"
+msgstr "> Konfigurazioa zerbitzarian gorde egin da"
 
 #: UnitFormConfigServer.pas:375
 msgid "No se pudo guardar la configuración."
-msgstr "Error: Could not write configuration to the server"
+msgstr "Ezin da konfigurazioa gorde"
 
 #: UnitFormConfigServer.pas:376
 msgid "> No se pudo guardar la configuración."
-msgstr "> Error: Could not write configuration to the server"
+msgstr "> Ezin izan da konfigurazioa gorde"
 
 #. cambiar icono
 #: UnitFormConfigServer.pas:382
 msgid "> Cambiando el icono al servidor..."
-msgstr "> Changing the icon to the server"
+msgstr "> Zerbitzariaren ikonoa aldatzen"
 
 #: UnitFormConfigServer.pas:384
 msgid "> El ícono se cambió con éxito."
-msgstr "> Icon changed successfully"
+msgstr "> Zerbitzariaren ikonoa aldatua izan da"
 
 #: UnitFormConfigServer.pas:403
 msgid "Este campo solo admite números"
-msgstr "Only numbers allowed"
+msgstr "Zenbakiak bakarrik onartuak"
 
 #: UnitFormConfigServer.pas:413
 msgid "Este campo no admite el caracter: |"
-msgstr "| character not allowed"
+msgstr "Ezin da karaktere hau erabili: |"
 
 #. Hints para la ruta
 #: UnitFormConfigServer.pas:442
 msgid "Se pueden poner variables en la ruta que serán reemplazadas cuando se ejecute el servidor."
-msgstr "You can use some variables: "
+msgstr "hainbat aldagarri erabili ahal dira."
 
 #: UnitFormConfigServer.pas:444
 msgid "Las variables aceptadas son:"
-msgstr "Allowed vars:"
+msgstr "Hauek dira aldagarriak:"
 
 #: UnitFormConfigServer.pas:445
 msgid "%WinDir% -> Se reemplaza por el directorio de Windows (Por ejemplo C:\\Windows\\)"
-msgstr "%WinDir% -> The windows directory (For example C:\\Windows\\)"
+msgstr "%WinDir% -> Windowsren direktorioa  (Adibidez C:\\Windows\\)"
 
 #: UnitFormConfigServer.pas:446
 msgid "%SysDir% -> Se reemplaza por el directorio de sistema (Por ejemplo C:\\System32\\)"
-msgstr "%SysDir% -> The system directory (For example C:\\Windows\\system32\\)"
+msgstr "%SysDir% -> Sistemaren direktorioa (Por ejemplo C:\\System32\\)"
 
 #: UnitFormConfigServer.pas:448
 msgid "%TempDir% -> Se reemplaza por el directorio de archivos temporales (Por ejemplo C:\\Temp\\)"
-msgstr "%TempDir% -> The temporaly files directory (For exampleC:\\Temp\\))"
+msgstr "%TempDir% -> Fitxategi tenporalen direktorioa (Adibidez C:\\Temp\\)"
 
 #: UnitFormConfigServer.pas:449
 msgid "%AppDir% -> Se reemplaza por el directorio de datos de aplicaciones (Por ejemplo C:\\Documents and Settings\\user\\appdata\\) (Recomendado)"
-msgstr "%TempDir% -> The applications directory  C:\\Documents and Settings\\user\\appdata\\) (Recommanded)"
+msgstr "%AppDir% -> Aplikazioen direktorioa (Adibidez C:\\Documents and Settings\\user\\appdata\\) (Aholkatua)"
 
 #: UnitFormConfigServer.pas:450
 msgid "%RootDir% -> Se reemplaza por la ruta principal del directorio de Windows (Por ejemplo C:\\)"
-msgstr "%TempDir% -> The driver of windows dir (For example C:\\)"
+msgstr "%RootDir% -> Unitate nagusiaren direktorioa (Adibidez C:\\)"
 
 #: UnitFormConfigServer.pas:453
 msgid "Cuando el servidor sea copiado a la carpeta de destino, su fecha de"
-msgstr "When the server will be copied to the installation folder, its modify date"
+msgstr "Zerbitzaria instalatzen denean bere aldaketa data"
 
 #: UnitFormConfigServer.pas:454
 msgid "modificación cambiará por una anterior de modo que no pueda encotrarse"
-msgstr "will change by older one"
+msgstr "aldatu egingo da zahar baten ordez. Horrela zailago izango da zerbitzaria aurkitzea."
 
 #: UnitFormConfigServer.pas:455
 msgid "de modo que no pueda encontrarse facilmente al listar archivos por fecha"
@@ -2541,875 +2545,875 @@ msgstr " "
 
 #: UnitFormConfigServer.pas:459
 msgid "Cuando el proceso servidor sea matado volvera a iniciarse e inyectarse"
-msgstr "If the server process is killed it will be automatically restarted"
+msgstr "Prozesua hiltzen denean berriro ere irekiko da."
 
 #: UnitFormConfigServer.pas:464
 msgid "El servidor se inyectará en el navegador predeterminado para saltarse firewalls"
-msgstr "The server will be inyected in the default browser to bypass firewalls"
+msgstr "Zerbitzaria nabigatzaile predeterminatuan ziztatuko da suetenak saihesteko."
 
 #: UnitFormConfigServer.pas:465
 msgid "Atención: Activar esta opción incrementa el tamaño del servidor"
-msgstr "Using this option the size of the server will be incresed"
+msgstr "Kontuz: Opzio honen aktibaketa zerbitzariaren tamainiaren handiagotzea dakar"
 
 #: UnitFormConfigServer.pas:481
 msgid "IP o DNS inválida. No puede tener ninguno de los siguientes carácteres:"
-msgstr "wrong IP or DNS. It cant has the characters:"
+msgstr "IP edo DNSak ezin ditu honako karaktereak eduki: "
 
 #: UnitFormControl.pas:630
 msgid "Centro de control:"
-msgstr "Control center:"
+msgstr "Kontrolgunea:"
 
 #. Opción no dispobible de momento ;)
 #: UnitFormControl.pas:675
 #: UnitMain.pas:1334
 msgid "De momento no funciona esta función :-)"
-msgstr "Unninstall function doesnt work :-)"
+msgstr "Momentuz funtzio honek ez du funtzionatzen :-)"
 
 #: UnitFormControl.pas:676
 msgid "Hubo un problema al intentar auto-ejecutarse); la actualización se completara en el siguiente reinicio"
-msgstr "There was a problem when trying to auto-run, the update will be completed in the next reboot"
+msgstr "Ezin izan da zerbitzaria auto-ireki. Zerbitzaria hurrengo irekieran eguneratuko da."
 
 #: UnitFormControl.pas:677
 msgid "Proceso matado con PID "
-msgstr "Process killed. PID: "
+msgstr "Prozesua hil egin da. PID: "
 
 #: UnitFormControl.pas:678
 msgid " :( No pude matar el proceso con PID "
-msgstr "Cant kill process. PID: "
+msgstr "Ezin da prozesua hil. PID: "
 
 #: UnitFormControl.pas:679
 msgid "Ventana cerrada con Handle "
-msgstr "Window closed. Handle: "
+msgstr "Leihoa itxia izan da: "
 
 #: UnitFormControl.pas:680
 msgid "Ventana maximizada con Handle "
-msgstr "Window maximized. Handle: "
+msgstr "Leihoa handiagotua izan da: "
 
 #: UnitFormControl.pas:681
 msgid "Ventana minimizada con Handle "
-msgstr "Window minimized. Handle: "
+msgstr "Leihoa txikitua izan da: "
 
 #: UnitFormControl.pas:682
 msgid "Ventana mostrada con Handle "
-msgstr "Window showed. Handle: "
+msgstr "Leihoa itxita, "
 
 #: UnitFormControl.pas:683
 msgid "Ventana ocultada con Handle "
-msgstr "Window hid. Handle: "
+msgstr "Leihoa izkutatua: "
 
 #: UnitFormControl.pas:684
 msgid "Minimizadas todas las ventanas."
-msgstr "All the windows have been minimized"
+msgstr "Leiho guztiak txikituak izan dira"
 
 #: UnitFormControl.pas:685
 msgid "Se activó el botón Cerrar [X] en la ventana con Handle "
-msgstr "The close button [X] has been succesfully enabled. Handle: "
+msgstr "Ixteko botoia [X] aktibatua izan da. Handle: "
 
 #: UnitFormControl.pas:686
 msgid "Se desactivó el botón Cerrar [X] en la ventana con Handle "
-msgstr "The close button [X] has been succesfully disabled. Handle: "
+msgstr "Ixteko botoia [X] desaktibatua izan da. Handle: "
 
 #: UnitFormControl.pas:687
 msgid "No se pudieron enviar las teclas a la ventana con handle "
-msgstr "Could not sent keys to the window. Handle: "
+msgstr "Ezin dira teklak bidali. Handle: "
 
 #: UnitFormControl.pas:688
 msgid "Se enviaron las teclas a la ventana con handle "
-msgstr "Keys sent. Handle: "
+msgstr "Teklak bidaliak izan dira. Leihoaren identifikatzailea: "
 
 #: UnitFormControl.pas:689
 msgid "El usuario respondió: OK"
-msgstr "User reply: OK"
+msgstr "Zerbitzariak erantzu du: OK"
 
 #: UnitFormControl.pas:690
 msgid "El usuario respondió: Cancelar"
-msgstr "User reply: Cancel"
+msgstr "Zerbitzariak erantzu du: Ezeztatu"
 
 #: UnitFormControl.pas:691
 msgid "El usuario respondió: Reintentar"
-msgstr "User reply: Retry"
+msgstr "Zerbitzariak erantzu du: Bersaiatu"
 
 #: UnitFormControl.pas:692
 msgid "El usuario respondió: Sí"
-msgstr "User reply: Yes"
+msgstr "Zerbitzariak erantzu du: Bai"
 
 #: UnitFormControl.pas:693
 msgid "El usuario respondió: No"
-msgstr "User reply: No"
+msgstr "Zerbitzariak erantzu du: Ez"
 
 #: UnitFormControl.pas:694
 msgid "El usuario respondió: Anular"
-msgstr "El usuario respondió: Anular"
+msgstr "Zerbitzariak erantzu du: Baliogabetu"
 
 #: UnitFormControl.pas:695
 msgid "El usuario respondió: Omitir"
-msgstr "User reply: Skip"
+msgstr "Zerbitzariak erantzu du: Aldera utzi"
 
 #: UnitFormControl.pas:696
 msgid "Archivo correctamente ejecutado :)."
-msgstr "File runned :)"
+msgstr "Fitxategia irekia izan da :)"
 
 #: UnitFormControl.pas:697
 msgid "Se produjo algún error al ejecutar el archivo."
-msgstr "Could not open file."
+msgstr "Ezin izan da fitxategia ireki"
 
 #: UnitFormControl.pas:698
 msgid "Archivo correctamente ejecutado de manera oculta :)."
-msgstr "File sucessfully executed"
+msgstr "Fitxategia irekia izan da :)"
 
 #: UnitFormControl.pas:699
 msgid "Se produjo algún error al ejecutar el archivo de manera oculta."
-msgstr "Could not execute file."
+msgstr "Ezin izan da fitxategia ireki"
 
 #: UnitFormControl.pas:700
 msgid "El archivo fue borrado con éxito."
-msgstr "File succesfully deleted"
+msgstr "Fitxategia ezabatua izan da"
 
 #: UnitFormControl.pas:701
 msgid "El archivo no se pudo borrar."
-msgstr "Could not delete file."
+msgstr "Fitxategia ezin da ezabatu"
 
 #: UnitFormControl.pas:702
 msgid "El archivo no existe. Tal vez ya fue borrado."
-msgstr "The file doesnt exist"
+msgstr "Fitxategia ez da existitzen. Agian aurretik ezabatua izan da"
 
 #: UnitFormControl.pas:703
 msgid "La carpeta fue borrada con éxito."
-msgstr "Folder deleted sucessfully"
+msgstr "Karpeta ezabatua izan da"
 
 #: UnitFormControl.pas:704
 msgid "No se pudo borrar la carpeta."
-msgstr "Could not delete folder"
+msgstr "Ezin izan da karpeta ezabatu"
 
 #: UnitFormControl.pas:705
 msgid "La carpeta no existe. Tal vez ya fue borrada."
-msgstr "The folder doesnt exist"
+msgstr "Karpeta ez da existitzen. Agian aurretik ezabatua izan da"
 
 #: UnitFormControl.pas:706
 msgid "Archivo o carpeta renombrada con éxito."
-msgstr "File or folder renamed succesfully"
+msgstr "Fitaxtegiaren edo karpetaren izena aldatua izan da"
 
 #: UnitFormControl.pas:707
 msgid "No se pudo renombrar el archivo o la carpeta."
-msgstr "Could not rename the file or the folder"
+msgstr "Ezin izan da fitxategiaren edo karpetaren izena aldatu"
 
 #: UnitFormControl.pas:708
 msgid "El archivo o la carpeta no existe."
-msgstr "the file or folder doesnt exits"
+msgstr "Fitxategia edo karpeta ez da existitzen"
 
 #: UnitFormControl.pas:709
 msgid "Carpeta creada con éxito."
-msgstr "Folder created sucessfully"
+msgstr "Karpeta sortua"
 
 #: UnitFormControl.pas:710
 msgid "No se pudo crear la carpeta."
-msgstr "Could not create folder."
+msgstr "Ezin izan da karpeta sortu"
 
 #: UnitFormControl.pas:711
 msgid "La carpeta ya existe); no es necesario crearla."
-msgstr "The folder already exists"
+msgstr "Karpeta existitzen da. Ez da beharrezkoa sortea"
 
 #: UnitFormControl.pas:712
 msgid "Archivo copiado con éxito"
-msgstr "File sucessfully copied"
+msgstr "Fitxategia kopiatua"
 
 #: UnitFormControl.pas:713
 msgid "Error al copiar el archivo"
-msgstr "Could not copy file"
+msgstr "Ezin izan da fitxategia kopiatu"
 
 #: UnitFormControl.pas:714
 msgid "Modificado nombre de clave con éxito."
-msgstr "Name of key succesfully modified"
+msgstr "Giltzaren izena aldatua izan da."
 
 #: UnitFormControl.pas:715
 msgid "Error al modificar el nombre de la clave."
-msgstr "Could not modify the key name"
+msgstr "Ezin izan da giltzaren izena aldatu."
 
 #: UnitFormControl.pas:716
 msgid "Clave o Valor eliminado con éxito."
-msgstr "key or value sucessfully deleted"
+msgstr "Giltza edo balorea ezabatua izan da."
 
 #: UnitFormControl.pas:717
 msgid "No se pudo eliminar la clave o el valor."
-msgstr "could not delete the key or the value"
+msgstr "Ezin izan da giltza edo balorea ezabatu"
 
 #: UnitFormControl.pas:718
 msgid "Clave añadida con éxito."
-msgstr "Key added sucessfully"
+msgstr "Giltza gehitua izan da "
 
 #: UnitFormControl.pas:719
 msgid "No se pudo añadir la clave."
-msgstr "Could not add the key. "
+msgstr "ezin da giltza gehitu"
 
 #: UnitFormControl.pas:720
 msgid "Valor añadido con éxito."
-msgstr "Value succesfully added"
+msgstr "Balorea gehitua."
 
 #: UnitFormControl.pas:721
 msgid "No se pudo añadir el valor."
-msgstr "Could not add the value. "
+msgstr "Ezin da balorea gehitu"
 
 #: UnitFormControl.pas:722
 msgid "Se ha intentado iniciar el serivico"
-msgstr "Attempt to start the service"
+msgstr "Zerbitzua hasten saiatu da"
 
 #: UnitFormControl.pas:723
 msgid "Se ha intentado detener el servicio"
-msgstr "Attempt to stop the service"
+msgstr "Zerbitzua gelditzen saiatu da"
 
 #: UnitFormControl.pas:724
 msgid "Se ha intentado desinstalar el servicio"
-msgstr "Attempt to unninstall the service"
+msgstr "Zerbitzua desinstalatzen saiatu da"
 
 #: UnitFormControl.pas:725
 msgid "Se ha intentado instalar el servicio"
-msgstr "Attempt to install the service"
+msgstr "Zerbitzua instalatzen saiatu da"
 
 #: UnitFormControl.pas:726
 msgid "Log eliminado con éxito"
-msgstr "Log deleted succesfully"
+msgstr "Loga ezabatua izan da"
 
 #: UnitFormControl.pas:727
 msgid "Online Keylogger activado con éxito"
-msgstr "Online Keylogger sucessfully activated"
+msgstr "Online keylogerra aktibatua izan da"
 
 #: UnitFormControl.pas:728
 msgid "Online Keylogger desactivado con éxito"
-msgstr "Online Keylogger sucessfully deactivated"
+msgstr "Online keylogerra desaktibatua izan da"
 
 #: UnitFormControl.pas:729
 msgid "Seteado portapapeles con éxito"
-msgstr "Clipboard succesfully set"
+msgstr "Portapapera ezarria"
 
 #: UnitFormControl.pas:730
 msgid "Se ha intentado cerrar la conexión"
-msgstr "Attempt to close the connection"
+msgstr "Konexioa ixten saiatu da"
 
 #. Para que desaparezca la scrollbar horizontal
 #: UnitFormControl.pas:948
 msgid "Procesos listados"
-msgstr "Processes listed"
+msgstr "Prozesuak zerrendatuta"
 
 #: UnitFormControl.pas:968
 msgid "Oculta"
-msgstr "Hidden"
+msgstr "Ezkutaturik"
 
 #: UnitFormControl.pas:973
 msgid "Maximizada"
-msgstr "Maximized"
+msgstr "Handitua"
 
 #: UnitFormControl.pas:983
 msgid "Minimizada"
-msgstr "Minimized"
+msgstr "Txikiagotua"
 
 #: UnitFormControl.pas:988
-#: UnitFormControl.pas:4505
+#: UnitFormControl.pas:4507
 msgid "Activa"
-msgstr "Active"
+msgstr "Aktibatua"
 
 #. Para que desaparezca la scrollbar horizontal
 #: UnitFormControl.pas:1000
 msgid "Ventanas listadas"
-msgstr "Windows listed"
+msgstr "Leihoak zerrendatuta"
 
 #. Mete en TempStr la handle
 #: UnitFormControl.pas:1013
 msgid "No se encontró ningún proceso listado. Debes actualizar la lista de procesos."
-msgstr "There are not processes in the listview. You migth refresh its listview."
+msgstr "Ez da zerrendaturik prozesurik aurkitu. Freskatu ezau zerrenda lehenengo."
 
 #: UnitFormControl.pas:1018
 msgid "No se encontró ningún proceso para la ventana. Es posible que el proceso ya haya sido cerrado."
-msgstr "Could not found the process that belongs to the window"
+msgstr "Ezin da leiho horretarako prozesua aurkitu"
 
 #: UnitFormControl.pas:1020
 msgid "Actualice la lista de ventanas."
-msgstr "Refresh the windows list"
+msgstr "Leihoen zerrenda freskatu behar duzu."
 
 #: UnitFormControl.pas:1028
 msgid "La ventana con handle "
-msgstr "The window whose handle is "
+msgstr "Handle "
 
 #: UnitFormControl.pas:1028
 msgid " pertenece al proceso \""
-msgstr " belongs to process \""
+msgstr "duen leihoa "
 
 #: UnitFormControl.pas:1029
 msgid "\" con PID "
-msgstr "\"whose PID is "
+msgstr " prozesuari dagokio"
 
 #: UnitFormControl.pas:1053
 msgid "El directorio no existe!"
-msgstr "The directory doesnt exist"
+msgstr "Direktorioa ez da existitzen"
 
 #: UnitFormControl.pas:1102
 msgid "Espacio libre/total: "
-msgstr "Space free/total: "
+msgstr "Espazio hutsa/Guztira: "
 
 #. Espacio total
 #: UnitFormControl.pas:1110
 msgid "Formato:"
-msgstr "Format:"
+msgstr "Formatua:"
 
 #. el último caracter
 #: UnitFormControl.pas:1114
 msgid "Unidad desconocida"
-msgstr "Unknown drive"
+msgstr "Unitate ezezaguna"
 
 #: UnitFormControl.pas:1115
-#: UnitFormControl.pas:5261
+#: UnitFormControl.pas:5263
 msgid "Unidad removible"
-msgstr "Removable Drive"
+msgstr "Unitate ezabagarria"
 
 #: UnitFormControl.pas:1116
 msgid "Disco duro"
-msgstr "Hard Drive"
+msgstr "Disko gogorra"
 
 #: UnitFormControl.pas:1117
-#: UnitFormControl.pas:5258
+#: UnitFormControl.pas:5260
 msgid "Disco de red"
-msgstr "Network drive"
+msgstr "Sare unitatea"
 
 #: UnitFormControl.pas:1118
-#: UnitFormControl.pas:5255
+#: UnitFormControl.pas:5257
 msgid "Unidad de CD/DVD"
-msgstr "CD/DVD drive"
+msgstr "CD/DVD unitatea"
 
 #: UnitFormControl.pas:1119
 msgid "Disc RAM"
-msgstr "Disc RAM"
+msgstr "RAM unitatea"
 
 #: UnitFormControl.pas:1129
 msgid "Unidades listadas."
-msgstr "Drivers listed."
+msgstr "Unitateak zerrendatuak izan dira."
 
 #. Limpia primero...
 #: UnitFormControl.pas:1146
 msgid "Listando directorio: "
-msgstr "Listing directory: "
+msgstr "Direktorioa zerrendatzen: "
 
 #: UnitFormControl.pas:1161
 msgid "Carpeta de archivos"
-msgstr "Files folder"
+msgstr "Karpeta"
 
 #. Borra lo que acaba de copiar
 #: UnitFormControl.pas:1192
 #: UnitFormControl.pas:1194
-#: UnitFormControl.pas:4365
-#: UnitFormControl.pas:4392
-#: UnitFormControl.pas:4419
+#: UnitFormControl.pas:4367
+#: UnitFormControl.pas:4394
+#: UnitFormControl.pas:4421
 msgid "Lectura"
-msgstr "ReadOnly"
+msgstr "Irakurketarako bakarrik"
 
 #. agrega la fecha
 #: UnitFormControl.pas:1205
 msgid "Directorio listado!"
-msgstr "Directory listed!"
+msgstr "Direktorioa zerrendatua!"
 
-#: UnitFormControl.pas:1241
+#: UnitFormControl.pas:1242
 msgid "Valores de la clave listados"
-msgstr "Values listed"
+msgstr "Giltzaren baloreak zerrendatuak"
 
-#: UnitFormControl.pas:1252
+#: UnitFormControl.pas:1253
 msgid "Webcams listadas."
-msgstr "Webcams listed"
+msgstr "Webcamak zerrendatuak."
 
-#: UnitFormControl.pas:1266
+#: UnitFormControl.pas:1267
 msgid "Shell correctamente activada"
-msgstr "Shell turned on successfully"
+msgstr "Shell a aktibatua izan da"
 
 #. exit;
-#: UnitFormControl.pas:1277
+#: UnitFormControl.pas:1278
 msgid "Shell correctamente desactivada"
-msgstr "Shell turned off"
+msgstr "Shell-a desaktibatua iazn da"
 
 #. ejemplo : /alerter/alvg*..
-#: UnitFormControl.pas:1302
+#: UnitFormControl.pas:1303
 msgid "Parado"
-msgstr "Stopped"
+msgstr "Gelditua"
 
-#: UnitFormControl.pas:1307
+#: UnitFormControl.pas:1308
 msgid "Corriendo"
-msgstr "Running"
+msgstr "Hasita"
 
-#: UnitFormControl.pas:1312
+#: UnitFormControl.pas:1313
 msgid "Pausado"
-msgstr "Paused"
+msgstr "Pausatua"
 
 #. Para eliminar la scrollvar horizontal
-#: UnitFormControl.pas:1325
+#: UnitFormControl.pas:1326
 msgid "Servicios listados"
-msgstr "Service listed"
+msgstr "Zerbitzuak zerrendatuak"
 
-#: UnitFormControl.pas:1338
+#: UnitFormControl.pas:1339
 msgid "Desactivar Keylogger"
-msgstr "Deactivate keylogger"
+msgstr "Keyloggerra desaktibatu"
 
-#: UnitFormControl.pas:1387
+#: UnitFormControl.pas:1388
 msgid "Busqueda parada"
-msgstr "Search stopped"
+msgstr "Bilaketa gelditua"
 
-#: UnitFormControl.pas:1394
+#: UnitFormControl.pas:1395
 msgid "Busqueda finalizada"
-msgstr "Search completed"
+msgstr "Bilaketa amaitua"
 
 #. Portapapeles!
-#: UnitFormControl.pas:1434
+#: UnitFormControl.pas:1435
 msgid "Portapapeles recibido"
-msgstr "Clipboard received"
+msgstr "Portapapera ikusia"
 
 #. Primero limpiamos los que había
-#: UnitFormControl.pas:1447
+#: UnitFormControl.pas:1448
 msgid "Dispositivos de audio listados"
-msgstr "Audio devices listed"
+msgstr "Audio dispositiboak zerrendatuak"
 
 #. Si esta activada
 #. Manda 'LISTARARCHIVOS|C:\'
 #. Así evitamos que se cambie el nombre en el ListView
 #. Pone el cursor para editar en el item
 #. Recibe el PID de la ventana con Handle
-#: UnitFormControl.pas:1567
-#: UnitFormControl.pas:1580
-#: UnitFormControl.pas:1605
-#: UnitFormControl.pas:1624
-#: UnitFormControl.pas:1653
-#: UnitFormControl.pas:1677
-#: UnitFormControl.pas:1701
-#: UnitFormControl.pas:1725
-#: UnitFormControl.pas:1749
-#: UnitFormControl.pas:1760
-#: UnitFormControl.pas:1784
-#: UnitFormControl.pas:1807
-#: UnitFormControl.pas:1841
-#: UnitFormControl.pas:1855
-#: UnitFormControl.pas:1868
-#: UnitFormControl.pas:1876
-#: UnitFormControl.pas:2012
-#: UnitFormControl.pas:2042
-#: UnitFormControl.pas:2077
-#: UnitFormControl.pas:2137
-#: UnitFormControl.pas:2157
-#: UnitFormControl.pas:2166
-#: UnitFormControl.pas:2199
-#: UnitFormControl.pas:2216
-#: UnitFormControl.pas:2308
-#: UnitFormControl.pas:2323
-#: UnitFormControl.pas:2334
-#: UnitFormControl.pas:2358
-#: UnitFormControl.pas:2371
-#: UnitFormControl.pas:2384
-#: UnitFormControl.pas:2397
-#: UnitFormControl.pas:2411
-#: UnitFormControl.pas:2467
-#: UnitFormControl.pas:2496
-#: UnitFormControl.pas:2542
-#: UnitFormControl.pas:2556
-#: UnitFormControl.pas:2589
-#: UnitFormControl.pas:2624
-#: UnitFormControl.pas:2632
-#: UnitFormControl.pas:2684
-#: UnitFormControl.pas:2724
-#: UnitFormControl.pas:3332
-#: UnitFormControl.pas:3339
-#: UnitFormControl.pas:3401
-#: UnitFormControl.pas:3424
-#: UnitFormControl.pas:3435
-#: UnitFormControl.pas:3451
-#: UnitFormControl.pas:3467
-#: UnitFormControl.pas:3516
-#: UnitFormControl.pas:3573
-#: UnitFormControl.pas:3767
-#: UnitFormControl.pas:3803
-#: UnitFormControl.pas:4160
-#: UnitFormControl.pas:4375
-#: UnitFormControl.pas:4402
-#: UnitFormControl.pas:4429
-#: UnitFormControl.pas:4448
-#: UnitFormControl.pas:4456
-#: UnitFormControl.pas:4465
-#: UnitFormControl.pas:4473
-#: UnitFormControl.pas:4481
-#: UnitFormControl.pas:4490
-#: UnitFormControl.pas:4686
-#: UnitFormControl.pas:4701
-#: UnitFormControl.pas:4769
-#: UnitFormControl.pas:5160
-#: UnitFormControl.pas:5216
-#: UnitFormControl.pas:5239
+#: UnitFormControl.pas:1568
+#: UnitFormControl.pas:1581
+#: UnitFormControl.pas:1606
+#: UnitFormControl.pas:1625
+#: UnitFormControl.pas:1654
+#: UnitFormControl.pas:1678
+#: UnitFormControl.pas:1702
+#: UnitFormControl.pas:1726
+#: UnitFormControl.pas:1750
+#: UnitFormControl.pas:1761
+#: UnitFormControl.pas:1785
+#: UnitFormControl.pas:1808
+#: UnitFormControl.pas:1842
+#: UnitFormControl.pas:1856
+#: UnitFormControl.pas:1869
+#: UnitFormControl.pas:1877
+#: UnitFormControl.pas:2013
+#: UnitFormControl.pas:2043
+#: UnitFormControl.pas:2078
+#: UnitFormControl.pas:2138
+#: UnitFormControl.pas:2158
+#: UnitFormControl.pas:2167
+#: UnitFormControl.pas:2200
+#: UnitFormControl.pas:2218
+#: UnitFormControl.pas:2310
+#: UnitFormControl.pas:2325
+#: UnitFormControl.pas:2336
+#: UnitFormControl.pas:2360
+#: UnitFormControl.pas:2373
+#: UnitFormControl.pas:2386
+#: UnitFormControl.pas:2399
+#: UnitFormControl.pas:2413
+#: UnitFormControl.pas:2469
+#: UnitFormControl.pas:2498
+#: UnitFormControl.pas:2544
+#: UnitFormControl.pas:2558
+#: UnitFormControl.pas:2591
+#: UnitFormControl.pas:2626
+#: UnitFormControl.pas:2634
+#: UnitFormControl.pas:2686
+#: UnitFormControl.pas:2726
+#: UnitFormControl.pas:3334
+#: UnitFormControl.pas:3341
+#: UnitFormControl.pas:3403
+#: UnitFormControl.pas:3426
+#: UnitFormControl.pas:3437
+#: UnitFormControl.pas:3453
+#: UnitFormControl.pas:3469
+#: UnitFormControl.pas:3518
+#: UnitFormControl.pas:3575
+#: UnitFormControl.pas:3769
+#: UnitFormControl.pas:3805
+#: UnitFormControl.pas:4162
+#: UnitFormControl.pas:4377
+#: UnitFormControl.pas:4404
+#: UnitFormControl.pas:4431
+#: UnitFormControl.pas:4450
+#: UnitFormControl.pas:4458
+#: UnitFormControl.pas:4467
+#: UnitFormControl.pas:4475
+#: UnitFormControl.pas:4483
+#: UnitFormControl.pas:4492
+#: UnitFormControl.pas:4688
+#: UnitFormControl.pas:4703
+#: UnitFormControl.pas:4771
+#: UnitFormControl.pas:5162
+#: UnitFormControl.pas:5218
+#: UnitFormControl.pas:5241
 #: UnitFormReg.pas:74
 msgid "No estás conectado!"
-msgstr "Not connected!"
+msgstr "Ez zaude konektatua!"
 
-#: UnitFormControl.pas:1592
-#: UnitFormControl.pas:5226
+#: UnitFormControl.pas:1593
+#: UnitFormControl.pas:5228
 msgid "Selecciona algún proceso para matar"
-msgstr "Select the process you want to kill"
+msgstr "Prozesu bat hautatu"
 
-#: UnitFormControl.pas:1636
-#: UnitFormControl.pas:1666
-#: UnitFormControl.pas:1690
-#: UnitFormControl.pas:1714
-#: UnitFormControl.pas:1738
-#: UnitFormControl.pas:1773
-#: UnitFormControl.pas:1796
-#: UnitFormControl.pas:3762
+#: UnitFormControl.pas:1637
+#: UnitFormControl.pas:1667
+#: UnitFormControl.pas:1691
+#: UnitFormControl.pas:1715
+#: UnitFormControl.pas:1739
+#: UnitFormControl.pas:1774
+#: UnitFormControl.pas:1797
+#: UnitFormControl.pas:3764
 msgid "Selecciona alguna ventana"
-msgstr "Select any window"
+msgstr "Leiho bat hautatu"
 
-#: UnitFormControl.pas:1643
+#: UnitFormControl.pas:1644
 msgid "¿Está seguro que desea intentar cerrar la ventana Program Manager? (Es posible que coolserver se bloquee)?"
-msgstr "Are you sure you want to close the window 'Program Manager'? May be coolserver will get blocked"
+msgstr "Benetan itxi nahi duzu 'Program manager' leihoa (Posible da zerbitzaria ixtea) ?"
 
-#: UnitFormControl.pas:1817
+#: UnitFormControl.pas:1818
 msgid "Selecciona alguna broma"
-msgstr "Select any joke"
+msgstr "Broma bat hautatu lehenengo"
 
 #. Selecciona la broma que se va a enviar
 #. El mouse se descongela si se activa el congela mouse
-#: UnitFormControl.pas:1826
-#: UnitFormControl.pas:1830
-#: UnitFormControl.pas:1833
+#: UnitFormControl.pas:1827
+#: UnitFormControl.pas:1831
+#: UnitFormControl.pas:1834
 msgid "Desactivado"
-msgstr "Disabled"
+msgstr "Desaktibatua"
 
-#: UnitFormControl.pas:1881
+#: UnitFormControl.pas:1882
 msgid "Dale doble click a una carpeta o a un archivo!"
-msgstr "Double click on a file or folder!"
+msgstr "Klik bikoitza egin ezazu karpeta edo fitxategi batean!"
 
 #. doble-clickiò una carpeta
-#: UnitFormControl.pas:1886
-#: UnitFormControl.pas:1895
+#: UnitFormControl.pas:1887
+#: UnitFormControl.pas:1896
 msgid "Listando archivos..."
-msgstr "Listing files..."
+msgstr "Fitxategiak zerrendatzen..."
 
-#: UnitFormControl.pas:2055
+#: UnitFormControl.pas:2056
 msgid "¿Está seguro que quiere borrar los archivos/carpetas seleccionados?"
-msgstr "Are you sure you want to delete selected files/folders?"
+msgstr "Benetan ezabatu nahi duzu hautatutako karpetar/fitxategiak?"
 
-#: UnitFormControl.pas:2128
+#: UnitFormControl.pas:2129
 msgid "Nombre de carpeta inválido. Una carpeta no puede tener ninguno de los siguientes carácteres:"
-msgstr "wrong installation path, it cannot contain the characters:"
-
-#: UnitFormControl.pas:2146
-msgid "Escriba el nombre para la nueva carpeta."
-msgstr "New folder name"
+msgstr "Karpetaren izena ez da egokia. Karaktere hayek ezin ditu izan:"
 
 #: UnitFormControl.pas:2147
-msgid "Nueva carpeta"
-msgstr "New folder"
+msgid "Escriba el nombre para la nueva carpeta."
+msgstr "Idatz ezazu karpeta berriaren izena."
 
-#: UnitFormControl.pas:2172
+#: UnitFormControl.pas:2148
+msgid "Nueva carpeta"
+msgstr "Karpeta berria"
+
+#: UnitFormControl.pas:2173
 msgid "No escribiste un directorio válido."
-msgstr "Wrong directory"
+msgstr "Ez duzu direktorio egoki bat hautatu"
 
 #. Primero las contamos para poder mostrar en el panel cuantas hay
-#: UnitFormControl.pas:2248
+#: UnitFormControl.pas:2250
 msgid "Listadas "
-msgstr "Listed "
+msgstr "Zerrendatutak"
 
-#: UnitFormControl.pas:2248
+#: UnitFormControl.pas:2250
 msgid " claves de "
-msgstr " keys of "
+msgstr "giltz. Guztira: "
 
 #. Seleccionado mostrar el icono de carpeta abierta
-#: UnitFormControl.pas:2259
+#: UnitFormControl.pas:2261
 msgid "Claves listadas"
-msgstr "Keys Listed!"
+msgstr "Giltzak zerrendatutak"
 
-#: UnitFormControl.pas:2348
+#: UnitFormControl.pas:2350
 msgid "¿Está seguro de que quiere borrar el valor "
-msgstr "Are you sure you want to delete value "
+msgstr "Benetan nahi duzu honako balorea ezabatu: "
 
-#: UnitFormControl.pas:2353
+#: UnitFormControl.pas:2355
 msgid "¿Está seguro de que quiere borrar la clave "
-msgstr "Are you sure you want to delete key "
+msgstr "Benetan nahi duzu honako giltza ezabatu: "
 
-#: UnitFormControl.pas:2461
+#: UnitFormControl.pas:2463
 msgid "Escriba el nombre para la nueva clave."
-msgstr "The new key name."
+msgstr "Idatz ezazu giltza berriaren izena."
 
-#: UnitFormControl.pas:2462
+#: UnitFormControl.pas:2464
 msgid "Crear nueva clave"
-msgstr "New Key"
+msgstr "Giltz berri bat sortu"
 
-#: UnitFormControl.pas:2462
+#: UnitFormControl.pas:2464
 msgid "NuevaClave"
-msgstr "NewKey"
+msgstr "Giltzaberria"
 
-#: UnitFormControl.pas:2493
+#: UnitFormControl.pas:2495
 msgid "Selecciona algún tipo de botón"
-msgstr "Select the button type"
+msgstr "Hautatu botoi mota bat"
 
 #. Enviar teclas a una ventana....
-#: UnitFormControl.pas:2531
+#: UnitFormControl.pas:2533
 msgid "Selecciona alguna ventana para enviarle teclas."
-msgstr "Select the window to send keys"
+msgstr "Hauta ezazu lehio bat teklak bidaltzeko."
 
 #. Necesitamos el tamaño de la pantalla para calcular la posicion real.
-#: UnitFormControl.pas:2597
+#: UnitFormControl.pas:2599
 msgid "Pide una captura primero!"
-msgstr "Request a capture first"
+msgstr "Eska ezazu kaptura bat lehenengo"
 
-#: UnitFormControl.pas:2639
+#: UnitFormControl.pas:2641
 msgid "¿Está seguro de que desea cerrar el servidor? Este no se volverá a iniciar si no están activos los métodos de auto-inicio."
-msgstr "Are you sure you want to close server?"
+msgstr "Benetan nahi duzu zerbitzaria itxi?"
 
-#: UnitFormControl.pas:2640
-#: UnitFormControl.pas:2647
-#: UnitFormControl.pas:2654
+#: UnitFormControl.pas:2642
+#: UnitFormControl.pas:2649
+#: UnitFormControl.pas:2656
 #: UnitMain.pas:1307
 #: UnitMain.pas:1338
 #: UnitMain.pas:1357
 msgid "Confirmación"
-msgstr "Confirmation"
+msgstr "Konfirmazioa"
 
-#: UnitFormControl.pas:2646
+#: UnitFormControl.pas:2648
 #: UnitMain.pas:1337
 msgid "¿Está seguro de que desea desinstalar el servidor? ¡Este será removido completamente del equipo!"
-msgstr "Are you sure you want to unnistall server?"
+msgstr "Benetan nahi duzu zerbitzaria desinstalatu?"
 
-#: UnitFormControl.pas:2653
+#: UnitFormControl.pas:2655
 msgid "¿Está seguro de que desea actualizar el servidor? ¡Se volverá a enviar coolserver.dll!"
-msgstr "Are you sure you want to update server? Coolserver.dll will be resent"
+msgstr "Benetan nahi duzu zerbitzaria eguneratu?"
 
-#: UnitFormControl.pas:2730
+#: UnitFormControl.pas:2732
 msgid "Entra al directorio primero!"
-msgstr "Enter in a directory first"
+msgstr "Sar zaitez direktorioan lehenengo!"
 
-#: UnitFormControl.pas:2812
+#: UnitFormControl.pas:2814
 msgid "Intento de intrusión a archivo bloqueado: "
-msgstr "Warning, untrusted acess delected: "
+msgstr "Intruzio sahiakera blokeatua: "
 
 #. Error al capturar audio
-#: UnitFormControl.pas:3072
+#: UnitFormControl.pas:3074
 msgid "Error al capturar audio"
-msgstr "Audio capture error"
+msgstr "Ezin izan da audioa atzeman"
 
-#: UnitFormControl.pas:3103
+#: UnitFormControl.pas:3105
 msgid "Transferencia finalizada: "
-msgstr "Transfer finished : "
+msgstr "Transferentzia bukatua: "
 
 #. Si su item superior está tambien en espera se intercambia con él
 #. Si su item inferior está tambien en espera se intercambia con él
 #. Buscamos el último item en espera y le insertamos ahi
-#: UnitFormControl.pas:3243
-#: UnitFormControl.pas:3269
-#: UnitFormControl.pas:3291
-#: UnitFormControl.pas:3311
+#: UnitFormControl.pas:3245
+#: UnitFormControl.pas:3271
+#: UnitFormControl.pas:3293
+#: UnitFormControl.pas:3313
 #: UnitTransfer.pas:72
 #: UnitTransfer.pas:76
 #: UnitVisorDeMiniaturas.pas:137
 msgid "En espera"
-msgstr "Waiting"
+msgstr "Itxaroten"
 
-#: UnitFormControl.pas:3371
-#: UnitFormControl.pas:3384
+#: UnitFormControl.pas:3373
+#: UnitFormControl.pas:3386
 msgid "Se escogió el mismo color para la fuente y el fondo. Escoge otro."
-msgstr "the background and font color cant be the same"
+msgstr "Hondoak eta letrak ezin dute kolore berdina eduki"
 
-#: UnitFormControl.pas:3372
-#: UnitFormControl.pas:3385
+#: UnitFormControl.pas:3374
+#: UnitFormControl.pas:3387
 msgid "Advertencia"
-msgstr "Warning"
-
-#: UnitFormControl.pas:3406
-msgid "Guardar texto :: Coolvibes ::"
-msgstr "Save plain text :: Coolvibes ::"
+msgstr "Oharra"
 
 #: UnitFormControl.pas:3408
+msgid "Guardar texto :: Coolvibes ::"
+msgstr "Testua gorde ::Coolvibes::"
+
+#: UnitFormControl.pas:3410
 msgid "Archivo de texto"
-msgstr "Text file"
+msgstr "Testu fitxategia"
 
-#: UnitFormControl.pas:3413
+#: UnitFormControl.pas:3415
 msgid "Archivo guardado como: "
-msgstr "File saved as: "
+msgstr "Fitxategia gordeta: "
 
-#: UnitFormControl.pas:3484
+#: UnitFormControl.pas:3486
 msgid "{Escribir el nombre del servicio}"
-msgstr "{Service name}"
+msgstr "{Zerbitzuaren izena}"
 
-#: UnitFormControl.pas:3499
+#: UnitFormControl.pas:3501
 msgid "{Escribir la descripción del servicio}"
-msgstr "{Service description}"
+msgstr "{Zerbitzuaren deskribapena}"
 
-#: UnitFormControl.pas:3507
+#: UnitFormControl.pas:3509
 msgid "{Ruta del ejecutable a poner de servicio}"
-msgstr "{Path to the service file}"
-
-#: UnitFormControl.pas:3934
-msgid "Guardar imagen ::Coolvibes::"
-msgstr "Save image ::Coolvibes::"
+msgstr "{Zerbitzuaren kokapena}"
 
 #: UnitFormControl.pas:3936
+msgid "Guardar imagen ::Coolvibes::"
+msgstr "Irudia gorde ::Coolvibes::"
+
+#: UnitFormControl.pas:3938
 msgid "Imagen"
-msgstr "Image"
+msgstr "Irudia"
 
 #. Sino es una webcam
-#: UnitFormControl.pas:3951
+#: UnitFormControl.pas:3953
 msgid "Imagen guardada como: "
-msgstr "Image save as: "
+msgstr "Irudia gordeta: "
 
 #. Estamos en la pestaña Captura de Pantalla
-#: UnitFormControl.pas:3971
+#: UnitFormControl.pas:3973
 msgid "Guardar captura de pantalla"
-msgstr "Save screen capture"
+msgstr "Kaptura gorde"
 
-#: UnitFormControl.pas:3974
-#: UnitFormControl.pas:3988
+#: UnitFormControl.pas:3976
+#: UnitFormControl.pas:3990
 msgid "Activar guardado automático"
-msgstr "Enable auto-save"
+msgstr "Gordeketa automatikoa aktibatu"
 
-#: UnitFormControl.pas:3979
-#: UnitFormControl.pas:3993
+#: UnitFormControl.pas:3981
+#: UnitFormControl.pas:3995
 msgid "Desactivar guardado automático"
-msgstr "Disable auto-save"
+msgstr "Gordeketa automatikoa desactivatu"
 
 #. Estamos en la pestaña Captura de Webcam
-#: UnitFormControl.pas:3985
+#: UnitFormControl.pas:3987
 msgid "Guardar captura de webcam"
-msgstr "Save webcam image"
+msgstr "Webcamaren irudia gorde"
 
-#: UnitFormControl.pas:4002
 #: UnitFormControl.pas:4004
+#: UnitFormControl.pas:4006
 msgid "Prefijo captura"
-msgstr "Capture prefix"
-
-#: UnitFormControl.pas:4002
-msgid "captura_"
-msgstr "capture_"
+msgstr "Kapturen aurrizkia"
 
 #: UnitFormControl.pas:4004
+msgid "captura_"
+msgstr "captura_"
+
+#: UnitFormControl.pas:4006
 msgid "webcam_"
 msgstr "webcam_"
 
-#: UnitFormControl.pas:4068
-msgid "Guardar Log de Keylogger ::Coolvibes Rat::"
-msgstr "Save keylogger log ::Coolvibes RAT::"
-
 #: UnitFormControl.pas:4070
+msgid "Guardar Log de Keylogger ::Coolvibes Rat::"
+msgstr "Keyloggerraren loga gorde ::Coolvibes RAT::"
+
+#: UnitFormControl.pas:4072
 msgid "Texto .txt"
-msgstr "Plain text .txt"
+msgstr "Testua .txt"
 
-#: UnitFormControl.pas:4077
+#: UnitFormControl.pas:4079
 msgid "Log guardado como: "
-msgstr "Log saved as: "
+msgstr "Loga gordeta: "
 
-#: UnitFormControl.pas:4299
+#: UnitFormControl.pas:4301
 msgid "Cargadas "
-msgstr "Loaded"
+msgstr "Kardatuta "
 
-#: UnitFormControl.pas:4299
+#: UnitFormControl.pas:4301
 msgid " de "
-msgstr " of "
+msgstr " "
 
 #. save structure to list
-#: UnitFormControl.pas:4323
+#: UnitFormControl.pas:4325
 msgid "Miniaturas cargadas!"
-msgstr "Thumbnails loaded!"
+msgstr "Irudiak kargatuta!"
 
-#: UnitFormControl.pas:4552
+#: UnitFormControl.pas:4554
 msgid "Parar"
-msgstr "Stop"
+msgstr "Gelditu"
 
-#: UnitFormControl.pas:4730
+#: UnitFormControl.pas:4732
 msgid "Mínimo 1 segundo"
-msgstr "1 second minimum"
+msgstr "Segundo bat gutxienez"
 
-#: UnitFormControl.pas:4734
+#: UnitFormControl.pas:4736
 msgid "Dispositivo de audio no válido"
-msgstr "Incorrect audio device"
+msgstr "Audio dispositiboa ez da egokia"
 
-#: UnitFormControl.pas:4738
+#: UnitFormControl.pas:4740
 msgid "Selecciona un formato de audio"
-msgstr "Select an audio format"
+msgstr "Hautatu audio formatua"
 
-#: UnitFormControl.pas:4895
+#: UnitFormControl.pas:4897
 msgid "Guardar Audio ::Coolvibes::"
-msgstr "Save Audio ::Coolvibes::"
+msgstr "Audio gorde ::Coolvibes::"
 
 #. Si el grupo de sonidos que queremos guardar son de distinta frecuencia
-#: UnitFormControl.pas:4927
+#: UnitFormControl.pas:4929
 msgid "Audio guardado con éxito:"
-msgstr "Auto Saved succesfully:"
+msgstr "Audio gordeta:"
 
-#: UnitFormControl.pas:5034
+#: UnitFormControl.pas:5036
 msgid "Velocidad"
-msgstr "Speed"
+msgstr "Abiadura"
 
-#: UnitFormControl.pas:5034
+#: UnitFormControl.pas:5036
 msgid "Cuanta más velocidad más CPU se consumirá en la maquina remota. Si no tienes prisa marca lenta"
 msgstr "Cuanta más velocidad más CPU se consumirá en la maquina remota. Si no tienes prisa marca lenta"
 
-#: UnitFormControl.pas:5202
+#: UnitFormControl.pas:5204
 msgid "Selecciona alguna conexión para cerrar"
-msgstr "Select connection to kill"
+msgstr "Ixteko konexio bat hautatu"
 
 #: UnitFormReg.pas:48
 msgid "Añadiendo valor "
-msgstr "Adding value "
+msgstr "Balorea gehitzen"
 
 #: UnitFormReg.pas:83
 msgid "Los valores binarios solo constan de una linea"
-msgstr "The binary values can only have one line"
+msgstr "Balore binarioak bakarrik lerro bat daukate"
 
 #. 24*60*60
 #: UnitFunciones.pas:58
 msgid " dias "
-msgstr " days "
+msgstr " egun "
 
 #. 60*60
 #: UnitFunciones.pas:66
 msgid " horas "
-msgstr " hours "
+msgstr " ordu"
 
 #: UnitFunciones.pas:74
 msgid " minutos "
-msgstr " minutes "
+msgstr " minuto "
 
 #: UnitFunciones.pas:77
 msgid " segundos "
-msgstr " seconds "
+msgstr " segundo "
 
 #: UnitMain.pas:298
 msgid "El puerto "
-msgstr "The port"
+msgstr " "
 
 #: UnitMain.pas:299
 msgid " ya está en uso o hay un firewall bloqueándolo, elija otro"
-msgstr " is alreading using or there is a firewall blocking it, try another port"
+msgstr " portua erabilia izaten ari da, hautatu beste edozein"
 
 #: UnitMain.pas:311
 msgid "Esperando conexiones"
-msgstr "Waiting connections"
+msgstr "Konexioak itxoiten"
 
 #: UnitMain.pas:312
 #: UnitOpciones.pas:87
 msgid "Puerto(s): "
-msgstr "Port(s): "
+msgstr "Portua(k): "
 
 #: UnitMain.pas:357
 msgid "No se puede cargar la imagen: "
-msgstr "The Picture cannot be loaded: "
+msgstr "Ezin da irudia kargatu: "
 
 #: UnitMain.pas:361
 msgid "Escucha detenida"
-msgstr "Listening stopped"
+msgstr "Entzuteari utzita"
 
 #. Avisamos a los plugins que han sido cargados que el servidor se ha desconectado
 #: UnitMain.pas:427
 msgid "DESCONECTADO"
-msgstr "DISCONNECTED"
+msgstr "DESKONECTATUA"
 
 #: UnitMain.pas:446
 #: UnitMain.pas:447
 #: UnitMain.pas:552
 #: UnitMain.pas:553
 msgid "Número de conexiones: "
-msgstr "Number of connections: "
+msgstr "Konexio kopurua: "
 
 #. quitamos el GETSERVER|
 #: UnitMain.pas:481
 msgid "Pidiendo Servidor"
-msgstr "Requesting Server"
+msgstr "Zerbitzaria eskatzen"
 
 #: UnitMain.pas:481
 msgid "IP:"
@@ -3417,79 +3421,79 @@ msgstr "IP:"
 
 #: UnitMain.pas:518
 msgid "Cambio de Ventana: "
-msgstr "the active window has changed: "
+msgstr "Leiho aldaketa: "
 
 #. Formato regional fecha/hora para evitar errores con StrToDateTime
 #: UnitMain.pas:530
 msgid "Actividad detectada"
-msgstr "Activity detected"
+msgstr "Aktibitatea hauteman da: "
 
 #: UnitMain.pas:1008
 msgid "CoolServer.dll no existe, no se podrán mandar servidores"
-msgstr "CoolServer.dll doesnt exists, will not be able to send servers"
+msgstr "Coolserver.dll ez da existitzen, ezin izango da zerbitzaririk bidali"
 
 #: UnitMain.pas:1069
 msgid "Estado: No escuchando"
-msgstr "Status: Waiting"
+msgstr "Egoera: Itxaroren"
 
 #: UnitMain.pas:1306
 msgid "¿Está seguro de que desea cerrar todos los servidores seleccionados? Este no se volverá a iniciar si no están activos los métodos de auto-inicio."
-msgstr "Are you sure you want to close selected servers?"
+msgstr "Benetan nahi duzu zerbitzaria itxi?"
 
 #: UnitMain.pas:1356
 msgid "¿Está seguro de que desea actualizar los servidores seleccionados? ¡Se volverá a enviar coolserver.dll!"
-msgstr "Are you sure you want to update the selected servers? Coolserver.dll will be resent"
+msgstr "Benetan nahi duzu zerbitzaria eguneratu?"
 
 #: UnitOpciones.pas:115
 msgid "Directorio de coolvibes"
-msgstr "Coolvibes directory"
+msgstr "Coolvibes ren directorioa"
 
 #: UnitOpciones.pas:116
 msgid "Nombre del servidor"
-msgstr "Server Name"
+msgstr "Zerbitzariaren izena"
 
 #: UnitOpciones.pas:117
 msgid "Nombre de usuario del servidor"
-msgstr "Servers computer username"
+msgstr "Zerbitzariaren erabiltzailearen izena"
 
 #: UnitOpciones.pas:118
 msgid "Nombre de PC del servidor"
-msgstr "The servers computer name "
+msgstr "Zerbitzariaren ordenagailuaren izena"
 
 #: UnitTransfer.pas:107
 #: UnitTransfer.pas:194
 msgid "Descargando"
-msgstr "Downloading"
+msgstr "Jaisten"
 
 #: UnitTransfer.pas:124
 #: UnitTransfer.pas:228
 msgid "Error al descargar archivo: "
-msgstr "Error downloading file: "
+msgstr "Errorea fitxategia jaisterakoan: "
 
 #. nos servira para llevar la cuenta de cuanto hemos subido
 #: UnitTransfer.pas:162
 #: UnitTransfer.pas:268
 #: UnitTransfer.pas:345
 msgid "Detenido"
-msgstr "Stopped"
+msgstr "Geldituta"
 
 #: UnitTransfer.pas:168
 #: UnitTransfer.pas:274
 #: UnitTransfer.pas:352
 msgid "Finalizado"
-msgstr "Finished"
+msgstr "Bukatua"
 
 #: UnitTransfer.pas:297
 #: UnitTransfer.pas:312
 msgid "No se pudo acceder al archivo, puede que esté en uso por otra aplicación"
-msgstr "Could not access the file, may be in use by another application"
+msgstr "Ezin da fitxategia ireki, agian beste programaren bat erabiltzen ari da"
 
 #: UnitTransfer.pas:304
 msgid "Subiendo"
-msgstr "Uploading"
+msgstr "Igotzen"
 
 #. quitamos el aviso
 #: UnitVisorDeMiniaturas.pas:109
 msgid "Recibiendo Thumbnail"
-msgstr "Transfering Thumbnail"
+msgstr "Irudia jasotzen"
 

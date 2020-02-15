@@ -9,6 +9,13 @@ Modificación de: Nick
 [-] Cosas quitadas
 [*] Bug solucionados, arreglos
 
+Fecha 21/05/2011
+Versión: 1 Update 11
+Modificación de: Anonimo
+[*] Corregidos algunos bugs
+
+|----------------------------|
+
 Fecha 20/05/2011
 Versión: 1 Update 10
 Modificación de: Anonimo

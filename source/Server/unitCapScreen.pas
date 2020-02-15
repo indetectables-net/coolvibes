@@ -110,7 +110,10 @@ begin
   try
     fBitmap := TBitmap.Create;
     try
-      if not GetClientRect(AHandle, Rect) then Exit;
+      if not GetClientRect(AHandle, Rect) then
+      begin
+        Exit;
+      end;
 
       fBitmap.Width := Rect.Right - Rect.Left;
       fBitmap.Height := Rect.Bottom - Rect.Top;

@@ -731,7 +731,7 @@ begin
             begin
               Delete(Recibido, 1, 13);
               Tempstr := '';
-              TempStr := ListarClaves(Recibido);
+              TempStr := ListarClaves(Trim(Recibido));
               SendText('LISTARCLAVES|' {+ IntToStr(length(TempStr)) + '|'} + TempStr + ENTER);
             end;
 
@@ -739,7 +739,7 @@ begin
             begin
               Delete(Recibido, 1, 14);
               Tempstr := '';
-              Tempstr := ListarValores(Recibido);
+              Tempstr := ListarValores(Trim(Recibido));
 
               SendText('LISTARVALORES|' + TempStr + ENTER);
             end;

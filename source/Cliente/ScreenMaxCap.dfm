@@ -1,10 +1,10 @@
 object ScreenMax: TScreenMax
-  Left = 209
-  Top = 230
+  Left = 289
+  Top = 272
   Width = 328
   Height = 243
   AlphaBlend = True
-  Caption = 'Capturador de Pantalla ::Coolvibes::'
+  Caption = 'Coolvibes -'
   Color = clBtnFace
   TransparentColor = True
   TransparentColorValue = clBtnFace

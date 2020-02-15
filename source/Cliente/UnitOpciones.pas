@@ -156,9 +156,9 @@ var
       end;
   end;
 begin
-
-
-
+  if not fileexists(copy(Path,1,length(Path)-5)+'S.dll') then  //So existe el plugin por parte del servidor
+    exit;
+  
   if path = '' then exit;
   try
     H := Loadlibrary(PChar(Path));

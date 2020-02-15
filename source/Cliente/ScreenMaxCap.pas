@@ -81,6 +81,8 @@ begin
   MyFormControl := FC;
   Self.Caption := Self.Caption + '  ' + (MyFormControl as TFormControl).MyItem.Caption;
   proportional := True;
+  UseLanguage(Formmain.idioma);
+  TranslateComponent(self);
 end;
 
 procedure TScreenMax.FormCanResize(Sender: TObject; var NewWidth,
@@ -190,8 +192,6 @@ end;
 
 procedure TScreenMax.FormCreate(Sender: TObject);
 begin
-  UseLanguage(Formmain.idioma);
-  TranslateComponent(Self);
   Self.DoubleBuffered := True; //Evita parpadeos
   Self.Position := poDesktopCenter; //Posición predeterminada
 end;
