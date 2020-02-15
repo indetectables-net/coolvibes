@@ -5,6 +5,7 @@ interface
 uses Windows, SysUtils;
 
 function ObtenerMejorUnidad(bytes: int64): string;
+function ObtenerMejorUnidadTiempo(segundos: int64): string;
 function ObtenerMejorUnidadInv(Cadena: string): int64;
 function MyGetFileSize(const strFileName: string): longint;
 
@@ -20,6 +21,43 @@ begin
     Result := FloatToStrF(bytes / 1048576, ffFixed, 10, 1) + ' Mb'
   else if bytes > 1073741824 then
     Result := FloatToStrF(bytes / 1073741824, ffFixed, 10, 1) + ' Gb';
+end;
+
+function ObtenerMejorUnidadTiempo(segundos: int64): string;
+var
+  dias : integer;
+  horas : integer;
+  minutos : integer;
+begin
+  dias := 0;
+  horas := 0;
+  minutos := 0;
+  while (segundos > (86400)) do   //24*60*60
+  begin
+    dias := dias+1;
+    segundos := segundos-(86400);
+  end;
+  if(dias >0) then
+    Result := inttostr(dias)+' dias ';
+
+  while (segundos > (3600)) do //60*60
+  begin
+    horas := horas+1;
+    segundos := segundos-(3600);
+  end;
+  if(horas >0) then
+    Result := Result+inttostr(horas)+' horas ';
+
+  while segundos > 60 do
+  begin
+    minutos := minutos+1;
+    segundos := segundos-60;
+  end;
+  if(minutos >0) then
+    Result := Result+inttostr(minutos)+' minutos ';
+
+  if(segundos > 0) then
+    Result := Result+inttostr(segundos)+' segundos ';
 end;
 
 //Dada una cadena del tipo 44,7 Mb nos devuelve el numero de bytes equivalentes

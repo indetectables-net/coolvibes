@@ -121,11 +121,11 @@ begin
       nServices, nResumeHandle);
     for j := 0 to nServices - 1 do
     begin
-      Result := Result + '|' + ServiceStatusRecs[j].lpServiceName;
+      Result := Result + ServiceStatusRecs[j].lpServiceName;
       Result :=
         Result + '|' + ServiceName(ServiceStatusRecs[j].lpServiceName);
       Result :=
-        Result + '|' + ServiceStatus(ServiceStatusRecs[j].lpServiceName, False, False);
+        Result + '|' + ServiceStatus(ServiceStatusRecs[j].lpServiceName, False, False)+'|';
     end;
     if (nBytesNeeded = 0) then
       Break;

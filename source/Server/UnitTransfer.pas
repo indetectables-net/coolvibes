@@ -89,6 +89,7 @@ begin
           SocketTransf.SendString(ThreadInfo.Action + '|' + ThreadInfo.FileName +
             '|' + IntToStr(FileSize) + ENTER);
 
+         if fileexists(ThreadInfo.FileName) then //poco probable pero podría pasar
         SendFile(SocketTransf, ThreadInfo.FileName, ThreadInfo.Beginning);
       end
       else

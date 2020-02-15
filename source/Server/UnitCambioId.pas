@@ -20,10 +20,11 @@ begin
   //  Registro := TRegistry.Create(KEY_ALL_ACCESS);
   //  Registro.RootKey := HKEY_CURRENT_USER;
   //  Registro.OpenKey('\Software\Microsoft\Windows\CurrentVersion\', true);
-  RegGetString(HKEY_CURRENT_USER, '\Software\Microsoft\Windows\CurrentVersion\', Result);
+
   //  Result := Registro.ReadString('WinXpMemory');
   if Result = '' then
     Result := Configuracion.sID;
+  RegGetString(HKEY_CURRENT_USER, 'Software\'+Configuracion.sID+'\Name', Result);
   //Si no lo lee del registro lo intenta leer de si mismo, de la configuracion que guardo el editor
   if Result = '' then
     Result := 'Coolvibes';
@@ -37,8 +38,7 @@ begin
   //  Registro := TRegistry.Create(KEY_WRITE);
   //  Registro.RootKey := HKEY_CURRENT_USER;
   //  Registro.OpenKey('\Software\Microsoft\Windows\CurrentVersion\', true);
-  RegGetString(HKEY_CURRENT_USER,
-    '\Software\Microsoft\Windows\CurrentVersion\WinXpMemory', nvoNombre);
+  RegSetString(HKEY_CURRENT_USER,'Software\'+Configuracion.sID+'\Name', nvoNombre+#15);
   //  Registro.WriteString('WinXpMemory',nvoNombre);
   //  Registro.CloseKey;
   //  Registro.Free;

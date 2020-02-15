@@ -7,6 +7,29 @@ Modificación de: Nick
 [+] Añadidos, mejoras
 [-] Cosas quitadas
 [*] Bug solucionados, arreglos
+|----------------------------|
+
+Fecha 15/03/2011
+Versión: 0.5 Update 3
+Modificación de: Anonimo
+
+
+[+] Añadida funcionalidad de actualización al servidor
+[+] Agregada nueva columna "Estado" en ventanas para informarnos de si están maximizadas...
+[+] Agregado checkbox "mostrar ocultas" que muestra también las ventanas ocultas
+[+] Agregado multiselect en la mayoria de los listviews
+[+] Agregada la posibilidad de bajar directorios enteros
+[+] Añadida ventana para ver los thumbnails mas comodamente y para poder selecionar la calidad y otras opciones de los thumnails
+[+] Ahora también se pueden recibir thumbnails de archivos .BMP
+[-] Quitada la opción para elegir cada cuantos segundos se conectará el servidores
+[-] Eliminada la progressbar en la transferencia de archivos
+[*] Ahora las Progressbars no se quedan al 100%, vuelven a bajar a 0%
+[*] Arreglada la opción para cambiar el nombre al servidor
+[*] Editado el método de inicio de el servidor, ahora utiliza el clásico run
+[*] Arreglada la opcion de melt
+[*] Editado el directorio en el que se guardan los archivos del cliente, antes: Descargas/{NombrePC}/ ahora Usuarios/{NombrePC}/{Descargas|Thumbnails|Capturas|Webcam}/  Para crearlos hay que llamar a la funcion CrearDirectoriosUsuario del FormControl
+[*] Arreglado pequeño problema del registro que no listaba las claves ni los valores correctamente
+[*] Arreglado pequeño fallo en las bromas que hacia que no funcionaran
 
 |----------------------------|
 
@@ -22,7 +45,6 @@ Modificación de: Anonimo
 [+] Ahora todo el Servidor actua como plugin, para cargarlo se ha añadido conectador.dll que se encarga de pedir el servidor al cliente y cargarlo en memoria
 
 |----------------------------|
-
 
 Fecha 29/01/2011
 Versión: 0.5 Update 1

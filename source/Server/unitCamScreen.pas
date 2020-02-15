@@ -15,7 +15,6 @@ uses
   SysUtils;
 
 
-function generateThumb(filePath, outPath: ansistring): boolean;
 function CapturarWebcam(var MS:Tmemorystream;NumeroDeWebcam: integer; quality:integer): boolean;
 procedure DesactivarWebcams();
 const
@@ -42,17 +41,6 @@ function ListarDispositivos(): string;
 implementation
 
 
-function generateThumb(filePath, outPath: ansistring): boolean;
-var
-  buf:   array [0..144] of char;
-begin
-
-        CreateThumb(filePath, outpath);
-  if FileExists(outpath) then
-    Result := True
-  else
-    Result := False;
-end;
 
 
 function ListarDispositivos(): string;

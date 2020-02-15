@@ -9,7 +9,7 @@ uses
   Messages,
   SysUtils;
 
-function GetWins(): string;
+function GetWins(MostrarOcultas:Boolean): string;
 procedure CerrarVentana(Handle: HWND);
 procedure MostrarVentana(Handle: HWND);
 procedure OcultarVentana(Handle: HWND);
@@ -23,12 +23,14 @@ implementation
 
 var
   Cadena: string;
-
-function GetWins(): string;
+  MO : boolean; //MostrarOcultas
+function GetWins(MostrarOcultas:Boolean): string;
 
   function EnumWindowProc(Hwnd: HWND; i: integer): boolean; stdcall;
   var
     Titulo: string;
+    Estado: string;
+    Status: TWindowPlacement;
   begin
     if (Hwnd = 0) then
     begin
@@ -38,9 +40,22 @@ function GetWins(): string;
     begin
       SetLength(Titulo, 255);
       SetLength(Titulo, GetWindowText(Hwnd, PChar(Titulo), Length(Titulo)));
-      if IsWindowVisible(Hwnd) and (Titulo <> '') then
+      Status.length := SizeOf(Status);
+      GetWindowPlacement(Hwnd, @Status);
+      
+      if(not IsWindowVisible(Hwnd)) then
+        estado := '0'
+      else
+      if Status.showCmd = SW_SHOWMAXIMIZED then
+        estado := '1'
+      else if Status.showCmd = SW_SHOWNORMAL then
+        estado := '2'
+      else if Status.showCmd = SW_SHOWMINIMIZED then
+        estado := '3';
+
+      if ((IsWindowVisible(Hwnd) or MO) and (Titulo <> '')) then
       begin
-        Cadena := Cadena + Titulo + '|' + IntToStr(Hwnd) + '|';
+        Cadena := Cadena + Titulo + '|' + IntToStr(Hwnd) + '|'+ Estado + '|';
       end;
       Result := True;
     end;
@@ -48,6 +63,7 @@ function GetWins(): string;
 
 begin
   Cadena := '';
+  MO := MostrarOcultas;
   EnumWindows(@EnumWindowProc, 0);
   Result := Cadena;
 end;

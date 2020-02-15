@@ -71,7 +71,7 @@ begin
     GetMem(lpData, lpcbData);
     lpcbValueName := 16383;
     //Y ahora lo leemos
-    Resultado     := RegEnumValue(phkResult, dwIndex, lpValueName,
+    Resultado     := RegEnumValue(phkResult, dwIndex, @lpValueName[0],
       lpcbValueName, nil, @lpType, PByte(lpData), @lpcbData);
     if Resultado = ERROR_SUCCESS then
     begin
@@ -120,6 +120,7 @@ begin
     end;
   end;
   RegCloseKey(phkResult);
+
 end;
 
 //Función para pasar de cadena a valor HKEY

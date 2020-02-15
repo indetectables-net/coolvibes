@@ -10,7 +10,7 @@ type
 type
   TDescargaHandler = class(TObject)
   public
-    ProgressBar: TProgressBar;
+   // ProgressBar: TProgressBar;
     ListView:  TListView;
     AThread:   TIdPeerThread;
     Item:      TListItem; //Item de la descarga
@@ -53,13 +53,15 @@ begin
   cancelado   := False;
   finalizado  := False;
   es_descarga := p_es_descarga;
-  ProgressBar := TProgressBar.Create(nil);
-  ProgressBar.Max := TSize;
+ { ProgressBar := TProgressBar.Create(nil);
+
+  if(TSize <> 0) then
+    ProgressBar.Max := TSize;    }
+
   if Athread <> nil then
     AThread.Synchronize(self.addToView)
   else
     self.addToView;
-
 end;
 
 procedure TDescargaHandler.addToView;
@@ -80,7 +82,7 @@ begin
     Item.ImageIndex := 36;
 
   Item.Data := self; //apunta a un objeto tipo TDescargaHandler
-
+  {
   RectProg      := Item.DisplayRect(drBounds);
   //Posicion izquierda de todo el item mas el ancho de la primera columna
   RectProg.Left := RectProg.Left + ListView.Columns[0].Width;
@@ -88,7 +90,7 @@ begin
   RectProg.Right := RectProg.Left + ListView.Columns[1].Width;
   //BoundsRect - Specifies the bounding rectangle of the control, expressed in the coordinate system of the parent control.
   ProgressBar.BoundsRect := RectProg;
-  progressBar.Parent := ListView;
+  progressBar.Parent := ListView;  }
 end;
 
 procedure TDescargaHandler.TransferFile;
@@ -310,7 +312,9 @@ end;
 
 procedure TDescargaHandler.Update;
 begin
-  ProgressBar.Position := self.Descargado;
+ // ProgressBar.Position := self.Descargado;
+  if(SizeFile <> 0) then
+  item.SubItems[0] := inttostr(Descargado*100 div SizeFile)+'%';
   if Item.SubItems[4] <> Status then
     Item.SubItems[4] := Status;
   Item.SubItems[2] := ObtenerMejorUnidad(Descargado);
@@ -318,7 +322,7 @@ end;
 
 procedure TDescargaHandler.UpdateVelocidad;
 begin
-  Item.SubItems[3] := ObtenerMejorUnidad(Descargado - UltimoBajado) + '/s';
+  Item.SubItems[3] := ObtenerMejorUnidad(Descargado - UltimoBajado) + '/s' ;
 end;
 
 end.

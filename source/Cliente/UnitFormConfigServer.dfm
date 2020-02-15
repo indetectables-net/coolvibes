@@ -1,6 +1,6 @@
 object FormConfigServer: TFormConfigServer
-  Left = 358
-  Top = 6
+  Left = 216
+  Top = 22
   Width = 352
   Height = 673
   Caption = 'Configuraci'#243'n de servidor'
@@ -25,7 +25,7 @@ object FormConfigServer: TFormConfigServer
     Left = 0
     Top = 0
     Width = 344
-    Height = 639
+    Height = 646
     Align = alClient
     Caption = 'Configurar servidor existente...'
     TabOrder = 0
@@ -33,7 +33,7 @@ object FormConfigServer: TFormConfigServer
       Left = 2
       Top = 15
       Width = 340
-      Height = 530
+      Height = 537
       HorzScrollBar.Style = ssFlat
       VertScrollBar.Style = ssFlat
       Align = alClient
@@ -41,7 +41,7 @@ object FormConfigServer: TFormConfigServer
       TabOrder = 0
       DesignSize = (
         340
-        530)
+        537)
       object Bevel4: TBevel
         Left = 56
         Top = 472
@@ -142,7 +142,7 @@ object FormConfigServer: TFormConfigServer
       end
       object Label1: TLabel
         Left = 8
-        Top = 160
+        Top = 130
         Width = 55
         Height = 13
         Caption = 'Nombre:'
@@ -163,14 +163,14 @@ object FormConfigServer: TFormConfigServer
       end
       object Bevel2: TBevel
         Left = 4
-        Top = 142
+        Top = 110
         Width = 330
         Height = 2
         Anchors = [akLeft, akTop, akRight]
       end
       object Bevel3: TBevel
         Left = 3
-        Top = 184
+        Top = 200
         Width = 331
         Height = 2
         Anchors = [akLeft, akTop, akRight]
@@ -238,30 +238,16 @@ object FormConfigServer: TFormConfigServer
           FF00FFFFFF00FFFFFF006360F80AFFFFFF00FFFFFF00FFFFFF00}
         OnClick = BtnSalirClick
       end
-      object Label5: TLabel
-        Left = 8
-        Top = 116
-        Width = 150
-        Height = 13
-        Caption = 'Intentar conectar cada'
-      end
-      object Label6: TLabel
-        Left = 215
-        Top = 116
-        Width = 62
-        Height = 13
-        Caption = 'segundos'
-      end
       object Label7: TLabel
         Left = 26
-        Top = 200
+        Top = 208
         Width = 95
         Height = 13
         Caption = 'Copiar archivo'
       end
       object Label8: TLabel
         Left = 34
-        Top = 220
+        Top = 228
         Width = 128
         Height = 13
         Caption = 'Nombre de archivo:'
@@ -290,9 +276,9 @@ object FormConfigServer: TFormConfigServer
       object Label14: TLabel
         Left = 58
         Top = 400
-        Width = 101
+        Width = 77
         Height = 13
-        Caption = 'M'#233'todo Policies'
+        Caption = 'M'#233'todo RUN'
       end
       object Label15: TLabel
         Left = 66
@@ -352,6 +338,13 @@ object FormConfigServer: TFormConfigServer
           E9EC}
         ShowHint = True
       end
+      object Label5: TLabel
+        Left = 8
+        Top = 170
+        Width = 123
+        Height = 13
+        Caption = 'Nombre del Plugin:'
+      end
       object EditServerPath: TEdit
         Left = 49
         Top = 3
@@ -368,7 +361,7 @@ object FormConfigServer: TFormConfigServer
       end
       object EditID: TEdit
         Left = 73
-        Top = 155
+        Top = 123
         Width = 224
         Height = 22
         Hint = 
@@ -407,31 +400,17 @@ object FormConfigServer: TFormConfigServer
         OnExit = EditPuertoExit
         OnKeyPress = EditPuertoKeyPress
       end
-      object EditTimeToNotify: TEdit
-        Left = 167
-        Top = 111
-        Width = 40
-        Height = 22
-        BevelInner = bvNone
-        BevelKind = bkFlat
-        BevelOuter = bvRaised
-        BorderStyle = bsNone
-        TabOrder = 4
-        OnEndDrag = EditPuertoEndDrag
-        OnExit = EditTimeToNotifyExit
-        OnKeyPress = EditPuertoKeyPress
-      end
       object CheckBoxCopiar: TCheckBox
         Left = 8
-        Top = 198
+        Top = 206
         Width = 17
         Height = 17
-        TabOrder = 5
+        TabOrder = 4
         OnClick = CheckBoxCopiarClick
       end
       object EditFileName: TEdit
         Left = 168
-        Top = 215
+        Top = 223
         Width = 129
         Height = 22
         Hint = 'El nombre con el que el servidor se copiar'#225' al instalarse'
@@ -439,14 +418,14 @@ object FormConfigServer: TFormConfigServer
         BevelKind = bkFlat
         BevelOuter = bvRaised
         BorderStyle = bsNone
-        TabOrder = 6
+        TabOrder = 5
         OnKeyPress = EditIPKeyPress
       end
       object GrpBoxCopiarA: TGroupBox
         Left = 32
-        Top = 240
+        Top = 248
         Width = 305
-        Height = 73
+        Height = 57
         Anchors = [akLeft, akTop, akRight]
         BiDiMode = bdLeftToRight
         Caption = 'Copiar a:'
@@ -458,10 +437,10 @@ object FormConfigServer: TFormConfigServer
         ParentCtl3D = False
         ParentShowHint = False
         ShowHint = False
-        TabOrder = 7
+        TabOrder = 6
         object ImageHintCopiarA: TImage
           Left = 272
-          Top = 32
+          Top = 24
           Width = 17
           Height = 17
           Cursor = crHandPoint
@@ -498,7 +477,7 @@ object FormConfigServer: TFormConfigServer
         end
         object EditCopyTo: TEdit
           Left = 8
-          Top = 29
+          Top = 21
           Width = 257
           Height = 22
           BevelInner = bvNone
@@ -516,9 +495,9 @@ object FormConfigServer: TFormConfigServer
         Top = 318
         Width = 17
         Height = 17
-        TabOrder = 8
+        TabOrder = 7
       end
-      object EditPoliciesName: TEdit
+      object EditRunName: TEdit
         Left = 201
         Top = 415
         Width = 104
@@ -528,28 +507,41 @@ object FormConfigServer: TFormConfigServer
         BevelKind = bkFlat
         BevelOuter = bvRaised
         BorderStyle = bsNone
-        TabOrder = 9
+        TabOrder = 8
         OnKeyPress = EditIPKeyPress
       end
-      object CheckBoxPolicies: TCheckBox
+      object CheckBoxRun: TCheckBox
         Left = 40
         Top = 398
         Width = 17
         Height = 17
-        TabOrder = 10
-        OnClick = CheckBoxPoliciesClick
+        TabOrder = 9
+        OnClick = CheckBoxRunClick
       end
       object CheckBoxCopiarConFechaAnterior: TCheckBox
         Left = 32
         Top = 342
         Width = 17
         Height = 17
+        TabOrder = 10
+      end
+      object EditPluginName: TEdit
+        Left = 145
+        Top = 163
+        Width = 152
+        Height = 22
+        Hint = 'El nombre del plugin una vez que se haya subido al servidor '
+        BevelInner = bvNone
+        BevelKind = bkFlat
+        BevelOuter = bvRaised
+        BorderStyle = bsNone
         TabOrder = 11
+        OnKeyPress = EditIPKeyPress
       end
     end
     object StatusBar: TStatusBar
       Left = 2
-      Top = 618
+      Top = 625
       Width = 340
       Height = 19
       Panels = <
@@ -559,7 +551,7 @@ object FormConfigServer: TFormConfigServer
     end
     object MemoOutput: TMemo
       Left = 2
-      Top = 545
+      Top = 552
       Width = 340
       Height = 73
       Align = alBottom
@@ -570,7 +562,7 @@ object FormConfigServer: TFormConfigServer
     end
   end
   object OpenDialog: TOpenDialog
-    Left = 208
-    Top = 16
+    Left = 224
+    Top = 88
   end
 end

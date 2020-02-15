@@ -1,6 +1,6 @@
 object FormMain: TFormMain
-  Left = 199
-  Top = 318
+  Left = 208
+  Top = 214
   Width = 523
   Height = 250
   Caption = 'Coolvibes [version]'

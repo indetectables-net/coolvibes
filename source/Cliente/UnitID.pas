@@ -40,6 +40,7 @@ begin
   AThread := TidPeerThread(FormMain.ListViewConexiones.Selected.SubItems.Objects[0]);
   FormMain.ListViewConexiones.Selected.SubItems[0] := EditID.Text;
   Athread.Connection.Writeln('CAMBIOID' + EditID.Text);
+  //Cambiar nombre al directorio de las descargas....???
   FormID.Close;
 end;
 

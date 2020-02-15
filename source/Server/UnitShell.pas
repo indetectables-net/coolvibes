@@ -92,7 +92,7 @@ begin
         else
           Break; //si el cliente no esta activo entonces se cierra
       end;
-            sleep(1000);
+            sleep(300);
       GetMessage(msg, 0, 0, 0);
       if (msg.message = WM_ACTIVATE) then
       begin
@@ -100,8 +100,8 @@ begin
         WriteFile(hPipeWrite2, #13#10, 2, BytesRead, nil);
       end;
     end; //main loop
-
-  Cliente.SendString('SHELL|DESACTIVAR' + ENTER);
+  if cliente.Connected then
+    Cliente.SendString('SHELL|DESACTIVAR' + ENTER);
 
   TerminateProcess(ProcessInformation.hProcess, 0);
   CloseHandle(ProcessInformation.hProcess);

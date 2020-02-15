@@ -33,9 +33,6 @@ type
     Bevel4:     TBevel;
     StatusBar:  TStatusBar;
     BtnSalir:   TSpeedButton;
-    Label5:     TLabel;
-    EditTimeToNotify: TEdit;
-    Label6:     TLabel;
     MemoOutput: TMemo;
     CheckBoxCopiar: TCheckBox;
     Label7:     TLabel;
@@ -46,16 +43,18 @@ type
     Label11:    TLabel;
     Bevel5:     TBevel;
     Label12:    TLabel;
-    CheckBoxPolicies: TCheckBox;
+    CheckBoxRun: TCheckBox;
     Label14:    TLabel;
     Label15:    TLabel;
-    EditPoliciesName: TEdit;
+    EditRunName: TEdit;
     Bevel6:     TBevel;
     EditCopyTo: TEdit;
     ImageHintCopiarA: TImage;
     Label9:     TLabel;
     CheckBoxCopiarConFechaAnterior: TCheckBox;
     ImageHintFechaAnterior: TImage;
+    Label5: TLabel;
+    EditPluginName: TEdit;
     procedure BtnBrowseClick(Sender: TObject);
     procedure EditPuertoExit(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -67,7 +66,7 @@ type
     procedure EditPuertoEndDrag(Sender, Target: TObject; X, Y: integer);
     procedure EditIPKeyPress(Sender: TObject; var Key: char);
     procedure CheckBoxCopiarClick(Sender: TObject);
-    procedure CheckBoxPoliciesClick(Sender: TObject);
+    procedure CheckBoxRunClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
@@ -112,7 +111,7 @@ begin
   if FileExists(ExtractFilePath(ParamStr(0)) + 'Imagenes\ExeBMP.bmp') then
     ImageIcon.Picture.LoadFromFile(ExtractFilePath(ParamStr(0)) + 'Imagenes\ExeBMP.bmp');
   CheckBoxCopiarClick(Sender);  //Para que desactive o active los campos
-  CheckBoxPoliciesClick(Sender);//Para que desactive o active los campos
+  CheckBoxRunClick(Sender);//Para que desactive o active los campos
 end;
 
 procedure TFormConfigServer.BtnBrowseClick(Sender: TObject);
@@ -155,7 +154,7 @@ begin
     Result := False;
     exit;
   end;
-  //Comprobamos que sean correctos los datos del EditTimeToNotify
+ { //Comprobamos que sean correctos los datos del EditTimeToNotify
   if (StrToIntDef(EditTimeToNotify.Text, -1) = -1) or
     (StrToInt(EditTimeToNotify.Text) < 1) then
   begin
@@ -166,8 +165,16 @@ begin
     EditTimeToNotify.SetFocus;
     Result := False;
     exit;
-  end;
+  end;         }
   //comprobamos que sea correcto el nombre para copiar
+  if EditPluginName.text = '' then
+  begin
+      MessageBeep($FFFFFFFF);
+      //Suena un ruidito..., para informar que hay que mirar la StatusBar :)
+      EditPluginName.SetFocus;
+      Result := False;
+      exit;
+  end;
   if CheckBoxCopiar.Checked then
   begin
     s := ExtractFileExt(EditFileName.Text);
@@ -241,17 +248,18 @@ begin
     //Escribir configuración
     MemoOutput.Lines.Append('> Escribiendo la configuración en el servidor...');
     New(ConfigToSave);
+
     ConfigToSave.sHost   := EditIP.Text;
     ConfigToSave.sPort   := EditPuerto.Text;
     ConfigToSave.sID     := EditID.Text;
     ConfigToSave.iPort   := StrToInt(EditPuerto.Text);
-    ConfigToSave.iTimeToNotify := StrToInt(EditTimeToNotify.Text);
+    ConfigToSave.sPluginName := EditPluginName.Text;
     ConfigToSave.bCopiarArchivo := CheckBoxCopiar.Checked;
     ConfigToSave.sFileNameToCopy := EditFileName.Text;
     ConfigToSave.sCopyTo := EditCopyTo.Text;
     ConfigToSave.bMelt   := CheckBoxMelt.Checked;
-    ConfigToSave.bArranquePolicies := CheckBoxPolicies.Checked;
-    ConfigToSave.sPoliciesRegKeyName := EditPoliciesName.Text;
+    ConfigToSave.bArranqueRun := CheckBoxRun.Checked;
+    ConfigToSave.sRunRegKeyName := EditRunName.Text;
     ConfigToSave.bCopiarConFechaAnterior := CheckBoxCopiarConFechaAnterior.Checked;
 
     if WriteSettings(PChar(EditServerPath.Text), ConfigToSave) = True then
@@ -322,10 +330,10 @@ begin
   Label9.Enabled  := CheckBoxCopiar.Checked; //fecha anterior
 end;
 
-procedure TFormConfigServer.CheckBoxPoliciesClick(Sender: TObject);
+procedure TFormConfigServer.CheckBoxRunClick(Sender: TObject);
 begin
-  EditPoliciesName.Enabled := CheckBoxPolicies.Checked;
-  Label15.Enabled := CheckBoxPolicies.Checked; //nombre de clave
+  EditRunName.Enabled := CheckBoxRun.Checked;
+  Label15.Enabled := CheckBoxRun.Checked; //nombre de clave
 end;
 
 procedure TFormConfigServer.FormCreate(Sender: TObject);

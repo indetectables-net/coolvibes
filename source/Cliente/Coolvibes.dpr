@@ -15,7 +15,8 @@ uses
   UnitFormNotifica in 'UnitFormNotifica.pas' {FormNotifica},
   UnitVariables in 'UnitVariables.pas',
   UnitFunciones in 'UnitFunciones.pas',
-  UnitTransfer in 'UnitTransfer.pas';
+  UnitTransfer in 'UnitTransfer.pas',
+  UnitVisorDeMiniaturas in 'UnitVisorDeMiniaturas.pas' {FormVisorDeMiniaturas};
 
 {$R *.res}
 
@@ -28,5 +29,6 @@ begin
   Application.CreateForm(TFormSendKeys, FormSendKeys);
   Application.CreateForm(TFormID, FormID);
   Application.CreateForm(TFormConfigServer, FormConfigServer);
+  Application.CreateForm(TFormVisorDeMiniaturas, FormVisorDeMiniaturas);
   Application.Run;
 end.

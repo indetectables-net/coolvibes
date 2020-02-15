@@ -1,6 +1,6 @@
 object FormControl: TFormControl
-  Left = 228
-  Top = 96
+  Left = 252
+  Top = 95
   Width = 542
   Height = 544
   Caption = 'Centro de control'
@@ -59,7 +59,7 @@ object FormControl: TFormControl
     Top = 0
     Width = 534
     Height = 490
-    ActivePage = TabShell
+    ActivePage = TabServidor
     Align = alCustom
     Anchors = [akLeft, akTop, akRight, akBottom]
     Images = IconsArchivos
@@ -73,7 +73,7 @@ object FormControl: TFormControl
         442)
       object BtnActualizarServidorInfo: TSpeedButton
         Left = 446
-        Top = 387
+        Top = 363
         Width = 72
         Height = 22
         Cursor = crHandPoint
@@ -111,7 +111,7 @@ object FormControl: TFormControl
       end
       object BtnEnviarComandoServidor: TSpeedButton
         Left = 190
-        Top = 387
+        Top = 363
         Width = 72
         Height = 22
         Anchors = [akRight, akBottom]
@@ -156,7 +156,7 @@ object FormControl: TFormControl
         Left = 5
         Top = 7
         Width = 514
-        Height = 371
+        Height = 347
         Anchors = [akLeft, akTop, akRight, akBottom]
         BevelInner = bvNone
         BevelOuter = bvRaised
@@ -194,12 +194,13 @@ object FormControl: TFormControl
           FFFFFFFFFF010000000000000011527574612064656C207365727669646F7200
           FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
           FFFF}
+        RowSelect = True
         TabOrder = 0
         ViewStyle = vsReport
       end
       object ComboBoxGestionDeServidor: TComboBox
         Left = 5
-        Top = 387
+        Top = 363
         Width = 175
         Height = 21
         BevelInner = bvNone
@@ -211,6 +212,7 @@ object FormControl: TFormControl
         Text = '<Seleccione una acci'#243'n>'
         Items.Strings = (
           'Cerrar'
+          'Actualizar'
           'Desinstalar')
       end
     end
@@ -222,7 +224,7 @@ object FormControl: TFormControl
         442)
       object BtnRefrescarInformacion: TSpeedButton
         Left = 446
-        Top = 387
+        Top = 363
         Width = 72
         Height = 22
         Cursor = crHandPoint
@@ -262,7 +264,7 @@ object FormControl: TFormControl
         Left = 5
         Top = 7
         Width = 514
-        Height = 371
+        Height = 347
         Anchors = [akLeft, akTop, akRight, akBottom]
         BevelInner = bvNone
         BevelOuter = bvRaised
@@ -306,7 +308,7 @@ object FormControl: TFormControl
         442)
       object BtnRefrescarProcesos: TSpeedButton
         Left = 446
-        Top = 387
+        Top = 363
         Width = 72
         Height = 22
         Cursor = crHandPoint
@@ -346,7 +348,7 @@ object FormControl: TFormControl
         Left = 5
         Top = 7
         Width = 514
-        Height = 371
+        Height = 347
         Align = alCustom
         Anchors = [akLeft, akTop, akRight, akBottom]
         BevelInner = bvNone
@@ -368,8 +370,11 @@ object FormControl: TFormControl
           end>
         FlatScrollBars = True
         GridLines = True
+        MultiSelect = True
+        ReadOnly = True
         RowSelect = True
         PopupMenu = PopupProcess
+        SmallImages = IconsArchivos
         TabOrder = 0
         ViewStyle = vsReport
         OnColumnClick = ListViewProcesosColumnClick
@@ -384,7 +389,7 @@ object FormControl: TFormControl
         442)
       object BtnRefrescarVentanas: TSpeedButton
         Left = 446
-        Top = 387
+        Top = 363
         Width = 72
         Height = 22
         Cursor = crHandPoint
@@ -420,11 +425,25 @@ object FormControl: TFormControl
           B590E4B28CE2AF88E0AC84DDA980DCA57DE2B696FFFFFFFFFFFF}
         OnClick = BtnRefrescarVentanasClick
       end
+      object LabelMostrarVentanasOcultas: TLabel
+        Left = 264
+        Top = 368
+        Width = 165
+        Height = 13
+        Anchors = [akRight, akBottom]
+        Caption = 'Mostrar ventanas ocultas'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clMenuHighlight
+        Font.Height = -11
+        Font.Name = 'Verdana'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
       object ListViewVentanas: TListView
         Left = 5
         Top = 7
         Width = 514
-        Height = 371
+        Height = 347
         Align = alCustom
         Anchors = [akLeft, akTop, akRight, akBottom]
         BevelInner = bvNone
@@ -434,21 +453,37 @@ object FormControl: TFormControl
         Columns = <
           item
             Caption = 'Titulo'
-            Width = 290
+            Width = 250
           end
           item
             Caption = 'Handle'
             Width = 150
+          end
+          item
+            Caption = 'Estado'
+            Width = 60
           end>
         FlatScrollBars = True
         GridLines = True
+        MultiSelect = True
         ReadOnly = True
         RowSelect = True
         PopupMenu = PopupWindows
+        SmallImages = IconsArchivos
         TabOrder = 0
         ViewStyle = vsReport
         OnColumnClick = ListViewProcesosColumnClick
         OnCompare = ListViewProcesosCompare
+      end
+      object CheckBoxMostrarVentanasOcultas: TCheckBox
+        Left = 248
+        Top = 367
+        Width = 17
+        Height = 17
+        Anchors = [akRight, akBottom]
+        Caption = 'CheckBoxMostrarVentanasOcultas'
+        TabOrder = 1
+        OnClick = CheckBoxMostrarVentanasOcultasClick
       end
     end
     object TabRegistro: TTabSheet
@@ -459,7 +494,7 @@ object FormControl: TFormControl
         442)
       object LabelPathRegistro: TLabel
         Left = 7
-        Top = 302
+        Top = 278
         Width = 23
         Height = 13
         Anchors = [akLeft, akRight, akBottom]
@@ -467,7 +502,7 @@ object FormControl: TFormControl
       end
       object BtnVerRegisto: TSpeedButton
         Left = 446
-        Top = 387
+        Top = 363
         Width = 72
         Height = 23
         Cursor = crHandPoint
@@ -524,7 +559,7 @@ object FormControl: TFormControl
         Left = 5
         Top = 7
         Width = 168
-        Height = 371
+        Height = 347
         Anchors = [akLeft, akTop, akBottom]
         BevelInner = bvNone
         BevelOuter = bvRaised
@@ -555,7 +590,7 @@ object FormControl: TFormControl
         Left = 177
         Top = 7
         Width = 342
-        Height = 371
+        Height = 347
         Anchors = [akLeft, akTop, akRight, akBottom]
         BevelInner = bvNone
         BevelOuter = bvRaised
@@ -586,7 +621,7 @@ object FormControl: TFormControl
       end
       object EditPathRegistro: TEdit
         Left = 7
-        Top = 387
+        Top = 363
         Width = 416
         Height = 21
         Anchors = [akLeft, akRight, akBottom]
@@ -607,7 +642,7 @@ object FormControl: TFormControl
         442)
       object BtnServicios: TSpeedButton
         Left = 446
-        Top = 387
+        Top = 363
         Width = 72
         Height = 22
         Anchors = [akRight, akBottom]
@@ -644,7 +679,7 @@ object FormControl: TFormControl
       end
       object btnSiguienteInstalarServicio: TSpeedButton
         Left = 199
-        Top = 388
+        Top = 364
         Width = 65
         Height = 19
         Anchors = [akRight, akBottom]
@@ -655,7 +690,7 @@ object FormControl: TFormControl
       end
       object BtnCancelarInstalarServicio: TSpeedButton
         Left = 279
-        Top = 388
+        Top = 364
         Width = 65
         Height = 19
         Anchors = [akRight, akBottom]
@@ -666,7 +701,7 @@ object FormControl: TFormControl
       end
       object btnInstServicios: TSpeedButton
         Left = 199
-        Top = 388
+        Top = 364
         Width = 65
         Height = 19
         Anchors = [akRight, akBottom]
@@ -677,7 +712,7 @@ object FormControl: TFormControl
       end
       object btnInstServicios2: TSpeedButton
         Left = 199
-        Top = 388
+        Top = 364
         Width = 65
         Height = 19
         Anchors = [akRight, akBottom]
@@ -690,7 +725,7 @@ object FormControl: TFormControl
         Left = 5
         Top = 7
         Width = 514
-        Height = 371
+        Height = 347
         Anchors = [akLeft, akTop, akRight, akBottom]
         BevelInner = bvNone
         BevelOuter = bvRaised
@@ -710,8 +745,10 @@ object FormControl: TFormControl
             Width = 95
           end>
         GridLines = True
+        MultiSelect = True
         RowSelect = True
         PopupMenu = PopupServicios
+        SmallImages = IconsArchivos
         TabOrder = 0
         ViewStyle = vsReport
         OnColumnClick = ListViewProcesosColumnClick
@@ -719,7 +756,7 @@ object FormControl: TFormControl
       end
       object MultiEditInstalarServicio: TEdit
         Left = 5
-        Top = 387
+        Top = 363
         Width = 176
         Height = 21
         Anchors = [akLeft, akRight, akBottom]
@@ -739,7 +776,7 @@ object FormControl: TFormControl
         442)
       object BtnCambiarFuenteShell: TSpeedButton
         Left = 5
-        Top = 387
+        Top = 363
         Width = 114
         Height = 21
         Cursor = crHandPoint
@@ -777,7 +814,7 @@ object FormControl: TFormControl
       end
       object BtnCambiarColorShell: TSpeedButton
         Left = 126
-        Top = 387
+        Top = 363
         Width = 106
         Height = 21
         Cursor = crHandPoint
@@ -817,7 +854,7 @@ object FormControl: TFormControl
         Left = 5
         Top = 7
         Width = 514
-        Height = 348
+        Height = 324
         Anchors = [akLeft, akTop, akRight, akBottom]
         BevelInner = bvNone
         BevelKind = bkFlat
@@ -837,7 +874,7 @@ object FormControl: TFormControl
       end
       object ComboBoxShellCommand: TComboBox
         Left = 5
-        Top = 361
+        Top = 337
         Width = 514
         Height = 19
         BevelInner = bvNone
@@ -964,7 +1001,7 @@ object FormControl: TFormControl
       end
       object LabelNumeroDeArchivos: TLabel
         Left = 119
-        Top = 404
+        Top = 380
         Width = 44
         Height = 13
         Anchors = [akLeft, akBottom]
@@ -972,7 +1009,7 @@ object FormControl: TFormControl
       end
       object LabelNumeroDeCarpetas: TLabel
         Left = 16
-        Top = 404
+        Top = 380
         Width = 45
         Height = 13
         Anchors = [akLeft, akBottom]
@@ -998,7 +1035,7 @@ object FormControl: TFormControl
         Left = 5
         Top = 72
         Width = 514
-        Height = 325
+        Height = 301
         Anchors = [akLeft, akTop, akRight, akBottom]
         BevelInner = bvNone
         BevelOuter = bvRaised
@@ -1023,6 +1060,7 @@ object FormControl: TFormControl
             Width = 150
           end>
         GridLines = True
+        MultiSelect = True
         RowSelect = True
         PopupMenu = PopupFileManager
         SmallImages = IconsArchivos
@@ -1074,7 +1112,7 @@ object FormControl: TFormControl
         Left = 5
         Top = 24
         Width = 514
-        Height = 381
+        Height = 357
         Anchors = [akLeft, akTop, akRight, akBottom]
         BevelInner = bvNone
         BevelOuter = bvRaised
@@ -1109,6 +1147,7 @@ object FormControl: TFormControl
             Width = 60
           end>
         GridLines = True
+        MultiSelect = True
         ReadOnly = True
         RowSelect = True
         PopupMenu = PopupDescargas
@@ -1127,7 +1166,7 @@ object FormControl: TFormControl
         442)
       object btnGuardarImagen: TSpeedButton
         Left = 408
-        Top = 358
+        Top = 334
         Width = 112
         Height = 22
         Cursor = crHandPoint
@@ -1173,7 +1212,7 @@ object FormControl: TFormControl
       end
       object LabelPosicionCompresJpg: TLabel
         Left = 270
-        Top = 361
+        Top = 337
         Width = 30
         Height = 13
         Anchors = [akRight, akBottom]
@@ -1187,7 +1226,7 @@ object FormControl: TFormControl
       end
       object LabelCalidadCapScreen: TLabel
         Left = 11
-        Top = 363
+        Top = 339
         Width = 79
         Height = 13
         Anchors = [akLeft, akBottom]
@@ -1201,7 +1240,7 @@ object FormControl: TFormControl
       end
       object BtnCapturarScreen: TSpeedButton
         Left = 320
-        Top = 358
+        Top = 334
         Width = 80
         Height = 22
         Anchors = [akRight, akBottom]
@@ -1246,7 +1285,7 @@ object FormControl: TFormControl
       end
       object BtnVerGrandeCap: TSpeedButton
         Left = 408
-        Top = 386
+        Top = 362
         Width = 112
         Height = 22
         Anchors = [akRight, akBottom]
@@ -1283,7 +1322,7 @@ object FormControl: TFormControl
       end
       object BtnRelativo: TSpeedButton
         Left = 320
-        Top = 386
+        Top = 362
         Width = 80
         Height = 22
         Anchors = [akRight, akBottom]
@@ -1326,46 +1365,18 @@ object FormControl: TFormControl
           FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00}
         OnClick = BtnRelativoClick
       end
-      object ClicksRemotos: TLabel
-        Left = 32
-        Top = 390
-        Width = 96
-        Height = 13
-        Anchors = [akLeft, akBottom]
-        Caption = 'Clicks remotos'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
-        Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
-        ParentFont = False
-      end
-      object LabelAutomaticoScreen: TLabel
-        Left = 160
-        Top = 390
-        Width = 74
-        Height = 13
-        Anchors = [akLeft, akBottom]
-        Caption = 'Autom'#225'tico'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
-        Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
-        ParentFont = False
-      end
       object ProgressBarScreen: TProgressBar
         Left = 2
         Top = 5
         Width = 17
-        Height = 347
+        Height = 323
         Anchors = [akLeft, akTop, akBottom]
         Orientation = pbVertical
         TabOrder = 0
       end
       object TrackBarCalidad: TTrackBar
         Left = 98
-        Top = 361
+        Top = 337
         Width = 163
         Height = 16
         Cursor = crHandPoint
@@ -1378,14 +1389,15 @@ object FormControl: TFormControl
       end
       object CheckBoxMouseClicks: TCheckBox
         Left = 15
-        Top = 388
-        Width = 18
+        Top = 364
+        Width = 122
         Height = 17
         Anchors = [akLeft, akBottom]
+        Caption = 'Clicks Remotos'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clMenuHighlight
         Font.Height = -11
-        Font.Name = 'MS Sans Serif'
+        Font.Name = 'Verdana'
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 2
@@ -1394,7 +1406,7 @@ object FormControl: TFormControl
         Left = 25
         Top = 5
         Width = 495
-        Height = 347
+        Height = 323
         Anchors = [akLeft, akTop, akRight, akBottom]
         BevelInner = bvNone
         BevelOuter = bvRaised
@@ -1405,7 +1417,7 @@ object FormControl: TFormControl
           Left = 0
           Top = 0
           Width = 493
-          Height = 345
+          Height = 321
           Align = alClient
           Stretch = True
           OnMouseDown = EnviarClickM
@@ -1413,16 +1425,23 @@ object FormControl: TFormControl
       end
       object CheckBoxAutoCapturaScreen: TCheckBox
         Left = 143
-        Top = 388
-        Width = 17
+        Top = 364
+        Width = 98
         Height = 17
         Anchors = [akLeft, akBottom]
+        Caption = 'Autom'#225'tico'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clMenuHighlight
+        Font.Height = -11
+        Font.Name = 'Verdana'
+        Font.Style = [fsBold]
+        ParentFont = False
         TabOrder = 4
         OnClick = CheckBoxAutoCapturaScreenClick
       end
       object SpinCaptureScreen: TSpinEdit
         Left = 244
-        Top = 385
+        Top = 361
         Width = 69
         Height = 22
         Anchors = [akLeft, akBottom]
@@ -1449,13 +1468,13 @@ object FormControl: TFormControl
         Left = 24
         Top = 8
         Width = 409
-        Height = 329
+        Height = 313
         Center = True
         Stretch = True
       end
       object LabelPosicionCompresJpgWebcam: TLabel
         Left = 297
-        Top = 382
+        Top = 358
         Width = 30
         Height = 13
         Anchors = [akRight, akBottom]
@@ -1469,7 +1488,7 @@ object FormControl: TFormControl
       end
       object LabelCalidadWebcam: TLabel
         Left = 24
-        Top = 383
+        Top = 359
         Width = 124
         Height = 13
         Anchors = [akLeft, akBottom]
@@ -1483,7 +1502,7 @@ object FormControl: TFormControl
       end
       object BtnCapturarWebcam: TSpeedButton
         Left = 352
-        Top = 378
+        Top = 354
         Width = 80
         Height = 21
         Anchors = [akRight, akBottom]
@@ -1520,7 +1539,7 @@ object FormControl: TFormControl
       end
       object BtnGuardarWebcam: TSpeedButton
         Left = 440
-        Top = 378
+        Top = 354
         Width = 80
         Height = 21
         Cursor = crHandPoint
@@ -1558,7 +1577,7 @@ object FormControl: TFormControl
       end
       object BtnObtenerWebcams: TSpeedButton
         Left = 352
-        Top = 345
+        Top = 329
         Width = 120
         Height = 22
         Anchors = [akRight, akBottom]
@@ -1594,10 +1613,11 @@ object FormControl: TFormControl
         OnClick = BtnObtenerWebcamsClick
       end
       object LabelCamAutomatico: TLabel
-        Left = 48
-        Top = 408
+        Left = 40
+        Top = 384
         Width = 74
         Height = 13
+        Anchors = [akRight, akBottom]
         Caption = 'Autom'#225'tico'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clMenuHighlight
@@ -1610,14 +1630,14 @@ object FormControl: TFormControl
         Left = 2
         Top = 8
         Width = 17
-        Height = 329
+        Height = 305
         Anchors = [akLeft, akTop, akBottom]
         Orientation = pbVertical
         TabOrder = 0
       end
       object ComboBoxWebcam: TComboBox
         Left = 24
-        Top = 346
+        Top = 330
         Width = 312
         Height = 21
         BevelInner = bvNone
@@ -1635,7 +1655,7 @@ object FormControl: TFormControl
       end
       object TrackBarCalidadWebcam: TTrackBar
         Left = 160
-        Top = 380
+        Top = 356
         Width = 129
         Height = 16
         Cursor = crHandPoint
@@ -1648,15 +1668,16 @@ object FormControl: TFormControl
       end
       object CheckBoxAutoCamCapture: TCheckBox
         Left = 24
-        Top = 408
+        Top = 381
         Width = 17
         Height = 17
+        Anchors = [akRight, akBottom]
         TabOrder = 3
         OnClick = CheckBoxAutoCamCaptureClick
       end
       object SpinCam: TSpinEdit
-        Left = 132
-        Top = 401
+        Left = 124
+        Top = 377
         Width = 69
         Height = 22
         Anchors = [akLeft, akBottom]
@@ -1681,7 +1702,7 @@ object FormControl: TFormControl
         442)
       object BtnEnviarMensaje: TSpeedButton
         Left = 446
-        Top = 387
+        Top = 363
         Width = 72
         Height = 22
         Anchors = [akRight, akBottom]
@@ -1746,7 +1767,7 @@ object FormControl: TFormControl
         Left = 56
         Top = 71
         Width = 417
-        Height = 72
+        Height = 48
         Anchors = [akLeft, akTop, akRight, akBottom]
         BevelInner = bvNone
         BevelKind = bkFlat
@@ -1771,7 +1792,7 @@ object FormControl: TFormControl
       end
       object GrpBoxTipoMensaje: TGroupBox
         Left = 56
-        Top = 150
+        Top = 126
         Width = 177
         Height = 223
         Anchors = [akLeft, akBottom]
@@ -2286,7 +2307,7 @@ object FormControl: TFormControl
       end
       object RdGrpBotonesMensaje: TRadioGroup
         Left = 265
-        Top = 150
+        Top = 126
         Width = 208
         Height = 223
         Anchors = [akRight, akBottom]
@@ -2315,7 +2336,7 @@ object FormControl: TFormControl
         442)
       object BtnEnviarBromas: TSpeedButton
         Left = 446
-        Top = 387
+        Top = 363
         Width = 72
         Height = 22
         Cursor = crHandPoint
@@ -2354,7 +2375,7 @@ object FormControl: TFormControl
         Left = 5
         Top = 7
         Width = 514
-        Height = 371
+        Height = 347
         Align = alCustom
         Anchors = [akLeft, akTop, akRight, akBottom]
         BevelInner = bvNone
@@ -2402,13 +2423,13 @@ object FormControl: TFormControl
       end>
   end
   object DlgGuardar: TSaveDialog
-    Left = 400
-    Top = 100
+    Left = 352
+    Top = 108
   end
   object PopupProcess: TPopupMenu
     Images = IconsArchivos
-    Left = 184
-    Top = 100
+    Left = 176
+    Top = 108
     object Cerrar1: TMenuItem
       Caption = 'Cerrar'
       ImageIndex = 41
@@ -2417,8 +2438,8 @@ object FormControl: TFormControl
   end
   object PopupWindows: TPopupMenu
     Images = IconsArchivos
-    Left = 216
-    Top = 100
+    Left = 200
+    Top = 108
     object Cerrar2: TMenuItem
       Caption = 'Cerrar'
       ImageIndex = 62
@@ -2482,10 +2503,10 @@ object FormControl: TFormControl
   end
   object PopupFileManager: TPopupMenu
     Images = IconsArchivos
-    Left = 248
-    Top = 100
+    Left = 224
+    Top = 108
     object Descargarfichero1: TMenuItem
-      Caption = 'Descargar fichero'
+      Caption = 'Descargar'
       OnClick = Descargarfichero1Click
     end
     object Agregaracoladedescarga1: TMenuItem
@@ -2529,8 +2550,8 @@ object FormControl: TFormControl
   end
   object PopupRegistro: TPopupMenu
     Images = IconsArchivos
-    Left = 280
-    Top = 100
+    Left = 248
+    Top = 108
     object Nuevo1: TMenuItem
       Caption = 'Nuevo'
       object Clave1: TMenuItem
@@ -2571,21 +2592,21 @@ object FormControl: TFormControl
     end
   end
   object XPManifest: TXPManifest
-    Left = 112
-    Top = 100
+    Left = 120
+    Top = 108
   end
   object TimerCaptureScreen: TTimer
     Enabled = False
     Interval = 0
     OnTimer = TimerCaptureScreenTimer
-    Left = 464
-    Top = 96
+    Left = 400
+    Top = 104
   end
   object PopupDescargas: TPopupMenu
     Images = IconsArchivos
     OnPopup = PopupDescargasPopup
-    Left = 312
-    Top = 100
+    Left = 280
+    Top = 108
     object DetenerDescarga1: TMenuItem
       Caption = 'Detener Transferencia'
       ImageIndex = 56
@@ -2630,14 +2651,14 @@ object FormControl: TFormControl
   object OpenDialogUpload: TOpenDialog
     Options = [ofFileMustExist, ofEnableSizing]
     Title = 'Selecciona el archivo a enviar'
-    Left = 500
-    Top = 92
+    Left = 428
+    Top = 100
   end
   object PopupShell: TPopupMenu
     Images = IconsArchivos
     OnPopup = PopupShellPopup
     Left = 148
-    Top = 100
+    Top = 108
     object Activar2: TMenuItem
       Caption = 'Activar'
       ImageIndex = 44
@@ -2663,12 +2684,12 @@ object FormControl: TFormControl
     Font.Height = -11
     Font.Name = 'MS Sans Serif'
     Font.Style = []
-    Left = 76
-    Top = 100
+    Left = 92
+    Top = 108
   end
   object DlgColors: TColorDialog
-    Left = 40
-    Top = 100
+    Left = 64
+    Top = 108
   end
   object PopupServicios: TPopupMenu
     Left = 548
@@ -2839,10 +2860,10 @@ object FormControl: TFormControl
     end
   end
   object IconsArchivos: TImageList
-    Left = 384
-    Top = 100
+    Left = 328
+    Top = 104
     Bitmap = {
-      494C010145004A00040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010148004A00040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003001000001002000000000000030
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2975,131 +2996,131 @@ object FormControl: TFormControl
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000006D6D6D63585858BF515151BF525252631D57C4780345
+      B9DF0442BCFE0345B9E30345B87A000000000000000000000000000000000000
+      000000000000000000006D6D6D005858580076767600707070006B6B6B006767
+      67006F6F6F005B5B5B0057575700525252000000000000000000000000000000
+      000000000000000000006D6D6D63585858BF515151BF52525263007D21EB037B
+      1EFF007915040000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000006F6F
+      6F296A6A6A0E7A7A7A02818181EABDBDBDFFB2B2B2FF395991F52564C9FB2177
+      E6FF0579EAFF0164DDFF044DBDFC0345B87A0000000000000000000000006F6F
+      6F006A6A6A007A7A7A0081818100BDBDBD007D7D7D00A8A8A8009F9F9F007171
+      7100707070009595950094949400585858000000000000000000000000006F6F
+      6F296A6A6A0E7A7A7A02818181EABDBDBDFFB2B2B2FF5B5B5BEA01832BEB43A1
+      5FFF037921D40079190600000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000000000000000000008181819B6F6F
+      6FFD646464E776767619838383E7CBCBCBFFC7C7C7FF0C48B0FC639DF4FF187F
+      FFFF0076F8FF0076EEFF0368E1FF0345B9E40000000000000000818181006F6F
+      6F00646464007676760083838300CBCBCB0084848400AFAFAF00A7A7A7007979
+      7900757575009A9A9A009A9A9A005E5E5E0000000000000000008181819B6F6F
+      6FFD646464E776767619229751FF1C914AFF168F44FF108B3BFF3A9F5EFF80C1
+      96FF46A362FF097724ED00791907000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000E8E8E800E8E8E800E8E8E800E8E8
+      00000000000000000000000000000000000000000000A4A4A47BBCBCBCFFDEDE
+      DEFFA6A6A6FF838383F4858585FEC4C4C4FFC2C2C2FF0442BCFFAECDFEFFFFFF
+      FFFFFFFFFFFFFFFFFFFF187FEFFF0442BCFE00000000A4A4A400BCBCBC00DEDE
+      DE00A6A6A6008383830085858500C4C4C4008A8A8A00B5B5B500ACACAC007F7B
+      770078767400A1A1A100A0A0A0006464640000000000A4A4A47BBCBCBCFFDEDE
+      DEFFA6A6A6FF838383F4299B5BFF90CAA9FF8DC8A5FF8AC6A1FF88C59EFF6AB6
+      85FF82C297FF48A566FF077925EA00791B09E8E8E800E8E8E800E8E8E800E8E8
       E800E8E8E800E8E8E800E8E8E800E8E8E80062626200959595006E6E6E00E8E8
-      E800E8E8E800E8E8E800E8E8E800E8E8E8000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000C9C9C900FCFCFC00FCFCFC00FCFC
+      E800E8E8E800E8E8E800E8E8E800E8E8E80000000000ABABAB7DA6A6A6FED5D5
+      D5FFC5C5C5FFCBCBCBFFD1D1D1FFC9C9C9FFC7C7C7FF1E56BCFF8DB5F6FF4D92
+      FFFF1177FFFF2186FFFF408AEBFF0344B9DE00000000ABABAB00A6A6A600D5D5
+      D500C5C5C500CBCBCB00D1D1D100C9C9C90090909000BBBBBB00B3B3B3008682
+      7F007F7B7700A7A7A700A6A6A6006B6B6B0000000000ABABAB7DA6A6A6FED5D5
+      D5FFC5C5C5FFCBCBCBFF319F63FF94CDADFF6FBA8EFF6BB889FF66B685FF61B3
+      80FF67B582FF83C298FF3CA05CFF007F25F9C9C9C900FCFCFC00FCFCFC00FCFC
       FC00FCFCFC00FCFCFC00FCFCFC00FCFCFC00FCFCFC0062626200FCFCFC00FCFC
-      FC00FCFCFC00FCFCFC00FCFCFC00E8E8E8000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000C9C9C900FCFCFC00C38F6C00C391
+      FC00FCFCFC00FCFCFC00FCFCFC00E8E8E8000000000000000000ACACAC85C5C5
+      C5FFC1C1C1FFC5C5C5FFC7C7C7FFAAAAAAFFA7A7A7FF7590C2FF3B75D1FF8DB5
+      F7FFB8D6FEFF72A8F5FF2D6BCBFC0443BA6D0000000000000000ACACAC00C5C5
+      C500C1C1C100C5C5C500C7C7C700AAAAAA0096969600C1C1C100B9B9B9008D89
+      860087848000AEAEAE00ADADAD00727272000000000000000000ACACAC85C5C5
+      C5FFC1C1C1FFC5C5C5FF37A36BFF96CEB0FF94CDADFF91CBAAFF90CBA8FF74BC
+      90FF8AC7A1FF46A568FF078735FB01832D01C9C9C900FCFCFC00C38F6C00C391
       6D00C3916E00C2926F00C2937000C1937100FCFCFC0062626200FCFCFC00FCFC
-      FC00FCFCFC00FCFCFC00FCFCFC00E8E8E8000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000C9C9C900FCFCFC00C38F6B00D99B
+      FC00FCFCFC00FCFCFC00FCFCFC00E8E8E800A3A3A3CD8F8F8FE3A0A0A0EECFCF
+      CFFFC6C6C6FFCCCCCCFF9E9E9EC699999944949494448F8F8FC67490C2FF225A
+      C0FF0542BCFF0D48B0FD2D4E89F0535353CDA3A3A3008F8F8F00A0A0A000CFCF
+      CF00C6C6C600CCCCCC009E9E9E00999999009B9B9B00C5C5C500BEBEBE009693
+      91008E8A8700B4B4B400B4B4B40079797900A3A3A3CD8F8F8FE3A0A0A0EECFCF
+      CFFFC6C6C6FFCCCCCCFF3DA56FFF37A36DFC33A167FC309D62FE55AF7CFF91CB
+      AAFF4FAB74FF188E45FF585858E3535353CDC9C9C900FCFCFC00C38F6B00D99B
       7300D69B7300D69D7600D6A17B00C2937000FCFCFC0062626200FCFCFC00FCFC
-      FC00FCFCFC00FCFCFC00FCFCFC00E8E8E8000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000C9C9C900FCFCFC00C38F6B00D998
+      FC00FCFCFC00FCFCFC00FCFCFC00E8E8E800BFBFBFFDE2E2E2FFD2D2D2FFC6C6
+      C6FFCDCDCDFFB1B1B1FF93939344000000000000000095959544A8A8A8FFC2C2
+      C2FFB7B7B7FFC0C0C0FFD2D2D2FF616161FDBFBFBF00E2E2E200D2D2D200C6C6
+      C600CDCDCD00B1B1B10093939300000000009A9998009B9B9B0098989800AEAB
+      A2009D8F87008A8A8A008585850080808000BFBFBFFDE2E2E2FFD2D2D2FFC6C6
+      C6FFCDCDCDFFB1B1B1FF939393440000000000000000959595443AA068FF5AB3
+      81FF289857FFC0C0C0FFD2D2D2FF616161FDC9C9C900FCFCFC00C38F6B00D998
       7200D8997200D69B7400D79F7900C2926F00FCFCFC0062626200FCFCFC00FCFC
-      FC00FCFCFC00FCFCFC00FCFCFC00E8E8E8000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000C9C9C900FCFCFC00C38F6B00C490
+      FC00FCFCFC00FCFCFC00FCFCFC00E8E8E800C4C4C4FDE9E9E9FFD6D6D6FFC9C9
+      C9FFCECECEFFA5A5A5FF8484844400000000000000009A9A9A44ACACACFFC4C4
+      C4FFBABABAFFC6C6C6FFDDDDDDFF6B6B6BFDC4C4C400E9E9E900D6D6D600C9C9
+      C900CECECE00A5A5A5008484840000000000000000009A9A9A00ACACAC00C4C4
+      C400BABABA00C6C6C600DDDDDD006B6B6B00C4C4C4FDE9E9E9FFD6D6D6FFC9C9
+      C9FFCECECEFFA5A5A5FF8484844400000000000000009A9A9A4440A470FF319F
+      65FFBABABAFFC6C6C6FFDDDDDDFF6B6B6BFDC9C9C900FCFCFC00C38F6B00C490
       6C00C38F6C00C3906D00C3916D00C3916E00FCFCFC0062626200FCFCFC00FCFC
-      FC00FCFCFC00FCFCFC00FCFCFC00E8E8E8000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000C9C9C900FCFCFC00FCFCFC00FCFC
+      FC00FCFCFC00FCFCFC00FCFCFC00E8E8E800C8C8C8CDC4C4C4E3C0C0C0EED8D8
+      D8FFCDCDCDFFBCBCBCFF828282C6777777447E7E7E448F8F8FC6C3C3C3FFC2C2
+      C2FFCDCDCDFF8C8C8CEE878787E3838383CDC8C8C800C4C4C400C0C0C000D8D8
+      D800CDCDCD00BCBCBC0082828200777777007E7E7E008F8F8F00C3C3C300C2C2
+      C200CDCDCD008C8C8C008787870083838300C8C8C8CDC4C4C4E3C0C0C0EED8D8
+      D8FFCDCDCDFFBCBCBCFF828282C6777777447E7E7E448F8F8FC6C3C3C3FFC2C2
+      C2FFCDCDCDFF8C8C8CEE878787E3838383CDC9C9C900FCFCFC00FCFCFC00FCFC
       FC00FCFCFC00FCFCFC00FCFCFC00FCFCFC00FCFCFC006C6C6C00FCFCFC00FCFC
-      FC00FCFCFC00FCFCFC00FCFCFC00E8E8E8000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000C9C9C900C9C9C900C9C9C900C9C9
+      FC00FCFCFC00FCFCFC00FCFCFC00E8E8E8000000000000000000C5C5C585D4D4
+      D4FFCCCCCCFFC9C9C9FFBABABAFF9C9C9CFFA1A1A1FFC2C2C2FFC6C6C6FFC1C1
+      C1FFB7B7B7FF8989898500000000000000000000000000000000C5C5C500D4D4
+      D400CCCCCC00C9C9C900BABABA009C9C9C00A1A1A100C2C2C200C6C6C600C1C1
+      C100B7B7B7008989890000000000000000000000000000000000C5C5C585D4D4
+      D4FFCCCCCCFFC9C9C9FFBABABAFF9C9C9CFFA1A1A1FFC2C2C2FFC6C6C6FFC1C1
+      C1FFB7B7B7FF898989850000000000000000C9C9C900C9C9C900C9C9C900C9C9
       C900C9C9C900C9C9C900C9C9C900C9C9C9006B6B6B008E8E8E0075757500C9C9
-      C900C9C9C900C9C9C900C9C9C900C9C9C9000000000000000000000000000000
+      C900C9C9C900C9C9C900C9C9C900C9C9C90000000000CACACA7DC4C4C4FEDCDC
+      DCFFD4D4D4FFD9D9D9FFDBDBDBFFD6D6D6FFD4D4D4FFD9D9D9FFD2D2D2FFCBCB
+      CBFFC8C8C8FF797979FE7171717D0000000000000000CACACA00C4C4C400DCDC
+      DC00D4D4D400D9D9D900DBDBDB00D6D6D600D4D4D400D9D9D900D2D2D200CBCB
+      CB00C8C8C80079797900717171000000000000000000CACACA7DC4C4C4FEDCDC
+      DCFFD4D4D4FFD9D9D9FFDBDBDBFFD6D6D6FFD4D4D4FFD9D9D9FFD2D2D2FFCBCB
+      CBFFC8C8C8FF797979FE7171717D000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000000000000D0D0D07BDCDCDCFFEDED
+      EDFFDBDBDBFFC2C2C2F4BEBEBEFED6D6D6FFD4D4D4FFB0B0B0FEACACACF4CBCB
+      CBFFE7E7E7FFB7B7B7FF8B8B8B7B0000000000000000D0D0D000DCDCDC00EDED
+      ED00DBDBDB00C2C2C200BEBEBE00D6D6D600D4D4D400B0B0B000ACACAC00CBCB
+      CB00E7E7E700B7B7B7008B8B8B000000000000000000D0D0D07BDCDCDCFFEDED
+      EDFFDBDBDBFFC2C2C2F4BEBEBEFED6D6D6FFD4D4D4FFB0B0B0FEACACACF4CBCB
+      CBFFE7E7E7FFB7B7B7FF8B8B8B7B000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000D1D1D19BCECE
+      CEFDCACACAE7C6C6C619C2C2C2E7DEDEDEFFDDDDDDFFB2B2B2E7B1B1B119ACAC
+      ACE7A7A7A7FDA3A3A39B00000000000000000000000000000000D1D1D100CECE
+      CE00CACACA00C6C6C600C2C2C200DEDEDE00DDDDDD00B2B2B200B1B1B100ACAC
+      AC00A7A7A700A3A3A30000000000000000000000000000000000D1D1D19BCECE
+      CEFDCACACAE7C6C6C619C2C2C2E7DEDEDEFFDDDDDDFFB2B2B2E7B1B1B119ACAC
+      ACE7A7A7A7FDA3A3A39B00000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000000000000000000000000000D1D1
+      D129CECECE0ECBCBCB02C7C7C7EAE5E5E5FFE4E4E4FFACACACEAB6B6B602B2B2
+      B20EADADAD29000000000000000000000000000000000000000000000000D1D1
+      D100CECECE00CBCBCB00C7C7C700E5E5E500E4E4E400ACACAC00B6B6B600B2B2
+      B200ADADAD00000000000000000000000000000000000000000000000000D1D1
+      D129CECECE0ECBCBCB02C7C7C7EAE5E5E5FFE4E4E4FFACACACEAB6B6B602B2B2
+      B20EADADAD290000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000CBCBCB63C7C7C7BFC4C4C4BFBFBFBF63000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000CBCBCB00C7C7C700C4C4C400BFBFBF00000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000CBCBCB63C7C7C7BFC4C4C4BFBFBFBF63000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000000000000000000000000000000000005C9560005C92
       6000000000000000000000000000000000000000000000000000000000000000
@@ -5282,11 +5303,11 @@ object FormControl: TFormControl
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      00000000000000000000000000000000FFFF000000000000FFFF000000000000
-      FFFF000000000000FFFF00000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      00000000000000000000000000000000FFFF000000000000FFFF000000000000
-      FFFF000000000000FFFF000000000000FFCFFFFFFFFF8000FF87000000000000
+      00000000000000000000000000000000FFFFFC01FC00FC07FFFFE000E000E003
+      FFFFC000C000C001FFFF80008000800000008000800080000000C000C000C000
+      0000000000000000000001800100018000000180018001800000000000000000
+      0000C003C003C0030000800180018001FFFF800180018001FFFFC003C003C003
+      FFFFE007E007E007FFFFFC3FFC3FFC3FFFCFFFFFFFFF8000FF87000000000000
       00010000000000007E0100007FFE000060010000400200004005000040020000
       4005000040020000400500004002000040050000400200004005000040020000
       400500007FFE00007FFD00000000000000010000000000000001000000000000
@@ -5358,8 +5379,8 @@ object FormControl: TFormControl
       000000000000}
   end
   object TamanoRelativoPopup: TPopupMenu
-    Left = 349
-    Top = 97
+    Left = 301
+    Top = 105
     object N251: TMenuItem
       Caption = '25%'
       OnClick = N251Click
@@ -5387,7 +5408,7 @@ object FormControl: TFormControl
   object TimerCamCapture: TTimer
     Enabled = False
     OnTimer = TimerCamCaptureTimer
-    Left = 432
-    Top = 96
+    Left = 376
+    Top = 112
   end
 end

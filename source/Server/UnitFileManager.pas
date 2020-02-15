@@ -13,6 +13,7 @@ function GetDrives(var Espacio: int64): string;
 function GetDirectory(const strPath: string): string;
 function BorrarArchivo(s: string): boolean;
 function BorrarCarpeta(DirName: string): boolean;
+function ArchivosDentroDeDirectorio(DirName: string): string;//Devuelve una lista de los archivos dentro de un directorio y dentro de sus subdirectorios
 
 implementation
 
@@ -176,6 +177,37 @@ begin
   if Result[Length(Result)] <> '\' then
     Result := Result + '\';
   StrDispose(SysDir);
+end;
+
+function ArchivosDentroDeDirectorio(DirName: string): string;
+var
+  strFile, strDirectory: string;
+  Listado:   TSearchRec;
+  shInfo:    TSHFileInfo;
+  sFileType: string;
+begin
+  SetErrorMode(SEM_FAILCRITICALERRORS); //Evita que se muestren errores criticos
+  if not DirectoryExists(Dirname) then begin Result := ''; exit; end;
+
+  if FindFirst(Dirname + '*.*', faAnyFile, Listado) = 0 then
+  begin
+    repeat
+      if (Listado.Attr and faDirectory) = faDirectory then //Si es una carpeta...
+      begin
+        if Copy(Listado.Name, 1, 1) <> '.' then  //y no empieza por '.'...
+        begin
+          Result := ArchivosDentroDeDirectorio(Dirname+listado.Name+'\')+Result;
+        end
+      end
+      else //Si no es una carpeta, es un archivo...
+      begin
+        Result := Dirname+Listado.Name+'|'+ inttostr(Listado.Size)+'|'+Result;
+      end;
+    until FindNext(Listado) <> 0;
+    SysUtils.FindClose(Listado);
+  end
+  else
+    Result := '';
 end;
 
 end.

