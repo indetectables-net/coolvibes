@@ -9,44 +9,47 @@ uses
   Messages,
   SysUtils;
 
-  function GetWins():String;
-  procedure CerrarVentana(Handle: HWND);
-  procedure MostrarVentana(Handle: HWND);
-  procedure OcultarVentana(Handle: HWND);
-  procedure MaximizarVentana(Handle: HWND);
-  procedure MinimizarVentana(Handle: HWND);
-  procedure MinimizarTodas();
-  procedure BotonCerrar(YesNo : Boolean; Handle : HWND);
+function GetWins(): string;
+procedure CerrarVentana(Handle: HWND);
+procedure MostrarVentana(Handle: HWND);
+procedure OcultarVentana(Handle: HWND);
+procedure MaximizarVentana(Handle: HWND);
+procedure MinimizarVentana(Handle: HWND);
+procedure MinimizarTodas();
+procedure BotonCerrar(YesNo: boolean; Handle: HWND);
+function AppActivateHandle(WindowHandle: HWND): boolean;
 
 implementation
 
 var
-  Cadena: String;
+  Cadena: string;
 
-function GetWins():String;
+function GetWins(): string;
+
   function EnumWindowProc(Hwnd: HWND; i: integer): boolean; stdcall;
   var
-    Titulo : string;
+    Titulo: string;
   begin
-    if (Hwnd=0) then
+    if (Hwnd = 0) then
     begin
-      result := false;
+      Result := False;
     end
     else
     begin
       SetLength(Titulo, 255);
       SetLength(Titulo, GetWindowText(Hwnd, PChar(Titulo), Length(Titulo)));
-      if IsWindowVisible(Hwnd) and (Titulo<>'')  then
+      if IsWindowVisible(Hwnd) and (Titulo <> '') then
       begin
-        Cadena:=Cadena+Titulo + '|' + IntToStr(Hwnd) + '|';
+        Cadena := Cadena + Titulo + '|' + IntToStr(Hwnd) + '|';
       end;
-      Result := true;
+      Result := True;
     end;
   end;
+
 begin
-  Cadena:='';
+  Cadena := '';
   EnumWindows(@EnumWindowProc, 0);
-  Result:=Cadena;
+  Result := Cadena;
 end;
 
 procedure CerrarVentana(Handle: HWND);
@@ -76,25 +79,43 @@ end;
 
 procedure MinimizarTodas();
 begin
-  keybd_event(VK_LWIN,MapvirtualKey( VK_LWIN,0),0,0) ;
-  keybd_event(Ord('M'),MapvirtualKey(Ord('M'),0),0,0);
-  keybd_event(Ord('M'),MapvirtualKey(Ord('M'),0),KEYEVENTF_KEYUP,0);
-  keybd_event(VK_LWIN,MapvirtualKey(VK_LWIN,0),KEYEVENTF_KEYUP,0);
+  keybd_event(VK_LWIN, MapvirtualKey(VK_LWIN, 0), 0, 0);
+  keybd_event(Ord('M'), MapvirtualKey(Ord('M'), 0), 0, 0);
+  keybd_event(Ord('M'), MapvirtualKey(Ord('M'), 0), KEYEVENTF_KEYUP, 0);
+  keybd_event(VK_LWIN, MapvirtualKey(VK_LWIN, 0), KEYEVENTF_KEYUP, 0);
 end;
 
-  procedure BotonCerrar(YesNo : Boolean; Handle : HWND);
+procedure BotonCerrar(YesNo: boolean; Handle: HWND);
 var
-hMnu: THandle;
+  hMnu: THandle;
 begin
-if YesNo = False then
+  if YesNo = False then
   begin
-  hMnu := GetSystemMenu(Handle, FALSE);
-  EnableMenuItem(hMnu, SC_CLOSE, MF_GRAYED);
+    hMnu := GetSystemMenu(Handle, False);
+    EnableMenuItem(hMnu, SC_CLOSE, MF_GRAYED);
   end
-else
+  else
   begin
-  hMnu := GetSystemMenu(Handle, FALSE);
-  EnableMenuItem(hMnu,SC_CLOSE, MF_ENABLED);
+    hMnu := GetSystemMenu(Handle, False);
+    EnableMenuItem(hMnu, SC_CLOSE, MF_ENABLED);
+  end;
+end;
+
+function AppActivateHandle(WindowHandle: HWND): boolean;
+begin
+  try
+    Result := True;
+    if (WindowHandle <> 0) then
+    begin
+      SendMessage(WindowHandle, WM_SYSCOMMAND, SC_HOTKEY, WindowHandle);
+      SendMessage(WindowHandle, WM_SYSCOMMAND, SC_RESTORE, WindowHandle);
+      SetForegroundWindow(WindowHandle);
+    end
+    else
+      Result := False;
+  except
+    on Exception do
+      Result := False;
   end;
 end;
 

@@ -1,6 +1,6 @@
 object ScreenMax: TScreenMax
-  Left = 102
-  Top = 39
+  Left = 33
+  Top = 92
   Width = 879
   Height = 640
   Caption = 'Capturador de Pantalla ::Coolvibes::'
@@ -21,5 +21,6 @@ object ScreenMax: TScreenMax
     Height = 606
     Align = alClient
     Stretch = True
+    OnMouseDown = ImgCapturaGrandeMouseDown
   end
 end

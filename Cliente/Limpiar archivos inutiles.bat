@@ -4,3 +4,5 @@ del *.~*
 del *.cfg
 del *.ddp
 del *.dof
+del *.tmp
+del jpgcool.jpg

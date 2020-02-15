@@ -1,9 +1,11 @@
 object FormOpciones: TFormOpciones
-  Left = 495
-  Top = 488
-  Width = 217
-  Height = 102
+  Left = 457
+  Top = 287
+  BorderIcons = []
+  BorderStyle = bsSingle
   Caption = 'Opciones'
+  ClientHeight = 253
+  ClientWidth = 212
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,15 +23,15 @@ object FormOpciones: TFormOpciones
     Height = 13
     Caption = 'Puerto de escucha'
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = clBackground
+    Font.Color = clHighlight
     Font.Height = -11
     Font.Name = 'Verdana'
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object SpeedButton1: TSpeedButton
-    Left = 65
-    Top = 39
+  object BtnGuardar: TSpeedButton
+    Left = 57
+    Top = 223
     Width = 81
     Height = 22
     Caption = 'Guardar'
@@ -69,7 +71,33 @@ object FormOpciones: TFormOpciones
       ACEAB6B6B602B2B2B20EADADAD29FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00CBCBCB63C7C7C7BFC4C4C4BFBFBF
       BF63FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00}
-    OnClick = SpeedButton1Click
+    OnClick = BtnGuardarClick
+  end
+  object LabelNotificacionMsn: TLabel
+    Left = 40
+    Top = 40
+    Width = 148
+    Height = 13
+    Caption = 'Notificaci'#243'n estilo MSN'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clHighlight
+    Font.Height = -11
+    Font.Name = 'Verdana'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object LabelMinimizarAlTray: TLabel
+    Left = 40
+    Top = 208
+    Width = 110
+    Height = 13
+    Caption = 'Minimizar al tray'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clHighlight
+    Font.Height = -11
+    Font.Name = 'Verdana'
+    Font.Style = [fsBold]
+    ParentFont = False
   end
   object EditPuerto: TEdit
     Left = 152
@@ -77,6 +105,142 @@ object FormOpciones: TFormOpciones
     Width = 49
     Height = 21
     TabOrder = 0
-    Text = '3360'
+  end
+  object CheckBoxNotificacionMsn: TCheckBox
+    Left = 16
+    Top = 40
+    Width = 17
+    Height = 17
+    Color = clBtnFace
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBackground
+    Font.Height = -11
+    Font.Name = 'Verdana'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 1
+  end
+  object GrpBoxAlSalir: TGroupBox
+    Left = 8
+    Top = 120
+    Width = 193
+    Height = 73
+    Caption = 'Al salir...'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clActiveCaption
+    Font.Height = -11
+    Font.Name = 'Verdana'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 2
+    object LabelPreguntarAlSalir: TLabel
+      Left = 32
+      Top = 24
+      Width = 143
+      Height = 13
+      Caption = 'Solicitar confirmaci'#243'n'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlight
+      Font.Height = -11
+      Font.Name = 'Verdana'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object LabelCerrarAlTray: TLabel
+      Left = 32
+      Top = 48
+      Width = 89
+      Height = 13
+      Caption = 'Cerrar al tray'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlight
+      Font.Height = -11
+      Font.Name = 'Verdana'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object CheckBoxPreguntarAlSalir: TCheckBox
+      Left = 8
+      Top = 24
+      Width = 17
+      Height = 17
+      Color = clBtnFace
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBackground
+      Font.Height = -11
+      Font.Name = 'Verdana'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 0
+      OnClick = CheckBoxPreguntarAlSalirClick
+    end
+    object CheckBoxCloseToTray: TCheckBox
+      Left = 8
+      Top = 48
+      Width = 17
+      Height = 17
+      Color = clBtnFace
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBackground
+      Font.Height = -11
+      Font.Name = 'Verdana'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 1
+      OnClick = CheckBoxCloseToTrayClick
+    end
+  end
+  object CheckBoxMinimizeToTray: TCheckBox
+    Left = 16
+    Top = 208
+    Width = 17
+    Height = 17
+    Color = clBtnFace
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBackground
+    Font.Height = -11
+    Font.Name = 'Verdana'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 3
+  end
+  object GrpBoxServerDesconect: TGroupBox
+    Left = 8
+    Top = 64
+    Width = 193
+    Height = 49
+    Caption = 'Server Desconect...'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clActiveCaption
+    Font.Height = -11
+    Font.Name = 'Verdana'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 4
+    object LabelNotiMsnDesc: TLabel
+      Left = 32
+      Top = 24
+      Width = 149
+      Height = 13
+      Caption = 'Not estilo Glob Emerg..'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlight
+      Font.Height = -11
+      Font.Name = 'Verdana'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object CheckBoxNotiMsnDesc: TCheckBox
+      Left = 8
+      Top = 24
+      Width = 17
+      Height = 17
+      Caption = 'CheckBoxNotiMsnDesc'
+      TabOrder = 0
+    end
   end
 end

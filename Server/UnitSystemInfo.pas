@@ -6,121 +6,143 @@ interface
 
 uses
   Windows,
-  sysutils,
-  UnitFunciones;
+  SysUtils,
+  UnitFunciones,
+  UnitFileManager;
 
-  function GetOS(): String;
-  function GetCPU():String;
-  function fGetComputerName():String;
-  function fGetUserName(): String;
-  function GetSvrPath(): String;
+function GetOS(): string;
+function GetCPU(): string;
+function GetUptime(): string;
+function GetIdleTime(): string;
+function GetPCName(): string;
+function GetPCUser(): string;
+function GetResolucion(): string;
+function GetTamanioDiscos(): string;
 
 implementation
 
-function sTrim(lpStr:String):String;
-var
-i: Integer;
-nTemp: Integer;
-nTemp2: Integer;
-begin
-If Length(lpStr) > 0 Then
-begin
-     for i := 1 to Length(lpStr)  do
-     begin
-         If (lpStr[i] <> ' ') or (lpStr[i] <> chr(0)) Then
-         begin
-              nTemp := i;
-              break;
-         end;
-     end;
-
-     for i := Length(lpStr) downto 1 do
-     begin
-         If (lpStr[i] <> ' ') or (lpStr[i]<>chr(0)) Then
-         begin
-            nTemp2:=i;
-            break;
-         end;
-     end;
-
-     for i := nTemp to nTemp2 do
-     begin
-         Result:=Result + lpStr[i]
-     end;
-end;
-end;
-
-function IntToStr(Num: Integer):String;
-var x:string;
-begin
-     System.Str(Num,x);
-     result:=x;
-end;
-
-function GetOS(): String;
+function GetOS(): string;
 var
   osVerInfo: TOSVersionInfo;
 begin
-  Result:='Desconocido';
-  osVerInfo.dwOSVersionInfoSize:=SizeOf(TOSVersionInfo);
+  Result := 'Desconocido';
+  osVerInfo.dwOSVersionInfoSize := SizeOf(TOSVersionInfo);
   GetVersionEx(osVerInfo);
   case osVerInfo.dwPlatformId of
-    VER_PLATFORM_WIN32_NT: begin
+    VER_PLATFORM_WIN32_NT:
+    begin
       case osVerInfo.dwMajorVersion of
-        4: Result:='Windows NT 4.0';
+        4: Result := 'Windows NT 4.0';
         5: case osVerInfo.dwMinorVersion of
-             0: Result:='Windows 2000';
-             1: Result:='Windows XP';
-             2: Result:='Windows Server 2003';
-           end;
-        6: Result:='Windows Vista';
-        7: Result:='Windows 7'
+            0: Result := 'Windows 2000';
+            1: Result := 'Windows XP';
+            2: Result := 'Windows Server 2003';
+          end;
+        6: Result := 'Windows Vista';
       end;
     end;
-    VER_PLATFORM_WIN32_WINDOWS: begin
+    VER_PLATFORM_WIN32_WINDOWS:
+    begin
       case osVerInfo.dwMinorVersion of
-        0: Result:='Windows 95';
-       10: Result:='Windows 98';
-       90: Result:='Windows Me';
+        0: Result  := 'Windows 95';
+        10: Result := 'Windows 98';
+        90: Result := 'Windows Me';
       end;
     end;
   end;
+  if osVerInfo.szCSDVersion <> '' then
+    Result := Result + ' ' + osVerInfo.szCSDVersion;
 end;
 
-function GetCPU():String;
+function GetCPU(): string;
 begin
   //Trim quita los espacios antes y despues de la cadena, ejem "    CPU p6 2000  " , con trim "CPU p6 2000"
-  Result := Trim(GetClave(HKEY_LOCAL_MACHINE, 'HARDWARE\DESCRIPTION\System\CentralProcessor\0', 'ProcessorNameString'));
+  Result := Trim(GetClave(HKEY_LOCAL_MACHINE,
+    'HARDWARE\DESCRIPTION\System\CentralProcessor\0', 'ProcessorNameString'));
 end;
 
-function fGetComputerName():String;
+function GetUptime(): string;
 var
-lpBuffer: String;
-nSize: Cardinal;
+  Tiempo, Dias, Horas, Minutos: cardinal;
 begin
-     SetLength(lpBuffer,MAX_COMPUTERNAME_LENGTH + 1);
-     nSize:= Length(lpBuffer);
-     GetComputerName(PChar(lpBuffer),nSize);
-     lpBuffer:= Trim(lpBuffer);
-     Result:= lpBuffer;
+  Tiempo  := GetTickCount();
+  Dias    := Tiempo div (1000 * 60 * 60 * 24);
+  Tiempo  := Tiempo - Dias * (1000 * 60 * 60 * 24);
+  Horas   := Tiempo div (1000 * 60 * 60);
+  Tiempo  := Tiempo - Horas * (1000 * 60 * 60);
+  Minutos := Tiempo div (1000 * 60);
+  Result  := IntToStr(Dias) + 'd ' + IntToStr(Horas) + 'h ' + IntToStr(Minutos) + 'm';
 end;
 
-function fGetUserName(): String;
+function getIdleTime(): string;
 var
-lpBuffer: array [0..MAX_PATH] of char;
-nSize: Cardinal;
+  liInfo: TLastInputInfo;
+  Hour, Min, Sec: integer;
 begin
-     nSize:= SizeOf(lpBuffer);
-     GetUserName(lpBuffer,nSize);
-     Result:= Trim(lpBuffer);
+  Result := '';
+  liInfo.cbSize := SizeOf(TLastInputInfo);
+  if GetLastInputInfo(liInfo) <> False then
+  begin
+    Sec  := (GetTickCount - liInfo.dwTime) div 1000;
+    Min  := Sec div 60;
+    Sec  := Sec mod 60;
+    Hour := Min div 60;
+    Min  := Min mod 60;
+
+    if Hour < 10 then
+      Result := Result + '0' + IntToStr(Hour)
+    else
+      Result := Result + IntToStr(Hour);
+
+    if Min < 10 then
+      Result := Result + ':0' + IntToStr(Min)
+    else
+      Result := Result + ':' + IntToStr(Min);
+
+    if Sec < 10 then
+      Result := Result + ':0' + IntToStr(Sec)
+    else
+      Result := Result + ':' + IntToStr(Sec);
+
+    Result := Result + ' (hh:mm:ss)';
+  end;
 end;
 
-function GetSvrPath(): String;
+function GetPCName(): string;
 var
-lpBuffer: Array [0..MAX_PATH]of char;
+  PC:  PChar;
+  Tam: cardinal;
 begin
-     GetModuleFileName(0,lpBuffer,MAX_PATH);
-     Result:= Trim(lpBuffer)
+  Tam := 100;
+  Getmem(PC, Tam);
+  GetComputerName(PC, Tam);
+  Result := PC;
+  FreeMem(PC);
+end;
+
+function GetPCUser(): string;
+var
+  User: PChar;
+  Tam:  cardinal;
+begin
+  Tam := 100;
+  Getmem(User, Tam);
+  GetUserName(User, Tam);
+  Result := User;
+  FreeMem(User);
+end;
+
+function GetResolucion(): string;
+begin
+  Result := IntToStr(AnchuraPantalla()) + 'x' + IntToStr(AlturaPantalla());
+end;
+
+function GetTamanioDiscos(): string;
+var
+  Tam: int64;
+begin
+  GetDrives(Tam);
+  Result := IntToStr(Tam);
 end;
 
 end.

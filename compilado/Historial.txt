@@ -1,0 +1,408 @@
+[-Historial del programa: CoolvibesRAT-]
+
+Formato del archivo:
+Fecha: dd/mm/aa
+Versión: x.x Update x
+Modificación de: Nick
+[+] Añadidos, mejoras
+[-] Cosas quitadas
+[*] Bug solucionados, arreglos
+
+
+|----------------------------|
+
+Fecha 30/08/2008
+Versión: 0.5
+Modificación de: Unknown
+
+[+] El server es un dll llamado coolserver.dll
+[+] Se crea Monitor.dll que se encarga de crear una instancia de Internet explorer y solicitar la inyección de coolserver.dll en el mismo. Si la instancia de IE es terminada por algún motivo, el crea otra y solicita nuevamente la inyección
+[+] Se crea Jeringa.exe que contiene tanto coolserver.dll como Monitor.dll. Este Inyecta Monitor.dll en el proceso explorer.exe. Las inyecciones son directo desde memoria, los dll nunca son escritos a disco
+[+] Se eliminó por completo el uso de ScktComp y se sustituyó por SocketUnit de Aphex
+[+] Se eliminó la conversión a jpg desde coolserver y para ello se creo jpg_plugin. Es indispensable que este se encuentre en %SYSDIR% para que funcione tanto la captura de pantalla como de webcam. Este debe ser subido manualmente una vez qe se haya instalado el coolvibes en la máquina de la víctima
+[+] Se agregó la funcionalidad de solicitar una previsualización de un jpg (tambien conocido como thumbnail) para así ver cuales fotos nos interesan y solo bajar esas
+[+] Se modificó la forma en que el server detecta si se ha perdido la conexión con el cliente coolvibes para así intentar iniciarla de nuevo
+[+] Se agregó el método de inicio Active Setup
+[+] En el directorio DllInjection se encuentra el código para inyectar. Para crear el archivo destino sólo se debe primero compilar coolserver.dll y luego entrar a DllInjection y ejecutar BuildRat. El archivo a enviar a la víctima es: Jeringa.exe
+[-] Se eliminó la posibilidad de abrir y cerrar el cdrom para reducit el tamaño del coolvibes. Si se quiere agregar, solo basta con "descomentar" algunas líneas
+
+
+
+|----------------------------|
+
+Fecha: 17/01/07 //El primero update del 2007! ;-]
+Versión: 0.4 Update 3
+Modificación de: Wack-a-Mole
+
+[+]Nueva opción en el servidor: Copiar con fecha anterior. Lo que hace es
+   que al copiarse el servidor, este agarra la fecha de un archivo ya existente
+   de la carpeta donde se copió. Así es más difícil de encontrar cuando
+   se organizan los archivos por "Modificado".
+[+]El cliente ahora se puede minimizar a la system tray.
+[+]Agregada la opción de "Ir a proceso" en la sección "Ventanas". Lo que
+   hace es que localiza el proceso padre de la ventana selecciona
+[*]Corregido un bug al listar archivos en el explorador de archivos:
+   A veces salía un letrero: "List index out of bounds (2)" y no se organizaban
+   correctamente.
+[*]Corregido un bug al usar la captura de pantalla con timer automático: no funcionaba.
+[*]Uno que otro bugcito por ahí, que no vale la pena mencionar.
+
+|----------------------------|
+
+Fecha: 29/12/06
+Versión: 0.4 Update 2
+Modificación de: Thor
+
+[+]Se ordenan las filas al pinchar sobre las columnas.
+[+]GUI mejorada, mas iconos en los listviews y popupmenus.
+[+]Añadido algo mas de información del sistema, espacio total en discos, resolución y nombre de usuario.
+[+]Borrar clave del registro ahora es recursivo, borra las subclaves que halla en esa clave.
+[+]Añadida fecha de modificación para las carpetas y mas exactitud para la de los archivos.
+
+|----------------------------|
+
+Fecha: 27/12/06
+Versión: 0.4 Update 1
+Modificación de: Unknown
+
+[+] Se desabilitan el boton de Capturar escritorio mientras se está obteniendo una captura de escritorio
+[+] Se desabilitan el boton de Capturar Webcam mientras se está obteniendo una captura de Webcam
+[*] Se corrigió el bug que hacía que algunas capturas se paralizaran antes de ser completadas, para ello se modificó la rutina de transferencia de archivos
+
+|----------------------------|
+
+Fecha 25/12/2006
+Versión: 0.4
+Modificación de: Unknown
+
+[+] Posibilidad de descargar múltiples archivos de forma simultánea
+[+] Posibilidad de Detener una descarga en curso
+[+] Posibilidad de Reanudar una descarga que ha sido detenida
+[+] Posibilidad de colcar archivos en cola de descarga
+[+] Al finalizar una descarga se inicializará automáticamente la primera descarga en cola
+[+] Se pueden enviar comandos mientras se descarga una captura de escritorio o de web cam
+[+] Posibilidad de detener la subida de un archivo
+[+] Se agregó Tiempo de Inactividad a la información extendida del sistema
+[*] En vez de usar Winsocks se usa el componente Indy, disponible automáticamente con la instalación de Delphi 6 en adelante
+[*] Del lado del server se usa ClientSockets de Aphex para el envío y recepción de archivos, para el resto de los comandos se usa WinSock
+
+|----------------------------|
+
+Fecha: 12/12/06
+Versión: 0.3 Update 3
+Modificación de: robokop
+
+[+]Service manager
+|----------------------------|
+
+Fecha: 28/11/06
+Versión: 0.3 Update 2
+Modificación de: Wack-a-Mole
+
+[+]Agregada Shell Remota (Gracias stm por la ayuda en el foro de ChaseNET!).
+[*]Cambido método de borrarse a sí mismo en el servidor al desinstalar.
+   (Créditos: FoRSaKeN^). Ahora usa inyección y no un BAT.
+
+|----------------------------|
+
+Fecha: 14/11/06
+Versión: 0.3 Update 1
+Modificación de: Sr_Sombrero
+
+[+]Corregido bug del server que estando desconectado no llama al cliente porque
+ cree que sigue conectado al no haberse activado el evento OnDisconnect
+ por una desconexión brusca (ej. si se cuelga PC del cliente).
+
+|----------------------------|
+
+Fecha: 14/11/06
+Versión: 0.3
+Modificación de: Thor
+
+[+]Añadida pestaña de transferencias:
+   -Se puede bajar y subir ficheros simultaneamente y mientras enviar/recibir otros comandos.
+   -Los archivos se descargan en la carpeta \Descargas\NombreServer\.
+   -Informa sobre el progreso total, tamaño, recibido/enviado, velocidad.
+   -Los archivos encolados se pueden cambiar de posición.
+[+]En el explorador de archivos ahora se muestra el tamaño de un archivo con la unidad que mas se le ajuste, B, KB, MB o GB.
+[+]Al listar las unidades dá mas información sobre estas, nombre, espacio libre/total y formato de ficheros.
+
+|----------------------------|
+
+Fecha: 05/11/06
+Versión: 0.2 Update 13
+Modificación de: Wack-a-Mole
+
+[+]Agregada la opción de instalar el servidor en cualquier carpeta, con las siguientes variables:
+	%WinDir%
+	%SysDir%
+	%TempDir%
+	%RootDir%
+[*]Arreglado un bug con la desinstalación, el servidor no se borraba a sí mismo.
+
+|----------------------------|
+
+Fecha: 03/11/06
+Versión: 0.2 Update 12
+Modificación de: robokop
+
+[+]Agregada la posibilidad de hacer zoom en la captura de pantalla 
+[+]Agregado el Relay automatico de capturas de pantalla.
+
+|----------------------------|
+
+Fecha: 02/11/06
+Versión: 0.2 Update 11
+Modificación de: Thor
+
+[*]Mejorada la notificación, nuevo fondo y activada la propiedad stayontop.
+[*]Para enviar clicks no se necesita quitar el stretch de la imagen, tambien se pueden enviar clicks en la imagen maximizada.
+
+|----------------------------|
+
+Fecha: 01/11/06
+Versión: 0.2 Update 10
+Modificación de: Wack-a-Mole
+
+[+]Agregada la pestaña Servidor en el cliente que contiene:
+	Información variada sobre el servidor
+	Gestión de servidor
+		Cerrar
+		Desinstalar
+[+]El servidor se copia a la carpeta de Windows o a la de sistema (configurable).
+[+]El servidor ahora se copia al registro para autoiniciarse con Windows, usando el método Policies (configurable).
+[*]Corregidos muchos bugs de la visualización de las forms, ahora la mayoría pueden maximizarse sin ningún problema.
+[*]Corregida la opción de cambiar icono al servidor. Ahora sí funciona.
+[*]Corregido un bug citado por Thor que consistía en que el cliente no mostraba la notificación al estilo MSN a menos que se abriera la Form Opciones.
+
+|----------------------------|
+
+Fecha: 29/10/06
+Versión: 0.2 Update 9
+Modificación de: robokop
+
+[+]Agregada la opcion de mouse Remoto con posibilidad de enviar clicks izquierdos y derechos.
+
+|----------------------------|
+
+Fecha: 29/10/06
+Versión: 0.2 Update 8
+Modificación de: Thor
+
+[+]Agregada gestión de webcam
+[+]Añadida notificación estilo msn
+
+
+|----------------------------|
+
+Fecha: 26/10/06
+Versión: 0.2 Update 7
+Modificación de: Wack-a-Mole
+
+[+]Agregada la opción de escribir la configuración del servidor como un recurso. (Créditos: tt).
+[+]Agregado un editor de configuración para el servidor.
+[*]Corregidos algunos bugs visuales, por ejemplo, ya se puede maximizar la ventana principal.
+
+
+|----------------------------|
+
+Fecha: 21/10/06
+Versión: 0.2 Update 6
+Modificación de: Robokop
+
+[+]Se puede Observar la ruta de los ejecutables de cada uno de los procesos.
+[+]Obtiene el nombre de usuario en la informacion del sistema.
+[+]Obtiene la ruta del server en la informacion,
+[+]Ahora indica tambien el service pack el la informacion del sistema operativo
+
+|----------------------------|
+
+Fecha: 18/10/06
+Versión: 0.2 Update 5
+Modificación de: Robokop
+
+[*]Solucionado Bug del Registro ahora ya lista todas las claves basado en el codigo de 
+Wackamole.
+
+|----------------------------|
+
+Fecha: 18/10/06
+Versión: 0.2 Update 4
+Modificación de: Wack-a-Mole
+
+[+] Agregada la sección Beta-Testers a la ventana de About. V-Robot
+     es el primer Beta-Tester! Gracias ;)
+[+] Cuando se abre una conexión con algún servidor, en el título de la ventana sale el nombre y el IP.
+[*] Corregido bug al listar carpetas con muchos archivos. Ahora se
+    listan todos los archivos.
+
+|----------------------------|
+
+Fecha: 12/10/06
+Versión: 0.2 Update 3
+Modificación de: Robokop
+[+]Ahora se puede cambiar el nombre del server en tiempo de ejecución.
+
+|----------------------------|
+
+Fecha: 12/10/06
+Versión: 0.2 Update 2
+Modificación de: Wack-a-Mole
+[+] Añadida la opción de Enviar teclas a una ventana,
+    con soporte de teclas especiales como Enter, Escape, Control, etc.
+
+|----------------------------|
+
+Fecha: 11/10/06
+Versión: 0.2 Update 1
+Modificación de: Wack-a-Mole
+[+] Añadido soporte para usar archivos .ini de configuración
+[+] Añadida la opción de Preguntar al salir en el cliente 
+[*] Modificada la Form About, ahora tiene un banner de Indetectables xD
+
+|----------------------------|
+
+Fecha: 10/10/06
+Versión: 0.2
+Modificación de: Thor
+[+] Ahora la conexión se hace desde el servidor hacia el cliente, conexión inversa
+[+] Se puede hacer ping a los servidores
+[+] Interfaz mejorada con la inserción de iconos en popmenus y botones (hermosos iconos sacados de www.famfamfam.com)
+[+] Código mejorado en mensajes, pantalla (ahora no se guarda un archivo .bmp antes del .jpg), las capturas
+     se guardan en la misma carpeta del cliente (jpgcool.jpg) y del server (jpgcool.dat).
+[+] Añadida ventana de about
+
+|----------------------------|
+Fecha: 8/10/06
+Versión: 0.1 Update 10
+Modificación de: Robokop
+[+] Agregado soporte para ver que Antivirus y Firewall corre el computador del server
+[*] Solucionado bug con la barra de progreso de la Captura de Pantalla
+
+|----------------------------|
+
+Fecha: 7/10/06
+Versión: 0.1 Update 9
+Modificación de: Robokop
+[+]Captura de Escritorio Remoto 
+	-Se añadio la uses jpeg y graphics al cliente asi como al server, el aumento del server fue 
+	 de 100 kb por las uses.
+	-Se cambio la forma de recibir los datos en el cliente, ahora utiliza un buffer todo funciona igual
+	 pero es para poder recibir el stream sin perder calidad.
+	-Tiene una barra de progreso 
+	-Comprimir imagenes de calidad del 1-100
+	-las imagenes recibidas se guardan en el directorio C:\ , falta de cambiar eso y borrar las imagenes en el server automaticamente 
+	 eso lo veo prudente hacerlo hasta al ultimo para verificar tamaños y funcionamientos correctos 
+
+
+|----------------------------|
+
+Fecha: 4/10/06
+Versión: 0.1 Update 8
+Modificación de: Wack-a-Mole
+[+]Añadida la opción de desactivar el botón Cerrar [X] de una ventana.
+[+]Ahora se puede ver lo que responde el usuario a los mensajes agregados en el Update 7.
+[*]Corregido un bug que no mostraba los botones correctos en el server cuando se enviaba un mensaje sin icono.
+
+
+|----------------------------|
+
+Fecha: 2/10/06
+Versión: 0.1 Update 7
+Modificación de: Robokop
+[+]Envio de Mensajes Remotos con posibilidad de elegir título, texto del mensaje, icono y botones.
+
+|----------------------------|
+
+Fecha: 30/09/06
+Versión: 0.1 Update 6
+Modificación de: Thor
+[+]Añadido gestión de registro
+    Añadir claves y valores (REG_SZ, REG_BINARY, REG_DWORD, REG_MULTI_SZ)
+    Eliminar claves y valores
+    Renombrar claves y valores
+[+]Posibilidad de establecer un password en el servidor
+[+]Mejorada la interfaz del cliente, tabs con iconos, speedbuttons, ect...
+[+]Mejorado popup de filemanager
+
+|----------------------------|
+
+Fecha: 21/09/06
+Versión: 0.1 Update 5
+Modificación de: Wack-a-Mole
+[+]Agregado un Explorador de Archivos básico con las siguientes funciones:
+     	Ejecutar archivos en modo normal y modo oculto
+	Eliminar archivos
+	Eliminar carpetas
+	Renombrar archivos y carpetas
+	Crear nuevas carpetas
+[+]Añadida un ImageList que contiene todos los pequeños iconos que
+   se muestran en el Explorador de archivos.
+[+]Agregada la unit UnitFileManager que contiene las funciones del Explorador de archivos
+[*]Corregidos pequeños fallos que no vale la pena especificar.
+
+|----------------------------|
+
+Fecha: 21/09/06
+Versión: 0.1 Update 4
+Modificación de: Thor
+[+]Agregadas funciones sobre ventanas
+     Cerrar ventana
+     Minimizar
+     Maximizar
+     Mostrar
+     Ocultar
+     Minimizar todas
+[+]Añadidos popups menus a los listview de procesos y ventanas
+[*]Las respuestas a los comandos se visualizan en la parte derecha del status bar 
+[*]Reducido el tamaño del servidor a un tercio del anterior y reorganizado el 
+código de este en diversas units
+
+|----------------------------|
+
+Fecha: 09/09/06
+Versión: 0.1 Update 3 Fixed
+Modificación de: Wack-a-Mole
+[*]Solucionado bug con el ListView de bromas
+
+|----------------------------|
+
+Fecha: 31/08/06
+Versión: 0.1 Update 3
+Modificación de: Thor
+[*]Reorganización del código
+
+|----------------------------|
+
+Fecha: 30/08/06
+Versión: 0.1 Update 2
+Modificación de: Wack-a-Mole
+[+]Añadidas funciones de bromas
+     Mouse tembloroso
+     Congelar mouse
+     Abrir/Cerrar CD
+     Activar/Desactivar boton de inicio
+[*]Mejorada organización del código
+
+|----------------------------|
+
+Fecha: 28/08/06
+Versión: 0.1 Update 1
+Modificación de: Wack-a-Mole
+[+]Añadida la función de cerrar procesos
+[*]Mejorada organización del código
+
+|----------------------------|
+
+Fecha: 26/08/06
+Versión: 0.1
+Modificación de: Thor
+[+]Troyano de conexión directa
+[+]Información del sistema
+    Sistema operativo
+    CPU
+    Tiempo encendido
+[+]Ver procesos 
+[+]Ver ventanas
+
+|----------------------------|

@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, ScktComp;
+  Dialogs, StdCtrls, Buttons, IdTCPServer;
 
 type
   TFormReg = class(TForm)
@@ -12,18 +12,19 @@ type
     EditNombreValor: TEdit;
     LabelInformacion: TLabel;
     MemoInformacionValor: TMemo;
-    BtnAceptar: TSpeedButton;
+    BtnAceptar:  TSpeedButton;
     BtnCancelar: TSpeedButton;
     procedure BtnCancelarClick(Sender: TObject);
     procedure BtnAceptarClick(Sender: TObject);
-    procedure MemoInformacionValorKeyPress(Sender: TObject; var Key: Char);
+    procedure MemoInformacionValorKeyPress(Sender: TObject; var Key: char);
   private
-    Servidor: TCustomWinSocket;
-    Ruta, Tipo: String;
+    Servidor:   TIdPeerThread;
+    Ruta, Tipo: string;
     procedure CerrarVentana();
     { Private declarations }
   public
-    constructor Create(aOwner: TComponent; Socket: TCustomWinSocket; RegistroRuta, RegistroTipo: String);
+    constructor Create(aOwner: TComponent; Socket: TIdPeerThread;
+      RegistroRuta, RegistroTipo: string);
     { Public declarations }
   end;
 
@@ -36,20 +37,21 @@ uses UnitMain;
 
 {$R *.dfm}
 
-constructor TFormReg.Create(aOwner: TComponent; Socket: TCustomWinSocket; RegistroRuta, RegistroTipo: String);
+constructor TFormReg.Create(aOwner: TComponent; Socket: TIdPeerThread;
+  RegistroRuta, RegistroTipo: string);
 begin
   inherited Create(aOwner);
   Servidor := Socket;
-  Ruta := RegistroRuta;
-  Tipo := RegistroTipo;
-  Caption := 'Añadiendo valor ' + Tipo;
+  Ruta     := RegistroRuta;
+  Tipo     := RegistroTipo;
+  Caption  := 'Añadiendo valor ' + Tipo;
 end;
 
 procedure TFormReg.CerrarVentana();
 begin
   //Deja todo como estaba
-  EditNombreValor.Text := '';
-  EditNombreValor.Enabled := True;
+  EditNombreValor.Text      := '';
+  EditNombreValor.Enabled   := True;
   MemoInformacionValor.Text := '';
   MemoInformacionValor.Enabled := True;
   Close;
@@ -62,28 +64,29 @@ end;
 
 procedure TFormReg.BtnAceptarClick(Sender: TObject);
 begin
-  if Servidor.Connected then
+  if Servidor.Connection.Connected then
   begin
-    Servidor.SendText('ADDVALUE|' + Ruta +
-       EditNombreValor.Text + '|' + Tipo + '|' + MemoInformacionValor.Text);
+    Servidor.Connection.WriteLn('ADDVALUE|' + Ruta + EditNombreValor.Text +
+      '|' + Tipo + '|' + MemoInformacionValor.Text);
   end
   else
-    MessageDlg('No estas conectado !', mtwarning, [mbok], 0);
+    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
   CerrarVentana();
 end;
 
-procedure TFormReg.MemoInformacionValorKeyPress(Sender: TObject;
-  var Key: Char);
+procedure TFormReg.MemoInformacionValorKeyPress(Sender: TObject; var Key: char);
 begin
   if (Tipo = 'REG_SZ') or (Tipo = 'REG_EXPAND_SZ') then
     if (key = #10) or (key = #13) then
     begin
-      MessageDlg('Los valores binarios solo constan de una linea', mtwarning, [mbok], 0);
+      MessageDlg('Los valores binarios solo constan de una linea', mtWarning, [mbOK], 0);
       Key := #0;
       MessageBeep($FFFFFFFF);
     end;
-  if Tipo = 'REG_BINARY' then  //Si es un valor binario solo deja introducir valores hexadeciamles y espacios
-    if not (key in ['0'..'9', 'A'..'F', 'a'..'f', ' ', #8]) then  //#8 es el backspace, borrar
+  if Tipo = 'REG_BINARY' then
+    //Si es un valor binario solo deja introducir valores hexadeciamles y espacios
+    if not (key in ['0'..'9', 'A'..'F', 'a'..'f', ' ', #8]) then
+      //#8 es el backspace, borrar
     begin
       key := #0;
       MessageBeep($FFFFFFFF);
