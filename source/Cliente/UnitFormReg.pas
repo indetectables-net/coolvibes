@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, IdTCPServer;
+  Dialogs, StdCtrls, Buttons, IdTCPServer, gnugettext;
 
 type
   TFormReg = class(TForm)
@@ -17,6 +17,7 @@ type
     procedure BtnCancelarClick(Sender: TObject);
     procedure BtnAceptarClick(Sender: TObject);
     procedure MemoInformacionValorKeyPress(Sender: TObject; var Key: char);
+    procedure FormCreate(Sender: TObject);
   private
     Servidor:   TIdPeerThread;
     Ruta, Tipo: string;
@@ -44,7 +45,7 @@ begin
   Servidor := Socket;
   Ruta     := RegistroRuta;
   Tipo     := RegistroTipo;
-  Caption  := 'Añadiendo valor ' + Tipo;
+  Caption  := _('Añadiendo valor ') + Tipo;
 end;
 
 procedure TFormReg.CerrarVentana();
@@ -70,7 +71,7 @@ begin
       '|' + Tipo + '|' + MemoInformacionValor.Text);
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
   CerrarVentana();
 end;
 
@@ -79,7 +80,7 @@ begin
   if (Tipo = 'REG_SZ') or (Tipo = 'REG_EXPAND_SZ') then
     if (key = #10) or (key = #13) then
     begin
-      MessageDlg('Los valores binarios solo constan de una linea', mtWarning, [mbOK], 0);
+      MessageDlg(_('Los valores binarios solo constan de una linea'), mtWarning, [mbOK], 0);
       Key := #0;
       MessageBeep($FFFFFFFF);
     end;
@@ -97,6 +98,12 @@ begin
       key := #0;
       MessageBeep($FFFFFFFF);
     end;
+end;
+
+procedure TFormReg.FormCreate(Sender: TObject);
+begin
+    UseLanguage(Formmain.idioma);
+    TranslateComponent(self);
 end;
 
 end.

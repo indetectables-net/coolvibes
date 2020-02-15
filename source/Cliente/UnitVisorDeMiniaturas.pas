@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ComCtrls, StdCtrls, ExtCtrls, Spin,IdTCPServer, Menus, ImgList;
+  Dialogs, ComCtrls, StdCtrls, ExtCtrls, Spin,IdTCPServer, Menus, ImgList, gnugettext;
                                                   
   type
   TFormVisorDeMiniaturas = class(TForm)
@@ -37,6 +37,7 @@ uses
     procedure PopupColaDeMiniaturasPopup(Sender: TObject);
     procedure Eliminardelacola1Click(Sender: TObject);
     procedure PedirdorTimerTimer(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
     pidiendo : boolean;
@@ -57,7 +58,7 @@ var
 
 implementation
 
-uses UnitFormControl;
+uses UnitFormControl, UnitMain;
 {$R *.dfm}
 
 constructor TFormVisorDeMiniaturas.Create(aOwner: TComponent;Serv: TIdPeerThread;fc:Tobject);
@@ -105,7 +106,7 @@ begin
   pedirdortimer.enabled := true;
   exit;
   end;
-  StatusBar.Panels[3].Text := 'Recibiendo Thumbnail';
+  StatusBar.Panels[3].Text := _('Recibiendo Thumbnail');
   if RadioAutomatico.Checked then
   begin
     (FormControl as TFormControl).pedirJPG(2,'GETTHUMB|'+
@@ -132,8 +133,8 @@ begin
   ListviewColaThumbnails.Items[0].Delete; //Eliminamos el primer item
   StatusBar.Panels[1].Text := inttostr(ListViewColaThumbnails.items.count);
   pidiendo := false;
-  StatusBar.Panels[3].Text := 'En espera';
-  if ComboBoxModoDeVisionado.Text = 'Automático' then
+  StatusBar.Panels[3].Text := _('En espera');
+  if ComboBoxModoDeVisionado.Text = _('Automático') then
     pedirthumbnail();
 end;
 
@@ -163,6 +164,12 @@ end;
 procedure TFormVisorDeMiniaturas.PedirdorTimerTimer(Sender: TObject);
 begin
 pedirthumbnail();
+end;
+
+procedure TFormVisorDeMiniaturas.FormCreate(Sender: TObject);
+begin
+    UseLanguage(Formmain.idioma);
+    TranslateComponent(self);
 end;
 
 end.

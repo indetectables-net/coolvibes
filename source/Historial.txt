@@ -9,6 +9,25 @@ Modificación de: Nick
 [*] Bug solucionados, arreglos
 
 |----------------------------|
+Fecha 22/04/2011
+Versión: 1 Update 0
+Modificación de: Anonimo y tk68
+
+[*] Cambiada la interfaz de FormControl
+[*] Arreglados algunos bugs sin importancia
+[+] Ahora también se pueden traducir los mensajes del servidor
+[*] Arreglados algunos bugs de la captura de pantalla
+
+|----------------------------|
+Fecha 22/04/2011
+Versión: 1 Update 0
+Modificación de: DSR!
+
+[+] Añadida opción para ver portapapeles (gracias The Swash)
+[*] Agregadas mejoras que Anonimo posteo despues de la publicacion del release
+[*] Cambiadas nomenclatura de Versión y ventana de about
+
+|----------------------------|
 Fecha 21/04/2011
 Versión: 0.5 Update 7
 Modificación de: Anonimo

@@ -1,10 +1,10 @@
 object FormOpciones: TFormOpciones
-  Left = 284
-  Top = 247
+  Left = 309
+  Top = 166
   BorderIcons = []
   BorderStyle = bsSingle
   Caption = 'Opciones'
-  ClientHeight = 352
+  ClientHeight = 351
   ClientWidth = 241
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -14,6 +14,9 @@ object FormOpciones: TFormOpciones
   Font.Style = []
   OldCreateOrder = False
   Position = poMainFormCenter
+  DesignSize = (
+    241
+    351)
   PixelsPerInch = 96
   TextHeight = 13
   object LabelPuerto: TLabel
@@ -30,10 +33,11 @@ object FormOpciones: TFormOpciones
     ParentFont = False
   end
   object BtnGuardar: TSpeedButton
-    Left = 153
-    Top = 327
+    Left = 73
+    Top = 325
     Width = 81
     Height = 22
+    Anchors = [akRight, akBottom]
     Caption = 'Guardar'
     Flat = True
     Glyph.Data = {

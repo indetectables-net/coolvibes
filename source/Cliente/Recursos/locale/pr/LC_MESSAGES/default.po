@@ -1,0 +1,2237 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2011-04-22 13:54\n"
+"PO-Revision-Date: 2011-04-22 14:04+0100\n"
+"Last-Translator: fffffff <fffffff>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: dxgettext 1.2.2\n"
+
+#. ScreenMax..Caption
+#: ScreenMaxCap.dfm:7
+msgid "Capturador de Pantalla ::Coolvibes::"
+msgstr "A captação de tela ::Coolvibes::"
+
+#. ScreenMax..Font.Name
+#. FormControl..Font.Name
+#. FormControl..PageControl..TabInfo..PageControlInformacion..TabSheetServidor..BtnEnviarComandoServidor..Font.Name
+#. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetTransferencias..LabelTransferencias..Font.Name
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabWebcam..ComboBoxWebcam..Font.Name
+#. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..LabelTituloMensaje..Font.Name
+#. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..GrpBoxTipoMensaje..Font.Name
+#. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..GrpBoxTipoMensaje..RdBtnError..Font.Name
+#. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..GrpBoxTipoMensaje..RdBtnPregunta..Font.Name
+#. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..GrpBoxTipoMensaje..RdBtnExclamacion..Font.Name
+#. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..GrpBoxTipoMensaje..RdBtnInfo..Font.Name
+#. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..GrpBoxTipoMensaje..RdBtnVacio..Font.Name
+#. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..RdGrpBotonesMensaje..Font.Name
+#. FormControl..DlgFont..Font.Name
+#. FormNotifica..Font.Name
+#. FormReg..Font.Name
+#. FormSendKeys..Font.Name
+#. FormID..Font.Name
+#. FormID..Label1..Font.Name
+#. FormMain..Font.Name
+#. FormMain..BtnConfigServer..Font.Name
+#. FormOpciones..Font.Name
+#: ScreenMaxCap.dfm:12
+#: UnitFormControl.dfm:611
+#: UnitFormControl.dfm:1962
+#: UnitFormControl.dfm:2293
+#: UnitFormControl.dfm:2379
+#: UnitFormControl.dfm:2820
+#: UnitFormControl.dfm:2834
+#: UnitFormControl.dfm:2848
+#: UnitFormControl.dfm:2862
+#: UnitFormControl.dfm:2877
+#: UnitFormControl.dfm:2894
+#: UnitFormControl.dfm:3356
+#: UnitFormNotifica.dfm:15
+#: UnitFormReg.dfm:11
+#: UnitFormSendKeys.dfm:13
+#: UnitID.dfm:12
+#: UnitID.dfm:27
+#: UnitMain.dfm:13
+#: UnitMain.dfm:780
+#: UnitOpciones.dfm:13
+msgid "MS Sans Serif"
+msgstr "MS Sans Serif"
+
+#. ScreenMax..PopupMenu1..Capturar1..Caption
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabScreencap..BtnCapturarScreen..Caption
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabWebcam..BtnCapturarWebcam..Caption
+#: ScreenMaxCap.dfm:1971
+msgid "Capturar"
+msgstr "Capture"
+
+#. ScreenMax..PopupMenu1..Automtico1..N0s1..Caption
+#: ScreenMaxCap.dfm:1977
+msgid "0s"
+msgstr "0s"
+
+#. ScreenMax..PopupMenu1..Automtico1..N1s1..Caption
+#: ScreenMaxCap.dfm:1981
+msgid "1s"
+msgstr "1s"
+
+#. ScreenMax..PopupMenu1..Automtico1..N2s1..Caption
+#: ScreenMaxCap.dfm:1985
+msgid "2s"
+msgstr "2s"
+
+#. ScreenMax..PopupMenu1..Automtico1..N5s1..Caption
+#: ScreenMaxCap.dfm:1989
+msgid "5s"
+msgstr "5s"
+
+#. ScreenMax..PopupMenu1..Automtico1..N10s1..Caption
+#: ScreenMaxCap.dfm:1993
+msgid "10s"
+msgstr "10s"
+
+#. ScreenMax..PopupMenu1..Automtico1..N30s1..Caption
+#: ScreenMaxCap.dfm:1997
+msgid "30s"
+msgstr "30s"
+
+#. ScreenMax..PopupMenu1..Automtico1..N2..Caption
+#. ScreenMax..PopupMenu1..N1..Caption
+#. FormControl..PopupWindows..N7..Caption
+#. FormControl..PopupWindows..N6..Caption
+#. FormControl..PopupFileManager..N4..Caption
+#. FormControl..PopupFileManager..N8..Caption
+#. FormControl..PopupRegistro..Nuevo1..N2..Caption
+#. FormControl..PopupRegistro..N3..Caption
+#. FormControl..PopupRegistro..N10..Caption
+#. FormControl..PopupDescargas..N9..Caption
+#. FormControl..PopupShell..N5..Caption
+#. FormSendKeys..PopupSendKeys..N1..Caption
+#. FormSendKeys..PopupSendKeys..N2..Caption
+#. FormMain..PopupMenuConexiones..N1..Caption
+#. FormMain..PopupMenuTray..N2..Caption
+#. FormMain..PopupMenuTray..N3..Caption
+#: ScreenMaxCap.dfm:2001
+#: UnitFormControl.dfm:3070
+#: UnitFormControl.dfm:3112
+#: UnitFormControl.dfm:3181
+#: UnitFormControl.dfm:3212
+#: UnitFormControl.dfm:3236
+#: UnitFormControl.dfm:3249
+#: UnitFormControl.dfm:3314
+#: UnitFormControl.dfm:3344
+#: UnitFormSendKeys.dfm:354
+#: UnitFormSendKeys.dfm:368
+#: UnitMain.dfm:898
+#: UnitMain.dfm:1353
+#: UnitMain.dfm:1372
+msgid "-"
+msgstr "-"
+
+#. ScreenMax..PopupMenu1..Automtico1..No1..Caption
+#. ScreenMax..PopupMenu1..ransparente1..No2..Caption
+#: ScreenMaxCap.dfm:2004
+msgid "No"
+msgstr "No"
+
+#. ScreenMax..PopupMenu1..Calidad1..Caption
+#: ScreenMaxCap.dfm:2012
+msgid "Calidad"
+msgstr "Qualidade"
+
+#. ScreenMax..PopupMenu1..ransparente1..Caption
+#: ScreenMaxCap.dfm:2056
+msgid "Transparente"
+msgstr "Transparente"
+
+#. ScreenMax..PopupMenu1..Siempreencima1..Caption
+#: ScreenMaxCap.dfm:2075
+msgid "Siempre encima"
+msgstr "Sempre em cima"
+
+#. FormAbout..Caption
+#: UnitAbout.dfm:5
+#, fuzzy
+msgid "Acerca de Coolvibes"
+msgstr "Sobre Coolvibes"
+
+#. FormAbout..Font.Name
+#. FormAbout..GrpBoxHistorial..Font.Name
+#. FormAbout..GrpBoxHistorial..EdtHistorial..Font.Name
+#. FormAbout..GrpBoxHistorial..ScrollBox1..Label7..Font.Name
+#. FormAbout..GrpBoxHistorial..ScrollBox1..Label8..Font.Name
+#. FormAbout..GrpBoxHistorial..ScrollBox1..Label9..Font.Name
+#. FormAbout..GrpBoxHistorial..ScrollBox1..Label11..Font.Name
+#. FormAbout..GrpBoxHistorial..ScrollBox1..Label13..Font.Name
+#. FormAbout..GrpBoxInfo..Font.Name
+#. FormAbout..GrpBoxInfo..Label1..Font.Name
+#. FormAbout..GrpBoxInfo..ScrollBoxCreadores..Label3..Font.Name
+#. FormAbout..GrpBoxInfo..ScrollBoxCreadores..Label2..Font.Name
+#. FormAbout..GrpBoxInfo..ScrollBoxCreadores..Label4..Font.Name
+#. FormAbout..GrpBoxInfo..ScrollBoxCreadores..Label10..Font.Name
+#. FormAbout..GrpBoxInfo..ScrollBoxCreadores..Label12..Font.Name
+#. FormAbout..GrpBoxInfo..ScrollBoxCreadores..Label14..Font.Name
+#. FormAbout..GrpBoxInfo..ScrollBoxCreadores..Label15..Font.Name
+#. FormAbout..GrpBoxInfo..ScrollBoxCreadores..Label16..Font.Name
+#. FormAbout..GrpBoxInfo..RichEdit1..Font.Name
+#. FormAbout..GrpBoxInfo..ScrollBoxBetaTesters..Label5..Font.Name
+#. FormAbout..GrpBoxInfo..ScrollBoxBetaTesters..Label6..Font.Name
+#. FormConfigServer..Font.Name
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabVentanas..CheckBoxMostrarVentanasOcultas..Font.Name
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabScreencap..LabelTamano..Font.Name
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabScreencap..LabelCalidadCapScreen..Font.Name
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabScreencap..LabelPosicionCompresJpg..Font.Name
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabScreencap..CheckBoxAutoCapturaScreen..Font.Name
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabScreencap..SpinCaptureScreen..Font.Name
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabScreencap..CheckBoxMouseClicks..Font.Name
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabScreencap..CheckBoxTamanioReal..Font.Name
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabWebcam..LabelCalidadWebcam..Font.Name
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabWebcam..LabelPosicionCompresJpgWebcam..Font.Name
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabWebcam..CheckBoxAutoCamCapture..Font.Name
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabWebcam..SpinCam..Font.Name
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabKeylogger..CheckBoxOnlineKeylogger..Font.Name
+#. FormNotifica..LabelIP..Font.Name
+#. FormNotifica..LabelName..Font.Name
+#. FormNotifica..LabelConect..Font.Name
+#. FormSendKeys..LabelHandle..Font.Name
+#. FormMain..BtnAbout..Font.Name
+#. FormOpciones..LabelPuerto..Font.Name
+#. FormOpciones..GrpBoxAlSalir..Font.Name
+#. FormOpciones..GrpBoxAlSalir..LabelPreguntarAlSalir..Font.Name
+#. FormOpciones..GrpBoxAlSalir..CheckBoxPreguntarAlSalir..Font.Name
+#. FormOpciones..GrpBoxAlSalir..CheckBoxCloseToTray..Font.Name
+#. FormOpciones..GrpBoxServerDesconect..Font.Name
+#. FormOpciones..GrpBoxServerDesconect..CheckBoxNotiMsnDesc..Font.Name
+#. FormOpciones..GrpBoxServerDesconect..CheckBoxNotificacionMsn..Font.Name
+#. FormOpciones..GroupBoxConexion..Font.Name
+#. FormOpciones..GroupBoxConexion..Label1..Font.Name
+#. FormOpciones..GroupBoxConexion..CheckBoxEscucharAlIniciar..Font.Name
+#. FormOpciones..GroupBoxConexion..CheckBoxMandarPingAuto..Font.Name
+#. FormOpciones..CheckBoxMinimizeToTray..Font.Name
+#. FormOpciones..CheckBoxAutoRefrescar..Font.Name
+#. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..LabelCalidadJPG..Font.Name
+#. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..LabelPosicionCompresJpg..Font.Name
+#. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..LabelTamanoJPG..Font.Name
+#. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..LabelPorCiento..Font.Name
+#. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..LabelModoDeVisionado..Font.Name
+#. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..LabelAviso..Font.Name
+#. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..RadioAutomatico..Font.Name
+#. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..RadioManual..Font.Name
+#. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..SpinTamanoRelativo..Font.Name
+#. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..CheckBoxAutoGuardado..Font.Name
+#: UnitAbout.dfm:12
+#: UnitAbout.dfm:4616
+#: UnitAbout.dfm:4629
+#: UnitAbout.dfm:4642
+#: UnitAbout.dfm:4655
+#: UnitAbout.dfm:4670
+#: UnitAbout.dfm:4683
+#: UnitAbout.dfm:4708
+#: UnitAbout.dfm:4799
+#: UnitAbout.dfm:4812
+#: UnitAbout.dfm:4825
+#: UnitAbout.dfm:4890
+#: UnitAbout.dfm:4903
+#: UnitAbout.dfm:4994
+#: UnitAbout.dfm:5007
+#: UnitAbout.dfm:5020
+#: UnitAbout.dfm:5080
+#: UnitAbout.dfm:5093
+#: UnitFormConfigServer.dfm:15
+#: UnitFormControl.dfm:934
+#: UnitFormControl.dfm:1504
+#: UnitFormControl.dfm:1518
+#: UnitFormControl.dfm:1660
+#: UnitFormControl.dfm:1718
+#: UnitFormControl.dfm:1733
+#: UnitFormControl.dfm:1752
+#: UnitFormControl.dfm:1767
+#: UnitFormControl.dfm:1791
+#: UnitFormControl.dfm:1917
+#: UnitFormControl.dfm:1979
+#: UnitFormControl.dfm:1995
+#: UnitFormControl.dfm:2255
+#: UnitFormNotifica.dfm:1580
+#: UnitFormNotifica.dfm:1594
+#: UnitFormNotifica.dfm:1616
+#: UnitFormSendKeys.dfm:199
+#: UnitMain.dfm:727
+#: UnitOpciones.dfm:31
+#: UnitOpciones.dfm:96
+#: UnitOpciones.dfm:108
+#: UnitOpciones.dfm:122
+#: UnitOpciones.dfm:139
+#: UnitOpciones.dfm:156
+#: UnitOpciones.dfm:169
+#: UnitOpciones.dfm:184
+#: UnitOpciones.dfm:200
+#: UnitOpciones.dfm:213
+#: UnitOpciones.dfm:227
+#: UnitOpciones.dfm:244
+#: UnitOpciones.dfm:269
+#: UnitOpciones.dfm:285
+#: UnitVisorDeMiniaturas.dfm:2024
+#: UnitVisorDeMiniaturas.dfm:2038
+#: UnitVisorDeMiniaturas.dfm:2051
+#: UnitVisorDeMiniaturas.dfm:2064
+#: UnitVisorDeMiniaturas.dfm:2077
+#: UnitVisorDeMiniaturas.dfm:2091
+#: UnitVisorDeMiniaturas.dfm:2119
+#: UnitVisorDeMiniaturas.dfm:2134
+#: UnitVisorDeMiniaturas.dfm:2147
+#: UnitVisorDeMiniaturas.dfm:2164
+msgid "Verdana"
+msgstr "Verdana"
+
+#. FormAbout..GrpBoxHistorial..Caption
+#: UnitAbout.dfm:4561
+msgid "Historial de las versiones"
+msgstr "Histórico da Versão"
+
+#. FormAbout..GrpBoxHistorial..ScrollBox1..Label7..Caption
+#: UnitAbout.dfm:4599
+msgid "www.famfamfam.com (por los iconos)"
+msgstr "www.famfamfam.com (por ícones)"
+
+#. FormAbout..GrpBoxHistorial..ScrollBox1..Label11..Caption
+#: UnitAbout.dfm:4638
+msgid "stm (por la ayuda en la Shell - Wack-a-Mole)"
+msgstr "stm (para ajudar na Concha - Wack-a-Mole)"
+
+#. FormAbout..GrpBoxHistorial..ScrollBox1..Label13..Caption
+#: UnitAbout.dfm:4651
+msgid "stm por la base del keylogger"
+msgstr "stm na base de keylogger"
+
+#. FormAbout..GrpBoxInfo..Caption
+#: UnitAbout.dfm:4666
+#, fuzzy
+msgid "Coolvibes Rat"
+msgstr "Coolvibes Server"
+
+#. FormAbout..GrpBoxInfo..Label1..Caption
+#: UnitAbout.dfm:4679
+#, fuzzy
+msgid "En este proyecto por el momento han participado:"
+msgstr "Neste projeto, jovens até agora envolvidos:"
+
+#. FormAbout..GrpBoxInfo..ScrollBoxCreadores..Label3..Caption
+#: UnitAbout.dfm:4704
+msgid "Thor"
+msgstr "Thor"
+
+#. FormAbout..GrpBoxInfo..ScrollBoxCreadores..Label2..Caption
+#: UnitAbout.dfm:4795
+msgid "Robokop"
+msgstr "Robokop"
+
+#. FormAbout..GrpBoxInfo..ScrollBoxCreadores..Label4..Caption
+#: UnitAbout.dfm:4808
+msgid "Wack-a-Mole"
+msgstr "Wack-a-Mole"
+
+#. FormAbout..GrpBoxInfo..ScrollBoxCreadores..Label10..Caption
+#: UnitAbout.dfm:4821
+msgid "Sr_Sombrero"
+msgstr "Sr_Sombrero"
+
+#. FormAbout..GrpBoxInfo..ScrollBoxCreadores..Label12..Caption
+#: UnitAbout.dfm:4886
+msgid "Unknown"
+msgstr "Unknown"
+
+#. FormAbout..GrpBoxInfo..ScrollBoxCreadores..Label14..Caption
+#: UnitAbout.dfm:4899
+msgid "DSR!"
+msgstr ""
+
+#. FormAbout..GrpBoxInfo..ScrollBoxCreadores..Label15..Caption
+#: UnitAbout.dfm:4990
+msgid "Anonimo"
+msgstr ""
+
+#. FormAbout..GrpBoxInfo..ScrollBoxCreadores..Label16..Caption
+#: UnitAbout.dfm:5003
+msgid "Tk68"
+msgstr ""
+
+#. FormAbout..GrpBoxInfo..RichEdit1....Lines.Strings
+#: UnitAbout.dfm:5023
+msgid "Coolvibes es un proyecto "
+msgstr "Coolvibes é um projeto"
+
+#. FormAbout..GrpBoxInfo..RichEdit1....Lines.Strings
+#: UnitAbout.dfm:5024
+#, fuzzy
+msgid "desarrollado en Indetectables"
+msgstr "desenvolvidas na web"
+
+#. FormAbout..GrpBoxInfo..RichEdit1....Lines.Strings
+#: UnitAbout.dfm:5026
+#, fuzzy
+msgid "un troyano escrito en Delphi de"
+msgstr "trojan em Delphi 7"
+
+#. FormAbout..GrpBoxInfo..RichEdit1....Lines.Strings
+#: UnitAbout.dfm:5029
+msgid "curiosidad por saber como "
+msgstr "Curioso como"
+
+#. FormAbout..GrpBoxInfo..RichEdit1....Lines.Strings
+#: UnitAbout.dfm:5030
+msgid "funciona un troyano."
+msgstr "é um Trojan."
+
+#. FormAbout..GrpBoxInfo..ScrollBoxBetaTesters..Label5..Caption
+#: UnitAbout.dfm:5076
+msgid "V-Robot"
+msgstr "V-Robot"
+
+#. FormAbout..GrpBoxInfo..ScrollBoxBetaTesters..Label6..Caption
+#: UnitAbout.dfm:5089
+msgid "Beta-Testers:"
+msgstr "Beta-Testers:"
+
+#. FormColumnasManager..Caption
+#: UnitColumnasManager.dfm:6
+msgid "Columnas"
+msgstr "Colunas"
+
+#. FormColumnasManager..Font.Name
+#. FormSeleccionarIdioma..Font.Name
+#. FormVisorDeMiniaturas..Font.Name
+#: UnitColumnasManager.dfm:13
+#: UnitVisorDeMiniaturas.dfm:13
+msgid "Tahoma"
+msgstr "Tahoma"
+
+#. FormColumnasManager..SpeedButtonCerrar..Caption
+#. FormConfigServer..GroupBox1..BtnSalir..Caption
+#. FormControl..PageControl..TabInfo..PageControlInformacion..TabSheetServidor..ComboBoxGestionDeServidor....Items.Strings
+#. FormControl..PopupProcess..Cerrar1..Caption
+#. FormControl..PopupWindows..Cerrar2..Caption
+#: UnitColumnasManager.dfm:25
+#: UnitFormControl.dfm:242
+#: UnitFormControl.dfm:3022
+#: UnitFormControl.dfm:3032
+#: UnitFormControl.pas:2306
+msgid "Cerrar"
+msgstr "Fechar"
+
+#. FormColumnasManager..SpeedButtonPredeterminado..Caption
+#: UnitColumnasManager.dfm:69
+msgid "Predeterminado"
+msgstr "Default"
+
+#. FormColumnasManager..ListViewColumnas......Caption
+#: UnitColumnasManager.dfm:80
+msgid "#"
+msgstr "#"
+
+#. FormColumnasManager..ListViewColumnas......Caption
+#. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetVerArchivos..ListViewArchivos......Caption
+#. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetBuscar..ListViewBuscar......Caption
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabProcesos..ListViewProcesos......Caption
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabRegistro..PanelRegistro..ListViewRegistro......Caption
+#. FormMain..ListViewConexiones......Caption
+#. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetCola..ListViewColaThumbnails......Caption
+#: UnitColumnasManager.dfm:84
+#: UnitFormControl.dfm:701
+#: UnitFormControl.dfm:817
+#: UnitFormControl.dfm:1060
+#: UnitMain.dfm:828
+#: UnitVisorDeMiniaturas.dfm:1993
+#: UnitMain.pas:667
+msgid "Nombre"
+msgstr "Nome"
+
+#. FormColumnasManager..PopupMenuColumnas..Subir1..Caption
+#. FormConfigServer..GroupBox2..SpeedButton2..Caption
+#: UnitColumnasManager.dfm:135
+msgid "Subir"
+msgstr "Upload"
+
+#. FormColumnasManager..PopupMenuColumnas..Bajar1..Caption
+#. FormConfigServer..GroupBox2..SpeedButton3..Caption
+#: UnitColumnasManager.dfm:174
+msgid "Bajar"
+msgstr "Download"
+
+#. FormColumnasManager..PopupMenuColumnas..Eliminar1..Caption
+#. FormConfigServer..GroupBox2..SpeedButton4..Caption
+#. FormControl..PopupFileManager..Eliminar..Caption
+#. FormControl..PopupRegistro..Eliminar1..Caption
+#: UnitColumnasManager.dfm:205
+#: UnitFormControl.dfm:3128
+#: UnitFormControl.dfm:3244
+msgid "Eliminar"
+msgstr "Excluir"
+
+#. FormConfigServer..GroupBox2..Label2..Caption
+#: UnitFormConfigServer.dfm:1971
+msgid "IP/DNS:"
+msgstr "IP/DNS:"
+
+#. FormConfigServer..GroupBox2..Label3..Caption
+#: UnitFormConfigServer.dfm:1978
+msgid ":"
+msgstr ":"
+
+#. FormConfigServer..GroupBox2..Label1..Caption
+#: UnitFormConfigServer.dfm:1985
+msgid "Nombre:"
+msgstr "Nome:"
+
+#. FormConfigServer..GroupBox2..SpeedButton1..Caption
+#: UnitFormConfigServer.dfm:1998
+msgid "Agregar"
+msgstr "Adicionar"
+
+#. FormConfigServer..GroupBox2..Label5..Caption
+#: UnitFormConfigServer.dfm:2034
+msgid "Nombre del Plugin:"
+msgstr "Nome do Plugin:"
+
+#. FormConfigServer..GroupBox2..ListViewConexionesConfig......Caption
+#: UnitFormConfigServer.dfm:2082
+msgid "IP/DNS"
+msgstr "IP/DNS"
+
+#. FormConfigServer..GroupBox2..ListViewConexionesConfig......Caption
+#: UnitFormConfigServer.dfm:2086
+msgid "Puerto"
+msgstr "Porto:"
+
+#. FormConfigServer..GroupBox2..CheckBoxInyectar..Caption
+#: UnitFormConfigServer.dfm:2103
+msgid "Inyectar en el navegador"
+msgstr "Injetado no navegador"
+
+#. FormConfigServer..GroupBox2..CheckBoxPersistencia..Caption
+#: UnitFormConfigServer.dfm:2112
+msgid "Persistencia"
+msgstr "Persistência"
+
+#. FormConfigServer..GroupBox2..EditPluginName..Hint
+#: UnitFormConfigServer.dfm:2120
+msgid "El nombre del plugin una vez que se haya subido al servidor"
+msgstr "O nome do plugin, uma vez que foi carregado para o servidor"
+
+#. FormConfigServer..GroupBox3..Label8..Caption
+#: UnitFormConfigServer.dfm:2142
+msgid "Nombre de archivo:"
+msgstr "Nome do arquivo:"
+
+#. FormConfigServer..GroupBox3..Label15..Caption
+#: UnitFormConfigServer.dfm:2149
+msgid "Nombre de la clave:"
+msgstr "Nome da chave:"
+
+#. FormConfigServer..GroupBox3..Label6..Caption
+#: UnitFormConfigServer.dfm:2156
+msgid "Directorio:"
+msgstr "Lista:"
+
+#. FormConfigServer..GroupBox3..Label7..Caption
+#: UnitFormConfigServer.dfm:2163
+msgid "Clave:"
+msgstr "Chave:"
+
+#. FormConfigServer..GroupBox3..CheckBoxCopiar..Caption
+#: UnitFormConfigServer.dfm:2170
+msgid "Copiar archivo"
+msgstr "Copiar Arquivo"
+
+#. FormConfigServer..GroupBox3..CheckBoxMelt..Hint
+#: UnitFormConfigServer.dfm:2206
+msgid "Activarla para hacer que el servidor se borre una vez ejecutado"
+msgstr "Habilitar o servidor a ser excluído após a execução"
+
+#. FormConfigServer..GroupBox3..CheckBoxCopiarConFechaAnterior..Caption
+#: UnitFormConfigServer.dfm:2215
+msgid "Copiar con fecha anterior"
+msgstr "Copiar uma data anterior"
+
+#. FormConfigServer..GroupBox3..EditRunName..Hint
+#: UnitFormConfigServer.dfm:2232
+msgid "El nombre de la clave run en el registro"
+msgstr "O nome de chave run corrida de registro"
+
+#. FormConfigServer..GroupBox3..EditActiveSetup....Hint
+#: UnitFormConfigServer.dfm:2259
+msgid "El nombre de la clave active setup en el registro, haz click para generar una aleatoria"
+msgstr "O nome da chave de configuração activa no registro, clique para gerar um random"
+
+#. FormConfigServer..MemoOutput....Lines.Strings
+#: UnitFormConfigServer.dfm:2276
+msgid "MemoOutput"
+msgstr "MemoOutput"
+
+#. FormConfigServer..GroupBox1..BtnGuardarConfig..Caption
+#: UnitFormConfigServer.dfm:2302
+msgid "Crear!"
+msgstr "Criar!"
+
+#. FormConfigServer..GroupBox1..Label4..Caption
+#: UnitFormConfigServer.dfm:2404
+msgid "Icono:"
+msgstr "Ícone:"
+
+#. FormConfigServer..GroupBox1..CheckboxUPX..Caption
+#: UnitFormConfigServer.dfm:2414
+msgid "Comprimir las DLL's del inyector con UPX"
+msgstr "Comprimir DLL com injector UPX"
+
+#. FormConfigServer..GroupBox1..CheckBoxCifrar..Caption
+#: UnitFormConfigServer.dfm:2422
+msgid "Cifrar las DLL's del inyector"
+msgstr "Injector Criptografar DLL's"
+
+#. FormControl..Caption
+#: UnitFormControl.dfm:7
+msgid "Centro de control"
+msgstr "Centro de Controle"
+
+#. FormControl..PageControl..TabInfo..PageControlInformacion..TabSheetServidor..Caption
+#: UnitFormControl.dfm:85
+msgid "Servidor"
+msgstr "Servidor"
+
+#. FormControl..PageControl..TabInfo..PageControlInformacion..TabSheetServidor..BtnEnviarComandoServidor..Caption
+#. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..BtnEnviarMensaje..Caption
+#. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetBromas..BtnEnviarBromas..Caption
+#. FormSendKeys..BtnEnviar..Caption
+#: UnitFormControl.dfm:97
+#: UnitFormSendKeys.dfm:160
+msgid "Enviar"
+msgstr "Enviar"
+
+#. FormControl..PageControl..TabInfo..PageControlInformacion..TabSheetServidor..BtnActualizarServidorInfo..Caption
+#. FormControl..PageControl..TabInfo..PageControlInformacion..TabSheetInfoSistema..BtnRefrescarInformacion..Caption
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabProcesos..BtnRefrescarProcesos..Caption
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabVentanas..BtnRefrescarVentanas..Caption
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabServicios..BtnServicios..Caption
+#. FormControl..PopupRegistro..Refrescar1..Caption
+#: UnitFormControl.dfm:149
+#: UnitFormControl.dfm:855
+#: UnitFormControl.dfm:1133
+#: UnitFormControl.dfm:3252
+msgid "Refrescar"
+msgstr "Cool"
+
+#. FormControl..PageControl..TabInfo..PageControlInformacion..TabSheetServidor..ListViewServidor......Caption
+#: UnitFormControl.dfm:197
+msgid "Contenido"
+msgstr "Conteúdo"
+
+#. FormControl..PageControl..TabInfo..PageControlInformacion..TabSheetServidor..ComboBoxGestionDeServidor....Items.Strings
+#: UnitFormControl.dfm:243
+msgid "Actualizar"
+msgstr "Update"
+
+#. FormControl..PageControl..TabInfo..PageControlInformacion..TabSheetServidor..ComboBoxGestionDeServidor....Items.Strings
+#. FormControl..PopupServicios..Desinstalar1..Caption
+#: UnitFormControl.dfm:244
+msgid "Desinstalar"
+msgstr "Uninstall"
+
+#. FormControl..PageControl..TabInfo..PageControlInformacion..TabSheetInfoSistema..Caption
+#. FormControl..PopupFileManager..CambiarAtributos1..Sistema1..Caption
+#: UnitFormControl.dfm:248
+msgid "Sistema"
+msgstr "Sistema"
+
+#. FormControl..PageControl..TabFileManager..Caption
+#. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetVerArchivos..Caption
+#: UnitFormControl.dfm:344
+msgid "Ficheros"
+msgstr "Arquivos"
+
+#. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetVerArchivos..BtnVerUnidades..Caption
+#: UnitFormControl.dfm:371
+msgid "Ver unidades"
+msgstr "Veja unidades"
+
+#. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetVerArchivos..LabelPathArchivos..Caption
+#. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetCola..ListViewColaThumbnails......Caption
+#: UnitFormControl.dfm:415
+msgid "Path"
+msgstr "Path"
+
+#. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetVerArchivos..BtnActualizarArchivos..Caption
+#: UnitFormControl.dfm:424
+msgid "Ir/Actualizar"
+msgstr "Go / Atualização"
+
+#. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetVerArchivos..LabelNumeroDeCarpetas..Caption
+#: UnitFormControl.dfm:469
+msgid "Carpetas:"
+msgstr "Pastas:"
+
+#. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetVerArchivos..LabelNumeroDeArchivos..Caption
+#: UnitFormControl.dfm:477
+msgid "Archivos:"
+msgstr "Arquivos:"
+
+#. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetVerArchivos..ListViewArchivos......Caption
+#. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetBuscar..ListViewBuscar......Caption
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabRegistro..PanelRegistro..ListViewRegistro......Caption
+#: UnitFormControl.dfm:569
+msgid "Tipo"
+msgstr "Tipo"
+
+#. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetVerArchivos..ListViewArchivos......Caption
+#. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetBuscar..ListViewBuscar......Caption
+#: UnitFormControl.dfm:573
+msgid "Atributos"
+msgstr "Atributos"
+
+#. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetTransferencias..Caption
+#: UnitFormControl.dfm:596
+msgid "Transferencias"
+msgstr "Transferências"
+
+#. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetTransferencias..LabelTransferencias..Caption
+#: UnitFormControl.dfm:607
+msgid "Subidas y descargas de ficheros"
+msgstr "Upload de arquivos e download"
+
+#. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetTransferencias..ListViewDescargas......Caption
+#: UnitFormControl.dfm:628
+msgid "Archivo(Origen|Destino)"
+msgstr "Arquivo (Fonte | Destino)"
+
+#. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetTransferencias..ListViewDescargas......Caption
+#: UnitFormControl.dfm:631
+msgid "Progreso"
+msgstr "Progresso"
+
+#. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetTransferencias..ListViewDescargas......Caption
+#: UnitFormControl.dfm:640
+msgid "Enviado/Recibido"
+msgstr "Enviado / Recebido"
+
+#. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetTransferencias..ListViewDescargas......Caption
+#: UnitFormControl.dfm:644
+msgid "Vel/T. restante"
+msgstr "Vel / T. Esquerda"
+
+#. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetTransferencias..ListViewDescargas......Caption
+#: UnitFormControl.dfm:647
+msgid "Status"
+msgstr "Status"
+
+#. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetBuscar..Caption
+#. FormControl..PopupFileManager..BuscarArchivos1..Caption
+#: UnitFormControl.dfm:664
+msgid "Buscar"
+msgstr "Pesquisa"
+
+#. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetBuscar..SpeedButtonBuscar..Caption
+#. Paramos...
+#. Terminado!
+#. comenzar
+#: UnitFormControl.dfm:676
+#: UnitFormControl.pas:4186
+msgid "Comenzar"
+msgstr "Início"
+
+#. FormControl..PageControl..TabFileManager..PageControlArchivos..TabSheetBuscar..LabelNumeroEncontrados..Caption
+#: UnitFormControl.dfm:686
+msgid "Encontrados: "
+msgstr "Encontrado:"
+
+#. FormControl..PageControl..TabManagers..Caption
+#: UnitFormControl.dfm:747
+msgid "Administrador"
+msgstr ""
+
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabProcesos..Caption
+#: UnitFormControl.dfm:760
+msgid "Procesos"
+msgstr "Processos"
+
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabProcesos..ListViewProcesos......Caption
+#: UnitFormControl.dfm:821
+msgid "PID"
+msgstr "PID"
+
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabProcesos..ListViewProcesos......Caption
+#: UnitFormControl.dfm:826
+msgid "Ruta"
+msgstr "Rota"
+
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabVentanas..Caption
+#: UnitFormControl.dfm:842
+msgid "Ventanas"
+msgstr "Windows"
+
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabVentanas..ListViewVentanas......Caption
+#: UnitFormControl.dfm:900
+msgid "Titulo"
+msgstr "Título"
+
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabVentanas..ListViewVentanas......Caption
+#. FormSendKeys..LabelHandle..Caption
+#: UnitFormControl.dfm:904
+msgid "Handle"
+msgstr "Punho"
+
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabVentanas..ListViewVentanas......Caption
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabServicios..ListViewServicios......Caption
+#. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetBromas..ListViewBromas......Caption
+#. FormControl..StatusBar......Text
+#: UnitFormControl.dfm:908
+#: UnitFormControl.dfm:3005
+msgid "Estado"
+msgstr "Estado"
+
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabVentanas..CheckBoxMostrarVentanasOcultas..Caption
+#: UnitFormControl.dfm:930
+msgid "Mostrar ventanas ocultas"
+msgstr "Mostrar as janelas escondidas"
+
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabRegistro..Caption
+#: UnitFormControl.dfm:942
+msgid "Registro"
+msgstr "Registre-se"
+
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabRegistro..BtnVerRegisto..Caption
+#: UnitFormControl.dfm:954
+msgid "Ver"
+msgstr "Ver"
+
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabRegistro..PanelRegistro..Caption
+#: UnitFormControl.dfm:1009
+msgid "PanelRegistro"
+msgstr "PanelRegistro"
+
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabRegistro..PanelRegistro..ListViewRegistro......Caption
+#: UnitFormControl.dfm:1069
+msgid "Valor"
+msgstr "Valor"
+
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabServicios..Caption
+#: UnitFormControl.dfm:1099
+msgid "Servicios"
+msgstr "Serviços"
+
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabServicios..btnInstServicios2..Caption
+#. FormControl..PopupServicios..Instalar1..Caption
+#: UnitFormControl.dfm:1111
+msgid "Instalar"
+msgstr "Instalar"
+
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabServicios..BtnCancelarInstalarServicio..Caption
+#. FormReg..BtnCancelar..Caption
+#. FormID..cmbIdCancelar..Caption
+#: UnitFormControl.dfm:1122
+msgid "Cancelar"
+msgstr "Cancelar"
+
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabServicios..btnInstServicios..Caption
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabServicios..btnSiguienteInstalarServicio..Caption
+#: UnitFormControl.dfm:1170
+msgid "Siguiente"
+msgstr "Seguinte"
+
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabServicios..ListViewServicios......Caption
+#: UnitFormControl.dfm:1198
+msgid "Servicio"
+msgstr "Serviço"
+
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabPortapapeles..Caption
+#: UnitFormControl.dfm:1235
+#, fuzzy
+msgid "Portapapeles"
+msgstr "Prancheta Virtual"
+
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabPortapapeles..SpeedButtonClipBoard1..Caption
+#: UnitFormControl.dfm:1246
+#, fuzzy
+msgid "Ver Portapapeles"
+msgstr "Prancheta Virtual"
+
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabPortapapeles..SpeedButtonClipBoard2..Caption
+#: UnitFormControl.dfm:1291
+#, fuzzy
+msgid "Setear Portapapeles"
+msgstr "Prancheta Virtual"
+
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabShell..Caption
+#: UnitFormControl.dfm:1346
+msgid "Shell"
+msgstr "Shell"
+
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabShell..BtnCambiarFuenteShell..Caption
+#: UnitFormControl.dfm:1358
+msgid "Cambiar fuente"
+msgstr "Alterar fonte"
+
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabShell..BtnCambiarColorShell..Caption
+#: UnitFormControl.dfm:1396
+msgid "Cambiar color"
+msgstr "Alterar a cor"
+
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabShell..MemoShell..Font.Name
+#: UnitFormControl.dfm:1441
+msgid "Terminal"
+msgstr "Terminal"
+
+#. FormControl..PageControl..TabManagers..PageControlManagers..TabShell..ComboBoxShellCommand..Font.Name
+#: UnitFormControl.dfm:1463
+msgid "Lucida Console"
+msgstr "Lucida Console"
+
+#. FormControl..PageControl..TabVigilancia..Caption
+#: UnitFormControl.dfm:1474
+msgid "Vigilancia"
+msgstr ""
+
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabScreencap..Caption
+#: UnitFormControl.dfm:1487
+msgid "Pantalla"
+msgstr "Mostrar"
+
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabScreencap..LabelCalidadCapScreen..Caption
+#. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..LabelCalidadJPG..Caption
+#: UnitFormControl.dfm:1514
+msgid "Calidad JPG:"
+msgstr "Qualidade JPG:"
+
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabScreencap..btnGuardarImagen..Caption
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabWebcam..BtnGuardarWebcam..Caption
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabKeylogger..SpeedButtonGuardarLog..Caption
+#. FormOpciones..BtnGuardar..Caption
+#: UnitFormControl.dfm:1574
+#: UnitFormControl.dfm:2122
+#: UnitOpciones.dfm:41
+msgid "Guardar"
+msgstr "Guardar"
+
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabScreencap..BtnVerGrandeCap..Caption
+#: UnitFormControl.dfm:1619
+msgid "Pantalla completa"
+msgstr "Full Screen"
+
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabScreencap..LabelPosicionCompresJpg..Caption
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabWebcam..LabelPosicionCompresJpgWebcam..Caption
+#. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..LabelPosicionCompresJpg..Caption
+#: UnitFormControl.dfm:1656
+#: UnitVisorDeMiniaturas.dfm:2034
+msgid "70%"
+msgstr "70%"
+
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabScreencap..CheckBoxMouseClicks..Caption
+#: UnitFormControl.dfm:1748
+msgid "Clicks Remotos"
+msgstr "Remote Cliques"
+
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabWebcam..Caption
+#: UnitFormControl.dfm:1775
+msgid "Webcam"
+msgstr "Webcam"
+
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabWebcam..LabelCalidadWebcam..Caption
+#: UnitFormControl.dfm:1787
+msgid "Calidad de imagen:"
+msgstr "A qualidade da imagem:"
+
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabWebcam..BtnObtenerWebcams..Caption
+#: UnitFormControl.dfm:1876
+msgid "Obtener webcams"
+msgstr "Obter webcams"
+
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabKeylogger..Caption
+#: UnitFormControl.dfm:2020
+msgid "Keylogger"
+msgstr "Keylogger"
+
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabKeylogger..SpeedButtonRecibirLog..Caption
+#: UnitFormControl.dfm:2032
+msgid "Recibir log"
+msgstr "Receber log"
+
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabKeylogger..SpeedButtonEliminarLog..Caption
+#: UnitFormControl.dfm:2077
+msgid "Eliminar log"
+msgstr "Log Excluir"
+
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabKeylogger..SpeedButtonActivarKeylogger..Caption
+#: UnitFormControl.dfm:2167
+#: UnitFormControl.pas:3679
+msgid "Activar Keylogger"
+msgstr "Ativar Keylogger"
+
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabKeylogger..EditLogName..Text
+#: UnitFormControl.dfm:2233
+msgid "Log.dat"
+msgstr "Log.dat"
+
+#. FormControl..PageControl..TabVigilancia..PageControlVigilancia..TabKeylogger..CheckBoxOnlineKeylogger..Caption
+#: UnitFormControl.dfm:2250
+msgid "Online keylogger"
+msgstr "Online keylogger"
+
+#. FormControl..PageControl..TabExtra..Caption
+#: UnitFormControl.dfm:2266
+msgid "Extra"
+msgstr "Extra"
+
+#. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..Caption
+#: UnitFormControl.dfm:2279
+msgid "Mensajes"
+msgstr "Posts"
+
+#. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..GrpBoxTipoMensaje..Caption
+#: UnitFormControl.dfm:2375
+msgid "Tipo de Mensaje"
+msgstr "Tipo de mensagem"
+
+#. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..GrpBoxTipoMensaje..RdBtnError..Caption
+#: UnitFormControl.dfm:2816
+msgid "Error"
+msgstr "Erro"
+
+#. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..GrpBoxTipoMensaje..RdBtnPregunta..Caption
+#: UnitFormControl.dfm:2830
+msgid "Pregunta"
+msgstr "Pergunta"
+
+#. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..RdGrpBotonesMensaje..Caption
+#: UnitFormControl.dfm:2890
+msgid "Tipo de Botones"
+msgstr "Button Type"
+
+#. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..RdGrpBotonesMensaje....Items.Strings
+#. FormSeleccionarIdioma..Button1..Caption
+#: UnitFormControl.dfm:2897
+msgid "OK"
+msgstr "OK"
+
+#. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..RdGrpBotonesMensaje....Items.Strings
+#: UnitFormControl.dfm:2898
+msgid "OK, Cancelar"
+msgstr "OK, Cancelar"
+
+#. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..RdGrpBotonesMensaje....Items.Strings
+#: UnitFormControl.dfm:2899
+msgid "Reintentar, Cancelar"
+msgstr "Tentar novamente, Cancelar"
+
+#. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetMensajes..RdGrpBotonesMensaje....Items.Strings
+#: UnitFormControl.dfm:2902
+msgid "Anular, Reintentar, Omitir"
+msgstr "Abortar, Repetir, Ignorar"
+
+#. FormControl..PageControl..TabExtra..PageControlExtra..TabSheetBromas..Caption
+#: UnitFormControl.dfm:2908
+msgid "Bromas"
+msgstr "Piadas"
+
+#. FormControl..PopupWindows..Maximizar1..Caption
+#: UnitFormControl.dfm:3037
+msgid "Maximizar"
+msgstr "Maximizar"
+
+#. FormControl..PopupWindows..Minimizar1..Caption
+#: UnitFormControl.dfm:3042
+msgid "Minimizar"
+msgstr "Minimizar"
+
+#. FormControl..PopupWindows..Mostrar1..Caption
+#: UnitFormControl.dfm:3047
+msgid "Mostrar"
+msgstr "Show"
+
+#. FormControl..PopupWindows..Ocultar1..Caption
+#: UnitFormControl.dfm:3052
+msgid "Ocultar"
+msgstr "Ocultar"
+
+#. FormControl..PopupWindows..Minimizartodas1..Caption
+#: UnitFormControl.dfm:3057
+msgid "Minimizar todas"
+msgstr "Minimizar todas as"
+
+#. FormControl..PopupWindows..Iralproceso1..Caption
+#: UnitFormControl.dfm:3065
+msgid "Ir al proceso..."
+msgstr "Ir para o processo ..."
+
+#. FormControl..PopupWindows..Enviarteclas1..Caption
+#. FormSendKeys..Caption
+#: UnitFormControl.dfm:3073
+msgid "Enviar teclas..."
+msgstr "Enviar chaves ..."
+
+#. FormControl..PopupWindows..BotnCerrarX1..Activar1..Caption
+#. FormControl..PopupShell..Activar2..Caption
+#: UnitFormControl.dfm:3080
+msgid "Activar"
+msgstr "Ativar"
+
+#. FormControl..PopupWindows..BotnCerrarX1..Desactivar1..Caption
+#. FormControl..PopupShell..Desactivar2..Caption
+#: UnitFormControl.dfm:3085
+msgid "Desactivar"
+msgstr "Desativar"
+
+#. FormControl..PopupFileManager..Descargarfichero1..Caption
+#: UnitFormControl.dfm:3097
+msgid "Descargar"
+msgstr "Download"
+
+#. FormControl..PopupFileManager..Agregaracoladedescarga1..Caption
+#: UnitFormControl.dfm:3102
+msgid "Encolar descarga"
+msgstr "Download Glue"
+
+#. FormControl..PopupFileManager..Subirfichero1..Caption
+#: UnitFormControl.dfm:3107
+msgid "Subir fichero ..."
+msgstr "Fazer upload de arquivo ..."
+
+#. FormControl..PopupFileManager..EjecutarAbrir1..Caption
+#: UnitFormControl.dfm:3115
+msgid "Ejecutar/Abrir"
+msgstr "Run / Open"
+
+#. FormControl..PopupFileManager..EjecutarAbrir1..Normal1..Caption
+#: UnitFormControl.dfm:3117
+msgid "Normal"
+msgstr "Normal"
+
+#. FormControl..PopupFileManager..EjecutarAbrir1..Oculto1..Caption
+#. FormControl..PopupFileManager..CambiarAtributos1..Oculto2..Caption
+#: UnitFormControl.dfm:3122
+msgid "Oculto"
+msgstr "Oculto"
+
+#. FormControl..PopupFileManager..CambiarAtributos1..Caption
+#: UnitFormControl.dfm:3133
+msgid "Cambiar Atributos"
+msgstr "Alterar Atributos"
+
+#. FormControl..PopupFileManager..Cambiarnombre1..Caption
+#. FormControl..PopupRegistro..N1..Caption
+#. FormMain..PopupMenuConexiones..Cambiarnombre1..Caption
+#: UnitFormControl.dfm:3149
+msgid "Cambiar nombre"
+msgstr "Renomear"
+
+#. FormControl..PopupFileManager..Crearnuevacarpeta1..Caption
+#: UnitFormControl.dfm:3154
+msgid "Crear nueva carpeta"
+msgstr "Criar nova pasta"
+
+#. FormControl..PopupFileManager..PrevisualizarImagenes1..Caption
+#: UnitFormControl.dfm:3159
+msgid "Previsualizar Imagenes"
+msgstr "Imagens de Preview"
+
+#. FormControl..PopupFileManager..Previsualizarjpg1..Caption
+#: UnitFormControl.dfm:3163
+msgid "Visor de imagenes avanzado"
+msgstr "Advanced Image Viewer"
+
+#. FormControl..PopupFileManager..Portapapeles1..Caption
+#: UnitFormControl.dfm:3168
+msgid "Portapapeles virtual"
+msgstr "Prancheta Virtual"
+
+#. FormControl..PopupFileManager..Portapapeles1..Copiar1..Caption
+#: UnitFormControl.dfm:3170
+msgid "Copiar"
+msgstr "Cópia"
+
+#. FormControl..PopupFileManager..Portapapeles1..Pegar1..Caption
+#: UnitFormControl.dfm:3175
+msgid "Pegar"
+msgstr "Colar"
+
+#. FormControl..PopupFileManager..AbrirCarpetaDescargas2..Caption
+#: UnitFormControl.dfm:3189
+msgid "Abrir Carpeta Descargas"
+msgstr "Abrir pasta de downloads"
+
+#. FormControl..PopupFileManager..Abrirdirectorio1..Caption
+#: UnitFormControl.dfm:3194
+msgid "Abrir directorio del archivo"
+msgstr "Abrir diretório do arquivo"
+
+#. FormControl..PopupRegistro..Nuevo1..Caption
+#: UnitFormControl.dfm:3204
+msgid "Nuevo"
+msgstr "Novo"
+
+#. FormControl..PopupRegistro..Nuevo1..Clave1..Caption
+#: UnitFormControl.dfm:3207
+msgid "Clave"
+msgstr "Key"
+
+#. FormControl..PopupRegistro..Nuevo1..Valorbinerio1..Caption
+#: UnitFormControl.dfm:3220
+msgid "Valor binario"
+msgstr "Valor binário"
+
+#. FormControl..PopupRegistro..Nuevo1..valorDWORD1..Caption
+#: UnitFormControl.dfm:3225
+msgid "Valor DWORD"
+msgstr "Valor DWORD"
+
+#. FormControl..PopupDescargas..DetenerDescarga1..Caption
+#: UnitFormControl.dfm:3274
+msgid "Detener Transferencia"
+msgstr "Pare de Transferência"
+
+#. FormControl..PopupDescargas..ReanudarDescarga1..Caption
+#: UnitFormControl.dfm:3279
+msgid "Iniciar/Reanudar Descarga"
+msgstr "Start / Resume Download"
+
+#. FormControl..PopupDescargas..Subiralprimerpuesto1..Caption
+#: UnitFormControl.dfm:3284
+msgid "Primer puesto"
+msgstr "Início"
+
+#. FormControl..PopupDescargas..Subir1..Caption
+#: UnitFormControl.dfm:3289
+msgid "Subir puesto"
+msgstr "Posição superior"
+
+#. FormControl..PopupDescargas..Bajar1..Caption
+#: UnitFormControl.dfm:3294
+msgid "Bajar puesto"
+msgstr "Coloque para baixo"
+
+#. FormControl..PopupDescargas..Borrarcompletados1..Caption
+#: UnitFormControl.dfm:3304
+msgid "Borrar completados"
+msgstr "Apagar concluída"
+
+#. FormControl..PopupDescargas..Eliminardescarga1..Caption
+#: UnitFormControl.dfm:3309
+msgid "Eliminar descarga"
+msgstr "Download Excluir"
+
+#. FormControl..PopupDescargas..Abrircarpetadescargas1..Caption
+#: UnitFormControl.dfm:3317
+msgid "Abrir carpeta descargas"
+msgstr "Abra a pasta downloads"
+
+#. FormControl..OpenDialogUpload..Title
+#: UnitFormControl.dfm:3324
+msgid "Selecciona el archivo a enviar"
+msgstr "Selecione um arquivo para enviar"
+
+#. FormControl..PopupServicios..Iniciar1..Caption
+#: UnitFormControl.dfm:3370
+msgid "Iniciar"
+msgstr "Início"
+
+#. FormControl..PopupServicios..DEtener1..Caption
+#: UnitFormControl.dfm:3375
+msgid "Detener"
+msgstr "Parar"
+
+#. FormControl..PopupGuardarPantallaoWebcam..Guardarimagen1..Caption
+#: UnitFormControl.dfm:3402
+msgid "Guardar imagen"
+msgstr "Salvar Imagem"
+
+#. FormControl..PopupRutasRapidas..Windir1..Caption
+#: UnitFormControl.dfm:7123
+msgid "Directorio de windows"
+msgstr "Diretório do Windows"
+
+#. FormControl..PopupRutasRapidas..Directoriodesistema1..Caption
+#: UnitFormControl.dfm:7128
+msgid "Directorio de sistema"
+msgstr "Diretório do sistema"
+
+#. FormControl..PopupRutasRapidas..Misdocumentos1..Caption
+#: UnitFormControl.dfm:7133
+msgid "Mis documentos"
+msgstr "Meus Documentos"
+
+#. FormControl..PopupRutasRapidas..Escritorio1..Caption
+#: UnitFormControl.dfm:7138
+msgid "Escritorio"
+msgstr "Desktop"
+
+#. FormControl..PopupRutasRapidas..ArchivosRecientes1..Caption
+#: UnitFormControl.dfm:7143
+msgid "Archivos Recientes"
+msgstr "Arquivos Recentes"
+
+#. FormSeleccionarIdioma..Caption
+#: UnitFormLanguage.dfm:6
+msgid "Select  Your Language"
+msgstr "Selecione seu idioma"
+
+#. FormSeleccionarIdioma..cmbLanguages....Items.Strings
+#: UnitFormLanguage.dfm:53
+msgid "EN - English"
+msgstr "EN - English"
+
+#. FormNotifica..Caption
+#. FormNotifica..LabelConect..Caption
+#: UnitFormNotifica.dfm:6
+msgid "Conectando"
+msgstr "Conexão"
+
+#. FormNotifica..LabelIP..Caption
+#: UnitFormNotifica.dfm:1576
+msgid "127.0.0.1"
+msgstr "127.0.0.1"
+
+#. FormNotifica..LabelName..Caption
+#: UnitFormNotifica.dfm:1590
+msgid "Coolserver"
+msgstr "Coolserver"
+
+#. FormReg..LabelNombre..Caption
+#: UnitFormReg.dfm:23
+msgid "Nombre del valor:"
+msgstr "Nome do valor:"
+
+#. FormReg..BtnAceptar..Caption
+#. FormID..CmbIDAceptar..Caption
+#: UnitFormReg.dfm:37
+msgid "Aceptar"
+msgstr "OK"
+
+#. FormSendKeys..BtnEspeciales..Caption
+#: UnitFormSendKeys.dfm:208
+msgid "Teclas especiales"
+msgstr "Teclas especiais"
+
+#. FormSendKeys..MemoSendKeys....Lines.Strings
+#: UnitFormSendKeys.dfm:294
+msgid "MemoSendKeys"
+msgstr "MemoSendKeys"
+
+#. FormSendKeys..PopupSendKeys..Enter1..Caption
+#: UnitFormSendKeys.dfm:326
+msgid "Enter"
+msgstr "Enter"
+
+#. FormSendKeys..PopupSendKeys..Shift1..Caption
+#: UnitFormSendKeys.dfm:330
+msgid "Shift"
+msgstr "Shift"
+
+#. FormSendKeys..PopupSendKeys..Control1..Caption
+#: UnitFormSendKeys.dfm:334
+msgid "Control"
+msgstr "Control"
+
+#. FormSendKeys..PopupSendKeys..Alt1..Caption
+#: UnitFormSendKeys.dfm:338
+msgid "Alt"
+msgstr "Alt"
+
+#. FormSendKeys..PopupSendKeys..Retroceso1..Caption
+#: UnitFormSendKeys.dfm:342
+msgid "Retroceso"
+msgstr "Recuo"
+
+#. FormSendKeys..PopupSendKeys..Escape1..Caption
+#: UnitFormSendKeys.dfm:346
+msgid "Escape"
+msgstr "Escape"
+
+#. FormSendKeys..PopupSendKeys..Suprimir1..Caption
+#: UnitFormSendKeys.dfm:350
+msgid "Suprimir"
+msgstr "Excluir"
+
+#. FormSendKeys..PopupSendKeys..Combinaciones1..Caption
+#: UnitFormSendKeys.dfm:357
+msgid "Combinaciones"
+msgstr "Combinações"
+
+#. FormSendKeys..PopupSendKeys..Combinaciones1..AltF4Cerrarventana1..Caption
+#: UnitFormSendKeys.dfm:359
+msgid "Alt + F4 (Cerrar ventana)"
+msgstr "Alt + F4 (Fechar a janela)"
+
+#. FormID..Caption
+#: UnitID.dfm:7
+msgid "Nueva ID"
+msgstr "Nova ID"
+
+#. FormID..Label1..Caption
+#: UnitID.dfm:23
+msgid "Escriba la nueva ID del servidor:"
+msgstr "Digite o novo ID do servidor:"
+
+#. FormID..EditID..Text
+#: UnitID.dfm:126
+msgid "Coolvibes Server"
+msgstr "Coolvibes Server"
+
+#. FormMain..Caption
+#: UnitMain.dfm:6
+msgid "Coolvibes [version]"
+msgstr "Coolvibes [versão]"
+
+#. FormMain..BtnEscuchar..Caption
+#. FormMain..PopupMenuTray..Escuchar1..Caption
+#: UnitMain.dfm:645
+msgid "Escuchar"
+msgstr "Tocar"
+
+#. FormMain..BtnOpciones..Caption
+#. FormOpciones..Caption
+#. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..Caption
+#: UnitMain.dfm:684
+msgid "Opciones"
+msgstr "Opções"
+
+#. FormMain..BtnAbout..Caption
+#. FormMain..PopupMenuTray..Acercade1..Caption
+#: UnitMain.dfm:722
+msgid "Acerca de..."
+msgstr "Sobre..."
+
+#. FormMain..BtnConfigServer..Caption
+#: UnitMain.dfm:775
+msgid "Configurar servidor"
+msgstr "Configurar o servidor"
+
+#. FormMain..ListViewConexiones......Caption
+#: UnitMain.dfm:824
+msgid "IP"
+msgstr "IP"
+
+#. FormMain..ListViewConexiones......Caption
+#: UnitMain.dfm:832
+msgid "CPU"
+msgstr "CPU"
+
+#. FormMain..ListViewConexiones......Caption
+#: UnitMain.dfm:836
+msgid "SO"
+msgstr "SO"
+
+#. FormMain..ListViewConexiones......Caption
+#. FormMain..PopupMenuConexiones..Ping1..Caption
+#: UnitMain.dfm:843
+msgid "Ping"
+msgstr "Ping"
+
+#. FormMain..ListViewConexiones......Caption
+#: UnitMain.dfm:846
+msgid "Ventana activa"
+msgstr "Active Window"
+
+#. FormMain..ListViewConexiones......Caption
+#: UnitMain.dfm:850
+msgid "TSU"
+msgstr "TSU"
+
+#. FormMain..ListViewConexiones......Caption
+#: UnitMain.dfm:853
+msgid "Encendido hace"
+msgstr "Poder atrás"
+
+#. FormMain..PopupMenuConexiones..Abrir1..Caption
+#: UnitMain.dfm:893
+msgid "Abrir"
+msgstr "Abrir"
+
+#. FormMain..PopupMenuTray..MostrarOcultar1..Caption
+#: UnitMain.dfm:1356
+msgid "Mostrar/Ocultar"
+msgstr "Show / Hide"
+
+#. FormMain..PopupMenuTray..Salir1..Caption
+#: UnitMain.dfm:1368
+msgid "Salir"
+msgstr "Sair"
+
+#. FormMain..PopupMenuTray..wwwindetectablesnet1..Caption
+#: UnitMain.dfm:1375
+msgid "www.indetectables.net"
+msgstr "www.indetectables.net"
+
+#. FormOpciones..LabelPuerto..Caption
+#: UnitOpciones.dfm:27
+msgid "Puerto de escucha"
+msgstr "Porta de escuta"
+
+#. FormOpciones..GrpBoxAlSalir..Caption
+#: UnitOpciones.dfm:92
+msgid "Al salir..."
+msgstr "Deixando..."
+
+#. FormOpciones..GrpBoxAlSalir..CheckBoxCloseToTray..Caption
+#: UnitOpciones.dfm:134
+msgid "Cerrar al tray"
+msgstr "Feche a bandeja"
+
+#. FormOpciones..GrpBoxServerDesconect..Caption
+#: UnitOpciones.dfm:152
+msgid "Server conectar/desconectar"
+msgstr "Servidor de ligar / desligar"
+
+#. FormOpciones..GrpBoxServerDesconect..CheckBoxNotiMsnDesc..Caption
+#: UnitOpciones.dfm:165
+msgid "Avisar al desconectar"
+msgstr "Avisar off"
+
+#. FormOpciones..GroupBoxConexion..Label1..Caption
+#: UnitOpciones.dfm:209
+msgid "s"
+msgstr "s"
+
+#. FormOpciones..GroupBoxConexion..CheckBoxEscucharAlIniciar..Caption
+#: UnitOpciones.dfm:222
+msgid "Escuchar al iniciar"
+msgstr "Play para iniciar"
+
+#. FormOpciones..GroupBoxConexion..CheckBoxMandarPingAuto..Caption
+#: UnitOpciones.dfm:239
+msgid "Mandar ping auto. cada"
+msgstr "Ping carro de comando. cada"
+
+#. FormOpciones..CheckBoxMinimizeToTray..Caption
+#: UnitOpciones.dfm:264
+msgid "Minimizar al tray"
+msgstr "Minimizar para a bandeja"
+
+#. FormOpciones..CheckBoxAutoRefrescar..Caption
+#: UnitOpciones.dfm:280
+msgid "Auto-Refrescar"
+msgstr "Auto-Refresh"
+
+#. FormVisorDeMiniaturas..Caption
+#: UnitVisorDeMiniaturas.dfm:6
+msgid "Visor de miniaturas"
+msgstr "Visor de miniaturas"
+
+#. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetPrincipal..Caption
+#: UnitVisorDeMiniaturas.dfm:1962
+msgid "Visor"
+msgstr "Viewer"
+
+#. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetCola..Caption
+#: UnitVisorDeMiniaturas.dfm:1983
+msgid "Cola de Miniaturas"
+msgstr "Miniaturas Cola"
+
+#. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..LabelPorCiento..Caption
+#: UnitVisorDeMiniaturas.dfm:2060
+msgid "%"
+msgstr "%"
+
+#. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..LabelModoDeVisionado..Caption
+#: UnitVisorDeMiniaturas.dfm:2073
+msgid "Modo de Visionado"
+msgstr "Modo de Exibição"
+
+#. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..LabelAviso..Caption
+#: UnitVisorDeMiniaturas.dfm:2087
+msgid "Haz Click en la imagen del Visor para comenzar"
+msgstr "Clique na imagem para iniciar o visualizador"
+
+#. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..RadioManual..Caption
+#: UnitVisorDeMiniaturas.dfm:2130
+msgid "Manual"
+msgstr "Manual"
+
+#. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..CheckBoxAutoGuardado..Caption
+#: UnitVisorDeMiniaturas.dfm:2160
+msgid "Autoguardado"
+msgstr "Autosave"
+
+#. FormVisorDeMiniaturas..PageControlMiniaturas..TabSheetOpciones..ComboBoxModoDeVisionado....Items.Strings
+#: UnitVisorDeMiniaturas.dfm:2179
+msgid "Hacer clic en la imagen"
+msgstr "Clique na imagem"
+
+#. FormVisorDeMiniaturas..StatusBar......Text
+#: UnitVisorDeMiniaturas.dfm:2190
+msgid "En Cola"
+msgstr "Fila"
+
+#. FormVisorDeMiniaturas..StatusBar......Text
+#: UnitVisorDeMiniaturas.dfm:2198
+msgid "Estado:"
+msgstr "Estado:"
+
+#. FormVisorDeMiniaturas..StatusBar......Text
+#: UnitVisorDeMiniaturas.dfm:2202
+msgid "Esperando"
+msgstr "Esperando"
+
+#. FormVisorDeMiniaturas..PopupColaDeMiniaturas..Eliminardelacola1..Caption
+#: UnitVisorDeMiniaturas.dfm:2618
+msgid "Eliminar de la cola"
+msgstr "Remover cauda"
+
+#: UnitAbout.pas:74
+msgid "Acerca de Coolvibes "
+msgstr "Sobre Coolvibes"
+
+#: UnitColumnasManager.pas:102
+msgid "La primera columna no puede ser editada"
+msgstr "A primeira coluna não pode ser editado"
+
+#: UnitFormConfigServer.pas:113
+msgid "Seleccione el servidor que desea modificar."
+msgstr "Selecione o servidor que você deseja modificar."
+
+#: UnitFormConfigServer.pas:116
+msgid "> Listo."
+msgstr ""
+
+#. Suena un ruidito..., para informar que hay que mirar la StatusBar :)
+#: UnitFormConfigServer.pas:168
+msgid "Tienes que establecer un nombre al plugin"
+msgstr "Você tem que definir um nome para o plugin"
+
+#: UnitFormConfigServer.pas:210
+msgid "Abrir icono..."
+msgstr "Ícone Abrir ..."
+
+#. solo deja seleccionar archivos que existan
+#: UnitFormConfigServer.pas:212
+msgid "Icono"
+msgstr "Ícone"
+
+#. Para borrar los archivos de alguna otra instalacion si existiesen
+#: UnitFormConfigServer.pas:261
+msgid "Servidor.exe"
+msgstr "Servidor.exe"
+
+#. Primero copiamos los archivos necesarios
+#: UnitFormConfigServer.pas:295
+msgid "> Copiando los archivos necesarios..."
+msgstr "> Copiando os arquivos necessários..."
+
+#: UnitFormConfigServer.pas:304
+msgid "El archivo Jeringa.exe no existe"
+msgstr "Jeringa.exe Arquivo não existe"
+
+#: UnitFormConfigServer.pas:305
+msgid "> Error: El archivo Jeringa.exe no existe"
+msgstr "> Erro: Arquivo não existe Jeringa.exe"
+
+#: UnitFormConfigServer.pas:308
+msgid "> Jeringa.exe correctamente copiado."
+msgstr "> Jeringa.exe corretamente copiado."
+
+#: UnitFormConfigServer.pas:315
+msgid "El archivo Conectador.dll no existe."
+msgstr "Conectador.dll Arquivo não existe."
+
+#: UnitFormConfigServer.pas:316
+msgid "> Error: El archivo Conectador.dll no existe."
+msgstr "> Erro: O arquivo não existe Conectador.dll."
+
+#: UnitFormConfigServer.pas:319
+msgid "> Conectador.dll correctamente copiado."
+msgstr "> Conectador.dll corretamente copiado."
+
+#: UnitFormConfigServer.pas:323
+msgid "Comprimiendo conectador.dll con UPX..."
+msgstr "Conectador.dll compactado com UPX..."
+
+#. Esperamos a que acabe
+#: UnitFormConfigServer.pas:329
+msgid "Comprimidos!"
+msgstr "Comprimidos!"
+
+#. sin inyección
+#: UnitFormConfigServer.pas:341
+msgid "El archivo conectador.exe no existe."
+msgstr "Conectador.exe Arquivo não existe."
+
+#: UnitFormConfigServer.pas:342
+msgid "> Error: El archivo conectador.exe no existe."
+msgstr "> Erro: O arquivo não existe conectador.exe"
+
+#: UnitFormConfigServer.pas:345
+msgid "> Conectador.exe correctamente copiado."
+msgstr "> Conectador.exe corretamente copiado."
+
+#. cambiar icono
+#: UnitFormConfigServer.pas:391
+msgid "> Cambiando el icono al servidor..."
+msgstr "> Como alterar o ícone para o servidor ..."
+
+#: UnitFormConfigServer.pas:421
+msgid "Este campo no admite el caracter: |"
+msgstr "Este campo não oferece suporte a caracteres: |"
+
+#: UnitFormConfigServer.pas:455
+msgid "Las variables aceptadas son:"
+msgstr ""
+
+#: UnitFormConfigServer.pas:456
+msgid "%WinDir% -> Se reemplaza por el directorio de Windows (Por ejemplo C:\\Windows\\)"
+msgstr ""
+
+#: UnitFormConfigServer.pas:457
+msgid "%SysDir% -> Se reemplaza por el directorio de sistema (Por ejemplo C:\\System32\\)"
+msgstr ""
+
+#: UnitFormConfigServer.pas:459
+msgid "%TempDir% -> Se reemplaza por el directorio de archivos temporales (Por ejemplo C:\\Temp\\)"
+msgstr ""
+
+#: UnitFormConfigServer.pas:460
+msgid "%AppDir% -> Se reemplaza por el directorio de datos de aplicaciones (Por ejemplo C:\\Documents and Settings\\user\\appdata\\) (Recomendado)"
+msgstr ""
+
+#: UnitFormConfigServer.pas:461
+msgid "%RootDir% -> Se reemplaza por la ruta principal del directorio de Windows (Por ejemplo C:\\)"
+msgstr ""
+
+#: UnitFormConfigServer.pas:464
+#, fuzzy
+msgid "Cuando el servidor sea copiado a la carpeta de destino, su fecha de"
+msgstr "Quando o processo servidor é morto e injetadas reiniciado"
+
+#: UnitFormConfigServer.pas:466
+msgid "de modo que no pueda encontrarse facilmente al listar archivos por fecha"
+msgstr ""
+
+#: UnitFormConfigServer.pas:470
+msgid "Cuando el proceso servidor sea matado volvera a iniciarse e inyectarse"
+msgstr "Quando o processo servidor é morto e injetadas reiniciado"
+
+#: UnitFormControl.pas:472
+msgid "Proceso matado con PID "
+msgstr ""
+
+#: UnitFormControl.pas:473
+msgid " :( No pude matar el proceso con PID "
+msgstr ""
+
+#: UnitFormControl.pas:474
+#, fuzzy
+msgid "Ventana cerrada con Handle "
+msgstr "O identificador de janela"
+
+#: UnitFormControl.pas:475
+#, fuzzy
+msgid "Ventana maximizada con Handle "
+msgstr "O identificador de janela"
+
+#: UnitFormControl.pas:476
+#, fuzzy
+msgid "Ventana minimizada con Handle "
+msgstr "O identificador de janela"
+
+#: UnitFormControl.pas:477
+#, fuzzy
+msgid "Ventana mostrada con Handle "
+msgstr "O identificador de janela"
+
+#: UnitFormControl.pas:478
+#, fuzzy
+msgid "Ventana ocultada con Handle "
+msgstr "O identificador de janela"
+
+#: UnitFormControl.pas:479
+#, fuzzy
+msgid "Minimizadas todas las ventanas."
+msgstr "Minimizar todas as"
+
+#: UnitFormControl.pas:482
+msgid "No se pudieron enviar las teclas a la ventana con handle "
+msgstr ""
+
+#: UnitFormControl.pas:483
+#, fuzzy
+msgid "Se enviaron las teclas a la ventana con handle "
+msgstr "O identificador de janela"
+
+#: UnitFormControl.pas:491
+#, fuzzy
+msgid "Archivo correctamente ejecutado :)."
+msgstr "> Jeringa.exe corretamente copiado."
+
+#: UnitFormControl.pas:493
+msgid "Archivo correctamente ejecutado de manera oculta :)."
+msgstr ""
+
+#: UnitFormControl.pas:496
+msgid "El archivo no se pudo borrar."
+msgstr ""
+
+#: UnitFormControl.pas:497
+msgid "El archivo no existe. Tal vez ya fue borrado."
+msgstr ""
+
+#: UnitFormControl.pas:499
+#, fuzzy
+msgid "No se pudo borrar la carpeta."
+msgstr "Não é possível carregar a imagem:"
+
+#: UnitFormControl.pas:500
+msgid "La carpeta no existe. Tal vez ya fue borrada."
+msgstr ""
+
+#: UnitFormControl.pas:502
+msgid "No se pudo renombrar el archivo o la carpeta."
+msgstr ""
+
+#: UnitFormControl.pas:503
+#, fuzzy
+msgid "El archivo o la carpeta no existe."
+msgstr "Conectador.exe Arquivo não existe."
+
+#: UnitFormControl.pas:505
+#, fuzzy
+msgid "No se pudo crear la carpeta."
+msgstr "Não é possível carregar a imagem:"
+
+#: UnitFormControl.pas:506
+msgid "La carpeta ya existe); no es necesario crearla."
+msgstr ""
+
+#: UnitFormControl.pas:508
+#, fuzzy
+msgid "Error al copiar el archivo"
+msgstr "Falha ao baixar o arquivo:"
+
+#: UnitFormControl.pas:510
+#, fuzzy
+msgid "Error al modificar el nombre de la clave."
+msgstr "Digite o nome da nova chave."
+
+#: UnitFormControl.pas:512
+msgid "No se pudo eliminar la clave o el valor."
+msgstr ""
+
+#: UnitFormControl.pas:517
+msgid "Se ha intentado iniciar el servicio"
+msgstr ""
+
+#: UnitFormControl.pas:518
+msgid "Se ha intentado detener el servicio"
+msgstr ""
+
+#: UnitFormControl.pas:519
+msgid "Se ha intentado desinstalar el servicio"
+msgstr ""
+
+#: UnitFormControl.pas:520
+msgid "Se ha intentado instalar el servicio"
+msgstr ""
+
+#: UnitFormControl.pas:747
+msgid "Oculta"
+msgstr "Oculto"
+
+#: UnitFormControl.pas:748
+msgid "Maximizada"
+msgstr "Maximizada"
+
+#: UnitFormControl.pas:750
+msgid "Minimizada"
+msgstr "Minimizado"
+
+#: UnitFormControl.pas:751
+msgid "Activa"
+msgstr "Active"
+
+#: UnitFormControl.pas:779
+msgid "Actualice la lista de ventanas."
+msgstr "Atualizar a lista de janelas."
+
+#: UnitFormControl.pas:787
+msgid "La ventana con handle "
+msgstr "O identificador de janela"
+
+#: UnitFormControl.pas:787
+msgid " pertenece al proceso \""
+msgstr "parte do processo de \""
+
+#: UnitFormControl.pas:788
+msgid "\" con PID "
+msgstr "\"Com o PID"
+
+#: UnitFormControl.pas:809
+msgid "El directorio no existe!"
+msgstr "O diretório não existe!"
+
+#: UnitFormControl.pas:855
+msgid "Espacio libre/total: "
+msgstr "Espaço livre / total:"
+
+#. Espacio total
+#: UnitFormControl.pas:863
+msgid "Formato:"
+msgstr "Formato:"
+
+#. el último caracter
+#: UnitFormControl.pas:867
+msgid " - Unidad desconocida"
+msgstr "- Unidade Desconhecido"
+
+#: UnitFormControl.pas:868
+msgid " - Unidad removible"
+msgstr "- Drive removível"
+
+#: UnitFormControl.pas:869
+msgid " - Disco duro"
+msgstr "- Disco Rígido"
+
+#: UnitFormControl.pas:870
+msgid " - Disco de red"
+msgstr "- Rede de disco"
+
+#: UnitFormControl.pas:871
+msgid " - Unidad de CD/DVD"
+msgstr "- CD / DVD"
+
+#: UnitFormControl.pas:872
+msgid " - Disc RAM"
+msgstr "- RAM Disco"
+
+#: UnitFormControl.pas:880
+msgid "Unidades listadas."
+msgstr "Unidades listadas."
+
+#: UnitFormControl.pas:921
+msgid "Carpeta de archivos"
+msgstr "Pasta de arquivos"
+
+#. Aquí cuenta las carpetas para decir cuantas son
+#: UnitFormControl.pas:962
+msgid "Carpetas: "
+msgstr "Pastas:"
+
+#. si no es una carpeta...
+#: UnitFormControl.pas:970
+msgid "Archivos: "
+msgstr "Arquivos:"
+
+#: UnitFormControl.pas:1022
+msgid "Webcams listadas."
+msgstr "Webcams listados."
+
+#. ejemplo : /alerter/alvg*..
+#: UnitFormControl.pas:1075
+msgid "Parado"
+msgstr "Permanente"
+
+#: UnitFormControl.pas:1078
+msgid "Corriendo"
+msgstr "Duração"
+
+#: UnitFormControl.pas:1081
+msgid "Pausado"
+msgstr "Slow"
+
+#: UnitFormControl.pas:1104
+msgid "Desactivar Keylogger"
+msgstr "Keylogger Off"
+
+#: UnitFormControl.pas:1174
+msgid "Busqueda parada"
+msgstr "Pare de Pesquisa"
+
+#: UnitFormControl.pas:1180
+msgid "Busqueda finalizada"
+msgstr "Pesquisa concluída"
+
+#: UnitFormControl.pas:1343
+#: UnitFormControl.pas:1388
+#: UnitFormControl.pas:1410
+#: UnitFormControl.pas:1432
+#: UnitFormControl.pas:1463
+#: UnitFormControl.pas:1485
+#: UnitFormControl.pas:3364
+msgid "Selecciona alguna ventana"
+msgstr "Seleccione uma janela"
+
+#: UnitFormControl.pas:1507
+msgid "Selecciona alguna broma"
+msgstr "Selecione uma piada"
+
+#. Selecciona la broma que se va a enviar
+#. El mouse se descongela si se activa el congela mouse
+#: UnitFormControl.pas:1516
+#: UnitFormControl.pas:1523
+msgid "Desactivado"
+msgstr "Off"
+
+#: UnitFormControl.pas:1566
+msgid "Dale doble click a una carpeta o a un archivo!"
+msgstr "Dê um duplo clique nele para uma pasta ou um arquivo!"
+
+#: UnitFormControl.pas:1569
+msgid "Listando archivos..."
+msgstr "Listando arquivos..."
+
+#: UnitFormControl.pas:1830
+msgid "Escriba el nombre para la nueva carpeta."
+msgstr "Digite o nome da nova pasta."
+
+#: UnitFormControl.pas:1831
+msgid "Nueva carpeta"
+msgstr "Nova Pasta"
+
+#. Primero las contamos para poder mostrar en el panel cuantas hay
+#: UnitFormControl.pas:1928
+msgid "Listadas "
+msgstr "Listadas"
+
+#: UnitFormControl.pas:1928
+msgid " claves de "
+msgstr "chave"
+
+#. Seleccionado mostrar el icono de carpeta abierta
+#: UnitFormControl.pas:1939
+msgid "Claves listadas"
+msgstr "Listados chave"
+
+#: UnitFormControl.pas:2143
+msgid "Escriba el nombre para la nueva clave."
+msgstr "Digite o nome da nova chave."
+
+#: UnitFormControl.pas:2144
+msgid "Crear nueva clave"
+msgstr "Criar uma nova chave"
+
+#: UnitFormControl.pas:2144
+msgid "NuevaClave"
+msgstr "NuevaClave"
+
+#. Enviar teclas a una ventana....
+#: UnitFormControl.pas:2207
+msgid "Selecciona alguna ventana para enviarle teclas."
+msgstr "Selecione uma janela para enviar as chaves."
+
+#. necesitamos el tamaño de la pantalla para calcular la posicion real.
+#: UnitFormControl.pas:2270
+msgid "Pide una captura primero!"
+msgstr "Solicita a primeira captura!"
+
+#: UnitFormControl.pas:2406
+msgid "Entra al directorio primero!"
+msgstr "Digite o diretório em primeiro lugar!"
+
+#. si es =1 es que ha habido un error
+#: UnitFormControl.pas:2588
+msgid "Error al generar el thumbnail"
+msgstr "Falha ao gerar miniaturas"
+
+#: UnitFormControl.pas:2712
+msgid "Transferencia finalizada: "
+msgstr "Transfer Complete:"
+
+#. Subir al primer puesto
+#. Si su item superior está tambien en espera se intercambia con él
+#. Si su item inferior está tambien en espera se intercambia con él
+#. Buscamos el último item en espera y le insertamos ahi
+#. Eliminamos el primer item
+#: UnitFormControl.pas:2872
+#: UnitFormControl.pas:2918
+#: UnitFormControl.pas:2937
+#: UnitTransfer.pas:73
+#: UnitTransfer.pas:77
+#: UnitVisorDeMiniaturas.pas:136
+msgid "En espera"
+msgstr "Pendentes"
+
+#: UnitFormControl.pas:3000
+msgid "Advertencia"
+msgstr "Aviso"
+
+#: UnitFormControl.pas:3034
+msgid "Guardar texto :: Coolvibes ::"
+msgstr "Salvar Texto: Coolvibes:"
+
+#: UnitFormControl.pas:3036
+msgid "Archivo de texto"
+msgstr "Arquivo de texto"
+
+#: UnitFormControl.pas:3041
+msgid "Archivo guardado como: "
+msgstr "Arquivo salvo como:"
+
+#: UnitFormControl.pas:3105
+msgid "{Escribir el nombre del servicio}"
+msgstr "{Escrever o nome do serviço}"
+
+#: UnitFormControl.pas:3128
+msgid "{Ruta del ejecutable a poner de servicio}"
+msgstr "{Caminho para o executável do serviço}"
+
+#. KEYLOGGERLOG
+#: UnitFormControl.pas:3582
+msgid "Guardar imagen ::Coolvibes::"
+msgstr "Salvar imagem: Coolvibes:"
+
+#: UnitFormControl.pas:3584
+msgid "Imagen"
+msgstr "Imagem"
+
+#. Sino es una webcam
+#: UnitFormControl.pas:3593
+msgid "Imagen guardada como: "
+msgstr "Imagem guardada como:"
+
+#: UnitFormControl.pas:3613
+msgid "Guardar captura de pantalla"
+msgstr "Salvar imagem"
+
+#: UnitFormControl.pas:3627
+msgid "Guardar captura de webcam"
+msgstr "Salvar captura webcam"
+
+#: UnitFormControl.pas:3644
+msgid "Prefijo captura"
+msgstr "Prefixo de captura"
+
+#: UnitFormControl.pas:3644
+msgid "captura_"
+msgstr "captura_"
+
+#: UnitFormControl.pas:3647
+msgid "webcam_"
+msgstr "webcam_"
+
+#: UnitFormControl.pas:3711
+msgid "Guardar Log de Keylogger ::Coolvibes Rat::"
+msgstr "Save Log Keylogger: Coolvibes Rato:"
+
+#: UnitFormControl.pas:3713
+msgid "Texto .txt"
+msgstr "Texto. Txt"
+
+#: UnitFormControl.pas:3720
+msgid "Log guardado como: "
+msgstr "Log salvo como:"
+
+#: UnitFormControl.pas:3939
+msgid "Cargadas "
+msgstr "Cobrado"
+
+#: UnitFormControl.pas:3939
+msgid " de "
+msgstr "de"
+
+#. save structure to list
+#: UnitFormControl.pas:3964
+msgid "Miniaturas cargadas!"
+msgstr "Miniaturas carregada!"
+
+#: UnitFormControl.pas:4189
+msgid "Parar"
+msgstr "Parar"
+
+#: UnitFormReg.pas:83
+msgid "Los valores binarios solo constan de una linea"
+msgstr "Os valores binários consistem apenas de uma linha"
+
+#. 24*60*60
+#: UnitFunciones.pas:57
+msgid " dias "
+msgstr "dia"
+
+#. 60*60
+#: UnitFunciones.pas:65
+msgid " horas "
+msgstr "horas"
+
+#: UnitFunciones.pas:73
+msgid " minutos "
+msgstr "minutos"
+
+#: UnitFunciones.pas:76
+msgid " segundos "
+msgstr "segundo"
+
+#: UnitMain.pas:219
+msgid "El puerto "
+msgstr "Porto"
+
+#: UnitMain.pas:228
+msgid "No se puede cargar la imagen: "
+msgstr "Não é possível carregar a imagem:"
+
+#: UnitMain.pas:233
+msgid "Esperando conexiones"
+msgstr "Para as ligações:"
+
+#: UnitMain.pas:234
+msgid "Puerto: "
+msgstr "Porto:"
+
+#: UnitMain.pas:269
+msgid "Escucha detenida"
+msgstr "Ouça preso"
+
+#: UnitMain.pas:324
+msgid "Numero de conexiones: "
+msgstr "Número de ligações:"
+
+#. solo si está activa la notificación MSN de lo contrario podría molestar
+#: UnitMain.pas:368
+msgid "Pidiendo Servidor"
+msgstr "Chamando Server"
+
+#: UnitMain.pas:526
+msgid "Centro de control: "
+msgstr "Centro de Controle:"
+
+#: UnitMain.pas:877
+msgid "Estado: No escuchando"
+msgstr "Status: Não escuta"
+
+#: UnitTransfer.pas:108
+msgid "Descargando"
+msgstr "Transferir"
+
+#: UnitTransfer.pas:125
+msgid "Error al descargar archivo: "
+msgstr "Falha ao baixar o arquivo:"
+
+#. nos servira para llevar la cuenta de cuanto hemos subido
+#: UnitTransfer.pas:163
+msgid "Detenido"
+msgstr "Preso"
+
+#: UnitTransfer.pas:169
+msgid "Finalizado"
+msgstr "Concluída"
+
+#: UnitTransfer.pas:299
+msgid "Subiendo"
+msgstr "Escalada"
+
+#. quitamos el aviso
+#: UnitVisorDeMiniaturas.pas:109
+msgid "Recibiendo Thumbnail"
+msgstr "Receber Miniatura"
+
+#~ msgid "Acerca de Coolvibes <VersionCool>"
+#~ msgstr "Sobre Coolvibes <VersionCool>"
+
+#~ msgid "Coolvibes <VersionCool>"
+#~ msgstr "Coolvibes <VersionCool>"
+
+#~ msgid "Volver"
+#~ msgstr "Voltar"
+
+#~ msgid "Microsoft Sans Serif"
+#~ msgstr "Microsoft Sans Serif"
+
+#~ msgid "www.indetectables.net que "
+#~ msgstr "www.indetectables.net que "

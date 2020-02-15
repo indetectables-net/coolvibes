@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ExtCtrls, ComCtrls;
+  Dialogs, StdCtrls, ExtCtrls, ComCtrls, gnugettext;
 
 type
   TFormNotifica = class(TForm)
@@ -95,6 +95,8 @@ procedure TFormNotifica.FormCreate(Sender: TObject);
 var
   Zona: TRect;
 begin
+  UseLanguage(Formmain.idioma);
+  TranslateComponent(self);
   self.DoubleBuffered := True;  //Evita parpadeos
   SystemParametersInfo(SPI_GETWORKAREA, 0, @Zona, 0);
   Left     := Zona.Right - Width - 10;

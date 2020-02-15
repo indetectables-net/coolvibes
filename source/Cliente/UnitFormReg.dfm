@@ -12,6 +12,7 @@ object FormReg: TFormReg
   Font.Style = []
   OldCreateOrder = False
   Position = poMainFormCenter
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object LabelNombre: TLabel

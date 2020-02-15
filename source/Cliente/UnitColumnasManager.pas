@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Buttons, ComCtrls, Menus;
+  Dialogs, Buttons, ComCtrls, Menus, gnugettext;
 
 type
   TFormColumnasManager = class(TForm)
@@ -99,7 +99,7 @@ begin
   i := ListViewColumnas.Selected.Index;
   if i = 0 then
   begin
-    MessageDlg('La primera columna no puede ser editada', mtWarning, [mbOK], 0);
+    MessageDlg(_('La primera columna no puede ser editada'), mtWarning, [mbOK], 0);
     exit;
   end;
   columna := ListViewColumnas.Selected.SubItems[0];

@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Buttons, ExtCtrls, StdCtrls, ComCtrls, jpeg, ShellAPI, UnitVariables;
+  Dialogs, Buttons, ExtCtrls, StdCtrls, ComCtrls, jpeg, ShellAPI, UnitVariables, gnugettext;
 
 type
   TFormAbout = class(TForm)
@@ -16,11 +16,9 @@ type
     Label3:     TLabel;
     Image3:     TImage;
     Label4:     TLabel;
-    BtnCerrar:  TSpeedButton;
     ScrollBoxCreadores: TScrollBox;
     EdtHistorial: TRichEdit;
     ImgBanner:  TImage;
-    Bevel1:     TBevel;
     GrpBoxHistorial: TGroupBox;
     GrpBoxInfo: TGroupBox;
     ScrollBoxBetaTesters: TScrollBox;
@@ -37,6 +35,12 @@ type
     Image6:     TImage;
     Label12:    TLabel;
     Label13: TLabel;
+    Label14: TLabel;
+    Image7: TImage;
+    Image8: TImage;
+    Image9: TImage;
+    Label15: TLabel;
+    Label16: TLabel;
     procedure BtnCerrarClick(Sender: TObject);
     procedure ImgBannerClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -65,15 +69,16 @@ end;
 
 procedure TFormAbout.FormCreate(Sender: TObject);
 begin
+  
   GrpBoxInfo.Caption := 'Coolvibes ' + VersionCool;
-  FormAbout.Caption  := 'Acerca de Coolvibes ' + VersionCool;
+  FormAbout.Caption  := _('Acerca de Coolvibes ') + VersionCool;
 
   try
     EdtHistorial.Lines.LoadFromFile('..\Historial.txt');
   except
     begin
       EdtHistorial.Lines.Clear;
-      EdtHistorial.Lines.Append('No se encontró el archivo ''Historial.txt''.');
+      EdtHistorial.Lines.Append(_('No se encontró el archivo')+ '''Historial.txt''.');
     end;
   end;
 

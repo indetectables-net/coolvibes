@@ -1,8 +1,8 @@
 object FormControl: TFormControl
-  Left = 303
-  Top = 193
-  Width = 449
-  Height = 426
+  Left = 322
+  Top = 115
+  Width = 589
+  Height = 504
   Anchors = [akLeft, akTop, akRight, akBottom]
   Caption = 'Centro de control'
   Color = clBtnFace
@@ -59,14 +59,13 @@ object FormControl: TFormControl
   object PageControl: TPageControl
     Left = 0
     Top = 0
-    Width = 441
-    Height = 380
-    ActivePage = TabInfo
+    Width = 581
+    Height = 457
+    ActivePage = TabVigilancia
     Align = alClient
     BiDiMode = bdRightToLeftNoAlign
     DockSite = True
     Images = IconsArchivos
-    MultiLine = True
     ParentBiDiMode = False
     TabOrder = 0
     object TabInfo: TTabSheet
@@ -75,8 +74,8 @@ object FormControl: TFormControl
       object PageControlInformacion: TPageControl
         Left = 0
         Top = 0
-        Width = 433
-        Height = 332
+        Width = 573
+        Height = 428
         ActivePage = TabSheetServidor
         Align = alClient
         Images = IconsArchivos
@@ -87,11 +86,11 @@ object FormControl: TFormControl
           ImageIndex = 34
           OnShow = TabSheetServidorShow
           DesignSize = (
-            425
-            305)
+            565
+            401)
           object BtnEnviarComandoServidor: TSpeedButton
             Left = 215
-            Top = 276
+            Top = 355
             Width = 72
             Height = 22
             Anchors = [akLeft, akBottom]
@@ -141,8 +140,8 @@ object FormControl: TFormControl
             OnClick = BtnEnviarComandoServidorClick
           end
           object BtnActualizarServidorInfo: TSpeedButton
-            Left = 343
-            Top = 276
+            Left = 483
+            Top = 355
             Width = 72
             Height = 22
             Cursor = crHandPoint
@@ -181,8 +180,8 @@ object FormControl: TFormControl
           object ListViewServidor: TListView
             Left = 8
             Top = 8
-            Width = 406
-            Height = 260
+            Width = 546
+            Height = 339
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -229,7 +228,7 @@ object FormControl: TFormControl
           end
           object ComboBoxGestionDeServidor: TComboBox
             Left = 8
-            Top = 277
+            Top = 356
             Width = 203
             Height = 21
             BevelInner = bvNone
@@ -250,11 +249,11 @@ object FormControl: TFormControl
           ImageIndex = 45
           OnShow = TabSheetInfoSistemaShow
           DesignSize = (
-            425
-            305)
+            565
+            401)
           object BtnRefrescarInformacion: TSpeedButton
-            Left = 343
-            Top = 276
+            Left = 483
+            Top = 355
             Width = 72
             Height = 22
             Cursor = crHandPoint
@@ -301,8 +300,8 @@ object FormControl: TFormControl
           object ListViewInformacion: TListView
             Left = 8
             Top = 8
-            Width = 406
-            Height = 257
+            Width = 546
+            Height = 336
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -344,16 +343,13 @@ object FormControl: TFormControl
     object TabFileManager: TTabSheet
       Caption = 'Ficheros'
       ImageIndex = 18
-      DesignSize = (
-        433
-        332)
       object PageControlArchivos: TPageControl
         Left = 0
         Top = 0
-        Width = 433
-        Height = 332
-        ActivePage = TabSheetBuscar
-        Anchors = [akLeft, akTop, akRight, akBottom]
+        Width = 573
+        Height = 428
+        ActivePage = TabSheetVerArchivos
+        Align = alClient
         Images = IconsArchivos
         MultiLine = True
         TabOrder = 0
@@ -363,10 +359,10 @@ object FormControl: TFormControl
           ImageIndex = 18
           OnShow = TabSheetVerArchivosShow
           DesignSize = (
-            425
-            305)
+            565
+            401)
           object BtnVerUnidades: TSpeedButton
-            Left = 329
+            Left = 469
             Top = 8
             Width = 96
             Height = 22
@@ -419,7 +415,7 @@ object FormControl: TFormControl
             Caption = 'Path'
           end
           object BtnActualizarArchivos: TSpeedButton
-            Left = 329
+            Left = 469
             Top = 34
             Width = 96
             Height = 21
@@ -466,7 +462,7 @@ object FormControl: TFormControl
           end
           object LabelNumeroDeCarpetas: TLabel
             Left = 8
-            Top = 265
+            Top = 352
             Width = 45
             Height = 13
             Anchors = [akLeft, akBottom]
@@ -474,15 +470,15 @@ object FormControl: TFormControl
           end
           object LabelNumeroDeArchivos: TLabel
             Left = 111
-            Top = 265
+            Top = 352
             Width = 44
             Height = 13
             Anchors = [akLeft, akBottom]
             Caption = 'Archivos:'
           end
           object SpeedButtonRutasRapidas: TSpeedButton
-            Left = 315
-            Top = 265
+            Left = 455
+            Top = 352
             Width = 105
             Height = 21
             Anchors = [akRight, akBottom]
@@ -520,7 +516,7 @@ object FormControl: TFormControl
           object cmbUnidades: TComboBox
             Left = 34
             Top = 8
-            Width = 278
+            Width = 418
             Height = 21
             BevelInner = bvNone
             BevelKind = bkFlat
@@ -528,7 +524,7 @@ object FormControl: TFormControl
             Anchors = [akLeft, akTop, akRight]
             Ctl3D = True
             Enabled = False
-            ItemHeight = 0
+            ItemHeight = 13
             ParentCtl3D = False
             TabOrder = 0
             OnSelect = cmbUnidadesSelect
@@ -536,7 +532,7 @@ object FormControl: TFormControl
           object EditPathArchivos: TEdit
             Left = 34
             Top = 35
-            Width = 279
+            Width = 419
             Height = 20
             Anchors = [akLeft, akTop, akRight]
             BevelInner = bvNone
@@ -552,8 +548,8 @@ object FormControl: TFormControl
           object ListViewArchivos: TListView
             Left = 0
             Top = 64
-            Width = 422
-            Height = 198
+            Width = 562
+            Height = 285
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -601,8 +597,8 @@ object FormControl: TFormControl
           ImageIndex = 35
           OnShow = TabSheetTransferenciasShow
           DesignSize = (
-            425
-            305)
+            565
+            401)
           object LabelTransferencias: TLabel
             Left = 16
             Top = 8
@@ -619,8 +615,8 @@ object FormControl: TFormControl
           object ListViewDescargas: TListView
             Left = 5
             Top = 24
-            Width = 415
-            Height = 247
+            Width = 555
+            Height = 334
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -669,10 +665,10 @@ object FormControl: TFormControl
           ImageIndex = 96
           OnShow = TabSheetBuscarShow
           DesignSize = (
-            425
-            305)
+            565
+            401)
           object SpeedButtonBuscar: TSpeedButton
-            Left = 341
+            Left = 481
             Top = 8
             Width = 81
             Height = 21
@@ -683,7 +679,7 @@ object FormControl: TFormControl
           end
           object LabelNumeroEncontrados: TLabel
             Left = 8
-            Top = 265
+            Top = 352
             Width = 66
             Height = 13
             Anchors = [akLeft, akBottom]
@@ -692,8 +688,8 @@ object FormControl: TFormControl
           object ListViewBuscar: TListView
             Left = 0
             Top = 32
-            Width = 422
-            Height = 226
+            Width = 562
+            Height = 313
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -735,7 +731,7 @@ object FormControl: TFormControl
           object EditBuscar: TEdit
             Left = 0
             Top = 8
-            Width = 334
+            Width = 474
             Height = 21
             Anchors = [akLeft, akTop, akRight]
             BevelInner = bvNone
@@ -743,1385 +739,1526 @@ object FormControl: TFormControl
             BevelOuter = bvRaised
             BorderStyle = bsNone
             TabOrder = 1
-            Text = 'C:\*'
           end
         end
       end
     end
-    object TabProcesos: TTabSheet
-      Caption = 'Procesos'
-      ImageIndex = 30
-      OnShow = TabProcesosShow
-      DesignSize = (
-        433
-        332)
-      object BtnRefrescarProcesos: TSpeedButton
-        Left = 353
-        Top = 299
-        Width = 72
-        Height = 22
-        Cursor = crHandPoint
-        Anchors = [akRight, akBottom]
-        Caption = 'Refrescar'
-        Flat = True
-        Glyph.Data = {
-          36030000424D3603000000000000360000002800000010000000100000000100
-          18000000000000030000120B0000120B00000000000000000000FFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCFDFD6E9B70FFFFFFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFF6197654F8853FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDFB493D59D74
-          D19668CE9263CB8E5EC98A5BC7875666945B569D5E53995A2A712F266B2B2366
-          274C723AC6D7C7FFFFFFD7A175F8F2EDF7F0EAF6EDE6F4EAE2F3E7DE529A5860
-          A7688DCD978ACB9487CA9184C98E81C88C60A7684D8250C6D7C7D9A47AF9F3EE
-          EBD2BEFFFFFFEBD3BFFFFFFFFFFFFF75B17B62A96A5DA46535803B317A365197
-          5882C88D5BA1637AA27CDDA87EF9F3EFEBD0BAEBD0BBEBD0BBF4E6DAF4EFE7F9
-          F1EC70AB72609F62F4E6D9F4E6D96197632D7533296F2E407C44DFAA82F9F3EF
-          EACEB7FFFFFFEBD0BBFFFFFFFFFFFFFFFFFFF9F2EC82B886FFFFFFFFFFFFF7F0
-          EBC88D5FFFFFFFFFFFFFE1AE87FAF4F0EACBB2EACCB3EACCB3F6E9DEF9F1EAF9
-          F2EBF3E5D9F5E6DBF3E3D77CAC78F5EFE9C48654FFFFFFFFFFFFE3B18CFAF6F1
-          EAC9AEFFFFFFEAC9B074C57E5DB8685AB3647CBB7DFFFFFFFFFFFF68AC6F6EAA
-          72C58655F8FBF8FFFFFFE5B48FFAF6F2E9C6AAE9C6ACEAC7AC9ECF988ECF97AA
-          D9B17AC38357AF6152A95C6FB7786BB37468924FFFFFFFFFFFFFE7B794FBF7F4
-          E9C3A6FFFFFFE8C4A9D9F1DC84CF8D94D29CABDAB2A8D9AFA5D8ADA2D6AA9FD5
-          A76CB4745FA566FFFFFFE9BA98FBF7F4E9C3A6E9C3A6E9C3A6EFD3BDD3E0C38B
-          CF9063C06F60BC6B5DB76779C28275BE7E73A15CFFFFFFFFFFFFEBBD9BFBF7F4
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7AC58382C5
-          89D1976AFFFFFFFFFFFFECBF9EFBF7F49CD5A598D3A194D09D90CE988BCB9387
-          C98EA3D5A8B9DFBCCDE8CF7FC987F9F6F2D49B6FFFFFFFFFFFFFEFC6A8FBF7F4
-          FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7
-          F4D8A378FFFFFFFFFFFFF7E1D2F1C8ACEDC09FEBBE9DEBBC9AE9BA96E7B793E6
-          B590E4B28CE2AF88E0AC84DDA980DCA57DE2B696FFFFFFFFFFFF}
-        OnClick = BtnRefrescarProcesosClick
-      end
-      object ListViewProcesos: TListView
-        Left = 5
-        Top = 7
-        Width = 421
-        Height = 283
-        Align = alCustom
-        Anchors = [akLeft, akTop, akRight, akBottom]
-        BevelInner = bvNone
-        BevelOuter = bvRaised
-        BevelKind = bkFlat
-        BorderStyle = bsNone
-        Columns = <
-          item
-            Caption = 'Nombre'
-            Width = 120
-          end
-          item
-            Caption = 'PID'
-            Width = 60
-          end
-          item
-            AutoSize = True
-            Caption = 'Ruta'
-          end>
-        FlatScrollBars = True
-        GridLines = True
-        MultiSelect = True
-        ReadOnly = True
-        RowSelect = True
-        PopupMenu = PopupProcess
-        SmallImages = IconsArchivos
-        TabOrder = 0
-        ViewStyle = vsReport
-        OnColumnClick = ListViewProcesosColumnClick
-        OnCompare = ListViewProcesosCompare
-      end
-    end
-    object TabVentanas: TTabSheet
-      Caption = 'Ventanas'
-      ImageIndex = 29
-      OnShow = TabVentanasShow
-      DesignSize = (
-        433
-        332)
-      object BtnRefrescarVentanas: TSpeedButton
-        Left = 353
-        Top = 299
-        Width = 72
-        Height = 22
-        Cursor = crHandPoint
-        Anchors = [akRight, akBottom]
-        Caption = 'Refrescar'
-        Flat = True
-        Glyph.Data = {
-          36030000424D3603000000000000360000002800000010000000100000000100
-          18000000000000030000120B0000120B00000000000000000000FFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCFDFD6E9B70FFFFFFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFF6197654F8853FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDFB493D59D74
-          D19668CE9263CB8E5EC98A5BC7875666945B569D5E53995A2A712F266B2B2366
-          274C723AC6D7C7FFFFFFD7A175F8F2EDF7F0EAF6EDE6F4EAE2F3E7DE529A5860
-          A7688DCD978ACB9487CA9184C98E81C88C60A7684D8250C6D7C7D9A47AF9F3EE
-          EBD2BEFFFFFFEBD3BFFFFFFFFFFFFF75B17B62A96A5DA46535803B317A365197
-          5882C88D5BA1637AA27CDDA87EF9F3EFEBD0BAEBD0BBEBD0BBF4E6DAF4EFE7F9
-          F1EC70AB72609F62F4E6D9F4E6D96197632D7533296F2E407C44DFAA82F9F3EF
-          EACEB7FFFFFFEBD0BBFFFFFFFFFFFFFFFFFFF9F2EC82B886FFFFFFFFFFFFF7F0
-          EBC88D5FFFFFFFFFFFFFE1AE87FAF4F0EACBB2EACCB3EACCB3F6E9DEF9F1EAF9
-          F2EBF3E5D9F5E6DBF3E3D77CAC78F5EFE9C48654FFFFFFFFFFFFE3B18CFAF6F1
-          EAC9AEFFFFFFEAC9B074C57E5DB8685AB3647CBB7DFFFFFFFFFFFF68AC6F6EAA
-          72C58655F8FBF8FFFFFFE5B48FFAF6F2E9C6AAE9C6ACEAC7AC9ECF988ECF97AA
-          D9B17AC38357AF6152A95C6FB7786BB37468924FFFFFFFFFFFFFE7B794FBF7F4
-          E9C3A6FFFFFFE8C4A9D9F1DC84CF8D94D29CABDAB2A8D9AFA5D8ADA2D6AA9FD5
-          A76CB4745FA566FFFFFFE9BA98FBF7F4E9C3A6E9C3A6E9C3A6EFD3BDD3E0C38B
-          CF9063C06F60BC6B5DB76779C28275BE7E73A15CFFFFFFFFFFFFEBBD9BFBF7F4
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7AC58382C5
-          89D1976AFFFFFFFFFFFFECBF9EFBF7F49CD5A598D3A194D09D90CE988BCB9387
-          C98EA3D5A8B9DFBCCDE8CF7FC987F9F6F2D49B6FFFFFFFFFFFFFEFC6A8FBF7F4
-          FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7
-          F4D8A378FFFFFFFFFFFFF7E1D2F1C8ACEDC09FEBBE9DEBBC9AE9BA96E7B793E6
-          B590E4B28CE2AF88E0AC84DDA980DCA57DE2B696FFFFFFFFFFFF}
-        OnClick = BtnRefrescarVentanasClick
-      end
-      object ListViewVentanas: TListView
-        Left = 5
-        Top = 7
-        Width = 421
-        Height = 283
-        Align = alCustom
-        Anchors = [akLeft, akTop, akRight, akBottom]
-        BevelInner = bvNone
-        BevelOuter = bvRaised
-        BevelKind = bkFlat
-        BorderStyle = bsNone
-        Columns = <
-          item
-            AutoSize = True
-            Caption = 'Titulo'
-          end
-          item
-            Caption = 'Handle'
-            Width = 150
-          end
-          item
-            Caption = 'Estado'
-            Width = 60
-          end>
-        FlatScrollBars = True
-        GridLines = True
-        MultiSelect = True
-        ReadOnly = True
-        RowSelect = True
-        PopupMenu = PopupWindows
-        SmallImages = IconsArchivos
-        TabOrder = 0
-        ViewStyle = vsReport
-        OnColumnClick = ListViewProcesosColumnClick
-        OnCompare = ListViewProcesosCompare
-        OnCustomDrawItem = ListViewVentanasCustomDrawItem
-      end
-      object CheckBoxMostrarVentanasOcultas: TCheckBox
-        Left = 155
-        Top = 303
-        Width = 190
-        Height = 17
-        Anchors = [akRight, akBottom]
-        Caption = 'Mostrar ventanas ocultas'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
-        Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 1
-        OnClick = CheckBoxMostrarVentanasOcultasClick
-      end
-    end
-    object TabRegistro: TTabSheet
-      Caption = 'Registro'
-      ImageIndex = 32
-      DesignSize = (
-        433
-        332)
-      object BtnVerRegisto: TSpeedButton
-        Left = 356
-        Top = 299
-        Width = 72
-        Height = 21
-        Cursor = crHandPoint
-        Anchors = [akRight, akBottom]
-        Caption = 'Ver'
-        Flat = True
-        Glyph.Data = {
-          22050000424D2205000000000000360000002800000013000000150000000100
-          180000000000EC04000000000000000000000000000000000000FFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFF148732037B1EFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFF158D3C43A15F33954CFFFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF2398521D924A
-          179044118C3D3A9F5E80C19646A3622E9447FFFFFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF299B5B90CAA98DC8A58A
-          C6A188C59E6AB68582C29748A566289144FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFFFF000000FFFFFFFFFFFF000000000000319F6394CDAD6FBA8E6BB88966B6
-          8561B38067B58283C2983CA05C06822AFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00
-          0000FFFFFFFFFFFF808080FFFFFF37A36B96CEB094CDAD91CBAA90CBA874BC90
-          8AC7A146A5680B8938FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFF
-          FFFFFFFF808080FFFF003DA56F38A26D34A067319D6255AF7C91CBAA4FAB7419
-          8E46000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
-          8080808080008080008080008080008080003298605AB3812898578080000000
-          00808000000000FFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF808080FF
-          FFFFFFFF00808000FFFFFFFFFF00399C69319F65000000000000000000808000
-          000000FFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF808080FFFF00FFFF
-          FF808000FFFF00FFFFFF808000000000808000808000000000808000000000FF
-          FFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF808080808000808000000000
-          808000FFFFFF808000000000FFFF00808000000000000000000000FFFFFFFFFF
-          FFFFFFFFFFFFFF000000FFFFFFFFFFFF808080FFFFFFFFFF0080800000000000
-          0000000000000000FFFFFF808000000000808000000000FFFFFFFFFFFFFFFFFF
-          FFFFFF000000FFFFFFFFFFFF808080FFFF00FFFFFF8080000000008080008080
-          00808000000000000000000000808000000000FFFFFFFFFFFFFFFFFFFFFFFF00
-          0000FFFFFFFFFFFFFFFFFF808080FFFF00FFFFFF000000FFFF00FFFFFF808000
-          000000808000000000808000000000000000FFFFFFFFFFFFFFFFFF000000FFFF
-          FFFFFFFFFFFFFFFFFFFF808080808000808000FFFFFFFFFFFF80800000000080
-          8000808080000000808080808000000000FFFFFFFFFFFF000000FFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFF808080808080808080808080808080808080000000FFFF
-          FF808080808000FFFF00808000000000FFFFFF000000FFFFFFFFFFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF808080808000000000FFFFFF
-          808080FFFFFF000000FFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFFFFFF808080808000FFFF00808000000000FFFFFF80
-          8080FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFFFF808080FFFFFF000000FFFFFFFFFFFFFFFFFFFFFF
-          FFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFF808080FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFFFF000000}
-        OnClick = BtnVerRegistoClick
-        OnDblClick = BtnVerRegistoClick
-      end
-      object EditPathRegistro: TEdit
-        Left = 7
-        Top = 299
-        Width = 346
-        Height = 21
-        Anchors = [akLeft, akRight, akBottom]
-        BevelInner = bvNone
-        BevelKind = bkFlat
-        BevelOuter = bvRaised
-        BorderStyle = bsNone
-        Ctl3D = True
-        ParentCtl3D = False
-        TabOrder = 0
-      end
-      object PanelRegistro: TPanel
-        Left = 5
-        Top = 7
-        Width = 425
-        Height = 283
-        Anchors = [akLeft, akTop, akRight, akBottom]
-        BevelOuter = bvNone
-        Caption = 'PanelRegistro'
-        TabOrder = 1
-        object Splitter1: TSplitter
-          Left = 185
-          Top = 0
-          Height = 283
-        end
-        object TreeViewRegedit: TTreeView
-          Left = 0
-          Top = 0
-          Width = 185
-          Height = 283
-          Align = alLeft
-          BevelInner = bvNone
-          BevelOuter = bvRaised
-          BevelKind = bkFlat
-          BorderStyle = bsNone
-          Images = IconsArchivos
-          Indent = 19
-          ParentShowHint = False
-          PopupMenu = PopupRegistro
-          RightClickSelect = True
-          RowSelect = True
-          ShowHint = False
-          StateImages = IconsArchivos
-          TabOrder = 0
-          OnChange = TreeViewRegeditChange
-          OnContextPopup = TreeViewRegeditContextPopup
-          OnDblClick = TreeViewRegeditDblClick
-          Items.Data = {
-            050000002A0000000100000000000000FFFFFFFFFFFFFFFF0000000000000000
-            11484B45595F434C41535345535F524F4F542A0000000100000000000000FFFF
-            FFFFFFFFFFFF000000000000000011484B45595F43555252454E545F55534552
-            2B0000000100000000000000FFFFFFFFFFFFFFFF000000000000000012484B45
-            595F4C4F43414C5F4D414348494E45230000000100000000000000FFFFFFFFFF
-            FFFFFF00000000000000000A484B45595F55534552532C000000010000000000
-            0000FFFFFFFFFFFFFFFF000000000000000013484B45595F43555252454E545F
-            434F4E464947}
-        end
-        object ListViewRegistro: TListView
-          Left = 188
-          Top = 0
-          Width = 237
-          Height = 283
-          Align = alClient
-          BevelInner = bvNone
-          BevelOuter = bvRaised
-          BevelKind = bkFlat
-          BorderStyle = bsNone
-          Columns = <
-            item
-              Caption = 'Nombre'
-              Width = 135
-            end
-            item
-              Caption = 'Tipo'
-              Width = 70
-            end
-            item
-              AutoSize = True
-              Caption = 'Valor'
-            end>
-          FlatScrollBars = True
-          RowSelect = True
-          PopupMenu = PopupRegistro
-          SmallImages = IconsArchivos
-          TabOrder = 1
-          ViewStyle = vsReport
-          OnColumnClick = ListViewProcesosColumnClick
-          OnCompare = ListViewRegistroCompare
-          OnContextPopup = ListViewRegistroContextPopup
-          OnEdited = ListViewRegistroEdited
-        end
-      end
-    end
-    object TabServicios: TTabSheet
-      Caption = 'Servicios'
-      ImageIndex = 45
-      OnShow = TabServiciosShow
-      DesignSize = (
-        433
-        332)
-      object BtnServicios: TSpeedButton
-        Left = 353
-        Top = 307
-        Width = 72
-        Height = 22
-        Anchors = [akRight, akBottom]
-        Caption = 'Refrescar'
-        Flat = True
-        Glyph.Data = {
-          36030000424D3603000000000000360000002800000010000000100000000100
-          18000000000000030000120B0000120B00000000000000000000FFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCFDFD6E9B70FFFFFFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFF6197654F8853FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDFB493D59D74
-          D19668CE9263CB8E5EC98A5BC7875666945B569D5E53995A2A712F266B2B2366
-          274C723AC6D7C7FFFFFFD7A175F8F2EDF7F0EAF6EDE6F4EAE2F3E7DE529A5860
-          A7688DCD978ACB9487CA9184C98E81C88C60A7684D8250C6D7C7D9A47AF9F3EE
-          EBD2BEFFFFFFEBD3BFFFFFFFFFFFFF75B17B62A96A5DA46535803B317A365197
-          5882C88D5BA1637AA27CDDA87EF9F3EFEBD0BAEBD0BBEBD0BBF4E6DAF4EFE7F9
-          F1EC70AB72609F62F4E6D9F4E6D96197632D7533296F2E407C44DFAA82F9F3EF
-          EACEB7FFFFFFEBD0BBFFFFFFFFFFFFFFFFFFF9F2EC82B886FFFFFFFFFFFFF7F0
-          EBC88D5FFFFFFFFFFFFFE1AE87FAF4F0EACBB2EACCB3EACCB3F6E9DEF9F1EAF9
-          F2EBF3E5D9F5E6DBF3E3D77CAC78F5EFE9C48654FFFFFFFFFFFFE3B18CFAF6F1
-          EAC9AEFFFFFFEAC9B074C57E5DB8685AB3647CBB7DFFFFFFFFFFFF68AC6F6EAA
-          72C58655F8FBF8FFFFFFE5B48FFAF6F2E9C6AAE9C6ACEAC7AC9ECF988ECF97AA
-          D9B17AC38357AF6152A95C6FB7786BB37468924FFFFFFFFFFFFFE7B794FBF7F4
-          E9C3A6FFFFFFE8C4A9D9F1DC84CF8D94D29CABDAB2A8D9AFA5D8ADA2D6AA9FD5
-          A76CB4745FA566FFFFFFE9BA98FBF7F4E9C3A6E9C3A6E9C3A6EFD3BDD3E0C38B
-          CF9063C06F60BC6B5DB76779C28275BE7E73A15CFFFFFFFFFFFFEBBD9BFBF7F4
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7AC58382C5
-          89D1976AFFFFFFFFFFFFECBF9EFBF7F49CD5A598D3A194D09D90CE988BCB9387
-          C98EA3D5A8B9DFBCCDE8CF7FC987F9F6F2D49B6FFFFFFFFFFFFFEFC6A8FBF7F4
-          FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7
-          F4D8A378FFFFFFFFFFFFF7E1D2F1C8ACEDC09FEBBE9DEBBC9AE9BA96E7B793E6
-          B590E4B28CE2AF88E0AC84DDA980DCA57DE2B696FFFFFFFFFFFF}
-        OnClick = BtnServiciosClick
-      end
-      object btnSiguienteInstalarServicio: TSpeedButton
-        Left = 210
-        Top = 308
-        Width = 65
-        Height = 19
-        Anchors = [akRight, akBottom]
-        Caption = 'Siguiente'
-        Flat = True
-        Visible = False
-        OnClick = btnSiguienteInstalarServicioClick
-      end
-      object BtnCancelarInstalarServicio: TSpeedButton
-        Left = 282
-        Top = 308
-        Width = 65
-        Height = 19
-        Anchors = [akRight, akBottom]
-        Caption = 'Cancelar'
-        Flat = True
-        Visible = False
-        OnClick = BtnCancelarInstalarServicioClick
-      end
-      object btnInstServicios: TSpeedButton
-        Left = 210
-        Top = 308
-        Width = 65
-        Height = 19
-        Anchors = [akRight, akBottom]
-        Caption = 'Siguiente'
-        Flat = True
-        Visible = False
-        OnClick = btnInstServiciosClick
-      end
-      object btnInstServicios2: TSpeedButton
-        Left = 210
-        Top = 308
-        Width = 65
-        Height = 19
-        Anchors = [akRight, akBottom]
-        Caption = 'Instalar'
-        Flat = True
-        Visible = False
-        OnClick = btnInstServicios2Click
-      end
-      object ListViewServicios: TListView
-        Left = 5
-        Top = 7
-        Width = 421
-        Height = 298
-        Anchors = [akLeft, akTop, akRight, akBottom]
-        BevelInner = bvNone
-        BevelOuter = bvRaised
-        BevelKind = bkFlat
-        BorderStyle = bsNone
-        Columns = <
-          item
-            Caption = 'Servicio'
-            Width = 150
-          end
-          item
-            AutoSize = True
-            Caption = 'Descripci'#243'n'
-          end
-          item
-            Caption = 'Estado'
-            Width = 95
-          end>
-        FlatScrollBars = True
-        GridLines = True
-        MultiSelect = True
-        RowSelect = True
-        PopupMenu = PopupServicios
-        SmallImages = IconsArchivos
-        TabOrder = 0
-        ViewStyle = vsReport
-        OnColumnClick = ListViewProcesosColumnClick
-        OnCompare = ListViewRegistroCompare
-      end
-      object MultiEditInstalarServicio: TEdit
-        Left = 4
-        Top = 310
-        Width = 202
-        Height = 19
-        Anchors = [akLeft, akRight, akBottom]
-        BevelInner = bvNone
-        BevelKind = bkFlat
-        BevelOuter = bvRaised
-        BorderStyle = bsNone
-        TabOrder = 1
-        Visible = False
-      end
-    end
-    object TabScreencap: TTabSheet
-      Caption = 'Pantalla'
-      ImageIndex = 22
-      OnShow = TabScreencapShow
-      DesignSize = (
-        433
-        332)
-      object btnGuardarImagen: TSpeedButton
-        Left = 229
-        Top = 278
-        Width = 74
-        Height = 22
-        Cursor = crHandPoint
-        Anchors = [akRight, akBottom]
-        Caption = 'Guardar'
-        Flat = True
-        Glyph.Data = {
-          36040000424D3604000000000000360000002800000010000000100000000100
-          20000000000000040000C40E0000C40E00000000000000000000FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00BA6833C5C38458FFD38B68FFE18F
-          70FFDC8D6CFFDA8B6DFFD78A6EFFCD8B6CFFAB6D44FFA65F2EFFFFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00C68355FFEFCEBAFFDDFFFFFF87EE
-          C7FFA2F4D7FFA2F6D7FF8CEEC7FFE0FFFFFFDDA285FFAB6A3EFFCEAF9C8ACFAE
-          9AC3CEAB94F0CEAA93F0CEAA93F0CEAA93F0C37F51FFEFB69AFFEAF3E8FF51BF
-          84FF6FC998FF71C999FF54BF84FFE4F4E9FFDD9C7BFFAA693AFFCDAB96E1F1EF
-          EDFFF7F3F1FFF8F4F1FFF8F4F0FFF7F4F0FFC48154FFEAB697FFF3F3EAFFEDF1
-          E6FFEFF1E6FFEFF0E6FFEDF1E5FFF3F5EDFFD59C79FFB07044FFCCA68EF0F6F1
-          EDFFBFDCC2FFBFDCC2FFBFDCC2FFBFDCC2FFC98B61FFE6B592FFE2A781FFE1A7
-          81FFDEA37DFFDCA17BFFDB9F79FFD99E77FFD49A73FFBB7E57FFCCA68DF0F7F1
-          EDFFBFDCC2FFBFDCC2FFBFDCC2FFAFD3C5FFCA8D65FFEAB899FFDDA57EFFDDA6
-          80FFDBA37CFFD9A07AFFD9A079FFD89F78FFD89E78FFBF845DFFCDA78EF0F7F1
-          ECFF4EAA7AFF4CA877FF4AA674FF357B9AFFC8885DFFEFBFA1FFFDFCFAFFFEFC
-          FBFFFEFDFDFFFEFDFCFFFDFBFAFFFDFCFBFFDDA885FFC17F53FFCDA78EF0F7F2
-          EDFFE8BDA1FFE7BB9FFFD0B392FF5E8276FFC7865BFFEFC09EFFFFFFFFFFCC93
-          6EFFFFFFFFFFFFFFFFFFFFFBF7FFFFF8F1FFE4AF8CFFC78A61FFCDA78FF0F7F3
-          EEFFE7BB9FFFD1B693FF9FAA78FF6FB287FFCC8D65FFF3CDB0FFFFFFFFFFE3C7
-          B3FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEABFA1FFC98960FFCDA78FF0F7F4
-          EFFFE6B99DFFB6B387FF88C293FF63C58FFFD4976EFFD49E7BFFD09871FFD6A4
-          82FFCD8E68FFCD9069FFD09A75FFD19973FFC88B62FFAD5A2036CDA78FF0F7F5
-          F0FFE5B89BFFA1B37FFF7DCDA0FF5EC590FF56C087FF52BE81FF52BC7EFF6CBD
-          87FF89905EFFDAA481FFF5EFE7FFCEAB94F0FFFFFF00FFFFFF00CDA78FF0F7F5
-          F2FFE4B799FFA3B680FF82D0A7FF65C998FF5DC691FF59C28BFF58C187FF71C2
-          8EFF8C925FFFD9A27DFFF6F0E8FFCEAB94F0FFFFFF00FFFFFF00CDA78FF0F7F5
-          F4FFE3B597FFB8B787FF93CBA1FF74D2A8FF67CB9BFF63C897FF6AC998FF83BB
-          8BFFA5996AFFD79F7AFFF7F0E9FFCFAB94F0FFFFFF00FFFFFF00CDAB95F0F4F3
-          F2FFE3B495FFD0B48DFFA9B580FF93CCA1FF84D1AAFF82D0A6FF8BC294FF9A9E
-          69FFC39D73FFD69D77FFF7F2EBFFCFAB94F0FFFFFF00FFFFFF00CFB29FE9ECEC
-          EBFEF4F4F3FFF7F5F4FFF7F5F4FFF7F5F4FFF7F5F4FFF7F5F4FFF7F5F4FFF7F5
-          F4FFF7F5F4FFF7F3ECFFF2EFE9FFCEAD97EFFFFFFF00FFFFFF00CEB3A18DCFB1
-          9FE8CDAB95F0CDA78EF0CDA78EF0CDA78EF0CDA78EF0CDA78EF0CDA68EF0CDA6
-          8EF0CDA68EF0CDA68EF0CDAA93F0CDAF9B8FFFFFFF00FFFFFF00}
-        OnClick = btnGuardarImagenClick
-      end
-      object LabelPosicionCompresJpg: TLabel
-        Left = 395
-        Top = 257
-        Width = 30
-        Height = 13
-        Anchors = [akRight, akBottom]
-        Caption = '70%'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
-        Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
-        ParentFont = False
-      end
-      object LabelCalidadCapScreen: TLabel
-        Left = 27
-        Top = 259
-        Width = 79
-        Height = 13
-        Anchors = [akLeft, akBottom]
-        Caption = 'Calidad JPG:'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
-        Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
-        ParentFont = False
-      end
-      object BtnCapturarScreen: TSpeedButton
-        Left = 25
-        Top = 278
-        Width = 80
-        Height = 22
-        Anchors = [akLeft, akBottom]
-        Caption = 'Capturar'
-        Flat = True
-        Glyph.Data = {
-          36040000424D3604000000000000360000002800000010000000100000000100
-          2000000000000004000000000000000000000000000000000000FF00FF00FF00
-          FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-          FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00CEAF
-          9C8ACFAE9AC3CEAB94F0CEAA93F0CEAA93F0CEAA93F0CEAA93F0CEAA93F0CEAA
-          93F0CEAA93F0CEAA93F0CEAA93F0CEAD97F0CEAF9C90FF00FF00FF00FF00CDAB
-          96E1F1EFEDFFF7F3F1FFF8F4F1FFF8F4F0FFF7F4F0FFF7F3F0FFF7F3EFFFF7F3
-          EFFFF7F3EFFFF7F3EFFFF8F3EFFFF2EFEBFFCFAD97EFFF00FF00FF00FF00CCA6
-          8EF0F6F1EDFFBFDCC2FFBFDCC2FFBFDCC2FFBFDCC2FFBFDCC2FFBFDCC2FFBFDC
-          C2FFBFDCC2FFBFDCC2FFBFDCC2FFF7EDE6FFCEAA93F0FF00FF00FF00FF00CCA6
-          8DF0F7F1EDFFBFDCC2FFBFDCC2FFBFDCC2FFAFD3C5FF9CC8C9FF6EAFD1FFBAD9
-          C3FFBFDCC2FFBFDCC2FFBFDCC2FFF6EDE6FFCEAA93F0FF00FF00FF00FF00CDA7
-          8EF0F7F1ECFF4EAA7AFF4CA877FF4AA674FF357B9AFF549FD3FF549FD1FF3F86
-          AFFF409A67FF3E9865FF3C9663FFF6EEE6FFCEAB94F0FF00FF00FF00FF00CDA7
-          8EF0F7F2EDFFE8BDA1FFE7BB9FFFD0B392FF5E8276FF448E86FF418B87FF5683
-          80FFC7A682FFE0AE8EFFDEAC8BFFF6EEE6FFCEAB94F0FF00FF00FF00FF00CDA7
-          8FF0F7F3EEFFE7BB9FFFD1B693FF9FAA78FF6FB287FF65BD8AFF61BB87FF6BAB
-          7BFF919364FFC5A27DFFDDA988FFF6EEE7FFCEAB94F0FF00FF00FF00FF00CDA7
-          8FF0F7F4EFFFE6B99DFFB6B387FF88C293FF63C58FFF53BE80FF4FBA7AFF58BD
-          7FFF78B07CFFA3966AFFDCA784FFF6EEE7FFCEAB94F0FF00FF00FF00FF00CDA7
-          8FF0F7F5F0FFE5B89BFFA1B37FFF7DCDA0FF5EC590FF56C087FF52BE81FF52BC
-          7EFF6CBD87FF89905EFFDAA481FFF5EFE7FFCEAB94F0FF00FF00FF00FF00CDA7
-          8FF0F7F5F2FFE4B799FFA3B680FF82D0A7FF65C998FF5DC691FF59C28BFF58C1
-          87FF71C28EFF8C925FFFD9A27DFFF6F0E8FFCEAB94F0FF00FF00FF00FF00CDA7
-          8FF0F7F5F4FFE3B597FFB8B787FF93CBA1FF74D2A8FF67CB9BFF63C897FF6AC9
-          98FF83BB8BFFA5996AFFD79F7AFFF7F0E9FFCFAB94F0FF00FF00FF00FF00CDAB
-          95F0F4F3F2FFE3B495FFD0B48DFFA9B580FF93CCA1FF84D1AAFF82D0A6FF8BC2
-          94FF9A9E69FFC39D73FFD69D77FFF7F2EBFFCFAB94F0FF00FF00FF00FF00CFB2
-          9FE9ECECEBFEF4F4F3FFF7F5F4FFF7F5F4FFF7F5F4FFF7F5F4FFF7F5F4FFF7F5
-          F4FFF7F5F4FFF7F5F4FFF7F3ECFFF2EFE9FFCEAD97EFFF00FF00FF00FF00CEB3
-          A18DCFB19FE8CDAB95F0CDA78EF0CDA78EF0CDA78EF0CDA78EF0CDA78EF0CDA6
-          8EF0CDA68EF0CDA68EF0CDA68EF0CDAA93F0CDAF9B8FFF00FF00FF00FF00FF00
-          FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-          FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00}
-        OnClick = BtnCapturarScreen1Click
-      end
-      object BtnVerGrandeCap: TSpeedButton
-        Left = 309
-        Top = 279
-        Width = 112
-        Height = 22
-        Anchors = [akRight, akBottom]
-        Caption = 'Pantalla completa'
-        Flat = True
-        Glyph.Data = {
-          36030000424D3603000000000000360000002800000010000000100000000100
-          18000000000000030000C40E0000C40E0000000000000000000053A85A51A658
-          4FA3564EA1544C9F52FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF429046418E
-          45408D433F8B423E8A4154AB5C83BF897DBB8354A65B4EA154CEAA93CEAA93CE
-          AA93CEAA93CEAA93CEAA93CEAA934290466DAD716EAE733F8C4256AD5F83C08A
-          73B77A6CB47350A4574EA255F7F4F0F7F3F0F7F3EFF7F3EFF7F3EF4594495AA0
-          5E5EA6646CAD70408D4458B06157AE5F6CB67384C08A6EB57450A457BFDCC2BF
-          DCC2BFDCC2BFDCC248994D5DA56175B3795FA46347944C418F455AB363CCA68D
-          57AE5F6CB6736AB47152A759AFD3C59CC8C96EAFD1BAD9C34A9B4F5FA76462A8
-          6745954A449348439147FFFFFFCDA78EF7F1EC57AE5F55AC5D4AA674357B9A54
-          9FD3549FD13F86AF409A674A9C5048994E47974CCEAB94FFFFFFFFFFFFCDA78E
-          F7F2EDE8BDA1E7BB9FD0B3925E8276448E86418B87568380C7A682E0AE8EDEAC
-          8BF6EEE6CEAB94FFFFFFFFFFFFCDA78FF7F3EEE7BB9FD1B6939FAA786FB28765
-          BD8A61BB876BAB7B919364C5A27DDDA988F6EEE7CEAB94FFFFFFFFFFFFCDA78F
-          F7F4EFE6B99DB6B38788C29363C58F53BE804FBA7A58BD7F78B07CA3966ADCA7
-          84F6EEE7CEAB94FFFFFFFFFFFFCDA78FF7F5F0E5B89BA1B37F7DCDA05EC59056
-          C08752BE8152BC7E6CBD8789905EDAA481F5EFE7CEAB94FFFFFFFFFFFFCDA78F
-          61BD6C60BB6A5EB96882D0A765C9985DC69159C28B58C18771C28E53A95B52A7
-          59F6F0E8CEAB94FFFFFF65C37064C16F63BF6D80C98979C4825FB96974D2A867
-          CB9B63C8976AC99857AE5F6EB8756CB57352A759CFAB944EA25566C4726BC575
-          83CC8C9BD3A47BC78460BC6B93CCA184D1AA82D0A68BC29459B16175BD7D8CC7
-          936DB67352A75950A55767C6739DD6A592D19B7ECA8763C06EF7F5F4F7F5F4F7
-          F5F4F7F5F4F7F5F45AB36459B16276BD7E7EC0868AC59052A85A68C774A1D8A9
-          9ED6A765C371CDA78ECDA78ECDA78ECDA78ECDA78ECDA68ECDA68E5BB4645FB4
-          678DC8948EC99554AA5C68C77468C77467C67366C57265C371FFFFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFF5CB6665BB46459B26258AF6056AD5E}
-        OnClick = BtnVerGrandeCapClick
-      end
-      object LabelTamano: TLabel
+    object TabManagers: TTabSheet
+      Caption = 'Administrador'
+      ImageIndex = 104
+      object PageControlManagers: TPageControl
         Left = 0
-        Top = 245
-        Width = 24
-        Height = 13
-        Anchors = [akLeft, akBottom]
-        Caption = '100'
-        DragKind = dkDock
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
-        Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
-        ParentFont = False
-      end
-      object ProgressBarScreen: TProgressBar
-        Left = 2
-        Top = 5
-        Width = 17
-        Height = 236
-        Anchors = [akLeft, akTop, akBottom]
-        Orientation = pbVertical
-        Smooth = True
+        Top = 0
+        Width = 573
+        Height = 428
+        ActivePage = TabPortapapeles
+        Align = alClient
+        Images = IconsArchivos
         TabOrder = 0
-      end
-      object TrackBarCalidad: TTrackBar
-        Left = 112
-        Top = 257
-        Width = 273
-        Height = 16
-        Cursor = crHandPoint
-        Anchors = [akLeft, akRight, akBottom]
-        Max = 100
-        Position = 70
-        TabOrder = 1
-        ThumbLength = 15
-        OnChange = TrackBarCalidadChange
-      end
-      object CheckBoxMouseClicks: TCheckBox
-        Left = 301
-        Top = 308
-        Width = 122
-        Height = 17
-        Anchors = [akRight, akBottom]
-        Caption = 'Clicks Remotos'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
-        Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 2
-      end
-      object ScrollBoxCapScreenM: TScrollBox
-        Left = 25
-        Top = 5
-        Width = 396
-        Height = 252
-        Anchors = [akLeft, akTop, akRight, akBottom]
-        BevelInner = bvNone
-        BevelOuter = bvRaised
-        BevelKind = bkFlat
-        BorderStyle = bsNone
-        TabOrder = 3
-        object imgCaptura: TImage
-          Left = 0
-          Top = 0
-          Width = 300
-          Height = 250
-          Align = alLeft
-          IncrementalDisplay = True
-          Stretch = True
-          OnMouseDown = EnviarClickM
+        TabPosition = tpBottom
+        object TabProcesos: TTabSheet
+          Caption = 'Procesos'
+          ImageIndex = 30
+          OnShow = TabProcesosShow
+          DesignSize = (
+            565
+            401)
+          object BtnRefrescarProcesos: TSpeedButton
+            Left = 485
+            Top = 369
+            Width = 72
+            Height = 22
+            Cursor = crHandPoint
+            Anchors = [akRight, akBottom]
+            Caption = 'Refrescar'
+            Flat = True
+            Glyph.Data = {
+              36030000424D3603000000000000360000002800000010000000100000000100
+              18000000000000030000120B0000120B00000000000000000000FFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCFDFD6E9B70FFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFF6197654F8853FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDFB493D59D74
+              D19668CE9263CB8E5EC98A5BC7875666945B569D5E53995A2A712F266B2B2366
+              274C723AC6D7C7FFFFFFD7A175F8F2EDF7F0EAF6EDE6F4EAE2F3E7DE529A5860
+              A7688DCD978ACB9487CA9184C98E81C88C60A7684D8250C6D7C7D9A47AF9F3EE
+              EBD2BEFFFFFFEBD3BFFFFFFFFFFFFF75B17B62A96A5DA46535803B317A365197
+              5882C88D5BA1637AA27CDDA87EF9F3EFEBD0BAEBD0BBEBD0BBF4E6DAF4EFE7F9
+              F1EC70AB72609F62F4E6D9F4E6D96197632D7533296F2E407C44DFAA82F9F3EF
+              EACEB7FFFFFFEBD0BBFFFFFFFFFFFFFFFFFFF9F2EC82B886FFFFFFFFFFFFF7F0
+              EBC88D5FFFFFFFFFFFFFE1AE87FAF4F0EACBB2EACCB3EACCB3F6E9DEF9F1EAF9
+              F2EBF3E5D9F5E6DBF3E3D77CAC78F5EFE9C48654FFFFFFFFFFFFE3B18CFAF6F1
+              EAC9AEFFFFFFEAC9B074C57E5DB8685AB3647CBB7DFFFFFFFFFFFF68AC6F6EAA
+              72C58655F8FBF8FFFFFFE5B48FFAF6F2E9C6AAE9C6ACEAC7AC9ECF988ECF97AA
+              D9B17AC38357AF6152A95C6FB7786BB37468924FFFFFFFFFFFFFE7B794FBF7F4
+              E9C3A6FFFFFFE8C4A9D9F1DC84CF8D94D29CABDAB2A8D9AFA5D8ADA2D6AA9FD5
+              A76CB4745FA566FFFFFFE9BA98FBF7F4E9C3A6E9C3A6E9C3A6EFD3BDD3E0C38B
+              CF9063C06F60BC6B5DB76779C28275BE7E73A15CFFFFFFFFFFFFEBBD9BFBF7F4
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7AC58382C5
+              89D1976AFFFFFFFFFFFFECBF9EFBF7F49CD5A598D3A194D09D90CE988BCB9387
+              C98EA3D5A8B9DFBCCDE8CF7FC987F9F6F2D49B6FFFFFFFFFFFFFEFC6A8FBF7F4
+              FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7
+              F4D8A378FFFFFFFFFFFFF7E1D2F1C8ACEDC09FEBBE9DEBBC9AE9BA96E7B793E6
+              B590E4B28CE2AF88E0AC84DDA980DCA57DE2B696FFFFFFFFFFFF}
+            OnClick = BtnRefrescarProcesosClick
+          end
+          object ListViewProcesos: TListView
+            Left = 4
+            Top = 4
+            Width = 557
+            Height = 361
+            Align = alCustom
+            Anchors = [akLeft, akTop, akRight, akBottom]
+            BevelInner = bvNone
+            BevelOuter = bvRaised
+            BevelKind = bkFlat
+            BorderStyle = bsNone
+            Columns = <
+              item
+                Caption = 'Nombre'
+                Width = 120
+              end
+              item
+                Caption = 'PID'
+                Width = 60
+              end
+              item
+                AutoSize = True
+                Caption = 'Ruta'
+              end>
+            FlatScrollBars = True
+            GridLines = True
+            MultiSelect = True
+            ReadOnly = True
+            RowSelect = True
+            PopupMenu = PopupProcess
+            SmallImages = IconsArchivos
+            TabOrder = 0
+            ViewStyle = vsReport
+            OnColumnClick = ListViewProcesosColumnClick
+            OnCompare = ListViewProcesosCompare
+          end
+        end
+        object TabVentanas: TTabSheet
+          Caption = 'Ventanas'
+          ImageIndex = 29
+          OnShow = TabVentanasShow
+          DesignSize = (
+            565
+            401)
+          object BtnRefrescarVentanas: TSpeedButton
+            Left = 485
+            Top = 369
+            Width = 72
+            Height = 22
+            Cursor = crHandPoint
+            Anchors = [akRight, akBottom]
+            Caption = 'Refrescar'
+            Flat = True
+            Glyph.Data = {
+              36030000424D3603000000000000360000002800000010000000100000000100
+              18000000000000030000120B0000120B00000000000000000000FFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCFDFD6E9B70FFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFF6197654F8853FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDFB493D59D74
+              D19668CE9263CB8E5EC98A5BC7875666945B569D5E53995A2A712F266B2B2366
+              274C723AC6D7C7FFFFFFD7A175F8F2EDF7F0EAF6EDE6F4EAE2F3E7DE529A5860
+              A7688DCD978ACB9487CA9184C98E81C88C60A7684D8250C6D7C7D9A47AF9F3EE
+              EBD2BEFFFFFFEBD3BFFFFFFFFFFFFF75B17B62A96A5DA46535803B317A365197
+              5882C88D5BA1637AA27CDDA87EF9F3EFEBD0BAEBD0BBEBD0BBF4E6DAF4EFE7F9
+              F1EC70AB72609F62F4E6D9F4E6D96197632D7533296F2E407C44DFAA82F9F3EF
+              EACEB7FFFFFFEBD0BBFFFFFFFFFFFFFFFFFFF9F2EC82B886FFFFFFFFFFFFF7F0
+              EBC88D5FFFFFFFFFFFFFE1AE87FAF4F0EACBB2EACCB3EACCB3F6E9DEF9F1EAF9
+              F2EBF3E5D9F5E6DBF3E3D77CAC78F5EFE9C48654FFFFFFFFFFFFE3B18CFAF6F1
+              EAC9AEFFFFFFEAC9B074C57E5DB8685AB3647CBB7DFFFFFFFFFFFF68AC6F6EAA
+              72C58655F8FBF8FFFFFFE5B48FFAF6F2E9C6AAE9C6ACEAC7AC9ECF988ECF97AA
+              D9B17AC38357AF6152A95C6FB7786BB37468924FFFFFFFFFFFFFE7B794FBF7F4
+              E9C3A6FFFFFFE8C4A9D9F1DC84CF8D94D29CABDAB2A8D9AFA5D8ADA2D6AA9FD5
+              A76CB4745FA566FFFFFFE9BA98FBF7F4E9C3A6E9C3A6E9C3A6EFD3BDD3E0C38B
+              CF9063C06F60BC6B5DB76779C28275BE7E73A15CFFFFFFFFFFFFEBBD9BFBF7F4
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7AC58382C5
+              89D1976AFFFFFFFFFFFFECBF9EFBF7F49CD5A598D3A194D09D90CE988BCB9387
+              C98EA3D5A8B9DFBCCDE8CF7FC987F9F6F2D49B6FFFFFFFFFFFFFEFC6A8FBF7F4
+              FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7
+              F4D8A378FFFFFFFFFFFFF7E1D2F1C8ACEDC09FEBBE9DEBBC9AE9BA96E7B793E6
+              B590E4B28CE2AF88E0AC84DDA980DCA57DE2B696FFFFFFFFFFFF}
+            OnClick = BtnRefrescarVentanasClick
+          end
+          object ListViewVentanas: TListView
+            Left = 4
+            Top = 4
+            Width = 551
+            Height = 361
+            Align = alCustom
+            Anchors = [akLeft, akTop, akRight, akBottom]
+            BevelInner = bvNone
+            BevelOuter = bvRaised
+            BevelKind = bkFlat
+            BorderStyle = bsNone
+            Columns = <
+              item
+                AutoSize = True
+                Caption = 'Titulo'
+                ImageIndex = 250
+              end
+              item
+                Caption = 'Handle'
+                Width = 150
+              end
+              item
+                Caption = 'Estado'
+                Width = 60
+              end>
+            FlatScrollBars = True
+            GridLines = True
+            MultiSelect = True
+            ReadOnly = True
+            RowSelect = True
+            PopupMenu = PopupWindows
+            SmallImages = IconsArchivos
+            TabOrder = 0
+            ViewStyle = vsReport
+            OnColumnClick = ListViewProcesosColumnClick
+            OnCompare = ListViewProcesosCompare
+            OnCustomDrawItem = ListViewVentanasCustomDrawItem
+          end
+          object CheckBoxMostrarVentanasOcultas: TCheckBox
+            Left = 287
+            Top = 374
+            Width = 190
+            Height = 17
+            Anchors = [akRight, akBottom]
+            Caption = 'Mostrar ventanas ocultas'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clMenuHighlight
+            Font.Height = -11
+            Font.Name = 'Verdana'
+            Font.Style = [fsBold]
+            ParentFont = False
+            TabOrder = 1
+            OnClick = CheckBoxMostrarVentanasOcultasClick
+          end
+        end
+        object TabRegistro: TTabSheet
+          Caption = 'Registro'
+          ImageIndex = 32
+          DesignSize = (
+            565
+            401)
+          object BtnVerRegisto: TSpeedButton
+            Left = 485
+            Top = 370
+            Width = 72
+            Height = 21
+            Cursor = crHandPoint
+            Anchors = [akRight, akBottom]
+            Caption = 'Ver'
+            Flat = True
+            Glyph.Data = {
+              22050000424D2205000000000000360000002800000013000000150000000100
+              180000000000EC04000000000000000000000000000000000000FFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFF148732037B1EFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFF158D3C43A15F33954CFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF2398521D924A
+              179044118C3D3A9F5E80C19646A3622E9447FFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF299B5B90CAA98DC8A58A
+              C6A188C59E6AB68582C29748A566289144FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFFFF000000FFFFFFFFFFFF000000000000319F6394CDAD6FBA8E6BB88966B6
+              8561B38067B58283C2983CA05C06822AFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00
+              0000FFFFFFFFFFFF808080FFFFFF37A36B96CEB094CDAD91CBAA90CBA874BC90
+              8AC7A146A5680B8938FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFF
+              FFFFFFFF808080FFFF003DA56F38A26D34A067319D6255AF7C91CBAA4FAB7419
+              8E46000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+              8080808080008080008080008080008080003298605AB3812898578080000000
+              00808000000000FFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF808080FF
+              FFFFFFFF00808000FFFFFFFFFF00399C69319F65000000000000000000808000
+              000000FFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF808080FFFF00FFFF
+              FF808000FFFF00FFFFFF808000000000808000808000000000808000000000FF
+              FFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF808080808000808000000000
+              808000FFFFFF808000000000FFFF00808000000000000000000000FFFFFFFFFF
+              FFFFFFFFFFFFFF000000FFFFFFFFFFFF808080FFFFFFFFFF0080800000000000
+              0000000000000000FFFFFF808000000000808000000000FFFFFFFFFFFFFFFFFF
+              FFFFFF000000FFFFFFFFFFFF808080FFFF00FFFFFF8080000000008080008080
+              00808000000000000000000000808000000000FFFFFFFFFFFFFFFFFFFFFFFF00
+              0000FFFFFFFFFFFFFFFFFF808080FFFF00FFFFFF000000FFFF00FFFFFF808000
+              000000808000000000808000000000000000FFFFFFFFFFFFFFFFFF000000FFFF
+              FFFFFFFFFFFFFFFFFFFF808080808000808000FFFFFFFFFFFF80800000000080
+              8000808080000000808080808000000000FFFFFFFFFFFF000000FFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFF808080808080808080808080808080808080000000FFFF
+              FF808080808000FFFF00808000000000FFFFFF000000FFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF808080808000000000FFFFFF
+              808080FFFFFF000000FFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFF808080808000FFFF00808000000000FFFFFF80
+              8080FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFF808080FFFFFF000000FFFFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFF808080FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFFFF000000}
+            OnClick = BtnVerRegistoClick
+            OnDblClick = BtnVerRegistoClick
+          end
+          object PanelRegistro: TPanel
+            Left = 4
+            Top = 4
+            Width = 551
+            Height = 355
+            Anchors = [akLeft, akTop, akRight, akBottom]
+            BevelOuter = bvNone
+            Caption = 'PanelRegistro'
+            TabOrder = 0
+            object Splitter1: TSplitter
+              Left = 185
+              Top = 0
+              Height = 355
+            end
+            object TreeViewRegedit: TTreeView
+              Left = 0
+              Top = 0
+              Width = 185
+              Height = 355
+              Align = alLeft
+              BevelInner = bvNone
+              BevelOuter = bvRaised
+              BevelKind = bkFlat
+              BorderStyle = bsNone
+              Images = IconsArchivos
+              Indent = 19
+              ParentShowHint = False
+              PopupMenu = PopupRegistro
+              RightClickSelect = True
+              RowSelect = True
+              ShowHint = False
+              StateImages = IconsArchivos
+              TabOrder = 0
+              OnChange = TreeViewRegeditChange
+              OnContextPopup = TreeViewRegeditContextPopup
+              OnDblClick = TreeViewRegeditDblClick
+              Items.Data = {
+                050000002A0000000100000000000000FFFFFFFFFFFFFFFF0000000000000000
+                11484B45595F434C41535345535F524F4F542A0000000100000000000000FFFF
+                FFFFFFFFFFFF000000000000000011484B45595F43555252454E545F55534552
+                2B0000000100000000000000FFFFFFFFFFFFFFFF000000000000000012484B45
+                595F4C4F43414C5F4D414348494E45230000000100000000000000FFFFFFFFFF
+                FFFFFF00000000000000000A484B45595F55534552532C000000010000000000
+                0000FFFFFFFFFFFFFFFF000000000000000013484B45595F43555252454E545F
+                434F4E464947}
+            end
+            object ListViewRegistro: TListView
+              Left = 188
+              Top = 0
+              Width = 363
+              Height = 355
+              Align = alClient
+              BevelInner = bvNone
+              BevelOuter = bvRaised
+              BevelKind = bkFlat
+              BorderStyle = bsNone
+              Columns = <
+                item
+                  Caption = 'Nombre'
+                  Width = 135
+                end
+                item
+                  Caption = 'Tipo'
+                  Width = 70
+                end
+                item
+                  AutoSize = True
+                  Caption = 'Valor'
+                end>
+              FlatScrollBars = True
+              RowSelect = True
+              PopupMenu = PopupRegistro
+              SmallImages = IconsArchivos
+              TabOrder = 1
+              ViewStyle = vsReport
+              OnColumnClick = ListViewProcesosColumnClick
+              OnCompare = ListViewRegistroCompare
+              OnContextPopup = ListViewRegistroContextPopup
+              OnEdited = ListViewRegistroEdited
+            end
+          end
+          object EditPathRegistro: TEdit
+            Left = 8
+            Top = 370
+            Width = 469
+            Height = 21
+            Anchors = [akLeft, akRight, akBottom]
+            BevelInner = bvNone
+            BevelKind = bkFlat
+            BevelOuter = bvRaised
+            BorderStyle = bsNone
+            Ctl3D = True
+            ParentCtl3D = False
+            TabOrder = 1
+          end
+        end
+        object TabServicios: TTabSheet
+          Caption = 'Servicios'
+          ImageIndex = 45
+          OnShow = TabServiciosShow
+          DesignSize = (
+            565
+            401)
+          object btnInstServicios2: TSpeedButton
+            Left = 328
+            Top = 372
+            Width = 65
+            Height = 19
+            Anchors = [akRight, akBottom]
+            Caption = 'Instalar'
+            Flat = True
+            Visible = False
+            OnClick = btnInstServicios2Click
+          end
+          object BtnCancelarInstalarServicio: TSpeedButton
+            Left = 396
+            Top = 372
+            Width = 65
+            Height = 19
+            Anchors = [akRight, akBottom]
+            Caption = 'Cancelar'
+            Flat = True
+            Visible = False
+            OnClick = BtnCancelarInstalarServicioClick
+          end
+          object BtnServicios: TSpeedButton
+            Left = 485
+            Top = 369
+            Width = 72
+            Height = 22
+            Anchors = [akRight, akBottom]
+            Caption = 'Refrescar'
+            Flat = True
+            Glyph.Data = {
+              36030000424D3603000000000000360000002800000010000000100000000100
+              18000000000000030000120B0000120B00000000000000000000FFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCFDFD6E9B70FFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFF6197654F8853FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDFB493D59D74
+              D19668CE9263CB8E5EC98A5BC7875666945B569D5E53995A2A712F266B2B2366
+              274C723AC6D7C7FFFFFFD7A175F8F2EDF7F0EAF6EDE6F4EAE2F3E7DE529A5860
+              A7688DCD978ACB9487CA9184C98E81C88C60A7684D8250C6D7C7D9A47AF9F3EE
+              EBD2BEFFFFFFEBD3BFFFFFFFFFFFFF75B17B62A96A5DA46535803B317A365197
+              5882C88D5BA1637AA27CDDA87EF9F3EFEBD0BAEBD0BBEBD0BBF4E6DAF4EFE7F9
+              F1EC70AB72609F62F4E6D9F4E6D96197632D7533296F2E407C44DFAA82F9F3EF
+              EACEB7FFFFFFEBD0BBFFFFFFFFFFFFFFFFFFF9F2EC82B886FFFFFFFFFFFFF7F0
+              EBC88D5FFFFFFFFFFFFFE1AE87FAF4F0EACBB2EACCB3EACCB3F6E9DEF9F1EAF9
+              F2EBF3E5D9F5E6DBF3E3D77CAC78F5EFE9C48654FFFFFFFFFFFFE3B18CFAF6F1
+              EAC9AEFFFFFFEAC9B074C57E5DB8685AB3647CBB7DFFFFFFFFFFFF68AC6F6EAA
+              72C58655F8FBF8FFFFFFE5B48FFAF6F2E9C6AAE9C6ACEAC7AC9ECF988ECF97AA
+              D9B17AC38357AF6152A95C6FB7786BB37468924FFFFFFFFFFFFFE7B794FBF7F4
+              E9C3A6FFFFFFE8C4A9D9F1DC84CF8D94D29CABDAB2A8D9AFA5D8ADA2D6AA9FD5
+              A76CB4745FA566FFFFFFE9BA98FBF7F4E9C3A6E9C3A6E9C3A6EFD3BDD3E0C38B
+              CF9063C06F60BC6B5DB76779C28275BE7E73A15CFFFFFFFFFFFFEBBD9BFBF7F4
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7AC58382C5
+              89D1976AFFFFFFFFFFFFECBF9EFBF7F49CD5A598D3A194D09D90CE988BCB9387
+              C98EA3D5A8B9DFBCCDE8CF7FC987F9F6F2D49B6FFFFFFFFFFFFFEFC6A8FBF7F4
+              FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7F4FBF7
+              F4D8A378FFFFFFFFFFFFF7E1D2F1C8ACEDC09FEBBE9DEBBC9AE9BA96E7B793E6
+              B590E4B28CE2AF88E0AC84DDA980DCA57DE2B696FFFFFFFFFFFF}
+            OnClick = BtnServiciosClick
+          end
+          object btnInstServicios: TSpeedButton
+            Left = 328
+            Top = 372
+            Width = 65
+            Height = 19
+            Anchors = [akRight, akBottom]
+            Caption = 'Siguiente'
+            Flat = True
+            Visible = False
+            OnClick = btnInstServiciosClick
+          end
+          object btnSiguienteInstalarServicio: TSpeedButton
+            Left = 328
+            Top = 372
+            Width = 65
+            Height = 19
+            Anchors = [akRight, akBottom]
+            Caption = 'Siguiente'
+            Flat = True
+            Visible = False
+            OnClick = btnSiguienteInstalarServicioClick
+          end
+          object ListViewServicios: TListView
+            Left = 4
+            Top = 4
+            Width = 555
+            Height = 364
+            Anchors = [akLeft, akTop, akRight, akBottom]
+            BevelInner = bvNone
+            BevelOuter = bvRaised
+            BevelKind = bkFlat
+            BorderStyle = bsNone
+            Columns = <
+              item
+                Caption = 'Servicio'
+                Width = 150
+              end
+              item
+                Caption = 'Descripci'#243'n'
+                Width = 250
+              end
+              item
+                Caption = 'Estado'
+                Width = 95
+              end>
+            FlatScrollBars = True
+            GridLines = True
+            MultiSelect = True
+            RowSelect = True
+            PopupMenu = PopupServicios
+            SmallImages = IconsArchivos
+            TabOrder = 0
+            ViewStyle = vsReport
+            OnColumnClick = ListViewProcesosColumnClick
+            OnCompare = ListViewRegistroCompare
+          end
+          object MultiEditInstalarServicio: TEdit
+            Left = 4
+            Top = 372
+            Width = 313
+            Height = 19
+            Anchors = [akLeft, akRight, akBottom]
+            BevelInner = bvNone
+            BevelKind = bkFlat
+            BevelOuter = bvRaised
+            BorderStyle = bsNone
+            TabOrder = 1
+            Visible = False
+          end
+        end
+        object TabPortapapeles: TTabSheet
+          Caption = 'Portapapeles'
+          ImageIndex = 4
+          DesignSize = (
+            565
+            401)
+          object SpeedButtonClipBoard1: TSpeedButton
+            Left = 286
+            Top = 367
+            Width = 133
+            Height = 22
+            Anchors = [akRight, akBottom]
+            Caption = 'Ver Portapapeles'
+            Flat = True
+            Glyph.Data = {
+              36040000424D3604000000000000360000002800000010000000100000000100
+              20000000000000040000C40E0000C40E00000000000000000000FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00145D9503105A921AFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF0022669E061B629AAD22679DFF115B9387FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF003272
+              AA062B6DA5AD558DBCFF89B5DDFF185F97FFFFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00447FB7063C79
+              B1AD6497C5FF9DC1E4FF6699C7FF1F659DEBFFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00DDB28F02D9AE8A97D6A985E3D3A57FFDD0A07BFDCD9C76E4A2938ADE75A2
+              CCFFABCBE8FF76A4CEFF3070A8EB286BA327FFFFFF00FFFFFF00FFFFFF00E4BD
+              9B02E1B896C0E8C9AEFFF5E1CDFFF7E5D3FFF7E5D1FFF3DDC8FFDFBA9CFFC7A8
+              91FF86AED5FF417DB5EB3977AF27FFFFFF00FFFFFF00FFFFFF00FFFFFF00E8C3
+              A297EDD0B7FFF8E8D9FFF5DEC8FFF3D8BDFFF3D6BBFFF4DBC2FFF7E4D2FFDFBB
+              9DFF9D9492F74B84BC27FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00ECC8
+              A8E3F7E7D7FFF6E1CCFFF4DBC2FFF4DAC0FFF3D8BDFFF3D7BBFFF4DBC2FFF3DE
+              C9FFCD9F7BE7FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00F0CE
+              AEFDF9ECDFFFF5DFC8FFF5DDC6FFF4DCC3FFF4DAC1FFF3D9BEFFF3D7BDFFF8E6
+              D3FFD3A57FFDFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00F4D3
+              B4FDF9EDE1FFF6E1CCFFF5DFC9FFF5DEC7FFF4DCC4FFF4DBC2FFF4DAC0FFF8E7
+              D6FFD7AA86FDFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00F7D7
+              B9E3F9EBDEFFF7E7D6FFF6E1CCFFF5E0CAFFF5DEC8FFF5DDC5FFF6E1CBFFF5E2
+              D0FFDBB08CE3FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FADB
+              BD97F8E2CCFFFAEEE3FFF7E7D6FFF6E2CEFFF6E1CBFFF6E3D0FFF9EADDFFECCF
+              B5FFDFB69397FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FCDE
+              C002FADBBEC0F9E2CDFFFAECDEFFF9EEE2FFF9EDE2FFF8E9DAFFF0D5BDFFE7C0
+              9FC0E3BC9A02FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FCDEC102FADCBF97F9D9BBE3F6D6B8FDF4D3B4FDF1CFAFE3EECBAB97EBC6
+              A602FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00}
+            OnClick = SpeedButtonClipBoard1Click
+          end
+          object SpeedButtonClipBoard2: TSpeedButton
+            Left = 422
+            Top = 367
+            Width = 133
+            Height = 22
+            Anchors = [akRight, akBottom]
+            Caption = 'Setear Portapapeles'
+            Flat = True
+            Glyph.Data = {
+              36040000424D3604000000000000360000002800000010000000100000000100
+              20000000000000040000C40E0000C40E00000000000000000000FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00007D21EB037B1EFF00791504FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF0001832BEB43A15FFF007B1FCC00791906FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00219751FD1B9149FD158F43FD0F8B
+              3BFD3A9F5EFF80C196FF46A362FF007D1FD100791907FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00299B5BFF90CAA9FF8DC8A5FF8AC6
+              A1FF88C59EFF6AB685FF82C297FF48A566FF007D21D700791B09FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00319F63FF94CDADFF6FBA8EFF6BB8
+              89FF66B685FF61B380FF67B582FF83C298FF3CA05CFF007F25F9FFFFFF002626
+              26033F3F3F304A4A4ADF646464F46B6B6BF737A36BFF96CEB0FF94CDADFF91CB
+              AAFF90CBA8FF74BC90FF8AC7A1FF46A568FF078735FB01832D01FFFFFF002929
+              29294D4D4DD78D8D8DEFAAAAAAEDAEAEAEFF3DA56FFF38A26DFF34A067FF319D
+              62FF55AF7CFF91CBAAFF4FAB74FF188E45FE282B292AFFFFFF00FFFFFF002D2D
+              2D69676767EF96969674525252B9414141FA464646FF515151FF515151FF4646
+              46FF329860FF5AB381FF289857FF676767EF2D2D2D69FFFFFF00FFFFFF003232
+              328A828282F7939393674F4F4F0A3F3F3FF3BDBDBDFFCECECEFFC2C2C2FFADAD
+              ADFF389C68FE319F65FF93939367828282F73232328AFFFFFF00FFFFFF003131
+              314E737373F0D5D5D5EE585858B64B4B4BFC656565FF929292FF797979FF6565
+              65FF4B4B4BFC585858B6A8A8A8E1737373F03131314EFFFFFF00FFFFFF003232
+              32064C4C4C8A919191FFE8E8E8FFDDDDDDFFC1C1C1FF818181DE7B7B7BC2D9D9
+              D9F8DDDDDDFFC4C4C4FF919191FF4C4C4C8A32323206FFFFFF00FFFFFF00FFFF
+              FF003E3E3E0B6A6A6A75858585EE9E9E9EFF7C7C7CE16C6C6C376C6C6C187C7C
+              7CDD9E9E9EFF858585EE6A6A6A753E3E3E0BFFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00}
+            OnClick = SpeedButtonClipBoard2Click
+          end
+          object MemoClipBoard: TMemo
+            Left = 4
+            Top = 4
+            Width = 555
+            Height = 356
+            Anchors = [akLeft, akTop, akRight, akBottom]
+            BevelInner = bvNone
+            BevelKind = bkFlat
+            BevelOuter = bvRaised
+            BorderStyle = bsNone
+            Color = clHighlightText
+            ScrollBars = ssVertical
+            TabOrder = 0
+          end
+        end
+        object TabShell: TTabSheet
+          Caption = 'Shell'
+          ImageIndex = 54
+          DesignSize = (
+            565
+            401)
+          object BtnCambiarFuenteShell: TSpeedButton
+            Left = 5
+            Top = 370
+            Width = 114
+            Height = 21
+            Cursor = crHandPoint
+            Anchors = [akLeft, akBottom]
+            Caption = 'Cambiar fuente'
+            Flat = True
+            Glyph.Data = {
+              36030000424D3603000000000000360000002800000010000000100000000100
+              18000000000000030000120B0000120B00000000000000000000FF00FFFF00FF
+              FF00FFFF00FFFF00FFFF00FFFF00FFC8C8C88080808787878585858585858080
+              80CACACAFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFAB
+              ABAB5858586666666C6C6C636363535353B0B0B0FF00FFFF00FFFF00FFFF00FF
+              FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF515151545454515151FF00
+              FFFF00FFFF00FFFF00FFFF00FFFF00FFA0A2B43C4DA24C59A24D5AA14A57A149
+              549CCFCFD150504D2D2D2D4A4A4AFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+              979ABA243BDB002BFF002FFF0027EF2D3EC5CCCCD141413F0707073C3C3CFF00
+              FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF1326D50020FF5058A8FF
+              00FFFF00FF3737370000003A3A3AFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+              FF00FFFF00FF1C25D40010FF5659A6FF00FFFF00FF3737370101013A3A3AFF00
+              FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF1B1CD50003FF5555A8FF
+              00FFFF00FF3737370000003A3A3AFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+              FF00FFFF00FF1B1BD50000FF5454A6FF00FFFF00FF3939390B0B0B3C3C3CFF00
+              FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF1B1BDC0304A63E3E58FF
+              00FFFF00FF474747313131474747FF00FFFF00FF6464647F7F7FFF00FFFF00FF
+              FF00FFFF00FF1B1BE013138A343420FF00FFFF00FF4E4E4E5D5D5D4C4C4CFF00
+              FFFF00FF2828286C6C6CFF00FFFF00FFFF00FFFF00FF1D1DE118189971715D41
+              41414747475454518B8B8A4B4B4B4A4A4A4242427171717E7E7E4E4EA7585898
+              FF00FFFF00FF3030E12526A167676272726F6A6A676A6A737070736F6F6F6969
+              697171717171718C8C8C5353C52D2DCCFF00FFFF00FF3B3CD45153F7484892D0
+              D0D08F8FA12B2CD57D7D9CFF00FFFF00FFFF00FFFF00FFFF00FF6969B57172FF
+              4C4CCF4D4DBF6162F47F80FF4F4FDC5354BC5757DF6869FF9797B0FF00FFFF00
+              FFFF00FFFF00FFFF00FF7B7BB25050D75454DF5050E45151DC4A4ADA4F4FDF4D
+              4DE45353EF4344E7AAAABBFF00FFFF00FFFF00FFFF00FFFF00FF}
+            OnClick = BtnCambiarFuenteShellClick
+          end
+          object BtnCambiarColorShell: TSpeedButton
+            Left = 126
+            Top = 370
+            Width = 106
+            Height = 21
+            Cursor = crHandPoint
+            Anchors = [akLeft, akBottom]
+            Caption = 'Cambiar color'
+            Flat = True
+            Glyph.Data = {
+              36030000424D3603000000000000360000002800000010000000100000000100
+              18000000000000030000120B0000120B00000000000000000000FF00FFFF00FF
+              FF00FFAEB6BB7B96A67691A1C4C7C9FF00FFFF00FFFF00FFFF00FFFF00FFFF00
+              FFFF00FFFF00FFFF00FFFF00FFD9DADC6996B06ACCF56EDEFF61D6FF4C90BAEA
+              EAEAFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF6CA1BD
+              6AE0FF4CA9D994B5CB4FAEE544BCFA9CA7AFFF00FFFF00FFFF00FFFF00FFFF00
+              FFFF00FFFF00FFFF00FFA6B3BB59CBFF22B9FF528EB3FF00FFBEC7CD45BBFA47
+              98C6909BA3A1ABB07895A468889DA4AAB0FF00FFFF00FFFF00FF75A5BF31BCFF
+              20B2FF2C99DC949CA2BCC0C34BB5EB5FD4FF65C8F474D3F784E8FF82E4FF51A7
+              D87E8E9CFF00FFFF00FF599FC825B5FF25B4FF32BBFF3CA6E154ABD658CBFF5E
+              CEFF6BD8FF77DDFF80E0FF8FE9FF9CF5FF4F9BC5B0B4B8FF00FF5298C325B8FF
+              2196FA32AFF943C6FF51CCFF56CAFF62CFFF6DD6FF79DCFF84E2FF90E7FFA0F3
+              FF91E3FB547896FF00FF6A99B928C2FF1662FC1544F0318FF250CDFE5ACBFF65
+              D2FF70D7FF7CDDFF87E3FF93E9FF9EEFFFB1FDFF5C9DC0C6C7C99DADB926A7FD
+              0F37FD0000FC2160EF51C6FB5ECEFF68D3FF74DAFF7FDFFF8AE4FF96EBFFA1F0
+              FFB5FFFF8CD1E6919BA4FF00FF3072D02C4DFF4E45FF3D3AFA48A2F467D7FF71
+              D8FF7BDDFF82E0FF8EE7FF98F0FFA4F4FFB4FCFFAFF3FD718596FF00FF829DAD
+              4BA4FD719DFC5390FF3DAAC53DB79C47BCA84DBDA086E2FF8EECFF9FDBE8A6ED
+              F4B6FFFFBAFDFF6D8395FF00FFFF00FF5380AE43BDFF55D4FF3FBCB0019C0000
+              9B0043B9898EE8FFC2A79EF37247B6C1BBB6FAFDBBFDFF6F8294FF00FFFF00FF
+              FF00FF5089B253CAFF3EBA764BBB3D57BF525DBF8C84E2F9D2A18FFF6A31F96F
+              3FD0CABBA1E5F48B939EFF00FFFF00FFFF00FFFF00FF5E88AC4DB6BE6FD4AC92
+              D79A70CEB384DEE8DBB5A9FFA884FBA583BEECEB6189A5FF00FFFF00FFFF00FF
+              FF00FFFF00FFFF00FF90A0B85290BC5FB7AF84DFF499EFFFCCD2CFF1CEC3CAB6
+              B5617F99B7BABEFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFA1
+              AFC76E8DAD5B8AAD598DB1657F9B8691A1FF00FFFF00FFFF00FF}
+            OnClick = BtnCambiarColorShellClick
+          end
+          object MemoShell: TMemo
+            Left = 4
+            Top = 4
+            Width = 556
+            Height = 328
+            Anchors = [akLeft, akTop, akRight, akBottom]
+            BevelInner = bvNone
+            BevelKind = bkFlat
+            BevelOuter = bvRaised
+            BorderStyle = bsNone
+            Color = clInactiveBorder
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindow
+            Font.Height = -11
+            Font.Name = 'Terminal'
+            Font.Style = []
+            ParentFont = False
+            PopupMenu = PopupShell
+            ReadOnly = True
+            ScrollBars = ssVertical
+            TabOrder = 0
+          end
+          object ComboBoxShellCommand: TComboBox
+            Left = 1
+            Top = 344
+            Width = 556
+            Height = 19
+            BevelInner = bvNone
+            BevelKind = bkFlat
+            BevelOuter = bvRaised
+            Anchors = [akLeft, akRight, akBottom]
+            Color = clInactiveBorder
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clCaptionText
+            Font.Height = -11
+            Font.Name = 'Lucida Console'
+            Font.Style = []
+            ItemHeight = 11
+            ParentFont = False
+            TabOrder = 1
+            OnKeyPress = ComboBoxShellCommandKeyPress
+          end
         end
       end
-      object CheckBoxAutoCapturaScreen: TCheckBox
-        Left = 26
-        Top = 309
-        Width = 98
-        Height = 17
-        Anchors = [akLeft, akBottom]
-        Caption = 'Autom'#225'tico'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
-        Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 4
-        OnClick = CheckBoxAutoCapturaScreenClick
-      end
-      object SpinCaptureScreen: TSpinEdit
-        Left = 124
-        Top = 305
-        Width = 45
-        Height = 22
-        Anchors = [akLeft, akBottom]
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
-        Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
-        MaxValue = 30
-        MinValue = 0
-        ParentFont = False
-        TabOrder = 5
-        Value = 0
-        OnChange = SpinCaptureScreenChange
-      end
-      object CheckBoxTamanioReal: TCheckBox
-        Left = 180
-        Top = 308
-        Width = 114
-        Height = 17
-        Anchors = [akRight, akBottom]
-        Caption = 'Tama'#241'o Real'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
-        Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 6
-        OnClick = CheckBoxTamanioRealClick
-      end
     end
-    object TabWebcam: TTabSheet
-      Caption = 'Webcam'
-      ImageIndex = 33
-      OnShow = TabWebcamShow
-      DesignSize = (
-        433
-        332)
-      object LabelPosicionCompresJpgWebcam: TLabel
-        Left = 395
-        Top = 286
-        Width = 30
-        Height = 13
-        Anchors = [akRight, akBottom]
-        Caption = '70%'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
-        Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
-        ParentFont = False
-      end
-      object LabelCalidadWebcam: TLabel
-        Left = 24
-        Top = 287
-        Width = 124
-        Height = 13
-        Anchors = [akLeft, akBottom]
-        Caption = 'Calidad de imagen:'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
-        Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
-        ParentFont = False
-      end
-      object BtnCapturarWebcam: TSpeedButton
-        Left = 174
-        Top = 306
-        Width = 80
-        Height = 21
-        Anchors = [akLeft, akBottom]
-        Caption = 'Capturar'
-        Flat = True
-        Glyph.Data = {
-          36030000424D3603000000000000360000002800000010000000100000000100
-          18000000000000030000120B0000120B00000000000000000000D8E9ECD8E9EC
-          D8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9
-          ECD8E9ECD8E9ECD8E9ECD8E9EC7979795555554E4E4E4747473F3F3F3737372F
-          2F2F2828282121211B1B1B171717151515151515151515D8E9ECD8E9EC9A9A9A
-          D1D1D1CBCBCBC4C4C4BCBCBCB4B4B4ABABABA3A3A39B9B9B9494948E8E8E8989
-          89878787191919D8E9ECD8E9ECA2A2A2C7C7C7AFAFAF8F8F8F8A8A8A9494947A
-          7A7A7070707575755454544B4B4B6161618484841D1D1DD8E9ECD8E9ECC7D2D4
-          A5A6A69F9F9FCCDBDE5959595B5B5B4848484545454B4B4B373737C6D5D84F4F
-          4F626262838B8DD8E9ECD8E9ECD8E9ECC7D3D5A8ABAC9CA1A2B3B3B3CACACABF
-          BFBFBEBEBEC8C8C8898989707576737677939C9DD8E9ECD8E9ECD8E9ECD8E9EC
-          D1E0E3A5AAABBDBDBDB3B3B3A1A1A19C9C9C9A9A9A9C9C9CA5A5A59292927075
-          75C7D6D9D8E9ECD8E9ECD8E9ECD8E9ECC6CFD1C3C3C3DADADAAFAFAFD1D1D1F0
-          F0F0EFEFEFCECECEA6A6A6C7C7C77C7C7C98A2A4D8E9ECD8E9ECD8E9ECD8E9EC
-          C5CACBDBDBDBDADADAEAEAEADAD1CCD5AC91E3AE8AE6D9D3E4E4E4CBCBCBADAD
-          AD757A7BD8E9ECD8E9ECD8E9ECD8E9ECC9CBCBE8E8E8DDDDDDF9F9F9A49992E4
-          B99CEBB899E7B190F7F7F7CBCBCBCCCCCC626363D8E9ECD8E9ECD8E9ECD8E9EC
-          D2D4D4ECECECE3E3E3FAFAF9A49B94DAB9A2E5BBA1D8B096F7F7F7CECECEDADA
-          DA6C6D6DD8E9ECD8E9ECD8E9ECD8E9ECD9DEDEEDEDEDEAEAEAF3F3F3DFD4CCA5
-          9B94A49A93DCD1CAE9E9E9D3D3D3CFCFCF8B9091D8E9ECD8E9ECD8E9ECD8E9EC
-          DCE5E7EAEAEAF2F2F2EFEFEFF5F5F5FBFAFAFAFAF9EDEDEDDADADADFDFDFB9B9
-          B9B0BABCD8E9ECD8E9ECD8E9ECD8E9ECDAE9EBE2E7E8F1F1F1F5F5F5EEEEEEBE
-          BEBEBABABAE0E0E0E3E3E3DADADAB0B5B6D0E0E2D8E9ECD8E9ECD8E9ECD8E9EC
-          D8E9ECDCE9EBE4E9EAEEEEEEEFEFEFF1F1F1EDEDEDE6E6E6DADADAC5CACBCFDC
-          DED8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECDAE9ECE0EAECE4E9EAE4
-          E5E6E0E2E2DBE0E1D5DFE1D6E5E7D8E9ECD8E9ECD8E9ECD8E9EC}
-        OnClick = BtnCapturarWebcamClick
-      end
-      object BtnGuardarWebcam: TSpeedButton
-        Left = 261
-        Top = 306
-        Width = 80
-        Height = 21
-        Cursor = crHandPoint
-        Anchors = [akLeft, akBottom]
-        Caption = 'Guardar'
-        Flat = True
-        Glyph.Data = {
-          36030000424D3603000000000000360000002800000010000000100000000100
-          18000000000000030000120B0000120B00000000000000000000D8E9ECD8E9EC
-          D8E9ECD8E9ECD8E9ECD8E9ECBA6833C38458D38B68E18F70DC8D6CDA8B6DD78A
-          6ECD8B6CAB6D44A65F2ED8E9EC7979795555554E4E4E4747473F3F3FC68355EF
-          CEBADDFFFF87EEC7A2F4D7A2F6D78CEEC7E0FFFFDDA285AB6A3ED8E9EC9A9A9A
-          D1D1D1CBCBCBC4C4C4BCBCBCC37F51EFB69AEAF3E851BF846FC99871C99954BF
-          84E4F4E9DD9C7BAA693AD8E9ECA2A2A2C7C7C7AFAFAF8F8F8F8A8A8AC48154EA
-          B697F3F3EAEDF1E6EFF1E6EFF0E6EDF1E5F3F5EDD59C79B07044D8E9ECC7D2D4
-          A5A6A69F9F9FCCDBDE595959C98B61E6B592E2A781E1A781DEA37DDCA17BDB9F
-          79D99E77D49A73BB7E57D8E9ECD8E9ECC7D3D5A8ABAC9CA1A2B3B3B3CA8D65EA
-          B899DDA57EDDA680DBA37CD9A07AD9A079D89F78D89E78BF845DD8E9ECD8E9EC
-          D1E0E3A5AAABBDBDBDB3B3B3C8885DEFBFA1FDFCFAFEFCFBFEFDFDFEFDFCFDFB
-          FAFDFCFBDDA885C17F53D8E9ECD8E9ECC6CFD1C3C3C3DADADAAFAFAFC7865BEF
-          C09EFFFFFFCC936EFFFFFFFFFFFFFFFBF7FFF8F1E4AF8CC78A61D8E9ECD8E9EC
-          C5CACBDBDBDBDADADAEAEAEACC8D65F3CDB0FFFFFFE3C7B3FFFFFFFFFFFFFFFF
-          FFFFFFFFEABFA1C98960D8E9ECD8E9ECC9CBCBE8E8E8DDDDDDF9F9F9D4976ED4
-          9E7BD09871D6A482CD8E68CD9069D09A75D19973C88B62AD5A20D8E9ECD8E9EC
-          D2D4D4ECECECE3E3E3FAFAF9A49B94DAB9A2E5BBA1D8B096F7F7F7CECECEDADA
-          DA6C6D6DD8E9ECD8E9ECD8E9ECD8E9ECD9DEDEEDEDEDEAEAEAF3F3F3DFD4CCA5
-          9B94A49A93DCD1CAE9E9E9D3D3D3CFCFCF8B9091D8E9ECD8E9ECD8E9ECD8E9EC
-          DCE5E7EAEAEAF2F2F2EFEFEFF5F5F5FBFAFAFAFAF9EDEDEDDADADADFDFDFB9B9
-          B9B0BABCD8E9ECD8E9ECD8E9ECD8E9ECDAE9EBE2E7E8F1F1F1F5F5F5EEEEEEBE
-          BEBEBABABAE0E0E0E3E3E3DADADAB0B5B6D0E0E2D8E9ECD8E9ECD8E9ECD8E9EC
-          D8E9ECDCE9EBE4E9EAEEEEEEEFEFEFF1F1F1EDEDEDE6E6E6DADADAC5CACBCFDC
-          DED8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECDAE9ECE0EAECE4E9EAE4
-          E5E6E0E2E2DBE0E1D5DFE1D6E5E7D8E9ECD8E9ECD8E9ECD8E9EC}
-        OnClick = btnGuardarImagenClick
-      end
-      object BtnObtenerWebcams: TSpeedButton
-        Left = 306
-        Top = 257
-        Width = 120
-        Height = 22
-        Anchors = [akRight, akBottom]
-        Caption = 'Obtener webcams'
-        Flat = True
-        Glyph.Data = {
-          36030000424D3603000000000000360000002800000010000000100000000100
-          18000000000000030000120B0000120B00000000000000000000D8E9ECD8E9EC
-          D8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9EC72A68B237140196B
-          3723714072A68BD8E9ECD8E9EC7979795555554E4E4E4747473F3F3F3737372F
-          2F2F2828281D472C288C5364BA8D95D2B264BA8D288C536FA489D8E9EC9A9A9A
-          D1D1D1CBCBCBC4C4C4BCBCBCB4B4B4ABABABA3A3A31F6D3C62BA8B60BA87FFFF
-          FF60B98767BC8F1F6F3DD8E9ECA2A2A2C7C7C7AFAFAF8F8F8F8A8A8A9494947A
-          7A7A707070317B4C9CD4B6FFFFFFFFFFFFFFFFFF95D2B2196B37D8E9ECC7D2D4
-          A5A6A69F9F9FCCDBDE5959595B5B5B48484845454544855C90D3B192D6B1FFFF
-          FF65BC8C67BC8F1F6F3DD8E9ECD8E9ECC7D3D5A8ABAC9CA1A2B3B3B3CACACABF
-          BFBFBEBEBE8CAB9861AB8195D4B4BAE6D06ABB8F2D8F576FA489D8E9ECD8E9EC
-          D1E0E3A5AAABBDBDBDB3B3B3A1A1A19C9C9C9A9A9A9C9C9C809D8B5B94704F8E
-          6647896085B29DD8E9ECD8E9ECD8E9ECC6CFD1C3C3C3DADADAAFAFAFD1D1D1F0
-          F0F0EFEFEFCECECEA6A6A6C7C7C77C7C7C98A2A4D8E9ECD8E9ECD8E9ECD8E9EC
-          C5CACBDBDBDBDADADAEAEAEADAD1CCD5AC91E3AE8AE6D9D3E4E4E4CBCBCBADAD
-          AD757A7BD8E9ECD8E9ECD8E9ECD8E9ECC9CBCBE8E8E8DDDDDDF9F9F9A49992E4
-          B99CEBB899E7B190F7F7F7CBCBCBCCCCCC626363D8E9ECD8E9ECD8E9ECD8E9EC
-          D2D4D4ECECECE3E3E3FAFAF9A49B94DAB9A2E5BBA1D8B096F7F7F7CECECEDADA
-          DA6C6D6DD8E9ECD8E9ECD8E9ECD8E9ECD9DEDEEDEDEDEAEAEAF3F3F3DFD4CCA5
-          9B94A49A93DCD1CAE9E9E9D3D3D3CFCFCF8B9091D8E9ECD8E9ECD8E9ECD8E9EC
-          DCE5E7EAEAEAF2F2F2EFEFEFF5F5F5FBFAFAFAFAF9EDEDEDDADADADFDFDFB9B9
-          B9B0BABCD8E9ECD8E9ECD8E9ECD8E9ECDAE9EBE2E7E8F1F1F1F5F5F5EEEEEEBE
-          BEBEBABABAE0E0E0E3E3E3DADADAB0B5B6D0E0E2D8E9ECD8E9ECD8E9ECD8E9EC
-          D8E9ECDCE9EBE4E9EAEEEEEEEFEFEFF1F1F1EDEDEDE6E6E6DADADAC5CACBCFDC
-          DED8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECDAE9ECE0EAECE4E9EAE4
-          E5E6E0E2E2DBE0E1D5DFE1D6E5E7D8E9ECD8E9ECD8E9ECD8E9EC}
-        OnClick = BtnObtenerWebcamsClick
-      end
-      object ProgressBarWebcam: TProgressBar
-        Left = 2
+    object TabVigilancia: TTabSheet
+      Caption = 'Vigilancia'
+      ImageIndex = 105
+      object PageControlVigilancia: TPageControl
+        Left = 0
         Top = 0
-        Width = 17
-        Height = 249
-        Anchors = [akLeft, akTop, akBottom]
-        Orientation = pbVertical
-        Smooth = True
+        Width = 573
+        Height = 428
+        ActivePage = TabScreencap
+        Align = alClient
+        Images = IconsArchivos
         TabOrder = 0
-      end
-      object ComboBoxWebcam: TComboBox
-        Left = 24
-        Top = 258
-        Width = 271
-        Height = 21
-        BevelInner = bvNone
-        BevelKind = bkFlat
-        BevelOuter = bvRaised
-        Anchors = [akLeft, akRight, akBottom]
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
-        Font.Height = -11
-        Font.Name = 'MS Sans Serif'
-        Font.Style = []
-        ItemHeight = 13
-        ParentFont = False
-        TabOrder = 1
-        OnKeyPress = ComboBoxWebcamKeyPress
-      end
-      object TrackBarCalidadWebcam: TTrackBar
-        Left = 152
-        Top = 284
-        Width = 237
-        Height = 16
-        Cursor = crHandPoint
-        Anchors = [akLeft, akRight, akBottom]
-        Max = 100
-        Position = 70
-        TabOrder = 2
-        ThumbLength = 15
-        OnChange = TrackBarCalidadWebcamChange
-      end
-      object CheckBoxAutoCamCapture: TCheckBox
-        Left = 26
-        Top = 309
-        Width = 102
-        Height = 17
-        Anchors = [akLeft, akBottom]
-        Caption = 'Autom'#225'tico'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
-        Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Pitch = fpVariable
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 3
-        OnClick = CheckBoxAutoCamCaptureClick
-      end
-      object SpinCam: TSpinEdit
-        Left = 124
-        Top = 305
-        Width = 45
-        Height = 22
-        Anchors = [akLeft, akBottom]
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
-        Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
-        MaxValue = 30
-        MinValue = 0
-        ParentFont = False
-        PopupMenu = FormMain.PopupMenuConexiones
-        TabOrder = 4
-        Value = 0
-        OnChange = SpinCamChange
-      end
-      object ScrollBoxCapWebcam: TScrollBox
-        Left = 24
-        Top = 0
-        Width = 406
-        Height = 249
-        Anchors = [akLeft, akTop, akRight, akBottom]
-        BevelInner = bvNone
-        BevelOuter = bvRaised
-        BevelKind = bkFlat
-        BorderStyle = bsNone
-        TabOrder = 5
-        object ImgWebcam: TImage
-          Left = 0
-          Top = 0
-          Width = 302
-          Height = 245
-          Stretch = True
+        TabPosition = tpBottom
+        object TabScreencap: TTabSheet
+          Caption = 'Pantalla'
+          ImageIndex = 22
+          OnShow = TabScreencapShow
+          DesignSize = (
+            565
+            401)
+          object LabelTamano: TLabel
+            Left = 0
+            Top = 304
+            Width = 24
+            Height = 13
+            Anchors = [akLeft, akBottom]
+            Caption = '100'
+            DragKind = dkDock
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clMenuHighlight
+            Font.Height = -11
+            Font.Name = 'Verdana'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object LabelCalidadCapScreen: TLabel
+            Left = 27
+            Top = 326
+            Width = 79
+            Height = 13
+            Anchors = [akLeft, akBottom]
+            Caption = 'Calidad JPG:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clMenuHighlight
+            Font.Height = -11
+            Font.Name = 'Verdana'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object BtnCapturarScreen: TSpeedButton
+            Left = 25
+            Top = 345
+            Width = 80
+            Height = 22
+            Anchors = [akLeft, akBottom]
+            Caption = 'Capturar'
+            Flat = True
+            Glyph.Data = {
+              36040000424D3604000000000000360000002800000010000000100000000100
+              2000000000000004000000000000000000000000000000000000FF00FF00FF00
+              FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+              FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00CEAF
+              9C8ACFAE9AC3CEAB94F0CEAA93F0CEAA93F0CEAA93F0CEAA93F0CEAA93F0CEAA
+              93F0CEAA93F0CEAA93F0CEAA93F0CEAD97F0CEAF9C90FF00FF00FF00FF00CDAB
+              96E1F1EFEDFFF7F3F1FFF8F4F1FFF8F4F0FFF7F4F0FFF7F3F0FFF7F3EFFFF7F3
+              EFFFF7F3EFFFF7F3EFFFF8F3EFFFF2EFEBFFCFAD97EFFF00FF00FF00FF00CCA6
+              8EF0F6F1EDFFBFDCC2FFBFDCC2FFBFDCC2FFBFDCC2FFBFDCC2FFBFDCC2FFBFDC
+              C2FFBFDCC2FFBFDCC2FFBFDCC2FFF7EDE6FFCEAA93F0FF00FF00FF00FF00CCA6
+              8DF0F7F1EDFFBFDCC2FFBFDCC2FFBFDCC2FFAFD3C5FF9CC8C9FF6EAFD1FFBAD9
+              C3FFBFDCC2FFBFDCC2FFBFDCC2FFF6EDE6FFCEAA93F0FF00FF00FF00FF00CDA7
+              8EF0F7F1ECFF4EAA7AFF4CA877FF4AA674FF357B9AFF549FD3FF549FD1FF3F86
+              AFFF409A67FF3E9865FF3C9663FFF6EEE6FFCEAB94F0FF00FF00FF00FF00CDA7
+              8EF0F7F2EDFFE8BDA1FFE7BB9FFFD0B392FF5E8276FF448E86FF418B87FF5683
+              80FFC7A682FFE0AE8EFFDEAC8BFFF6EEE6FFCEAB94F0FF00FF00FF00FF00CDA7
+              8FF0F7F3EEFFE7BB9FFFD1B693FF9FAA78FF6FB287FF65BD8AFF61BB87FF6BAB
+              7BFF919364FFC5A27DFFDDA988FFF6EEE7FFCEAB94F0FF00FF00FF00FF00CDA7
+              8FF0F7F4EFFFE6B99DFFB6B387FF88C293FF63C58FFF53BE80FF4FBA7AFF58BD
+              7FFF78B07CFFA3966AFFDCA784FFF6EEE7FFCEAB94F0FF00FF00FF00FF00CDA7
+              8FF0F7F5F0FFE5B89BFFA1B37FFF7DCDA0FF5EC590FF56C087FF52BE81FF52BC
+              7EFF6CBD87FF89905EFFDAA481FFF5EFE7FFCEAB94F0FF00FF00FF00FF00CDA7
+              8FF0F7F5F2FFE4B799FFA3B680FF82D0A7FF65C998FF5DC691FF59C28BFF58C1
+              87FF71C28EFF8C925FFFD9A27DFFF6F0E8FFCEAB94F0FF00FF00FF00FF00CDA7
+              8FF0F7F5F4FFE3B597FFB8B787FF93CBA1FF74D2A8FF67CB9BFF63C897FF6AC9
+              98FF83BB8BFFA5996AFFD79F7AFFF7F0E9FFCFAB94F0FF00FF00FF00FF00CDAB
+              95F0F4F3F2FFE3B495FFD0B48DFFA9B580FF93CCA1FF84D1AAFF82D0A6FF8BC2
+              94FF9A9E69FFC39D73FFD69D77FFF7F2EBFFCFAB94F0FF00FF00FF00FF00CFB2
+              9FE9ECECEBFEF4F4F3FFF7F5F4FFF7F5F4FFF7F5F4FFF7F5F4FFF7F5F4FFF7F5
+              F4FFF7F5F4FFF7F5F4FFF7F3ECFFF2EFE9FFCEAD97EFFF00FF00FF00FF00CEB3
+              A18DCFB19FE8CDAB95F0CDA78EF0CDA78EF0CDA78EF0CDA78EF0CDA78EF0CDA6
+              8EF0CDA68EF0CDA68EF0CDA68EF0CDAA93F0CDAF9B8FFF00FF00FF00FF00FF00
+              FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+              FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00}
+            OnClick = BtnCapturarScreen1Click
+          end
+          object btnGuardarImagen: TSpeedButton
+            Left = 369
+            Top = 345
+            Width = 74
+            Height = 22
+            Cursor = crHandPoint
+            Anchors = [akRight, akBottom]
+            Caption = 'Guardar'
+            Flat = True
+            Glyph.Data = {
+              36040000424D3604000000000000360000002800000010000000100000000100
+              20000000000000040000C40E0000C40E00000000000000000000FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00BA6833C5C38458FFD38B68FFE18F
+              70FFDC8D6CFFDA8B6DFFD78A6EFFCD8B6CFFAB6D44FFA65F2EFFFFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00C68355FFEFCEBAFFDDFFFFFF87EE
+              C7FFA2F4D7FFA2F6D7FF8CEEC7FFE0FFFFFFDDA285FFAB6A3EFFCEAF9C8ACFAE
+              9AC3CEAB94F0CEAA93F0CEAA93F0CEAA93F0C37F51FFEFB69AFFEAF3E8FF51BF
+              84FF6FC998FF71C999FF54BF84FFE4F4E9FFDD9C7BFFAA693AFFCDAB96E1F1EF
+              EDFFF7F3F1FFF8F4F1FFF8F4F0FFF7F4F0FFC48154FFEAB697FFF3F3EAFFEDF1
+              E6FFEFF1E6FFEFF0E6FFEDF1E5FFF3F5EDFFD59C79FFB07044FFCCA68EF0F6F1
+              EDFFBFDCC2FFBFDCC2FFBFDCC2FFBFDCC2FFC98B61FFE6B592FFE2A781FFE1A7
+              81FFDEA37DFFDCA17BFFDB9F79FFD99E77FFD49A73FFBB7E57FFCCA68DF0F7F1
+              EDFFBFDCC2FFBFDCC2FFBFDCC2FFAFD3C5FFCA8D65FFEAB899FFDDA57EFFDDA6
+              80FFDBA37CFFD9A07AFFD9A079FFD89F78FFD89E78FFBF845DFFCDA78EF0F7F1
+              ECFF4EAA7AFF4CA877FF4AA674FF357B9AFFC8885DFFEFBFA1FFFDFCFAFFFEFC
+              FBFFFEFDFDFFFEFDFCFFFDFBFAFFFDFCFBFFDDA885FFC17F53FFCDA78EF0F7F2
+              EDFFE8BDA1FFE7BB9FFFD0B392FF5E8276FFC7865BFFEFC09EFFFFFFFFFFCC93
+              6EFFFFFFFFFFFFFFFFFFFFFBF7FFFFF8F1FFE4AF8CFFC78A61FFCDA78FF0F7F3
+              EEFFE7BB9FFFD1B693FF9FAA78FF6FB287FFCC8D65FFF3CDB0FFFFFFFFFFE3C7
+              B3FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEABFA1FFC98960FFCDA78FF0F7F4
+              EFFFE6B99DFFB6B387FF88C293FF63C58FFFD4976EFFD49E7BFFD09871FFD6A4
+              82FFCD8E68FFCD9069FFD09A75FFD19973FFC88B62FFAD5A2036CDA78FF0F7F5
+              F0FFE5B89BFFA1B37FFF7DCDA0FF5EC590FF56C087FF52BE81FF52BC7EFF6CBD
+              87FF89905EFFDAA481FFF5EFE7FFCEAB94F0FFFFFF00FFFFFF00CDA78FF0F7F5
+              F2FFE4B799FFA3B680FF82D0A7FF65C998FF5DC691FF59C28BFF58C187FF71C2
+              8EFF8C925FFFD9A27DFFF6F0E8FFCEAB94F0FFFFFF00FFFFFF00CDA78FF0F7F5
+              F4FFE3B597FFB8B787FF93CBA1FF74D2A8FF67CB9BFF63C897FF6AC998FF83BB
+              8BFFA5996AFFD79F7AFFF7F0E9FFCFAB94F0FFFFFF00FFFFFF00CDAB95F0F4F3
+              F2FFE3B495FFD0B48DFFA9B580FF93CCA1FF84D1AAFF82D0A6FF8BC294FF9A9E
+              69FFC39D73FFD69D77FFF7F2EBFFCFAB94F0FFFFFF00FFFFFF00CFB29FE9ECEC
+              EBFEF4F4F3FFF7F5F4FFF7F5F4FFF7F5F4FFF7F5F4FFF7F5F4FFF7F5F4FFF7F5
+              F4FFF7F5F4FFF7F3ECFFF2EFE9FFCEAD97EFFFFFFF00FFFFFF00CEB3A18DCFB1
+              9FE8CDAB95F0CDA78EF0CDA78EF0CDA78EF0CDA78EF0CDA78EF0CDA68EF0CDA6
+              8EF0CDA68EF0CDA68EF0CDAA93F0CDAF9B8FFFFFFF00FFFFFF00}
+            OnClick = btnGuardarImagenClick
+          end
+          object BtnVerGrandeCap: TSpeedButton
+            Left = 449
+            Top = 346
+            Width = 112
+            Height = 22
+            Anchors = [akRight, akBottom]
+            Caption = 'Pantalla completa'
+            Flat = True
+            Glyph.Data = {
+              36030000424D3603000000000000360000002800000010000000100000000100
+              18000000000000030000C40E0000C40E0000000000000000000053A85A51A658
+              4FA3564EA1544C9F52FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF429046418E
+              45408D433F8B423E8A4154AB5C83BF897DBB8354A65B4EA154CEAA93CEAA93CE
+              AA93CEAA93CEAA93CEAA93CEAA934290466DAD716EAE733F8C4256AD5F83C08A
+              73B77A6CB47350A4574EA255F7F4F0F7F3F0F7F3EFF7F3EFF7F3EF4594495AA0
+              5E5EA6646CAD70408D4458B06157AE5F6CB67384C08A6EB57450A457BFDCC2BF
+              DCC2BFDCC2BFDCC248994D5DA56175B3795FA46347944C418F455AB363CCA68D
+              57AE5F6CB6736AB47152A759AFD3C59CC8C96EAFD1BAD9C34A9B4F5FA76462A8
+              6745954A449348439147FFFFFFCDA78EF7F1EC57AE5F55AC5D4AA674357B9A54
+              9FD3549FD13F86AF409A674A9C5048994E47974CCEAB94FFFFFFFFFFFFCDA78E
+              F7F2EDE8BDA1E7BB9FD0B3925E8276448E86418B87568380C7A682E0AE8EDEAC
+              8BF6EEE6CEAB94FFFFFFFFFFFFCDA78FF7F3EEE7BB9FD1B6939FAA786FB28765
+              BD8A61BB876BAB7B919364C5A27DDDA988F6EEE7CEAB94FFFFFFFFFFFFCDA78F
+              F7F4EFE6B99DB6B38788C29363C58F53BE804FBA7A58BD7F78B07CA3966ADCA7
+              84F6EEE7CEAB94FFFFFFFFFFFFCDA78FF7F5F0E5B89BA1B37F7DCDA05EC59056
+              C08752BE8152BC7E6CBD8789905EDAA481F5EFE7CEAB94FFFFFFFFFFFFCDA78F
+              61BD6C60BB6A5EB96882D0A765C9985DC69159C28B58C18771C28E53A95B52A7
+              59F6F0E8CEAB94FFFFFF65C37064C16F63BF6D80C98979C4825FB96974D2A867
+              CB9B63C8976AC99857AE5F6EB8756CB57352A759CFAB944EA25566C4726BC575
+              83CC8C9BD3A47BC78460BC6B93CCA184D1AA82D0A68BC29459B16175BD7D8CC7
+              936DB67352A75950A55767C6739DD6A592D19B7ECA8763C06EF7F5F4F7F5F4F7
+              F5F4F7F5F4F7F5F45AB36459B16276BD7E7EC0868AC59052A85A68C774A1D8A9
+              9ED6A765C371CDA78ECDA78ECDA78ECDA78ECDA78ECDA68ECDA68E5BB4645FB4
+              678DC8948EC99554AA5C68C77468C77467C67366C57265C371FFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFF5CB6665BB46459B26258AF6056AD5E}
+            OnClick = BtnVerGrandeCapClick
+          end
+          object LabelPosicionCompresJpg: TLabel
+            Left = 527
+            Top = 324
+            Width = 30
+            Height = 13
+            Anchors = [akRight, akBottom]
+            Caption = '70%'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clMenuHighlight
+            Font.Height = -11
+            Font.Name = 'Verdana'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object ScrollBoxCapScreenM: TScrollBox
+            Left = 25
+            Top = 5
+            Width = 536
+            Height = 314
+            Anchors = [akLeft, akTop, akRight, akBottom]
+            BevelInner = bvNone
+            BevelOuter = bvRaised
+            BevelKind = bkFlat
+            BorderStyle = bsNone
+            TabOrder = 0
+            object imgCaptura: TImage
+              Left = 0
+              Top = 0
+              Width = 300
+              Height = 312
+              Align = alLeft
+              IncrementalDisplay = True
+              OnMouseDown = EnviarClickM
+            end
+          end
+          object ProgressBarScreen: TProgressBar
+            Left = 2
+            Top = 5
+            Width = 17
+            Height = 298
+            Anchors = [akLeft, akTop, akBottom]
+            Orientation = pbVertical
+            Smooth = True
+            TabOrder = 1
+          end
+          object TrackBarCalidad: TTrackBar
+            Left = 112
+            Top = 324
+            Width = 413
+            Height = 16
+            Cursor = crHandPoint
+            Anchors = [akLeft, akRight, akBottom]
+            Max = 100
+            Position = 70
+            TabOrder = 2
+            ThumbLength = 15
+            OnChange = TrackBarCalidadChange
+          end
+          object CheckBoxAutoCapturaScreen: TCheckBox
+            Left = 26
+            Top = 374
+            Width = 98
+            Height = 17
+            Anchors = [akLeft, akBottom]
+            Caption = 'Autom'#225'tico'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clMenuHighlight
+            Font.Height = -11
+            Font.Name = 'Verdana'
+            Font.Style = [fsBold]
+            ParentFont = False
+            TabOrder = 3
+            OnClick = CheckBoxAutoCapturaScreenClick
+          end
+          object SpinCaptureScreen: TSpinEdit
+            Left = 124
+            Top = 369
+            Width = 45
+            Height = 22
+            Anchors = [akLeft, akBottom]
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clMenuHighlight
+            Font.Height = -11
+            Font.Name = 'Verdana'
+            Font.Style = [fsBold]
+            MaxValue = 30
+            MinValue = 0
+            ParentFont = False
+            TabOrder = 4
+            Value = 0
+            OnChange = SpinCaptureScreenChange
+          end
+          object CheckBoxMouseClicks: TCheckBox
+            Left = 441
+            Top = 374
+            Width = 122
+            Height = 17
+            Anchors = [akRight, akBottom]
+            Caption = 'Clicks Remotos'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clMenuHighlight
+            Font.Height = -11
+            Font.Name = 'Verdana'
+            Font.Style = [fsBold]
+            ParentFont = False
+            TabOrder = 5
+          end
+          object CheckBoxTamanioReal: TCheckBox
+            Left = 320
+            Top = 374
+            Width = 114
+            Height = 17
+            Anchors = [akRight, akBottom]
+            Caption = 'Tama'#241'o Real'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clMenuHighlight
+            Font.Height = -11
+            Font.Name = 'Verdana'
+            Font.Style = [fsBold]
+            ParentFont = False
+            TabOrder = 6
+            OnClick = CheckBoxTamanioRealClick
+          end
         end
-      end
-    end
-    object TabShell: TTabSheet
-      Caption = 'Shell'
-      ImageIndex = 54
-      DesignSize = (
-        433
-        332)
-      object BtnCambiarFuenteShell: TSpeedButton
-        Left = 5
-        Top = 307
-        Width = 114
-        Height = 21
-        Cursor = crHandPoint
-        Anchors = [akLeft, akBottom]
-        Caption = 'Cambiar fuente'
-        Flat = True
-        Glyph.Data = {
-          36030000424D3603000000000000360000002800000010000000100000000100
-          18000000000000030000120B0000120B00000000000000000000FF00FFFF00FF
-          FF00FFFF00FFFF00FFFF00FFFF00FFC8C8C88080808787878585858585858080
-          80CACACAFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFAB
-          ABAB5858586666666C6C6C636363535353B0B0B0FF00FFFF00FFFF00FFFF00FF
-          FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF515151545454515151FF00
-          FFFF00FFFF00FFFF00FFFF00FFFF00FFA0A2B43C4DA24C59A24D5AA14A57A149
-          549CCFCFD150504D2D2D2D4A4A4AFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
-          979ABA243BDB002BFF002FFF0027EF2D3EC5CCCCD141413F0707073C3C3CFF00
-          FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF1326D50020FF5058A8FF
-          00FFFF00FF3737370000003A3A3AFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
-          FF00FFFF00FF1C25D40010FF5659A6FF00FFFF00FF3737370101013A3A3AFF00
-          FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF1B1CD50003FF5555A8FF
-          00FFFF00FF3737370000003A3A3AFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
-          FF00FFFF00FF1B1BD50000FF5454A6FF00FFFF00FF3939390B0B0B3C3C3CFF00
-          FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF1B1BDC0304A63E3E58FF
-          00FFFF00FF474747313131474747FF00FFFF00FF6464647F7F7FFF00FFFF00FF
-          FF00FFFF00FF1B1BE013138A343420FF00FFFF00FF4E4E4E5D5D5D4C4C4CFF00
-          FFFF00FF2828286C6C6CFF00FFFF00FFFF00FFFF00FF1D1DE118189971715D41
-          41414747475454518B8B8A4B4B4B4A4A4A4242427171717E7E7E4E4EA7585898
-          FF00FFFF00FF3030E12526A167676272726F6A6A676A6A737070736F6F6F6969
-          697171717171718C8C8C5353C52D2DCCFF00FFFF00FF3B3CD45153F7484892D0
-          D0D08F8FA12B2CD57D7D9CFF00FFFF00FFFF00FFFF00FFFF00FF6969B57172FF
-          4C4CCF4D4DBF6162F47F80FF4F4FDC5354BC5757DF6869FF9797B0FF00FFFF00
-          FFFF00FFFF00FFFF00FF7B7BB25050D75454DF5050E45151DC4A4ADA4F4FDF4D
-          4DE45353EF4344E7AAAABBFF00FFFF00FFFF00FFFF00FFFF00FF}
-        OnClick = BtnCambiarFuenteShellClick
-      end
-      object BtnCambiarColorShell: TSpeedButton
-        Left = 126
-        Top = 307
-        Width = 106
-        Height = 21
-        Cursor = crHandPoint
-        Anchors = [akLeft, akBottom]
-        Caption = 'Cambiar color'
-        Flat = True
-        Glyph.Data = {
-          36030000424D3603000000000000360000002800000010000000100000000100
-          18000000000000030000120B0000120B00000000000000000000FF00FFFF00FF
-          FF00FFAEB6BB7B96A67691A1C4C7C9FF00FFFF00FFFF00FFFF00FFFF00FFFF00
-          FFFF00FFFF00FFFF00FFFF00FFD9DADC6996B06ACCF56EDEFF61D6FF4C90BAEA
-          EAEAFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF6CA1BD
-          6AE0FF4CA9D994B5CB4FAEE544BCFA9CA7AFFF00FFFF00FFFF00FFFF00FFFF00
-          FFFF00FFFF00FFFF00FFA6B3BB59CBFF22B9FF528EB3FF00FFBEC7CD45BBFA47
-          98C6909BA3A1ABB07895A468889DA4AAB0FF00FFFF00FFFF00FF75A5BF31BCFF
-          20B2FF2C99DC949CA2BCC0C34BB5EB5FD4FF65C8F474D3F784E8FF82E4FF51A7
-          D87E8E9CFF00FFFF00FF599FC825B5FF25B4FF32BBFF3CA6E154ABD658CBFF5E
-          CEFF6BD8FF77DDFF80E0FF8FE9FF9CF5FF4F9BC5B0B4B8FF00FF5298C325B8FF
-          2196FA32AFF943C6FF51CCFF56CAFF62CFFF6DD6FF79DCFF84E2FF90E7FFA0F3
-          FF91E3FB547896FF00FF6A99B928C2FF1662FC1544F0318FF250CDFE5ACBFF65
-          D2FF70D7FF7CDDFF87E3FF93E9FF9EEFFFB1FDFF5C9DC0C6C7C99DADB926A7FD
-          0F37FD0000FC2160EF51C6FB5ECEFF68D3FF74DAFF7FDFFF8AE4FF96EBFFA1F0
-          FFB5FFFF8CD1E6919BA4FF00FF3072D02C4DFF4E45FF3D3AFA48A2F467D7FF71
-          D8FF7BDDFF82E0FF8EE7FF98F0FFA4F4FFB4FCFFAFF3FD718596FF00FF829DAD
-          4BA4FD719DFC5390FF3DAAC53DB79C47BCA84DBDA086E2FF8EECFF9FDBE8A6ED
-          F4B6FFFFBAFDFF6D8395FF00FFFF00FF5380AE43BDFF55D4FF3FBCB0019C0000
-          9B0043B9898EE8FFC2A79EF37247B6C1BBB6FAFDBBFDFF6F8294FF00FFFF00FF
-          FF00FF5089B253CAFF3EBA764BBB3D57BF525DBF8C84E2F9D2A18FFF6A31F96F
-          3FD0CABBA1E5F48B939EFF00FFFF00FFFF00FFFF00FF5E88AC4DB6BE6FD4AC92
-          D79A70CEB384DEE8DBB5A9FFA884FBA583BEECEB6189A5FF00FFFF00FFFF00FF
-          FF00FFFF00FFFF00FF90A0B85290BC5FB7AF84DFF499EFFFCCD2CFF1CEC3CAB6
-          B5617F99B7BABEFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFA1
-          AFC76E8DAD5B8AAD598DB1657F9B8691A1FF00FFFF00FFFF00FF}
-        OnClick = BtnCambiarColorShellClick
-      end
-      object MemoShell: TMemo
-        Left = 5
-        Top = 7
-        Width = 421
-        Height = 266
-        Anchors = [akLeft, akTop, akRight, akBottom]
-        BevelInner = bvNone
-        BevelKind = bkFlat
-        BevelOuter = bvRaised
-        BorderStyle = bsNone
-        Color = clInactiveBorder
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindow
-        Font.Height = -11
-        Font.Name = 'Terminal'
-        Font.Style = []
-        ParentFont = False
-        PopupMenu = PopupShell
-        ReadOnly = True
-        ScrollBars = ssVertical
-        TabOrder = 0
-      end
-      object ComboBoxShellCommand: TComboBox
-        Left = 5
-        Top = 281
-        Width = 421
-        Height = 19
-        BevelInner = bvNone
-        BevelKind = bkFlat
-        BevelOuter = bvRaised
-        Anchors = [akLeft, akRight, akBottom]
-        Color = clInactiveBorder
-        Enabled = False
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clCaptionText
-        Font.Height = -11
-        Font.Name = 'Lucida Console'
-        Font.Style = []
-        ItemHeight = 11
-        ParentFont = False
-        TabOrder = 1
-        OnKeyPress = ComboBoxShellCommandKeyPress
-      end
-    end
-    object TabKeylogger: TTabSheet
-      Caption = 'Keylogger'
-      ImageIndex = 72
-      OnShow = TabKeyloggerShow
-      DesignSize = (
-        433
-        332)
-      object SpeedButtonRecibirLog: TSpeedButton
-        Left = 8
-        Top = 304
-        Width = 89
-        Height = 22
-        Anchors = [akLeft, akBottom]
-        Caption = 'Recibir log'
-        Flat = True
-        Glyph.Data = {
-          36040000424D3604000000000000360000002800000010000000100000000100
-          2000000000000004000000000000000000000000000000000000FF00FF00FF00
-          FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-          FF00196B3700196B3700196B3700196B3700196B3700FF00FF00FF00FF00FF00
-          FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00196B
-          3700288C530064BA8D0095D2B20064BA8D00288C5300196B3700EAC5A400E7C0
-          9F00E3BC9A00E0B79500DDB28F00D9AE8A00D6A98500D3A57F00D0A07B00216E
-          3B0062BA8B0060BA8700FFFFFF0060B9870067BC8F001E6C3800EECBAB00E8D5
-          C800E8D4C500E7D2C300E5D0C100E5CEBE00E3CCBC00E3CAB900E2C9B700317B
-          4C009CD4B600FFFFFF00FFFFFF00FFFFFF0095D2B200196B3700F2D0B100EAD8
-          CC00FCFCFC00DABAA400FCFCFC00FCFCFC00FCFCFC00FCFCFC00FCFCFC004A8B
-          620090D3B10092D6B100FFFFFF0065BC8C0067BC8F001E6C3900F5D4B600ECDC
-          D000DEC3AF00DDBFAB00DBBDA700D9BAA300D8B79F00D6B49C00D5B19700929E
-          7E0061AB810095D4B400BAE6D0006ABB8F002D8F5700677E5000F8D8BB00EDDE
-          D400FCFCFC00FCFCFC00DEC2AE00FCFCFC00DBBCA600FCFCFC00D8B69E00FCFC
-          FC0099A28400609975004F8E66004A8A61008AA18100CA997200FADCBF00EEE0
-          D600E3CBBA00E2C9B800E0C6B400DFC4B100DEC2AD00DCBFAA00DABCA600D9B9
-          A200D7B69E00D6B39A00E9D6CA00FCFCFC00E3CBBA00CE9D7700FCDEC100EFE2
-          D800FCFCFC00E4CCBC00FCFCFC00E1C9B700FCFCFC00DFC3B000FCFCFC00DCBE
-          A900FCFCFC00D9B8A100FCFCFC00F7F3F000E5CEBE00D1A27D00FCDEC100EFE2
-          D800EFE2D800EFE2D800EEE1D700EEE0D600EEDFD400EDDDD200ECDCD100EBDA
-          CE00EAD8CC00EAD7CA00E8D5C700E7D3C500E7D1C200D5A88300FCDEC100FCDE
-          C100BBB9B600B3B1AE00FADBBE00F8D8BB00F6D5B700F3D2B300F0CEAE00EDC9
-          AA00EAC5A400E7C09F00E3BC9A00E0B79500DDB28F00D9AE8A00FF00FF00FF00
-          FF00C4C4C400BCBCBC00B3B3B300FF00FF00FF00FF00FF00FF00FF00FF00FF00
-          FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-          FF00D0D0D000C9C9C900C2C2C200FF00FF00FF00FF00FF00FF00FF00FF00FF00
-          FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-          FF00D9D9D900D4D4D400CFCFCF00C8C8C800C0C0C000B7B7B700AEAEAE00A4A4
-          A4009B9B9B009191910087878700FF00FF00FF00FF00FF00FF00FF00FF00FF00
-          FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-          FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-          FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-          FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00}
-        OnClick = SpeedButtonRecibirLogClick
-      end
-      object SpeedButtonEliminarLog: TSpeedButton
-        Left = 100
-        Top = 304
-        Width = 89
-        Height = 22
-        Anchors = [akLeft, akBottom]
-        Caption = 'Eliminar log'
-        Flat = True
-        Glyph.Data = {
-          36040000424D3604000000000000360000002800000010000000100000000100
-          20000000000000040000C40E0000C40E00000000000000000000FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF001D57C4780345B9DF0442BCFE0345B9E30345B87AFFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF001A57
-          C3802564C9FB2177E6FF0579EAFF0164DDFF044DBDFC0345B87AEAC5A4EBE7C0
-          9FFFE3BC9AFFE0B795FFDDB28FFFD9AE8AFFD6A985FFD3A57FFFD0A07BFF194F
-          B2FF639DF4FF187FFFFF0076F8FF0076EEFF0368E1FF164CB1FDEECBABFFE8D5
-          C8FFE8D4C5FFE7D2C3FFE5D0C1FFE5CEBEFFE3CCBCFFE3CAB9FFE2C9B7FF0543
-          BCFFAECDFEFFFFFFFFFFFFFFFFFFFFFFFFFF187FEFFF0542BCFFF2D0B1FFEAD8
-          CCFFFCFCFCFFDABAA4FFFCFCFCFFFCFCFCFFFCFCFCFFFCFCFCFFFCFCFCFF245D
-          C2FF8DB5F6FF4D92FFFF1177FFFF2186FFFF408AEBFF1C4EAFFFF5D4B6FFECDC
-          D0FFDEC3AFFFDDBFABFFDBBDA7FFD9BAA3FFD8B79FFFD6B49CFFD5B197FF7F85
-          AAFF3C74CFFF8DB5F7FFB8D6FEFF72A8F5FF2F6CCBFF74728EFFF8D8BBFFEDDE
-          D4FFFCFCFCFFFCFCFCFFDEC2AEFFFCFCFCFFDBBCA6FFFCFCFCFFD8B69EFFFCFC
-          FCFF7F87ACFF2A62C7FF0543BCFF1F5AC1FF798AB7FFCA9972FFFADCBFFFEEE0
-          D6FFE3CBBAFFE2C9B8FFE0C6B4FFDFC4B1FFDEC2ADFFDCBFAAFFDABCA6FFD9B9
-          A2FFD7B69EFFD6B39AFFE9D6CAFFFCFCFCFFE3CBBAFFCE9D77FFFCDEC1FFEFE2
-          D8FFFCFCFCFFE4CCBCFFFCFCFCFFE1C9B7FFFCFCFCFFDFC3B0FFFCFCFCFFDCBE
-          A9FFFCFCFCFFD9B8A1FFFCFCFCFFF7F3F0FFE5CEBEFFD1A27DFFFCDEC1FFEFE2
-          D8FFEFE2D8FFEFE2D8FFEEE1D7FFEEE0D6FFEEDFD4FFEDDDD2FFECDCD1FFEBDA
-          CEFFEAD8CCFFEAD7CAFFE8D5C7FFE7D3C5FFE7D1C2FFD5A883FFFCDEC1E3FCDE
-          C1FFBBB9B6FFB3B1AEFFFADBBEFFF8D8BBFFF6D5B7FFF3D2B3FFF0CEAEFFEDC9
-          AAFFEAC5A4FFE7C09FFFE3BC9AFFE0B795FFDDB28FFFD9AE8AE3FFFFFF00FFFF
-          FF00C4C4C4FDBCBCBCB4B3B3B310FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00D0D0D0F8C9C9C9F8C2C2C267FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00D9D9D967D4D4D4F6CFCFCFEFC8C8C8E5C0C0C0D8B7B7B7C3AEAEAE93A4A4
-          A47D9B9B9B6E9191914987878704FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00}
-        OnClick = SpeedButtonEliminarLogClick
-      end
-      object SpeedButtonGuardarLog: TSpeedButton
-        Left = 196
-        Top = 304
-        Width = 81
-        Height = 22
-        Anchors = [akLeft, akBottom]
-        Caption = 'Guardar'
-        Flat = True
-        Glyph.Data = {
-          36040000424D3604000000000000360000002800000010000000100000000100
-          20000000000000040000C40E0000C40E00000000000000000000BA6A368FB969
-          35B5B86935EEB76835FFB56835FFB46734FFB26634FFB06533FFAE6433FFAC63
-          32FFAA6232FFA96132FFA86031FFA76031FEA66031F1A86131C4BA6A35DEEBC6
-          ADFFEAC5ADFFFEFBF8FFFEFBF8FFFEFBF8FFFEFBF8FFFEFBF8FFFEFBF8FFFEFB
-          F8FFFEFBF8FFFEFBF8FFFEFBF8FFC89A7CFFC79879FFA76031EDBA6B37FEEDCA
-          B3FFE0A27AFFFEFAF7FF62C088FF62C088FF62C088FF62C088FF62C088FF62C0
-          88FF62C088FF62C088FFFDF9F6FFCA8D65FFC99B7CFFA76031FEBB6C38FFEECC
-          B6FFE1A27AFFFEFAF7FFBFDCC2FFBFDCC2FFBFDCC2FFBFDCC2FFBFDCC2FFBFDC
-          C2FFBFDCC2FFBFDCC2FFFDF9F6FFCD9068FFCC9E81FFA86132FFBB6B38FFEFCE
-          B8FFE1A279FFFEFAF7FF62C088FF62C088FF62C088FF62C088FF62C088FF62C0
-          88FF62C088FF62C088FFFDF9F6FFCF936AFFCEA384FFAA6132FFBA6A36FFEFD0
-          BBFFE2A27AFFFEFBF8FFFEFBF8FFFEFBF8FFFEFBF8FFFEFBF8FFFEFBF8FFFEFB
-          F8FFFEFBF8FFFEFBF8FFFEFBF8FFD3966DFFD2A78AFFAB6232FFBB6A36FFF0D2
-          BEFFE2A37AFFE2A37AFFE1A37AFFE2A37BFFE1A37BFFE0A178FFDE9F77FFDD9F
-          76FFDC9D74FFD99B72FFD89971FFD69970FFD5AB8EFFAD6333FFBB6A36FFF2D5
-          C2FFE3A37AFFE3A37AFFE2A37BFFE2A37BFFE2A47BFFE1A279FFE0A178FFDEA0
-          77FFDE9E75FFDC9D74FFDA9B73FFD99B73FFDAB095FFAF6433FFBB6A36FFF2D8
-          C5FFE3A47BFFE3A37AFFE3A47AFFE2A47BFFE2A37BFFE1A37BFFE1A279FFDFA0
-          77FFDE9F76FFDD9E74FFDB9C72FFDC9D74FFDDB59AFFB16534FFBB6B36FFF4D9
-          C7FFE6A67DFFC88C64FFC98D65FFC98E67FFCB926CFFCB926DFFCA9069FFC88C
-          65FFC88C64FFC88C64FFC88C64FFDA9C74FFE1BA9FFFB36634FFBB6B36FEF4DC
-          C9FFE7A77DFFF9ECE1FFF9ECE1FFF9EDE3FFFCF4EEFFFDFAF7FFFDF7F3FFFAED
-          E5FFF7E7DBFFF7E5D9FFF6E5D8FFDEA077FFE4BEA4FFB46734FFBC6B36FAF5DD
-          CCFFE7A87EFFFAF0E8FFFAF0E8FFC98D66FFFAF0E9FFFDF8F3FFFEFAF8FFFCF4
-          EFFFF9E9DFFFF7E7DBFFF7E5D9FFE0A278FFE7C2A9FFB66835FFBC6B36F0F6DF
-          D0FFE8A87EFFFCF6F1FFFCF6F1FFC88C64FFFAF1E9FFFBF4EEFFFDFAF7FFFDF9
-          F6FFFAF0E8FFF8E8DDFFF7E6DBFFE1A37AFFEFD5C3FFB76935FEBC6B36D8F6DF
-          D1FFE9AA80FFFEFAF6FFFDFAF6FFC88C64FFFBF3EEFFFBF1EAFFFCF6F2FFFEFB
-          F8FFFCF6F1FFF9ECE2FFF8E7DBFFEED0BAFFECD0BDFFBB703EF8BC6B369BF6E0
-          D1FFF7E0D1FFFEFBF8FFFEFBF7FFFDF9F6FFFCF5F0FFFAF0EAFFFBF2EDFFFDF9
-          F6FFFDFAF7FFFBF1EBFFF8E9DFFEECD0BDFBC9895EECB5693563BC6B3671BC6B
-          3690BC6B36CCBC6B36EEBC6B36FABB6B36FEBB6B36FFBB6A36FFBB6A36FFBC6C
-          39FFBD6E3BFFBB6D3AFFBB6B38EFBB703ECBB6693554FFFFFF00}
-        OnClick = SpeedButtonGuardarLogClick
-      end
-      object SpeedButtonActivarKeylogger: TSpeedButton
-        Left = 282
-        Top = 256
-        Width = 133
-        Height = 22
-        Anchors = [akRight, akBottom]
-        Caption = 'Activar Keylogger'
-        Flat = True
-        Glyph.Data = {
-          36040000424D3604000000000000360000002800000010000000100000000100
-          20000000000000040000C40E0000C40E00000000000000000000FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00EAC5A4EBE7C0
-          9FFFE3BC9AFFE0B795FFDDB28FFFD9AE8AFFD6A985FFD3A57FFFD0A07BFFCD9C
-          76FFCA9972FFC8966EFFC6936BFFC49069FFC49068FFC49068EBEECBABFFE8D5
-          C8FFE8D4C5FFE7D2C3FFE5D0C1FFE5CEBEFFE3CCBCFFE3CAB9FFE2C9B7FFE1C7
-          B5FFE0C5B3FFDFC4B1FFDFC4B0FFDEC2AFFFDEC2AEFFC49068FFF2D0B1FFEAD8
-          CCFFFCFCFCFFDABAA4FFFCFCFCFFFCFCFCFFFCFCFCFFFCFCFCFFFCFCFCFFFCFC
-          FCFFFCFCFCFFFCFCFCFFCCA182FFFCFCFCFFDFC3B0FFC5926AFFF5D4B6FFECDC
-          D0FFDEC3AFFFDDBFABFFDBBDA7FFD9BAA3FFD8B79FFFD6B49CFFD5B197FFD3AE
-          94FFD1AB8FFFD0A88CFFCFA688FFCDA385FFE0C5B3FFC7956EFFF8D8BBFFEDDE
-          D4FFFCFCFCFFFCFCFCFFDEC2AEFFFCFCFCFFDBBCA6FFFCFCFCFFD8B69EFFFCFC
-          FCFFD5B097FFFCFCFCFFFCFCFCFFFCFCFCFFE1C8B6FFCA9972FFFADCBFFFEEE0
-          D6FFE3CBBAFFE2C9B8FFE0C6B4FFDFC4B1FFDEC2ADFFDCBFAAFFDABCA6FFD9B9
-          A2FFD7B69EFFD6B39AFFE9D6CAFFFCFCFCFFE3CBBAFFCE9D77FFFCDEC1FFEFE2
-          D8FFFCFCFCFFE4CCBCFFFCFCFCFFE1C9B7FFFCFCFCFFDFC3B0FFFCFCFCFFDCBE
-          A9FFFCFCFCFFD9B8A1FFFCFCFCFFF7F3F0FFE5CEBEFFD1A27DFFFCDEC1FFEFE2
-          D8FFEFE2D8FFEFE2D8FFEEE1D7FFEEE0D6FFEEDFD4FFEDDDD2FFECDCD1FFEBDA
-          CEFFEAD8CCFFEAD7CAFFE8D5C7FFE7D3C5FFE7D1C2FFD5A883FFFCDEC1E3FCDE
-          C1FFBBB9B6FFB3B1AEFFFADBBEFFF8D8BBFFF6D5B7FFF3D2B3FFF0CEAEFFEDC9
-          AAFFEAC5A4FFE7C09FFFE3BC9AFFE0B795FFDDB28FFFD9AE8AE3FFFFFF00FFFF
-          FF00C4C4C4FDBCBCBCB4B3B3B310FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00D0D0D0F8C9C9C9F8C2C2C267FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00D9D9D967D4D4D4F6CFCFCFEFC8C8C8E5C0C0C0D8B7B7B7C3AEAEAE93A4A4
-          A47D9B9B9B6E9191914987878704FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00}
-        OnClick = SpeedButtonActivarKeyloggerClick
-      end
-      object RichEditKeylogger: TRichEdit
-        Left = 8
-        Top = 8
-        Width = 411
-        Height = 241
-        Anchors = [akLeft, akTop, akRight, akBottom]
-        BevelInner = bvNone
-        BevelOuter = bvRaised
-        BiDiMode = bdRightToLeft
-        BorderStyle = bsNone
-        ParentBiDiMode = False
-        ReadOnly = True
-        ScrollBars = ssVertical
-        TabOrder = 0
-      end
-      object EditLogName: TEdit
-        Left = 8
-        Top = 256
-        Width = 270
-        Height = 21
-        Anchors = [akLeft, akRight, akBottom]
-        BevelInner = bvNone
-        BevelKind = bkFlat
-        BevelOuter = bvRaised
-        BorderStyle = bsNone
-        TabOrder = 1
-        Text = 'Log.dat'
-      end
-      object ProgressBarKeylogger: TProgressBar
-        Left = 8
-        Top = 283
-        Width = 411
-        Height = 17
-        Anchors = [akLeft, akRight, akBottom]
-        Enabled = False
-        TabOrder = 2
-      end
-      object CheckBoxOnlineKeylogger: TCheckBox
-        Left = 294
-        Top = 308
-        Width = 137
-        Height = 17
-        Anchors = [akRight, akBottom]
-        Caption = 'Online keylogger'
-        Enabled = False
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMenuHighlight
-        Font.Height = -11
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 3
-        OnClick = CheckBoxOnlineKeyloggerClick
+        object TabWebcam: TTabSheet
+          Caption = 'Webcam'
+          ImageIndex = 33
+          OnShow = TabWebcamShow
+          DesignSize = (
+            565
+            401)
+          object LabelCalidadWebcam: TLabel
+            Left = 24
+            Top = 347
+            Width = 124
+            Height = 13
+            Anchors = [akLeft, akBottom]
+            Caption = 'Calidad de imagen:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clMenuHighlight
+            Font.Height = -11
+            Font.Name = 'Verdana'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object BtnCapturarWebcam: TSpeedButton
+            Left = 174
+            Top = 370
+            Width = 80
+            Height = 21
+            Anchors = [akLeft, akBottom]
+            Caption = 'Capturar'
+            Flat = True
+            Glyph.Data = {
+              36030000424D3603000000000000360000002800000010000000100000000100
+              18000000000000030000120B0000120B00000000000000000000D8E9ECD8E9EC
+              D8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9
+              ECD8E9ECD8E9ECD8E9ECD8E9EC7979795555554E4E4E4747473F3F3F3737372F
+              2F2F2828282121211B1B1B171717151515151515151515D8E9ECD8E9EC9A9A9A
+              D1D1D1CBCBCBC4C4C4BCBCBCB4B4B4ABABABA3A3A39B9B9B9494948E8E8E8989
+              89878787191919D8E9ECD8E9ECA2A2A2C7C7C7AFAFAF8F8F8F8A8A8A9494947A
+              7A7A7070707575755454544B4B4B6161618484841D1D1DD8E9ECD8E9ECC7D2D4
+              A5A6A69F9F9FCCDBDE5959595B5B5B4848484545454B4B4B373737C6D5D84F4F
+              4F626262838B8DD8E9ECD8E9ECD8E9ECC7D3D5A8ABAC9CA1A2B3B3B3CACACABF
+              BFBFBEBEBEC8C8C8898989707576737677939C9DD8E9ECD8E9ECD8E9ECD8E9EC
+              D1E0E3A5AAABBDBDBDB3B3B3A1A1A19C9C9C9A9A9A9C9C9CA5A5A59292927075
+              75C7D6D9D8E9ECD8E9ECD8E9ECD8E9ECC6CFD1C3C3C3DADADAAFAFAFD1D1D1F0
+              F0F0EFEFEFCECECEA6A6A6C7C7C77C7C7C98A2A4D8E9ECD8E9ECD8E9ECD8E9EC
+              C5CACBDBDBDBDADADAEAEAEADAD1CCD5AC91E3AE8AE6D9D3E4E4E4CBCBCBADAD
+              AD757A7BD8E9ECD8E9ECD8E9ECD8E9ECC9CBCBE8E8E8DDDDDDF9F9F9A49992E4
+              B99CEBB899E7B190F7F7F7CBCBCBCCCCCC626363D8E9ECD8E9ECD8E9ECD8E9EC
+              D2D4D4ECECECE3E3E3FAFAF9A49B94DAB9A2E5BBA1D8B096F7F7F7CECECEDADA
+              DA6C6D6DD8E9ECD8E9ECD8E9ECD8E9ECD9DEDEEDEDEDEAEAEAF3F3F3DFD4CCA5
+              9B94A49A93DCD1CAE9E9E9D3D3D3CFCFCF8B9091D8E9ECD8E9ECD8E9ECD8E9EC
+              DCE5E7EAEAEAF2F2F2EFEFEFF5F5F5FBFAFAFAFAF9EDEDEDDADADADFDFDFB9B9
+              B9B0BABCD8E9ECD8E9ECD8E9ECD8E9ECDAE9EBE2E7E8F1F1F1F5F5F5EEEEEEBE
+              BEBEBABABAE0E0E0E3E3E3DADADAB0B5B6D0E0E2D8E9ECD8E9ECD8E9ECD8E9EC
+              D8E9ECDCE9EBE4E9EAEEEEEEEFEFEFF1F1F1EDEDEDE6E6E6DADADAC5CACBCFDC
+              DED8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECDAE9ECE0EAECE4E9EAE4
+              E5E6E0E2E2DBE0E1D5DFE1D6E5E7D8E9ECD8E9ECD8E9ECD8E9EC}
+            OnClick = BtnCapturarWebcamClick
+          end
+          object BtnGuardarWebcam: TSpeedButton
+            Left = 261
+            Top = 370
+            Width = 80
+            Height = 21
+            Cursor = crHandPoint
+            Anchors = [akLeft, akBottom]
+            Caption = 'Guardar'
+            Flat = True
+            Glyph.Data = {
+              36030000424D3603000000000000360000002800000010000000100000000100
+              18000000000000030000120B0000120B00000000000000000000D8E9ECD8E9EC
+              D8E9ECD8E9ECD8E9ECD8E9ECBA6833C38458D38B68E18F70DC8D6CDA8B6DD78A
+              6ECD8B6CAB6D44A65F2ED8E9EC7979795555554E4E4E4747473F3F3FC68355EF
+              CEBADDFFFF87EEC7A2F4D7A2F6D78CEEC7E0FFFFDDA285AB6A3ED8E9EC9A9A9A
+              D1D1D1CBCBCBC4C4C4BCBCBCC37F51EFB69AEAF3E851BF846FC99871C99954BF
+              84E4F4E9DD9C7BAA693AD8E9ECA2A2A2C7C7C7AFAFAF8F8F8F8A8A8AC48154EA
+              B697F3F3EAEDF1E6EFF1E6EFF0E6EDF1E5F3F5EDD59C79B07044D8E9ECC7D2D4
+              A5A6A69F9F9FCCDBDE595959C98B61E6B592E2A781E1A781DEA37DDCA17BDB9F
+              79D99E77D49A73BB7E57D8E9ECD8E9ECC7D3D5A8ABAC9CA1A2B3B3B3CA8D65EA
+              B899DDA57EDDA680DBA37CD9A07AD9A079D89F78D89E78BF845DD8E9ECD8E9EC
+              D1E0E3A5AAABBDBDBDB3B3B3C8885DEFBFA1FDFCFAFEFCFBFEFDFDFEFDFCFDFB
+              FAFDFCFBDDA885C17F53D8E9ECD8E9ECC6CFD1C3C3C3DADADAAFAFAFC7865BEF
+              C09EFFFFFFCC936EFFFFFFFFFFFFFFFBF7FFF8F1E4AF8CC78A61D8E9ECD8E9EC
+              C5CACBDBDBDBDADADAEAEAEACC8D65F3CDB0FFFFFFE3C7B3FFFFFFFFFFFFFFFF
+              FFFFFFFFEABFA1C98960D8E9ECD8E9ECC9CBCBE8E8E8DDDDDDF9F9F9D4976ED4
+              9E7BD09871D6A482CD8E68CD9069D09A75D19973C88B62AD5A20D8E9ECD8E9EC
+              D2D4D4ECECECE3E3E3FAFAF9A49B94DAB9A2E5BBA1D8B096F7F7F7CECECEDADA
+              DA6C6D6DD8E9ECD8E9ECD8E9ECD8E9ECD9DEDEEDEDEDEAEAEAF3F3F3DFD4CCA5
+              9B94A49A93DCD1CAE9E9E9D3D3D3CFCFCF8B9091D8E9ECD8E9ECD8E9ECD8E9EC
+              DCE5E7EAEAEAF2F2F2EFEFEFF5F5F5FBFAFAFAFAF9EDEDEDDADADADFDFDFB9B9
+              B9B0BABCD8E9ECD8E9ECD8E9ECD8E9ECDAE9EBE2E7E8F1F1F1F5F5F5EEEEEEBE
+              BEBEBABABAE0E0E0E3E3E3DADADAB0B5B6D0E0E2D8E9ECD8E9ECD8E9ECD8E9EC
+              D8E9ECDCE9EBE4E9EAEEEEEEEFEFEFF1F1F1EDEDEDE6E6E6DADADAC5CACBCFDC
+              DED8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECDAE9ECE0EAECE4E9EAE4
+              E5E6E0E2E2DBE0E1D5DFE1D6E5E7D8E9ECD8E9ECD8E9ECD8E9EC}
+            OnClick = btnGuardarImagenClick
+          end
+          object BtnObtenerWebcams: TSpeedButton
+            Left = 437
+            Top = 317
+            Width = 120
+            Height = 22
+            Anchors = [akRight, akBottom]
+            Caption = 'Obtener webcams'
+            Flat = True
+            Glyph.Data = {
+              36030000424D3603000000000000360000002800000010000000100000000100
+              18000000000000030000120B0000120B00000000000000000000D8E9ECD8E9EC
+              D8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9EC72A68B237140196B
+              3723714072A68BD8E9ECD8E9EC7979795555554E4E4E4747473F3F3F3737372F
+              2F2F2828281D472C288C5364BA8D95D2B264BA8D288C536FA489D8E9EC9A9A9A
+              D1D1D1CBCBCBC4C4C4BCBCBCB4B4B4ABABABA3A3A31F6D3C62BA8B60BA87FFFF
+              FF60B98767BC8F1F6F3DD8E9ECA2A2A2C7C7C7AFAFAF8F8F8F8A8A8A9494947A
+              7A7A707070317B4C9CD4B6FFFFFFFFFFFFFFFFFF95D2B2196B37D8E9ECC7D2D4
+              A5A6A69F9F9FCCDBDE5959595B5B5B48484845454544855C90D3B192D6B1FFFF
+              FF65BC8C67BC8F1F6F3DD8E9ECD8E9ECC7D3D5A8ABAC9CA1A2B3B3B3CACACABF
+              BFBFBEBEBE8CAB9861AB8195D4B4BAE6D06ABB8F2D8F576FA489D8E9ECD8E9EC
+              D1E0E3A5AAABBDBDBDB3B3B3A1A1A19C9C9C9A9A9A9C9C9C809D8B5B94704F8E
+              6647896085B29DD8E9ECD8E9ECD8E9ECC6CFD1C3C3C3DADADAAFAFAFD1D1D1F0
+              F0F0EFEFEFCECECEA6A6A6C7C7C77C7C7C98A2A4D8E9ECD8E9ECD8E9ECD8E9EC
+              C5CACBDBDBDBDADADAEAEAEADAD1CCD5AC91E3AE8AE6D9D3E4E4E4CBCBCBADAD
+              AD757A7BD8E9ECD8E9ECD8E9ECD8E9ECC9CBCBE8E8E8DDDDDDF9F9F9A49992E4
+              B99CEBB899E7B190F7F7F7CBCBCBCCCCCC626363D8E9ECD8E9ECD8E9ECD8E9EC
+              D2D4D4ECECECE3E3E3FAFAF9A49B94DAB9A2E5BBA1D8B096F7F7F7CECECEDADA
+              DA6C6D6DD8E9ECD8E9ECD8E9ECD8E9ECD9DEDEEDEDEDEAEAEAF3F3F3DFD4CCA5
+              9B94A49A93DCD1CAE9E9E9D3D3D3CFCFCF8B9091D8E9ECD8E9ECD8E9ECD8E9EC
+              DCE5E7EAEAEAF2F2F2EFEFEFF5F5F5FBFAFAFAFAF9EDEDEDDADADADFDFDFB9B9
+              B9B0BABCD8E9ECD8E9ECD8E9ECD8E9ECDAE9EBE2E7E8F1F1F1F5F5F5EEEEEEBE
+              BEBEBABABAE0E0E0E3E3E3DADADAB0B5B6D0E0E2D8E9ECD8E9ECD8E9ECD8E9EC
+              D8E9ECDCE9EBE4E9EAEEEEEEEFEFEFF1F1F1EDEDEDE6E6E6DADADAC5CACBCFDC
+              DED8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECDAE9ECE0EAECE4E9EAE4
+              E5E6E0E2E2DBE0E1D5DFE1D6E5E7D8E9ECD8E9ECD8E9ECD8E9EC}
+            OnClick = BtnObtenerWebcamsClick
+          end
+          object LabelPosicionCompresJpgWebcam: TLabel
+            Left = 527
+            Top = 346
+            Width = 30
+            Height = 13
+            Anchors = [akRight, akBottom]
+            Caption = '70%'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clMenuHighlight
+            Font.Height = -11
+            Font.Name = 'Verdana'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object ScrollBoxCapWebcam: TScrollBox
+            Left = 27
+            Top = 0
+            Width = 530
+            Height = 311
+            Anchors = [akLeft, akTop, akRight, akBottom]
+            BevelInner = bvNone
+            BevelOuter = bvRaised
+            BevelKind = bkFlat
+            BorderStyle = bsNone
+            TabOrder = 0
+            object ImgWebcam: TImage
+              Left = 0
+              Top = 0
+              Width = 302
+              Height = 245
+              Stretch = True
+            end
+          end
+          object ProgressBarWebcam: TProgressBar
+            Left = 2
+            Top = 0
+            Width = 17
+            Height = 311
+            Anchors = [akLeft, akTop, akBottom]
+            Orientation = pbVertical
+            Smooth = True
+            TabOrder = 1
+          end
+          object ComboBoxWebcam: TComboBox
+            Left = 24
+            Top = 318
+            Width = 409
+            Height = 21
+            BevelInner = bvNone
+            BevelKind = bkFlat
+            BevelOuter = bvRaised
+            Anchors = [akLeft, akRight, akBottom]
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clMenuHighlight
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ItemHeight = 13
+            ParentFont = False
+            TabOrder = 2
+            OnKeyPress = ComboBoxWebcamKeyPress
+          end
+          object CheckBoxAutoCamCapture: TCheckBox
+            Left = 26
+            Top = 374
+            Width = 102
+            Height = 17
+            Anchors = [akLeft, akBottom]
+            Caption = 'Autom'#225'tico'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clMenuHighlight
+            Font.Height = -11
+            Font.Name = 'Verdana'
+            Font.Pitch = fpVariable
+            Font.Style = [fsBold]
+            ParentFont = False
+            TabOrder = 3
+            OnClick = CheckBoxAutoCamCaptureClick
+          end
+          object SpinCam: TSpinEdit
+            Left = 124
+            Top = 369
+            Width = 45
+            Height = 22
+            Anchors = [akLeft, akBottom]
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clMenuHighlight
+            Font.Height = -11
+            Font.Name = 'Verdana'
+            Font.Style = [fsBold]
+            MaxValue = 30
+            MinValue = 0
+            ParentFont = False
+            PopupMenu = FormMain.PopupMenuConexiones
+            TabOrder = 4
+            Value = 0
+            OnChange = SpinCamChange
+          end
+          object TrackBarCalidadWebcam: TTrackBar
+            Left = 152
+            Top = 344
+            Width = 377
+            Height = 16
+            Cursor = crHandPoint
+            Anchors = [akLeft, akRight, akBottom]
+            Max = 100
+            Position = 70
+            TabOrder = 5
+            ThumbLength = 15
+            OnChange = TrackBarCalidadWebcamChange
+          end
+        end
+        object TabKeylogger: TTabSheet
+          Caption = 'Keylogger'
+          ImageIndex = 72
+          OnShow = TabKeyloggerShow
+          DesignSize = (
+            565
+            401)
+          object SpeedButtonRecibirLog: TSpeedButton
+            Left = 8
+            Top = 369
+            Width = 89
+            Height = 22
+            Anchors = [akLeft, akBottom]
+            Caption = 'Recibir log'
+            Flat = True
+            Glyph.Data = {
+              36040000424D3604000000000000360000002800000010000000100000000100
+              2000000000000004000000000000000000000000000000000000FF00FF00FF00
+              FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+              FF00196B3700196B3700196B3700196B3700196B3700FF00FF00FF00FF00FF00
+              FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00196B
+              3700288C530064BA8D0095D2B20064BA8D00288C5300196B3700EAC5A400E7C0
+              9F00E3BC9A00E0B79500DDB28F00D9AE8A00D6A98500D3A57F00D0A07B00216E
+              3B0062BA8B0060BA8700FFFFFF0060B9870067BC8F001E6C3800EECBAB00E8D5
+              C800E8D4C500E7D2C300E5D0C100E5CEBE00E3CCBC00E3CAB900E2C9B700317B
+              4C009CD4B600FFFFFF00FFFFFF00FFFFFF0095D2B200196B3700F2D0B100EAD8
+              CC00FCFCFC00DABAA400FCFCFC00FCFCFC00FCFCFC00FCFCFC00FCFCFC004A8B
+              620090D3B10092D6B100FFFFFF0065BC8C0067BC8F001E6C3900F5D4B600ECDC
+              D000DEC3AF00DDBFAB00DBBDA700D9BAA300D8B79F00D6B49C00D5B19700929E
+              7E0061AB810095D4B400BAE6D0006ABB8F002D8F5700677E5000F8D8BB00EDDE
+              D400FCFCFC00FCFCFC00DEC2AE00FCFCFC00DBBCA600FCFCFC00D8B69E00FCFC
+              FC0099A28400609975004F8E66004A8A61008AA18100CA997200FADCBF00EEE0
+              D600E3CBBA00E2C9B800E0C6B400DFC4B100DEC2AD00DCBFAA00DABCA600D9B9
+              A200D7B69E00D6B39A00E9D6CA00FCFCFC00E3CBBA00CE9D7700FCDEC100EFE2
+              D800FCFCFC00E4CCBC00FCFCFC00E1C9B700FCFCFC00DFC3B000FCFCFC00DCBE
+              A900FCFCFC00D9B8A100FCFCFC00F7F3F000E5CEBE00D1A27D00FCDEC100EFE2
+              D800EFE2D800EFE2D800EEE1D700EEE0D600EEDFD400EDDDD200ECDCD100EBDA
+              CE00EAD8CC00EAD7CA00E8D5C700E7D3C500E7D1C200D5A88300FCDEC100FCDE
+              C100BBB9B600B3B1AE00FADBBE00F8D8BB00F6D5B700F3D2B300F0CEAE00EDC9
+              AA00EAC5A400E7C09F00E3BC9A00E0B79500DDB28F00D9AE8A00FF00FF00FF00
+              FF00C4C4C400BCBCBC00B3B3B300FF00FF00FF00FF00FF00FF00FF00FF00FF00
+              FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+              FF00D0D0D000C9C9C900C2C2C200FF00FF00FF00FF00FF00FF00FF00FF00FF00
+              FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+              FF00D9D9D900D4D4D400CFCFCF00C8C8C800C0C0C000B7B7B700AEAEAE00A4A4
+              A4009B9B9B009191910087878700FF00FF00FF00FF00FF00FF00FF00FF00FF00
+              FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+              FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+              FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+              FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00}
+            OnClick = SpeedButtonRecibirLogClick
+          end
+          object SpeedButtonEliminarLog: TSpeedButton
+            Left = 100
+            Top = 369
+            Width = 89
+            Height = 22
+            Anchors = [akLeft, akBottom]
+            Caption = 'Eliminar log'
+            Flat = True
+            Glyph.Data = {
+              36040000424D3604000000000000360000002800000010000000100000000100
+              20000000000000040000C40E0000C40E00000000000000000000FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF001D57C4780345B9DF0442BCFE0345B9E30345B87AFFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF001A57
+              C3802564C9FB2177E6FF0579EAFF0164DDFF044DBDFC0345B87AEAC5A4EBE7C0
+              9FFFE3BC9AFFE0B795FFDDB28FFFD9AE8AFFD6A985FFD3A57FFFD0A07BFF194F
+              B2FF639DF4FF187FFFFF0076F8FF0076EEFF0368E1FF164CB1FDEECBABFFE8D5
+              C8FFE8D4C5FFE7D2C3FFE5D0C1FFE5CEBEFFE3CCBCFFE3CAB9FFE2C9B7FF0543
+              BCFFAECDFEFFFFFFFFFFFFFFFFFFFFFFFFFF187FEFFF0542BCFFF2D0B1FFEAD8
+              CCFFFCFCFCFFDABAA4FFFCFCFCFFFCFCFCFFFCFCFCFFFCFCFCFFFCFCFCFF245D
+              C2FF8DB5F6FF4D92FFFF1177FFFF2186FFFF408AEBFF1C4EAFFFF5D4B6FFECDC
+              D0FFDEC3AFFFDDBFABFFDBBDA7FFD9BAA3FFD8B79FFFD6B49CFFD5B197FF7F85
+              AAFF3C74CFFF8DB5F7FFB8D6FEFF72A8F5FF2F6CCBFF74728EFFF8D8BBFFEDDE
+              D4FFFCFCFCFFFCFCFCFFDEC2AEFFFCFCFCFFDBBCA6FFFCFCFCFFD8B69EFFFCFC
+              FCFF7F87ACFF2A62C7FF0543BCFF1F5AC1FF798AB7FFCA9972FFFADCBFFFEEE0
+              D6FFE3CBBAFFE2C9B8FFE0C6B4FFDFC4B1FFDEC2ADFFDCBFAAFFDABCA6FFD9B9
+              A2FFD7B69EFFD6B39AFFE9D6CAFFFCFCFCFFE3CBBAFFCE9D77FFFCDEC1FFEFE2
+              D8FFFCFCFCFFE4CCBCFFFCFCFCFFE1C9B7FFFCFCFCFFDFC3B0FFFCFCFCFFDCBE
+              A9FFFCFCFCFFD9B8A1FFFCFCFCFFF7F3F0FFE5CEBEFFD1A27DFFFCDEC1FFEFE2
+              D8FFEFE2D8FFEFE2D8FFEEE1D7FFEEE0D6FFEEDFD4FFEDDDD2FFECDCD1FFEBDA
+              CEFFEAD8CCFFEAD7CAFFE8D5C7FFE7D3C5FFE7D1C2FFD5A883FFFCDEC1E3FCDE
+              C1FFBBB9B6FFB3B1AEFFFADBBEFFF8D8BBFFF6D5B7FFF3D2B3FFF0CEAEFFEDC9
+              AAFFEAC5A4FFE7C09FFFE3BC9AFFE0B795FFDDB28FFFD9AE8AE3FFFFFF00FFFF
+              FF00C4C4C4FDBCBCBCB4B3B3B310FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00D0D0D0F8C9C9C9F8C2C2C267FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00D9D9D967D4D4D4F6CFCFCFEFC8C8C8E5C0C0C0D8B7B7B7C3AEAEAE93A4A4
+              A47D9B9B9B6E9191914987878704FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00}
+            OnClick = SpeedButtonEliminarLogClick
+          end
+          object SpeedButtonGuardarLog: TSpeedButton
+            Left = 196
+            Top = 369
+            Width = 81
+            Height = 22
+            Anchors = [akLeft, akBottom]
+            Caption = 'Guardar'
+            Flat = True
+            Glyph.Data = {
+              36040000424D3604000000000000360000002800000010000000100000000100
+              20000000000000040000C40E0000C40E00000000000000000000BA6A368FB969
+              35B5B86935EEB76835FFB56835FFB46734FFB26634FFB06533FFAE6433FFAC63
+              32FFAA6232FFA96132FFA86031FFA76031FEA66031F1A86131C4BA6A35DEEBC6
+              ADFFEAC5ADFFFEFBF8FFFEFBF8FFFEFBF8FFFEFBF8FFFEFBF8FFFEFBF8FFFEFB
+              F8FFFEFBF8FFFEFBF8FFFEFBF8FFC89A7CFFC79879FFA76031EDBA6B37FEEDCA
+              B3FFE0A27AFFFEFAF7FF62C088FF62C088FF62C088FF62C088FF62C088FF62C0
+              88FF62C088FF62C088FFFDF9F6FFCA8D65FFC99B7CFFA76031FEBB6C38FFEECC
+              B6FFE1A27AFFFEFAF7FFBFDCC2FFBFDCC2FFBFDCC2FFBFDCC2FFBFDCC2FFBFDC
+              C2FFBFDCC2FFBFDCC2FFFDF9F6FFCD9068FFCC9E81FFA86132FFBB6B38FFEFCE
+              B8FFE1A279FFFEFAF7FF62C088FF62C088FF62C088FF62C088FF62C088FF62C0
+              88FF62C088FF62C088FFFDF9F6FFCF936AFFCEA384FFAA6132FFBA6A36FFEFD0
+              BBFFE2A27AFFFEFBF8FFFEFBF8FFFEFBF8FFFEFBF8FFFEFBF8FFFEFBF8FFFEFB
+              F8FFFEFBF8FFFEFBF8FFFEFBF8FFD3966DFFD2A78AFFAB6232FFBB6A36FFF0D2
+              BEFFE2A37AFFE2A37AFFE1A37AFFE2A37BFFE1A37BFFE0A178FFDE9F77FFDD9F
+              76FFDC9D74FFD99B72FFD89971FFD69970FFD5AB8EFFAD6333FFBB6A36FFF2D5
+              C2FFE3A37AFFE3A37AFFE2A37BFFE2A37BFFE2A47BFFE1A279FFE0A178FFDEA0
+              77FFDE9E75FFDC9D74FFDA9B73FFD99B73FFDAB095FFAF6433FFBB6A36FFF2D8
+              C5FFE3A47BFFE3A37AFFE3A47AFFE2A47BFFE2A37BFFE1A37BFFE1A279FFDFA0
+              77FFDE9F76FFDD9E74FFDB9C72FFDC9D74FFDDB59AFFB16534FFBB6B36FFF4D9
+              C7FFE6A67DFFC88C64FFC98D65FFC98E67FFCB926CFFCB926DFFCA9069FFC88C
+              65FFC88C64FFC88C64FFC88C64FFDA9C74FFE1BA9FFFB36634FFBB6B36FEF4DC
+              C9FFE7A77DFFF9ECE1FFF9ECE1FFF9EDE3FFFCF4EEFFFDFAF7FFFDF7F3FFFAED
+              E5FFF7E7DBFFF7E5D9FFF6E5D8FFDEA077FFE4BEA4FFB46734FFBC6B36FAF5DD
+              CCFFE7A87EFFFAF0E8FFFAF0E8FFC98D66FFFAF0E9FFFDF8F3FFFEFAF8FFFCF4
+              EFFFF9E9DFFFF7E7DBFFF7E5D9FFE0A278FFE7C2A9FFB66835FFBC6B36F0F6DF
+              D0FFE8A87EFFFCF6F1FFFCF6F1FFC88C64FFFAF1E9FFFBF4EEFFFDFAF7FFFDF9
+              F6FFFAF0E8FFF8E8DDFFF7E6DBFFE1A37AFFEFD5C3FFB76935FEBC6B36D8F6DF
+              D1FFE9AA80FFFEFAF6FFFDFAF6FFC88C64FFFBF3EEFFFBF1EAFFFCF6F2FFFEFB
+              F8FFFCF6F1FFF9ECE2FFF8E7DBFFEED0BAFFECD0BDFFBB703EF8BC6B369BF6E0
+              D1FFF7E0D1FFFEFBF8FFFEFBF7FFFDF9F6FFFCF5F0FFFAF0EAFFFBF2EDFFFDF9
+              F6FFFDFAF7FFFBF1EBFFF8E9DFFEECD0BDFBC9895EECB5693563BC6B3671BC6B
+              3690BC6B36CCBC6B36EEBC6B36FABB6B36FEBB6B36FFBB6A36FFBB6A36FFBC6C
+              39FFBD6E3BFFBB6D3AFFBB6B38EFBB703ECBB6693554FFFFFF00}
+            OnClick = SpeedButtonGuardarLogClick
+          end
+          object SpeedButtonActivarKeylogger: TSpeedButton
+            Left = 422
+            Top = 316
+            Width = 133
+            Height = 22
+            Anchors = [akRight, akBottom]
+            Caption = 'Activar Keylogger'
+            Flat = True
+            Glyph.Data = {
+              36040000424D3604000000000000360000002800000010000000100000000100
+              20000000000000040000C40E0000C40E00000000000000000000FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00EAC5A4EBE7C0
+              9FFFE3BC9AFFE0B795FFDDB28FFFD9AE8AFFD6A985FFD3A57FFFD0A07BFFCD9C
+              76FFCA9972FFC8966EFFC6936BFFC49069FFC49068FFC49068EBEECBABFFE8D5
+              C8FFE8D4C5FFE7D2C3FFE5D0C1FFE5CEBEFFE3CCBCFFE3CAB9FFE2C9B7FFE1C7
+              B5FFE0C5B3FFDFC4B1FFDFC4B0FFDEC2AFFFDEC2AEFFC49068FFF2D0B1FFEAD8
+              CCFFFCFCFCFFDABAA4FFFCFCFCFFFCFCFCFFFCFCFCFFFCFCFCFFFCFCFCFFFCFC
+              FCFFFCFCFCFFFCFCFCFFCCA182FFFCFCFCFFDFC3B0FFC5926AFFF5D4B6FFECDC
+              D0FFDEC3AFFFDDBFABFFDBBDA7FFD9BAA3FFD8B79FFFD6B49CFFD5B197FFD3AE
+              94FFD1AB8FFFD0A88CFFCFA688FFCDA385FFE0C5B3FFC7956EFFF8D8BBFFEDDE
+              D4FFFCFCFCFFFCFCFCFFDEC2AEFFFCFCFCFFDBBCA6FFFCFCFCFFD8B69EFFFCFC
+              FCFFD5B097FFFCFCFCFFFCFCFCFFFCFCFCFFE1C8B6FFCA9972FFFADCBFFFEEE0
+              D6FFE3CBBAFFE2C9B8FFE0C6B4FFDFC4B1FFDEC2ADFFDCBFAAFFDABCA6FFD9B9
+              A2FFD7B69EFFD6B39AFFE9D6CAFFFCFCFCFFE3CBBAFFCE9D77FFFCDEC1FFEFE2
+              D8FFFCFCFCFFE4CCBCFFFCFCFCFFE1C9B7FFFCFCFCFFDFC3B0FFFCFCFCFFDCBE
+              A9FFFCFCFCFFD9B8A1FFFCFCFCFFF7F3F0FFE5CEBEFFD1A27DFFFCDEC1FFEFE2
+              D8FFEFE2D8FFEFE2D8FFEEE1D7FFEEE0D6FFEEDFD4FFEDDDD2FFECDCD1FFEBDA
+              CEFFEAD8CCFFEAD7CAFFE8D5C7FFE7D3C5FFE7D1C2FFD5A883FFFCDEC1E3FCDE
+              C1FFBBB9B6FFB3B1AEFFFADBBEFFF8D8BBFFF6D5B7FFF3D2B3FFF0CEAEFFEDC9
+              AAFFEAC5A4FFE7C09FFFE3BC9AFFE0B795FFDDB28FFFD9AE8AE3FFFFFF00FFFF
+              FF00C4C4C4FDBCBCBCB4B3B3B310FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00D0D0D0F8C9C9C9F8C2C2C267FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00D9D9D967D4D4D4F6CFCFCFEFC8C8C8E5C0C0C0D8B7B7B7C3AEAEAE93A4A4
+              A47D9B9B9B6E9191914987878704FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00}
+            OnClick = SpeedButtonActivarKeyloggerClick
+          end
+          object RichEditKeylogger: TRichEdit
+            Left = 8
+            Top = 8
+            Width = 551
+            Height = 303
+            Anchors = [akLeft, akTop, akRight, akBottom]
+            BevelInner = bvNone
+            BevelOuter = bvRaised
+            BevelKind = bkFlat
+            BiDiMode = bdRightToLeft
+            BorderStyle = bsNone
+            ParentBiDiMode = False
+            ReadOnly = True
+            ScrollBars = ssVertical
+            TabOrder = 0
+          end
+          object EditLogName: TEdit
+            Left = 8
+            Top = 316
+            Width = 410
+            Height = 21
+            Anchors = [akLeft, akRight, akBottom]
+            BevelInner = bvNone
+            BevelKind = bkFlat
+            BevelOuter = bvRaised
+            BorderStyle = bsNone
+            TabOrder = 1
+            Text = 'Log.dat'
+          end
+          object ProgressBarKeylogger: TProgressBar
+            Left = 8
+            Top = 343
+            Width = 551
+            Height = 17
+            Anchors = [akLeft, akRight, akBottom]
+            Enabled = False
+            TabOrder = 2
+          end
+          object CheckBoxOnlineKeylogger: TCheckBox
+            Left = 428
+            Top = 374
+            Width = 137
+            Height = 17
+            Anchors = [akRight, akBottom]
+            Caption = 'Online keylogger'
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clMenuHighlight
+            Font.Height = -11
+            Font.Name = 'Verdana'
+            Font.Style = [fsBold]
+            ParentFont = False
+            TabOrder = 3
+            OnClick = CheckBoxOnlineKeyloggerClick
+          end
+        end
       end
     end
     object TabExtra: TTabSheet
@@ -2131,9 +2268,9 @@ object FormControl: TFormControl
       object PageControlExtra: TPageControl
         Left = 0
         Top = 0
-        Width = 433
-        Height = 332
-        ActivePage = TabSheetBromas
+        Width = 573
+        Height = 428
+        ActivePage = TabSheetMensajes
         Align = alClient
         Images = IconsArchivos
         TabOrder = 0
@@ -2142,8 +2279,8 @@ object FormControl: TFormControl
           Caption = 'Mensajes'
           ImageIndex = 31
           DesignSize = (
-            425
-            305)
+            565
+            401)
           object LabelTituloMensaje: TLabel
             Left = 8
             Top = 12
@@ -2158,8 +2295,8 @@ object FormControl: TFormControl
             ParentFont = False
           end
           object BtnEnviarMensaje: TSpeedButton
-            Left = 345
-            Top = 281
+            Left = 485
+            Top = 360
             Width = 72
             Height = 22
             Anchors = [akRight, akBottom]
@@ -2205,7 +2342,7 @@ object FormControl: TFormControl
           object EditTituloMensaje: TEdit
             Left = 8
             Top = 28
-            Width = 410
+            Width = 550
             Height = 21
             Anchors = [akLeft, akTop, akRight]
             BevelInner = bvNone
@@ -2217,8 +2354,8 @@ object FormControl: TFormControl
           object MemoMensaje: TMemo
             Left = 8
             Top = 56
-            Width = 410
-            Height = 0
+            Width = 550
+            Height = 79
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelKind = bkFlat
@@ -2231,7 +2368,7 @@ object FormControl: TFormControl
           end
           object GrpBoxTipoMensaje: TGroupBox
             Left = 8
-            Top = 65
+            Top = 144
             Width = 171
             Height = 209
             Anchors = [akLeft, akBottom]
@@ -2745,8 +2882,8 @@ object FormControl: TFormControl
             end
           end
           object RdGrpBotonesMensaje: TRadioGroup
-            Left = 241
-            Top = 64
+            Left = 381
+            Top = 143
             Width = 176
             Height = 211
             Anchors = [akRight, akBottom]
@@ -2771,11 +2908,11 @@ object FormControl: TFormControl
           Caption = 'Bromas'
           ImageIndex = 27
           DesignSize = (
-            425
-            305)
+            565
+            401)
           object BtnEnviarBromas: TSpeedButton
-            Left = 345
-            Top = 281
+            Left = 485
+            Top = 360
             Width = 72
             Height = 22
             Cursor = crHandPoint
@@ -2822,8 +2959,8 @@ object FormControl: TFormControl
           object ListViewBromas: TListView
             Left = 0
             Top = 0
-            Width = 418
-            Height = 276
+            Width = 558
+            Height = 355
             Align = alCustom
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
@@ -2860,9 +2997,9 @@ object FormControl: TFormControl
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 380
-    Width = 441
-    Height = 19
+    Top = 457
+    Width = 581
+    Height = 20
     Panels = <
       item
         Text = 'Estado'
@@ -3275,7 +3412,7 @@ object FormControl: TFormControl
     Left = 320
     Top = 104
     Bitmap = {
-      494C010168006D00040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01016A006D00040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000C0010000010020000000000000C0
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3405,129 +3542,129 @@ object FormControl: TFormControl
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000000000000D58757D5D58351FFD17D
+      4BFFD17945AF0000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000D99165CCDFA481FFEAC2ABFFEAC0
+      A8FFDC9971FFD17B47AF00000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000DB976FFFEDC8B3FFE7B89BFFE6B4
+      98FFEAC3ABFFDE9C73FFD17D49AF000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000007295
+      C5076686B3575F7FACA85F80B0E95F81B6F55C81B9F6597DB7F45175AEC2496D
+      A572476BA6290000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000DD9F79FFEDCCB7FFE8BDA3FFE4B1
+      92FFE6B69AFFEAC3ACFFDE9C74FFD37F4DAC0000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000BAC1CBB194A9
+      C5FB85AADDFF8DB4E9FF9BBBE9FFA5C0E7FFA5BFE6FFA1BDE7FF90B1E3FF6C9A
+      E3FF6086C3FE8296B6CA4971AF04000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000DFA57F92E6B394FFEECCB8FFE9BE
+      A5FFE5B394FFE6B79BFFEAC4ADFFDE9E78FFD3814FAC00000000000000000000
+      00000000000000000000000000000000000000000000C7CFD9C69CBCE3FF9DC0
+      ECFFBED1EBEED3DCEBE6E4E7EBE0EBEBEBDEEBEBEBDEEBEBEBDEEAEAEADEC9D5
+      E9E691B3E7FF6696E1FF728EBAE64A72B0010000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000000000000DFA58392E6B498FFEECD
+      BAFFE9BFA5FFE5B496FFE7B99DFFEBC6AEFFDE9F79FFD58351AA000000000000
+      000000000000000000000000000000000000D5DBE199ADC8E8FFC0D3EAFFE0E6
+      EDFFEFEFEFFFE9DAD1FFE1B9A1FFDA9C77FFD99871FFDFB095FFE8D4C9FFF0F0
+      F0FFE6E9EEFFB5C9E9FF6696E2FF819BC6C60000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000E1A78592E6B7
+      99FFEECEBBFFE9C0A7FFE8BDA3FFECC8B3FFDFA481FFD2895DC9000000000000
+      000000000000000000000000000000000000C2D2E3EED7E0E9FFF0F0F0FFF4F4
+      F4FFF2E4DCFFE7B79AFFE2A17BFFE19D73FFDF986CFFDE9364FFE2A27CFFEFDB
+      CFFFF4F4F4FFF0F0F0FFCBD5E7FF79A1DFF90000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000000000000000000000000000E1A9
+      8792E6B79CFFEFCFBCFFEECEBAFFE2AE8CFFD29B7BFF888888F7868686230000
+      000000000000000000000000000000000000DDE0E4FCEEEEEEFFF4F4F4FFF9F9
+      F9FFF0D1BEFFE9B18EFFE7AB86FFE5A67EFFE4A077FFE39B70FFE19668FFEBBB
+      9EFFF9F9F9FFF4F4F4FFEEEEEEFF94B1DDFE0000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      0000E1A98992E7B99CFFE6B698FFD8A98CFFD2D2D2FFB5B5B5FF898989FE8787
+      87FB858585FB838383D68181817000000000B1CADFFEDCE2E8FFF7F7F7FFFBFB
+      FBFFF0C4ABFFECB898FFECB491FF1B130FFF19120EFFE7A47AFFE59D73FFE7A4
+      7DFFFBFBFBFFF7F7F7FFD2DCECFF688FCCFF0000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000E3AD8B92DAA788CF929292FBC7C7C7FFCCCCCCFFC7C7C7FFC6C6
+      C6FFC3C3C3FFC0C0C0FF848484F582828270D3DCE4E8ADCBE5FFBDCAD6FFFBFB
+      FBFFF1C9B2FFEFBFA2FFEEBA9BFF1D1510FF1B140FFFEAAA84FFE8A57CFFE9AA
+      84FFFBFBFBFFC4D2E7FF7BA6E5FF779AD1FB0000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000095959548939393FED4D4D4FFC8C8C8FFBCBC
+      BCFFBABABAFFC2C2C2FFC4C4C4FF858585D6E0E0E08EC5D6E6FFB7D1ECFF97AB
+      BFFFD6CAC5FFEFC4A9FFEFC0A4FFEEBB9DFFEDB695FFEBB18EFFE9AB85FFEFC7
+      B1FFA4BAD9FF83ACE4FF86B1F0FFC7D3E3A00000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000969696FCDDDDDDFFC5C5C5FF8F8F
+      8FC18D8D8DC3ACACACFFD7D7D7FF878787FB00000000E3E3E3B9C0D3E6FFBBD3
+      ECFFA1B9D0FF8FA0B3FF9BA1ABFFB3A8A6FFB4A5A1FFB2A19BFF9B9DA6FF819D
+      C0FF94BAECFF91B8EEFFBFD2ECD2000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000989898FBE4E4E4FFCFCFCFFF9292
+      92C2000000008E8E8EFF8C8C8CFF8A8A8AFB0000000000000000E3E3E3A1CDDA
+      E6F9BAD3E8FFBED5EEFFB6CFE9FFA5BED9FF9FB8D5FF9FBBDCFFAAC8F1FFA3C3
+      EEFFA2C1EAFED3DCE9B200000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000009B9B9BD6E2E2E2FFE7E7E7FFB9B9
+      B9FF939393FF000000000000000000000000000000000000000000000000E1E1
+      E13CD8DFE4B5C6D6E5F6BCD0E5FFB8CEE6FFB4CBE6FFB1C9E6FFB4CAE7F8C7D5
+      E7C4E5E5E53C0000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000009D9D9D709B9B9BF5E4E4E4FFEEEE
+      EEFF969696FF0000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000000000009E9E9E709C9C9CD69B9B
+      9BFB999999FB0000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -6867,11 +7004,11 @@ object FormControl: TFormControl
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      00000000000000000000000000000000FFFFFFFFFC3FC3FFF81FFC3FF81F983F
+      0000000000000000000000000000000087FFFFFF0000000003FFFFFF00000000
+      01FFE0070000000000FFC00100000000007F800000000000803F000000000000
+      C03F000000000000E01F000000000000F001000000000000F800000000000000
+      FE00000000000000FF00800100000000FF08C00300000000FF07E00700000000
+      FF07FFFF00000000FF87FFFF00000000FFFFFFFFFC3FC3FFF81FFC3FF81F983F
       E00FF00FE10F9807C007E003C38790038003C003838380018003C00183C380E0
       0001800183C181FF0001800183C1C0000001800183C1C0000001800183C1C000
       0001800183C1C0C08001C00183C3E0018003C001C3C3E0028007E003E3C7F006

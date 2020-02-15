@@ -1,4 +1,3 @@
-Crear ./Server/DllInjection/monitor.dpr  como dll                       [monitor.dll]
 Crear ./Server/DllInjection/jeringa.dpr  sin resource como exe     [jeringa.exe]
 Crear ./Server/coolserver.dpr como DLL                                  [coolserver.dll]
 Crear ./Server/conectador/conectador.dpr como dll y como exe  [conectador.exe] y [conectador.dll]

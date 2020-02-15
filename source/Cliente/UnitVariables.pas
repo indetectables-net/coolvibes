@@ -3,8 +3,8 @@ unit UnitVariables;
 interface
 
 const
-  VersionCool: string = '0.5';
-  UpdateNum:   string = '7';
+  VersionCool: string = '1';
+  UpdateNum:   string = '1';
 
 var
   NotificacionMsn:   boolean;

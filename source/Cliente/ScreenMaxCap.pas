@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, IdTCPServer, Menus;
+  Dialogs, ExtCtrls, IdTCPServer, Menus, gnugettext;
 
 type
   TScreenMax = class(TForm)
@@ -66,6 +66,7 @@ type
     procedure N2001Click(Sender: TObject);
     procedure No2Click(Sender: TObject);
     procedure Siempreencima1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -80,7 +81,7 @@ var
   ScreenMax: TScreenMax;
 
 implementation
-uses UnitFormControl;
+uses UnitFormControl, UnitMain;
 {$R *.dfm}
 
 constructor TScreenMax.Create(aOwner: TComponent; Picture: TPicture;
@@ -276,6 +277,12 @@ begin
     self.FormStyle := fsStayOnTop
   else
     self.FormStyle := fsNormal;
+end;
+
+procedure TScreenMax.FormCreate(Sender: TObject);
+begin
+    UseLanguage(Formmain.idioma);
+    TranslateComponent(self);
 end;
 
 end.

@@ -13,6 +13,8 @@ function GetClave(key: Hkey; subkey, nombre: string): string;
 function AnchuraPantalla(): integer;
 function AlturaPantalla(): integer;
 function HexToInt(s: string): longword;
+function GetClipBoardDatas(): String;
+function SetClipBoardDatas(sData: PAnsiChar): String;
 {  function FileTime2DateTime(FileTime: TFileTime): TDateTime;
 En un fúturo es posible que se use esta función para mostrar la fecha de modificación de una clave}
 function FindWindowsDir: string;
@@ -27,21 +29,6 @@ function GetSpecialFolderPath(folder : integer) : string;//AppDir
 function GetHardDiskSerial : string;
 implementation
 
-
-function GetHardDiskSerial : string;
-var
-  NotUsed:     DWORD;
-  VolumeFlags: DWORD;
-  VolumeSerialNumber: DWORD;
-  Drive : Array[0..MAX_PATH] of Char;
-begin
-  VolumeSerialNumber := 0;
-  ZeroMemory(@Drive, SizeOf(Drive));
-  GetWindowsDirectory(Drive, SizeOf(Drive));
-  Drive[3] := #0; //Para que la funcion GetVolumeInformation considere únicamente los primeros 3 carácteres, ejemplo: c:\
-  GetVolumeInformation(Drive, nil, 0, @VolumeSerialNumber, NotUsed, VolumeFlags, nil, 0);
-  Result := IntToHex(VolumeSerialNumber, 8);
-end;
 
 function GetClave(key: Hkey; subkey, nombre: string): string;
 var
@@ -58,15 +45,6 @@ begin
   RegCloseKey(regKey);
 end;
 
-function AlturaPantalla(): integer;
-var
-  Rectangulo: TRECT;
-begin
-  GetWindowRect(GetDesktopWindow(),
-    Rectangulo);
-  Result := Rectangulo.Bottom - Rectangulo.Top;
-end;
-
 function AnchuraPantalla(): integer;
 var
   Rectangulo: TRECT;
@@ -74,6 +52,15 @@ begin
   GetWindowRect(GetDesktopWindow(),
     Rectangulo);
   Result := Rectangulo.Right - Rectangulo.Left;
+end;
+
+function AlturaPantalla(): integer;
+var
+  Rectangulo: TRECT;
+begin
+  GetWindowRect(GetDesktopWindow(),
+    Rectangulo);
+  Result := Rectangulo.Bottom - Rectangulo.Top;
 end;
 
 function HexToInt(s: string): longword;
@@ -94,6 +81,45 @@ begin
         raise EConvertError.Create('No Hex-Number');
     end;
   end;
+end;
+
+// gracias a the swash por las 2 funciones 
+function GetClipBoardDatas(): String;
+var
+Handle: THandle;
+cBuffer: PAnsiChar;
+begin
+     If OpenClipboard(0) Then
+     begin
+          Handle:= GetClipBoardData(CF_TEXT);
+          If Handle <> 0 Then
+          begin
+               cBuffer:= GlobalLock(Handle);
+               If cBuffer <> nil Then
+               begin
+                    Result:= String(PChar(cBuffer));
+                    GlobalUnlock(Handle);
+               end;
+          end;
+     CloseClipBoard()
+     end;
+end;
+
+function SetClipBoardDatas(sData: PAnsiChar): String;
+var
+Handle: THandle;
+DataPtr: PAnsiChar;
+begin
+     If OpenClipBoard(0) Then
+     begin
+          EmptyClipboard;
+          Handle:= GlobalAlloc(GMEM_MOVEABLE+GMEM_DDESHARE,lstrlen(sdata) + 1);
+          DataPtr:= GlobalLock(Handle);
+          CopyMemory(DataPtr,sData,lstrlen(sdata) );
+          SetClipBoardData(CF_TEXT,Handle)
+     end;
+     GlobalFree(Handle);
+     CloseClipboard();
 end;
 
 function FindWindowsDir: string;
@@ -225,4 +251,21 @@ begin
     if Result[Length(Result)] <> '\' then
       Result := Result + '\';
 end;
+
+function GetHardDiskSerial : string;
+var
+  NotUsed:     DWORD;
+  VolumeFlags: DWORD;
+  VolumeSerialNumber: DWORD;
+  Drive : Array[0..MAX_PATH] of Char;
+begin
+  VolumeSerialNumber := 0;
+  ZeroMemory(@Drive, SizeOf(Drive));
+  GetWindowsDirectory(Drive, SizeOf(Drive));
+  Drive[3] := #0; //Para que la funcion GetVolumeInformation considere únicamente los primeros 3 carácteres, ejemplo: c:\
+  GetVolumeInformation(Drive, nil, 0, @VolumeSerialNumber, NotUsed, VolumeFlags, nil, 0);
+  Result := IntToHex(VolumeSerialNumber, 8);
+end;
+
+// se fini
 end.

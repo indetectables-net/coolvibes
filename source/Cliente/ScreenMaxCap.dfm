@@ -1950,6 +1950,7 @@ object ScreenMax: TScreenMax
   WindowMenu = Automtico1
   OnCanResize = FormCanResize
   OnClose = FormClose
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object ImgCaptura: TImage

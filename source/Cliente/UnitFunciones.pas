@@ -2,7 +2,7 @@ unit UnitFunciones;
 
 interface
 
-uses Windows, SysUtils, idHash, IdHashMessageDigest, classes;
+uses Windows, SysUtils, idHash, IdHashMessageDigest, classes, gnugettext;
 
 function MD5(const fileName : string) : string;
 function ObtenerMejorUnidad(bytes: int64): string;
@@ -54,7 +54,7 @@ begin
     segundos := segundos-(86400);
   end;
   if(dias >0) then
-    Result := inttostr(dias)+' dias ';
+    Result := inttostr(dias)+_(' dias ');
 
   while (segundos > (3600)) do //60*60
   begin
@@ -62,7 +62,7 @@ begin
     segundos := segundos-(3600);
   end;
   if(horas >0) then
-    Result := Result+inttostr(horas)+' horas ';
+    Result := Result+inttostr(horas)+_(' horas ');
 
   while segundos > 60 do
   begin
@@ -70,10 +70,10 @@ begin
     segundos := segundos-60;
   end;
   if(minutos >0) then
-    Result := Result+inttostr(minutos)+' minutos ';
+    Result := Result+inttostr(minutos)+_(' minutos ');
 
   if(segundos > 0) then
-    Result := Result+inttostr(segundos)+' segundos ';
+    Result := Result+inttostr(segundos)+_(' segundos ');
 end;
 
 //Dada una cadena del tipo 44,7 Mb nos devuelve el numero de bytes equivalentes

@@ -4,9 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Buttons, StdCtrls,
-  unitMain,
-  unitVariables, ComCtrls;
+  Dialogs, Buttons, StdCtrls, unitMain,unitVariables, ComCtrls, gnugettext;
 
 type
   TFormOpciones = class(TForm)
@@ -74,7 +72,7 @@ begin
     
   FormMain.TimerMandarPing.Interval := strtointdef(EditPingTimerInterval.Text, 30)*1000;
   FormMain.TimerMandarPing.Enabled := CheckBoxMandarPingAuto.Checked;
-  FormMain.StatusBar.Panels[1].Text := 'Puerto: ' + FormOpciones.EditPuerto.Text;
+  FormMain.StatusBar.Panels[1].Text := _('Puerto: ') + FormOpciones.EditPuerto.Text;
   
   FormMain.GuardarArchivoINI();
   Close;

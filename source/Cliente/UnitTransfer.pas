@@ -2,7 +2,7 @@ unit UnitTransfer;
 
 interface
 
-uses Windows, SysUtils, Dialogs, ComCtrls, IdTCPServer, UnitFunciones;
+uses Windows, SysUtils, Dialogs, ComCtrls, IdTCPServer, UnitFunciones, gnugettext;
 
 type
   TCallbackProcedure = procedure(Sender: TObject;filename:string) of object;
@@ -70,11 +70,11 @@ var
 begin
   item := ListView.items.add;
   item.Caption := ExtractFileName(Origen);
-  Item.SubItems.Add('En espera');
+  Item.SubItems.Add(_('En espera'));
   Item.SubItems.Add(ObtenerMejorUnidad(self.SizeFile));
   Item.SubItems.Add('0 Kb');
   Item.SubItems.Add('');
-  Item.SubItems.Add('En espera');
+  Item.SubItems.Add(_('En espera'));
 
   if es_descarga then
     Item.ImageIndex := 38
@@ -105,7 +105,7 @@ var
   error,asignado : boolean;
 begin
   transfering := True;
-  status      := 'Descargando';
+  status      := _('Descargando');
   AssignFile(F, Destino);
   try
     Rewrite(F, 1);
@@ -122,7 +122,7 @@ begin
   Pri := Trim(Athread.Connection.ReadLn);
   if(Pri = 'ERROR') then
   begin
-    MessageDlg('Error al descargar archivo: '+extractfilename(destino),mtWarning, [mbOK], 0);
+    MessageDlg(_('Error al descargar archivo: ')+extractfilename(destino),mtWarning, [mbOK], 0);
     error := true;
   end;
   try
@@ -160,13 +160,13 @@ begin
     transfering := False;
     if Read <> SizeFile then
     begin
-      status      := 'Detenido';
+      status      := _('Detenido');
       cancelado   := True;
       Transfering := False;
     end
     else
     begin
-      status      := 'Finalizado';
+      status      := _('Finalizado');
       finalizado  := True;
       transfering := False;
     end;
@@ -190,7 +190,7 @@ var
 begin
   transfering := True;
   cancelado   := False;
-  status      := 'Descargando';
+  status      := _('Descargando');
   tickBefore  := getTickCount;
   if (mygetfilesize(destino) = sizefile) then
   begin
@@ -224,7 +224,7 @@ begin
 
     if(Pri = 'ERROR') then
     begin
-      MessageDlg('Error al descargar archivo: '+extractfilename(destino),mtWarning, [mbOK], 0);
+      MessageDlg(_('Error al descargar archivo: ')+extractfilename(destino),mtWarning, [mbOK], 0);
       error := true;
     end;
 
@@ -261,13 +261,13 @@ begin
     transfering := False;
     if Read <> SizeFile then
     begin
-      status      := 'Detenido';
+      status      := _('Detenido');
       cancelado   := True;
       Transfering := False;
     end
     else
     begin
-      status      := 'Finalizado';
+      status      := _('Finalizado');
       finalizado  := True;
       transfering := False;
     end;
@@ -289,14 +289,14 @@ begin
   filesize := MyGetFileSize(Origen);
   if not filesize > 0 then
   begin
-    MessageDlg('No se pudo acceder al archivo, puede que esté en uso por otra aplicación',
+    MessageDlg(_('No se pudo acceder al archivo, puede que esté en uso por otra aplicación'),
       mtWarning, [mbOK], 0);
     AThread.Connection.Disconnect;
     Exit;
   end;
   transfering := True;
   cancelado   := False;
-  status      := 'Subiendo';
+  status      := _('Subiendo');
   try
     FileMode := $0000;
     asignado := true;
@@ -304,7 +304,7 @@ begin
     try
       reset(MyFile, 1);
     except
-      MessageDlg('No se pudo acceder al archivo, puede que esté en uso por otra aplicación',
+      MessageDlg(_('No se pudo acceder al archivo, puede que esté en uso por otra aplicación'),
       mtWarning, [mbOK], 0);
       AThread.Connection.Disconnect;
       asignado := false;
@@ -337,14 +337,14 @@ begin
       cancelado   := True;
       transfering := False;
       finalizado  := False;
-      Status      := 'Detenido';
+      Status      := _('Detenido');
     end
     else
     begin
       cancelado   := False;
       transfering := False;
       finalizado  := True;
-      Status      := 'Finalizado';
+      Status      := _('Finalizado');
     end;
     Athread.Synchronize(Update);
   end;
