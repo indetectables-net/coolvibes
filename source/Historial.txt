@@ -7,9 +7,61 @@ Modificación de: Nick
 [+] Añadidos, mejoras
 [-] Cosas quitadas
 [*] Bug solucionados, arreglos
+
 |----------------------------|
 
-Fecha 15/03/2011
+Fecha 8/04/2011
+Versión: 0.5 Update 5
+Modificación de: Anonimo
+[+] Agregado offline y online keylogger, creditos para stm por la base para el keylogger
+[+] Agregado numero de conexiones
+[+] Agregado en el servidor la opción de tamaño relativo en el visor de thumbnails
+[*] Corregido bug que hacia a las unidades salir duplicadas
+[*] Corregido bug que hacia que se perdiera la conexión al no poder listar un directorio
+[*] Corregido bug en el visor de miniaturas que se congelaba al intentar obtener una miniatura de un archivo no jpeg o bmp
+[*] Cambiada la estetica de el FormControl para ahorrar espacio
+[*] Ahora la captura de pantalla captura teniendo en cuenta la altura de el centro de control
+[*] Eliminado parpadeo en la captura de pantalla
+[*] Intervalo de los timers de captura de pantalla y webcam ahora en segundos
+[+] Agregada opción auto-refrescar
+[*] Ahora los iconos del ListviewArchivos se consiguen desde el sistema del cliente
+[*] Mejorada estética del registro añadiendo un splitter 
+[+] Se añade la opción de ver los thumbnails en el TListView de los archivos y se renombra el Ver imagen JPEG a Visor de imágenes avanzado, aun el visionado de thubnails de los archivos aun está en desarrollo.
+[+] Agregada opción de copiar y pegar archivos en el filemanager, falta por implementar esta opción para copiar y pegar carpetas
+
+
+|----------------------------|
+
+Fecha 24/03/2011
+Versión: 0.5 Update 4
+Modificación de: Anonimo
+[*] Inyector, Conectador.dll y Coolserver.dll comparten la configuración en memoria mediante "File Mapping" en vez de por el registro 
+[*] Cambiado el diseño del creador de servidor por falta de espacio
+[*] Ahora en el servidor las capturas de webcam (~~tmp.tmp) en vez de en %windir% se guardan en %AppDir%
+[*] Agregada la opción para mandar clicks remotos sin tener que establecer el tamaño de la captura a 100%
+[*] Ahora se pueden mandar clicks sin que el tamaño de la captura esté al 100%
+[*] Ahora solo se notifica la conexión de alguien con la ventana tipo msn si esta no se esta mostrando, ya que antes alentaba mucho el cliente si se conectaban varios usuarios al mismo tiempo
+[*] Corregido pequeño bug que hacia que no se pudiera cambiar de puerto de escucha
+[+] Agregado nuevo patron para el directorio de instalacion %AppDir%
+[+] Agregada la posibilidad de inicio por Active Setup 
+[+] Añadida la posibilidad para conectar con más de un DNS
+[+] Ahora se pueden crear servidores inyectables desde el Cliente
+[+] Agregada la posibilidad de guardar automáticamente las capturas de webcam y de escritorio
+[+] Añadidos iconos al menu del administrador de archivos
+[+] Añadido globo emergente cuando conectador.dll o .exe pide la transferencia de coolserver.dll
+[+] Por parte del cliente se crea la carpeta Recursos para guardar las imagenes y los recursos de los servidores
+[+] Añadidas nuevas columas al ListViewConexiones
+[+] La anchura y el caption de las columnas de ListViewConexiones se guardan en un archivo INI 
+[+] Añadida la opción de escuchar al abrir coolvibes
+[+] Añadida la opción de mandar ping cada 30 segundos para refrescar la ventana activa, el uptime y el TSU (Tiempo sin usar)
+[+] Se crea una nueva form (ColumnasManager) para elegir las columnas visibles y el orden en el ListViewConexiones
+[+] Ahora se utiliza un cifrado un poco más dinámico para cifrar el Plugin
+[+] Modificada la pestaña "Servidor" para que muestre las nuevas opciones
+[-] Deja de funcionar correctamente la rutina de instalación
+
+|----------------------------|
+
+Fecha 18/03/2011
 Versión: 0.5 Update 3
 Modificación de: Anonimo
 
@@ -71,8 +123,6 @@ Modificación de: Unknown
 [+] Se agregó el método de inicio Active Setup
 [+] En el directorio DllInjection se encuentra el código para inyectar. Para crear el archivo destino sólo se debe primero compilar coolserver.dll y luego entrar a DllInjection y ejecutar BuildRat. El archivo a enviar a la víctima es: Jeringa.exe
 [-] Se eliminó la posibilidad de abrir y cerrar el cdrom para reducit el tamaño del coolvibes. Si se quiere agregar, solo basta con "descomentar" algunas líneas
-
-
 
 |----------------------------|
 

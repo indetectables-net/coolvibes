@@ -1,0 +1,8 @@
+Jeringa.exe => Se encarga de inyectar conectador.dll y monitor.dll (sólo si persistencia está activo) en memoria
+Conectador.exe => Se encarga de pedir coolserver.dll al cliente
+Conectador.dll => Se encarga de pedir coolserver.dll al cliente si la inyección esta habilitada
+Monitor.dll => Se encarga de la persistencia
+Coolserver.dll => Servidor que es mandado por el cliente
+Upx.exe => Comprime las dll's para que el servidor final sea menos pesado
+
+NOTA: Se recomienda comprimir coolserver.dll con UPX para que los servidores tarden menos en establecer conexión la primera vez

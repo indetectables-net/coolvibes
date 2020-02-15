@@ -8,6 +8,7 @@ uses
   Windows,
   SysUtils,
   UnitFunciones,
+  UnitVariables,
   UnitFileManager;
 
 function GetOS(): string;
@@ -25,6 +26,11 @@ function GetOS(): string;
 var
   osVerInfo: TOSVersionInfo;
 begin
+  if(Sistema_operativo<>'') then
+  begin
+    Result := Sistema_operativo;
+    exit;
+  end;
   Result := 'Desconocido';
   osVerInfo.dwOSVersionInfoSize := SizeOf(TOSVersionInfo);
   GetVersionEx(osVerInfo);
@@ -52,13 +58,21 @@ begin
   end;
   if osVerInfo.szCSDVersion <> '' then
     Result := Result + ' ' + osVerInfo.szCSDVersion;
+
+  Sistema_operativo := Result;
 end;
 
 function GetCPU(): string;
 begin
+  if(CPU<>'') then
+  begin
+    Result := CPU;
+    exit;
+  end;
   //Trim quita los espacios antes y despues de la cadena, ejem "    CPU p6 2000  " , con trim "CPU p6 2000"
   Result := Trim(GetClave(HKEY_LOCAL_MACHINE,
     'HARDWARE\DESCRIPTION\System\CentralProcessor\0', 'ProcessorNameString'));
+  CPU := Result;
 end;
 
 function GetUptime(): string;
@@ -104,7 +118,7 @@ begin
     else
       Result := Result + ':' + IntToStr(Sec);
 
-    Result := Result + ' (hh:mm:ss)';
+ //   Result := Result + ' (hh:mm:ss)';
   end;
 end;
 

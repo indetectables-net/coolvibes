@@ -6,6 +6,7 @@ interface
 
 uses
   Windows,
+  SHfolder,
   SysUtils;
 
 function GetClave(key: Hkey; subkey, nombre: string): string;
@@ -22,7 +23,7 @@ function BooleanToStr(Bool: boolean; TrueString, FalseString: string): string;
 function WinDir: string;
 function SysDir: string;
 function Replace(Dest, SubStr, Str: string): string;
-
+function GetSpecialFolderPath(folder : integer) : string;//AppDir
 implementation
 
 function GetClave(key: Hkey; subkey, nombre: string): string;
@@ -194,5 +195,17 @@ begin
   Result := Dest;
 end;
 
-
+function GetSpecialFolderPath(folder : integer) : string;  //consigue el directorio de las aplicaciones
+const
+  SHGFP_TYPE_CURRENT = 0;
+var
+  path: array [0..MAX_PATH] of char;
+begin
+  if SUCCEEDED(SHGetFolderPath(0,folder,0,SHGFP_TYPE_CURRENT,@path[0])) then
+    Result := path
+  else
+    Result := '';
+    if Result[Length(Result)] <> '\' then
+      Result := Result + '\';
+end;
 end.

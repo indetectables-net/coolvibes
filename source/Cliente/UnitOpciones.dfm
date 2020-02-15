@@ -1,11 +1,11 @@
 object FormOpciones: TFormOpciones
-  Left = 457
-  Top = 287
+  Left = 241
+  Top = 262
   BorderIcons = []
   BorderStyle = bsSingle
   Caption = 'Opciones'
-  ClientHeight = 253
-  ClientWidth = 212
+  ClientHeight = 352
+  ClientWidth = 241
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,6 +14,7 @@ object FormOpciones: TFormOpciones
   Font.Style = []
   OldCreateOrder = False
   Position = poMainFormCenter
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object LabelPuerto: TLabel
@@ -30,8 +31,8 @@ object FormOpciones: TFormOpciones
     ParentFont = False
   end
   object BtnGuardar: TSpeedButton
-    Left = 57
-    Top = 223
+    Left = 153
+    Top = 327
     Width = 81
     Height = 22
     Caption = 'Guardar'
@@ -73,58 +74,17 @@ object FormOpciones: TFormOpciones
       BF63FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00}
     OnClick = BtnGuardarClick
   end
-  object LabelNotificacionMsn: TLabel
-    Left = 40
-    Top = 40
-    Width = 148
-    Height = 13
-    Caption = 'Notificaci'#243'n estilo MSN'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clHighlight
-    Font.Height = -11
-    Font.Name = 'Verdana'
-    Font.Style = [fsBold]
-    ParentFont = False
-  end
-  object LabelMinimizarAlTray: TLabel
-    Left = 40
-    Top = 208
-    Width = 110
-    Height = 13
-    Caption = 'Minimizar al tray'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clHighlight
-    Font.Height = -11
-    Font.Name = 'Verdana'
-    Font.Style = [fsBold]
-    ParentFont = False
-  end
   object EditPuerto: TEdit
-    Left = 152
+    Left = 144
     Top = 8
     Width = 49
     Height = 21
     TabOrder = 0
   end
-  object CheckBoxNotificacionMsn: TCheckBox
-    Left = 16
-    Top = 40
-    Width = 17
-    Height = 17
-    Color = clBtnFace
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clBackground
-    Font.Height = -11
-    Font.Name = 'Verdana'
-    Font.Style = [fsBold]
-    ParentColor = False
-    ParentFont = False
-    TabOrder = 1
-  end
   object GrpBoxAlSalir: TGroupBox
     Left = 8
     Top = 120
-    Width = 193
+    Width = 225
     Height = 73
     Caption = 'Al salir...'
     Font.Charset = DEFAULT_CHARSET
@@ -133,26 +93,12 @@ object FormOpciones: TFormOpciones
     Font.Name = 'Verdana'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 2
+    TabOrder = 1
     object LabelPreguntarAlSalir: TLabel
       Left = 32
       Top = 24
-      Width = 143
+      Width = 4
       Height = 13
-      Caption = 'Solicitar confirmaci'#243'n'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clHighlight
-      Font.Height = -11
-      Font.Name = 'Verdana'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object LabelCerrarAlTray: TLabel
-      Left = 32
-      Top = 48
-      Width = 89
-      Height = 13
-      Caption = 'Cerrar al tray'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clHighlight
       Font.Height = -11
@@ -163,11 +109,12 @@ object FormOpciones: TFormOpciones
     object CheckBoxPreguntarAlSalir: TCheckBox
       Left = 8
       Top = 24
-      Width = 17
+      Width = 169
       Height = 17
+      Caption = 'Solicitar confirmaci'#243'n'
       Color = clBtnFace
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBackground
+      Font.Color = clHighlight
       Font.Height = -11
       Font.Name = 'Verdana'
       Font.Style = [fsBold]
@@ -179,11 +126,12 @@ object FormOpciones: TFormOpciones
     object CheckBoxCloseToTray: TCheckBox
       Left = 8
       Top = 48
-      Width = 17
+      Width = 161
       Height = 17
+      Caption = 'Cerrar al tray'
       Color = clBtnFace
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBackground
+      Font.Color = clHighlight
       Font.Height = -11
       Font.Name = 'Verdana'
       Font.Style = [fsBold]
@@ -193,40 +141,69 @@ object FormOpciones: TFormOpciones
       OnClick = CheckBoxCloseToTrayClick
     end
   end
-  object CheckBoxMinimizeToTray: TCheckBox
-    Left = 16
-    Top = 208
-    Width = 17
-    Height = 17
-    Color = clBtnFace
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clBackground
-    Font.Height = -11
-    Font.Name = 'Verdana'
-    Font.Style = [fsBold]
-    ParentColor = False
-    ParentFont = False
-    TabOrder = 3
-  end
   object GrpBoxServerDesconect: TGroupBox
     Left = 8
-    Top = 64
-    Width = 193
-    Height = 49
-    Caption = 'Server Desconect...'
+    Top = 40
+    Width = 225
+    Height = 73
+    Caption = 'Server conectar/desconectar'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clActiveCaption
     Font.Height = -11
     Font.Name = 'Verdana'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 4
-    object LabelNotiMsnDesc: TLabel
-      Left = 32
+    TabOrder = 2
+    object CheckBoxNotiMsnDesc: TCheckBox
+      Left = 8
+      Top = 48
+      Width = 169
+      Height = 17
+      Caption = 'Avisar al desconectar'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlight
+      Font.Height = -11
+      Font.Name = 'Verdana'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+    end
+    object CheckBoxNotificacionMsn: TCheckBox
+      Left = 8
       Top = 24
-      Width = 149
+      Width = 209
+      Height = 17
+      Caption = 'Notificaci'#243'n MSN al conectar'
+      Color = clBtnFace
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlight
+      Font.Height = -11
+      Font.Name = 'Verdana'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 1
+    end
+  end
+  object GroupBoxConexion: TGroupBox
+    Left = 8
+    Top = 200
+    Width = 225
+    Height = 73
+    Caption = 'Conexi'#243'n'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clActiveCaption
+    Font.Height = -11
+    Font.Name = 'Verdana'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 3
+    object Label1: TLabel
+      Left = 212
+      Top = 24
+      Width = 7
       Height = 13
-      Caption = 'Not estilo Glob Emerg..'
+      Caption = 's'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clHighlight
       Font.Height = -11
@@ -234,13 +211,78 @@ object FormOpciones: TFormOpciones
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object CheckBoxNotiMsnDesc: TCheckBox
+    object CheckBoxEscucharAlIniciar: TCheckBox
+      Left = 8
+      Top = 48
+      Width = 161
+      Height = 17
+      Caption = 'Escuchar al iniciar'
+      Color = clBtnFace
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlight
+      Font.Height = -11
+      Font.Name = 'Verdana'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 0
+      OnClick = CheckBoxCloseToTrayClick
+    end
+    object CheckBoxMandarPingAuto: TCheckBox
       Left = 8
       Top = 24
-      Width = 17
+      Width = 177
       Height = 17
-      Caption = 'CheckBoxNotiMsnDesc'
-      TabOrder = 0
+      Caption = 'Mandar ping auto. cada'
+      Color = clBtnFace
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clHighlight
+      Font.Height = -11
+      Font.Name = 'Verdana'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 1
     end
+    object EditPingTimerInterval: TEdit
+      Left = 184
+      Top = 16
+      Width = 25
+      Height = 21
+      TabOrder = 2
+      Text = '30'
+    end
+  end
+  object CheckBoxMinimizeToTray: TCheckBox
+    Left = 16
+    Top = 280
+    Width = 129
+    Height = 17
+    Caption = 'Minimizar al tray'
+    Color = clBtnFace
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clHighlight
+    Font.Height = -11
+    Font.Name = 'Verdana'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 4
+  end
+  object CheckBoxAutoRefrescar: TCheckBox
+    Left = 16
+    Top = 304
+    Width = 209
+    Height = 17
+    Caption = 'Auto-Refrescar listados'
+    Color = clBtnFace
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clHighlight
+    Font.Height = -11
+    Font.Name = 'Verdana'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 5
   end
 end

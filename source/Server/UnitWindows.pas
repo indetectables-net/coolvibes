@@ -18,12 +18,13 @@ procedure MinimizarVentana(Handle: HWND);
 procedure MinimizarTodas();
 procedure BotonCerrar(YesNo: boolean; Handle: HWND);
 function AppActivateHandle(WindowHandle: HWND): boolean;
-
+function GetActiveWindowCaption():string; //Devuelve el título de la ventana activa
 implementation
 
 var
   Cadena: string;
   MO : boolean; //MostrarOcultas
+  
 function GetWins(MostrarOcultas:Boolean): string;
 
   function EnumWindowProc(Hwnd: HWND; i: integer): boolean; stdcall;
@@ -135,6 +136,13 @@ begin
   end;
 end;
 
-
+function GetActiveWindowCaption():string;
+var
+  awindow : string;
+begin
+  SetLength(awindow, 255);
+  SetLength(awindow, GetWindowText(GetForegroundWindow(), PChar(awindow), Length(awindow)));
+  Result := awindow;
+end;
 end.
  

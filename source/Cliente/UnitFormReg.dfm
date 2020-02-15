@@ -1,6 +1,6 @@
 object FormReg: TFormReg
-  Left = 615
-  Top = 138
+  Left = 427
+  Top = 261
   Width = 319
   Height = 255
   Caption = 'A'#241'adiendo valor tipo'

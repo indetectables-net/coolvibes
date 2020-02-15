@@ -36,6 +36,7 @@ type
     Label11:    TLabel;
     Image6:     TImage;
     Label12:    TLabel;
+    Label13: TLabel;
     procedure BtnCerrarClick(Sender: TObject);
     procedure ImgBannerClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);

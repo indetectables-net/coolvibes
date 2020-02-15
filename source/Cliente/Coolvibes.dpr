@@ -16,7 +16,8 @@ uses
   UnitVariables in 'UnitVariables.pas',
   UnitFunciones in 'UnitFunciones.pas',
   UnitTransfer in 'UnitTransfer.pas',
-  UnitVisorDeMiniaturas in 'UnitVisorDeMiniaturas.pas' {FormVisorDeMiniaturas};
+  UnitVisorDeMiniaturas in 'UnitVisorDeMiniaturas.pas' {FormVisorDeMiniaturas},
+  UnitColumnasManager in 'UnitColumnasManager.pas' {FormColumnasManager};
 
 {$R *.res}
 
@@ -30,5 +31,6 @@ begin
   Application.CreateForm(TFormID, FormID);
   Application.CreateForm(TFormConfigServer, FormConfigServer);
   Application.CreateForm(TFormVisorDeMiniaturas, FormVisorDeMiniaturas);
+  Application.CreateForm(TFormColumnasManager, FormColumnasManager);
   Application.Run;
 end.

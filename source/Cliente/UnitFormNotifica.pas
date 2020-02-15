@@ -52,6 +52,7 @@ end;
 
 procedure TFormNotifica.ImageCloseClick(Sender: TObject);
 begin
+  FormMain.NotificandoOnline := false;
   Close;
 end;
 
@@ -83,7 +84,10 @@ begin
       sleep(5);
     end
     else
+    begin
+      FormMain.NotificandoOnline := false;
       Free;
+    end;
   end;
 end;
 

@@ -1,9 +1,9 @@
 object FormAbout: TFormAbout
-  Left = 447
-  Top = 178
+  Left = 201
+  Top = 142
   BorderStyle = bsToolWindow
   Caption = 'Acerca de Coolvibes <VersionCool>'
-  ClientHeight = 432
+  ClientHeight = 429
   ClientWidth = 534
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -3152,8 +3152,7 @@ object FormAbout: TFormAbout
       Left = 8
       Top = 240
       Width = 233
-      Height = 89
-      VertScrollBar.Position = 5
+      Height = 81
       BevelInner = bvLowered
       BevelKind = bkFlat
       BorderStyle = bsNone
@@ -3162,7 +3161,7 @@ object FormAbout: TFormAbout
       TabOrder = 1
       object Label7: TLabel
         Left = 7
-        Top = 23
+        Top = 28
         Width = 247
         Height = 13
         Caption = 'www.famfamfam.com (por los iconos)'
@@ -3175,7 +3174,7 @@ object FormAbout: TFormAbout
       end
       object Label8: TLabel
         Left = 7
-        Top = 3
+        Top = 8
         Width = 58
         Height = 13
         Caption = 'Cr'#233'ditos:'
@@ -3188,7 +3187,7 @@ object FormAbout: TFormAbout
       end
       object Label9: TLabel
         Left = 7
-        Top = 39
+        Top = 44
         Width = 329
         Height = 13
         Caption = 'tt (por el editor de configuraci'#243'n para el servidor)'
@@ -3201,10 +3200,23 @@ object FormAbout: TFormAbout
       end
       object Label11: TLabel
         Left = 7
-        Top = 55
+        Top = 60
         Width = 293
         Height = 13
         Caption = 'stm (por la ayuda en la Shell - Wack-a-Mole)'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = 204
+        Font.Height = -11
+        Font.Name = 'Verdana'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label13: TLabel
+        Left = 6
+        Top = 76
+        Width = 195
+        Height = 13
+        Caption = 'stm por la base del keylogger'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = 204
         Font.Height = -11

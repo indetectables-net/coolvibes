@@ -105,11 +105,20 @@ begin
   exit;
   end;
   StatusBar.Panels[3].Text := 'Recibiendo Thumbnail';
-  (FormControl as TFormControl).pedirJPG(2,'GETTHUMB|'+
-  ListviewColaThumbnails.Items[0].subitems[0]+
-  '|'+inttostr(ImageThumnail.Width)+
-  '|'+inttostr(ImageThumnail.Height)+
-  '|'+inttostr(TrackBarCalidad.Position)+'|');
+  if RadioAutomatico.Checked then
+  begin
+    (FormControl as TFormControl).pedirJPG(2,'GETTHUMB|'+
+    ListviewColaThumbnails.Items[0].subitems[0]+
+    '|'+inttostr(ImageThumnail.Width)+
+    '|'+inttostr(ImageThumnail.Height)+
+    '|'+inttostr(TrackBarCalidad.Position)+'|')
+  end
+  else
+    (FormControl as TFormControl).pedirJPG(2,'GETTHUMB|'+
+    ListviewColaThumbnails.Items[0].subitems[0]+
+    '|'+inttostr(6666666)+ //Para saber que se utiliza el tamaño relativo
+    '|'+inttostr(SpinTamanoRelativo.value)+
+    '|'+inttostr(TrackBarCalidad.Position)+'|');
 end;
 
 procedure TFormVisorDeMiniaturas.callback();

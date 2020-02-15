@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Buttons, StdCtrls,
   unitMain,
-  unitVariables;
+  unitVariables, ComCtrls;
 
 type
   TFormOpciones = class(TForm)
@@ -14,20 +14,24 @@ type
     EditPuerto:    TEdit;
     BtnGuardar:    TSpeedButton;
     CheckBoxPreguntarAlSalir: TCheckBox;
-    LabelPreguntarAlSalir: TLabel;
-    LabelNotificacionMsn: TLabel;
-    CheckBoxNotificacionMsn: TCheckBox;
     GrpBoxAlSalir: TGroupBox;
     CheckBoxCloseToTray: TCheckBox;
-    LabelCerrarAlTray: TLabel;
-    CheckBoxMinimizeToTray: TCheckBox;
-    LabelMinimizarAlTray: TLabel;
     GrpBoxServerDesconect: TGroupBox;
     CheckBoxNotiMsnDesc: TCheckBox;
-    LabelNotiMsnDesc: TLabel;
+    GroupBoxConexion: TGroupBox;
+    CheckBoxEscucharAlIniciar: TCheckBox;
+    LabelPreguntarAlSalir: TLabel;
+    CheckBoxMandarPingAuto: TCheckBox;
+    CheckBoxMinimizeToTray: TCheckBox;
+    CheckBoxNotificacionMsn: TCheckBox;
+    EditPingTimerInterval: TEdit;
+    Label1: TLabel;
+    CheckBoxAutoRefrescar: TCheckBox;
     procedure BtnGuardarClick(Sender: TObject);
     procedure CheckBoxPreguntarAlSalirClick(Sender: TObject);
     procedure CheckBoxCloseToTrayClick(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
 
   private
     { Private declarations }
@@ -39,6 +43,8 @@ var
   FormOpciones: TFormOpciones;
 
 implementation
+
+uses UnitColumnasManager, UnitFormControl;
 
 {$R *.dfm}
 
@@ -66,9 +72,11 @@ begin
     Application.OnMinimize := FormMain.MinimizeToTrayClick
   else
     Application.OnMinimize := nil;
-
-
+    
+  FormMain.TimerMandarPing.Interval := strtointdef(EditPingTimerInterval.Text, 30)*1000;
+  FormMain.TimerMandarPing.Enabled := CheckBoxMandarPingAuto.Checked;
   FormMain.StatusBar.Panels[1].Text := 'Puerto: ' + FormOpciones.EditPuerto.Text;
+  
   FormMain.GuardarArchivoINI();
   Close;
 end;
@@ -86,5 +94,15 @@ begin
 end;
 
 
+
+procedure TFormOpciones.SpeedButton1Click(Sender: TObject);
+begin
+FormColumnasManager.show;
+end;
+
+procedure TFormOpciones.FormCreate(Sender: TObject);
+begin
+  TFormControl.create(nil);   //Para cargar los iconos
+end;
 
 end.

@@ -50,7 +50,7 @@ begin
     try
       Jpg.LoadFromFile(filename);  //Sera un jpeg??
     except
-      error := true;   //pues no sai que...
+      error := true;   //pues no asi que...
       result := false;
       exit;            //...Adios!
     end;
@@ -59,6 +59,11 @@ begin
     Jpg.Free;
   end;
 
+  if(Width = 6666666) then  //tamaño relativo, en la variable height tenemos el procentaje
+  begin
+    Width := (Height*fbitmap.Width) div 100;
+    Height := (Height*fbitmap.Height) div 100;
+  end;
   nBitmap := TBitmap.Create;
   nBitmap.Width := round(fBitmap.Width*(width/fbitmap.Width));
   nBitmap.Height := round(fBitmap.Height*(height/fbitmap.Height));

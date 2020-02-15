@@ -1,6 +1,6 @@
 object FormNotifica: TFormNotifica
-  Left = 438
-  Top = 262
+  Left = 301
+  Top = 241
   BorderStyle = bsNone
   Caption = 'FormNotifica'
   ClientHeight = 105

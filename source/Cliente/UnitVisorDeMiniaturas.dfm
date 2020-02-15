@@ -1,6 +1,6 @@
 object FormVisorDeMiniaturas: TFormVisorDeMiniaturas
-  Left = 260
-  Top = 261
+  Left = 230
+  Top = 246
   Width = 368
   Height = 303
   Caption = 'Visor de miniaturas'
@@ -2078,7 +2078,7 @@ object FormVisorDeMiniaturas: TFormVisorDeMiniaturas
       end
       object LabelAviso: TLabel
         Left = 3
-        Top = 202
+        Top = 200
         Width = 322
         Height = 13
         Anchors = [akLeft, akBottom]

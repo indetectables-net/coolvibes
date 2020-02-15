@@ -38,7 +38,8 @@ var
 begin
   //Buscamos la conexión que pertenece a ese item
   AThread := TidPeerThread(FormMain.ListViewConexiones.Selected.SubItems.Objects[0]);
-  FormMain.ListViewConexiones.Selected.SubItems[0] := EditID.Text;
+  if(FormMain.buscaridcolumnapornombre(FormMain.columnas[1])<>-1) then
+  FormMain.ListViewConexiones.Selected.SubItems[FormMain.buscaridcolumnapornombre(FormMain.columnas[1])] := EditID.Text;
   Athread.Connection.Writeln('CAMBIOID' + EditID.Text);
   //Cambiar nombre al directorio de las descargas....???
   FormID.Close;
