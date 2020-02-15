@@ -1,6 +1,6 @@
 object FormMain: TFormMain
-  Left = 163
-  Top = 298
+  Left = 331
+  Top = 313
   Width = 523
   Height = 261
   Caption = 'Coolvibes [version]'
@@ -19,7 +19,7 @@ object FormMain: TFormMain
   OnShow = FormShow
   DesignSize = (
     515
-    234)
+    231)
   PixelsPerInch = 96
   TextHeight = 13
   object ImageTitulo: TImage
@@ -868,7 +868,7 @@ object FormMain: TFormMain
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 215
+    Top = 212
     Width = 515
     Height = 19
     Panels = <

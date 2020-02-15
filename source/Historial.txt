@@ -10,7 +10,22 @@ Modificación de: Nick
 
 |----------------------------|
 
-Fecha 8/04/2011
+Fecha 18/04/2011
+Versión: 0.5 Update 6
+Modificación de: Tk68
+[*] Corregido bug que hacia a las webcams salir duplicadas
+[*] Eliminado parpadeo en la captura de webcam
+[+] La captura de webcam se hará siempre a tamaño real
+[*] Corregido problemas de repintado en la captura de pantalla al cambiar la opción a 'Completa' o cambiar tamaño del formulario
+[*] La opción 'Completa' pasa a llamarse 'Tamaño Real' y el CheckBox se alinea correctamente para evitar que se vea en medio de la captura
+[+] La opción 'Auto-Refrescar Listados' pasa a llamarse 'Auto-Refrescar'
+[+] Si tenemos 'Auto-Refrescar' activado al entrar en Pantalla se realizará la captura de pantalla automáticamente
+[+] La captura de pantalla pasa a guardarse con extensión JPG en vez de JPEG
+[*] Mejorada estética del keylogger añadiendo un marco 
+
+|----------------------------|
+
+Fecha 08/04/2011
 Versión: 0.5 Update 5
 Modificación de: Anonimo
 [+] Agregado offline y online keylogger, creditos para stm por la base para el keylogger

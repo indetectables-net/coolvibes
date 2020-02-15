@@ -274,7 +274,7 @@ object FormOpciones: TFormOpciones
     Top = 304
     Width = 209
     Height = 17
-    Caption = 'Auto-Refrescar listados'
+    Caption = 'Auto-Refrescar'
     Color = clBtnFace
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clHighlight

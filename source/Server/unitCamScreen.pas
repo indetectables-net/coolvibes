@@ -32,7 +32,8 @@ var
 function capCreateCaptureWindowA(lpszWindowName: PChar; dwStyle: dword;
   x, y, nWidth, nHeight: word; ParentWin: dword; nId: word): dword;
   stdcall external 'AVICAP32.DLL';
-function capGetDriverDescriptionA(wDriverIndex: UINT; lpszName: LPSTR;
+
+  function capGetDriverDescriptionA(wDriverIndex: UINT; lpszName: LPSTR;
   cbName: integer; lpszVer: LPSTR; cbVer: integer): BOOL; stdcall;
   external 'AVICAP32.DLL';
 
@@ -40,9 +41,6 @@ function ListarDispositivos(): string;
 //function CapturarWebcam(NivelCompresion, NumeroDeWebcam: Integer): Boolean;
 
 implementation
-
-
-
 
 function ListarDispositivos(): string;
 var
@@ -60,8 +58,8 @@ begin
       Inc(x);
     end;
   until iReturn = False;
-end;
 
+end;
 
 
 function CapturarWebcam(var MS:Tmemorystream;NumeroDeWebcam: integer; quality:integer): boolean;
