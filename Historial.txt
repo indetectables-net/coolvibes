@@ -9,6 +9,14 @@ Modificación de: Nick
 [-] Cosas quitadas
 [*] Bug solucionados, arreglos
 
+Fecha 11/05/2011
+Versión: 1 Update 5
+Modificación de: Anonimo
+[*] Ahora es posible grabar audio mientras, por ejemplo, se recibe una captura de pantalla 
+[*] Arreglados algunos bugs
+
+|----------------------------|
+
 Fecha 06/05/2011
 Versión: 1 Update 4
 Modificación de: Anonimo

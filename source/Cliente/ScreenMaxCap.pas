@@ -8,7 +8,6 @@ uses
 
 type
   TScreenMax = class(TForm)
-    ImgCaptura: TImage;
     PopupMenu1: TPopupMenu;
     Capturar1: TMenuItem;
     Automtico1: TMenuItem;
@@ -40,6 +39,8 @@ type
     Siempreencima1: TMenuItem;
     ProgressBar: TProgressBar;
     vp: TMenuItem;
+    ScrollBox1: TScrollBox;
+    ImgCaptura: TImage;
     procedure FormCanResize(Sender: TObject; var NewWidth,
       NewHeight: Integer; var Resize: Boolean);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);

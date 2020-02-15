@@ -92,7 +92,7 @@ begin
         else
           Break; //si el cliente no esta activo entonces se cierra
       end;
-            sleep(300);
+            sleep(10);
       GetMessage(msg, 0, 0, 0);
       if (msg.message = WM_ACTIVATE) then
       begin

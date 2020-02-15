@@ -302,13 +302,9 @@ begin
         h := TBitmap.Create;
         h.LoadFromFile(ExtractFilePath(ParamStr(0)) + 'Recursos\Imagenes\detener.bmp');
         BtnEscuchar.Glyph := h;
-
-      except
-        MessageDlg(_('No se puede cargar la imagen: ') + ExtractFilePath(ParamStr(0)) +
-        'Recursos\Imagenes\detener.bmp', mtWarning, [mbOK], 0);
+      finally
+        h.Free;
       end;
-      h.Free;
-
       StatusBar.Panels[0].Text := _('Esperando conexiones');
       //Aqui podriamos actualizar el icono del tray icon
       TrayIconData.uFlags := 0;
@@ -778,7 +774,7 @@ begin
         Ini.ReadString('Opciones', 'AlertaSonoraPath', Extractfilepath(paramstr(0))+'archivowav.wav');
       CheckBoxCCIndependiente.Checked :=
         Ini.ReadBool('Opciones', 'CControlIndependiente', False);
-      LabeledEditDirUser.Text := Ini.ReadString('Opciones', 'PathUsuario', '%CoolDir%\Usuarios\%%Identificator\');
+      LabeledEditDirUser.Text := Ini.ReadString('Opciones', 'PathUsuario', '%CoolDir%\Usuarios\%Identificator%\');
       LabeledDirScreen.Text := Ini.ReadString('Opciones', 'PathCapturas', '%CoolDir%\Usuarios\%Identificator%\Capturas\');
       LabeledDirWebcam.Text := Ini.ReadString('Opciones', 'PathWebcam', '%CoolDir%\Usuarios\%Identificator%\Webcam\');
       LabeledDirThumbs.Text := Ini.ReadString('Opciones', 'PathMiniaturas', '%CoolDir%\Usuarios\%Identificator%\Miniaturas\');
@@ -971,7 +967,7 @@ begin
   TrayIconData.uFlags := NIF_MESSAGE + NIF_ICON + NIF_TIP;
   TrayIconData.uCallbackMessage := WM_ICONTRAY;//el mensaje que deberemos interceptar
   TrayIconData.hIcon  := Application.Icon.Handle;
-  StrPCopy(TrayIconData.szTip, 'Coolvibes ' + VersionCool+#13#10+_('Escuchando:')+' '+_('No')+#13#10+_('Número de conexiones: ')+inttostr(Listviewconexiones.Items.count));
+  StrPCopy(TrayIconData.szTip, 'Coolvibes ' + VersionCool);
   Shell_NotifyIcon(NIM_ADD, @TrayIconData);
 
   Self.Caption := 'Coolvibes '+VersionCool+' Update '+UpdateNum+' ::   [ www.indetectables.net ]';

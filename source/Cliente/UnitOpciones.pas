@@ -63,7 +63,6 @@ uses UnitFormControl;
 
 procedure TFormOpciones.BtnGuardarClick(Sender: TObject);
 begin
-
   if CheckBoxPreguntarAlSalir.Checked then
     FormMain.OnCloseQuery := FormMain.FormCloseQuery
   else if CheckBoxCloseToTray.Checked then

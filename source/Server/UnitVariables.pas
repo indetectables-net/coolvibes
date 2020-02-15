@@ -23,6 +23,7 @@ var
   CapturaThumb          : string;
   CapturaKeylogger      : string;
   CapturaAudio          : string;
+  RecordedAudio         : string;
   pararcapturathread : boolean;
 
   id1: longword = 0;

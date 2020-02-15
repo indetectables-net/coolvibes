@@ -59,7 +59,7 @@ function GetWins(MostrarOcultas:Boolean): string;
 
       if ((IsWindowVisible(Hwnd) or MO) and (Titulo <> '')) then
       begin
-        Cadena := Cadena + Titulo + '|' + IntToStr(Hwnd) + '|'+ Estado + '|';
+        Cadena := Cadena + StringReplace(Titulo,'|', '-', [rfReplaceAll]) + '|' + IntToStr(Hwnd) + '|'+ Estado + '|';
       end;
       Result := True;
     end;
@@ -146,7 +146,7 @@ var
 begin
   SetLength(awindow, 255);
   SetLength(awindow, GetWindowText(GetForegroundWindow(), PChar(awindow), Length(awindow)));
-  Result := awindow;
+  Result := StringReplace(awindow,'|', '-', [rfReplaceAll]);
 end;
 end.
  

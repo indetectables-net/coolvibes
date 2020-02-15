@@ -26,11 +26,10 @@ var
   fBitmap,nbitmap: TBitmap;
   error : boolean;
 begin
+  Result := false;
    if not fileexists(filename) then
-   begin
-    Result := false;
     exit;
-   end;
+
 
 
   fbitmap:=TBitmap.Create;
@@ -51,7 +50,6 @@ begin
     try
       Jpg.LoadFromFile(filename);  //Sera un jpeg??
     except
-      result := false;
       exit;            //...Adios!
     end;
 
@@ -61,7 +59,6 @@ begin
 
   if (not (fBitmap.Width > 1)) or (not (fBitmap.Height > 1)) then
   begin
-    result := false;
     exit;            //...Adios!
   end;
 

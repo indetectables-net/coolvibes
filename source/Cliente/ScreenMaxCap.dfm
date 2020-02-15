@@ -1955,18 +1955,6 @@ object ScreenMax: TScreenMax
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
-  object ImgCaptura: TImage
-    Left = 0
-    Top = 0
-    Width = 250
-    Height = 326
-    Align = alLeft
-    DragKind = dkDock
-    IncrementalDisplay = True
-    PopupMenu = PopupMenu1
-    Stretch = True
-    OnContextPopup = ImgCapturaContextPopup
-  end
   object ProgressBar: TProgressBar
     Left = 464
     Top = 0
@@ -1978,6 +1966,27 @@ object ScreenMax: TScreenMax
     Smooth = True
     ShowHint = False
     TabOrder = 0
+  end
+  object ScrollBox1: TScrollBox
+    Left = 0
+    Top = 0
+    Width = 464
+    Height = 326
+    Align = alClient
+    BorderStyle = bsNone
+    TabOrder = 1
+    object ImgCaptura: TImage
+      Left = 0
+      Top = 0
+      Width = 464
+      Height = 326
+      Align = alLeft
+      DragKind = dkDock
+      IncrementalDisplay = True
+      PopupMenu = PopupMenu1
+      Stretch = True
+      OnContextPopup = ImgCapturaContextPopup
+    end
   end
   object PopupMenu1: TPopupMenu
     object Capturar1: TMenuItem

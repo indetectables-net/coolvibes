@@ -138,9 +138,10 @@ begin
       Read := Read + currRead;
 
       tickNow := getTickCount;
-      if (tickNow - TickBefore >= 1000) then
+      if (tickNow - TickBefore >= 500) then
       begin
         Athread.Synchronize(UpdateVelocidad);
+        Athread.Synchronize(Update);
         tickBefore   := tickNow;
         UltimoBajado := Descargado;
       end;
@@ -148,14 +149,15 @@ begin
       BlockWrite(F, Buffer, currRead);
       currRead   := 0;
       Descargado := Read;
-      Athread.Synchronize(Update);
-
     end;
   finally
     if asignado then
     CloseFile(F);
-    Athread.Data := nil;
-    Athread.Connection.Disconnect;
+ {   Athread.Data := nil;
+    Athread.Connection.Disconnect;  }
+
+
+                
     seconds     := (gettickcount - tickBefore) / 1000;
     transfering := False;
     if Read <> SizeFile then
@@ -171,6 +173,8 @@ begin
       transfering := False;
     end;
     Athread.Synchronize(Update);
+    Athread.Connection.Disconnect;
+
     if @callback <> nil then
       callback(self,destino);
 
@@ -241,22 +245,27 @@ begin
       Read := Read + currRead;
 
       tickNow := getTickCount;
-      if (tickNow - TickBefore >= 1000) then
+      if (tickNow - TickBefore >= 500) then
       begin
         Athread.Synchronize(UpdateVelocidad);
+        Athread.Synchronize(Update);
         tickBefore   := tickNow;
         UltimoBajado := Descargado;
       end;
 
       BlockWrite(F, Buffer, currRead);
       Descargado := Read;
-      Athread.Synchronize(Update);
+
     end;
   finally
     if asignado then
     CloseFile(F);
-    Athread.Data := nil;
+   { Athread.Connection.DisconnectSocket;
     Athread.Connection.Disconnect;
+        Athread.Data := nil;     }
+
+
+
     seconds     := (gettickcount - tickBefore) / 1000;
     transfering := False;
     if Read <> SizeFile then
@@ -275,6 +284,7 @@ begin
     if @callback <> nil then
       callback(self, destino);
 
+    Athread.Connection.Disconnect;
   end;//end de finally
 end;
 
@@ -318,7 +328,7 @@ begin
       BlockRead(myFile, bytearray, 1024, Count);
       sent    := sent + AThread.Connection.Socket.Send(bytearray, Count);
       tickNow := getTickCount;
-      if (tickNow - TickBefore >= 1000) then
+      if (tickNow - TickBefore >= 500) then
       begin
         Athread.Synchronize(UpdateVelocidad);
         tickBefore   := tickNow;
@@ -369,7 +379,7 @@ end;
 
 procedure TDescargaHandler.UpdateVelocidad;
 begin
-  Item.SubItems[3] := ObtenerMejorUnidad(Descargado - UltimoBajado) + '/s' ;
+  Item.SubItems[3] := ObtenerMejorUnidad(2*(Descargado - UltimoBajado)) + '/s' ;
 end;
 
 end.

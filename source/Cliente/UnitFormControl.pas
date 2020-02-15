@@ -19,7 +19,8 @@ uses
   end;
 
   type TCachedIcon=record
-    Extension : String
+    Extension : String;
+    num       : integer;
   end;
   
 type
@@ -477,7 +478,7 @@ type
     Encontrados : integer; //Numero de encontrados
     ParaDeListar : boolean;
     Reversed     : boolean;
-    CachedIcons : array[0..1000] of TCachedIcon;
+    CachedIcons : array[0..1000000] of TCachedIcon;
     numcached : integer;
     PrimeraVezQueMeMuestro : boolean;
     CapSize : array[0..5] of integer; //Tamaño de la captura.. que estamos recibiendo
@@ -697,8 +698,6 @@ begin
     vImgList := SHGetFileInfo(nil,FILE_ATTRIBUTE_NORMAL,vFileInfo,SizeOf(vFileInfo),SHGFI_ICON or SHGFI_SMALLICON or SHGFI_SYSICONINDEX);
     SendMessage(listviewarchivos.Handle, LVM_SETIMAGELIST, LVSIL_SMALL , vImgList);
     SendMessage(listviewBuscar.Handle, LVM_SETIMAGELIST, LVSIL_SMALL , vImgList);
-    DestroyIcon(vFileInfo.hIcon);
-
   end;
 
     {Iconos grandes para thumbnails}
@@ -716,8 +715,10 @@ begin
     end;
 
     for o := 0 to listviewarchivos.items.count-1 do //Para agregar los nuevo iconos que necesitemos
-      SHGetFileInfo(PChar(UpperCase(ExtractFileExt(listviewarchivos.items[o].caption))),FILE_ATTRIBUTE_NORMAL,FileInfo,SizeOf(FileInfo),SHGFI_ICON  or SHGFI_SYSICONINDEX or SHGFI_USEFILEATTRIBUTES);
-    
+    begin
+      SHGetFileInfo(PChar(UpperCase(ExtractFileExt(listviewarchivos.items[o].caption))),FILE_ATTRIBUTE_NORMAL,fileinfo,SizeOf(FileInfo),SHGFI_ICON  or SHGFI_SYSICONINDEX or SHGFI_USEFILEATTRIBUTES);
+    end;
+
     TmpIconosGrandes := TImageList.Create(nil);  {Estos son de 32x32 y hay que redimensionarlos}
     vImgList := SHGetFileInfo('',FILE_ATTRIBUTE_NORMAL,FileInfo,SizeOf(FileInfo),SHGFI_ICON or SHGFI_LARGEICON or SHGFI_SYSICONINDEX or  SHGFI_USEFILEATTRIBUTES);
     DestroyIcon(FileInfo.hIcon);
@@ -1362,7 +1363,7 @@ begin
   if Copy(Recibido, 1, 6) = 'GORUTA' then
   begin
     Delete(Recibido, 1, Pos('|', Recibido));
-    EditPathArchivos.Text := copy(Recibido, 1, pos('|', Recibido) - 1);
+    EditPathArchivos.Text := trim(copy(Recibido, 1, pos('|', Recibido) - 1));
     BtnActualizarArchivos.Click;
   end;
 
@@ -1429,7 +1430,7 @@ begin
       for i:=0 to numcached do
       if CachedIcons[i].Extension = StrExt then
       begin
-        Result := i;
+        Result := CachedIcons[i].num;
         exit;
       end;
   end;
@@ -1440,7 +1441,8 @@ begin
                     SHGFI_ICON  or
                     SHGFI_SYSICONINDEX or SHGFI_USEFILEATTRIBUTES);
   Result := FileInfo.iIcon;
-  CachedIcons[Result].Extension := StrExt;
+  CachedIcons[numcached].num := Result;
+  CachedIcons[numcached].Extension := StrExt;
   numcached := numcached +1;
 end;
 
@@ -1758,9 +1760,9 @@ begin
     MessageDlg(_('Dale doble click a una carpeta o a un archivo!'), mtWarning, [mbOK], 0)
   else
   begin
-    Estado(_('Listando archivos...'));
     if ListViewArchivos.Selected.Caption = '<..>' then
     begin
+      Estado(_('Listando archivos...'));
       EditPathArchivos.Text :=
         Copy(EditPathArchivos.Text, 1, Length(EditPathArchivos.Text) - 1); //Borra el ultimo '\'
       EditPathArchivos.Text :=
@@ -1769,6 +1771,7 @@ begin
     end
     else if ListViewArchivos.Selected.ImageIndex = 3 then //doble-clickiò una carpeta
     begin
+      Estado(_('Listando archivos...'));
       ListViewArchivos.Selected.ImageIndex := 4;  //Icono de carpeta abierta
       EditPathArchivos.Text :=
         EditPathArchivos.Text + ListViewArchivos.Selected.Caption + '\';
@@ -1790,7 +1793,7 @@ var
 begin
   for i:= 0 to PopupFileManager.items.count-1 do
     PopupFileManager.items[i].visible := true;//todos visibles
-  PopupFileManager.items[15].visible := false; //Abrir directorio del archivo
+  Abrirdirectorio1.visible := false; //Abrir directorio del archivo
 
   if ListViewArchivos.Selected <> nil then //Algún item seleccionado
   begin
@@ -1798,30 +1801,30 @@ begin
       PopupFileManager.items[i].enabled := true;
     if (ListViewArchivos.Selected.ImageIndex = 3) then  //Es una carpeta
     begin
-      PopupFileManager.Items[0].Enabled := True;  //Descargar!
-      PopupFileManager.Items[1].Enabled := False;  //No Encolar Descarga
-      PopupFileManager.Items[4].Enabled := False;  //No ejecutar
-      PopupFileManager.Items[10].Enabled := False;  //No Previsualizar jpg
+      Descargarfichero1.Enabled := True;  //Descargar!
+      Agregaracoladedescarga1.Enabled := False;  //No Encolar Descarga
+      EjecutarAbrir1.Enabled := False;  //No ejecutar
+      Previsualizarjpg1.Enabled := False;  //No Previsualizar jpg
     end
     else  //Viceversa
     begin
-      PopupFileManager.Items[0].Enabled := True;
-      PopupFileManager.Items[1].Enabled := True;
-      PopupFileManager.Items[4].Enabled := True;
-      PopupFileManager.Items[10].Enabled := True;
+      Descargarfichero1.Enabled := True;
+      Agregaracoladedescarga1.Enabled := True;
+      EjecutarAbrir1.Enabled := True;
+      Previsualizarjpg1.Enabled := True;
     end;
-    PopupFileManager.Items[5].Enabled := True;  //Eliminar
-    PopupFileManager.Items[7].Enabled := True;  //Cambiar nombre
-    PopupFileManager.Items[8].Enabled := True;  //Nueva carpeta
+    Eliminar.Enabled := True;  //Eliminar
+    Cambiarnombre1.Enabled := True;  //Cambiar nombre
+    Crearnuevacarpeta1.Enabled := True;  //Nueva carpeta
     ext := ExtractFileExt(ListViewArchivos.Selected.Caption);
     if (lowercase(ext) = '.jpg') or (lowercase(ext) = '.jpeg') or (lowercase(ext) = '.bmp') then
     begin
-      PopupFileManager.Items[10].Enabled := True; //Previsualizar jpg avanzado
+      Previsualizarjpg1.Enabled := True; //Previsualizar jpg avanzado
     end;
 
     if listviewarchivos.Selected.subitems.Count >0 then //no disponible
     begin
-      PopupFileManager.Items[6].Enabled := True; //Atributos
+      CambiarAtributos1.Enabled := True; //Atributos
       if((pos('Oculto',listviewarchivos.Selected.subitems.Strings[2]) > 0)) then
         Oculto2.Checked := true
       else
@@ -1841,18 +1844,18 @@ begin
   end
   else  //Si no se ha seleccionado ningún item
   begin
-    PopupFileManager.Items[0].Enabled := False; //Deshabilitar Descargar
-    PopupFileManager.Items[1].Enabled := False; //Deshabilitar Encolar Descarga
+    Descargarfichero1.Enabled := False; //Deshabilitar Descargar
+    Agregaracoladedescarga1.Enabled := False; //Deshabilitar Encolar Descarga
     PopupFileManager.Items[3].Enabled := False; //Deshabilitar Ejecutar
-    PopupFileManager.Items[4].Enabled := False; //Deshabilitar Eliminar
-    PopupFileManager.Items[5].Enabled := False; //Deshabilitar Cambiar nombre
-    PopupFileManager.Items[6].Enabled := False; //Deshabilitar Cambiar atributos
-    PopupFileManager.Items[10].Enabled := False; //Previsualizar jpg avanzado
-    PopupFileManager.Items[11].Enabled := False; //Portapapeles
-    PopupFileManager.Items[7].Enabled := False; //Deshabilitar
+    EjecutarAbrir1.Enabled := False; //Deshabilitar Eliminar
+    Eliminar.Enabled := False; //Deshabilitar Cambiar nombre
+    CambiarAtributos1.Enabled := False; //Deshabilitar Cambiar atributos
+    Previsualizarjpg1.Enabled := False; //Previsualizar jpg avanzado
+    Portapapeles1.Enabled := False; //Portapapeles
+    Cambiarnombre1.Enabled := False; //Deshabilitar
     if EditPathArchivos.Text = '' then
       //Si no está en ningún Path deshabilitar crear carpeta
-      PopupFileManager.Items[8].Enabled := False;
+      Crearnuevacarpeta1.Enabled := False;
   end;
 
 end;
@@ -2392,7 +2395,7 @@ begin
   if FormVisorCaptura = nil then
     Servidor.Connection.Writeln('CAPSCREEN|' + IntToStr(TrackBarCalidad.Position)+'|'+inttostr(imgCaptura.Height)+'|')
   else
-    Servidor.Connection.Writeln('CAPSCREEN|' + IntToStr(TrackBarCalidad.Position)+'|'+inttostr((FormVisorCaptura as TScreenMax).imgCaptura.Height)+'|');
+    Servidor.Connection.Writeln('CAPSCREEN|' + IntToStr(TrackBarCalidad.Position)+'|'+inttostr((FormVisorCaptura as TScreenMax).imgcaptura.Height)+'|');
 end;
 
 
@@ -2569,7 +2572,7 @@ else
 while Assigned(mslistviewitem) do
 begin
   if PageControlArchivos.ActivePage = TabSheetVerArchivos then
-    FilePath := Trim(EditPathArchivos.Text) + Trim(mslistviewitem.Caption)
+    FilePath := Trim(EditPathArchivos.Text) + mslistviewitem.Caption
   else
     FilePath := Trim(mslistviewitem.subitems[0]);
 
@@ -2646,7 +2649,7 @@ var
   tmpstr, tempstr1, tempstr2, tempstr3 : string;
   Item  : Tlistitem;
   p : pointer;
-  Bufferr: array[0..1023] of byte;
+  Bufferr: array[0..4095{4kb}] of byte;
 begin
   Buffer := Trim(Athread.Connection.ReadLn);
 
@@ -2711,7 +2714,7 @@ begin
     Delete(Buffer, 1, Pos('|', Buffer));
     
     {0=CapScreen}
-    CapSize[0] := StrToInt(Trim(Buffer));
+    CapSize[0] := StrToInt(Trim(Buffer)); //El tamaño de la captura
     MSC[0] := TMemoryStream.Create;
     MSC[0].Position := 0;
     ProgressBarScreen.Position := 0; //La ponemos a 0
@@ -2743,7 +2746,10 @@ begin
 
       if FormVisorCaptura <> nil then
       begin
+        try
         (FormVisorCaptura as TScreenMax).ImgCaptura.width := JPG.Width;
+        except
+        end;
         (FormVisorCaptura as TScreenMax).ImgCaptura.Picture.Assign(JPG)
       end
       else
@@ -2826,7 +2832,6 @@ begin
   else if Copy(PChar(Buffer), 1, 14) = 'THUMBNAILERROR' then
   begin
     (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).ProgressBarThumbnail.position := 0;
-    MSC[2].Free;
     (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).statusbar.panels[3].text := 'ERROR';
     (FormVisorDeMiniaturas as TFormVisorDeMiniaturas).callback();
   end
@@ -3458,7 +3463,7 @@ begin
       if mslistviewitem.Data <> nil then
       begin
         Descarga := TDescargaHandler(mslistviewitem.Data);
-        if Descarga.cancelado then
+        if not Descarga.Transfering then
           Servidor.Connection.Writeln('RESUMETRANSFER|' + Descarga.Origen +
           '|' + IntToStr(Descarga.Descargado));
       end;
@@ -3485,10 +3490,15 @@ begin
    while Assigned(mslistviewitem) do
    begin
       if PageControlArchivos.ActivePage = TabSheetVerArchivos then
-        FilePath := EditPathArchivos.Text + mslistviewitem.Caption
+      begin
+        FilePath := EditPathArchivos.Text + mslistviewitem.Caption;
+        Size     := StrToInt(mslistviewitem.SubItems.Strings[4]);
+      end
       else
+      begin
         FilePath := mslistviewitem.subitems[0];
-      Size     := StrToInt(mslistviewitem.SubItems.Strings[4]);
+        Size     := StrToInt(mslistviewitem.SubItems.Strings[5]);
+      end;
       Descarga := TDescargaHandler.Create(nil, FilePath, Size,
       DirDescargas+ExtractFileName(FilePath), ListViewDescargas, True);
       Descarga.callback := Self.TransferFinishedNotification;
@@ -4445,38 +4455,38 @@ var
 begin
   for i:= 0 to PopupFileManager.items.count-1 do
   begin
-    PopupFileManager.items[i].visible := false;//Los escondemos
+    PopupFileManager.items[i].visible := false;//Los escondemos todos
     PopupFileManager.items[i].enabled := false;
   end;
 
   if listviewbuscar.selected <> nil then
   begin
-    PopupFileManager.items[0].enabled := true; //descargar
-    PopupFileManager.items[1].enabled := true; //encolar decarga
-    PopupFileManager.items[4].enabled := true; //Abrir/ejecutar
-    PopupFileManager.items[5].enabled := true; //Eliminar
-    PopupFileManager.items[10].enabled := true;//Visor de imagenes avanzado
-    PopupFileManager.items[14].enabled := true;//abrir directorio descargas
-    PopupFileManager.items[15].enabled := true;//Abrir directorio del archivo
+    Descargarfichero1.enabled := true; //descargar
+    Agregaracoladedescarga1.enabled := true; //encolar decarga
+    EjecutarAbrir1.enabled := true; //Abrir/ejecutar
+    Eliminar.enabled := true; //Eliminar
+    Previsualizarjpg1.enabled := true;//Visor de imagenes avanzado
+    AbrirCarpetaDescargas2.enabled := true;//abrir directorio descargas
+    Abrirdirectorio1.enabled := true;//Abrir directorio del archivo
   end
   else
   begin
-    PopupFileManager.items[0].enabled := false; //descargar
-    PopupFileManager.items[1].enabled := false; //encolar decarga
-    PopupFileManager.items[4].enabled := false; //Abrir/ejecutar
-    PopupFileManager.items[5].enabled := false; //Eliminar
-    PopupFileManager.items[10].enabled := false;//Visor de imagenes avanzado
-    PopupFileManager.items[14].enabled := true;//abrir directorio descargas
-    PopupFileManager.items[15].enabled := false;//Abrir directorio del archivo
+    Descargarfichero1.enabled := false; //descargar
+    Agregaracoladedescarga1.enabled := false; //encolar decarga
+    EjecutarAbrir1.enabled := false; //Abrir/ejecutar
+    Eliminar.enabled := false; //Eliminar
+    Previsualizarjpg1.enabled := false;//Visor de imagenes avanzado
+    AbrirCarpetaDescargas2.enabled := true;//abrir directorio descargas
+    Abrirdirectorio1.enabled := false;//Abrir directorio del archivo
   end;
 
-  PopupFileManager.items[0].visible := true; //descargar
-  PopupFileManager.items[1].visible := true; //encolar decarga
-  PopupFileManager.items[4].visible := true; //Abrir/ejecutar
-  PopupFileManager.items[5].visible := true; //Eliminar
-  PopupFileManager.items[10].visible := true;//Visor de imagenes avanzado
-  PopupFileManager.items[14].visible := true;//abrir directorio descargas
-  PopupFileManager.items[15].visible := true;//Abrir directorio del archivo
+  Descargarfichero1.visible := true; //descargar
+  Agregaracoladedescarga1.visible := true; //encolar decarga
+  EjecutarAbrir1.visible := true; //Abrir/ejecutar
+  Eliminar.visible := true; //Eliminar
+  Previsualizarjpg1.visible := true;//Visor de imagenes avanzado
+  AbrirCarpetaDescargas2.visible := true;//abrir directorio descargas
+  Abrirdirectorio1.visible := true;//Abrir directorio del archivo
 
 end;
 
@@ -4871,7 +4881,10 @@ begin
   if not((item.index >= encontrados) or (item.index < 0)) then
   begin
     Item.Caption := extractfilename(SearchItems[index].nombre);
+    try
     item.ImageIndex := Iconnum(item.caption, true);
+    except
+    end;
     Item.SubItems.Add(SearchItems[index].nombre);
     Item.SubItems.Add(SearchItems[index].tamanio);
     Item.SubItems.Add(SearchItems[index].tipo);

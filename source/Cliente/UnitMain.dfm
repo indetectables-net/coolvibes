@@ -1,8 +1,8 @@
 object FormMain: TFormMain
-  Left = 219
-  Top = 302
-  Width = 517
-  Height = 291
+  Left = 203
+  Top = 294
+  Width = 510
+  Height = 274
   Caption = 'Coolvibes [version]'
   Color = clBtnFace
   Constraints.MinHeight = 146
@@ -19,15 +19,15 @@ object FormMain: TFormMain
   OnCreate = FormCreate
   OnShow = FormShow
   DesignSize = (
-    509
-    264)
+    502
+    247)
   PixelsPerInch = 96
   TextHeight = 13
   object ImageTitulo: TImage
     Left = -6
     Top = -6
-    Width = 247
-    Height = 63
+    Width = 250
+    Height = 65
     Hint = 'Coolvibes'
     ParentShowHint = False
     Picture.Data = {
@@ -640,7 +640,7 @@ object FormMain: TFormMain
     Transparent = True
   end
   object BtnEscuchar: TSpeedButton
-    Left = 398
+    Left = 391
     Top = 31
     Width = 101
     Height = 22
@@ -682,7 +682,7 @@ object FormMain: TFormMain
     OnClick = BtnEscucharClick
   end
   object BtnOpciones: TSpeedButton
-    Left = 255
+    Left = 248
     Top = 7
     Width = 116
     Height = 22
@@ -720,7 +720,7 @@ object FormMain: TFormMain
     OnClick = BtnOpcionesClick
   end
   object BtnAbout: TSpeedButton
-    Left = 399
+    Left = 392
     Top = 8
     Width = 102
     Height = 17
@@ -773,7 +773,7 @@ object FormMain: TFormMain
     OnClick = BtnAboutClick
   end
   object BtnConfigServer: TSpeedButton
-    Left = 255
+    Left = 248
     Top = 32
     Width = 116
     Height = 21
@@ -819,8 +819,8 @@ object FormMain: TFormMain
   object ListViewConexiones: TListView
     Left = 0
     Top = 56
-    Width = 509
-    Height = 182
+    Width = 502
+    Height = 165
     Anchors = [akLeft, akTop, akRight, akBottom]
     BevelInner = bvNone
     BevelOuter = bvRaised
@@ -891,8 +891,8 @@ object FormMain: TFormMain
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 245
-    Width = 509
+    Top = 228
+    Width = 502
     Height = 19
     Panels = <
       item
@@ -978,7 +978,7 @@ object FormMain: TFormMain
     Left = 40
     Top = 184
     Bitmap = {
-      494C010101010301040010001000FFFFFFFFFF00FFFFFFFFFFFFFFFF424D3600
+      494C010101010301040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001004000001002000000000000010
       0400000000000000000000000000000000000000000000000000000000000000
       000000000000328AC5EC3087C4F62F85C3F62D83C2F62B81C1F6297FC0F6287D
@@ -9562,7 +9562,8 @@ object FormMain: TFormMain
       E000E1FFFFFFC3C30000F07FFFFF81810000F83F000080010000F80F0000C003
       000000070000E007000000010000F00F000000010000F00F0000803F0000E007
       0000801F0000C0030000C00F000080010000C00FFFFF8180F800E007FFFFC3C1
-      FC00E003FFFFE7E3FF00FFFFFFFFFFF7}
+      FC00E003FFFFE7E3FF00FFFFFFFFFFF700000000000000000000000000000000
+      000000000000}
   end
   object ServerSocket: TIdTCPServer
     Bindings = <>

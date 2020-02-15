@@ -114,9 +114,6 @@ begin
   IconPath := '';
   MemoOutput.Clear;
   MemoOutput.Lines.Append(_('> Listo.'));
-  //Icono por defecto
-  if FileExists(ExtractFilePath(ParamStr(0)) + 'Recursos\Imagenes\ExeBMP.bmp') then
-    ImageIcon.Picture.LoadFromFile(ExtractFilePath(ParamStr(0)) + 'Recursos\Imagenes\ExeBMP.bmp');
   CheckBoxCopiarClick(Sender);  //Para que desactive o active los campos
   CheckBoxRunClick(Sender);//Para que desactive o active los campos
   CheckBoxInyectarClick(Sender);//Para que desactive o active los campos
