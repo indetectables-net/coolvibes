@@ -7,6 +7,7 @@ uses Windows, SysUtils, Dialogs, ComCtrls, IdTCPServer, UnitFunciones, gnugettex
 type
   TCallbackProcedure = procedure(Sender: TObject; FileName: string) of object;
 
+  
 type
   TDescargaHandler = class(TObject)
   public
@@ -38,6 +39,8 @@ type
 
   end;
 
+
+  
 implementation
 
 constructor TDescargaHandler.Create(PThread: TIdPeerThread; fname: AnsiString;
@@ -74,7 +77,7 @@ begin
   Item.SubItems.Add('0 Kb');
   Item.SubItems.Add('');
   Item.SubItems.Add(_('En espera'));
-
+  Item.SubItems.Add('3');
   if es_descarga then
     Item.ImageIndex := 38
   else
@@ -114,7 +117,7 @@ begin
   asignado := not error;
   read := 0;
   currRead := 0;
-  tickBefore := GetTickCount;
+  tickBefore := GetTickCount-10000;
   tickNow := GetTickCount;
   UltimoBajado := 0;
   buffSize := SizeOf(Buffer);
@@ -192,7 +195,7 @@ begin
   transfering := True;
   cancelado := False;
   status := _('Descargando');
-  tickBefore := GetTickCount;
+
   if (mygetfilesize(destino) = sizefile) then
     begin
       error := True;
@@ -205,7 +208,7 @@ begin
         asignado := True;
         AssignFile(F, Destino);
         reset(F, 1);
-        seek(f, Descargado);
+        seek(F, Descargado);
       end
     else
       begin
@@ -217,7 +220,7 @@ begin
   read := Descargado;
   currRead := 0;
 
-  tickBefore := GetTickCount;
+  tickBefore := GetTickCount-10000;
   tickNow := GetTickCount;
   UltimoBajado := 0;
   buffSize := SizeOf(Buffer);
@@ -316,7 +319,7 @@ begin
       Exit;
     end;
     sent := 0;
-    tickBefore := GetTickCount;
+    tickBefore := GetTickCount-10000;
     UltimoBajado := 0;
     while not EOF(MyFile) and AThread.Connection.Connected and not cancelado do
       begin
@@ -328,11 +331,11 @@ begin
             Athread.Synchronize(UpdateVelocidad);
             tickBefore := tickNow;
             UltimoBajado := Descargado;
+            Athread.Synchronize(Update);
           end;
         //aunque originalmente indicaba cuando se habia descargado tambien
         //nos servira para llevar la cuenta de cuanto hemos subido
         Descargado := sent;
-        Athread.Synchronize(Update);
       end;
   finally
     if asignado then
@@ -364,7 +367,6 @@ end;
 
 procedure TDescargaHandler.Update;
 begin
-  // ProgressBar.Position := self.Descargado;
   if (SizeFile <> 0) then
     item.SubItems[0] := IntToStr(Descargado * 100 div SizeFile) + '%';
   if Item.SubItems[4] <> Status then

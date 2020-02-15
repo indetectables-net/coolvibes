@@ -226,10 +226,10 @@ begin
           Cadena := Val;
           i := 0;
           SetLength(binary, Length(Cadena) div 3);
-          while Cadena <> '' do //Recorremos la cadena rellenando el array de bytes
+          while (Cadena <> '') do //Recorremos la cadena rellenando el array de bytes
             begin
               binary[i] := HexToInt(Copy(Cadena, 0, Pos(' ', Cadena) - 1));
-              Delete(Cadena, 1, Pos(' ', Cadena) + 1);
+              Delete(Cadena, 1, Pos(' ', Cadena));
               Inc(i);
             end;
           Result := (RegSetValueEx(phkResult, PChar(Valor), 0, REG_BINARY,
@@ -237,7 +237,7 @@ begin
         end;
       if Tipo = 'REG_DWORD' then
         begin
-          i := StrToInt(Val);
+          i := StrToIntDef(Val,0);
           Result := (RegSetValueEx(phkResult, PChar(Valor), 0, REG_DWORD, @i, SizeOf(i)) =
             ERROR_SUCCESS);
         end;

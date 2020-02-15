@@ -9,6 +9,21 @@ Modificación de: Nick
 [-] Cosas quitadas
 [*] Bug solucionados, arreglos
 
+Fecha 29/05/2011
+Versión: 1 Update 12
+Modificación de: Anonimo
+[*] Arreglados algunos bugs
+[*] Ahora se puede elegir si guardar o no los plugins a el disco duro del remoto
+[*] Cambiado el aspecto de algunos menús
+[+] Añadida la opción de editar valores del registro
+[+] Añadida posibilidad de cortar carpetas y archivos
+[+] Agregado treeview opcional al visor de archivos
+[*] Ahora también se pueden copiar carpetas
+[*] Mejorado el visor de thumbnails
+[*] Nuevo sistema de prioridad en la cola de descargas
+
+|----------------------------|
+
 Fecha 21/05/2011
 Versión: 1 Update 11
 Modificación de: Anonimo

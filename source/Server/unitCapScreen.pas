@@ -10,7 +10,6 @@ uses
   Graphics,
   Jpeg,
   Classes,
-  lomlib,
   UnitVariables,
   UnitFunciones;
 

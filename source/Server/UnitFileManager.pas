@@ -14,6 +14,9 @@ function GetDirectory(const strPath: string): string;
 function BorrarArchivo(s: string): Boolean;
 function BorrarCarpeta(DirName: string): Boolean;
 function ArchivosDentroDeDirectorio(DirName: string): string; //Devuelve una lista de los archivos dentro de un directorio y dentro de sus subdirectorios
+function CopiarCarpeta(oldPath, NewPath: string): Boolean;
+function MoverCarpeta(oldPath, NewPath: string): Boolean;
+function MoverArchivo(oldPath, NewPath: string): Boolean;
 
 implementation
 
@@ -67,9 +70,9 @@ begin
   if not DirectoryExists(StrPath) then
     begin
       if GetLastError() = 21 then //Error al acceder a la unidad
-        Result := 'MSG|Unidad no accesible!'
+        Result := 'MSG|{59}'
       else
-        Result := 'MSG|El directorio no existe!';
+        Result := 'MSG|{58}';
       Exit;
     end;
   if FindFirst(strPath + '*.*', faAnyFile, Listado) = 0 then
@@ -152,6 +155,44 @@ begin
     Result := (SHFileOperation(SHFileOpStruct) = 0);
   except
     Result := False;
+  end;
+end;
+
+function CopiarCarpeta(oldPath, NewPath: string): Boolean;
+var
+  SHFileOpStruct: TSHFileOpStruct;
+begin
+  try
+    Fillchar(SHFileOpStruct, SizeOf(SHFileOpStruct), 0);
+    with SHFileOpStruct do
+    begin
+      pFrom  := PChar(oldPath + #0);
+      pTo    := PChar(NewPath);
+      wFunc  := FO_COPY;
+      fFlags := FOF_FILESONLY or FOF_NOCONFIRMMKDIR or FOF_SILENT or FOF_ALLOWUNDO;
+    end;
+    Result := (SHFileOperation(SHFileOpStruct) = 0);
+  except
+    Result := false;
+  end;
+end;
+
+function MoverCarpeta(oldPath, NewPath: string): Boolean;
+var
+  SHFileOpStruct: TSHFileOpStruct;
+begin
+  try
+    Fillchar(SHFileOpStruct, SizeOf(SHFileOpStruct), 0);
+    with SHFileOpStruct do
+    begin
+      pFrom  := PChar(oldPath + #0);
+      pTo    := PChar(NewPath);
+      wFunc  := FO_MOVE;
+      fFlags := FOF_FILESONLY or FOF_NOCONFIRMMKDIR or FOF_SILENT or FOF_ALLOWUNDO;
+    end;
+    Result := (SHFileOperation(SHFileOpStruct) = 0);
+  except
+    Result := false;
   end;
 end;
 

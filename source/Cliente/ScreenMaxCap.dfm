@@ -1,6 +1,6 @@
 object ScreenMax: TScreenMax
-  Left = 289
-  Top = 272
+  Left = 195
+  Top = 278
   Width = 328
   Height = 243
   AlphaBlend = True
@@ -8,6 +8,8 @@ object ScreenMax: TScreenMax
   Color = clBtnFace
   TransparentColor = True
   TransparentColorValue = clBtnFace
+  Constraints.MinHeight = 100
+  Constraints.MinWidth = 100
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -2104,6 +2106,13 @@ object ScreenMax: TScreenMax
       Caption = 'Ventana proporcional'
       Checked = True
       OnClick = vpClick
+    end
+    object N2: TMenuItem
+      Caption = '-'
+    end
+    object N0kb1: TMenuItem
+      Caption = '0kb'
+      Enabled = False
     end
   end
 end

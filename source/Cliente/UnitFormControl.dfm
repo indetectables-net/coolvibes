@@ -1,8 +1,8 @@
 object FormControl: TFormControl
-  Left = 216
-  Top = 137
-  Width = 503
-  Height = 481
+  Left = 238
+  Top = 149
+  Width = 578
+  Height = 467
   Anchors = [akLeft, akTop, akRight, akBottom]
   Caption = 'Centro de control'
   Color = clBtnFace
@@ -61,9 +61,9 @@ object FormControl: TFormControl
   object PageControl: TPageControl
     Left = 0
     Top = 0
-    Width = 495
-    Height = 434
-    ActivePage = TabVigilancia
+    Width = 570
+    Height = 420
+    ActivePage = TabManagers
     Align = alClient
     BiDiMode = bdRightToLeftNoAlign
     DockSite = True
@@ -76,9 +76,9 @@ object FormControl: TFormControl
       object PageControlInformacion: TPageControl
         Left = 0
         Top = 0
-        Width = 487
-        Height = 405
-        ActivePage = TabSheetServidor
+        Width = 562
+        Height = 391
+        ActivePage = TabSheetInfoSistema
         Align = alClient
         Images = IconsArchivos
         TabOrder = 0
@@ -88,11 +88,11 @@ object FormControl: TFormControl
           ImageIndex = 34
           OnShow = TabSheetServidorShow
           DesignSize = (
-            479
-            378)
+            554
+            364)
           object BtnEnviarComandoServidor: TSpeedButton
             Left = 215
-            Top = 318
+            Top = 320
             Width = 72
             Height = 22
             Cursor = crHandPoint
@@ -143,8 +143,8 @@ object FormControl: TFormControl
             OnClick = BtnEnviarComandoServidorClick
           end
           object BtnActualizarServidorInfo: TSpeedButton
-            Left = 397
-            Top = 318
+            Left = 472
+            Top = 320
             Width = 72
             Height = 22
             Cursor = crHandPoint
@@ -183,8 +183,8 @@ object FormControl: TFormControl
           object ListViewServidor: TListView
             Left = 8
             Top = 8
-            Width = 460
-            Height = 302
+            Width = 535
+            Height = 303
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -232,7 +232,7 @@ object FormControl: TFormControl
           end
           object ComboBoxGestionDeServidor: TComboBox
             Left = 8
-            Top = 319
+            Top = 321
             Width = 203
             Height = 21
             BevelInner = bvNone
@@ -253,11 +253,11 @@ object FormControl: TFormControl
           ImageIndex = 45
           OnShow = TabSheetInfoSistemaShow
           DesignSize = (
-            479
-            378)
+            554
+            364)
           object BtnRefrescarInformacion: TSpeedButton
-            Left = 397
-            Top = 318
+            Left = 472
+            Top = 320
             Width = 72
             Height = 22
             Cursor = crHandPoint
@@ -304,8 +304,8 @@ object FormControl: TFormControl
           object ListViewInformacion: TListView
             Left = 8
             Top = 8
-            Width = 460
-            Height = 302
+            Width = 535
+            Height = 303
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -351,8 +351,8 @@ object FormControl: TFormControl
       object PageControlArchivos: TPageControl
         Left = 0
         Top = 0
-        Width = 487
-        Height = 405
+        Width = 562
+        Height = 391
         ActivePage = TabSheetVerArchivos
         Align = alClient
         Images = IconsArchivos
@@ -364,10 +364,10 @@ object FormControl: TFormControl
           ImageIndex = 18
           OnShow = TabSheetVerArchivosShow
           DesignSize = (
-            479
-            378)
+            554
+            364)
           object BtnVerUnidades: TSpeedButton
-            Left = 383
+            Left = 458
             Top = 8
             Width = 96
             Height = 22
@@ -420,7 +420,7 @@ object FormControl: TFormControl
             Caption = 'Path'
           end
           object BtnActualizarArchivos: TSpeedButton
-            Left = 383
+            Left = 458
             Top = 34
             Width = 96
             Height = 21
@@ -467,7 +467,7 @@ object FormControl: TFormControl
           end
           object LabelNumeroDeCarpetas: TLabel
             Left = 8
-            Top = 323
+            Top = 333
             Width = 45
             Height = 13
             Anchors = [akLeft, akBottom]
@@ -475,15 +475,15 @@ object FormControl: TFormControl
           end
           object LabelNumeroDeArchivos: TLabel
             Left = 111
-            Top = 323
+            Top = 333
             Width = 44
             Height = 13
             Anchors = [akLeft, akBottom]
             Caption = 'Archivos:'
           end
           object SpeedButtonRutasRapidas: TSpeedButton
-            Left = 369
-            Top = 315
+            Left = 444
+            Top = 325
             Width = 105
             Height = 21
             Cursor = crHandPoint
@@ -520,8 +520,8 @@ object FormControl: TFormControl
             OnClick = SpeedButtonRutasRapidasClick
           end
           object SpeedButton2: TSpeedButton
-            Left = 263
-            Top = 315
+            Left = 338
+            Top = 325
             Width = 97
             Height = 21
             Anchors = [akRight, akBottom]
@@ -567,7 +567,7 @@ object FormControl: TFormControl
           object cmbUnidades: TComboBox
             Left = 34
             Top = 8
-            Width = 332
+            Width = 407
             Height = 22
             BevelInner = bvNone
             BevelKind = bkFlat
@@ -585,7 +585,7 @@ object FormControl: TFormControl
           object EditPathArchivos: TEdit
             Left = 34
             Top = 35
-            Width = 333
+            Width = 408
             Height = 20
             Anchors = [akLeft, akTop, akRight]
             BevelInner = bvNone
@@ -598,52 +598,86 @@ object FormControl: TFormControl
             TabOrder = 1
             OnKeyPress = EditPathArchivosKeyPress
           end
-          object ListViewArchivos: TListView
+          object PanelArchivos: TPanel
             Left = 0
             Top = 64
-            Width = 476
-            Height = 246
+            Width = 553
+            Height = 255
             Anchors = [akLeft, akTop, akRight, akBottom]
-            BevelInner = bvNone
-            BevelOuter = bvRaised
-            BevelKind = bkFlat
-            BorderStyle = bsNone
-            Columns = <
-              item
-                AutoSize = True
-                Caption = 'Nombre'
-              end
-              item
-                Alignment = taRightJustify
-                Caption = 'Tama'#241'o'
-                Width = 60
-              end
-              item
-                Caption = 'Tipo'
-                Width = 110
-              end
-              item
-                Caption = 'Atributos'
-              end
-              item
-                Caption = 'Fecha de modificaci'#243'n'
-                Width = 130
-              end>
-            FlatScrollBars = True
-            FullDrag = True
-            GridLines = True
-            HideSelection = False
-            MultiSelect = True
-            RowSelect = True
-            PopupMenu = PopupFileManager
+            BevelOuter = bvNone
             TabOrder = 2
-            ViewStyle = vsReport
-            OnColumnClick = ListViewProcesosColumnClick
-            OnCompare = ListViewArchivosCompare
-            OnContextPopup = ListViewArchivosContextPopup
-            OnCustomDrawItem = ListViewArchivosCustomDrawItem
-            OnDblClick = ListViewArchivosDblClick
-            OnEdited = ListViewArchivosEdited
+            object SplitterArchivos: TSplitter
+              Left = 117
+              Top = 0
+              Height = 255
+            end
+            object ListViewArchivos: TListView
+              Left = 120
+              Top = 0
+              Width = 433
+              Height = 255
+              Align = alClient
+              BevelInner = bvNone
+              BevelOuter = bvRaised
+              BevelKind = bkFlat
+              BorderStyle = bsNone
+              Columns = <
+                item
+                  AutoSize = True
+                  Caption = 'Nombre'
+                end
+                item
+                  Alignment = taRightJustify
+                  Caption = 'Tama'#241'o'
+                  Width = 60
+                end
+                item
+                  Caption = 'Tipo'
+                  Width = 110
+                end
+                item
+                  Caption = 'Atributos'
+                end
+                item
+                  Caption = 'Fecha de modificaci'#243'n'
+                  Width = 130
+                end>
+              FlatScrollBars = True
+              FullDrag = True
+              GridLines = True
+              HideSelection = False
+              MultiSelect = True
+              RowSelect = True
+              PopupMenu = PopupFileManager
+              TabOrder = 0
+              ViewStyle = vsReport
+              OnColumnClick = ListViewProcesosColumnClick
+              OnCompare = ListViewArchivosCompare
+              OnContextPopup = ListViewArchivosContextPopup
+              OnCustomDrawItem = ListViewArchivosCustomDrawItem
+              OnDblClick = ListViewArchivosDblClick
+              OnEdited = ListViewArchivosEdited
+              OnKeyPress = ListViewArchivosKeyPress
+            end
+            object TreeViewArchivos: TTreeView
+              Left = 0
+              Top = 0
+              Width = 117
+              Height = 255
+              Align = alLeft
+              BevelInner = bvNone
+              BevelOuter = bvRaised
+              BevelKind = bkFlat
+              BorderStyle = bsNone
+              HideSelection = False
+              Indent = 19
+              ReadOnly = True
+              RightClickSelect = True
+              RowSelect = True
+              ShowRoot = False
+              TabOrder = 1
+              OnDblClick = TreeViewArchivosClick
+            end
           end
         end
         object TabSheetTransferencias: TTabSheet
@@ -651,8 +685,8 @@ object FormControl: TFormControl
           ImageIndex = 35
           OnShow = TabSheetTransferenciasShow
           DesignSize = (
-            479
-            378)
+            554
+            364)
           object LabelTransferencias: TLabel
             Left = 16
             Top = 8
@@ -669,8 +703,8 @@ object FormControl: TFormControl
           object ListViewDescargas: TListView
             Left = 5
             Top = 24
-            Width = 469
-            Height = 310
+            Width = 544
+            Height = 319
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -700,6 +734,9 @@ object FormControl: TFormControl
               item
                 Caption = 'Status'
                 Width = 60
+              end
+              item
+                Caption = 'Prioridad'
               end>
             FlatScrollBars = True
             FullDrag = True
@@ -721,10 +758,10 @@ object FormControl: TFormControl
           ImageIndex = 96
           OnShow = TabSheetBuscarShow
           DesignSize = (
-            479
-            378)
+            554
+            364)
           object SpeedButtonBuscar: TSpeedButton
-            Left = 395
+            Left = 470
             Top = 8
             Width = 81
             Height = 21
@@ -736,15 +773,15 @@ object FormControl: TFormControl
           end
           object LabelNumeroEncontrados: TLabel
             Left = 8
-            Top = 326
+            Top = 328
             Width = 66
             Height = 13
             Anchors = [akLeft, akBottom]
             Caption = 'Encontrados: '
           end
           object SpeedButton1: TSpeedButton
-            Left = 391
-            Top = 324
+            Left = 466
+            Top = 326
             Width = 81
             Height = 22
             Cursor = crHandPoint
@@ -756,8 +793,8 @@ object FormControl: TFormControl
           object ListViewBuscar: TListView
             Left = 0
             Top = 32
-            Width = 476
-            Height = 286
+            Width = 551
+            Height = 287
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -805,7 +842,7 @@ object FormControl: TFormControl
           object EditBuscar: TEdit
             Left = 0
             Top = 8
-            Width = 388
+            Width = 463
             Height = 21
             Anchors = [akLeft, akTop, akRight]
             BevelInner = bvNone
@@ -823,9 +860,9 @@ object FormControl: TFormControl
       object PageControlManagers: TPageControl
         Left = 0
         Top = 0
-        Width = 487
-        Height = 405
-        ActivePage = TabProcesos
+        Width = 562
+        Height = 391
+        ActivePage = TabRegistro
         Align = alClient
         Images = IconsArchivos
         TabOrder = 0
@@ -835,11 +872,11 @@ object FormControl: TFormControl
           ImageIndex = 30
           OnShow = TabProcesosShow
           DesignSize = (
-            479
-            378)
+            554
+            364)
           object BtnRefrescarProcesos: TSpeedButton
-            Left = 399
-            Top = 316
+            Left = 474
+            Top = 326
             Width = 72
             Height = 22
             Cursor = crHandPoint
@@ -878,8 +915,8 @@ object FormControl: TFormControl
           object ListViewProcesos: TListView
             Left = 4
             Top = 4
-            Width = 471
-            Height = 306
+            Width = 546
+            Height = 315
             Align = alCustom
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
@@ -902,6 +939,7 @@ object FormControl: TFormControl
             FlatScrollBars = True
             FullDrag = True
             GridLines = True
+            HideSelection = False
             MultiSelect = True
             ReadOnly = True
             RowSelect = True
@@ -911,6 +949,7 @@ object FormControl: TFormControl
             ViewStyle = vsReport
             OnColumnClick = ListViewProcesosColumnClick
             OnCompare = ListViewProcesosCompare
+            OnContextPopup = ListViewProcesosContextPopup
           end
         end
         object TabVentanas: TTabSheet
@@ -918,11 +957,11 @@ object FormControl: TFormControl
           ImageIndex = 29
           OnShow = TabVentanasShow
           DesignSize = (
-            479
-            378)
+            554
+            364)
           object BtnRefrescarVentanas: TSpeedButton
-            Left = 399
-            Top = 316
+            Left = 474
+            Top = 326
             Width = 72
             Height = 22
             Cursor = crHandPoint
@@ -961,8 +1000,8 @@ object FormControl: TFormControl
           object ListViewVentanas: TListView
             Left = 4
             Top = 12
-            Width = 465
-            Height = 298
+            Width = 540
+            Height = 307
             Align = alCustom
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
@@ -985,6 +1024,7 @@ object FormControl: TFormControl
             FlatScrollBars = True
             FullDrag = True
             GridLines = True
+            HideSelection = False
             MultiSelect = True
             ReadOnly = True
             RowSelect = True
@@ -998,8 +1038,8 @@ object FormControl: TFormControl
           end
           object CheckBoxMostrarVentanasOcultas: TCheckBox
             Left = 7
-            Top = 321
-            Width = 379
+            Top = 331
+            Width = 454
             Height = 17
             Anchors = [akLeft, akRight, akBottom]
             Caption = 'Mostrar ventanas ocultas'
@@ -1017,11 +1057,11 @@ object FormControl: TFormControl
           Caption = 'Registro'
           ImageIndex = 32
           DesignSize = (
-            479
-            378)
+            554
+            364)
           object BtnVerRegisto: TSpeedButton
-            Left = 399
-            Top = 317
+            Left = 474
+            Top = 319
             Width = 72
             Height = 21
             Cursor = crHandPoint
@@ -1077,8 +1117,8 @@ object FormControl: TFormControl
           object PanelRegistro: TPanel
             Left = 4
             Top = 4
-            Width = 465
-            Height = 306
+            Width = 540
+            Height = 307
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelOuter = bvNone
             Caption = 'PanelRegistro'
@@ -1086,18 +1126,19 @@ object FormControl: TFormControl
             object SplitterRegistro: TSplitter
               Left = 185
               Top = 0
-              Height = 306
+              Height = 307
             end
             object TreeViewRegedit: TTreeView
               Left = 0
               Top = 0
               Width = 185
-              Height = 306
+              Height = 307
               Align = alLeft
               BevelInner = bvNone
               BevelOuter = bvRaised
               BevelKind = bkFlat
               BorderStyle = bsNone
+              HideSelection = False
               Images = IconsArchivos
               Indent = 19
               ParentShowHint = False
@@ -1110,6 +1151,7 @@ object FormControl: TFormControl
               OnChange = TreeViewRegeditChange
               OnContextPopup = TreeViewRegeditContextPopup
               OnDblClick = TreeViewRegeditDblClick
+              OnKeyPress = TreeViewRegeditKeyPress
               Items.Data = {
                 050000002A0000000100000000000000FFFFFFFFFFFFFFFF0000000000000000
                 11484B45595F434C41535345535F524F4F542A0000000100000000000000FFFF
@@ -1123,8 +1165,8 @@ object FormControl: TFormControl
             object ListViewRegistro: TListView
               Left = 188
               Top = 0
-              Width = 277
-              Height = 306
+              Width = 352
+              Height = 307
               Align = alClient
               BevelInner = bvNone
               BevelOuter = bvRaised
@@ -1145,6 +1187,7 @@ object FormControl: TFormControl
                 end>
               FlatScrollBars = True
               FullDrag = True
+              HideSelection = False
               RowSelect = True
               PopupMenu = PopupRegistro
               SmallImages = IconsArchivos
@@ -1158,8 +1201,8 @@ object FormControl: TFormControl
           end
           object EditPathRegistro: TEdit
             Left = 8
-            Top = 317
-            Width = 383
+            Top = 319
+            Width = 458
             Height = 21
             Anchors = [akLeft, akRight, akBottom]
             BevelInner = bvNone
@@ -1176,11 +1219,11 @@ object FormControl: TFormControl
           ImageIndex = 45
           OnShow = TabServiciosShow
           DesignSize = (
-            479
-            378)
+            554
+            364)
           object btnInstServicios2: TSpeedButton
-            Left = 242
-            Top = 319
+            Left = 317
+            Top = 321
             Width = 65
             Height = 19
             Anchors = [akRight, akBottom]
@@ -1190,8 +1233,8 @@ object FormControl: TFormControl
             OnClick = btnInstServicios2Click
           end
           object BtnCancelarInstalarServicio: TSpeedButton
-            Left = 310
-            Top = 319
+            Left = 385
+            Top = 321
             Width = 65
             Height = 19
             Anchors = [akRight, akBottom]
@@ -1201,8 +1244,8 @@ object FormControl: TFormControl
             OnClick = BtnCancelarInstalarServicioClick
           end
           object BtnServicios: TSpeedButton
-            Left = 399
-            Top = 316
+            Left = 474
+            Top = 318
             Width = 72
             Height = 22
             Anchors = [akRight, akBottom]
@@ -1238,8 +1281,8 @@ object FormControl: TFormControl
             OnClick = BtnServiciosClick
           end
           object btnInstServicios: TSpeedButton
-            Left = 242
-            Top = 319
+            Left = 317
+            Top = 321
             Width = 65
             Height = 19
             Anchors = [akRight, akBottom]
@@ -1249,8 +1292,8 @@ object FormControl: TFormControl
             OnClick = btnInstServiciosClick
           end
           object btnSiguienteInstalarServicio: TSpeedButton
-            Left = 242
-            Top = 319
+            Left = 317
+            Top = 321
             Width = 65
             Height = 19
             Anchors = [akRight, akBottom]
@@ -1262,8 +1305,8 @@ object FormControl: TFormControl
           object ListViewServicios: TListView
             Left = 4
             Top = 4
-            Width = 469
-            Height = 306
+            Width = 544
+            Height = 307
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -1285,6 +1328,7 @@ object FormControl: TFormControl
             FlatScrollBars = True
             FullDrag = True
             GridLines = True
+            HideSelection = False
             MultiSelect = True
             RowSelect = True
             PopupMenu = PopupServicios
@@ -1296,8 +1340,8 @@ object FormControl: TFormControl
           end
           object MultiEditInstalarServicio: TEdit
             Left = 4
-            Top = 319
-            Width = 227
+            Top = 321
+            Width = 302
             Height = 19
             Anchors = [akLeft, akRight, akBottom]
             BevelInner = bvNone
@@ -1312,11 +1356,11 @@ object FormControl: TFormControl
           Caption = 'Shell'
           ImageIndex = 54
           DesignSize = (
-            479
-            378)
+            554
+            364)
           object BtnCambiarFuenteShell: TSpeedButton
             Left = 5
-            Top = 317
+            Top = 327
             Width = 114
             Height = 21
             Cursor = crHandPoint
@@ -1354,7 +1398,7 @@ object FormControl: TFormControl
           end
           object BtnCambiarColorShell: TSpeedButton
             Left = 126
-            Top = 317
+            Top = 327
             Width = 106
             Height = 21
             Cursor = crHandPoint
@@ -1393,8 +1437,8 @@ object FormControl: TFormControl
           object MemoShell: TMemo
             Left = 4
             Top = 4
-            Width = 470
-            Height = 282
+            Width = 545
+            Height = 291
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelKind = bkFlat
@@ -1414,8 +1458,8 @@ object FormControl: TFormControl
           end
           object ComboBoxShellCommand: TComboBox
             Left = 1
-            Top = 291
-            Width = 470
+            Top = 301
+            Width = 545
             Height = 19
             BevelInner = bvNone
             BevelKind = bkFlat
@@ -1439,11 +1483,11 @@ object FormControl: TFormControl
           ImageIndex = 107
           OnShow = TabPuertosShow
           DesignSize = (
-            479
-            378)
+            554
+            364)
           object BtnRefrescarPuertos: TSpeedButton
-            Left = 390
-            Top = 324
+            Left = 465
+            Top = 326
             Width = 81
             Height = 22
             Anchors = [akRight, akBottom]
@@ -1481,8 +1525,8 @@ object FormControl: TFormControl
           object ListViewPuertos: TListView
             Left = 5
             Top = 8
-            Width = 466
-            Height = 310
+            Width = 541
+            Height = 311
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -1518,6 +1562,7 @@ object FormControl: TFormControl
             FlatScrollBars = True
             FullDrag = True
             GridLines = True
+            HideSelection = False
             MultiSelect = True
             ReadOnly = True
             RowSelect = True
@@ -1528,9 +1573,9 @@ object FormControl: TFormControl
             OnCompare = ListViewPuertosCompare
           end
           object CheckBoxPuertos: TCheckBox
-            Left = 161
-            Top = 324
-            Width = 225
+            Left = 4
+            Top = 326
+            Width = 453
             Height = 17
             Anchors = [akRight, akBottom]
             Caption = 'Mostrar puertos a la escucha'
@@ -1552,9 +1597,9 @@ object FormControl: TFormControl
       object PageControlVigilancia: TPageControl
         Left = 0
         Top = 0
-        Width = 487
-        Height = 405
-        ActivePage = TabScreencap
+        Width = 562
+        Height = 391
+        ActivePage = TabPortapapeles
         Align = alClient
         Images = IconsArchivos
         TabOrder = 0
@@ -1564,11 +1609,11 @@ object FormControl: TFormControl
           ImageIndex = 22
           OnShow = TabScreencapShow
           DesignSize = (
-            479
-            378)
+            554
+            364)
           object LabelTamano: TLabel
             Left = 0
-            Top = 251
+            Top = 253
             Width = 24
             Height = 13
             Anchors = [akLeft, akBottom]
@@ -1583,7 +1628,7 @@ object FormControl: TFormControl
           end
           object LabelCalidadCapScreen: TLabel
             Left = 27
-            Top = 273
+            Top = 275
             Width = 79
             Height = 13
             Anchors = [akLeft, akBottom]
@@ -1597,7 +1642,7 @@ object FormControl: TFormControl
           end
           object BtnCapturarScreen: TSpeedButton
             Left = 25
-            Top = 292
+            Top = 294
             Width = 80
             Height = 22
             Cursor = crHandPoint
@@ -1643,8 +1688,8 @@ object FormControl: TFormControl
             OnClick = BtnCapturarScreen1Click
           end
           object btnGuardarImagen: TSpeedButton
-            Left = 283
-            Top = 292
+            Left = 358
+            Top = 294
             Width = 74
             Height = 22
             Cursor = crHandPoint
@@ -1689,8 +1734,8 @@ object FormControl: TFormControl
             OnClick = btnGuardarImagenClick
           end
           object BtnVerGrandeCap: TSpeedButton
-            Left = 363
-            Top = 293
+            Left = 438
+            Top = 295
             Width = 112
             Height = 22
             Cursor = crHandPoint
@@ -1727,8 +1772,8 @@ object FormControl: TFormControl
             OnClick = BtnVerGrandeCapClick
           end
           object LabelPosicionCompresJpg: TLabel
-            Left = 441
-            Top = 271
+            Left = 516
+            Top = 273
             Width = 30
             Height = 13
             Anchors = [akRight, akBottom]
@@ -1743,8 +1788,8 @@ object FormControl: TFormControl
           object ScrollBoxCapScreenM: TScrollBox
             Left = 25
             Top = 5
-            Width = 450
-            Height = 257
+            Width = 525
+            Height = 266
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -1755,7 +1800,7 @@ object FormControl: TFormControl
               Left = 0
               Top = 0
               Width = 300
-              Height = 255
+              Height = 274
               Align = alLeft
               Constraints.MinHeight = 100
               Constraints.MinWidth = 100
@@ -1767,7 +1812,7 @@ object FormControl: TFormControl
             Left = 2
             Top = 8
             Width = 15
-            Height = 238
+            Height = 239
             Anchors = [akLeft, akTop, akBottom]
             Orientation = pbVertical
             Smooth = True
@@ -1775,8 +1820,8 @@ object FormControl: TFormControl
           end
           object TrackBarCalidad: TTrackBar
             Left = 112
-            Top = 271
-            Width = 327
+            Top = 273
+            Width = 402
             Height = 16
             Cursor = crHandPoint
             Anchors = [akLeft, akRight, akBottom]
@@ -1788,7 +1833,7 @@ object FormControl: TFormControl
           end
           object CheckBoxAutoCapturaScreen: TCheckBox
             Left = 26
-            Top = 321
+            Top = 323
             Width = 98
             Height = 17
             Anchors = [akLeft, akBottom]
@@ -1804,7 +1849,7 @@ object FormControl: TFormControl
           end
           object SpinCaptureScreen: TSpinEdit
             Left = 124
-            Top = 316
+            Top = 318
             Width = 45
             Height = 22
             Anchors = [akLeft, akBottom]
@@ -1821,8 +1866,8 @@ object FormControl: TFormControl
             OnChange = SpinCaptureScreenChange
           end
           object CheckBoxMouseClicks: TCheckBox
-            Left = 355
-            Top = 321
+            Left = 430
+            Top = 323
             Width = 122
             Height = 17
             Anchors = [akRight, akBottom]
@@ -1836,8 +1881,8 @@ object FormControl: TFormControl
             TabOrder = 5
           end
           object CheckBoxTamanioReal: TCheckBox
-            Left = 234
-            Top = 321
+            Left = 309
+            Top = 323
             Width = 114
             Height = 17
             Anchors = [akRight, akBottom]
@@ -1857,11 +1902,11 @@ object FormControl: TFormControl
           ImageIndex = 33
           OnShow = TabWebcamShow
           DesignSize = (
-            479
-            378)
+            554
+            364)
           object LabelCalidadWebcam: TLabel
             Left = 24
-            Top = 294
+            Top = 296
             Width = 124
             Height = 13
             Anchors = [akLeft, akBottom]
@@ -1875,7 +1920,7 @@ object FormControl: TFormControl
           end
           object BtnCapturarWebcam: TSpeedButton
             Left = 174
-            Top = 317
+            Top = 319
             Width = 80
             Height = 21
             Cursor = crHandPoint
@@ -1913,7 +1958,7 @@ object FormControl: TFormControl
           end
           object BtnGuardarWebcam: TSpeedButton
             Left = 261
-            Top = 317
+            Top = 319
             Width = 80
             Height = 21
             Cursor = crHandPoint
@@ -1950,8 +1995,8 @@ object FormControl: TFormControl
             OnClick = btnGuardarImagenClick
           end
           object BtnObtenerWebcams: TSpeedButton
-            Left = 351
-            Top = 264
+            Left = 426
+            Top = 266
             Width = 120
             Height = 22
             Cursor = crHandPoint
@@ -1988,8 +2033,8 @@ object FormControl: TFormControl
             OnClick = BtnObtenerWebcamsClick
           end
           object LabelPosicionCompresJpgWebcam: TLabel
-            Left = 441
-            Top = 293
+            Left = 516
+            Top = 295
             Width = 30
             Height = 13
             Anchors = [akRight, akBottom]
@@ -2003,7 +2048,7 @@ object FormControl: TFormControl
           end
           object LabelTamaniowebcam: TLabel
             Left = 0
-            Top = 243
+            Top = 245
             Width = 24
             Height = 13
             Anchors = [akLeft, akBottom]
@@ -2019,8 +2064,8 @@ object FormControl: TFormControl
           object ScrollBoxCapWebcam: TScrollBox
             Left = 27
             Top = 0
-            Width = 444
-            Height = 254
+            Width = 519
+            Height = 255
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -2040,7 +2085,7 @@ object FormControl: TFormControl
             Left = 2
             Top = 0
             Width = 17
-            Height = 238
+            Height = 239
             Anchors = [akLeft, akTop, akBottom]
             Orientation = pbVertical
             Smooth = True
@@ -2048,8 +2093,8 @@ object FormControl: TFormControl
           end
           object ComboBoxWebcam: TComboBox
             Left = 24
-            Top = 265
-            Width = 323
+            Top = 267
+            Width = 398
             Height = 21
             BevelInner = bvNone
             BevelKind = bkFlat
@@ -2067,7 +2112,7 @@ object FormControl: TFormControl
           end
           object CheckBoxAutoCamCapture: TCheckBox
             Left = 26
-            Top = 321
+            Top = 323
             Width = 102
             Height = 17
             Anchors = [akLeft, akBottom]
@@ -2084,7 +2129,7 @@ object FormControl: TFormControl
           end
           object SpinCam: TSpinEdit
             Left = 124
-            Top = 316
+            Top = 318
             Width = 45
             Height = 22
             Anchors = [akLeft, akBottom]
@@ -2103,8 +2148,8 @@ object FormControl: TFormControl
           end
           object TrackBarCalidadWebcam: TTrackBar
             Left = 152
-            Top = 291
-            Width = 291
+            Top = 293
+            Width = 366
             Height = 16
             Cursor = crHandPoint
             Anchors = [akLeft, akRight, akBottom]
@@ -2120,35 +2165,36 @@ object FormControl: TFormControl
           ImageIndex = 106
           OnShow = TabAudioShow
           DesignSize = (
-            479
-            378)
+            554
+            364)
           object PanelAudio: TPanel
             Left = 0
             Top = 0
-            Width = 475
-            Height = 342
+            Width = 550
+            Height = 343
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelOuter = bvNone
+            BevelWidth = 3
             TabOrder = 0
             object SplitterAudio: TSplitter
               Left = 225
               Top = 0
-              Height = 333
+              Height = 334
             end
             object GroupBoxAudio: TGroupBox
               Left = 0
               Top = 0
               Width = 225
-              Height = 333
+              Height = 334
               Align = alLeft
               Caption = 'Opciones'
               TabOrder = 0
               DesignSize = (
                 225
-                333)
+                334)
               object LabelTamanioAudio: TLabel
                 Left = 8
-                Top = 237
+                Top = 238
                 Width = 58
                 Height = 13
                 Anchors = [akLeft, akBottom]
@@ -2162,7 +2208,7 @@ object FormControl: TFormControl
               end
               object Label2: TLabel
                 Left = 120
-                Top = 237
+                Top = 238
                 Width = 63
                 Height = 13
                 Anchors = [akLeft, akBottom]
@@ -2176,7 +2222,7 @@ object FormControl: TFormControl
               end
               object SpeedButtonCapAudio: TSpeedButton
                 Left = 137
-                Top = 305
+                Top = 306
                 Width = 81
                 Height = 22
                 Cursor = crHandPoint
@@ -2232,7 +2278,7 @@ object FormControl: TFormControl
               end
               object Labellengthaudio: TLabel
                 Left = 8
-                Top = 262
+                Top = 263
                 Width = 56
                 Height = 13
                 Anchors = [akLeft, akRight, akBottom]
@@ -2248,7 +2294,7 @@ object FormControl: TFormControl
                 Left = 8
                 Top = 40
                 Width = 210
-                Height = 179
+                Height = 180
                 Anchors = [akLeft, akTop, akRight, akBottom]
                 BevelInner = bvNone
                 BevelOuter = bvRaised
@@ -2295,7 +2341,7 @@ object FormControl: TFormControl
               end
               object SpinEditAudio: TSpinEdit
                 Left = 68
-                Top = 227
+                Top = 228
                 Width = 45
                 Height = 22
                 Anchors = [akLeft, akBottom]
@@ -2313,7 +2359,7 @@ object FormControl: TFormControl
               end
               object CheckBoxCapturarAudioAutomaticamente: TCheckBox
                 Left = 8
-                Top = 310
+                Top = 311
                 Width = 121
                 Height = 17
                 Anchors = [akLeft, akRight, akBottom]
@@ -2329,7 +2375,7 @@ object FormControl: TFormControl
               end
               object CheckBoxAutoReproducir: TCheckBox
                 Left = 8
-                Top = 283
+                Top = 284
                 Width = 209
                 Height = 17
                 Anchors = [akLeft, akRight, akBottom]
@@ -2365,8 +2411,8 @@ object FormControl: TFormControl
             object ListViewAudio: TListView
               Left = 228
               Top = 0
-              Width = 247
-              Height = 333
+              Width = 322
+              Height = 334
               Align = alClient
               BevelInner = bvNone
               BevelOuter = bvRaised
@@ -2405,8 +2451,8 @@ object FormControl: TFormControl
             end
             object ProgressBarAudio: TProgressBar
               Left = 0
-              Top = 333
-              Width = 475
+              Top = 334
+              Width = 550
               Height = 9
               Align = alBottom
               Smooth = True
@@ -2419,11 +2465,11 @@ object FormControl: TFormControl
           ImageIndex = 72
           OnShow = TabKeyloggerShow
           DesignSize = (
-            479
-            378)
+            554
+            364)
           object SpeedButtonRecibirLog: TSpeedButton
             Left = 8
-            Top = 316
+            Top = 318
             Width = 89
             Height = 22
             Cursor = crHandPoint
@@ -2469,7 +2515,7 @@ object FormControl: TFormControl
           end
           object SpeedButtonEliminarLog: TSpeedButton
             Left = 100
-            Top = 316
+            Top = 318
             Width = 89
             Height = 22
             Cursor = crHandPoint
@@ -2515,7 +2561,7 @@ object FormControl: TFormControl
           end
           object SpeedButtonGuardarLog: TSpeedButton
             Left = 196
-            Top = 316
+            Top = 318
             Width = 81
             Height = 22
             Cursor = crHandPoint
@@ -2560,8 +2606,8 @@ object FormControl: TFormControl
             OnClick = SpeedButtonGuardarLogClick
           end
           object SpeedButtonActivarKeylogger: TSpeedButton
-            Left = 336
-            Top = 263
+            Left = 411
+            Top = 265
             Width = 133
             Height = 22
             Cursor = crHandPoint
@@ -2608,8 +2654,8 @@ object FormControl: TFormControl
           object RichEditKeylogger: TRichEdit
             Left = 8
             Top = 8
-            Width = 465
-            Height = 246
+            Width = 540
+            Height = 247
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -2623,8 +2669,8 @@ object FormControl: TFormControl
           end
           object EditLogName: TEdit
             Left = 8
-            Top = 263
-            Width = 324
+            Top = 265
+            Width = 399
             Height = 21
             Anchors = [akLeft, akRight, akBottom]
             BevelInner = bvNone
@@ -2636,8 +2682,8 @@ object FormControl: TFormControl
           end
           object ProgressBarKeylogger: TProgressBar
             Left = 8
-            Top = 290
-            Width = 465
+            Top = 292
+            Width = 540
             Height = 17
             Anchors = [akLeft, akRight, akBottom]
             Enabled = False
@@ -2646,7 +2692,7 @@ object FormControl: TFormControl
           end
           object CheckBoxOnlineKeylogger: TCheckBox
             Left = 284
-            Top = 321
+            Top = 323
             Width = 277
             Height = 17
             Anchors = [akLeft, akBottom]
@@ -2666,11 +2712,11 @@ object FormControl: TFormControl
           Caption = 'Portapapeles'
           ImageIndex = 4
           DesignSize = (
-            479
-            378)
+            554
+            364)
           object SpeedButtonClipBoard1: TSpeedButton
-            Left = 200
-            Top = 322
+            Left = 275
+            Top = 324
             Width = 133
             Height = 22
             Cursor = crHandPoint
@@ -2715,8 +2761,8 @@ object FormControl: TFormControl
             OnClick = SpeedButtonClipBoard1Click
           end
           object SpeedButtonClipBoard2: TSpeedButton
-            Left = 336
-            Top = 322
+            Left = 411
+            Top = 324
             Width = 133
             Height = 22
             Cursor = crHandPoint
@@ -2763,8 +2809,8 @@ object FormControl: TFormControl
           object MemoClipBoard: TMemo
             Left = 4
             Top = 4
-            Width = 469
-            Height = 314
+            Width = 544
+            Height = 315
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelKind = bkFlat
@@ -2777,745 +2823,11 @@ object FormControl: TFormControl
         end
       end
     end
-    object TabExtra: TTabSheet
-      HelpType = htKeyword
-      Caption = 'Extra'
-      ImageIndex = 98
-      object PageControlExtra: TPageControl
-        Left = 0
-        Top = 0
-        Width = 487
-        Height = 405
-        ActivePage = TabSheetMensajes
-        Align = alClient
-        Images = IconsArchivos
-        TabOrder = 0
-        TabPosition = tpBottom
-        object TabSheetMensajes: TTabSheet
-          Caption = 'Mensajes'
-          ImageIndex = 31
-          DesignSize = (
-            479
-            378)
-          object LabelTituloMensaje: TLabel
-            Left = 8
-            Top = 12
-            Width = 39
-            Height = 13
-            Caption = 'T'#237'tulo:'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clMenuHighlight
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = [fsBold]
-            ParentFont = False
-          end
-          object BtnEnviarMensaje: TSpeedButton
-            Left = 399
-            Top = 315
-            Width = 72
-            Height = 22
-            Cursor = crHandPoint
-            Anchors = [akRight, akBottom]
-            Caption = 'Enviar'
-            Flat = True
-            Glyph.Data = {
-              36040000424D3604000000000000360000002800000010000000100000000100
-              20000000000000040000C40E0000C40E00000000000000000000FFFFFF00FFFF
-              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-              FF00007D21EB037B1EFF00791504FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-              FF0001832BEB43A15FFF007B1FCC00791906FFFFFF00FFFFFF00FFFFFF00FFFF
-              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00219751FD1B9149FD158F43FD0F8B
-              3BFD3A9F5EFF80C196FF46A362FF007D1FD100791907FFFFFF00FFFFFF00FFFF
-              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00299B5BFF90CAA9FF8DC8A5FF8AC6
-              A1FF88C59EFF6AB685FF82C297FF48A566FF007D21D700791B09FFFFFF00FFFF
-              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00319F63FF94CDADFF6FBA8EFF6BB8
-              89FF66B685FF61B380FF67B582FF83C298FF3CA05CFF007F25F9FFFFFF002626
-              26033F3F3F304A4A4ADF646464F46B6B6BF737A36BFF96CEB0FF94CDADFF91CB
-              AAFF90CBA8FF74BC90FF8AC7A1FF46A568FF078735FB01832D01FFFFFF002929
-              29294D4D4DD78D8D8DEFAAAAAAEDAEAEAEFF3DA56FFF38A26DFF34A067FF319D
-              62FF55AF7CFF91CBAAFF4FAB74FF188E45FE282B292AFFFFFF00FFFFFF002D2D
-              2D69676767EF96969674525252B9414141FA464646FF515151FF515151FF4646
-              46FF329860FF5AB381FF289857FF676767EF2D2D2D69FFFFFF00FFFFFF003232
-              328A828282F7939393674F4F4F0A3F3F3FF3BDBDBDFFCECECEFFC2C2C2FFADAD
-              ADFF389C68FE319F65FF93939367828282F73232328AFFFFFF00FFFFFF003131
-              314E737373F0D5D5D5EE585858B64B4B4BFC656565FF929292FF797979FF6565
-              65FF4B4B4BFC585858B6A8A8A8E1737373F03131314EFFFFFF00FFFFFF003232
-              32064C4C4C8A919191FFE8E8E8FFDDDDDDFFC1C1C1FF818181DE7B7B7BC2D9D9
-              D9F8DDDDDDFFC4C4C4FF919191FF4C4C4C8A32323206FFFFFF00FFFFFF00FFFF
-              FF003E3E3E0B6A6A6A75858585EE9E9E9EFF7C7C7CE16C6C6C376C6C6C187C7C
-              7CDD9E9E9EFF858585EE6A6A6A753E3E3E0BFFFFFF00FFFFFF00FFFFFF00FFFF
-              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00}
-            OnClick = BtnEnviarMensajeClick
-          end
-          object EditTituloMensaje: TEdit
-            Left = 8
-            Top = 28
-            Width = 464
-            Height = 21
-            Anchors = [akLeft, akTop, akRight]
-            BevelInner = bvNone
-            BevelKind = bkFlat
-            BevelOuter = bvRaised
-            BorderStyle = bsNone
-            TabOrder = 0
-          end
-          object MemoMensaje: TMemo
-            Left = 8
-            Top = 56
-            Width = 464
-            Height = 30
-            Anchors = [akLeft, akTop, akRight, akBottom]
-            BevelInner = bvNone
-            BevelKind = bkFlat
-            BevelOuter = bvRaised
-            BorderStyle = bsNone
-            Ctl3D = True
-            ParentCtl3D = False
-            ScrollBars = ssVertical
-            TabOrder = 1
-          end
-          object GrpBoxTipoMensaje: TGroupBox
-            Left = 8
-            Top = 91
-            Width = 171
-            Height = 209
-            Anchors = [akLeft, akBottom]
-            Caption = 'Tipo de Mensaje'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clMenuHighlight
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = [fsBold]
-            ParentFont = False
-            TabOrder = 2
-            object ImgError: TImage
-              Left = 16
-              Top = 24
-              Width = 33
-              Height = 33
-              Picture.Data = {
-                07544269746D6170360C0000424D360C00000000000036000000280000002000
-                0000200000000100180000000000000C00000000000000000000000000000000
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000D5E6E9
-                B5C4C68A9597626A6B44494A3539392D30312C30302E313235393944494A636B
-                6C889395B3C1C3D5E5E8FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000BBCACD788283
-                373B50090A4D01015D01016C00007400007500006C01015E0101450000200A0B
-                0B1C1E1F454A4B7D8789B8C6C9FF0000FF0000FF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000919C9E313565010175
-                0101860101890000850000820000810000800000800000800000830000820101
-                6E01013F03040A1A1C1D50565797A3A5D2E3E6FF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000FF0000D5E6E9626A8A01017801019100008A
-                00008500008500008500008500008600008600008400008100008000007F0000
-                81000085010172000030080909333738869092D0E0E3FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000D7E8EB4C528C01019301018E000089000089
-                00008C00008C00008F00009000009000009000008F00008B00008A0000860000
-                8200007E00008101018200004F0303032C3030889294D1E2E5FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000484E9302029E01018E00008C00008F000092
-                00009500009800009900009800009B00009A00009800009700009400008F0000
-                8B00008700008200007F01018800005B030303323637929D9FFF0000FF0000FF
-                0000FF0000FF0000FF0000676FA70202A4010191000090000095000093000096
-                00009D0000A20000A20000A20000A30000A20000A100009F00009B0000970000
-                8D00008B00008A00008400007F01018B000054080808464C4DAFBDC0FF0000FF
-                0000FF0000FF0000A2AFCB0202A602029400009400009A0000984949BF5353C4
-                00009D0000A70000A90101AA0101AA0101A90101A80000A50000A200009A5F5F
-                C53A3AB300008A00008B00008601018301018B000037161818727A7CD0E1E4FF
-                0000FF0000FF00002225AD03039E00009A0000A00000A12929ABFFFFFAFFFFFF
-                4A4AC80000A50000AF0000AF0101AE0101B00000AF0000AC0000A54848B6FFFF
-                FFFFFFFF2424AE00008F00009000008901018B01018000000C3A3E3FA9B6B8FF
-                0000FF00008A95BB0303B202029E0000A40000AA2F2FA9CCCCC0FFFFF4FFFFFF
-                FFFFFF4141CA0000AC0000B30000B30000B30000B20000AD4343B5EDEDD9FFFF
-                FFFFFFFFFFFFFF3232AF00009500009201018B0202930101551618187A8485FF
-                0000FF00002427B00303A20202A50000AC0000B278788DCBCBA5FFFFFCFFFFFF
-                FFFFFFFFFFFF4F4FCE0000AE0000B50000B60000B24B4BBDF2F2D9FFFFF8FFFF
-                FFFFFFFFF8F8D48282AE0000A200009D01019402029102028C020211515859C4
-                D3D6BDCCE60404A30404A70202AD0101B30000BC0000B0606073C4C4A9FFFFFF
-                FFFFFFFFFFFFFFFFFF4040CF0000B10000B34E4EC8F6F6DFFFFFF6FFFFFFFFFF
-                FFE7E7CB7373930000A90000AB0000A401019B02029202029B010139343838A9
-                B7B97C85D80505A70404AE0303B60303BB0101C10000CD0000B956566EC0C0A5
-                FFFFFFFFFFFFFFFFFFFFFFFF3B3BCF5050D7FFFFFAFFFFF5FFFFFFFFFFFFE0E0
-                C86D6D8F0000B20000B80000B10101AB0101A301019A02029E02026F1E202097
-                A3A55259CC0707AD0606B50404BB0505C20505C80303CB0000D20000BA616177
-                C6C6ABFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE9E9CD7474
-                950000B70000C20101BD0202B80202B20101AA02029F03039E02028915171A90
-                9B9D3034C30808B50606BB0606C40606C90606CD0606D00202CF0000D40000BD
-                6E6E86DADABDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF5F5DA8181A40000
-                BC0000C50000C40303C10303BE0202B80202B00202A60303A103039F10111D8D
-                989A1B1DBF0909BA0808C20808CA0808D00909D40707D40303D20000D00000D4
-                0000C28A8AAEF7F7EAFFFFFFFEFEFEFEFEFEFFFFFFFFFFF99393C80000C30000
-                C80000C60101C60404C60505C50303BE0202B60202AC0303A30606AE0F10228C
-                97990F0FBF0C0CC20B0BC90B0BD00B0BD80D0DDC0808D90303D50000D20000D2
-                0000D44648C5F9F9E6FFFFFFFFFFFFFFFFFFFFFFFFFFFFF63A3ACE0000C60000
-                CB0000C90303CA0505CA0505CA0505C40404BE0404B20505A90505B91112268E
-                9A9B1C1DC81010C90E0ED00E0EDA0F0FE10F0FE20B0BE00303DA0000D60000D4
-                4242CBE9E9D5FFFFFBFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFF94949DE0000
-                C60000CC0101CD0606CF0707CF0606C90505C30505B70606AD0707B8191A2B95
-                A1A33336D21313CF1212D71313E11313E91313EC0C0CE70000E00000DC3F3FCD
-                EAEAD2FFFFF6FFFFFFFFFFFFFFFFF5FFFFF3FFFFFFFFFFFFFFFFFFFFFFFF4343
-                DC0000CA0000D20606D40A0AD30808CE0808C60707BB0808B40606B3242733A1
-                AEB05258DE1515D41717E01818E91A1AF21A1AF50E0EF30000EB4848D2ECECD0
-                FFFFF5FFFFFFFFFFFFEEEED68585BB8787ADDDDDC5FFFFFEFFFFFFFFFFFFFFFF
-                FF4E4EE20000D20505DB0C0CD90B0BD30A0ACA0A0ABE0B0BBC0606A542474ABD
-                CCCE7781E51919D61C1CE61E1EF22121FC1E1EFF0606FF4D4DE0E6E6CBFFFFF4
-                FFFFFFFFFFFFEAEACA7B7BA30000D90000D4737389CBCBABFFFFFFFFFFFFFFFF
-                FFFFFFFF4F4FEE0000E40B0BE10D0DDA0C0CCE0C0CC20F0FC7060690676F71D4
-                E4E7BBCAEB1717DC2222E92626F92727FF2424FF5E5ED6DFDFC0FFFFF5FFFFFF
-                FFFFFFDFDFC272729B0000DD0000E80000E90000D1605F7AC2C2A4FFFFFFFFFF
-                FFFFFFFFFFFFFA5656DF0606E81010E01111D40F0FC70E0ECE1A1B649CA8AAFF
-                0000FF00002D30E42424EC2D2DFF3131FF2F2FFF7C7C9FD8D8B2FFFFFFFFFFFF
-                E1E1C06969960000E00000E90000E60000E40000EC0000D4595971BEBE9DFFFF
-                FFFFFFFDD6D6A67272BF1010F61616E41515D61313CF0D0DC54F556AC9D9DBFF
-                0000FF00008C97EA2121ED3030FF3C3CFF3E3EFF3B3BF871719AD8D8BDD9D9BA
-                6C6C990000F10000F60000E90000E60000E70000E80000F50000DE565674BBBB
-                98C1C19B5F5FA81717FF1919FA1C1CE71919D91515DB0F10909FACAEFF0000FF
-                0000FF0000FF00003437ED2E2EFD4040FF4B4BFF4F4FFF4C4CFB6969816B6B80
-                2525FB1212FF0D0DFF0707FA0404F30505F20606F50A0AFC0C0CFF1A1AF46060
-                675B5B8F2323FF2626FF2727FB2222E91D1DE01010D2656D81D1E2E5FF0000FF
-                0000FF0000FF0000ABB9ED2020F83B3BFF4D4DFF5C5CFF6666FF6464FC5F5FF7
-                5555FF4343FF3131FF2121FF1919FF1818FF1C1CFF2525FF3131FF3737FF3D3D
-                F63939FE3535FF3333FF2C2CFA2525EA1A1AE8373B99C5D4D7FF0000FF0000FF
-                0000FF0000FF0000FF00007B85EE2B2BFE4646FF5D5DFF6E6EFF7B7BFF8080FF
-                8181FF7575FF6767FF5555FF4949FF4646FF4848FF4E4EFF5454FF5757FF5050
-                FF4949FF4040FF3838FF2D2DF62020F62123BDBAC9CCFF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000656CF12F2FFF4D4DFF6666FF7C7CFF8B8BFF
-                9494FF9696FF9191FF8A8AFF7E7EFF7878FF7373FF7171FF6C6CFF6464FF5B5B
-                FF5050FF4343FF3636FF2626FF2326CFB6C4C8FF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000FF0000767FF12B2BFD4E4EFF6868FF7F7FFF
-                9292FFA0A0FFA5A5FFA7A7FFA2A2FF9999FF8E8EFF8282FF7575FF6868FF5959
-                FF4B4BFF3A3AFF2727FF383CD4C6D6D9FF0000FF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000FF0000FF0000A1AEEF393BF94545FF6262FF
-                7979FF8C8CFF9B9BFFA4A4FFA3A3FF9B9BFF8E8EFF7E7EFF6C6CFF5D5DFF4B4B
-                FF3838FF1F1FEF6F79D1FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00007F8AF13C3CFB
-                4646FE6464FF7474FF8080FF8484FF7E7EFF7373FF6363FF5353FF3F3FFE2A2B
-                F95E65E8C0CFDFFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
-                AFBCEE767EF25D62F45356F85051FE4D4EFE4D4FFA565AF56D75F29CA9EFD2E3
-                ECFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
-                0000}
-              Transparent = True
-            end
-            object ImgAsterisk: TImage
-              Left = 16
-              Top = 63
-              Width = 33
-              Height = 33
-              Picture.Data = {
-                07544269746D6170360C0000424D360C00000000000036000000280000002000
-                0000200000000100180000000000000C00000000000000000000000000000000
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
-                FF0000FF0000FF0000FF0000FF0000FF0000FF0000D0E1E4A9B7B98A9597C1D0
-                D3D6E7EAFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
-                FF0000FF0000FF0000FF0000FF0000FF0000D1E2E5AAABA3A0836461625DB4C2
-                C4D5E5E8FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
-                FF0000FF0000FF0000FF0000FF0000D5E5E8B0AFA5C1976BD3A171625E55B4C2
-                C4D5E5E8FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
-                FF0000FF0000FF0000FF0000D7E8EBBFC4BEB7926BD9B28BCFA172625E56B4C2
-                C4D5E5E8FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
-                FF0000D7E8EBD4E4E7D2E3E6CCD8D9C2A07BD0AA85E9C096CFA27564605AAEBC
-                BFD5E6E9FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000D7E8EBD1E2E5
-                CADADDBFCFD1ACB9BCA2AFB1A9A397C4A582DCB58DEEC49AD0A77E605E5A909B
-                9DC0CFD2CCDCDFD6E7EAFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000FF0000FF0000D7E8EBCEDEE1B9C7CA9AA6A8
-                8086867D7971787168877B6BB2967BC5A381E3BC95EAC29BCDA985786857494F
-                50646C6D818B8DB1BFC1CBDBDED5E5E8FF0000FF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000FF0000D4E4E7B9C7CA9098967E7264917960
-                A98C6EB69777B79779B89779BE9D7ED0AE8BE9C29CEAC29CD4AF8BBD9976A080
-                5E896E52484846515859808A8CADBABDCEDEE1FF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000CFDFE2A9B2B1948573B19170B89B7FBBA085
-                BEA185C5A583CBA986CFAE8CD8B594E7C29FF8D1AAF4CEA7E0BB98CEAD8CC1A2
-                82BD9D7EB7926C886F5556524B5B636498A4A6C7D7D9D7E8EBFF0000FF0000FF
-                0000FF0000FF0000FF0000CDDDE0A2A59FA68B6FB59B80C0A68ECAAE93D5B699
-                DCBC9DE3C2A2EDCBA8F5D3B0F6D1ACFBD3AEFFDBB4FFDCB5F5CFAAE6C29EDBB8
-                95D0AF8FC7A98ABC9D7DAD8B676A5C4C4E5455869092C3D2D5D7E8EBFF0000FF
-                0000FF0000FF0000D1E2E5B0AA9EB4977ABCA58DC9B097D8BBA0E7C8AAF3D3B3
-                FBD9B7FDDBB9FFDFBEF0C49FA55832C67041F7AE81E8B289FFDEB9FDD8B2F7D2
-                ADECC8A4DFBD9AD1B392C5A78ABF9A78846C544E52528A9597CAD9DCFF0000FF
-                0000FF0000D6E7EABCBBB2B49A81BCA792CEB59DE1C6ABF3D6B8FEDFBFFFE0C1
-                FFDFBFFFDFBEFFE2C1AC6A43741D00A13F0FAB4A1B9A481DF9D3AEFFDDB9FFDB
-                B7FFDAB6F8D4AFE9C7A4D7B797C7AA8DBD9C7B7E69535057589EAAACD2E3E6FF
-                0000FF0000C7D1D0B59C83BDAA96CEB8A1E3CAB0F9DCC0FFE3C6FFE2C4FFE1C3
-                FFE1C3FFE0C1FFE3C39958346C1F00872B007621007D3109F5CCA8FFE1BFFFDC
-                BBFFDDBAFFDDBAFDD9B6ECCAA9D8B99BC8AD90C19F7D5E574A636B6CB8C6C9D5
-                E6E9D4E4E7C2AF9ABDAB98CEB9A4E2CBB4F8DFC5FFE5CAFFE3C9FFE3C8FFE3C7
-                FFE3C6FFE2C6FFE7CAD0A07F5D1B005717005B1500AB6D49FFE4C4FFDFBFFFDF
-                BFFFDEBDFFDEBDFFDEBCFDDCB9EBCCACD9BB9ECAAF93B6937250514E8F9B9CC8
-                D8DAD1D6D0BEA993CAB8A6E0CAB4F7DFC7FFE7CFFFE6CCFFE5CCFFE5CAFFE4CA
-                FFE3C9FFE3C8FFE4C9FFE6CBDBAF90BF8A6AD2A384FCDDBEFFE3C5FFE0C3FFE1
-                C2FFE0C1FFE0C0FFDFBFFFDFBFFCDCBCEACCAED7BBA0C8AC8E81705D71787AB6
-                C4C7CDC4B4C3B3A2D7C3B1EFDAC4FFE8D2FFE8D1FFE7CFFFE7CFFFE7CFFFE7CE
-                FFE6CCFFE5CDFFE5CBFFE5CCFFE8CDFCDBBFFFE4C9FFE6CCFFE3C7FFE3C7FFE3
-                C5FFE2C5FFE2C5FFE0C4FFE1C3FFE2C3F8D9BBE3C7AACFB79EA68D76686A6AA2
-                AFB1C6B49FCEBFB0E3D0BEF9E5D0FFEBD6FFEAD5FFEAD4FFE9D3FFE9D2FFE8D1
-                FFE8D1FFE8D0FFE7CFFFEBD2F2CFB3A64E20DEAC8AFFEFD7FFE5CBFFE5CAFFE3
-                C9FFE3C8FFE3C8FFE3C7FFE2C6FFE3C6FEE2C5EDD2B6DBC3AAC1A88D6F6E6A87
-                9294CAB7A8D5C6B8ECDACAFEECD9FFECD9FFECD9FFEBD7FFEBD6FFEAD6FFEAD4
-                FFEAD4FFE9D3FFE8D2FFECD6F2D2B7943000C88762FFF4DEFFE8D0FFE6CDFFE6
-                CDFFE5CBFFE5CBFFE4CBFFE4CAFFE4C9FFE5CAF6DBC1E2CAB2CDB59D847C7478
-                7E7ECCC0B3D7C9BCEEDFD0FFEFDEFFEEDDFFEDDCFFEDDCFFEDDBFFECDAFFECD9
-                FFECD8FFEBD7FFEBD6FFEBD6FDECD69F4A1F9C3B0CE7B797FEECD6FFEBD5FFE7
-                D0FFE7CFFFE7CEFFE7CEFFE6CDFFE6CCFFE8CEF9E0C8E5CCB5D5C1ACA296897A
-                7E7CCDC2B8D8CCBFEFE1D4FFF1E3FFF0E1FFEFDFFFEEDFFFEFDFFFEEDEFFEEDD
-                FFEDDBFFEDDBFFECDAFFECD9FFF3E1CFA1857F1F00C26231F7B58FFAE0C9FFED
-                D8FFE8D3FFE8D2FFE8D1FFE8D1FFE7D0FFEBD2F9E3CCE5D0B8D9C4B0ADA29480
-                8483CDC2B7D9CFC4F0E4D8FFF4E7FFF2E5FFF2E4FFF0E2FFF1E2FFEFE1FFF0E0
-                FFEFDFFFF1E1FFF4E5FFF3E3FFF4E4F3DDC9883E1A8D2D03CE6A39D0835AF6DC
-                C5FFEEDAFFEAD5FFEAD5FFEAD5FFE9D3FFEDD7F9E7D0E7D2BDD6C3ADADA4958E
-                9695CFC5B9DCD4CBF1E5DCFFF7ECFFF5EAFFF2E7FFF3E6FFF3E6FFF2E4FFF2E4
-                FFF3E5FCEBDDF3D4BFF9DBC6FDEDDDFFFAECAC7C5F741A009B3907943306BA7D
-                5AFFF5E4FFEDDAFFECD9FFEBD8FFEBD7FFF5E0FAE9D6E9D5C1D1BEAAA8A197AD
-                B8BAD9D0C2DDD7D0EDE3DBFCF7EDFFFAF0FFF4EBFFF5EAFFF4E9FFF3E8FFF4E8
-                FFF5E9BC8668AB5224C96D3ECB9678FFFEF4CAA58D722100943000802400994E
-                28F8E1CDFFF3E3FFEEDCFFECDBFFF0DDFFFBEAF8E6D3DAC7B3D2BEA9989C9BC4
-                D3D4DCDED8DBD5D0E8E1DAF8F0E9FFFFF8FFF8F0FFF7EDFFF6EEFFF6ECFFF7EC
-                F9ECE27729038F2D00882800A65F3AFFFBEED2B09A7425009430007D24009247
-                22F4DCCAFFF5E8FFEFE0FFF0DFFFFBEFFEF8E9F2E1D1D6C2AEC0B09DA6B1B3D2
-                E3E6D9E5E5DCD4CBE1DEDAF0EAE4FDFAF7FFFEFCFFF9F3FFF7F0FFF8F0FFF8F0
-                FBF1E8783514852900802400BC8A70FFFFFFBD95806E1B00943100741D009652
-                30FBECDEFFF5E8FFF1E3FFFBEFFFFFFBF9ECDFEDDFD3DECEBB99968EC5D5D8FF
-                0000FF0000DDDFD8E0DDD8E9E5E1F6F0ECFFFDFBFFFFFEFFFAF5FFF9F2FFF9F3
-                FFFCF6AE8169661200903D14F0DACCFAEDE4955435732000782400691C00C8A0
-                87FFFDF4FFF5E9FFFCF3FFFFFFFCF5EBF3E6D9EADFD2BCAE9EB6C4C7D7E8EBFF
-                0000FF0000FF0000E1DED6E3E1DFEBE8E5F6F3EFFFFFFDFFFFFEFFFDFAFFFBF6
-                FFFDFAF8F0EBAA775C812700A6522AA8552B761C005F17006D2C0FBF9780FFFC
-                F3FFFAF1FFFDFAFFFFFFFCF7F1F3E8DFECE3DAD2C3B3A9B4B5D4E4E7FF0000FF
-                0000FF0000FF0000D9E7E9E4DED6E4E3E2EBE9E8F8F5F2FFFEFCFFFFFFFFFFFE
-                FFFEFCFFFFFEFFFDF9E9D4C8CB9980C58E71C39379CDAE9EEFE3DBFFFFFEFFFF
-                FFFFFFFFFFFFFEFCF8F3F4ECE4EDE5DFDACEC1B4B9B5D0E1E4FF0000FF0000FF
-                0000FF0000FF0000FF0000D9E7E8E1DFD7E7E5E4EDEDEDF5F3F2FBFAF9FFFEFE
-                FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-                FFFEFCFAFAF5EFF5EEE9EEE8E2D4CABDC1C8C4D3E4E6FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000FF0000DFE4E1E8E5E0EDECECF1F1F0F6F5F5
-                FAF9F9FEFDFDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDFBF9FAF7
-                F4F6F3EFF2EEEAEAE3DCD1CDC5CAD7D8D7E8EBFF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000FF0000FF0000D9E7E9E3E6E3E9E7E3EEEDEC
-                EFF0F1F4F4F4F9F8F8FBFAF9FBFBF9FBFBF9FCFBF9FBFAF8F8F6F5F4F3F3F2EF
-                EDEDE7E1D8D7D1CFD6D5D5E5E8FF0000FF0000FF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000DAE8E9DCE6E4
-                E2E0D8E8E4E0EBE9E8EBEBEBEBEBEBEBEBEBECEBEBECEAE9ECE8E3E4DED5D6DB
-                D8D7E2E1D4E4E7FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
-                0000}
-              Transparent = True
-            end
-            object ImgWarning: TImage
-              Left = 16
-              Top = 103
-              Width = 33
-              Height = 33
-              Picture.Data = {
-                07544269746D6170360C0000424D360C00000000000036000000280000001F00
-                0000200000000100180000000000000C00000000000000000000000000000000
-                0000FF0000FF0000FF0000CDD0D1B29E9EB29F9FB3A1A2B3A1A2B3A2A2B3A2A2
-                B3A1A2B3A2A2B3A2A2B3A2A2B3A1A2B3A2A2B3A2A2B3A1A2B3A1A2B3A2A2B3A2
-                A2B3A1A2B3A1A2B3A2A2B3A1A2B3A1A2B3A1A2AF9FA1B5ABADFF0000FF000000
-                0000FF0000FF0000AFADAE6B393C602F31603032603032603032603032603032
-                6030326030325F30325F30325F30325F30325F30326030326030326030326030
-                326030326030326030326030315D3235612E2F72140E6A1D1A845756FF000000
-                0000FF00003AC5E700B0DA02A5CB01A4CD00A6CD00A4CD00A4CD00A4CD00A4CD
-                00A6CD00A4CD00A5CE00A6CF00A7CF00A5CE00A5CE00A6CD00A6CD00A4CD00A4
-                CD00A6CD00A4CD00A4CD00A5CE00AAD602B2DD366B8173120C69201DAE9FA100
-                000063D3EE00ADD500B1DA00B4DE00B3DF00B3DF00B3DF00B3DF00B3DF00B3DF
-                00B3DF00B5E100BAE500CAFA00CBFC00C1F100B6E200B4E000B3DF00B3DF00B3
-                DF00B3DF00B3DF00B3DE00B4E000B8E300C0EF00CFFF5147506F1711A5919100
-                000027C7E900B5DE00BAE501C4F100C7F601C7F501C9F501C9F501C7F501C9F5
-                01CAF700D1FF00D9FF2169835661773D97B300D2FF00CBF900C9F601C9F501C7
-                F501C9F501C8F500C8F600C8F700C4F100C1EF00D3FF33768C710F06C3C2C500
-                00005BD6F000B8E200C0EB04D4FF04D9FF01D6FF01D6FF01D6FF01D6FF01D6FF
-                01D9FF00E7FF183A4D170000630517FFB2BE4F9DB800E5FF00D7FF01D6FF01D6
-                FF01D6FF01D5FF01D6FF0CE0FF07D5FF00C8F500D7FF4E4E5885433EFF000000
-                0000A8E3EE00BDE500C1E907D1FC0DE3FF00D6FF00D3FF00D4FF00D4FF00D4FF
-                00D8FF00E0FF040000130000611A316F0B1E5D627D00EDFF00D6FF00D4FF00D4
-                FF00D3FF00D3FF05DAFF1DF0FF06D6FC00CEFC00C7F26E1915AFA0A2FF000000
-                0000FF00001DCBED00C0E600C9F110E3FF06DDFF00D5FF00D4FF00D6FF00D6FF
-                00DAFF00E8FF111924000000190000320000215D7900F0FF00D7FF00D6FF00D5
-                FF00D5FF00D5FF14E9FF1BEEFF00CCF900E1FF367484853430D5E4E6FF000000
-                0000FF000084E0EF00BFE400C6EC0ADBFE11E8FF00D9FF00D7FF00D7FF00D8FF
-                00DAFF00EAFF06A8C911000007000020192700D5FC00E1FF00D9FF00D8FF00D7
-                FF00D5FF03DCFF25FCFF0ADFFF00D3FF00CEF5632D2DAA9290FF0000FF000000
-                0000FF0000FF000005C7EB00C5E702D0F714ECFF09E3FF00D9FF00D9FF00DAFF
-                00DBFF00DEFF00ECFF00EDFF00F5FF00EBFF00E8FF00DCFF00DAFF00DBFF00D9
-                FF00D7FF19F2FF25FDFF00D4FD00E2FF29899E852F27D6E6E9FF0000FF000000
-                0000FF0000FF000083E2F000C7E800CAED0CDFFE12EEFF01DDFF00DBFF00DBFF
-                00DCFF00DDFF00E1FF00E4FF129FBF00E5FF00E1FF00DCFF00DBFF00DDFF00D8
-                FF06E2FF29FFFF0BE4FF00D6FC00DDFF642928B29B9CFF0000FF0000FF000000
-                0000FF0000FF0000FF000019D1EE00C9E800D2F311EDFF09E7FF00DDFF00DDFF
-                00DEFF00DFFF00E5FF03D7F843101D00DFFF00E8FF00DEFF00DDFF00DDFF00DC
-                FF19F7FF1DF9FF00D4FA00E8FF318090873731D6E5E8FF0000FF0000FF000000
-                0000FF0000FF0000FF000088E3F100CAE600CDEC07E1FC11F1FF01E1FF00DFFF
-                00DFFF00E1FF00F1FF0CABC64B000702CAEC00EFFF00E1FF00DFFF00DDFF07E6
-                FF24FFFF06E2FF00DDFF00D5F3622C2BB09899FF0000FF0000FF0000FF000000
-                0000FF0000FF0000FF0000FF00000ED4ED00CBE700D5F210EEFF08EAFF00E2FF
-                00E3FF00E4FF00FEFF1D7B8C6A000006AECE00F9FF00E4FF00E1FF00E1FF16F7
-                FF1BF9FF00D7F900E9FF2D8996832D28D6E6E9FF0000FF0000FF0000FF000000
-                0000FF0000FF0000FF0000FF000087E4F000CAE400CFE908E5FC0DF2FF00E4FF
-                00E5FF00E8FF00FFFF1E44587C00001691AA00FAFF00E6FF00E3FF04E7FF1EFF
-                FF08E8FE00DBF800E3FF652724AB9495FF0000FF0000FF0000FF0000FF000000
-                0000FF0000FF0000FF0000FF0000FF000013D3E900CEE601D9F310F5FF05EAFF
-                00E6FF00F1FF00E8FF241727BA5B6932506400F5FF00E9FF00E4FF0EF4FF1EFF
-                FF00DEFA00EFFF2E8995832D26D3DFE1FF0000FF0000FF0000FF0000FF000000
-                0000FF0000FF0000FF0000FF0000FF000077E4EF00CEE400D5ED0DEEFF0DF6FF
-                00E8FF00FDFF00BCD02200009240504E314400FAFF00EDFF00E9FF1EFFFF13F5
-                FF00E2FF00E1F9603232A98E8DFF0000FF0000FF0000FF0000FF0000FF000000
-                0000FF0000FF0000FF0000FF0000FF0000FF000004D5EA00D4E804E5F813FBFF
-                03F0FF00FFFF01A3B42D00006821374F273D02CCE300F7FF0CF7FF25FFFF00E7
-                FF00F1FF29949F851D1CD2E0E3FF0000FF0000FF0000FF0000FF0000FF000000
-                0000FF0000FF0000FF0000FF0000FF0000FF000078E6F000D2E500DBF10EF6FF
-                0DFEFF00FFFF0C4E5A2F00004A081E47021A138EA500FFFF1EFFFF15F9FF00E5
-                FB00F2FF62302FA98786FF0000FF0000FF0000FF0000FF0000FF0000FF000000
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF00000BD9EB00D8E803E8FA
-                13FFFF02FFFF060A101D00003E001541000022556D03FFFF24FFFF00EDFF00F7
-                FF269BA583201ECFDADCFF0000FF0000FF0000FF0000FF0000FF0000FF000000
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF000069E7F100D7E600E0F0
-                0EFFFF0BFFFF0100001400004400184300002B3C5015FFFF16FFFF00ECFF00F3
-                FF593F41A87D7CFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF000000
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF000000DDE900DDEA
-                03F0FF13FFFF06000009000030000A3100002E4D5C1EFFFF00F3FF00FAFF20A8
-                B27F1513CFDADCFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF000000
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00006AE9F000DAE6
-                00E6F40EFFFF11A6A701000000000008000023E2E313FFFF00F0FC00FBFF5840
-                40A27675FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF000000
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000D5E8EB02E2EA
-                00E0E903F5FF13FFFF03F7FE02B8C30AFFFF23FFFF01F8FF00FFFF1DAFB47E18
-                15CAD2D4FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF000000
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00005FEAF1
-                00DFE700E8F10EFFFF09FFFF00FFFF1CFFFF16FFFF00F4FF00FEFF544849A26E
-                6EFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF000000
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
-                00E3E900E4E904F4F911FFFF09FFFF28FFFF00F8FE00FFFF18BABF760F0BCCD2
-                D5FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF000000
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
-                60ECF100E1E500EDF218FFFF31FFFF21FFFF00F5FA00FFFF544A4A9A6968FF00
-                00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF000000
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
-                CBE9EC00E7EA00E9EB17FDFE68FFFF0DFEFF00FFFF15C5C67A1312C8CACDFF00
-                00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF000000
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
-                FF000055EEF100EAEA03FAFD2CFFFF00FFFF00FFFF4F5351AC8888FF0000FF00
-                00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF000000
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
-                FF0000D4E9EC00F3F300F7F800FFFF00FFFF23CBCBB29597FF0000FF0000FF00
-                00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF000000
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
-                FF0000FF0000B9ECEE0FFEFE07FFFF3BF9FAD3E1E4FF0000FF0000FF0000FF00
-                00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF000000
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
-                FF0000FF0000FF0000CDEAED99F0F2FF0000FF0000FF0000FF0000FF0000FF00
-                00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF000000
-                0000}
-              Transparent = True
-            end
-            object ImgInfo: TImage
-              Left = 16
-              Top = 143
-              Width = 33
-              Height = 33
-              Picture.Data = {
-                07544269746D6170360C0000424D360C00000000000036000000280000002000
-                0000200000000100180000000000000C00000000000000000000000000000000
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
-                FF0000FF0000FF0000FF0000FF0000FF0000FF0000D6E5E8ACACA8968980B6B8
-                B5D6E5E8FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
-                FF0000FF0000FF0000FF0000FF0000FF0000CCD9DA907D6E93623B66402DA199
-                93D5E4E7FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
-                FF0000FF0000FF0000FF0000FF0000BBC0BF7A5D4BD3A270DFAA72603620A199
-                94D6E5E8FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
-                FF0000FF0000FF0000FF0000B2B4B1643F2AB98A5CF3CCA1D6A16E603A26A49D
-                98FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
-                FF0000FF0000FF0000C3CBCB664331BE9165E0BA91F9CFA5D5A171623F2BA5A0
-                9CD6E7EAFF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000CFDDDF
-                CFDCDECFDCDEBABFBD6C50447E5035D3B28CE6BE94FBD2A7D7A87C5C36228674
-                6AB2B2AEC6CDCDD3E1E3FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000CFDDDFB5B8B691857C
-                7F6658775642663D26744A31B39071CCAA89ECC399F4CBA2CEA5806335194C24
-                136243347E685B9E958DBEC2C1D2E0E2FF0000FF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000FF0000FF0000BFC5C392867E85624A865C3E
-                A37E5FBC9A79BC9B7BBF9F7FC0A081CDAD8AEEC69FECC39CD4AF8AB9926C8E62
-                3F7B4B28451907583221775E51A09992C6CDCDFF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000D4E4E6AEACA78A6F5DB18C67BFA285C4AA8D
-                C4AA8BC7A685CAAA86CCAB89D3B291E7C29FFCD4ADF3CDA6DBB896CFAF90CBAC
-                89C5A580B48A607143264F210C5B36268B796EB9BCB9D5E4E7FF0000FF0000FF
-                0000FF0000FF0000FF0000D7E8EBA79F98AB8663C6AD8CC3AD95CAAE94D3B598
-                D8BA9BE5C5A5F5D5B1F9D9B6FADBB8FFE3BEFFE7C0FFE2BBF8D5B0E4C19ED7B5
-                93CCAD8FCAAD8ECBA983AC7F565427105029177E675AB6B7B4D5E4E7FF0000FF
-                0000FF0000FF0000FF0000B0A497BD9C7AC5B098C8B198D6BA9EE6C7A9F6D4B3
-                FFE1BEF8D2B0F1C19DFFD8B1FAD0A9F6CAA4F6CAA3FFE5BDFFD0A7F7CDA7F8D5
-                B1E8C5A1DABA98CFB191CEB092BE956F7343244C2410806A5FBCC0BEFF0000FF
-                0000FF0000FF0000BBB7AEC5A888C2AE99CEB49DE1C6ABF6D7B9FFE1C2FFE4C4
-                FFF3D3CF9F7C6607009A2700BE501BCC5F2BCC5D28BD4E1A8F3002DAA880FFE7
-                C3FFDCB8F8D3AFE6C3A2D3B595CDB294C6A0786D3F22512A1A8E7D73C9D3D4FF
-                0000FF0000CEDBDDBFA283C2B09CCCB7A2E3CAB1FADEC2FFE7C8FFE4C6FFE3C5
-                FFE5C7FFE8CAF4D9BA893E189A2E00A63E0A9930038D431CF1D8B6FFE5C3FFDF
-                BFFFE0BBFFDFBCFEDAB6E8C7A7D4B799CDB396C09A7352240E624030A8A49FD5
-                E4E7FF0000BEA994CABAA7CCB8A5E3CCB3FDE1C6FFE9CDFFE5C9FFE4C8FFE4C6
-                FFE4C8FFEBCDFFFBDF9F6442841900972A007E1800C18D69FFFFE1FFE4C4FFE1
-                C0FFDEBCFFDEBDFFE1BFFDDCB9E8C7AAD5B99ED8BD9EA77C56491D0B867368C8
-                D3D3C9D3D1D6C0A7CABAA9DFC9B4FBE0C9FFE9D1FFE8CDFFE6CDFFE6CAFFE5CB
-                FFE4CAFFE9CEFFF4DC9B613E851D009C3000811C00CA9774FFF6DAFFE3C6FFE2
-                C3FFE1C2FFE1C1FFE0C0FFE2C0FDDDBBE7C9ACD7BFA3D4B592693B20644637B4
-                B4B0C2BBB0C9BCAAD5C4B1F1DAC7FFECD4FFEAD3FFE8CFFFE8D0FFE8CEFFE7CF
-                FFE7CDFFEBD2FFF6DE9B6140861D009C3000821C00C89675FFF8DFFFE5C9FFE3
-                C6FFE1C4FFE3C5FFE0C4FFE3C5FFE4C6F6D8B9E0C5ABDEC6AB956D51542A18A1
-                9992D0BBA4CDBFB2E2D0BEFCE9D2FFEED7FFEAD5FFEBD4FFEAD2FFEAD3FFE7D2
-                FFE9D1FFEDD5FFF8E19B6241861D009D3000821B00C89777FFFBE3FFE7CDFFE3
-                CAFFE4C9FFE4C7FFE2C8FFE3C7FFE5C9FFE2C5EBCFB4DEC6B0D8B693582F1A9B
-                9189C9B7A8D3C6B8EEDBCCFFF0DDFFEEDBFFECDAFFECD8FFECD7FFEBD7FFEBD4
-                FFEBD5FFEFD9FFFAE69B6142861C009C3000821A00C89879FFFCE6FFE9D0FFE7
-                CEFFE6CBFFE4CAFFE6CCFFE5CBFFE5CAFFE8CDF5DAC1E3CCB5E2C6A9562F1A9A
-                9188CCC1B3D6C8BCF1E1D1FFF3E1FFF0DDFFEEDCFFEEDCFFEDDBFFEDDAFFEDD9
-                FFEDD8FFF0DCFFFBEB9B6343851D009C3000821A00C89A7BFFFEE9FFEBD3FFE8
-                CFFFE8D0FFE6D0FFE8CDFFE7CEFFE7CDFFEBD1F9E0C7E4CEB6E6CFB7572F1B9A
-                9188CDC3B7D6C9BEF2E4D6FFF4E5FFF0E1FFF0E0FFEFDFFFEFDFFFEFDEFFEFDD
-                FFEFDDFFF4E3FFFFF4A26C4D871C009D3000821A00C89A7CFFFFEDFFECD7FFEA
-                D5FFE8D4FFE9D1FFE9D1FFE9D2FFE7D1FFEDD6F9E1CAE4CEB8E7D3BD58301D9A
-                9188CCC1B7D7CDC3F3E6DAFFF7EAFFF3E5FFF2E4FFF1E3FFF1E3FFEFE2FFF2E2
-                FFF4E4FFFFF5FFFFF593471F9226009F3000841900C99C7FFFFFF2FFEEDBFFED
-                D8FFECD7FFEBD5FFEBD4FFE9D4FFE9D3FFF1DAF9E4CEE6D3BDE6D4BD5A321F9F
-                9791CEC4B8DAD3CAF3E8DEFFFAEEFFF7EBFFF2E6FFF2E7FFF4E7FFF3E5FFF5E7
-                FFFBEFC89F87812C047C0B008A1C008D20006D0A00C0957AFFFFF5FFF0DEFFEE
-                DCFFEDDBFFEDDAFFEDD8FFEAD8FFEBD7FFF8E4FAE8D5EBD8C7E7D2BB6A4A39B2
-                B2AFD9CFBFDDD8D2EEE5DFFFFBF2FFFBF1FFF4EBFFF6EBFFF3EAFFF3E9FFF7EB
-                FFFBEFA781696F371E84492B854F316D33134F1100BD9C88FFFFF5FFF1E3FFF0
-                E0FFEFDDFFEFDEFFEEDCFFEBDAFFF3E1FFFEEDF9E5D3F2E2D2E1C7AC866F63C8
-                D3D2DADED9DAD7D4E8E1DBFBF3ECFFFFFDFFF8EFFFF8EDFFF7EEFFF7EDFFF8ED
-                FFF9F0FFFFF9FFFFF6FFFFF9FFFFFEFFFEF5FBF1E5FFF7E9FFF7E9FFF3E5FFF2
-                E4FFF1E3FFF0E1FFEFE0FFF0DFFFFFF6FFF9E9F3E1D2FEF2E195745FA6A19DD5
-                E4E7D8E7EADDD4CBE0DEDCF1EBE4FFFFFDFFFFFFFFF8F2FFF7F0FFF9F1FFF9F0
-                FFF9F0FFFCF3FFFFFAFFFFFFFFFFFFFFFFF7FFFFFFFFFFF7FFF6EAFFF4E8FFF4
-                E8FFF4E6FFF1E4FFF2E1FFFFF4FFFFFFF9EBDCF6EADEECDBC5937E72CBD6D7FF
-                0000FF0000DDDED7DEDEDCE9E5E2F8F2EDFFFFFFFFFFFFFFFBF5FFF9F2FFFAF4
-                FFF9F3FFFDF6FFFFFFC79D85AA491AE38551C98763FFFFFAFFFCF4FFF7EDFFF5
-                EAFFF3E9FFF5E9FFFEF8FFFFFFFCF4E9F5E9DDFFF8EBAF9580BCC2C1FF0000FF
-                0000FF0000FF0000E2DCD2E2E3E3EBE8E6F9F4F1FFFFFFFFFFFFFFFDFAFFFAF5
-                FFFCF6FFFFFFF3EAE36208009C2F00DF864EA32F00D4AE99FFFFFFFFF9F1FFF6
-                ECFFFAF1FFFFFFFFFFFFFDF7EFF5EBE1FCF6EED9C2ADB2B3B1D5E6E9FF0000FF
-                0000FF0000FF0000FF0000E5DFD5E2E5E6EBEAE9FAF8F3FFFFFFFFFFFFFFFFFF
-                FFFFFFFFFFFFDFD1C9480000841B008D1A00630000B48A70FFFFFFFFFFFAFFFF
-                FFFFFFFFFFFFFFFEF9F4F6EDE7FFFBF8EFDDCBB5B3ADFF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000D7E8EBE2DDD4E7E7E8EEF0F0F6F5F4FEFEFDFFFFFF
-                FFFFFFFFFFFFFFFFFF78523D3B00003D0000571D02FAFAF7FFFFFFFFFFFFFFFF
-                FFFFFFFCFDF7F1F9F6F2FFFFFBD5C7B9C0C3BFFF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000FF0000E1E4E1EAE6E2F5F9FBF6F8FAF8F8F6
-                FCFCFBFFFFFFFFFFFFFFFFFFCAC2BBBDAFAAF6F7F4FFFFFFFFFFFFFFFDFBFDF9
-                F6FCFAF9FFFFFFFEF9F1C1B5AAFF0000FF0000FF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000CECBC6DED6D0F2F4F5
-                F0F3F5F5F6F7FCFCFDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEF9F9F9F7F8F8FFFF
-                FFFDFAF4BFB6ADCAD4D5FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
-                0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000D6E4E6DEEAEA
-                E4E0D6E9E5DFECEAEAECECECECEDEDECEDEDEDECEDEDEAE9EFEAE3E9E4DBC8CD
-                C9C9D3D3FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
-                0000}
-              Transparent = True
-            end
-            object RdBtnError: TRadioButton
-              Left = 71
-              Top = 32
-              Width = 73
-              Height = 17
-              Caption = 'Error'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'MS Sans Serif'
-              Font.Style = [fsBold]
-              ParentFont = False
-              TabOrder = 0
-            end
-            object RdBtnPregunta: TRadioButton
-              Left = 71
-              Top = 71
-              Width = 89
-              Height = 17
-              Caption = 'Pregunta'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'MS Sans Serif'
-              Font.Style = [fsBold]
-              ParentFont = False
-              TabOrder = 1
-            end
-            object RdBtnExclamacion: TRadioButton
-              Left = 71
-              Top = 111
-              Width = 97
-              Height = 17
-              Caption = 'Exclamaci'#243'n'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'MS Sans Serif'
-              Font.Style = [fsBold]
-              ParentFont = False
-              TabOrder = 2
-            end
-            object RdBtnInfo: TRadioButton
-              Left = 71
-              Top = 150
-              Width = 89
-              Height = 18
-              Caption = 'Informaci'#243'n'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'MS Sans Serif'
-              Font.Style = [fsBold]
-              ParentFont = False
-              TabOrder = 3
-            end
-            object RdBtnVacio: TRadioButton
-              Left = 71
-              Top = 182
-              Width = 73
-              Height = 25
-              Caption = 'Vac'#237'o'
-              Checked = True
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'MS Sans Serif'
-              Font.Style = [fsBold]
-              ParentFont = False
-              TabOrder = 4
-              TabStop = True
-            end
-          end
-          object RdGrpBotonesMensaje: TRadioGroup
-            Left = 295
-            Top = 98
-            Width = 176
-            Height = 211
-            Anchors = [akRight, akBottom]
-            Caption = 'Tipo de Botones'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clMenuHighlight
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = [fsBold]
-            Items.Strings = (
-              'OK'
-              'OK, Cancelar'
-              'Reintentar, Cancelar'
-              'S'#237', No'
-              'S'#237', No, Cancelar'
-              'Anular, Reintentar, Omitir')
-            ParentFont = False
-            TabOrder = 3
-          end
-        end
-        object TabSheetBromas: TTabSheet
-          Caption = 'Bromas'
-          ImageIndex = 27
-          DesignSize = (
-            479
-            378)
-          object BtnEnviarBromas: TSpeedButton
-            Left = 399
-            Top = 323
-            Width = 72
-            Height = 22
-            Cursor = crHandPoint
-            Anchors = [akRight, akBottom]
-            Caption = 'Enviar'
-            Flat = True
-            Glyph.Data = {
-              36040000424D3604000000000000360000002800000010000000100000000100
-              20000000000000040000C40E0000C40E00000000000000000000FFFFFF00FFFF
-              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-              FF00007D21EB037B1EFF00791504FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-              FF0001832BEB43A15FFF007B1FCC00791906FFFFFF00FFFFFF00FFFFFF00FFFF
-              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00219751FD1B9149FD158F43FD0F8B
-              3BFD3A9F5EFF80C196FF46A362FF007D1FD100791907FFFFFF00FFFFFF00FFFF
-              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00299B5BFF90CAA9FF8DC8A5FF8AC6
-              A1FF88C59EFF6AB685FF82C297FF48A566FF007D21D700791B09FFFFFF00FFFF
-              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00319F63FF94CDADFF6FBA8EFF6BB8
-              89FF66B685FF61B380FF67B582FF83C298FF3CA05CFF007F25F9FFFFFF002626
-              26033F3F3F304A4A4ADF646464F46B6B6BF737A36BFF96CEB0FF94CDADFF91CB
-              AAFF90CBA8FF74BC90FF8AC7A1FF46A568FF078735FB01832D01FFFFFF002929
-              29294D4D4DD78D8D8DEFAAAAAAEDAEAEAEFF3DA56FFF38A26DFF34A067FF319D
-              62FF55AF7CFF91CBAAFF4FAB74FF188E45FE282B292AFFFFFF00FFFFFF002D2D
-              2D69676767EF96969674525252B9414141FA464646FF515151FF515151FF4646
-              46FF329860FF5AB381FF289857FF676767EF2D2D2D69FFFFFF00FFFFFF003232
-              328A828282F7939393674F4F4F0A3F3F3FF3BDBDBDFFCECECEFFC2C2C2FFADAD
-              ADFF389C68FE319F65FF93939367828282F73232328AFFFFFF00FFFFFF003131
-              314E737373F0D5D5D5EE585858B64B4B4BFC656565FF929292FF797979FF6565
-              65FF4B4B4BFC585858B6A8A8A8E1737373F03131314EFFFFFF00FFFFFF003232
-              32064C4C4C8A919191FFE8E8E8FFDDDDDDFFC1C1C1FF818181DE7B7B7BC2D9D9
-              D9F8DDDDDDFFC4C4C4FF919191FF4C4C4C8A32323206FFFFFF00FFFFFF00FFFF
-              FF003E3E3E0B6A6A6A75858585EE9E9E9EFF7C7C7CE16C6C6C376C6C6C187C7C
-              7CDD9E9E9EFF858585EE6A6A6A753E3E3E0BFFFFFF00FFFFFF00FFFFFF00FFFF
-              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00}
-            OnClick = BtnEnviarBromasClick
-          end
-          object ListViewBromas: TListView
-            Left = 0
-            Top = 0
-            Width = 472
-            Height = 318
-            Align = alCustom
-            Anchors = [akLeft, akTop, akRight, akBottom]
-            BevelInner = bvNone
-            BevelOuter = bvRaised
-            BevelKind = bkFlat
-            BorderStyle = bsNone
-            Columns = <
-              item
-                Width = 150
-              end
-              item
-                AutoSize = True
-                Caption = 'Estado'
-              end>
-            FlatScrollBars = True
-            GridLines = True
-            Items.Data = {
-              D6000000040000003A000000FFFFFFFFFFFFFFFF0100000000000000104D6F75
-              73652074656D626C6F726F736F0B446573616374697661646F3B000000FFFFFF
-              FFFFFFFFFF01000000000000000E436F6E67656C6172206D6F7573650B446573
-              616374697661646F39000000FFFFFFFFFFFFFFFF01000000000000000F416272
-              69722F4365727261722043440B446573616374697661646F3C000000FFFFFFFF
-              FFFFFFFF010000000000000015426C6F717565617220426F74F36E20496E6963
-              696F0B446573616374697661646FFFFFFFFFFFFFFFFF}
-            ReadOnly = True
-            RowSelect = True
-            SmallImages = IconsArchivos
-            TabOrder = 0
-            ViewStyle = vsReport
-          end
-        end
-      end
-    end
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 434
-    Width = 495
+    Top = 420
+    Width = 570
     Height = 20
     Panels = <
       item
@@ -3644,6 +2956,7 @@ object FormControl: TFormControl
     object Eliminar: TMenuItem
       Caption = 'Eliminar'
       ImageIndex = 41
+      ShortCut = 46
       OnClick = EliminarClick
     end
     object CambiarAtributos1: TMenuItem
@@ -3672,35 +2985,34 @@ object FormControl: TFormControl
       ImageIndex = 78
       OnClick = Crearnuevacarpeta1Click
     end
-    object PrevisualizarImagenes1: TMenuItem
-      Caption = 'Previsualizar Imagenes'
-      OnClick = PrevisualizarImagenes1Click
-    end
     object Previsualizarjpg1: TMenuItem
       Caption = 'Visor de imagenes avanzado'
       ImageIndex = 77
       OnClick = Previsualizarjpg1Click
     end
-    object Portapapeles1: TMenuItem
-      Caption = 'Portapapeles virtual'
-      object Copiar1: TMenuItem
-        Caption = 'Copiar'
-        ImageIndex = 43
-        OnClick = Copiar1Click
-      end
-      object Pegar1: TMenuItem
-        Caption = 'Pegar'
-        ImageIndex = 94
-        OnClick = Pegar1Click
-      end
+    object N12: TMenuItem
+      Caption = '-'
+    end
+    object Cortar1: TMenuItem
+      Caption = 'Cortar'
+      ImageIndex = 95
+      ShortCut = 16472
+      OnClick = Cortar1Click
+    end
+    object Copiar1: TMenuItem
+      Caption = 'Copiar'
+      ImageIndex = 43
+      ShortCut = 16451
+      OnClick = Copiar1Click
+    end
+    object Pegar1: TMenuItem
+      Caption = 'Pegar'
+      ImageIndex = 94
+      ShortCut = 16470
+      OnClick = Pegar1Click
     end
     object N8: TMenuItem
       Caption = '-'
-    end
-    object BuscarArchivos1: TMenuItem
-      Caption = 'Buscar'
-      ImageIndex = 96
-      OnClick = BuscarArchivos1Click
     end
     object AbrirCarpetaDescargas2: TMenuItem
       Caption = 'Abrir Carpeta Descargas'
@@ -3711,6 +3023,10 @@ object FormControl: TFormControl
       Caption = 'Abrir directorio del archivo'
       ImageIndex = 0
       OnClick = Abrirdirectorio1Click
+    end
+    object PrevisualizarImagenes1: TMenuItem
+      Caption = 'Previsualizar Imagenes'
+      OnClick = PrevisualizarImagenes1Click
     end
   end
   object PopupRegistro: TPopupMenu
@@ -3752,6 +3068,10 @@ object FormControl: TFormControl
     object N3: TMenuItem
       Caption = '-'
     end
+    object Modificar1: TMenuItem
+      Caption = 'Modificar'
+      OnClick = Modificar1Click
+    end
     object N1: TMenuItem
       Caption = 'Cambiar nombre'
       ImageIndex = 68
@@ -3779,12 +3099,11 @@ object FormControl: TFormControl
     Enabled = False
     Interval = 0
     OnTimer = TimerCaptureScreenTimer
-    Left = 236
+    Left = 232
     Top = 200
   end
   object PopupDescargas: TPopupMenu
     Images = IconsArchivos
-    OnPopup = PopupDescargasPopup
     Left = 260
     Top = 256
     object DetenerDescarga1: TMenuItem
@@ -3797,25 +3116,38 @@ object FormControl: TFormControl
       ImageIndex = 55
       OnClick = ReanudarDescarga1Click
     end
-    object Subiralprimerpuesto1: TMenuItem
-      Caption = 'Primer puesto'
-      ImageIndex = 37
-      OnClick = Subiralprimerpuesto1Click
-    end
-    object Subir1: TMenuItem
-      Caption = 'Subir puesto'
-      ImageIndex = 36
-      OnClick = Subir1Click
-    end
-    object Bajar1: TMenuItem
-      Caption = 'Bajar puesto'
-      ImageIndex = 38
-      OnClick = Bajar1Click
-    end
-    object ltimopuesto1: TMenuItem
-      Caption = #218'ltimo puesto'
-      ImageIndex = 39
-      OnClick = ltimopuesto1Click
+    object Prioridad: TMenuItem
+      Caption = 'Prioridad'
+      object N13: TMenuItem
+        Caption = '1'
+        Hint = '1'
+        ImageIndex = 37
+        OnClick = N13Click
+      end
+      object N21: TMenuItem
+        Caption = '2'
+        Hint = '2'
+        ImageIndex = 36
+        OnClick = N13Click
+      end
+      object N31: TMenuItem
+        Caption = '3'
+        Hint = '3'
+        ImageIndex = 112
+        OnClick = N13Click
+      end
+      object N41: TMenuItem
+        Caption = '4'
+        Hint = '4'
+        ImageIndex = 38
+        OnClick = N13Click
+      end
+      object N51: TMenuItem
+        Caption = '5'
+        Hint = '5'
+        ImageIndex = 39
+        OnClick = N13Click
+      end
     end
     object Borrarcompletados1: TMenuItem
       Caption = 'Borrar completados'
@@ -3823,7 +3155,7 @@ object FormControl: TFormControl
       OnClick = Borrarcompletados1Click
     end
     object Eliminardescarga1: TMenuItem
-      Caption = 'Eliminar descarga'
+      Caption = 'Eliminar Transferencia'
       ImageIndex = 40
       OnClick = Eliminardescarga1Click
     end
@@ -3929,7 +3261,7 @@ object FormControl: TFormControl
     Left = 288
     Top = 172
     Bitmap = {
-      494C010170007200040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010171007200040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000D0010000010020000000000000D0
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3979,33 +3311,33 @@ object FormControl: TFormControl
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000061BE6D005DB8680058B1
+      620053A95C004DA1560047994F00419149003B88420035803B002F7835002A70
+      2F0025692900216324001D5E2000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000065C37100A0D7A9009CD5
+      A50098D3A10094D09D0090CE98008BCB930087C98E0082C689007EC384007AC1
+      800076BE7C0072BD780021632400000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000068C77400A5DAAE00A2D8
+      AB009ED6A7009AD4A30096D29F0093CF9A008ECC950089CA900085C78B0081C5
+      87007DC2820078C07E0025692900000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000068C7740068C7740065C3
+      710061BE6D005DB8680058B1620053A95C004DA1560047994F00419149003B88
+      420035803B002F7835002A702F00000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -6372,118 +5704,118 @@ object FormControl: TFormControl
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      00000000000000000000276D2C00276D2C002063240020632400000000000000
-      0000000000000000000000000000000000000000000000000000276D2C00276D
-      2C00206324002063240000000000000000000000000000000000276D2C00276D
-      2C00206324002063240000000000000000000000000000000000000000000000
-      0000000000000000000000000000578B5A004F84520000000000000000000000
-      000000000000000000000000000000000000000000000000000000000000578B
-      5A004F845200000000000000000000000000000000000000000000000000578B
-      5A004F8452000000000000000000000000000000000000000000000000000000
-      000000000000000000002A712F0073BC790073BC790020632400000000000000
-      00000000000000000000000000000000000000000000000000002A712F0073BC
-      790073BC790020632400000000000000000000000000000000002A712F0073BC
-      790073BC79002063240000000000000000000000000000000000000000000000
-      00000000000000000000548E5900478E4C00448B490049804C00000000000000
-      0000000000000000000000000000000000000000000000000000548E5900478E
-      4C00448B490049804C0000000000000000000000000000000000548E5900478E
-      4C00448B490049804C0000000000000000000000000000000000000000000000
-      00000000000000000000327C380078BF7D0078BF7D00256A2A00000000000000
-      0000000000000000000000000000000000000000000000000000327C380078BF
-      7D0078BF7D00256A2A0000000000000000000000000000000000327C380078BF
-      7D0078BF7D00256A2A0000000000000000000000000000000000000000000000
-      0000FAFCFB0055955A005098560078BF7D0078BF7D00448B4900417B4500FAFC
-      FB0000000000000000000000000000000000FAFCFB0055955A005098560078BF
-      7D0078BF7D00448B4900417B4500FAFCFB00FAFCFB0055955A005098560078BF
-      7D0078BF7D00448B4900417B4500FAFCFB000000000000000000000000000000
-      0000000000000000000038843E007BC5840078BF7D002A712F00000000000000
-      000000000000000000000000000000000000000000000000000038843E007BC5
-      840078BF7D002A712F000000000000000000000000000000000038843E007BC5
-      840078BF7D002A712F0000000000000000000000000000000000000000000000
-      000076B07C00448B490064AC6B007CC181007CC181004A914F002D7132005E90
-      61000000000000000000000000000000000076B07C00448B490064AC6B007CC1
-      81007CC181004A914F002D7132005E90610076B07C00448B490064AC6B007CC1
-      81007CC181004A914F002D7132005E9061000000000000000000000000000000
-      00000000000000000000428C420080C4860080C4860030793500000000000000
-      0000000000000000000000000000000000000000000000000000428C420080C4
-      860080C486003079350000000000000000000000000000000000428C420080C4
-      860080C486003079350000000000000000000000000000000000000000000000
-      000000000000D5E7D7005098560080C4860080C4860030793500000000000000
-      00000000000000000000000000000000000000000000D5E7D7005098560080C4
-      860080C4860030793500000000000000000000000000D5E7D7005098560080C4
-      860080C486003079350000000000000000000000000000000000000000000000
-      0000000000000000000044944B0084C78B0084C78B0035813C00000000000000
-      000000000000000000000000000000000000000000000000000044944B0084C7
-      8B0084C78B0035813C000000000000000000000000000000000044944B0084C7
-      8B0084C78B0035813C0000000000000000000000000000000000000000000000
-      0000000000000000000044944B0084C78B0084C78B0035813C00000000000000
-      000000000000000000000000000000000000000000000000000044944B0084C7
-      8B0084C78B0035813C000000000000000000000000000000000044944B0084C7
-      8B0084C78B0035813C0000000000000000000000000000000000000000000000
-      00000000000000000000499D52008DCC940084C78B003B894200000000000000
-      0000000000000000000000000000000000000000000000000000499D52008DCC
-      940084C78B003B89420000000000000000000000000000000000499D52008DCC
-      940084C78B003B89420000000000000000000000000000000000000000000000
-      00000000000000000000499D52008DCC940084C78B003B894200000000000000
-      0000000000000000000000000000000000000000000000000000499D52008DCC
-      940084C78B003B89420000000000000000000000000000000000499D52008DCC
-      940084C78B003B89420000000000000000000000000000000000000000000000
-      0000000000000000000054A65C008DCC94008DCC940044944B00000000000000
-      000000000000000000000000000000000000000000000000000054A65C008DCC
-      94008DCC940044944B000000000000000000000000000000000054A65C008DCC
-      94008DCC940044944B0000000000000000000000000000000000000000000000
-      000000000000000000004FA558008DCC94008DCC940044944B00000000000000
-      00000000000000000000000000000000000000000000000000004FA558008DCC
-      94008DCC940044944B00000000000000000000000000000000004FA558008DCC
-      94008DCC940044944B0000000000000000000000000000000000000000000000
-      0000000000000000000055AC5E0093D09B0093D09B00499D5200000000000000
-      000000000000000000000000000000000000000000000000000055AC5E0093D0
-      9B0093D09B00499D52000000000000000000000000000000000055AC5E0093D0
-      9B0093D09B00499D520000000000000000000000000000000000000000000000
-      0000000000000000000055AC5E0093D09B0093D09B00499D5200000000000000
-      000000000000000000000000000000000000000000000000000055AC5E0093D0
-      9B0093D09B00499D52000000000000000000000000000000000055AC5E0093D0
-      9B0093D09B00499D520000000000000000000000000000000000000000000000
-      000000000000000000005AB3640097D3A00093D09B005CAB6400D7E9D9000000
-      00000000000000000000000000000000000000000000000000005AB3640097D3
-      A00093D09B005CAB6400D7E9D9000000000000000000000000005AB3640097D3
-      A00093D09B005CAB6400D7E9D900000000000000000000000000000000000000
-      000000000000000000005AB3640097D3A00093D09B004DA15600000000000000
-      00000000000000000000000000000000000000000000000000005AB3640097D3
-      A00093D09B004DA15600000000000000000000000000000000005AB3640097D3
-      A00093D09B004DA1560000000000000000000000000000000000000000000000
-      00008CD6940066C072007BC5840097D3A00097D3A0007BC5840054A65C007CB8
-      8200000000000000000000000000000000008CD6940066C072007BC5840097D3
-      A00097D3A0007BC5840054A65C007CB882008CD6940066C072007BC5840097D3
-      A00097D3A0007BC5840054A65C007CB882000000000000000000000000000000
-      000000000000000000005EBA690097D3A00097D3A00055AC5E00000000000000
-      00000000000000000000000000000000000000000000000000005EBA690097D3
-      A00097D3A00055AC5E00000000000000000000000000000000005EBA690097D3
-      A00097D3A00055AC5E0000000000000000000000000000000000000000000000
-      0000000000007BCB85007BCB85009DD6A6009DD6A60073BC79006DB875000000
-      000000000000000000000000000000000000000000007BCB85007BCB85009DD6
-      A6009DD6A60073BC79006DB8750000000000000000007BCB85007BCB85009DD6
-      A6009DD6A60073BC79006DB87500000000000000000000000000000000000000
-      0000000000000000000061BD6C009DD6A6009DD6A6005AB36400000000000000
-      000000000000000000000000000000000000000000000000000061BD6C009DD6
-      A6009DD6A6005AB364000000000000000000000000000000000061BD6C009DD6
-      A6009DD6A6005AB3640000000000000000000000000000000000000000000000
-      0000000000000000000081CF8B007BCB85007BCB85007BC58400000000000000
-      000000000000000000000000000000000000000000000000000081CF8B007BCB
-      85007BCB85007BC584000000000000000000000000000000000081CF8B007BCB
-      85007BCB85007BC5840000000000000000000000000000000000000000000000
-      0000000000000000000065C47100A1D8AA00A1D8AA005EBA6900000000000000
-      000000000000000000000000000000000000000000000000000065C47100A1D8
-      AA00A1D8AA005EBA69000000000000000000000000000000000065C47100A1D8
-      AA00A1D8AA005EBA690000000000000000000000000000000000000000000000
-      000000000000000000000000000084CE940084CE940000000000000000000000
-      00000000000000000000000000000000000000000000000000000000000084CE
-      940084CE940000000000000000000000000000000000000000000000000084CE
-      940084CE94000000000000000000000000000000000000000000000000000000
-      0000000000000000000065C4710065C4710065C4710061BD6C00000000000000
-      000000000000000000000000000000000000000000000000000065C4710065C4
-      710065C4710061BD6C000000000000000000000000000000000065C4710065C4
-      710065C4710061BD6C0000000000000000000000000000000000000000000000
+      00000000000000000000286E2DFF256929FF216425FF1E6022FF000000000000
+      0000000000000000000000000000000000000000000000000000286E2D002569
+      2900216425001E60220000000000000000000000000000000000286E2D002569
+      2900216425001E60220000000000000000000000000000000000000000000000
+      0000000000000000000000000000256929C4216425C900000000000000000000
+      00000000000000000000000000000000000000000000000000000000000065C2
+      700067C6730000000000000000000000000000000000000000000000000065C2
+      700067C673000000000000000000000000000000000000000000000000000000
+      000000000000000000002D7533FF74BD7AFF72BD78FF226526FF000000000000
+      00000000000000000000000000000000000000000000000000002D75330074BD
+      7A0072BD780022652600000000000000000000000000000000002D75330074BD
+      7A0072BD78002265260000000000000000000000000000000000000000000000
+      000000000000000000002D7533CF488F4DFF458C4AFF226526D1000000000000
+      00000000000000000000000000000000000000000000000000005DB868007BC8
+      85007ECA880066C57200000000000000000000000000000000005DB868007BC8
+      85007ECA880066C5720000000000000000000000000000000000000000000000
+      00000000000000000000337D39FF79C07EFF76BF7CFF266B2BFF000000000000
+      0000000000000000000000000000000000000000000000000000337D390079C0
+      7E0076BF7C00266B2B0000000000000000000000000000000000337D390079C0
+      7E0076BF7C00266B2B0000000000000000000000000000000000000000000000
+      00003C8A430638833ED9519957FF79C07EFF76BF7CFF468D4BFF236627DB2062
+      23060000000000000000000000000000000050A6590055AC5E0073C07D009CD4
+      A5009ED6A7007CCA870066C4720068C7740050A6590055AC5E0073C07D009CD4
+      A5009ED6A7007CCA870066C4720068C774000000000000000000000000000000
+      0000000000000000000039853FFF7DC282FF7AC180FF2B7230FF000000000000
+      000000000000000000000000000000000000000000000000000039853F007DC2
+      82007AC180002B7230000000000000000000000000000000000039853F007DC2
+      82007AC180002B72300000000000000000000000000000000000000000000000
+      000042924AB83D8C45F765AD6CFF7DC282FF7AC180FF4B9250FF276D2CF72468
+      28BB000000000000000000000000000000004A9E53004FA458007DC3860098D3
+      A1009AD4A30079C6830062BF6E0065C371004A9E53004FA458007DC3860098D3
+      A1009AD4A30079C6830062BF6E0065C371000000000000000000000000000000
+      000000000000000000003F8D46FF81C587FF7EC385FF317A36FF000000000000
+      00000000000000000000000000000000000000000000000000003F8D460081C5
+      87007EC38500317A3600000000000000000000000000000000003F8D460081C5
+      87007EC38500317A360000000000000000000000000000000000000000000000
+      00000000000043944B384E9A55FF81C587FF7EC385FF317A36FF000000000000
+      00000000000000000000000000000000000000000000499C52005DAC650094D0
+      9C0096D29F005BB46500000000000000000000000000499C52005DAC650094D0
+      9C0096D29F005BB4650000000000000000000000000000000000000000000000
+      0000000000000000000045954CFF85C78CFF82C689FF36823DFF000000000000
+      000000000000000000000000000000000000000000000000000045954C0085C7
+      8C0082C6890036823D000000000000000000000000000000000045954C0085C7
+      8C0082C6890036823D0000000000000000000000000000000000000000000000
+      0000000000000000000045954CFF85C78CFF82C689FF36823DFF000000000000
+      0000000000000000000000000000000000000000000000000000489A500090CE
+      980093CF9A0056AD5F0000000000000000000000000000000000489A500090CE
+      980093CF9A0056AD5F0000000000000000000000000000000000000000000000
+      000000000000000000004A9E53FF8ACA91FF87C98EFF3C8A43FF000000000000
+      00000000000000000000000000000000000000000000000000004A9E53008ACA
+      910087C98E003C8A4300000000000000000000000000000000004A9E53008ACA
+      910087C98E003C8A430000000000000000000000000000000000000000000000
+      000000000000000000004A9E53FF8ACA91FF87C98EFF3C8A43FF000000000000
+      000000000000000000000000000000000000000000000000000042924A008BCB
+      93008ECC950050A659000000000000000000000000000000000042924A008BCB
+      93008ECC950050A6590000000000000000000000000000000000000000000000
+      0000000000000000000050A659FF8ECC95FF8BCB93FF42924AFF000000000000
+      000000000000000000000000000000000000000000000000000050A659008ECC
+      95008BCB930042924A000000000000000000000000000000000050A659008ECC
+      95008BCB930042924A0000000000000000000000000000000000000000000000
+      0000000000000000000050A659FF8ECC95FF8BCB93FF42924AFF000000000000
+      00000000000000000000000000000000000000000000000000003C8A430087C9
+      8E008ACA91004A9E5300000000000000000000000000000000003C8A430087C9
+      8E008ACA91004A9E530000000000000000000000000000000000000000000000
+      0000000000000000000056AD5FFF93CF9AFF90CE98FF489A50FF000000000000
+      000000000000000000000000000000000000000000000000000056AD5F0093CF
+      9A0090CE9800489A50000000000000000000000000000000000056AD5F0093CF
+      9A0090CE9800489A500000000000000000000000000000000000000000000000
+      0000000000000000000056AD5FFF93CF9AFF90CE98FF489A50FF000000000000
+      000000000000000000000000000000000000000000000000000036823D0082C6
+      890085C78C0045954C000000000000000000000000000000000036823D0082C6
+      890085C78C0045954C0000000000000000000000000000000000000000000000
+      000000000000000000005BB465FF96D29FFF94D09CFF5DAC65FF499C52380000
+      00000000000000000000000000000000000000000000000000005BB4650096D2
+      9F0094D09C005DAC6500499C52000000000000000000000000005BB4650096D2
+      9F0094D09C005DAC6500499C5200000000000000000000000000000000000000
+      000000000000000000005BB465FF96D29FFF94D09CFF4EA257FF000000000000
+      0000000000000000000000000000000000000000000000000000317A36007EC3
+      850081C587003F8D460000000000000000000000000000000000317A36007EC3
+      850081C587003F8D460000000000000000000000000000000000000000000000
+      000065C371BB62BF6EF779C683FF9AD4A3FF98D3A1FF7DC386FF4FA458F74A9E
+      53B80000000000000000000000000000000065C3710062BF6E0079C683009AD4
+      A30098D3A1007DC386004FA458004A9E530065C3710062BF6E0079C683009AD4
+      A30098D3A1007DC386004FA458004A9E53000000000000000000000000000000
+      000000000000000000005FBB6AFF9AD4A3FF98D3A1FF53AA5DFF000000000000
+      00000000000000000000000000000000000000000000000000002B7230007AC1
+      80007DC2820039853F00000000000000000000000000000000002B7230007AC1
+      80007DC2820039853F0000000000000000000000000000000000000000000000
+      000068C7740666C472DB7CCA87FF9ED6A7FF9CD4A5FF73C07DFF55AC5ED950A6
+      59060000000000000000000000000000000068C7740066C472007CCA87009ED6
+      A7009CD4A50073C07D0055AC5E0050A6590068C7740066C472007CCA87009ED6
+      A7009CD4A50073C07D0055AC5E0050A659000000000000000000000000000000
+      0000000000000000000063C06FFF9ED6A7FF9CD4A5FF59B263FF000000000000
+      0000000000000000000000000000000000000000000000000000266B2B0076BF
+      7C0079C07E00337D390000000000000000000000000000000000266B2B0076BF
+      7C0079C07E00337D390000000000000000000000000000000000000000000000
+      0000000000000000000066C572D17ECA88FF7BC885FF5DB868CF000000000000
+      000000000000000000000000000000000000000000000000000066C572007ECA
+      88007BC885005DB868000000000000000000000000000000000066C572007ECA
+      88007BC885005DB8680000000000000000000000000000000000000000000000
+      0000000000000000000066C572FFA2D8ABFFA0D7A9FF5DB868FF000000000000
+      00000000000000000000000000000000000000000000000000002265260072BD
+      780074BD7A002D753300000000000000000000000000000000002265260072BD
+      780074BD7A002D75330000000000000000000000000000000000000000000000
+      000000000000000000000000000067C673C965C270C400000000000000000000
+      00000000000000000000000000000000000000000000000000000000000067C6
+      730065C2700000000000000000000000000000000000000000000000000067C6
+      730065C270000000000000000000000000000000000000000000000000000000
+      0000000000000000000068C774FF67C673FF65C270FF62BE6DFF000000000000
+      00000000000000000000000000000000000000000000000000001E6022002164
+      250025692900286E2D00000000000000000000000000000000001E6022002164
+      250025692900286E2D0000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -7645,11 +6977,11 @@ object FormControl: TFormControl
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000000000000000000000000000424D3E000000000000003E000000
       2800000040000000D00100000100010000000000800E00000000000000000000
-      000000000000000000000000FFFFFF0000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      00000000000000000000000000000000F00FFC3FFFFFFE7FC0030000FFFFF83F
+      000000000000000000000000FFFFFF00FFFF000000000000FFFF000000000000
+      FFFF000000000000FFFF000000000000FFFF000000000000FFFF000000000000
+      8001000000000000800100000000000080010000000000008001000000000000
+      FFFF000000000000FFFF000000000000FFFF000000000000FFFF000000000000
+      FFFF000000000000FFFF000000000000F00FFC3FFFFFFE7FC0030000FFFFF83F
       800100000000F81F800100000000F81F0000F83F0000F81F000000000000F01F
       000000000000F01F000000000000F01F000000000000F01F000000000000F01F
       000000008001F01F000000008001F81F80010000C003FC3F80018001FFFFFC3F
@@ -7724,7 +7056,7 @@ object FormControl: TFormControl
       F00FE7E3FFFF0000FFFFFFF7FFFF0000FFFFFFFFFFFFFFFFFC3FC3C3FE7FE7E7
       FC3FC3C3FC3FC3C3FC3FC3C3F00F0000FC3FC3C3F00F0000FC3FC3C3F83F8383
       FC3FC3C3FC3FC3C3FC3FC3C3FC3FC3C3FC3FC3C3FC3FC3C3FC3FC3C3FC3FC3C3
-      FC1FC1C1FC3FC3C3F00F0000FC3FC3C3F81F8181FC3FC3C3FC3FC3C3FC3FC3C3
+      FC1FC1C1FC3FC3C3F00F0000FC3FC3C3F00F0000FC3FC3C3FC3FC3C3FC3FC3C3
       FE7FE7E7FC3FC3C3FFFFFFFFFFFFFFFF003FFFFFFFFFEFFF001F8001F807CFFF
       000F8001E007800300078001C007000300078001C00700030007C003C0078003
       0007C003C007CFFF0007C003C007EFF70007C003C007FFF38003C003C007C001

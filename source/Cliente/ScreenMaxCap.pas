@@ -41,6 +41,8 @@ type
     vp: TMenuItem;
     ScrollBox1: TScrollBox;
     ImgCaptura: TImage;
+    N2: TMenuItem;
+    N0kb1: TMenuItem;
     procedure FormCanResize(Sender: TObject; var NewWidth,
       NewHeight: Integer; var Resize: Boolean);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);

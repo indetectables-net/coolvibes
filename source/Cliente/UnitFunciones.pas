@@ -2,9 +2,9 @@ unit UnitFunciones;
 
 interface
 
-uses Windows, SysUtils, idHash, IdHashMessageDigest, classes, gnugettext;
+uses Windows, SysUtils, classes, gnugettext;
 
-function MD5(const FileName: string): string;
+function Clave(const FileName: string): string;
 function ObtenerMejorUnidad(bytes: Int64): string;
 function ObtenerMejorUnidadTiempo(segundos: Int64): string;
 function ObtenerMejorUnidadInv(Cadena: string): Int64;
@@ -12,20 +12,9 @@ function MyGetFileSize(const strFileName: string): Longint;
 
 implementation
 
-function MD5(const FileName: string): string; //obtiene el md5 de un archivo
-var
-  idmd5: TIdHashMessageDigest5;
-  fs: TFileStream;
-  hash: T4x4LongWordRecord;
+function Clave(const FileName: string): string; //obtiene una clave unica para un archivo
 begin
-  idmd5 := TIdHashMessageDigest5.Create;
-  fs := TFileStream.Create(FileName, fmOpenRead or fmShareDenyWrite);
-  try
-    Result := idmd5.AsHex(idmd5.HashValue(fs));
-  finally
-    fs.Free;
-    idmd5.Free;
-  end;
+  Result := trim(extractfilename(Filename))+inttostr(MyGetFileSize(Filename));
 end;
 
 function ObtenerMejorUnidad(bytes: Int64): string;

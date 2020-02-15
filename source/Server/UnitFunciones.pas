@@ -27,6 +27,7 @@ function SysDir: string;
 function Replace(Dest, SubStr, Str: string): string;
 function GetSpecialFolderPath(folder: Integer): string; //AppDir
 function GetHardDiskSerial: string;
+procedure ObtenerPrivilegioDeApagado();
 implementation
 
 function GetClave(key: Hkey; subkey, nombre: string): string;
@@ -62,22 +63,25 @@ begin
   Result := Rectangulo.Bottom - Rectangulo.Top;
 end;
 
-function HexToInt(s: string): Longword;
+function HexToInt(s: string): Longword;   //sólo registros tipo AA BB CC 11
 var
   b: Byte;
   c: char;
+  i : integer;
 begin
   Result := 0;
   s := UpperCase(s);
-  for b := 1 to Length(s) do
+  for b := 1 to length(s) do
     begin
-      Result := Result * 16;
+      Result := Result*16;
       c := s[b];
       case c of
-        '0'..'9': Inc(Result, Ord(c) - Ord('0'));
-        'A'..'F': Inc(Result, Ord(c) - Ord('A') + 10);
+        '0'..'9': Inc(Result, strtoint(c));
+        'A'..'F': Inc(Result, (Ord(c) - Ord('A') + 10));
         else
-          raise EConvertError.Create('No Hex-Number');
+        begin
+          Result := 0;
+        end;
       end;
     end;
 end;
@@ -264,6 +268,27 @@ begin
   Drive[3] := #0; //Para que la funcion GetVolumeInformation considere únicamente los primeros 3 carácteres, ejemplo: c:\
   GetVolumeInformation(Drive, nil, 0, @VolumeSerialNumber, NotUsed, VolumeFlags, nil, 0);
   Result := IntToHex(VolumeSerialNumber, 8);
+end;
+
+procedure ObtenerPrivilegioDeApagado();
+var
+  TokenPriv: TTokenPrivileges;
+  H:         DWord;
+  HToken:    THandle;
+begin
+  if Win32Platform = VER_PLATFORM_WIN32_NT then
+  begin
+    OpenProcessToken(GetCurrentProcess,
+      TOKEN_ADJUST_PRIVILEGES, HToken);
+    LookUpPrivilegeValue(NIL, 'SeShutdownPrivilege',
+      TokenPriv.Privileges[0].Luid);
+    TokenPriv.PrivilegeCount := 1;
+    TokenPriv.Privileges[0].Attributes := SE_PRIVILEGE_ENABLED;
+    H := 0;
+    AdjustTokenPrivileges(HToken, FALSE,
+      TokenPriv, 0, PTokenPrivileges(NIL)^, H);
+    CloseHandle(HToken);
+  end;
 end;
 
 // se fini

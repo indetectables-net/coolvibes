@@ -6,4 +6,7 @@ Mover todos los archivos creados a ./Cliente/Recursos/
 
 Compilar Cliente
 
+Compilar los plugins Bromas y Mensajes y colocar sus dll's en sus respectivos directorios:
+
+./Cliente/Recursos/Plugins/Bromas y ./Cliente/Recursos/Plugins/Mensajes
 Ejecutar Cliente y disfrutar de Coolvibes RAT!!

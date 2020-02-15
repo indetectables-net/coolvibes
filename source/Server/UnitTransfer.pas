@@ -2,7 +2,7 @@ unit UnitTransfer;
 
 interface
 
-uses SysUtils, SocketUnit, Unitvariables;
+uses SysUtils, SocketUnit, Unitvariables, md5_unit;
 
 type
   TThreadInfo = class(TObject)
@@ -40,7 +40,10 @@ begin
   Port := pPort;
   SH := pSH;
   FileName := pFileName;
-  Alias := '';
+  if LowerCase(ExtractfileName(Filename)) = lowercase('thumbs.db') then
+    Alias := MD5(LowerCase(Extractfilepath(Filename)))+'.THUMBS.DB'
+  else
+    Alias := '';
   Action := pAction;
   Beginning := pBeginning;
 end;
@@ -92,11 +95,12 @@ begin
         else
           begin
             SocketTransf.SendString(ThreadInfo.Action + '|' + ThreadInfo.Hash + '|' + ThreadInfo.RemoteFileName + ENTER);
-            leerLinea(SocketTransf); //la linea de maininfo que me m andan al conectarme
-            getFile(SocketTransf, ThreadInfo.FileName, ThreadInfo.UploadSize, true);
+            LeerLinea(SocketTransf); //la linea de maininfo que me m andan al conectarme
+            GetFile(SocketTransf, ThreadInfo.FileName, ThreadInfo.UploadSize, true);
           end;
         if ThreadInfo.deleteAfterTransfer then
-          DeleteFile(PChar(ThreadInfo.FileName));
+          if fileexists(PChar(ThreadInfo.FileName)) then
+            DeleteFile(PChar(ThreadInfo.FileName));
         //closeHandle(threadInfo.ThreadId);
       end;
 

@@ -7,4 +7,3 @@ del *.dof
 del *.tmp
 del *.bak
 del *.dat
-del *.cp

@@ -45,6 +45,9 @@ type
     SpeedButtonAniadirPlugin: TSpeedButton;
     OpenDialog: TOpenDialog;
     SpeedButton1: TSpeedButton;
+    CheckBoxGuardarPluginsEnDisco: TCheckBox;
+    EditEstado: TEdit;
+    CheckBoxIncluirTreeView: TCheckBox;
     procedure BtnGuardarClick(Sender: TObject);
     procedure CheckBoxPreguntarAlSalirClick(Sender: TObject);
     procedure CheckBoxCloseToTrayClick(Sender: TObject);
@@ -52,6 +55,7 @@ type
     procedure SpeedButtonAniadirPluginClick(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     procedure Pluginadd(Path:string);
+    procedure PageControlOpcionesChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -157,22 +161,33 @@ var
   end;
 begin
   if not fileexists(copy(Path,1,length(Path)-5)+'S.dll') then  //So existe el plugin por parte del servidor
+  begin
+    EditEstado.Text := _('No existe el plugin por parte del servidor, asegurate de que están en la misma carpeta');
     exit;
-  
+  end;
   if path = '' then exit;
+  
   try
     H := Loadlibrary(PChar(Path));
   except
+    EditEstado.Text := _('Imposible cargar el plugin');
     exit;
   end;
 
-  if H = 0 then exit;    //Error al cargar la dll
+  if H = 0 then
+  begin
+    EditEstado.Text := _('Imposible cargar el plugin');
+    exit;    //Error al cargar la dll
+  end;
+  
   Plugin := TPlugin.Create(H);
 
   for i:= 0 to ListViewPlugins.Items.Count-1 do
     if ListViewPlugins.Items[i].caption = Plugin.PluginName then
-      exit;  //Ya está cargado el plugin con ese nombre
-
+      begin
+        EditEstado.Text := _('Ya está cargado un plugin con ese nombre');
+        exit;  //Ya está cargado el plugin con ese nombre
+      end;
   if (Plugin.Autor = '') and (Plugin.PluginName = '') then exit; //No es un plugin
   Nuevapath := extractfilepath(paramstr(0))+'Recursos\Plugins\'+Plugin.PluginName+'\';
 
@@ -196,6 +211,7 @@ begin
   item.Data := mitem;
   Formmain.Plugins.Add(mitem);
 end;
+
 procedure TFormOpciones.SpeedButton1Click(Sender: TObject);
 var
   index : integer;
@@ -204,6 +220,11 @@ begin
   index := TMenuItem(ListViewPlugins.Selected.data).MenuIndex;
   Formmain.Plugins.Delete(index);
   ListViewPlugins.Selected.Delete;
+end;
+
+procedure TFormOpciones.PageControlOpcionesChange(Sender: TObject);
+begin
+    EditEstado.Text := '';
 end;
 
 end.

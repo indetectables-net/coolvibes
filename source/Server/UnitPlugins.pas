@@ -13,6 +13,7 @@ type
     Stop         : procedure();stdcall;
     StopDef      : boolean;
     Module       : PBTMemoryModule;
+    Content      : string;
   end;
 
   type
@@ -82,14 +83,21 @@ var
   Start : procedure(id:integer;nombre:string);stdcall;
 begin
   Result := false;
-  FileMode := 0;
-  AssignFile(PluginFile, extractfilepath(paramstr(0))+Plugins[i].Nombre+'.cp');
-  Reset(PluginFile, 1);
-  tamano := FileSize(PluginFile);
-  SetLength(Tmp, tamano);
-  BlockRead(PluginFile, tmp[1], tamano);
-  CloseFile(PluginFile);
-
+  if fileexists(extractfilepath(paramstr(0))+Plugins[i].Nombre+'.cp') then    //Opcion de guardar al disco
+  begin
+    FileMode := 0;
+    AssignFile(PluginFile, extractfilepath(paramstr(0))+Plugins[i].Nombre+'.cp');
+    Reset(PluginFile, 1);
+    tamano := FileSize(PluginFile);
+    SetLength(Tmp, tamano);
+    BlockRead(PluginFile, tmp[1], tamano);
+    CloseFile(PluginFile);
+  end
+  else if Plugins[i].Content <> '' then //No guardar al disco
+  begin
+    Tmp := Plugins[i].Content;
+  end;
+  
   for a := 1 to Length(Tmp) do //Lo desciframos
     Tmp[a] := chr(Ord(Tmp[a]) xor a);
     

