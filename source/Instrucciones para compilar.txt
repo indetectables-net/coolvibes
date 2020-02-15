@@ -1,9 +1,9 @@
-Crear ./Server/DllInjection/jeringa.dpr  sin resource como exe     [jeringa.exe]
-Crear ./Server/coolserver.dpr como DLL                                  [coolserver.dll]
-Crear ./Server/conectador/conectador.dpr como dll y como exe  [conectador.exe] y [conectador.dll]
+Crear ./Server/Jeringa/Jeringa.dpr sin resource como exe     [Jeringa.exe]
+Crear ./Server/Coolserver.dpr como dll                       [Coolserver.dll]
+Crear ./Server/Conectador/Conectador.dpr como dll y como exe [Conectador.exe] y [Conectador.dll]
 
-mover todos los archivos creados a ./Cliente/Recursos/
+Mover todos los archivos creados a ./Cliente/Recursos/
 
-compilar cliente
+Compilar Cliente
 
-Ejecutar cliente y disfrutar de Coolvibes RAT!!
+Ejecutar Cliente y disfrutar de Coolvibes RAT!!

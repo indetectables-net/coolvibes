@@ -51,6 +51,6 @@ object FormSeleccionarIdioma: TFormSeleccionarIdioma
     Items.Strings = (
       'ES - Espa'#241'ol'
       'EN - English'
-      'PR - Portugu'#234's')
+      'PT - Portugu'#234's')
   end
 end

