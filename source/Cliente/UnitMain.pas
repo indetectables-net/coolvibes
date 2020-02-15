@@ -116,6 +116,8 @@ type
     VuelvaaaveractividadenelPC1: TMenuItem;
     Cambiedeventana1: TMenuItem;
     Avisos1: TMenuItem;
+    N4: TMenuItem;
+    Abrirdirectoriousuario1: TMenuItem;
     procedure BtnEscucharClick(Sender: TObject);
     procedure ListViewConexionesContextPopup(Sender: TObject;
       MousePos: TPoint; var Handled: boolean);
@@ -162,6 +164,7 @@ type
     procedure Capturapantalla1Click(Sender: TObject);
     procedure VuelvaaaveractividadenelPC1Click(Sender: TObject);
     procedure Cambiedeventana1Click(Sender: TObject);
+    procedure Abrirdirectoriousuario1Click(Sender: TObject);
   private
     ColumnaOrdenada, Columna: integer;
     WndMethod: TWndMethod;
@@ -630,24 +633,17 @@ end;
 
 procedure TFormMain.ListViewConexionesContextPopup(Sender: TObject;
   MousePos: TPoint; var Handled: boolean);
+var
+  i : integer;
+  Status : boolean;
 begin
   if ListViewConexiones.Selected = nil then
-    //No se ha seleccionado item, deshabilitar menu
-  begin
-    PopupMenuConexiones.Items[0].Enabled := False;
-    PopupMenuConexiones.Items[1].Enabled := False;
-    PopupMenuConexiones.Items[3].Enabled := False;
-    PopupMenuConexiones.Items[4].Enabled := False;
-    PopupMenuConexiones.Items[5].Enabled := False;
-  end
+    Status := false  //No se ha seleccionado item, deshabilitar menu
   else
-  begin
-    PopupMenuConexiones.Items[0].Enabled := True;
-    PopupMenuConexiones.Items[1].Enabled := True;
-    PopupMenuConexiones.Items[3].Enabled := True;
-    PopupMenuConexiones.Items[4].Enabled := True;
-    PopupMenuConexiones.Items[5].Enabled := True;
-  end;
+    Status := true;
+  for i := 0 to PopupMenuConexiones.Items.Count-1 do
+    PopupMenuConexiones.Items[i].Enabled := Status;
+
 end;
 
 //Al dar al boton abrir
@@ -1439,6 +1435,22 @@ begin
     else
       tmp := tmp+'V';
     mslistviewitem.subitems[11] := tmp;
+    mslistviewitem := ListViewConexiones.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+  end;
+end;
+
+procedure TFormMain.Abrirdirectoriousuario1Click(Sender: TObject);
+var
+  VentanaControl: TFormControl;
+  mslistviewitem : TListItem;
+begin
+  mslistviewitem := ListViewConexiones.Selected;
+  while Assigned(mslistviewitem) do
+  begin
+    VentanaControl := TFormControl(CrearVentanaControl(mslistviewitem));
+    VentanaControl.CrearDirectoriosUsuario;
+    ShellExecute(0, 'open', pchar(VentanaControl.DirUsuario), '', PChar(VentanaControl.DirUsuario), SW_NORMAL);
+
     mslistviewitem := ListViewConexiones.GetNextItem(mslistviewitem, sdAll, [isSelected]);
   end;
 end;

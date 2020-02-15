@@ -9,6 +9,15 @@ Modificación de: Nick
 [-] Cosas quitadas
 [*] Bug solucionados, arreglos
 
+
+Fecha 13/05/2011
+Versión: 1 Update 6
+Modificación de: Anonimo
+[*] Arreglado y cambiado el keylogger
+[+] Agregado "Abrir directorio de usuario" al popup menu del listviewconexiones
+
+|----------------------------|
+
 Fecha 11/05/2011
 Versión: 1 Update 5
 Modificación de: Anonimo

