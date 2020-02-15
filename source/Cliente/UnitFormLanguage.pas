@@ -13,6 +13,8 @@ type
     LabelAutor: TLabel;
     procedure Button1Click(Sender: TObject);
     procedure cmbLanguagesChange(Sender: TObject);
+    function readfile(filen:string):string;
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -31,30 +33,50 @@ uses UnitMain;
 procedure TFormSeleccionarIdioma.Button1Click(Sender: TObject);
 begin
   FormMain.Idioma := copy(cmbLanguages.Text,1,2);
-  FormMain.GuardarArchivoINI();
-  FormMain.Traducir();
+  if ((not directoryexists(extractfilepath(paramstr(0))+'Recursos\locale\'+Formmain.Idioma)) and (Formmain.Idioma <> 'ES')) or (Formmain.Idioma = '') then
+    FormMain.Idioma := 'NONE'; //Para que se lo pida la siguiente vez
   self.Close;
+end;
+function TFormSeleccionarIdioma.readfile(filen:string):string;
+var
+  F : file;
+  Tamano : integer;
+begin
+  if not fileexists(filen) then begin result := ''; exit; end;
+  FileMode := 0;
+  AssignFile(F, filen);
+  Reset(F, 1);
+  tamano := FileSize(F);
+  SetLength(Result, tamano);
+  BlockRead(F, Result[1], tamano);
+  CloseFile(F);
 end;
 
 procedure TFormSeleccionarIdioma.cmbLanguagesChange(Sender: TObject);
 var
-  F : file;
-  Tamano : integer;
   autor : string;
 begin
-  if fileexists(extractfilepath(paramstr(0))+'Recursos\Locale\'+copy(cmbLanguages.Text,1,2)+'\LC_MESSAGES\autor.txt') then
-  begin
-    FileMode := 0;
-    AssignFile(F, extractfilepath(paramstr(0))+'Recursos\Locale\'+copy(cmbLanguages.Text,1,2)+'\LC_MESSAGES\autor.txt');
-    Reset(F, 1);
-    tamano := FileSize(F);
-    SetLength(autor, tamano);
-    BlockRead(F, autor[1], tamano);
-    CloseFile(F);
-  end
-  else
-    autor := '';
+  autor := Readfile(extractfilepath(paramstr(0))+'Recursos\Locale\'+copy(cmbLanguages.Text,1,2)+'\LC_MESSAGES\autor.txt');
   LabelAutor.Caption := autor;
+end;
+
+procedure TFormSeleccionarIdioma.FormShow(Sender: TObject);
+var
+  Listado: TSearchRec;
+  i : integer;
+begin //Cargamos los idiomas al combobox
+  cmbLanguages.Items.Clear;
+
+  cmbLanguages.Items.Add('ES - Español');//Tiene preferencia :D
+
+  i := FindFirst(extractfilepath(paramstr(0))+'Recursos\locale\*.*', -faDirectory, Listado);
+  while i = 0 do
+  begin
+    if (length(listado.Name) = 2) and (Listado.Name <> '..') then
+      cmblanguages.Items.Add(Listado.name +' - '+ ReadFile(extractfilepath(paramstr(0))+'Recursos\locale\'+listado.Name+'\LC_MESSAGES\idioma.txt'));
+    I := FindNext(Listado);
+  end;
+  FindClose(Listado);
 end;
 
 end.

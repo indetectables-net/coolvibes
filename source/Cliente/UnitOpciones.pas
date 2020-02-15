@@ -28,7 +28,6 @@ type
     procedure BtnGuardarClick(Sender: TObject);
     procedure CheckBoxPreguntarAlSalirClick(Sender: TObject);
     procedure CheckBoxCloseToTrayClick(Sender: TObject);
-    procedure SpeedButton1Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -41,7 +40,7 @@ var
 
 implementation
 
-uses UnitColumnasManager, UnitFormControl;
+uses UnitFormControl;
 
 {$R *.dfm}
 
@@ -89,12 +88,4 @@ begin
   if CheckBoxCloseToTray.Checked and CheckBoxPreguntarAlSalir.Checked then
     CheckBoxPreguntarAlSalir.Checked := False;
 end;
-
-
-
-procedure TFormOpciones.SpeedButton1Click(Sender: TObject);
-begin
-FormColumnasManager.show;
-end;
-
 end.

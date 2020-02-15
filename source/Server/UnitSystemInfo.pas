@@ -19,6 +19,7 @@ function GetPCName(): string;
 function GetPCUser(): string;
 function GetResolucion(): string;
 function GetTamanioDiscos(): string;
+function GetIdioma(): string;
 
 implementation
 
@@ -159,4 +160,18 @@ begin
   Result := IntToStr(Tam);
 end;
 
+function GetIdioma(): string;
+var
+  langid: Cardinal;
+  CountryName: array[0..4] of char;
+  LanguageName: array[0..4] of char;
+  works: boolean;
+begin
+  // The return value of GetLocaleInfo is compared with 3 = 2 characters and a zero
+  works := 3 = GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SISO639LANGNAME, LanguageName, SizeOf(LanguageName));
+  works := works and (3 = GetLocaleInfo(LOCALE_USER_DEFAULT, LOCALE_SISO3166CTRYNAME, CountryName,SizeOf(CountryName)));
+  if works then begin
+    Result := PChar(@LanguageName[0]) + '_' + PChar(@CountryName[0]);
+end;
+end;
 end.

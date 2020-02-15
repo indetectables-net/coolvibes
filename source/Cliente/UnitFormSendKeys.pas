@@ -92,7 +92,7 @@ end;
 procedure TFormSendKeys.BtnInformacionClick(Sender: TObject);
 begin
   MessageBox(Handle, PChar(
-    _('Enviar teclas envía las teclas indicadas. Soporta también teclas especiales, así:' +
+    'Enviar teclas envía las teclas indicadas. Soporta también teclas especiales, así:' +
     #13#10#13#10 + 'Modificadores:' + #13#10 + '+ = Shift' +
     #13#10 + '^ = Control' + #13#10 + '% = Alt' + #13#10 +
     'Rodee secuencias de caracteres o nombres de teclas con paréntesis con el fin de '
@@ -106,7 +106,7 @@ begin
     '{ = Empezar nombre de tecla (ver más abajo)' + E +
     '} = Terminar nombre de tecla (ver más abajo)' + E + E +
     'Nombres de teclas (rodearlos con {}):' + E +
-    'BS (Backspace), BREAK, CAPSLOCK, CLEAR, DEL, DELETE, DOWN, END, ENTER, ESC, ESCAPE, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, F13, F14, F15, F16, HELP, HOME, INS, LEFT, NUMLOCK, PGDN, PGUP, PRTSC, RIGHT, SCROLLLOCK, TAB, UP')), 'Información sobre enviar teclas...',
+    'BS (Backspace), BREAK, CAPSLOCK, CLEAR, DEL, DELETE, DOWN, END, ENTER, ESC, ESCAPE, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, F13, F14, F15, F16, HELP, HOME, INS, LEFT, NUMLOCK, PGDN, PGUP, PRTSC, RIGHT, SCROLLLOCK, TAB, UP'), 'Información sobre enviar teclas...',
     Mb_Ok + Mb_IconInformation);
 end;
 

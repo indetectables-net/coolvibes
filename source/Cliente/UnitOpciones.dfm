@@ -1,6 +1,6 @@
 object FormOpciones: TFormOpciones
-  Left = 309
-  Top = 166
+  Left = 262
+  Top = 225
   BorderIcons = []
   BorderStyle = bsSingle
   Caption = 'Opciones'
@@ -20,11 +20,11 @@ object FormOpciones: TFormOpciones
   PixelsPerInch = 96
   TextHeight = 13
   object LabelPuerto: TLabel
-    Left = 16
+    Left = 8
     Top = 13
-    Width = 120
+    Width = 127
     Height = 13
-    Caption = 'Puerto de escucha'
+    Caption = 'Puertos de escucha'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clHighlight
     Font.Height = -11
@@ -80,7 +80,7 @@ object FormOpciones: TFormOpciones
   object EditPuerto: TEdit
     Left = 144
     Top = 8
-    Width = 49
+    Width = 89
     Height = 21
     TabOrder = 0
   end

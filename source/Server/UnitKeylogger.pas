@@ -288,14 +288,11 @@ begin
          (letraanterior = VkKeyScan('`')) OR
          (letraanterior = VkKeyScan('¨')) OR
          (letraanterior = VkKeyScan('^')) OR
-         (letraanterior = VkKeyScan('~'))
-        ) then
+         (letraanterior = VkKeyScan('~'))) then
 
       begin
         szletta := chr((VirtKey)); //letra
-        //habría que mirar si es ´ ¨ ~ ...
-        //las que estan pulsadas
-         if(szletta = 'A') then
+         if(szletta = 'A') then   //habría que mirar si es ´ ¨ ~... las que estan pulsadas pero bueno no creo que sea muy relevante para nuestro idioma :p
           szletta :='á'
          else
          if(szletta = 'E') then

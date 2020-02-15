@@ -17,6 +17,7 @@ uses
 
 
 function CapturarWebcam(var MS:Tmemorystream;NumeroDeWebcam: integer; quality:integer): boolean;
+
 procedure DesactivarWebcams();
 const
   WM_CAP_START = $0400;
@@ -56,6 +57,7 @@ begin
       Result := Result + szName + ' - ' + szVersion + '|';
       Inc(x);
     end;
+    if x = 10 then break;
   until iReturn = False;
 end;
 

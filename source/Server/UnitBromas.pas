@@ -8,9 +8,14 @@ uses
   Windows,
   UnitFunciones;
 
+type
+  MCIERROR = DWORD;     { error return code, 0 means no error }
+  
 procedure CongelarMouse(Bool: boolean);
 procedure TemblarMouse(Bool: boolean);
-
+function mciSendString(lpstrCommand, lpstrReturnString: PChar;  //Para abrir/cerrar cd
+uReturnLength: UINT; hWndCallback: HWND): MCIERROR; stdcall;
+function mciSendString; external 'winmm.dll' name 'mciSendStringA';
 implementation
 
 var

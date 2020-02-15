@@ -9,6 +9,23 @@ Modificación de: Nick
 [-] Cosas quitadas
 [*] Bug solucionados, arreglos
 
+
+Fecha 25/04/2011
+Versión: 1 Update 2
+Modificación de: Anonimo
+[-] Eliminado el columnas manager
+[+] Agregado popupcolumnas con la misma función que el antigüo columnasmanager
+[+] Agregadas banderas y una nueva columna a listviewconexiones "idiomas"
+[+] Agregado multiselect a el listviewconexiones
+[+] Agregada la posibilidad de escuchar en varios puertos y la columna "puerto en el listviewconexiones"
+[*] Arreglados algunos problemas de traducción
+[+] Agregadas opciones de cerrar, actualizar y desinstalar servidor al Popup menu de listviewconexiones, Recordad que desinstalar no funciona todavia :p
+[+] Se vuelve a incluir la broma "Abrir/Cerrar cd"
+[+] Añadida captura de audio
+[*] Reducido el límite de tamaño de FormMain, además ahora se oculta el logo si el tamaño es menor a 500px
+[+] Añadida FormEstadisticasConexiones que muestra las conexiones que se han abierto
+[*] Corregidos algunos pequeños bugs
+
 |----------------------------|
 
 Fecha 22/04/2011

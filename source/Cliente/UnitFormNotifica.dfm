@@ -1,6 +1,6 @@
 object FormNotifica: TFormNotifica
-  Left = 338
-  Top = 352
+  Left = 356
+  Top = 361
   BorderIcons = []
   BorderStyle = bsNone
   Caption = 'Conectando'

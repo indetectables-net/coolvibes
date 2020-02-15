@@ -24,6 +24,7 @@ var
   EspacioTotal, EspacioDisponible: int64;
   MaxPath, Flags: DWord;
 begin
+
   Espacio := 0;
   GetMem(pDrive, 512);
   GetLogicalDriveStrings(512, pDrive);  //llena el arreglo con las unidades

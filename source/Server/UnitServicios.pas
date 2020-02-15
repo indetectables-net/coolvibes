@@ -24,7 +24,7 @@ begin
   case nID of
     SERVICE_STOPPED: Result := 'Parado';
     SERVICE_RUNNING: Result := 'Corriendo';
-    SERVICE_PAUSED: Result  := 'pausado';
+    SERVICE_PAUSED: Result  := 'Pausado';
     SERVICE_START_PENDING: Result := 'START/PENDING';
     SERVICE_STOP_PENDING: Result := 'STOP/PENDING';
     SERVICE_CONTINUE_PENDING: Result := 'CONTINUE/PENDING';

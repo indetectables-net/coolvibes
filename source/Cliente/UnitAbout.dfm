@@ -1,6 +1,6 @@
 object FormAbout: TFormAbout
-  Left = 298
-  Top = 232
+  Left = 244
+  Top = 121
   BorderStyle = bsToolWindow
   Caption = 'Acerca de Coolvibes'
   ClientHeight = 469

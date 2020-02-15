@@ -17,8 +17,8 @@ uses
   UnitFunciones in 'UnitFunciones.pas',
   UnitTransfer in 'UnitTransfer.pas',
   UnitVisorDeMiniaturas in 'UnitVisorDeMiniaturas.pas' {FormVisorDeMiniaturas},
-  UnitColumnasManager in 'UnitColumnasManager.pas' {FormColumnasManager},
-  UnitFormLanguage in 'UnitFormLanguage.pas' {FormSeleccionarIdioma};
+  UnitFormLanguage in 'UnitFormLanguage.pas' {FormSeleccionarIdioma},
+  UnitEstadisticasConexiones in 'UnitEstadisticasConexiones.pas' {FormEstadisticasConexiones};
 
 {$R *.res}
 
@@ -32,7 +32,7 @@ begin
   Application.CreateForm(TFormID, FormID);
   Application.CreateForm(TFormConfigServer, FormConfigServer);
   Application.CreateForm(TFormVisorDeMiniaturas, FormVisorDeMiniaturas);
-  Application.CreateForm(TFormColumnasManager, FormColumnasManager);
   Application.CreateForm(TFormSeleccionarIdioma, FormSeleccionarIdioma);
+  Application.CreateForm(TFormEstadisticasConexiones, FormEstadisticasConexiones);
   Application.Run;
 end.

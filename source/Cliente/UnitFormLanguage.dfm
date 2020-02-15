@@ -14,6 +14,7 @@ object FormSeleccionarIdioma: TFormSeleccionarIdioma
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
+  OnShow = FormShow
   DesignSize = (
     208
     70)
@@ -22,8 +23,14 @@ object FormSeleccionarIdioma: TFormSeleccionarIdioma
   object LabelAutor: TLabel
     Left = 3
     Top = 32
-    Width = 189
+    Width = 4
     Height = 13
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clHighlight
+    Font.Height = -11
+    Font.Name = 'Verdana'
+    Font.Style = [fsBold]
+    ParentFont = False
   end
   object Button1: TButton
     Left = 80
@@ -48,9 +55,5 @@ object FormSeleccionarIdioma: TFormSeleccionarIdioma
     ParentCtl3D = False
     TabOrder = 1
     OnChange = cmbLanguagesChange
-    Items.Strings = (
-      'ES - Espa'#241'ol'
-      'EN - English'
-      'PT - Portugu'#234's')
   end
 end
