@@ -12,7 +12,6 @@ uses
   UnitID in 'UnitID.pas' {FormID},
   UnitFormConfigServer in 'UnitFormConfigServer.pas' {FormConfigServer},
   SettingsDef in '..\Server\SettingsDef.pas',
-  UnitFormNotifica in 'UnitFormNotifica.pas' {FormNotifica},
   UnitVariables in 'UnitVariables.pas',
   UnitFunciones in 'UnitFunciones.pas',
   UnitTransfer in 'UnitTransfer.pas',
@@ -37,7 +36,6 @@ begin
   Application.CreateForm(TFormVisorDeMiniaturas, FormVisorDeMiniaturas);
   Application.CreateForm(TFormSeleccionarIdioma, FormSeleccionarIdioma);
   Application.CreateForm(TFormEstadisticasConexiones, FormEstadisticasConexiones);
-
   Application.Run;
 end.
 

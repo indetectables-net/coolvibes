@@ -13,6 +13,9 @@
    El equipo del Coolvibes
 *)
 
+//Config del release
+{$define CommDebug}
+
 unit UnitMain;
 
 interface
@@ -297,18 +300,17 @@ end;
 //Evento que se ejecuta al recibir el mensaje WM_POP_MESSAGE, para las notificaciones
 procedure TFormMain.OnPopMessage(var Msg: TMessage);
 var
-  item: TListItem;
-  VentanaNotifica: TFormNotifica;
-  i: Integer;
+  Mensaje: string;
+  Item: TListItem;
 begin
+  //Para que no aparezca mas de una al mismo tiempo
+  //if not NotificandoOnline then
+  //begin
+  //NotificandoOnline := True;
   item := TListItem(Msg.wParam);
-  if not NotificandoOnline then //Para que no aparezca mas de una al mismo tiempo
-    begin
-      NotificandoOnline := True;
-      VentanaNotifica := TFormNotifica.Create(Self, Item);
-      VentanaNotifica.Show;
-      VentanaNotifica.Timer.Enabled := True;
-    end;
+  Mensaje := _('La IP es :') + Item.SubItems[0];
+  GloboEmergente(Item.Caption, Mensaje, NIIF_INFO);
+  //end;
 end;
 
 //Eventos del ServerSocket
@@ -389,6 +391,7 @@ begin
     Exit;
   end;
   Len := Length(Buffer);
+  {$ifdef CommDebug}OutputDebugString(PChar('Client IN: ' + Buffer));{$endif}
 
   if Buffer = 'CONNECTED?' then
     Exit //Lo ignoramos
@@ -946,7 +949,7 @@ begin
   //Inicializar el icono de la TrayBar
   //Self.DoubleBuffered := true;
   Self.ListViewConexiones.DoubleBuffered := true; //Evita parpadeos
- 
+
   TrayIconData.cbSize := SizeOf(TrayIconData);
   TrayIconData.Wnd := Handle;
   TrayIconData.uID := 0;
@@ -981,8 +984,8 @@ var
   Item: TListItem;
 begin
   item := tItem;
-  Mensaje := 'La IP es :' + Item.SubItems[0];
-  Titulo := Item.Caption + ' Desconectandose';
+  Mensaje := _('La IP es :') + Item.SubItems[0];
+  Titulo := Item.Caption + ' ' + _('Desconectandose');
   GloboEmergente(Titulo, Mensaje, NIIF_ERROR);
 end;
 

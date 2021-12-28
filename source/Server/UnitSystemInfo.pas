@@ -32,6 +32,7 @@ begin
       Result := Sistema_operativo;
       Exit;
     end;
+
   Result := 'Desconocido';
   osVerInfo.dwOSVersionInfoSize := SizeOf(TOSVersionInfo);
   GetVersionEx(osVerInfo);
@@ -52,6 +53,7 @@ begin
             end;
         end;
       end;
+    { Como hoy en dia seria inutil esta parte d ecodigo la dejo comentada
     VER_PLATFORM_WIN32_WINDOWS:
       begin
         case osVerInfo.dwMinorVersion of
@@ -60,10 +62,20 @@ begin
           90: Result := 'Windows Me';
         end;
       end;
+    }
   end;
+
+  // debug
+  {
+  OutputDebugString(PAnsiChar(
+    IntToStr(osVerInfo.dwMajorVersion) + '.' + IntToStr(osVerInfo.dwMinorVersion)
+  ));
+  }
+
   if osVerInfo.szCSDVersion <> '' then
     Result := Result + ' ' + osVerInfo.szCSDVersion;
 
+  // esto hace de cache
   Sistema_operativo := Result;
 end;
 

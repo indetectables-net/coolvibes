@@ -943,14 +943,17 @@ begin
       Delete(Recibido, 1, 5); //Borramos INFO|
       for i := 0 to 9 do //10 items
         begin
-          if i = 9 then //Tamaño de los discos duros recibido en bytes
-            ListViewInformacion.Items[i].SubItems[0] :=
-              ObtenerMejorUnidad(StrToInt64(Copy(Recibido, 1, Pos('|', Recibido) - 1)))
+          TempStr2 := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+
+          //Tamaño de los discos duros recibido en bytes
+          if i = 9 then
+            ListViewInformacion.Items[i].SubItems[0] := ObtenerMejorUnidad(StrToInt64(TempStr2))
           else
-            ListViewInformacion.Items[i].SubItems[0] :=
-              Copy(Recibido, 1, Pos('|', Recibido) - 1);
+            ListViewInformacion.Items[i].SubItems[0] := TempStr2;
+
           Delete(Recibido, 1, Pos('|', Recibido));
         end;
+
       BtnRefrescarInformacion.Enabled := True;
     end;
 
@@ -968,6 +971,7 @@ begin
               //Versión
               Items[0].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
               Delete(Recibido, 1, Pos('|', Recibido));
+
               //Nombre
               Items[1].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
               Delete(Recibido, 1, Pos('|', Recibido));
@@ -975,29 +979,32 @@ begin
               Items[3].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
               Delete(Recibido, 1, Pos('|', Recibido));
 
+              //bCopiar, NombreDeArchivo, Copiar a, melt, CopiarConFechaAnterior
               for i := 5 to 9 do
-                begin
-                  //bCopiar, NombreDeArchivo, Copiar a, melt, CopiarConFechaAnterior
-                  Items[i].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
-                  Delete(Recibido, 1, Pos('|', Recibido));
-                end;
+              begin
+                Items[i].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+                Delete(Recibido, 1, Pos('|', Recibido));
+              end;
+
+              //bPolicies, Nombre de la clave de Policies
               for i := 11 to 12 do
-                begin
-                  //bPolicies, Nombre de la clave de Policies
-                  Items[i].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
-                  Delete(Recibido, 1, Pos('|', Recibido));
-                end;
+              begin
+                Items[i].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+                Delete(Recibido, 1, Pos('|', Recibido));
+              end;
+
+              //bPolicies, Nombre de la clave de Policies
               for i := 14 to 15 do
-                begin
-                  //bPolicies, Nombre de la clave de Policies
-                  Items[i].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
-                  Delete(Recibido, 1, Pos('|', Recibido));
-                end;
+              begin
+                Items[i].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
+                Delete(Recibido, 1, Pos('|', Recibido));
+              end;
 
               //Ruta del servidor
               Items[17].SubItems[0] := Copy(Recibido, 1, Pos('|', Recibido) - 1);
               Delete(Recibido, 1, Pos('|', Recibido));
             end;
+
           BtnActualizarServidorInfo.Enabled := True;
         end;
     end;

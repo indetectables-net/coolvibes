@@ -1,10 +1,10 @@
 object FormControl: TFormControl
   Left = 335
   Top = 120
-  Width = 990
-  Height = 796
   Anchors = [akLeft, akTop, akRight, akBottom]
   Caption = 'Centro de control'
+  ClientHeight = 757
+  ClientWidth = 974
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -62,19 +62,18 @@ object FormControl: TFormControl
   object Splitter: TSplitter
     Left = 129
     Top = 0
-    Height = 738
+    Height = 737
+    ExplicitHeight = 738
   end
   object PageControl: TPageControl
     Left = 132
     Top = 0
     Width = 842
-    Height = 738
+    Height = 737
     ActivePage = TabInfo
     Align = alClient
-    BiDiMode = bdRightToLeftNoAlign
     DockSite = True
     Images = IconsArchivos
-    ParentBiDiMode = False
     TabOrder = 0
     object TabInfo: TTabSheet
       Caption = 'Informaci'#243'n'
@@ -83,7 +82,7 @@ object FormControl: TFormControl
         Left = 0
         Top = 0
         Width = 834
-        Height = 709
+        Height = 708
         ActivePage = TabSheetServidor
         Align = alClient
         Images = IconsArchivos
@@ -95,10 +94,10 @@ object FormControl: TFormControl
           OnShow = TabSheetServidorShow
           DesignSize = (
             826
-            682)
+            681)
           object BtnEnviarComandoServidor: TSpeedButton
             Left = 215
-            Top = 644
+            Top = 642
             Width = 72
             Height = 22
             Cursor = crHandPoint
@@ -147,10 +146,11 @@ object FormControl: TFormControl
               FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00}
             ParentFont = False
             OnClick = BtnEnviarComandoServidorClick
+            ExplicitTop = 644
           end
           object BtnActualizarServidorInfo: TSpeedButton
             Left = 745
-            Top = 644
+            Top = 642
             Width = 73
             Height = 22
             Cursor = crHandPoint
@@ -185,12 +185,13 @@ object FormControl: TFormControl
               F4D8A378FFFFFFFFFFFFF7E1D2F1C8ACEDC09FEBBE9DEBBC9AE9BA96E7B793E6
               B590E4B28CE2AF88E0AC84DDA980DCA57DE2B696FFFFFFFFFFFF}
             OnClick = BtnActualizarServidorInfoClick
+            ExplicitTop = 644
           end
           object ListViewServidor: TListView
-            Left = 10
-            Top = 10
+            Left = 11
+            Top = 14
             Width = 812
-            Height = 625
+            Height = 623
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -207,29 +208,36 @@ object FormControl: TFormControl
               end>
             FlatScrollBars = True
             GridLines = True
-            Items.Data = {
-              AB0200001200000000000000FFFFFFFFFFFFFFFF010000000000000007566572
-              7369F36E0000000000FFFFFFFFFFFFFFFF0100000000000000144964656E7469
-              66696361646F722F4E6F6D6272650000000000FFFFFFFFFFFFFFFF0100000000
-              000000000000000000FFFFFFFFFFFFFFFF01000000000000000A495027732F44
-              4E5327730000000000FFFFFFFFFFFFFFFF0100000000000000000000000000FF
-              FFFFFFFFFFFFFF01000000000000000E436F70696172206172636869766F0000
-              000000FFFFFFFFFFFFFFFF0100000000000000114E6F6D627265206465206172
-              636869766F0000000000FFFFFFFFFFFFFFFF010000000000000008436F706961
-              7220610000000000FFFFFFFFFFFFFFFF01000000000000001F426F7272617220
-              6465737075E97320646520636F7069617220284D656C74290000000000FFFFFF
-              FFFFFFFFFF010000000000000019436F7069617220636F6E2066656368612061
-              6E746572696F720000000000FFFFFFFFFFFFFFFF010000000000000000000000
-              0000FFFFFFFFFFFFFFFF01000000000000000A4DE9746F646F2052756E000000
-              0000FFFFFFFFFFFFFFFF0100000000000000214E6F6D627265206465206C6120
-              636C6176652064656C204DE9746F646F2052756E0000000000FFFFFFFFFFFFFF
-              FF0100000000000000000000000000FFFFFFFFFFFFFFFF010000000000000014
-              4DE9746F646F20416374697665582053657475700000000000FFFFFFFFFFFFFF
-              FF0100000000000000124E6F6D627265206465206C6120636C61766500000000
-              00FFFFFFFFFFFFFFFF0100000000000000000000000000FFFFFFFFFFFFFFFF01
-              000000000000001E527574612064656C207365727669646F7220656E20656A65
-              63756369F36E00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-              FFFFFFFFFFFFFFFFFFFFFF}
+            Items.ItemData = {
+              01A80300001200000000000000FFFFFFFFFFFFFFFF0100000000000000075600
+              6500720073006900F3006E000000000000FFFFFFFFFFFFFFFF01000000000000
+              00144900640065006E0074006900660069006300610064006F0072002F004E00
+              6F006D006200720065000000000000FFFFFFFFFFFFFFFF010000000000000000
+              0000000000FFFFFFFFFFFFFFFF01000000000000000A49005000270073002F00
+              44004E005300270073000000000000FFFFFFFFFFFFFFFF010000000000000000
+              0000000000FFFFFFFFFFFFFFFF01000000000000000E43006F00700069006100
+              720020006100720063006800690076006F000000000000FFFFFFFFFFFFFFFF01
+              00000000000000114E006F006D00620072006500200064006500200061007200
+              63006800690076006F000000000000FFFFFFFFFFFFFFFF010000000000000008
+              43006F007000690061007200200061000000000000FFFFFFFFFFFFFFFF010000
+              00000000001F42006F007200720061007200200064006500730070007500E900
+              7300200064006500200063006F007000690061007200200028004D0065006C00
+              740029000000000000FFFFFFFFFFFFFFFF01000000000000001943006F007000
+              690061007200200063006F006E00200066006500630068006100200061006E00
+              74006500720069006F0072000000000000FFFFFFFFFFFFFFFF01000000000000
+              00000000000000FFFFFFFFFFFFFFFF01000000000000000A4D00E90074006F00
+              64006F002000520075006E000000000000FFFFFFFFFFFFFFFF01000000000000
+              00214E006F006D0062007200650020006400650020006C006100200063006C00
+              6100760065002000640065006C0020004D00E90074006F0064006F0020005200
+              75006E000000000000FFFFFFFFFFFFFFFF0100000000000000000000000000FF
+              FFFFFFFFFFFFFF0100000000000000144D00E90074006F0064006F0020004100
+              6300740069007600650058002000530065007400750070000000000000FFFFFF
+              FFFFFFFFFF0100000000000000124E006F006D00620072006500200064006500
+              20006C006100200063006C006100760065000000000000FFFFFFFFFFFFFFFF01
+              00000000000000000000000000FFFFFFFFFFFFFFFF01000000000000001E5200
+              7500740061002000640065006C0020007300650072007600690064006F007200
+              200065006E00200065006A0065006300750063006900F3006E0000FFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
             MultiSelect = True
             ReadOnly = True
             RowSelect = True
@@ -238,7 +246,7 @@ object FormControl: TFormControl
           end
           object ComboBoxGestionDeServidor: TComboBox
             Left = 8
-            Top = 645
+            Top = 643
             Width = 203
             Height = 21
             BevelInner = bvNone
@@ -260,10 +268,10 @@ object FormControl: TFormControl
           OnShow = TabSheetInfoSistemaShow
           DesignSize = (
             826
-            682)
+            681)
           object BtnRefrescarInformacion: TSpeedButton
             Left = 745
-            Top = 652
+            Top = 650
             Width = 73
             Height = 22
             Cursor = crHandPoint
@@ -306,12 +314,13 @@ object FormControl: TFormControl
               FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
               FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00}
             OnClick = BtnRefrescarInformacionClick
+            ExplicitTop = 652
           end
           object ListViewInformacion: TListView
-            Left = 8
-            Top = 8
+            Left = 9
+            Top = 11
             Width = 814
-            Height = 635
+            Height = 633
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -328,20 +337,24 @@ object FormControl: TFormControl
               end>
             FlatScrollBars = True
             GridLines = True
-            Items.Data = {
-              8A0100000A0000002F000000FFFFFFFFFFFFFFFF010000000000000011536973
-              74656D61206F706572617469766F0032000000FFFFFFFFFFFFFFFF0100000000
-              000000034350550033000000FFFFFFFFFFFFFFFF010000000000000010546965
-              6D706F20656E63656E6469646F0035000000FFFFFFFFFFFFFFFF010000000000
-              00000F5469656D706F20696E61637469766F0030000000FFFFFFFFFFFFFFFF01
-              0000000000000009416E74697669727573002E000000FFFFFFFFFFFFFFFF0100
-              000000000000084669726577616C6C0022000000FFFFFFFFFFFFFFFF01000000
-              00000000114E6F6D6272652064656C2065717569706F0031000000FFFFFFFFFF
-              FFFFFF0100000000000000114E6F6D627265206465207573756172696F003400
-              0000FFFFFFFFFFFFFFFF0100000000000000165265736F6C756369F36E206465
-              2070616E74616C6C610012000000FFFFFFFFFFFFFFFF01000000000000001645
-              73706163696F20746F74616C20656E20646973636F00FFFFFFFFFFFFFFFFFFFF
-              FFFFFFFFFFFFFFFFFFFF}
+            Items.ItemData = {
+              011E0200000A0000002F000000FFFFFFFFFFFFFFFF0100000000000000115300
+              69007300740065006D00610020006F0070006500720061007400690076006F00
+              0032000000FFFFFFFFFFFFFFFF01000000000000000343005000550000330000
+              00FFFFFFFFFFFFFFFF0100000000000000105400690065006D0070006F002000
+              65006E00630065006E006400690064006F000035000000FFFFFFFFFFFFFFFF01
+              000000000000000F5400690065006D0070006F00200069006E00610063007400
+              690076006F000030000000FFFFFFFFFFFFFFFF01000000000000000941006E00
+              7400690076006900720075007300002E000000FFFFFFFFFFFFFFFF0100000000
+              000000084600690072006500770061006C006C000022000000FFFFFFFFFFFFFF
+              FF0100000000000000114E006F006D006200720065002000640065006C002000
+              650071007500690070006F000031000000FFFFFFFFFFFFFFFF01000000000000
+              00114E006F006D00620072006500200064006500200075007300750061007200
+              69006F000034000000FFFFFFFFFFFFFFFF010000000000000016520065007300
+              6F006C00750063006900F3006E002000640065002000700061006E0074006100
+              6C006C0061000012000000FFFFFFFFFFFFFFFF01000000000000001645007300
+              70006100630069006F00200074006F00740061006C00200065006E0020006400
+              6900730063006F0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
             MultiSelect = True
             RowSelect = True
             SmallImages = IconsArchivos
@@ -358,7 +371,7 @@ object FormControl: TFormControl
         Left = 0
         Top = 0
         Width = 834
-        Height = 709
+        Height = 708
         ActivePage = TabSheetTransferencias
         Align = alClient
         Images = IconsArchivos
@@ -371,7 +384,7 @@ object FormControl: TFormControl
           OnShow = TabSheetVerArchivosShow
           DesignSize = (
             826
-            682)
+            681)
           object BtnVerUnidades: TSpeedButton
             Left = 714
             Top = 8
@@ -474,23 +487,25 @@ object FormControl: TFormControl
           end
           object LabelNumeroDeCarpetas: TLabel
             Left = 7
-            Top = 652
+            Top = 650
             Width = 45
             Height = 13
             Anchors = [akLeft, akBottom]
             Caption = 'Carpetas:'
+            ExplicitTop = 652
           end
           object LabelNumeroDeArchivos: TLabel
             Left = 103
-            Top = 652
+            Top = 650
             Width = 44
             Height = 13
             Anchors = [akLeft, akBottom]
             Caption = 'Archivos:'
+            ExplicitTop = 652
           end
           object SpeedButtonRutasRapidas: TSpeedButton
             Left = 714
-            Top = 650
+            Top = 648
             Width = 104
             Height = 21
             Cursor = crHandPoint
@@ -526,10 +541,11 @@ object FormControl: TFormControl
               FBF0F0F0D9D9D9ABABABFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
               FFFFBCBCBCBBBBBBB9B9B9B7B7B7B5B5B5B2B2B2B0B0B0ADADAD}
             OnClick = SpeedButtonRutasRapidasClick
+            ExplicitTop = 650
           end
           object SpeedButton2: TSpeedButton
             Left = 611
-            Top = 650
+            Top = 648
             Width = 97
             Height = 21
             Hint = 
@@ -574,6 +590,7 @@ object FormControl: TFormControl
               FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
               FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00}
             OnClick = SpeedButton2Click
+            ExplicitTop = 650
           end
           object cmbUnidades: TComboBox
             Left = 2
@@ -613,20 +630,21 @@ object FormControl: TFormControl
             Left = 0
             Top = 64
             Width = 814
-            Height = 579
+            Height = 577
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelOuter = bvNone
             TabOrder = 2
             object SplitterArchivos: TSplitter
               Left = 117
               Top = 0
-              Height = 579
+              Height = 577
+              ExplicitHeight = 579
             end
             object ListViewArchivos: TListView
               Left = 120
               Top = 0
               Width = 694
-              Height = 579
+              Height = 577
               Align = alClient
               BevelInner = bvNone
               BevelOuter = bvRaised
@@ -674,7 +692,7 @@ object FormControl: TFormControl
               Left = 0
               Top = 0
               Width = 117
-              Height = 579
+              Height = 577
               Align = alLeft
               BevelInner = bvNone
               BevelOuter = bvRaised
@@ -697,7 +715,7 @@ object FormControl: TFormControl
           OnShow = TabSheetTransferenciasShow
           DesignSize = (
             826
-            682)
+            681)
           object LabelTransferencias: TLabel
             Left = 16
             Top = 8
@@ -715,7 +733,7 @@ object FormControl: TFormControl
             Left = 5
             Top = 24
             Width = 817
-            Height = 643
+            Height = 641
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -770,7 +788,7 @@ object FormControl: TFormControl
           OnShow = TabSheetBuscarShow
           DesignSize = (
             826
-            682)
+            681)
           object SpeedButtonBuscar: TSpeedButton
             Left = 739
             Top = 8
@@ -784,15 +802,16 @@ object FormControl: TFormControl
           end
           object LabelNumeroEncontrados: TLabel
             Left = 2
-            Top = 652
+            Top = 650
             Width = 66
             Height = 13
             Anchors = [akLeft, akBottom]
             Caption = 'Encontrados: '
+            ExplicitTop = 652
           end
           object SpeedButton1: TSpeedButton
             Left = 739
-            Top = 651
+            Top = 649
             Width = 87
             Height = 22
             Cursor = crHandPoint
@@ -801,12 +820,13 @@ object FormControl: TFormControl
             Caption = 'Limpiar Listview'
             Flat = True
             OnClick = SpeedButton1Click
+            ExplicitTop = 651
           end
           object ListViewBuscar: TListView
             Left = 0
             Top = 32
             Width = 822
-            Height = 611
+            Height = 609
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -873,7 +893,7 @@ object FormControl: TFormControl
         Left = 0
         Top = 0
         Width = 834
-        Height = 709
+        Height = 708
         ActivePage = TabRegistro
         Align = alClient
         Images = IconsArchivos
@@ -885,10 +905,10 @@ object FormControl: TFormControl
           OnShow = TabProcesosShow
           DesignSize = (
             826
-            682)
+            681)
           object BtnRefrescarProcesos: TSpeedButton
             Left = 747
-            Top = 651
+            Top = 649
             Width = 71
             Height = 22
             Cursor = crHandPoint
@@ -923,12 +943,13 @@ object FormControl: TFormControl
               F4D8A378FFFFFFFFFFFFF7E1D2F1C8ACEDC09FEBBE9DEBBC9AE9BA96E7B793E6
               B590E4B28CE2AF88E0AC84DDA980DCA57DE2B696FFFFFFFFFFFF}
             OnClick = BtnRefrescarProcesosClick
+            ExplicitTop = 651
           end
           object ListViewProcesos: TListView
             Left = 4
             Top = 4
             Width = 818
-            Height = 639
+            Height = 637
             Align = alCustom
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
@@ -970,10 +991,10 @@ object FormControl: TFormControl
           OnShow = TabVentanasShow
           DesignSize = (
             826
-            682)
+            681)
           object BtnRefrescarVentanas: TSpeedButton
             Left = 750
-            Top = 651
+            Top = 649
             Width = 72
             Height = 22
             Cursor = crHandPoint
@@ -1008,12 +1029,13 @@ object FormControl: TFormControl
               F4D8A378FFFFFFFFFFFFF7E1D2F1C8ACEDC09FEBBE9DEBBC9AE9BA96E7B793E6
               B590E4B28CE2AF88E0AC84DDA980DCA57DE2B696FFFFFFFFFFFF}
             OnClick = BtnRefrescarVentanasClick
+            ExplicitTop = 651
           end
           object ListViewVentanas: TListView
             Left = 4
             Top = 12
             Width = 818
-            Height = 631
+            Height = 629
             Align = alCustom
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
@@ -1050,7 +1072,7 @@ object FormControl: TFormControl
           end
           object CheckBoxMostrarVentanasOcultas: TCheckBox
             Left = 6
-            Top = 650
+            Top = 648
             Width = 527
             Height = 17
             Anchors = [akLeft, akRight, akBottom]
@@ -1070,10 +1092,10 @@ object FormControl: TFormControl
           ImageIndex = 32
           DesignSize = (
             826
-            682)
+            681)
           object BtnVerRegisto: TSpeedButton
             Left = 750
-            Top = 651
+            Top = 649
             Width = 72
             Height = 21
             Cursor = crHandPoint
@@ -1125,12 +1147,13 @@ object FormControl: TFormControl
               FFFFFF000000}
             OnClick = BtnVerRegistoClick
             OnDblClick = BtnVerRegistoClick
+            ExplicitTop = 651
           end
           object PanelRegistro: TPanel
             Left = 4
             Top = 4
             Width = 818
-            Height = 639
+            Height = 637
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelOuter = bvNone
             Caption = 'PanelRegistro'
@@ -1138,13 +1161,14 @@ object FormControl: TFormControl
             object SplitterRegistro: TSplitter
               Left = 185
               Top = 0
-              Height = 639
+              Height = 637
+              ExplicitHeight = 639
             end
             object TreeViewRegedit: TTreeView
               Left = 0
               Top = 0
               Width = 185
-              Height = 639
+              Height = 637
               Align = alLeft
               BevelInner = bvNone
               BevelOuter = bvRaised
@@ -1164,21 +1188,23 @@ object FormControl: TFormControl
               OnContextPopup = TreeViewRegeditContextPopup
               OnDblClick = TreeViewRegeditDblClick
               OnKeyPress = TreeViewRegeditKeyPress
-              Items.Data = {
-                050000002A0000000100000000000000FFFFFFFFFFFFFFFF0000000000000000
-                11484B45595F434C41535345535F524F4F542A0000000100000000000000FFFF
-                FFFFFFFFFFFF000000000000000011484B45595F43555252454E545F55534552
-                2B0000000100000000000000FFFFFFFFFFFFFFFF000000000000000012484B45
-                595F4C4F43414C5F4D414348494E45230000000100000000000000FFFFFFFFFF
-                FFFFFF00000000000000000A484B45595F55534552532C000000010000000000
-                0000FFFFFFFFFFFFFFFF000000000000000013484B45595F43555252454E545F
-                434F4E464947}
+              Items.NodeData = {
+                01050000003B0000000100000000000000FFFFFFFFFFFFFFFF00000000000000
+                001148004B00450059005F0043004C00410053005300450053005F0052004F00
+                4F0054003B0000000100000000000000FFFFFFFFFFFFFFFF0000000000000000
+                1148004B00450059005F00430055005200520045004E0054005F005500530045
+                0052003D0000000100000000000000FFFFFFFFFFFFFFFF000000000000000012
+                48004B00450059005F004C004F00430041004C005F004D004100430048004900
+                4E0045002D0000000100000000000000FFFFFFFFFFFFFFFF0000000000000000
+                0A48004B00450059005F00550053004500520053003F00000001000000000000
+                00FFFFFFFFFFFFFFFF00000000000000001348004B00450059005F0043005500
+                5200520045004E0054005F0043004F004E00460049004700}
             end
             object ListViewRegistro: TListView
               Left = 188
               Top = 0
               Width = 630
-              Height = 639
+              Height = 637
               Align = alClient
               BevelInner = bvNone
               BevelOuter = bvRaised
@@ -1213,7 +1239,7 @@ object FormControl: TFormControl
           end
           object EditPathRegistro: TEdit
             Left = 10
-            Top = 651
+            Top = 649
             Width = 732
             Height = 21
             Anchors = [akLeft, akRight, akBottom]
@@ -1232,10 +1258,10 @@ object FormControl: TFormControl
           OnShow = TabServiciosShow
           DesignSize = (
             826
-            682)
+            681)
           object btnInstServicios2: TSpeedButton
             Left = 598
-            Top = 653
+            Top = 651
             Width = 65
             Height = 19
             Anchors = [akRight, akBottom]
@@ -1243,10 +1269,11 @@ object FormControl: TFormControl
             Flat = True
             Visible = False
             OnClick = btnInstServicios2Click
+            ExplicitTop = 653
           end
           object BtnCancelarInstalarServicio: TSpeedButton
             Left = 673
-            Top = 653
+            Top = 651
             Width = 65
             Height = 19
             Anchors = [akRight, akBottom]
@@ -1254,10 +1281,11 @@ object FormControl: TFormControl
             Flat = True
             Visible = False
             OnClick = BtnCancelarInstalarServicioClick
+            ExplicitTop = 653
           end
           object BtnServicios: TSpeedButton
             Left = 747
-            Top = 650
+            Top = 648
             Width = 71
             Height = 22
             Hint = 
@@ -1294,10 +1322,11 @@ object FormControl: TFormControl
               F4D8A378FFFFFFFFFFFFF7E1D2F1C8ACEDC09FEBBE9DEBBC9AE9BA96E7B793E6
               B590E4B28CE2AF88E0AC84DDA980DCA57DE2B696FFFFFFFFFFFF}
             OnClick = BtnServiciosClick
+            ExplicitTop = 650
           end
           object btnInstServicios: TSpeedButton
             Left = 598
-            Top = 653
+            Top = 651
             Width = 65
             Height = 19
             Anchors = [akRight, akBottom]
@@ -1305,10 +1334,11 @@ object FormControl: TFormControl
             Flat = True
             Visible = False
             OnClick = btnInstServiciosClick
+            ExplicitTop = 653
           end
           object btnSiguienteInstalarServicio: TSpeedButton
             Left = 598
-            Top = 653
+            Top = 651
             Width = 65
             Height = 19
             Anchors = [akRight, akBottom]
@@ -1316,12 +1346,13 @@ object FormControl: TFormControl
             Flat = True
             Visible = False
             OnClick = btnSiguienteInstalarServicioClick
+            ExplicitTop = 653
           end
           object ListViewServicios: TListView
             Left = 4
             Top = 4
             Width = 818
-            Height = 639
+            Height = 637
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -1355,7 +1386,7 @@ object FormControl: TFormControl
           end
           object MultiEditInstalarServicio: TEdit
             Left = 4
-            Top = 645
+            Top = 643
             Width = 586
             Height = 19
             Anchors = [akLeft, akRight, akBottom]
@@ -1372,10 +1403,10 @@ object FormControl: TFormControl
           ImageIndex = 54
           DesignSize = (
             826
-            682)
+            681)
           object BtnCambiarFuenteShell: TSpeedButton
             Left = 5
-            Top = 653
+            Top = 651
             Width = 114
             Height = 20
             Cursor = crHandPoint
@@ -1410,10 +1441,11 @@ object FormControl: TFormControl
               FFFF00FFFF00FFFF00FF7B7BB25050D75454DF5050E45151DC4A4ADA4F4FDF4D
               4DE45353EF4344E7AAAABBFF00FFFF00FFFF00FFFF00FFFF00FF}
             OnClick = BtnCambiarFuenteShellClick
+            ExplicitTop = 653
           end
           object BtnCambiarColorShell: TSpeedButton
             Left = 126
-            Top = 653
+            Top = 651
             Width = 106
             Height = 20
             Cursor = crHandPoint
@@ -1448,12 +1480,13 @@ object FormControl: TFormControl
               B5617F99B7BABEFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFA1
               AFC76E8DAD5B8AAD598DB1657F9B8691A1FF00FFFF00FFFF00FF}
             OnClick = BtnCambiarColorShellClick
+            ExplicitTop = 653
           end
           object MemoShell: TMemo
             Left = 4
             Top = 4
             Width = 818
-            Height = 615
+            Height = 613
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelKind = bkFlat
@@ -1473,7 +1506,7 @@ object FormControl: TFormControl
           end
           object ComboBoxShellCommand: TComboBox
             Left = 7
-            Top = 627
+            Top = 625
             Width = 815
             Height = 20
             BevelInner = bvNone
@@ -1499,10 +1532,10 @@ object FormControl: TFormControl
           OnShow = TabPuertosShow
           DesignSize = (
             826
-            682)
+            681)
           object BtnRefrescarPuertos: TSpeedButton
             Left = 738
-            Top = 651
+            Top = 649
             Width = 80
             Height = 22
             Anchors = [akRight, akBottom]
@@ -1536,12 +1569,13 @@ object FormControl: TFormControl
               F4D8A378FFFFFFFFFFFFF7E1D2F1C8ACEDC09FEBBE9DEBBC9AE9BA96E7B793E6
               B590E4B28CE2AF88E0AC84DDA980DCA57DE2B696FFFFFFFFFFFF}
             OnClick = BtnRefrescarPuertosClick
+            ExplicitTop = 651
           end
           object ListViewPuertos: TListView
             Left = 5
             Top = 8
             Width = 817
-            Height = 635
+            Height = 633
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -1589,7 +1623,7 @@ object FormControl: TFormControl
           end
           object CheckBoxPuertos: TCheckBox
             Left = 7
-            Top = 651
+            Top = 649
             Width = 585
             Height = 17
             Anchors = [akLeft, akRight, akBottom]
@@ -1613,7 +1647,7 @@ object FormControl: TFormControl
         Left = 0
         Top = 0
         Width = 834
-        Height = 709
+        Height = 708
         ActivePage = TabScreencap
         Align = alClient
         Images = IconsArchivos
@@ -1625,10 +1659,10 @@ object FormControl: TFormControl
           OnShow = TabScreencapShow
           DesignSize = (
             826
-            682)
+            681)
           object LabelTamano: TLabel
             Left = 0
-            Top = 655
+            Top = 653
             Width = 18
             Height = 13
             Hint = 'Tama'#241'o de la captura de pantalla en kb'
@@ -1641,10 +1675,11 @@ object FormControl: TFormControl
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             ParentFont = False
+            ExplicitTop = 655
           end
           object LabelCalidadCapScreen: TLabel
             Left = 30
-            Top = 625
+            Top = 623
             Width = 61
             Height = 13
             Hint = 
@@ -1658,10 +1693,11 @@ object FormControl: TFormControl
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             ParentFont = False
+            ExplicitTop = 625
           end
           object BtnCapturarScreen: TSpeedButton
             Left = 30
-            Top = 644
+            Top = 642
             Width = 80
             Height = 22
             Cursor = crHandPoint
@@ -1705,10 +1741,11 @@ object FormControl: TFormControl
               FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
               FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00}
             OnClick = BtnCapturarScreen1Click
+            ExplicitTop = 644
           end
           object btnGuardarImagen: TSpeedButton
             Left = 745
-            Top = 645
+            Top = 643
             Width = 74
             Height = 22
             Cursor = crHandPoint
@@ -1751,10 +1788,11 @@ object FormControl: TFormControl
               9FE8CDAB95F0CDA78EF0CDA78EF0CDA78EF0CDA78EF0CDA78EF0CDA68EF0CDA6
               8EF0CDA68EF0CDA68EF0CDAA93F0CDAF9B8FFFFFFF00FFFFFF00}
             OnClick = btnGuardarImagenClick
+            ExplicitTop = 645
           end
           object BtnVerGrandeCap: TSpeedButton
             Left = 707
-            Top = 619
+            Top = 617
             Width = 112
             Height = 22
             Cursor = crHandPoint
@@ -1792,10 +1830,11 @@ object FormControl: TFormControl
               678DC8948EC99554AA5C68C77468C77467C67366C57265C371FFFFFFFFFFFFFF
               FFFFFFFFFFFFFFFFFFFFFF5CB6665BB46459B26258AF6056AD5E}
             OnClick = BtnVerGrandeCapClick
+            ExplicitTop = 619
           end
           object LabelPosicionCompresJpg: TLabel
             Left = 678
-            Top = 623
+            Top = 621
             Width = 20
             Height = 13
             Anchors = [akRight, akBottom]
@@ -1806,20 +1845,22 @@ object FormControl: TFormControl
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             ParentFont = False
+            ExplicitTop = 623
           end
           object LabelSegundos: TLabel
             Left = 228
-            Top = 647
+            Top = 645
             Width = 48
             Height = 13
             Anchors = [akLeft, akBottom]
             Caption = 'Segundos'
+            ExplicitTop = 647
           end
           object ScrollBoxCapScreenM: TScrollBox
             Left = 25
             Top = 5
             Width = 789
-            Height = 606
+            Height = 604
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -1830,19 +1871,20 @@ object FormControl: TFormControl
               Left = 0
               Top = 0
               Width = 697
-              Height = 604
+              Height = 602
               Align = alLeft
               Constraints.MinHeight = 100
               Constraints.MinWidth = 100
               IncrementalDisplay = True
               OnMouseDown = EnviarClickM
+              ExplicitHeight = 604
             end
           end
           object ProgressBarScreen: TProgressBar
             Left = 2
             Top = 8
             Width = 15
-            Height = 643
+            Height = 641
             Anchors = [akLeft, akTop, akBottom]
             Orientation = pbVertical
             Smooth = True
@@ -1850,7 +1892,7 @@ object FormControl: TFormControl
           end
           object TrackBarCalidad: TTrackBar
             Left = 96
-            Top = 623
+            Top = 621
             Width = 581
             Height = 16
             Cursor = crHandPoint
@@ -1863,7 +1905,7 @@ object FormControl: TFormControl
           end
           object CheckBoxAutoCapturaScreen: TCheckBox
             Left = 124
-            Top = 647
+            Top = 645
             Width = 78
             Height = 17
             Hint = 'Marcar para realizar capturas de pantalla autom'#225'ticamente'
@@ -1880,7 +1922,7 @@ object FormControl: TFormControl
           end
           object CheckBoxMouseClicks: TCheckBox
             Left = 636
-            Top = 647
+            Top = 645
             Width = 98
             Height = 17
             Hint = 
@@ -1898,7 +1940,7 @@ object FormControl: TFormControl
           end
           object CheckBoxTamanioReal: TCheckBox
             Left = 541
-            Top = 647
+            Top = 645
             Width = 89
             Height = 17
             Hint = 
@@ -1917,7 +1959,7 @@ object FormControl: TFormControl
           end
           object SpinCaptureScreen: TEdit
             Left = 202
-            Top = 641
+            Top = 639
             Width = 20
             Height = 21
             Anchors = [akLeft, akBottom]
@@ -1931,10 +1973,10 @@ object FormControl: TFormControl
           OnShow = TabWebcamShow
           DesignSize = (
             826
-            682)
+            681)
           object LabelCalidadWebcam: TLabel
             Left = 32
-            Top = 620
+            Top = 618
             Width = 90
             Height = 13
             Hint = 
@@ -1948,10 +1990,11 @@ object FormControl: TFormControl
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             ParentFont = False
+            ExplicitTop = 620
           end
           object BtnCapturarWebcam: TSpeedButton
             Left = 652
-            Top = 651
+            Top = 649
             Width = 81
             Height = 21
             Cursor = crHandPoint
@@ -1987,10 +2030,11 @@ object FormControl: TFormControl
               DED8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECDAE9ECE0EAECE4E9EAE4
               E5E6E0E2E2DBE0E1D5DFE1D6E5E7D8E9ECD8E9ECD8E9ECD8E9EC}
             OnClick = BtnCapturarWebcamClick
+            ExplicitTop = 651
           end
           object BtnGuardarWebcam: TSpeedButton
             Left = 739
-            Top = 651
+            Top = 649
             Width = 81
             Height = 21
             Cursor = crHandPoint
@@ -2026,10 +2070,11 @@ object FormControl: TFormControl
               DED8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECDAE9ECE0EAECE4E9EAE4
               E5E6E0E2E2DBE0E1D5DFE1D6E5E7D8E9ECD8E9ECD8E9ECD8E9EC}
             OnClick = btnGuardarImagenClick
+            ExplicitTop = 651
           end
           object BtnObtenerWebcams: TSpeedButton
             Left = 697
-            Top = 590
+            Top = 588
             Width = 121
             Height = 22
             Cursor = crHandPoint
@@ -2068,10 +2113,11 @@ object FormControl: TFormControl
               DED8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECD8E9ECDAE9ECE0EAECE4E9EAE4
               E5E6E0E2E2DBE0E1D5DFE1D6E5E7D8E9ECD8E9ECD8E9ECD8E9EC}
             OnClick = BtnObtenerWebcamsClick
+            ExplicitTop = 590
           end
           object LabelPosicionCompresJpgWebcam: TLabel
             Left = 795
-            Top = 619
+            Top = 617
             Width = 20
             Height = 13
             Anchors = [akRight, akBottom]
@@ -2082,10 +2128,11 @@ object FormControl: TFormControl
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             ParentFont = False
+            ExplicitTop = 619
           end
           object LabelTamaniowebcam: TLabel
             Left = 0
-            Top = 654
+            Top = 652
             Width = 18
             Height = 13
             Hint = 'Indica el tama'#241'o de la captura de webcam en kb.'
@@ -2098,12 +2145,13 @@ object FormControl: TFormControl
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             ParentFont = False
+            ExplicitTop = 654
           end
           object ScrollBoxCapWebcam: TScrollBox
             Left = 27
             Top = 0
             Width = 787
-            Height = 579
+            Height = 577
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
@@ -2123,7 +2171,7 @@ object FormControl: TFormControl
             Left = 2
             Top = 0
             Width = 17
-            Height = 651
+            Height = 649
             Anchors = [akLeft, akTop, akBottom]
             Orientation = pbVertical
             Smooth = True
@@ -2131,7 +2179,7 @@ object FormControl: TFormControl
           end
           object ComboBoxWebcam: TComboBox
             Left = 32
-            Top = 591
+            Top = 589
             Width = 654
             Height = 21
             BevelInner = bvNone
@@ -2150,7 +2198,7 @@ object FormControl: TFormControl
           end
           object CheckBoxAutoCamCapture: TCheckBox
             Left = 31
-            Top = 647
+            Top = 645
             Width = 102
             Height = 17
             Hint = 'Marcar para realizar la captura de webcam autom'#225'ticamente.'
@@ -2168,7 +2216,7 @@ object FormControl: TFormControl
           end
           object TrackBarCalidadWebcam: TTrackBar
             Left = 128
-            Top = 617
+            Top = 615
             Width = 662
             Height = 16
             Cursor = crHandPoint
@@ -2181,7 +2229,7 @@ object FormControl: TFormControl
           end
           object SpinCam: TEdit
             Left = 108
-            Top = 642
+            Top = 640
             Width = 39
             Height = 21
             Anchors = [akLeft, akBottom]
@@ -2197,7 +2245,7 @@ object FormControl: TFormControl
             Left = 0
             Top = 0
             Width = 826
-            Height = 682
+            Height = 681
             Align = alClient
             BevelOuter = bvNone
             BevelWidth = 3
@@ -2205,22 +2253,23 @@ object FormControl: TFormControl
             object SplitterAudio: TSplitter
               Left = 225
               Top = 0
-              Height = 673
+              Height = 672
+              ExplicitHeight = 673
             end
             object GroupBoxAudio: TGroupBox
               Left = 0
               Top = 0
               Width = 225
-              Height = 673
+              Height = 672
               Align = alLeft
               Caption = 'Opciones'
               TabOrder = 0
               DesignSize = (
                 225
-                673)
+                672)
               object LabelTamanioAudio: TLabel
                 Left = 8
-                Top = 576
+                Top = 574
                 Width = 43
                 Height = 13
                 Anchors = [akLeft, akBottom]
@@ -2231,10 +2280,11 @@ object FormControl: TFormControl
                 Font.Name = 'MS Sans Serif'
                 Font.Style = []
                 ParentFont = False
+                ExplicitTop = 576
               end
               object Label2: TLabel
                 Left = 94
-                Top = 576
+                Top = 574
                 Width = 48
                 Height = 13
                 Anchors = [akLeft, akBottom]
@@ -2245,10 +2295,11 @@ object FormControl: TFormControl
                 Font.Name = 'MS Sans Serif'
                 Font.Style = []
                 ParentFont = False
+                ExplicitTop = 576
               end
               object SpeedButtonCapAudio: TSpeedButton
                 Left = 137
-                Top = 636
+                Top = 634
                 Width = 81
                 Height = 22
                 Cursor = crHandPoint
@@ -2291,6 +2342,7 @@ object FormControl: TFormControl
                   FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
                   FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00}
                 OnClick = SpeedButtonCapAudioClick
+                ExplicitTop = 636
               end
               object SpeedButtonListarAudio: TSpeedButton
                 Left = 168
@@ -2307,7 +2359,7 @@ object FormControl: TFormControl
               end
               object Labellengthaudio: TLabel
                 Left = 8
-                Top = 601
+                Top = 599
                 Width = 42
                 Height = 13
                 Anchors = [akLeft, akRight, akBottom]
@@ -2318,12 +2370,13 @@ object FormControl: TFormControl
                 Font.Name = 'MS Sans Serif'
                 Font.Style = []
                 ParentFont = False
+                ExplicitTop = 601
               end
               object ListViewAudioFormato: TListView
                 Left = 8
                 Top = 56
                 Width = 209
-                Height = 507
+                Height = 505
                 Hint = 
                   'Ajusta el tiempo de muestreo. A mayor frecuencia mejor ser'#225' la c' +
                   'alidad'#13#10'pero m'#225's grande el tama'#241'o.'
@@ -2348,23 +2401,29 @@ object FormControl: TFormControl
                 FlatScrollBars = True
                 FullDrag = True
                 GridLines = True
-                Items.Data = {
-                  FA0100000C00000000000000FFFFFFFFFFFFFFFF020000000000000008313130
-                  323520487A044D6F6E6F013800000000FFFFFFFFFFFFFFFF0200000000000000
-                  08313130323520487A0653746572656F013800000000FFFFFFFFFFFFFFFF0200
-                  00000000000008313130323520487A044D6F6E6F02313600000000FFFFFFFFFF
-                  FFFFFF020000000000000008313130323520487A0653746572656F0231360000
-                  0000FFFFFFFFFFFFFFFF020000000000000008323230353020487A044D6F6E6F
-                  013800000000FFFFFFFFFFFFFFFF020000000000000008323230353020487A06
-                  53746572656F013800000000FFFFFFFFFFFFFFFF020000000000000008323230
-                  353020487A044D6F6E6F02313600000000FFFFFFFFFFFFFFFF02000000000000
-                  0008323230353020487A0653746572656F02313600000000FFFFFFFFFFFFFFFF
-                  020000000000000008343431303020487A044D6F6E6F013800000000FFFFFFFF
-                  FFFFFFFF020000000000000008343431303020487A0653746572656F01380000
-                  0000FFFFFFFFFFFFFFFF020000000000000008343431303020487A044D6F6E6F
-                  02313600000000FFFFFFFFFFFFFFFF020000000000000008343431303020487A
-                  0653746572656F023136FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-                  FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+                Items.ItemData = {
+                  01AC0200000C00000000000000FFFFFFFFFFFFFFFF0200000000000000083100
+                  3100300032003500200048007A00044D006F006E006F0001380000000000FFFF
+                  FFFFFFFFFFFF02000000000000000831003100300032003500200048007A0006
+                  530074006500720065006F0001380000000000FFFFFFFFFFFFFFFF0200000000
+                  0000000831003100300032003500200048007A00044D006F006E006F00023100
+                  360000000000FFFFFFFFFFFFFFFF020000000000000008310031003000320035
+                  00200048007A0006530074006500720065006F00023100360000000000FFFFFF
+                  FFFFFFFFFF02000000000000000832003200300035003000200048007A00044D
+                  006F006E006F0001380000000000FFFFFFFFFFFFFFFF02000000000000000832
+                  003200300035003000200048007A0006530074006500720065006F0001380000
+                  000000FFFFFFFFFFFFFFFF020000000000000008320032003000350030002000
+                  48007A00044D006F006E006F00023100360000000000FFFFFFFFFFFFFFFF0200
+                  0000000000000832003200300035003000200048007A00065300740065007200
+                  65006F00023100360000000000FFFFFFFFFFFFFFFF0200000000000000083400
+                  3400310030003000200048007A00044D006F006E006F0001380000000000FFFF
+                  FFFFFFFFFFFF02000000000000000834003400310030003000200048007A0006
+                  530074006500720065006F0001380000000000FFFFFFFFFFFFFFFF0200000000
+                  0000000834003400310030003000200048007A00044D006F006E006F00023100
+                  360000000000FFFFFFFFFFFFFFFF020000000000000008340034003100300030
+                  00200048007A0006530074006500720065006F000231003600FFFFFFFFFFFFFF
+                  FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFFFFFFF}
                 ReadOnly = True
                 RowSelect = True
                 TabOrder = 0
@@ -2373,7 +2432,7 @@ object FormControl: TFormControl
               end
               object CheckBoxCapturarAudioAutomaticamente: TCheckBox
                 Left = 8
-                Top = 641
+                Top = 639
                 Width = 121
                 Height = 17
                 Hint = 'Hacer capturas de audio automaticas'
@@ -2390,7 +2449,7 @@ object FormControl: TFormControl
               end
               object CheckBoxAutoReproducir: TCheckBox
                 Left = 8
-                Top = 622
+                Top = 620
                 Width = 209
                 Height = 17
                 Hint = 'Reproducir autom'#225'ticamente el audio recibido'
@@ -2425,7 +2484,7 @@ object FormControl: TFormControl
               end
               object Spineditaudio: TEdit
                 Left = 59
-                Top = 571
+                Top = 569
                 Width = 26
                 Height = 21
                 Anchors = [akLeft, akBottom]
@@ -2437,7 +2496,7 @@ object FormControl: TFormControl
               Left = 228
               Top = 0
               Width = 598
-              Height = 673
+              Height = 672
               Align = alClient
               BevelInner = bvNone
               BevelOuter = bvRaised
@@ -2476,7 +2535,7 @@ object FormControl: TFormControl
             end
             object ProgressBarAudio: TProgressBar
               Left = 0
-              Top = 673
+              Top = 672
               Width = 826
               Height = 9
               Align = alBottom
@@ -2491,10 +2550,10 @@ object FormControl: TFormControl
           OnShow = TabKeyloggerShow
           DesignSize = (
             826
-            682)
+            681)
           object SpeedButtonRecibirLog: TSpeedButton
             Left = 2
-            Top = 650
+            Top = 648
             Width = 88
             Height = 22
             Cursor = crHandPoint
@@ -2537,10 +2596,11 @@ object FormControl: TFormControl
               FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
               FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00}
             OnClick = SpeedButtonRecibirLogClick
+            ExplicitTop = 650
           end
           object SpeedButtonEliminarLog: TSpeedButton
             Left = 93
-            Top = 650
+            Top = 648
             Width = 90
             Height = 22
             Cursor = crHandPoint
@@ -2583,10 +2643,11 @@ object FormControl: TFormControl
               FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
               FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00}
             OnClick = SpeedButtonEliminarLogClick
+            ExplicitTop = 650
           end
           object SpeedButtonGuardarLog: TSpeedButton
             Left = 189
-            Top = 650
+            Top = 648
             Width = 82
             Height = 22
             Cursor = crHandPoint
@@ -2629,10 +2690,11 @@ object FormControl: TFormControl
               3690BC6B36CCBC6B36EEBC6B36FABB6B36FEBB6B36FFBB6A36FFBB6A36FFBC6C
               39FFBD6E3BFFBB6D3AFFBB6B38EFBB703ECBB6693554FFFFFF00}
             OnClick = SpeedButtonGuardarLogClick
+            ExplicitTop = 650
           end
           object SpeedButtonActivarKeylogger: TSpeedButton
             Left = 686
-            Top = 603
+            Top = 601
             Width = 132
             Height = 22
             Cursor = crHandPoint
@@ -2676,26 +2738,25 @@ object FormControl: TFormControl
               FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
               FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00}
             OnClick = SpeedButtonActivarKeyloggerClick
+            ExplicitTop = 603
           end
           object RichEditKeylogger: TRichEdit
             Left = 8
             Top = 8
             Width = 814
-            Height = 587
+            Height = 585
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelOuter = bvRaised
             BevelKind = bkFlat
-            BiDiMode = bdRightToLeft
             BorderStyle = bsNone
-            ParentBiDiMode = False
             ReadOnly = True
             ScrollBars = ssVertical
             TabOrder = 0
           end
           object EditLogName: TEdit
             Left = 2
-            Top = 603
+            Top = 601
             Width = 676
             Height = 21
             Anchors = [akLeft, akRight, akBottom]
@@ -2708,7 +2769,7 @@ object FormControl: TFormControl
           end
           object ProgressBarKeylogger: TProgressBar
             Left = 2
-            Top = 631
+            Top = 629
             Width = 812
             Height = 16
             Anchors = [akLeft, akRight, akBottom]
@@ -2718,7 +2779,7 @@ object FormControl: TFormControl
           end
           object CheckBoxOnlineKeylogger: TCheckBox
             Left = 278
-            Top = 655
+            Top = 653
             Width = 276
             Height = 17
             Anchors = [akLeft, akBottom]
@@ -2739,10 +2800,10 @@ object FormControl: TFormControl
           ImageIndex = 4
           DesignSize = (
             826
-            682)
+            681)
           object SpeedButtonClipBoard1: TSpeedButton
             Left = 544
-            Top = 649
+            Top = 647
             Width = 134
             Height = 22
             Cursor = crHandPoint
@@ -2785,10 +2846,11 @@ object FormControl: TFormControl
               FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
               FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00}
             OnClick = SpeedButtonClipBoard1Click
+            ExplicitTop = 649
           end
           object SpeedButtonClipBoard2: TSpeedButton
             Left = 687
-            Top = 649
+            Top = 647
             Width = 133
             Height = 22
             Cursor = crHandPoint
@@ -2831,12 +2893,13 @@ object FormControl: TFormControl
               FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
               FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00}
             OnClick = SpeedButtonClipBoard2Click
+            ExplicitTop = 649
           end
           object MemoClipBoard: TMemo
             Left = 4
             Top = 4
             Width = 818
-            Height = 639
+            Height = 637
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelInner = bvNone
             BevelKind = bkFlat
@@ -2852,7 +2915,7 @@ object FormControl: TFormControl
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 738
+    Top = 737
     Width = 974
     Height = 20
     Panels = <
@@ -2869,7 +2932,7 @@ object FormControl: TFormControl
     Left = 0
     Top = 0
     Width = 129
-    Height = 738
+    Height = 737
     Align = alLeft
     BorderStyle = bsNone
     Images = IconsArchivos
@@ -3302,7 +3365,7 @@ object FormControl: TFormControl
     Left = 288
     Top = 172
     Bitmap = {
-      494C010171007200040010001000FFFFFFFFFF00FFFFFFFFFFFFFFFF424D3600
+      494C0101710072000C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000D0010000010020000000000000D0
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -7134,7 +7197,8 @@ object FormControl: TFormControl
       8001800100010000800180010001000080018001000100008001800100010000
       8001800100010000800180010001000080018001000100008001800100010000
       800180010001000080018001000100008001800100010000FFFFFFFF80010000
-      FFFFFFFF80038000FFFFFFFF8007FFFF}
+      FFFFFFFF80038000FFFFFFFF8007FFFF00000000000000000000000000000000
+      000000000000}
   end
   object PopupRutasRapidas: TPopupMenu
     Images = IconsArchivos
