@@ -2904,13 +2904,21 @@ begin
     begin
       Delete(Buffer, 1, Pos('|', Buffer));
       FilePath := Copy(Buffer, 1, Pos('|', Buffer) - 1);
+
       Delete(Buffer, 1, Pos('|', Buffer));
       Size := StrToInt64Def(Buffer, 0);
+
       CrearDirectoriosUsuario();
-      Descarga := TDescargaHandler.Create(Athread, FilePath, Size,
-        DirDescargas + ExtractFileName(FilePath), ListViewDescargas, True);
+      Descarga := TDescargaHandler.Create(
+        Athread,
+        FilePath,
+        Size,
+        DirDescargas + ExtractFileName(FilePath),
+        ListViewDescargas,
+        True
+      );
       Descarga.callback := Self.TransferFinishedNotification;
-      Descarga.transferFile;
+      Descarga.TransferFile;
     end
   else if Copy(PChar(Buffer), 1, 14) = 'RESUMETRANSFER' then
     begin
@@ -3221,7 +3229,6 @@ end;
 
 //se llama cada vez que finaliza una descarga para que se inicie
 //alguna otra descarga que haya sido puesta en cola
-
 procedure TFormControl.TransFerFinishedNotification(Sender: TObject; FileName: string);
 var
   Descarga: TDescargaHandler;
@@ -3235,9 +3242,9 @@ begin
     end
   else
     begin
-
       Estado(_('Transferencia finalizada: ') + extractfilename(FileName));
     end;
+
   if not Servidor.Terminated and Servidor.Connection.Connected then
     begin
       for o := 1 to 5 do
@@ -3246,8 +3253,10 @@ begin
           if ListViewDescargas.Items[i].SubItems[5] = inttostr(o) then
           begin
             Descarga := TDescargaHandler(ListViewDescargas.Items[i].Data);
-            if not Descarga.Transfering and not Descarga.cancelado and not
-              Descarga.Finalizado and Descarga.es_descarga then //en espera
+            if (not Descarga.Transfering and
+                not Descarga.cancelado and
+                not Descarga.Finalizado and
+                Descarga.es_descarga) then //en espera
             begin
               ConnectionWriteLn(Servidor, 'RESUMETRANSFER|' + Descarga.Origen +
                 '|' + IntToStr(Descarga.Descargado));

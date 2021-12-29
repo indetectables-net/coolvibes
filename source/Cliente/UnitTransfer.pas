@@ -98,87 +98,84 @@ end;
 procedure TDescargaHandler.TransferFile;
 var
   Buffer: array[0..1023] of Byte;
-  F: file;
-  read, currRead: Integer;
-  tickBefore, tickNow: Integer;
-  seconds: Extended;
-  buffSize: Integer;
-  pri: string;
-  error, asignado: Boolean;
+  ChunkSize: Integer;
+  SavedFile: file;
+  LocalSavedFileSize: Integer;
+  StartTick: Integer;
+  LastTick: Integer;
+  NowTick: Integer;
+  Seconds: Extended;
+  StartSocketStatus: string;
+  Error: Boolean;
 begin
-  transfering := True;
-  status := _('Descargando');
-  AssignFile(F, Destino);
-  try
-    Rewrite(F, 1);
-  except
-    error := True;
-  end;
-  asignado := not error;
-  read := 0;
-  currRead := 0;
-  tickBefore := GetTickCount-10000;
-  tickNow := GetTickCount;
+  Transfering := True;
+  Status := _('Descargando');
+  StartTick := GetTickCount;
+  LastTick := StartTick;
+  LocalSavedFileSize := 0;
   UltimoBajado := 0;
-  buffSize := SizeOf(Buffer);
-  Pri := Trim(ConnectionReadLn(Athread, #10#15#80#66#77#1#72#87));
-  if (Pri = 'ERROR') then
+
+  try
+    AssignFile(SavedFile, Destino);
+    Rewrite(SavedFile, 1);
+
+    StartSocketStatus := Trim(ConnectionReadLn(Athread, #10#15#80#66#77#1#72#87));
+    if (StartSocketStatus = 'ERROR') then
     begin
       MessageDlg(_('Error al descargar archivo: ') + extractfilename(destino), mtWarning, [mbOK], 0);
-      error := True;
+      Exit;
     end;
-  try
-    while ((read < SizeFile) and Athread.Connection.Connected and not cancelado) do
+
+    while ((LocalSavedFileSize < SizeFile) and
+      Athread.Connection.Connected and
+      not Cancelado) do
       begin
-        if error then break;
-        if (SizeFile - read) >= buffSize then
-          currRead := buffSize
-        else
-          currRead := (SizeFile - read);
+        // esta es una trampa para saber de cuanto va a ser el ChunkSize enviado
+        // ya que en realidad el que manda deberia decir de cuanto es cada chunk
+        ChunkSize := 1024;
+        if (SizeFile - LocalSavedFileSize) < 1024 then
+          ChunkSize := SizeFile - LocalSavedFileSize;
 
-        Athread.Connection.ReadBuffer(buffer, currRead);
-        read := read + currRead;
+        Athread.Connection.ReadBuffer(Buffer, ChunkSize);
+        //LocalSavedFileSize := LocalSavedFileSize + Length(Buffer);
+        LocalSavedFileSize := LocalSavedFileSize + ChunkSize;
 
-        tickNow := GetTickCount;
-        if (tickNow - TickBefore >= 500) then
-          begin
-            Athread.Synchronize(UpdateVelocidad);
-            Athread.Synchronize(Update);
-            tickBefore := tickNow;
-            UltimoBajado := Descargado;
-          end;
+        NowTick := GetTickCount;
+        if (NowTick - LastTick >= 500) then
+        begin
+          Athread.Synchronize(UpdateVelocidad);
+          Athread.Synchronize(Update);
+          LastTick := NowTick;
+          UltimoBajado := Descargado;
+        end;
 
-        BlockWrite(F, Buffer, currRead);
-        currRead := 0;
-        Descargado := read;
+        // creo que el valor de count de aca tendria que ser un ternario
+        BlockWrite(SavedFile, Buffer, ChunkSize);
+        Descargado := LocalSavedFileSize;
       end;
-  finally
-    if asignado then
-      CloseFile(F);
-    {   Athread.Data := nil;
-       Athread.Connection.Disconnect;  }
+  except
+    on ExcepData: Exception do begin
+      Error := True;
+      Status := _('Error');
+      ShowMessage(ExcepData.ClassName + ' error raised, with message : ' + ExcepData.Message);
+    end;
+  end;
 
-    seconds := (GetTickCount - tickBefore) / 1000;
-    transfering := False;
-    if read <> SizeFile then
-      begin
-        status := _('Detenido');
-        cancelado := True;
-        Transfering := False;
-      end
-    else
-      begin
-        status := _('Finalizado');
-        finalizado := True;
-        transfering := False;
-      end;
-    Athread.Synchronize(Update);
-    Athread.Connection.Disconnect;
+  if LocalSavedFileSize = SizeFile then
+  begin
+    Status := _('Finalizado');
+    Finalizado := True;
+  end;
 
-    if @callback <> nil then
-      callback(Self, destino);
+  CloseFile(SavedFile);
+  Transfering := False;
+  Seconds := (LastTick - StartTick) / 1000;
+  Athread.Synchronize(Update);
+  Athread.Connection.Disconnect;
 
-  end; //end de finally
+  // TODO agregar al callback Error, Finalizado y Cancelado
+  if @callback <> nil then
+    callback(Self, destino);
 end;
 
 procedure TDescargaHandler.ResumeTransfer;
