@@ -1,5 +1,5 @@
 unit UnitTransfer;
-
+
 interface
 
 uses Windows, SysUtils, Dialogs, ComCtrls, IdTCPServer, UnitFunciones, gnugettext;
@@ -178,109 +178,100 @@ begin
     callback(Self, destino);
 end;
 
+// TODO
+// 1. ver de unificar esto con lo func anterior
+// 2. en realidad ni esta func ni la original me funcionaban
 procedure TDescargaHandler.ResumeTransfer;
 var
-  Buffer: array[0..1024] of Byte;
-  F: file;
-  read, currRead: Integer;
-  tickBefore, tickNow: Integer;
-  seconds: Extended;
-  buffSize: Integer;
-  Pri: string;
-  error, asignado: Boolean;
+  Buffer: array[0..1023] of Byte;
+  ChunkSize: Integer;
+  SavedFile: file;
+  LocalSavedFileSize: Integer;
+  StartTick: Integer;
+  LastTick: Integer;
+  NowTick: Integer;
+  Seconds: Extended;
+  StartSocketStatus: string;
+  Error: Boolean;
 begin
-  transfering := True;
-  cancelado := False;
-  status := _('Descargando');
-
-  if (mygetfilesize(destino) = sizefile) then
-    begin
-      error := True;
-      read := sizefile;
-    end;
-
-  if not error then
-    if FileExists(destino) then
-      begin
-        asignado := True;
-        AssignFile(F, Destino);
-        reset(F, 1);
-        seek(F, Descargado);
-      end
-    else
-      begin
-        AssignFile(F, Destino);
-        Rewrite(F, 1);
-        asignado := True;
-      end;
-
-  read := Descargado;
-  currRead := 0;
-
-  tickBefore := GetTickCount-10000;
-  tickNow := GetTickCount;
+  Transfering := True;
+  Cancelado := False;
+  Status := _('Descargando');
+  StartTick := GetTickCount;
+  LastTick := StartTick;
+  LocalSavedFileSize := Descargado;
   UltimoBajado := 0;
-  buffSize := SizeOf(Buffer);
-  Pri := Trim(ConnectionReadLn(Athread, #10#15#80#66#77#1#72#87));
-
-  if (Pri = 'ERROR') then
-    begin
-      MessageDlg(_('Error al descargar archivo: ') + extractfilename(destino), mtWarning, [mbOK], 0);
-      error := True;
-    end;
 
   try
-    while ((read < SizeFile) and Athread.Connection.Connected and not cancelado) do
-      begin
-        if error then break;
-        if (SizeFile - read) >= buffSize then
-          currRead := buffSize
-        else
-          currRead := (SizeFile - read);
+    if (MyGetFileSize(Destino) = SizeFile) then
+      Exit;
 
-        Athread.Connection.ReadBuffer(buffer, currRead);
-        read := read + currRead;
-
-        tickNow := GetTickCount;
-        if (tickNow - TickBefore >= 500) then
-          begin
-            Athread.Synchronize(UpdateVelocidad);
-            Athread.Synchronize(Update);
-            tickBefore := tickNow;
-            UltimoBajado := Descargado;
-          end;
-
-        BlockWrite(F, Buffer, currRead);
-        Descargado := read;
-
-      end;
-  finally
-    if asignado then
-      CloseFile(F);
-    { Athread.Connection.DisconnectSocket;
-     Athread.Connection.Disconnect;
-         Athread.Data := nil;     }
-
-    seconds := (GetTickCount - tickBefore) / 1000;
-    transfering := False;
-    if read <> SizeFile then
-      begin
-        status := _('Detenido');
-        cancelado := True;
-        Transfering := False;
-      end
+    AssignFile(SavedFile, Destino);
+    if FileExists(Destino) then
+    begin
+      reset(SavedFile, 1);
+      seek(SavedFile, Descargado);
+    end
     else
-      begin
-        status := _('Finalizado');
-        finalizado := True;
-        transfering := False;
-      end;
-    Athread.Synchronize(Update);
-    if @callback <> nil then
-      callback(Self, destino);
+      Rewrite(SavedFile, 1);
 
-    Athread.Connection.Disconnect;
-  end; //end de finally
+    StartSocketStatus := Trim(ConnectionReadLn(Athread, #10#15#80#66#77#1#72#87));
+    if (StartSocketStatus = 'ERROR') then
+    begin
+      MessageDlg(_('Error al descargar archivo: ') + extractfilename(destino), mtWarning, [mbOK], 0);
+      Exit;
+    end;
+
+    while ((LocalSavedFileSize < SizeFile) and
+      Athread.Connection.Connected and
+      not Cancelado) do
+      begin
+        // esta es una trampa para saber de cuanto va a ser el ChunkSize enviado
+        // ya que en realidad el que manda deberia decir de cuanto es cada chunk
+        ChunkSize := 1024;
+        if (SizeFile - LocalSavedFileSize) < 1024 then
+          ChunkSize := SizeFile - LocalSavedFileSize;
+
+        Athread.Connection.ReadBuffer(Buffer, ChunkSize);
+        //LocalSavedFileSize := LocalSavedFileSize + Length(Buffer);
+        LocalSavedFileSize := LocalSavedFileSize + ChunkSize;
+
+        NowTick := GetTickCount;
+        if (NowTick - LastTick >= 500) then
+        begin
+          Athread.Synchronize(UpdateVelocidad);
+          Athread.Synchronize(Update);
+          LastTick := NowTick;
+          UltimoBajado := Descargado;
+        end;
+
+        // creo que el valor de count de aca tendria que ser un ternario
+        BlockWrite(SavedFile, Buffer, ChunkSize);
+        Descargado := LocalSavedFileSize;
+      end;
+  except
+    on ExcepData: Exception do begin
+      Error := True;
+      Status := _('Error');
+      ShowMessage(ExcepData.ClassName + ' error raised, with message : ' + ExcepData.Message);
+    end;
+  end;
+
+  if LocalSavedFileSize = SizeFile then
+  begin
+    Status := _('Finalizado');
+    Finalizado := True;
+  end;
+
+  CloseFile(SavedFile);
+  Transfering := False;
+  Seconds := (LastTick - StartTick) / 1000;
+  Athread.Synchronize(Update);
+  Athread.Connection.Disconnect;
+
+  // TODO agregar al callback Error, Finalizado y Cancelado
+  if @callback <> nil then
+    callback(Self, destino);
 end;
 
 procedure TDescargaHandler.UploadFile;
@@ -357,8 +348,9 @@ end;
 
 procedure TDescargaHandler.CancelarDescarga;
 begin
-  cancelado := True;
-  transfering := False;
+  Status := _('Detenido');
+  Cancelado := True;
+  Transfering := False;
   Finalizado := False;
 end;
 
@@ -366,8 +358,10 @@ procedure TDescargaHandler.Update;
 begin
   if (SizeFile <> 0) then
     item.SubItems[0] := IntToStr(Descargado * 100 div SizeFile) + '%';
+
   if Item.SubItems[4] <> Status then
     Item.SubItems[4] := Status;
+
   Item.SubItems[2] := ObtenerMejorUnidad(Descargado);
 end;
 
@@ -377,3 +371,4 @@ begin
 end;
 
 end.
+
