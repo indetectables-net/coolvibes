@@ -10,6 +10,16 @@ Modificación de: Nick
 [*] Bug solucionados, arreglos
 
 
+Fecha 29/12/2021
+Versión: 1 Update 15
+Modificación de: DSR!
+[+] Agregado TODO
+[+] Agregado proyecto a github https://github.com/indetectables-net/coolvibes
+[*] Refactor de UnitTransfer
+[*] Eliminado completamente el uso de la ventana tipo MSN (en su lugar estan los globos emergentes) 
+
+|----------------------------|
+
 Fecha 2/02/2013
 Versión: 1 Update 14
 Modificación de: Nusenuse
