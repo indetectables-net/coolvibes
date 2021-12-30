@@ -276,74 +276,89 @@ end;
 
 procedure TDescargaHandler.UploadFile;
 var
-  myFile: file;
-  byteArray: array[0..1023] of Byte;
-  Count, sent, filesize: Integer;
-  tickBefore, tickNow: Integer;
-  asignado: Boolean;
+  ReadFile: file;
+  ReadBuffer: array[0..1023] of Byte;
+  SendBuffer: TBytes;
+  BlockSize, SendSize, FileSize: Integer;
+  StartTick, LastTick, NowTick: Integer;
+  Seconds: Extended;
+  Error: Boolean;
 begin
-  filesize := MyGetFileSize(Origen);
-  if not filesize > 0 then
-    begin
-      MessageDlg(_('No se pudo acceder al archivo, puede que esté en uso por otra aplicación'),
-        mtWarning, [mbOK], 0);
-      AThread.Connection.Disconnect;
-      Exit;
-    end;
-  transfering := True;
-  cancelado := False;
-  status := _('Subiendo');
+  Transfering := True;
+  Cancelado := False;
+  Status := _('Subiendo');
+  StartTick := GetTickCount;
+  LastTick := StartTick;
+  SendSize := 0;
+  UltimoBajado := 0;
+
   try
-    FileMode := $0000;
-    asignado := True;
-    AssignFile(myFile, Origen);
-    try
-      reset(MyFile, 1);
-    except
-      MessageDlg(_('No se pudo acceder al archivo, puede que esté en uso por otra aplicación'),
-        mtWarning, [mbOK], 0);
-      AThread.Connection.Disconnect;
-      asignado := False;
-      Exit;
-    end;
-    sent := 0;
-    tickBefore := GetTickCount-10000;
-    UltimoBajado := 0;
-    while not EOF(MyFile) and AThread.Connection.Connected and not cancelado do
+    FileSize := MyGetFileSize(Origen);
+    if not FileSize > 0 then
       begin
-        BlockRead(myFile, bytearray, 1024, Count);
-        sent := sent + AThread.Connection.Socket.Send(bytearray, Count);
-        tickNow := GetTickCount;
-        if (tickNow - TickBefore >= 500) then
-          begin
-            Athread.Synchronize(UpdateVelocidad);
-            tickBefore := tickNow;
-            UltimoBajado := Descargado;
-            Athread.Synchronize(Update);
-          end;
+        MessageDlg(
+          _('No se pudo acceder al archivo, puede que esté en uso por otra aplicación'),
+          mtWarning,
+          [mbOK],
+          0
+        );
+        Exit;
+      end;
+
+    FileMode := $0000;
+    AssignFile(ReadFile, Origen);
+    Reset(ReadFile, 1);
+
+    while (not EOF(ReadFile) and
+      AThread.Connection.Connected and
+      not Cancelado) do
+      begin
+        BlockRead(ReadFile, ReadBuffer, 1024, BlockSize);
+        AThread.Connection.Socket.Send(ReadBuffer, BlockSize);
+        SendSize := SendSize + BlockSize;
+
+        NowTick := GetTickCount;
+        if (NowTick - LastTick >= 500) then
+        begin
+          Athread.Synchronize(UpdateVelocidad);
+          Athread.Synchronize(Update);
+          LastTick := NowTick;
+          UltimoBajado := Descargado;
+        end;
+
         //aunque originalmente indicaba cuando se habia descargado tambien
         //nos servira para llevar la cuenta de cuanto hemos subido
-        Descargado := sent;
+        //(entonces renombralo a transfered capo)
+        Descargado := SendSize;
       end;
-  finally
-    if asignado then
-      closefile(myfile);
-    if sent <> filesize then
-      begin
-        cancelado := True;
-        transfering := False;
-        finalizado := False;
-        Status := _('Detenido');
-      end
-    else
-      begin
-        cancelado := False;
-        transfering := False;
-        finalizado := True;
-        Status := _('Finalizado');
-      end;
-    Athread.Synchronize(Update);
+  except
+    on ExcepData: Exception do begin
+      Error := True;
+      Status := _('Error');
+      MessageDlg(
+        ExcepData.ClassName + ' error raised, with message : ' + ExcepData.Message,
+        mtWarning,
+        [mbOK],
+        0
+      );
+    end;
   end;
+
+  if SendSize = FileSize then
+  begin
+    Status := _('Finalizado');
+    Finalizado := True;
+  end;
+
+  CloseFile(ReadFile);
+  Transfering := False;
+  Seconds := (LastTick - StartTick) / 1000;
+  Athread.Synchronize(Update);
+  Athread.Connection.Disconnect;
+
+  // TODO agregar al callback Error, Finalizado y Cancelado
+  if @callback <> nil then
+    callback(Self, destino);
 end;
 
 procedure TDescargaHandler.CancelarDescarga;
