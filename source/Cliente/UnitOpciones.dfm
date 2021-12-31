@@ -2009,7 +2009,7 @@ object FormOpciones: TFormOpciones
     Top = 0
     Width = 684
     Height = 313
-    ActivePage = TabAyuda
+    ActivePage = General
     Align = alTop
     Images = ImageList
     Style = tsFlatButtons
@@ -2017,13 +2017,14 @@ object FormOpciones: TFormOpciones
     OnChange = PageControlOpcionesChange
     object General: TTabSheet
       Caption = 'General'
+      ExplicitTop = 33
       DesignSize = (
         676
         281)
       object GrpBoxAlSalir: TGroupBox
-        Left = 8
-        Top = 8
-        Width = 664
+        Left = 9
+        Top = 71
+        Width = 654
         Height = 58
         Anchors = [akLeft, akTop, akRight]
         Caption = 'Al salir...'
@@ -2034,12 +2035,11 @@ object FormOpciones: TFormOpciones
         Font.Style = []
         ParentFont = False
         TabOrder = 0
-        ExplicitWidth = 630
         object CheckBoxPreguntarAlSalir: TCheckBox
           Left = 8
-          Top = 18
-          Width = 265
-          Height = 16
+          Top = 17
+          Width = 285
+          Height = 17
           Hint = 'Solicita confirmaci'#243'n al salir de Coolvibes'
           Caption = 'Solicitar confirmaci'#243'n'
           Color = clBtnFace
@@ -2073,7 +2073,7 @@ object FormOpciones: TFormOpciones
       end
       object CheckBoxMinimizeToTray: TCheckBox
         Left = 16
-        Top = 76
+        Top = 13
         Width = 639
         Height = 17
         Anchors = [akLeft, akTop, akRight]
@@ -2087,11 +2087,10 @@ object FormOpciones: TFormOpciones
         ParentColor = False
         ParentFont = False
         TabOrder = 1
-        ExplicitWidth = 605
       end
       object CheckBoxAutoRefrescar: TCheckBox
         Left = 16
-        Top = 111
+        Top = 48
         Width = 647
         Height = 17
         Hint = 
@@ -2108,11 +2107,10 @@ object FormOpciones: TFormOpciones
         ParentColor = False
         ParentFont = False
         TabOrder = 3
-        ExplicitWidth = 613
       end
       object CheckBoxCCIndependiente: TCheckBox
         Left = 16
-        Top = 94
+        Top = 31
         Width = 647
         Height = 17
         Anchors = [akLeft, akTop, akRight]
@@ -2124,7 +2122,6 @@ object FormOpciones: TFormOpciones
         Font.Style = []
         ParentFont = False
         TabOrder = 2
-        ExplicitWidth = 613
       end
     end
     object TabApariencia: TTabSheet
@@ -2147,7 +2144,6 @@ object FormOpciones: TFormOpciones
         Font.Style = []
         ParentFont = False
         TabOrder = 0
-        ExplicitWidth = 622
       end
       object CheckBoxTreeViewCC: TCheckBox
         Left = 8
@@ -2165,7 +2161,6 @@ object FormOpciones: TFormOpciones
         Anchors = [akLeft, akTop, akRight]
         Caption = 'Mostrar panel inferior con informaci'#243'n adicional de los clientes'
         TabOrder = 2
-        ExplicitWidth = 577
       end
       object CheckBoxCapturaInferior: TCheckBox
         Left = 8
@@ -2180,7 +2175,6 @@ object FormOpciones: TFormOpciones
           'Mostrar vistas previas de los escritorios en el panel inferior (' +
           'Consume mas RAM)'
         TabOrder = 3
-        ExplicitWidth = 625
       end
       object CheckBoxSplash: TCheckBox
         Left = 8
@@ -2190,7 +2184,6 @@ object FormOpciones: TFormOpciones
         Anchors = [akLeft, akTop, akRight]
         Caption = 'Mostrar splash al inciar'
         TabOrder = 4
-        ExplicitWidth = 625
       end
     end
     object TabConexion: TTabSheet
@@ -2233,7 +2226,6 @@ object FormOpciones: TFormOpciones
         Font.Style = []
         ParentFont = False
         TabOrder = 0
-        ExplicitWidth = 639
       end
       object GroupBoxConexion: TGroupBox
         Left = 0
@@ -2249,7 +2241,6 @@ object FormOpciones: TFormOpciones
         Font.Style = []
         ParentFont = False
         TabOrder = 1
-        ExplicitWidth = 638
         object Label1: TLabel
           Left = 181
           Top = 24
@@ -2355,7 +2346,6 @@ object FormOpciones: TFormOpciones
         ParentColor = False
         ParentFont = False
         TabOrder = 1
-        ExplicitWidth = 621
       end
       object CheckBoxNotiMsnDesc: TCheckBox
         Left = 9
@@ -2374,7 +2364,6 @@ object FormOpciones: TFormOpciones
         Font.Style = []
         ParentFont = False
         TabOrder = 2
-        ExplicitWidth = 630
       end
       object CheckBoxGloboalPedirS: TCheckBox
         Left = 8
@@ -2393,7 +2382,6 @@ object FormOpciones: TFormOpciones
         Font.Style = []
         ParentFont = False
         TabOrder = 0
-        ExplicitWidth = 621
       end
       object CheckBoxAlertaSonora: TCheckBox
         Left = 8
@@ -2412,7 +2400,6 @@ object FormOpciones: TFormOpciones
         Font.Style = []
         ParentFont = False
         TabOrder = 3
-        ExplicitWidth = 630
       end
       object EditRutaArchivoWav: TEdit
         Left = 32
@@ -2432,7 +2419,6 @@ object FormOpciones: TFormOpciones
         Font.Style = []
         ParentFont = False
         TabOrder = 4
-        ExplicitWidth = 606
       end
     end
     object TabDirectorios: TTabSheet
@@ -2461,7 +2447,6 @@ object FormOpciones: TFormOpciones
         EditLabel.Font.Style = []
         EditLabel.ParentFont = False
         TabOrder = 0
-        ExplicitWidth = 630
       end
       object LabeledDirScreen: TLabeledEdit
         Left = 8
@@ -2483,7 +2468,6 @@ object FormOpciones: TFormOpciones
         EditLabel.Font.Style = []
         EditLabel.ParentFont = False
         TabOrder = 1
-        ExplicitWidth = 630
       end
       object LabeledDirWebcam: TLabeledEdit
         Left = 8
@@ -2505,7 +2489,6 @@ object FormOpciones: TFormOpciones
         EditLabel.Font.Style = []
         EditLabel.ParentFont = False
         TabOrder = 2
-        ExplicitWidth = 630
       end
       object LabeledDirThumbs: TLabeledEdit
         Left = 8
@@ -2527,7 +2510,6 @@ object FormOpciones: TFormOpciones
         EditLabel.Font.Style = []
         EditLabel.ParentFont = False
         TabOrder = 3
-        ExplicitWidth = 630
       end
       object LabeledDirDownloads: TLabeledEdit
         Left = 8
@@ -2549,7 +2531,6 @@ object FormOpciones: TFormOpciones
         EditLabel.Font.Style = []
         EditLabel.ParentFont = False
         TabOrder = 4
-        ExplicitWidth = 630
       end
     end
     object TabPlugins: TTabSheet
@@ -2560,7 +2541,7 @@ object FormOpciones: TFormOpciones
         281)
       object SpeedButtonAniadirPlugin: TSpeedButton
         Left = 0
-        Top = 247
+        Top = 246
         Width = 97
         Height = 22
         Cursor = crHandPoint
@@ -2607,7 +2588,7 @@ object FormOpciones: TFormOpciones
       end
       object SpeedButton1: TSpeedButton
         Left = 104
-        Top = 248
+        Top = 247
         Width = 105
         Height = 22
         Cursor = crHandPoint
@@ -2656,7 +2637,7 @@ object FormOpciones: TFormOpciones
         Left = 0
         Top = 2
         Width = 671
-        Height = 215
+        Height = 214
         Anchors = [akLeft, akTop, akRight, akBottom]
         BevelInner = bvNone
         BevelOuter = bvRaised
@@ -2683,12 +2664,10 @@ object FormOpciones: TFormOpciones
         SmallImages = ImageList
         TabOrder = 0
         ViewStyle = vsReport
-        ExplicitWidth = 637
-        ExplicitHeight = 216
       end
       object CheckBoxGuardarPluginsEnDisco: TCheckBox
         Left = 0
-        Top = 223
+        Top = 222
         Width = 672
         Height = 17
         Hint = 'Recomendado para conexiones lentas'
@@ -2701,8 +2680,6 @@ object FormOpciones: TFormOpciones
         Font.Style = []
         ParentFont = False
         TabOrder = 1
-        ExplicitTop = 224
-        ExplicitWidth = 638
       end
     end
     object TabAyuda: TTabSheet
@@ -2725,7 +2702,6 @@ object FormOpciones: TFormOpciones
         Font.Style = []
         ParentFont = False
         TabOrder = 0
-        ExplicitWidth = 630
         object CheckBoxAyuda1: TCheckBox
           Left = 8
           Top = 18
@@ -2788,14 +2764,12 @@ object FormOpciones: TFormOpciones
     Color = clBtnFace
     ReadOnly = True
     TabOrder = 1
-    ExplicitTop = 316
-    ExplicitWidth = 546
   end
   object ImageList: TImageList
-    Left = 8
-    Top = 240
+    Left = 16
+    Top = 256
     Bitmap = {
-      494C010107000900140010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010107000900180010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3068,7 +3042,7 @@ object FormOpciones: TFormOpciones
   end
   object OpenDialog: TOpenDialog
     Filter = 'CoolPlugin|*c.dll'
-    Left = 52
-    Top = 244
+    Left = 60
+    Top = 252
   end
 end

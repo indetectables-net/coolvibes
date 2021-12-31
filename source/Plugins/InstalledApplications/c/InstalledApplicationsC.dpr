@@ -26,7 +26,7 @@ end;
 
 function PluginVersion: string; stdcall;
 begin
-  Result := '1.1';
+  Result := '1.0';
 end;
 
 function Conectar(pU:string;pConID: integer):pointer; stdcall;
