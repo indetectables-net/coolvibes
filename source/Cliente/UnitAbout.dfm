@@ -1,10 +1,10 @@
 object FormAbout: TFormAbout
   Left = 254
   Top = 173
-  BorderStyle = bsToolWindow
+  BorderIcons = [biSystemMenu]
   Caption = 'Acerca de Coolvibes'
-  ClientHeight = 465
-  ClientWidth = 557
+  ClientHeight = 460
+  ClientWidth = 846
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clBackground
@@ -17,10 +17,10 @@ object FormAbout: TFormAbout
   PixelsPerInch = 96
   TextHeight = 13
   object ImgBanner: TImage
-    Left = 8
+    Left = 144
     Top = 8
-    Width = 545
-    Height = 89
+    Width = 560
+    Height = 90
     Cursor = crHandPoint
     DragCursor = crHandPoint
     Picture.Data = {
@@ -4556,7 +4556,7 @@ object FormAbout: TFormAbout
   object GrpBoxHistorial: TGroupBox
     Left = 280
     Top = 104
-    Width = 273
+    Width = 569
     Height = 361
     Caption = 'Historial de las versiones'
     Font.Charset = DEFAULT_CHARSET
@@ -4567,10 +4567,10 @@ object FormAbout: TFormAbout
     ParentFont = False
     TabOrder = 0
     object EdtHistorial: TRichEdit
-      Left = 8
-      Top = 16
-      Width = 257
-      Height = 217
+      Left = 13
+      Top = 17
+      Width = 548
+      Height = 222
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clMenuHighlight
       Font.Height = -11
@@ -4581,10 +4581,10 @@ object FormAbout: TFormAbout
       TabOrder = 0
     end
     object ScrollBox1: TScrollBox
-      Left = 8
-      Top = 240
-      Width = 257
-      Height = 113
+      Left = 13
+      Top = 245
+      Width = 548
+      Height = 108
       BevelInner = bvLowered
       BevelKind = bkFlat
       BorderStyle = bsNone

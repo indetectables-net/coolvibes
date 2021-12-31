@@ -1,13 +1,13 @@
 object FormOpciones: TFormOpciones
   Left = 484
   Top = 404
-  BorderIcons = []
+  BorderIcons = [biSystemMenu]
   Caption = 'Opciones'
-  ClientHeight = 344
-  ClientWidth = 650
+  ClientHeight = 349
+  ClientWidth = 684
   Color = clBtnFace
-  Constraints.MinHeight = 299
-  Constraints.MinWidth = 465
+  Constraints.MinHeight = 388
+  Constraints.MinWidth = 600
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -1952,13 +1952,13 @@ object FormOpciones: TFormOpciones
   OnCreate = FormCreate
   OnShow = FormShow
   DesignSize = (
-    650
-    344)
+    684
+    349)
   PixelsPerInch = 96
   TextHeight = 13
   object BtnGuardar: TSpeedButton
-    Left = 563
-    Top = 315
+    Left = 597
+    Top = 320
     Width = 81
     Height = 22
     Cursor = crHandPoint
@@ -2001,13 +2001,15 @@ object FormOpciones: TFormOpciones
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00CBCBCB63C7C7C7BFC4C4C4BFBFBF
       BF63FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00}
     OnClick = BtnGuardarClick
+    ExplicitLeft = 563
+    ExplicitTop = 315
   end
   object PageControlOpciones: TPageControl
     Left = 0
     Top = 0
-    Width = 650
+    Width = 684
     Height = 313
-    ActivePage = TabNotificaciones
+    ActivePage = TabAyuda
     Align = alTop
     Images = ImageList
     Style = tsFlatButtons
@@ -2016,12 +2018,12 @@ object FormOpciones: TFormOpciones
     object General: TTabSheet
       Caption = 'General'
       DesignSize = (
-        642
+        676
         281)
       object GrpBoxAlSalir: TGroupBox
         Left = 8
         Top = 8
-        Width = 630
+        Width = 664
         Height = 58
         Anchors = [akLeft, akTop, akRight]
         Caption = 'Al salir...'
@@ -2032,6 +2034,7 @@ object FormOpciones: TFormOpciones
         Font.Style = []
         ParentFont = False
         TabOrder = 0
+        ExplicitWidth = 630
         object CheckBoxPreguntarAlSalir: TCheckBox
           Left = 8
           Top = 18
@@ -2071,7 +2074,7 @@ object FormOpciones: TFormOpciones
       object CheckBoxMinimizeToTray: TCheckBox
         Left = 16
         Top = 76
-        Width = 605
+        Width = 639
         Height = 17
         Anchors = [akLeft, akTop, akRight]
         Caption = 'Minimizar al tray'
@@ -2084,11 +2087,12 @@ object FormOpciones: TFormOpciones
         ParentColor = False
         ParentFont = False
         TabOrder = 1
+        ExplicitWidth = 605
       end
       object CheckBoxAutoRefrescar: TCheckBox
         Left = 16
         Top = 111
-        Width = 613
+        Width = 647
         Height = 17
         Hint = 
           'Si esta marcada se actualizaran los listados de el centro de con' +
@@ -2104,11 +2108,12 @@ object FormOpciones: TFormOpciones
         ParentColor = False
         ParentFont = False
         TabOrder = 3
+        ExplicitWidth = 613
       end
       object CheckBoxCCIndependiente: TCheckBox
         Left = 16
         Top = 94
-        Width = 613
+        Width = 647
         Height = 17
         Anchors = [akLeft, akTop, akRight]
         Caption = 'Centro de control como ventana independiente'
@@ -2119,18 +2124,19 @@ object FormOpciones: TFormOpciones
         Font.Style = []
         ParentFont = False
         TabOrder = 2
+        ExplicitWidth = 613
       end
     end
     object TabApariencia: TTabSheet
       Caption = 'Apariencia'
       ImageIndex = 6
       DesignSize = (
-        642
+        676
         281)
       object CheckBoxIncluirTreeView: TCheckBox
         Left = 8
         Top = 25
-        Width = 622
+        Width = 656
         Height = 17
         Anchors = [akLeft, akTop, akRight]
         Caption = 'Incluir TreeView en el visor de archivos'
@@ -2141,6 +2147,7 @@ object FormOpciones: TFormOpciones
         Font.Style = []
         ParentFont = False
         TabOrder = 0
+        ExplicitWidth = 622
       end
       object CheckBoxTreeViewCC: TCheckBox
         Left = 8
@@ -2153,16 +2160,17 @@ object FormOpciones: TFormOpciones
       object CheckBoxPanelInferior: TCheckBox
         Left = 8
         Top = 80
-        Width = 577
+        Width = 611
         Height = 17
         Anchors = [akLeft, akTop, akRight]
         Caption = 'Mostrar panel inferior con informaci'#243'n adicional de los clientes'
         TabOrder = 2
+        ExplicitWidth = 577
       end
       object CheckBoxCapturaInferior: TCheckBox
         Left = 8
         Top = 104
-        Width = 625
+        Width = 659
         Height = 17
         Hint = 
           'Al marcar esta opci'#243'n se mostrar'#225' una '#13#10'captura de pantalla en e' +
@@ -2172,22 +2180,24 @@ object FormOpciones: TFormOpciones
           'Mostrar vistas previas de los escritorios en el panel inferior (' +
           'Consume mas RAM)'
         TabOrder = 3
+        ExplicitWidth = 625
       end
       object CheckBoxSplash: TCheckBox
         Left = 8
         Top = 128
-        Width = 625
+        Width = 659
         Height = 17
         Anchors = [akLeft, akTop, akRight]
         Caption = 'Mostrar splash al inciar'
         TabOrder = 4
+        ExplicitWidth = 625
       end
     end
     object TabConexion: TTabSheet
       Caption = 'Conexi'#243'n'
       ImageIndex = 1
       DesignSize = (
-        642
+        676
         281)
       object LabelPuerto: TLabel
         Left = 0
@@ -2206,7 +2216,7 @@ object FormOpciones: TFormOpciones
       object EditPuerto: TEdit
         Left = 0
         Top = 32
-        Width = 639
+        Width = 673
         Height = 21
         Hint = 
           'Puedes a'#241'adir mas de un puerto de escucha separandolos con el ca' +
@@ -2223,11 +2233,12 @@ object FormOpciones: TFormOpciones
         Font.Style = []
         ParentFont = False
         TabOrder = 0
+        ExplicitWidth = 639
       end
       object GroupBoxConexion: TGroupBox
         Left = 0
         Top = 67
-        Width = 638
+        Width = 672
         Height = 100
         Anchors = [akLeft, akTop, akRight]
         Caption = 'Conexi'#243'n'
@@ -2238,6 +2249,7 @@ object FormOpciones: TFormOpciones
         Font.Style = []
         ParentFont = False
         TabOrder = 1
+        ExplicitWidth = 638
         object Label1: TLabel
           Left = 181
           Top = 24
@@ -2324,12 +2336,12 @@ object FormOpciones: TFormOpciones
       Caption = 'Notificaciones'
       ImageIndex = 2
       DesignSize = (
-        642
+        676
         281)
       object CheckBoxNotificacionMsn: TCheckBox
         Left = 8
         Top = 32
-        Width = 621
+        Width = 655
         Height = 17
         Hint = 'Notificaci'#243'n estilo MSN cada vez que un servidor se conecte'
         Anchors = [akLeft, akTop, akRight]
@@ -2343,11 +2355,12 @@ object FormOpciones: TFormOpciones
         ParentColor = False
         ParentFont = False
         TabOrder = 1
+        ExplicitWidth = 621
       end
       object CheckBoxNotiMsnDesc: TCheckBox
         Left = 9
         Top = 55
-        Width = 630
+        Width = 664
         Height = 17
         Hint = 
           'Muestra un globo de notificaci'#243'n cuando un servidor se desconect' +
@@ -2361,11 +2374,12 @@ object FormOpciones: TFormOpciones
         Font.Style = []
         ParentFont = False
         TabOrder = 2
+        ExplicitWidth = 630
       end
       object CheckBoxGloboalPedirS: TCheckBox
         Left = 8
         Top = 8
-        Width = 621
+        Width = 655
         Height = 17
         Hint = 
           'Notificaci'#243'n estilo globo emergente cuando el server se conecte ' +
@@ -2379,11 +2393,12 @@ object FormOpciones: TFormOpciones
         Font.Style = []
         ParentFont = False
         TabOrder = 0
+        ExplicitWidth = 621
       end
       object CheckBoxAlertaSonora: TCheckBox
         Left = 8
         Top = 80
-        Width = 630
+        Width = 664
         Height = 17
         Hint = 
           'Marcar para reproducir un sonido al conectar, el archivo de soni' +
@@ -2397,11 +2412,12 @@ object FormOpciones: TFormOpciones
         Font.Style = []
         ParentFont = False
         TabOrder = 3
+        ExplicitWidth = 630
       end
       object EditRutaArchivoWav: TEdit
         Left = 32
         Top = 104
-        Width = 606
+        Width = 640
         Height = 21
         Hint = 'Ruta al archivo de sonido en formato wav'
         Anchors = [akLeft, akTop, akRight]
@@ -2416,18 +2432,19 @@ object FormOpciones: TFormOpciones
         Font.Style = []
         ParentFont = False
         TabOrder = 4
+        ExplicitWidth = 606
       end
     end
     object TabDirectorios: TTabSheet
       Caption = 'Directorios'
       ImageIndex = 3
       DesignSize = (
-        642
+        676
         281)
       object LabeledEditDirUser: TLabeledEdit
         Left = 8
         Top = 24
-        Width = 630
+        Width = 664
         Height = 21
         Anchors = [akLeft, akTop, akRight]
         BevelInner = bvNone
@@ -2444,11 +2461,12 @@ object FormOpciones: TFormOpciones
         EditLabel.Font.Style = []
         EditLabel.ParentFont = False
         TabOrder = 0
+        ExplicitWidth = 630
       end
       object LabeledDirScreen: TLabeledEdit
         Left = 8
         Top = 64
-        Width = 630
+        Width = 664
         Height = 21
         Anchors = [akLeft, akTop, akRight]
         BevelInner = bvNone
@@ -2465,11 +2483,12 @@ object FormOpciones: TFormOpciones
         EditLabel.Font.Style = []
         EditLabel.ParentFont = False
         TabOrder = 1
+        ExplicitWidth = 630
       end
       object LabeledDirWebcam: TLabeledEdit
         Left = 8
         Top = 104
-        Width = 630
+        Width = 664
         Height = 21
         Anchors = [akLeft, akTop, akRight]
         BevelInner = bvNone
@@ -2486,11 +2505,12 @@ object FormOpciones: TFormOpciones
         EditLabel.Font.Style = []
         EditLabel.ParentFont = False
         TabOrder = 2
+        ExplicitWidth = 630
       end
       object LabeledDirThumbs: TLabeledEdit
         Left = 8
         Top = 144
-        Width = 630
+        Width = 664
         Height = 21
         Anchors = [akLeft, akTop, akRight]
         BevelInner = bvNone
@@ -2507,11 +2527,12 @@ object FormOpciones: TFormOpciones
         EditLabel.Font.Style = []
         EditLabel.ParentFont = False
         TabOrder = 3
+        ExplicitWidth = 630
       end
       object LabeledDirDownloads: TLabeledEdit
         Left = 8
         Top = 184
-        Width = 630
+        Width = 664
         Height = 21
         Anchors = [akLeft, akTop, akRight]
         BevelInner = bvNone
@@ -2528,17 +2549,18 @@ object FormOpciones: TFormOpciones
         EditLabel.Font.Style = []
         EditLabel.ParentFont = False
         TabOrder = 4
+        ExplicitWidth = 630
       end
     end
     object TabPlugins: TTabSheet
       Caption = 'Plugins'
       ImageIndex = 4
       DesignSize = (
-        642
+        676
         281)
       object SpeedButtonAniadirPlugin: TSpeedButton
         Left = 0
-        Top = 249
+        Top = 247
         Width = 97
         Height = 22
         Cursor = crHandPoint
@@ -2585,7 +2607,7 @@ object FormOpciones: TFormOpciones
       end
       object SpeedButton1: TSpeedButton
         Left = 104
-        Top = 250
+        Top = 248
         Width = 105
         Height = 22
         Cursor = crHandPoint
@@ -2633,8 +2655,8 @@ object FormOpciones: TFormOpciones
       object ListViewPlugins: TListView
         Left = 0
         Top = 2
-        Width = 637
-        Height = 217
+        Width = 671
+        Height = 215
         Anchors = [akLeft, akTop, akRight, akBottom]
         BevelInner = bvNone
         BevelOuter = bvRaised
@@ -2661,11 +2683,13 @@ object FormOpciones: TFormOpciones
         SmallImages = ImageList
         TabOrder = 0
         ViewStyle = vsReport
+        ExplicitWidth = 637
+        ExplicitHeight = 216
       end
       object CheckBoxGuardarPluginsEnDisco: TCheckBox
         Left = 0
-        Top = 225
-        Width = 638
+        Top = 223
+        Width = 672
         Height = 17
         Hint = 'Recomendado para conexiones lentas'
         Anchors = [akLeft, akRight, akBottom]
@@ -2677,18 +2701,20 @@ object FormOpciones: TFormOpciones
         Font.Style = []
         ParentFont = False
         TabOrder = 1
+        ExplicitTop = 224
+        ExplicitWidth = 638
       end
     end
     object TabAyuda: TTabSheet
       Caption = 'Ayuda'
       ImageIndex = 5
       DesignSize = (
-        642
+        676
         281)
       object GroupBoxAyuda: TGroupBox
         Left = 8
         Top = 8
-        Width = 630
+        Width = 664
         Height = 77
         Anchors = [akLeft, akTop, akRight]
         Caption = 'Mostrar ventanas emergentes con ayuda'
@@ -2699,6 +2725,7 @@ object FormOpciones: TFormOpciones
         Font.Style = []
         ParentFont = False
         TabOrder = 0
+        ExplicitWidth = 630
         object CheckBoxAyuda1: TCheckBox
           Left = 8
           Top = 18
@@ -2751,8 +2778,8 @@ object FormOpciones: TFormOpciones
   end
   object EditEstado: TEdit
     Left = 8
-    Top = 316
-    Width = 546
+    Top = 321
+    Width = 580
     Height = 20
     Anchors = [akLeft, akRight, akBottom]
     BevelInner = bvNone
@@ -2761,12 +2788,14 @@ object FormOpciones: TFormOpciones
     Color = clBtnFace
     ReadOnly = True
     TabOrder = 1
+    ExplicitTop = 316
+    ExplicitWidth = 546
   end
   object ImageList: TImageList
     Left = 8
     Top = 240
     Bitmap = {
-      494C0101070009000C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010107000900140010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

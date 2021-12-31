@@ -13,10 +13,14 @@ Modificación de: Nick
 Fecha 29/12/2021
 Versión: 1 Update 15
 Modificación de: DSR!
-[+] Agregado TODO
+[+] Agregadas notas sobre el proyecto en "TODO.txt"
+[+] Agregadas notas sobre dependencias en "dependencias.txt"
 [+] Agregado proyecto a github https://github.com/indetectables-net/coolvibes
+[+] Agregado ProjectGroup y configs de cada uno de los sub proyectos
 [*] Refactor de UnitTransfer
+[*] Refactor en parte del codigo de plugins
 [*] Eliminado completamente el uso de la ventana tipo MSN (en su lugar estan los globos emergentes) 
+[*] Varios cambios mas menores
 
 |----------------------------|
 

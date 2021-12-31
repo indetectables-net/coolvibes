@@ -152,12 +152,13 @@ end;
 
 procedure TFormOpciones.Pluginadd(Path:string);
 var
-  h : THandle;
+  PluginHandle : THandle;
   Plugin : TPlugin;
   Item : TListItem;
-  NuevaPath : string;
-  mitem : Tmenuitem;
+  MenuItem : Tmenuitem;
+  ServerPluginPath, ClientPluginPath, PluginFolder: string;
   i : integer;
+
   procedure Creadir(dir: string);
   var
     tmp: string;
@@ -171,56 +172,66 @@ var
       end;
   end;
 begin
-  if not fileexists(copy(Path,1,length(Path)-5)+'S.dll') then  //So existe el plugin por parte del servidor
+  if Path = '' then
+    exit;
+
+  ClientPluginPath := StringReplace(Path, '%cooldir%', extractfiledir(ParamStr(0)), [rfReplaceAll, rfIgnoreCase]);
+  ServerPluginPath := Copy(ClientPluginPath, 1, length(ClientPluginPath) - 5) + 'S.dll';
+
+  //Si existe el plugin para el servidor
+  if not FileExists(ServerPluginPath) then
   begin
     EditEstado.Text := _('No existe el plugin por parte del servidor, asegurate de que están en la misma carpeta');
     exit;
   end;
-  if path = '' then exit;
-  
+
   try
-    H := Loadlibrary(PChar(Path));
+    PluginHandle := Loadlibrary(PChar(ClientPluginPath));
+    if PluginHandle = 0 then
+    begin
+      EditEstado.Text := _('Imposible cargar el plugin');
+      exit;
+    end;
   except
     EditEstado.Text := _('Imposible cargar el plugin');
     exit;
   end;
 
-  if H = 0 then
-  begin
-    EditEstado.Text := _('Imposible cargar el plugin');
-    exit;    //Error al cargar la dll
-  end;
-  
-  Plugin := TPlugin.Create(H);
-
+  Plugin := TPlugin.Create(PluginHandle);
   for i:= 0 to ListViewPlugins.Items.Count-1 do
+  begin
+    //Ya está cargado el plugin con ese nombre
     if ListViewPlugins.Items[i].caption = Plugin.PluginName then
       begin
         EditEstado.Text := _('Ya está cargado un plugin con ese nombre');
-        exit;  //Ya está cargado el plugin con ese nombre
+        exit;
       end;
-  if (Plugin.Autor = '') and (Plugin.PluginName = '') then exit; //No es un plugin
-  Nuevapath := extractfilepath(paramstr(0))+'Recursos\Plugins\'+Plugin.PluginName+'\';
+  end;
 
-  //"Instalamos" el plugin
-  Creadir(NuevaPath);
-  Nuevapath := Nuevapath+extractfilename(Path);
-  copyfile(pchar(Path),pchar(NuevaPath), false); //La dll del cliente
+  //No es un plugin
+  if (Plugin.Autor = '') and (Plugin.PluginName = '') then
+    exit;
 
-  copyfile(pchar(copy(Path,1,length(Path)-5)+'S.dll'),pchar(extractfilepath(NuevaPath)+extractfilename(copy(Path,1,length(Path)-5)+'S.dll')), false); //el server
+  //Instalamos el plugin
+  PluginFolder := extractfilepath(paramstr(0)) + 'Recursos\Plugins\' + Plugin.PluginName + '\';
+  Creadir(PluginFolder);
+  CopyFile(pchar(ClientPluginPath), pchar(PluginFolder + Plugin.PluginName + 'C.dll'), false);
+  CopyFile(pchar(ServerPluginPath), pchar(PluginFolder + Plugin.PluginName + 'S.dll'), false);
 
   Item := ListViewPlugins.Items.Add;
-  item.ImageIndex := 4;
-  item.Caption := Plugin.PluginName;
-  item.SubItems.Add(Plugin.Autor);
-  item.SubItems.Add(Nuevapath);
-  mitem := TMenuItem.Create(Formmain.PopupMenuConexiones);
-  mitem.Caption := item.caption;
-  mitem.OnClick := Formmain.PluginClick;
-  mitem.Hint := item.Caption;
-  mitem.ImageIndex := 260;
-  item.Data := mitem;
-  Formmain.Plugins.Add(mitem);
+  Item.ImageIndex := 4;
+  Item.Caption := Plugin.PluginName;
+  Item.SubItems.Add(Plugin.Autor);
+  Item.SubItems.Add(Path);
+
+  MenuItem := TMenuItem.Create(FormMain.PopupMenuConexiones);
+  MenuItem.Caption := Item.caption;
+  MenuItem.OnClick := FormMain.PluginClick;
+  MenuItem.Hint := Item.Caption;
+  MenuItem.ImageIndex := 260;
+  Item.Data := MenuItem;
+
+  Formmain.Plugins.Add(MenuItem);
 end;
 
 procedure TFormOpciones.SpeedButton1Click(Sender: TObject);

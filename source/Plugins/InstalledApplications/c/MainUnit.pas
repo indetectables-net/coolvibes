@@ -16,7 +16,6 @@ uses
 type
   TFormMain = class(TForm)
     ListViewPlugin: TListView;
-    BtnEnviar: TSpeedButton;
     PopupMenuPlugin: TPopupMenu;
     Uninstall: TMenuItem;
     Refresh1: TMenuItem;
@@ -73,12 +72,10 @@ begin
   end;
 
   ListViewPlugin.Items.EndUpdate;
-  BtnEnviar.Enabled := true;
 end;
 
 procedure TFormMain.Refresh1Click(Sender: TObject);
 begin
-  BtnEnviar.Enabled := false;
   ListViewPlugin.Clear;
   Enviar('INSTALLEDAPPS');
 end;
@@ -100,7 +97,6 @@ end;
 
 procedure TFormMain.BtnEnviarClick(Sender: TObject);
 begin
-  BtnEnviar.Enabled := false;
   ListViewPlugin.Clear;
   Enviar('INSTALLEDAPPS');
 end;

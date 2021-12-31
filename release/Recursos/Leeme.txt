@@ -1,7 +1,10 @@
-Jeringa.exe    => Se encarga de inyectar Conectador.dll (sólo si persistencia está activo) en memoria
+El proyecto está configurado para ya colocar los archivos en sus rutas. 
+De todas formas aca esta la explicacion por si se quiere hacer a mano.
+
+Jeringa.exe    => Se encarga de inyectar Conectador.dll (sólo si persistencia está activo) en memoria
 Conectador.exe => Se encarga de pedir Coolserver.dll al cliente
 Conectador.dll => Se encarga de pedir Coolserver.dll al cliente si la inyección esta habilitada
 Coolserver.dll => Servidor que es mandado por el Cliente
-UPX.exe        => Comprime las dll's para que el Servidor final sea menos pesado
+UPX.exe        => Comprime las dll's para que el Servidor final sea menos pesado
 
 NOTA: Se recomienda comprimir coolserver.dll con UPX para que los servidores tarden menos en establecer conexión la primera vez

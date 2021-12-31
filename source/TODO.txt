@@ -1,0 +1,45 @@
+Objetivos
+-------------------------
+* Migrar a Indy 10 para poder compilar con versiones más modernas de Delphi y no tener que instalar 
+  la dependencia que está deprecada
+
+* Migrar codebase actual para que sea compatible con versiones de Delphi superiores a 2007.
+  Idealmente habría que refactorear para conseguir compatibilidad con Delphi XE8 aunque los ejecutables
+  compilados con XE2 en adelante suben bastante el peso y hay que hacer hacks para volver a bajarlo...
+  https://www.danysoft.com/estaticos/free/delphi-unicode-migration.pdf
+
+* Limpiar todo el spanglish del código.
+
+* Hacer un refactoreo general para purgar todo el código sobre complejizado que quedó.
+  Un ejemplo de esto sería la UnitTransfer del Cliente que se usaba hasta la 1.14 donde podemos
+  encontrar: spanglish, variables con nombres poco descriptivos o directamente erroneos, codigo que para
+  entenderlo lo tenes que leer varias veces, código duplicado, variables sin usar, etc....
+
+* Conseguir una versión completamente funcional en W10
+
+
+Ideas de mejoras
+-------------------------
+* Cambiar todo ese parseo manual con Copy() y Delete() por un parser, quizas con usar algún
+  port de Explode() para el parseo y TStringList con Delimiter y DelimitedText para la generación.
+
+* Eliminar el uso de la Delphi RTL en el server para usar solo apis?
+  Podría ser una buena estrategia para bajar de peso del server.
+
+* Habría que ver que casos de métodos viejos de la época de Delphi 7 que se puedan hacer con streams
+
+* Me parece que algunas ventanas del Cliente quedaron perdidas como "UnitEstadisticasConexiones" y
+  "UnitFormLanguage". Habria que volver a integrarlas.
+
+
+Bugs
+-------------------------
+* Todo lo del loader de "Jeringa.exe" quedó roto a partir de Windows 7
+* Mostrar las ventanas ocultas a veces hace que el servidor se rompa en Windows 8
+* La vista de previews en el file manager parece rota
+* El resumen de downloads parece roto
+* Cuando se inicia la PC desde sleep parece que el proceso del server queda consumiendo mucha ram
+* Consultar el numero de version de windows arroja Windows 8 como el mas actual, quizas sea algo de
+  los RTL de Delphi 2007
+* Cuando se tiene mas de un monitor se abre mal el centro del control del cliente.
+

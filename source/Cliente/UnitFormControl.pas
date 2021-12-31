@@ -573,13 +573,17 @@ begin
     
   if Path <> '' then
   begin
+    Path := StringReplace(Path, '%cooldir%', extractfiledir(ParamStr(0)), [rfReplaceAll, rfIgnoreCase]);
+
     H := loadlibrary(pchar(Path));
     Plugins[NumeroPlugins] := TPlugin.Create(H);
     Plugins[NumeroPlugins].path := Path;
+
     //Mostramos la form del plugin
     Plugins[NumeroPlugins].Conectar(Myitem.Caption, Servidor.Connection.Socket.Binding.Handle);
     Plugins[NumeroPlugins].subido := false;
     TForm(Plugins[NumeroPlugins].dform).Visible := false;
+
     //Le decimos al servidor que cargue el plugin si no lo tiene cargado
     ConnectionWriteLn(Servidor, 'LOADPLUGIN|'+Plugins[NumeroPlugins].PluginName+'|'+inttostr(NumeroPlugins)+'|');
     NumeroPlugins := NumeroPlugins+1;

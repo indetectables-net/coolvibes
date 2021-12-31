@@ -70,8 +70,6 @@ modules/
 
 # Propios dle proyecto
 usuarios/
-Log.dat
+*.dat
 *.cbk
-*.bdsproj
 *.dproj
-*.bdsgroup

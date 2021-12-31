@@ -19,7 +19,6 @@ type
     TabOpciones: TTabSheet;
     TabCrear: TTabSheet;
     MemoOutput: TMemo;
-    lbl2: TLabel;
     listviewconexionesconfig: TListView;
     btn3: TSpeedButton;
     btn2: TSpeedButton;
@@ -49,7 +48,6 @@ type
     Label4: TLabel;
     Label15: TLabel;
     Label7: TLabel;
-    Label1: TLabel;
     Label3: TLabel;
     SpeedButtonSiguiente: TSpeedButton;
     SpeedButtonAnterior: TSpeedButton;

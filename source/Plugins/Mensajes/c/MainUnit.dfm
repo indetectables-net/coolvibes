@@ -1,8 +1,9 @@
 object FormMain: TFormMain
   Left = 335
   Top = 201
-  Width = 373
-  Height = 441
+  BorderIcons = [biSystemMenu]
+  ClientHeight = 402
+  ClientWidth = 357
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -1947,7 +1948,7 @@ object FormMain: TFormMain
   Position = poScreenCenter
   DesignSize = (
     357
-    403)
+    402)
   PixelsPerInch = 96
   TextHeight = 13
   object BtnEnviarMensaje: TSpeedButton
@@ -2575,7 +2576,7 @@ object FormMain: TFormMain
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 378
+    Top = 377
     Width = 357
     Height = 25
     Panels = <

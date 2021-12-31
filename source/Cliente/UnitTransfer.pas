@@ -7,7 +7,6 @@ uses Windows, SysUtils, Dialogs, ComCtrls, IdTCPServer, UnitFunciones, gnugettex
 type
   TCallbackProcedure = procedure(Sender: TObject; FileName: string) of object;
 
-  
 type
   TDescargaHandler = class(TObject)
   public
@@ -35,12 +34,8 @@ type
     procedure UploadFile;
     procedure Update;
     procedure UpdateVelocidad;
-  private
-
   end;
 
-
-  
 implementation
 
 constructor TDescargaHandler.Create(PThread: TIdPeerThread; fname: AnsiString;

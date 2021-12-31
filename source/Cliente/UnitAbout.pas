@@ -65,7 +65,7 @@ end;
 
 procedure TFormAbout.ImgBannerClick(Sender: TObject);
 begin
-  ShellExecute(Handle, 'open', 'http://www.indetectables.net/', nil, nil, 0);
+  ShellExecute(Handle, 'open', 'https://www.indetectables.net/', nil, nil, 0);
 end;
 
 procedure TFormAbout.FormCreate(Sender: TObject);
@@ -75,7 +75,7 @@ begin
   FormAbout.Caption := _('Acerca de Coolvibes ') + VersionCool;
 
   try
-    EdtHistorial.Lines.LoadFromFile('..\Historial.txt');
+    EdtHistorial.Lines.LoadFromFile('Historial.txt');
   except
     begin
       EdtHistorial.Lines.Clear;

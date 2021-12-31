@@ -5,7 +5,7 @@ object FormMain: TFormMain
   VertScrollBar.Visible = False
   Caption = 'Coolvibes [version]'
   ClientHeight = 495
-  ClientWidth = 811
+  ClientWidth = 912
   Color = clBtnFace
   Constraints.MinHeight = 146
   Constraints.MinWidth = 270
@@ -25,17 +25,18 @@ object FormMain: TFormMain
   object Splitter: TSplitter
     Left = 0
     Top = 305
-    Width = 811
+    Width = 912
     Height = 3
     Cursor = crVSplit
     Align = alBottom
     OnMoved = SplitterMoved
     ExplicitTop = 306
+    ExplicitWidth = 811
   end
   object ListViewConexiones: TListView
     Left = 0
     Top = 0
-    Width = 811
+    Width = 912
     Height = 305
     Align = alClient
     BevelInner = bvNone
@@ -109,7 +110,7 @@ object FormMain: TFormMain
   object StatusBar: TStatusBar
     Left = 0
     Top = 476
-    Width = 811
+    Width = 912
     Height = 19
     Panels = <
       item
@@ -124,15 +125,15 @@ object FormMain: TFormMain
   object GroupBoxPanel: TGroupBox
     Left = 0
     Top = 308
-    Width = 811
+    Width = 912
     Height = 168
     Align = alBottom
     TabOrder = 2
     DesignSize = (
-      811
+      912
       168)
     object SpeedButton1: TSpeedButton
-      Left = 475
+      Left = 576
       Top = 8
       Width = 161
       Height = 25
@@ -168,14 +169,16 @@ object FormMain: TFormMain
         DBDEDBDBEEECECA5A5A5FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
         00FFE0E0E0CACACAC4C4C4C0C0C0BBBBBBB6B6B6B0B0B0C8C8C8}
       OnClick = SpeedButton1Click
+      ExplicitLeft = 475
     end
     object LabelInfo: TLabel
-      Left = 683
+      Left = 784
       Top = 144
       Width = 123
       Height = 13
       Anchors = [akRight, akBottom]
       Caption = '0 Clientes seleccionados: '
+      ExplicitLeft = 683
     end
     object ImageDesktop: TImage
       Left = 8
@@ -187,7 +190,7 @@ object FormMain: TFormMain
       OnClick = ImageDesktopClick
     end
     object SpeedButtonAvisarActividad: TSpeedButton
-      Left = 643
+      Left = 744
       Top = 40
       Width = 161
       Height = 25
@@ -223,9 +226,10 @@ object FormMain: TFormMain
         FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
         00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF}
       OnClick = SpeedButtonAvisarActividadClick
+      ExplicitLeft = 643
     end
     object SpeedButtonAvisarCambioVentana: TSpeedButton
-      Left = 643
+      Left = 744
       Top = 72
       Width = 160
       Height = 25
@@ -261,9 +265,10 @@ object FormMain: TFormMain
         6CC49A7AA97151FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
         00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF}
       OnClick = SpeedButtonAvisarCambioVentanaClick
+      ExplicitLeft = 643
     end
     object SpeedButtonCarpetaUser: TSpeedButton
-      Left = 643
+      Left = 744
       Top = 8
       Width = 161
       Height = 25
@@ -298,6 +303,7 @@ object FormMain: TFormMain
         FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
         00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF}
       OnClick = SpeedButtonCarpetaUserClick
+      ExplicitLeft = 643
     end
   end
   object XPManifest: TXPManifest
@@ -420,7 +426,7 @@ object FormMain: TFormMain
     Left = 40
     Top = 184
     Bitmap = {
-      494C01010F011201080010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010F0112011C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004004000001002000000000000040
       040000000000000000000000000000000000000000000000000000000000B8BF
       C000C5D1D300000000000000000000000000000000000000000000000000B3BF
