@@ -4,6 +4,12 @@ A modo de taller durante los años 2006 hasta 2012 se trabajo este RAT de forma 
 
 El mismo fue usado de base para el SpyNet y otros tantos troyanos escritos en Delphi, pero los autores solían olvidarse en dar los respectivos créditos...
 
+
+## Imagenes
+
+![Cliente](https://i.imgur.com/ckS2cF8.png)
+
+
 ## Instalación
 
 Puede clonar el repo con [git](https://git-scm.com/download/win) o simplemente bajarlo desde descargar.
